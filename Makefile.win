@@ -11,8 +11,8 @@ LIBS =  -L"C:/Dev-Cpp/lib" -pg lib/liblua5.1.a lib/libvorbisfile.a lib/libvorbis
 INCS =  -I"C:/Dev-Cpp/include"  -I"./include/"  -I"./src/" 
 CXXINCS =  -I"C:/Dev-Cpp/include/c++"  -I"C:/Dev-Cpp/include/c++/mingw32"  -I"C:/Dev-Cpp/include/c++/backward"  -I"C:/Dev-Cpp/include"  -I"./include/"  -I"./src/" 
 BIN  = krig.exe
-CXXFLAGS = $(CXXINCS)  -pg -g3
-CFLAGS = $(INCS)  -pg -g3
+CXXFLAGS = $(CXXINCS)  -g3
+CFLAGS = $(INCS)  -g3
 
 .PHONY: all all-before all-after clean clean-custom
 

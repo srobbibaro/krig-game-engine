@@ -1,12 +1,13 @@
-function move()
-      mx, my, mz = getPosition()
-      cx, cy, cz = getCameraPosition()
+function move(this)
+    camera = getCamera()
+    mx, my, mz = getPosition(this)
+    cx, cy, cz = getPosition(camera)
 
 	tx = cx + 30
 
-      if tx >= mx then
-          setVelocity(0.0, -5.0, 0.0)
-          setRotationVelocity(3.0, 0.0, 3.0)
+    if tx >= mx then
+        setVelocity(this, 0.0, -5.0, 0.0)
+        setRotationVelocity(this, 3.0, 0.0, 3.0)
 	end 
 
 	return

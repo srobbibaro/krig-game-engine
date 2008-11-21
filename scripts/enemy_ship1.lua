@@ -1,4 +1,4 @@
-function move()
+function move(this)
 	return
 end
 
