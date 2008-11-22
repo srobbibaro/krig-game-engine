@@ -7,14 +7,14 @@ function on_update(this)
     mx, my, mz = getPosition(this)
     cx, cy, cz = getPosition(camera)
 
-	tx = cx + 40
+    tx = cx + 40.0
 
     if tx >= mx then
         setVelocity(this, 3.0, -5.0, 0.0)
         setRotationVelocity(this, 3.0, 3.0, 0.0)
-	end 
+    end 
 
-	return
+    return
 end
 
 function on_unload(this)

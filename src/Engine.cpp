@@ -32,12 +32,7 @@ Engine::Engine()
     score = 0;
     shooting = false;
     
-    cout << "Creating player...\n";
-    
     player = new Player( MODEL_PLAYER );
-    
-    cout << "Finished creating player...\n";
-    
     
     totalTime = 0;
     
@@ -809,8 +804,7 @@ void Engine::processNormalKey(unsigned char key)
             currentLevel->setCamera(mainCamera);
             break;
         case 'T':
-            currentLevel->saveTerrain("tempTerrain.txt");
-                    
+            currentLevel->saveTerrain("terrains/new_terrain.txt" );        
             break;
         case 'L':
         {
@@ -921,6 +915,12 @@ void Engine::processNormalKey(unsigned char key)
             
             updateTerrain(xpos,zpos,height, type, red, green, blue);
             break;        
+        }
+        case 'V':
+        {
+            Vector pPos = dynamic_cast<Object*>(player)->position;
+            mainCamera->setRotationEuler(0.0f, 90.0f, 0.0f);
+            mainCamera->setPosition(pPos.x - 10.0f, pPos.y, pPos.z - 10.0f);
         }
         
     }
@@ -1051,7 +1051,7 @@ void Engine::loadLevel()
 {
     currentLevel->unloadLevel();
     //currentLevel->loadLevel( levelFile[lvlNum] );
-    currentLevel->loadLevelLua("./levels/level1.lua");
+    currentLevel->loadLevelLua(levelScript);
     boss = currentLevel->returnBoss();
 }
 
@@ -1181,8 +1181,7 @@ void Engine::updateTerrain(int &x, int &z, float &height, int &type, float &red,
         last_red = red;
         last_green = green;
         last_blue = blue;
-        last_height = height;
-        
+        last_height = height;   
     }
 }
 

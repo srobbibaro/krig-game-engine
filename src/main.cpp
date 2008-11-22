@@ -429,6 +429,14 @@ int main( int argc, char *argv[] )
     glutInitDisplayMode( GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH );
     
     KRIG = new Engine();
+    
+    // Hack for now to allow us to easily specify the level to run //
+    string levelScript = "levels/level1.lua";
+    if (argc > 1) {
+        levelScript = "levels/" + string(argv[1]);        
+    }
+    KRIG->setLevelScript(levelScript);
+    /////////////////////////////////////////////////////////////////
         
     // setup window /////////////////////////////
     glutInitWindowSize( 800, 600 );	    // window size
@@ -439,7 +447,6 @@ int main( int argc, char *argv[] )
     
     KRIG->initGL();
     glutInit(); 
-   
     
     // delete this window in final build of game ////
     glutInitDisplayMode( GLUT_DOUBLE | GLUT_RGB );
@@ -459,8 +466,6 @@ int main( int argc, char *argv[] )
     /////////////////////////////////////////////////
     
     glutSetWindow( mainWin );		
-    
-   
     
    /* 
 	if (glutGameModeGet(GLUT_GAME_MODE_POSSIBLE)) 

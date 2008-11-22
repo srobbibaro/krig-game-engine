@@ -52,7 +52,7 @@ using namespace std;
         void generateTerrain( void );
         
 	    void calcTerrainNorm( Vector* );
-        void loadTerrain( char*, Vector* );
+        void loadTerrain( const char*, Vector* );
         void saveTerrain( char*, Vector* );
         void update( Vector* );
         void handleDeath( void ) {}

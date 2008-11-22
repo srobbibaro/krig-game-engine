@@ -398,23 +398,20 @@ bool GameLevel::loadLevel( string file )
 //------------------------------------------------------------------------------
 bool GameLevel::loadLevelLua( string file )
 {
-   int numObjects;
-   int terrainType;
-   string modelKey;
-   float angle;
-   float x, y, z;
-   float terrClr[9];
-   Vector scale, rotation, position;
-   int objectType;
-   int songNum = 0;
-   Vector temp;
+    int numObjects;
+    string modelKey;
+    float angle;
+    float x, y, z;
+    Vector scale, rotation, position;
+    int objectType;
+    int songNum = 0;
+    Vector temp;
     
-   complete = false;
-   time = 0;
-   eventBeginTime = 0;
+    complete = false;
+    time = 0;
+    eventBeginTime = 0;
     
     // initialize Lua 
-    //L = luaL_newstate();
     lua_State* L = lua_open();
     
     if (L == NULL)
@@ -426,30 +423,22 @@ bool GameLevel::loadLevelLua( string file )
 	// load Lua base libraries 
 	luaL_openlibs(L);
   
-   // load the script 
-   cout << "Loading Lua script (level file): --" << file << "--\n";
+    // load the script 
+    cout << "Loading Lua script (level file): --" << file << "--\n";
 	luaL_dofile(L, file.c_str());
 	
     lua_getglobal(L, "numObjects");
     numObjects = (int)lua_tonumber(L, -1);
     lua_pop(L, 1);
     cout << "Number of objects in " << file << ": " << numObjects << endl;
-    
-    lua_getglobal(L, "terrainType");
-    terrainType = (int)lua_tonumber(L, -1);
-    cout << "Terrain type: " << terrainType << endl;
+       
+    lua_getglobal(L, "terrain");
+    const char *j = lua_tostring(L, -1);
+    string terrainPath = "./terrains/" + string(j);
+    cout << "Terrain: " << terrainPath << endl;
     lua_pop(L, 1);
-          
-    lua_getglobal(L, "terrainColor");
-    for (int i = 0; i < 9; i++) {      
-        lua_pushnumber(L, i+1);
-        lua_gettable(L, -2);
-        terrClr[i] = (float)lua_tonumber(L, -1);
-        cout << "i=" << i << " value=" << terrClr[i] << endl;
-        lua_pop(L, 1);
-    }
     
-    terrain->loadTerrain( "terrains/terrain1.txt", light );
+    terrain->loadTerrain( terrainPath.c_str(), light );
     ////////////////////////////////////////////////////////   
       
     // load in the sky (and weather type) //////////////////

@@ -575,12 +575,11 @@ void Terrain::animate( float elapsedTime, Camera* c )
         }                      
                                                   
     collisionBox[0].setVector( min[0], min[1], min[2] );
-    collisionBox[1].setVector( max[0], max[1], max[2] );
-    
+    collisionBox[1].setVector( max[0], max[1], max[2] ); 
 }
 
 //------------------------------------------------------------------------------
-void Terrain::loadTerrain( char* filePath, Vector* light )
+void Terrain::loadTerrain( const char* filePath, Vector* light )
 {
     ifstream fin;
     fin.open(filePath);

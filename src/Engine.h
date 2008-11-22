@@ -77,6 +77,8 @@ class Engine
         bool paint;
         bool paintColor;
         
+        string levelScript;
+        
     
     public:
         Engine();                   // initialize game
@@ -104,6 +106,11 @@ class Engine
         
         void updateTerrain(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
         void updateColor(float &red, float &green, float &blue);
+        
+        void setLevelScript(string level) 
+        {
+            levelScript = level;    
+        }
 };
 
 
