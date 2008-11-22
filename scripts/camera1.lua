@@ -7,7 +7,7 @@ end
 
 function on_update(this)
       if stopped == 0 then 
-          x,y,z = getPosition(this);
+          x,y,z = getPosition(this, elapsedTime);
 
           if x >= 850.0 then
 	        stopped = 1

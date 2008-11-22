@@ -31,7 +31,7 @@ Camera::~Camera( void )
 void Camera::update( float timeElapsed)
 {   
    if ( scriptNum >= 0 )
-      animateScript();
+      animateScript(timeElapsed);
 
          // calculate new position and orientation //
             if ( speed == 0 ) {

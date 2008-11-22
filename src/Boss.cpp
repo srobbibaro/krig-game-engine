@@ -148,7 +148,7 @@ void Boss::processAI( Camera* c )
         */
      }
      
-   animateScript();
+   animateScript(elapsedTime);
 }
 
 //------------------------------------------------------------------------------

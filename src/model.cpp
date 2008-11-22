@@ -322,7 +322,7 @@ void Model::animate( float timeElapsed, Camera* c )
             //state = DEAD;
         }
         else {
-            animateScript();
+            animateScript(timeElapsed);
             processAI( c );
 
             // calculate new position and orientation //

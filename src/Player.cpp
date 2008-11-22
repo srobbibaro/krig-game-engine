@@ -113,7 +113,8 @@ void Player::processAI( Camera* c)
             numShots = 3;
     }
    
-    animateScript();
+    // this needs to be fixed to elapsedTime
+    animateScript(0.0f);
 }
 
 //------------------------------------------------------------------------------

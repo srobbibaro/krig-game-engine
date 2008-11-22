@@ -1121,7 +1121,7 @@ int ScriptedObject::processBasicCommand( const ScriptCommand &t )
 }
 
 //------------------------------------------------------------------------------
-void ScriptedObject::animateScript(void)
+void ScriptedObject::animateScript(float elapsedTime)
 {
     // Attempt to execute the script only if the lua state has already been
     // initialized with a script
@@ -1134,8 +1134,11 @@ void ScriptedObject::animateScript(void)
     // Push a pointer to the current object for use within the lua function
     lua_pushlightuserdata(L, (void*)this);
 	   
-    // Call the function with 1 argument and no return values
-    lua_call(L, 1, 0);
+	// Push the time passed since the last iteration of the game loop
+    lua_pushnumber(L, elapsedTime);
+    
+    // Call the function with 2 argument and no return values
+    lua_call(L, 2, 0);
 
     // get the result //
     //position.z = (float)lua_tonumber(L, -1);
