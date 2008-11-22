@@ -1,4 +1,8 @@
-function move(this)
+function on_load(this) 
+    return
+end
+
+function on_update(this)
     camera = getCamera()
     mx, my, mz = getPosition(this)
     cx, cy, cz = getPosition(camera)
@@ -13,3 +17,6 @@ function move(this)
 	return
 end
 
+function on_unload(this) 
+    return
+end

@@ -77,6 +77,9 @@ class ScriptedObject
         void setCameraPtr( ScriptedObject* );
         void setLuaState(lua_State*);
         
+        void loadScript(string file);
+        void unloadScript();
+        
         void setInterpolationVariable(int index);
     
         int processBasicCommand( const ScriptCommand & );

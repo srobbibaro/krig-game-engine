@@ -499,6 +499,7 @@ bool GameLevel::loadLevelLua( string file )
                    
     camera->setPlayerPtr(player);
     camera->setCameraPtr(camera);
+    camera->loadScript(script);
         
     // setup the weather effect ////////////////
     if (weatherEffect > 0) {
@@ -666,10 +667,15 @@ void GameLevel::loadObject(lua_State* L, int number)
                 obj->setVelocity( 0.0f, 0.0f, 0.0f );
                 //obj->setLuaState(L);
             
-                terrain->add( obj );
-                obj->setSoundClass( snd );
+                terrain->add(obj);
+                obj->setSoundClass(snd);
                 obj->setPlayerPtr(player);
                 obj->setCameraPtr(camera);
+                
+                // This may not be the best place for this... it may cause a 
+                // boot strapping issue. We may need to load all scripts after
+                // all objects have been fully loaded.
+                obj->loadScript(script);
             } 
   
     lua_pop(L, 1);    

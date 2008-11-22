@@ -37,7 +37,8 @@ ScriptedObject::ScriptedObject( void )
 //------------------------------------------------------------------------------
 ScriptedObject::~ScriptedObject( void )
 {
-lua_close(L);
+    if (L != NULL)
+        lua_close(L);
 }
 
 void ScriptedObject::setLuaState(lua_State* tl)
@@ -1122,56 +1123,25 @@ int ScriptedObject::processBasicCommand( const ScriptCommand &t )
 //------------------------------------------------------------------------------
 void ScriptedObject::animateScript(void)
 {
-    if (scriptName != "") {  
-    
-    if (L == NULL) {
-    // initialize Lua 
-    //lua_State* L = luaL_newstate();
-    L = lua_open();
-    
+    // Attempt to execute the script only if the lua state has already been
+    // initialized with a script
     if (L == NULL)
-    {
-        printf("Error creating Lua state.\n");
-		exit(-1);
-    }
-
-	// load Lua base libraries 
-	luaL_openlibs(L);
-        //load the script 
-        lua_register(L, "setPosition", setPositionLua);
-    lua_register(L, "getPosition", getPositionLua);
-    lua_register(L, "setVelocity", setVelocityLua);
-    lua_register(L, "getVelocity", getVelocityLua);
-    lua_register(L, "setRotationVelocity", setRotationVelocityLua);
-    lua_register(L, "getCamera", getCamera);
-    lua_register(L, "getPlayer", getPlayer);
+        return;
     
-        luaL_dofile(L, scriptName.c_str());
-        
-        lplayer = player;
-        lcamera = camera;
-    }
-    
-        int result;
-    
-	    lua_getglobal(L, "move");
+    // Find the update function and call it
+    lua_getglobal(L, "on_update");
 	    
-	    // push lua function args //
-	    lua_pushlightuserdata(L, (void*)this);
-	    //lua_pushnumber(L, player );
-	    //lua_pushnumber(L, position.y );
-	    //lua_pushnumber(L, position.z );
+    // Push a pointer to the current object for use within the lua function
+    lua_pushlightuserdata(L, (void*)this);
+	   
+    // Call the function with 1 argument and no return values
+    lua_call(L, 1, 0);
 
-	    //call the function with 3 arguments, return 3 result //
-	    lua_call(L, 1, 0);
-
-	    // get the result //
-	    //position.z = (float)lua_tonumber(L, -1);
-	    //position.y = (float)lua_tonumber(L, -2);
-	    //position.x = (float)lua_tonumber(L, -3);
-                  
-//        lua_pop(L, 1);
-    }
+    // get the result //
+    //position.z = (float)lua_tonumber(L, -1);
+    //position.y = (float)lua_tonumber(L, -2);
+    //position.x = (float)lua_tonumber(L, -3);
+    //lua_pop(L, 1);
 }
 
 //------------------------------------------------------------------------------
@@ -1211,5 +1181,85 @@ void ScriptedObject::setInterpolationVariable(int index)
 void ScriptedObject::setScriptName( string name ) 
 {
     scriptName = name;
+}
+
+void ScriptedObject::loadScript(string name)
+{
+    scriptName = name;
+    
+    // If the lua state has not been initialized for this object, attempt to
+    // initialize it.     
+    if (scriptName == "" || L != NULL)
+        return;
+        
+    L = lua_open();
+    
+    // If the lua state still could not be initialized, then exit the game.
+    // ... we can do something smarter with this in the finished product.
+    if (L == NULL) {
+        printf("Error creating Lua state.\n");
+	    exit(-1);
+    }
+
+    // Load the base lua libraries
+    luaL_openlibs(L);
+        
+    // Register our functions for use in lua (currently defined in 
+    // ScriptedObject.h)
+    lua_register(L, "setPosition", setPositionLua);
+    lua_register(L, "getPosition", getPositionLua);
+    lua_register(L, "setVelocity", setVelocityLua);
+    lua_register(L, "getVelocity", getVelocityLua);
+    lua_register(L, "setRotationVelocity", setRotationVelocityLua);
+    lua_register(L, "getCamera", getCamera);
+    lua_register(L, "getPlayer", getPlayer);
+    
+    // Load this object's animation script
+    luaL_dofile(L, scriptName.c_str());
+        
+    // Set player and camera pointers for use within exposed c functions.
+    lplayer = player;
+    lcamera = camera;  
+        
+    // Find the update function and call it
+    lua_getglobal(L, "on_load");
+	    
+    // Push a pointer to the current object for use within the lua function
+    lua_pushlightuserdata(L, (void*)this);
+	   
+    // Call the function with 1 argument and no return values
+    lua_call(L, 1, 0);
+
+    // get the result //
+    //position.z = (float)lua_tonumber(L, -1);
+    //position.y = (float)lua_tonumber(L, -2);
+    //position.x = (float)lua_tonumber(L, -3);
+    //lua_pop(L, 1);
+}
+
+void ScriptedObject::unloadScript()
+{
+    // Attempt to execute the on_unload function only if the lua state has 
+    // already been initialized with a script
+    if (L == NULL)
+        return;
+    
+    // Find the update function and call it
+    lua_getglobal(L, "on_unload");
+	    
+    // Push a pointer to the current object for use within the lua function
+    lua_pushlightuserdata(L, (void*)this);
+	   
+    // Call the function with 1 argument and no return values
+    lua_call(L, 1, 0);
+
+    // get the result //
+    //position.z = (float)lua_tonumber(L, -1);
+    //position.y = (float)lua_tonumber(L, -2);
+    //position.x = (float)lua_tonumber(L, -3);
+    //lua_pop(L, 1);
+    
+    lua_close(L);
+    L = NULL;
 }
 
