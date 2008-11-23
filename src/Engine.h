@@ -1,6 +1,11 @@
 #include "constants.h"
 #include "GameLevel.h"
 
+// Remove from final build
+#include <vector>
+
+using namespace std;
+
 #ifndef _ENGINE_H_
 #define _ENGINE_H_
 
@@ -66,12 +71,12 @@ class Engine
         int currentDemoCommand;    
         #endif
         
-        // temporary for mouse control //
+        // Temporary values used for game tools (remove from final build)...
+        // mouse control values
         float lastX;
         float lastY;
-        /////////////////////////////////
         
-        
+        // Terrain editing values
         int last_x, last_z, last_type;
         float last_height, last_red, last_green, last_blue;
         bool paint;
@@ -79,6 +84,11 @@ class Engine
         
         string levelScript;
         
+        int currentScript;
+        int currentLevelNum;
+        
+        vector<string> scripts;     
+        vector<string> levels;   
     
     public:
         Engine();                   // initialize game
@@ -98,7 +108,7 @@ class Engine
         void processMouseMove( int x, int y);
         
         
-        
+        // Temporary functions used for tools (remove from final build)...
         void getTerrainInfo(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
         
         
@@ -111,6 +121,9 @@ class Engine
         {
             levelScript = level;    
         }
+        
+        void loadScripts();
+        void loadLevels();
 };
 
 

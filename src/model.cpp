@@ -31,9 +31,6 @@ Model::~Model()
 //------------------------------------------------------------------------------
 void Model::load( string tModelKey )
 {
-    cout << "Load Model: --" << tModelKey << "--\n";
-    cout << "Num Verts: --" << modelHash[tModelKey]->numVertices << "--\n";
-    
     GLfloat temp;
     modelKey = tModelKey;
     
@@ -314,11 +311,12 @@ void Model::animate( float timeElapsed, Camera* c )
     if ( !active ) {
         if ( testActiveZone( c ) ) {
             active = true;
-            scriptLastTime = *animCurrTime;
+            //scriptLastTime = *animCurrTime;
         }
     }
     else if ( active ) {
-        if ( scriptNum < 0 && !testActiveZone( c ) ) {
+        //if ( scriptNum < 0 && !testActiveZone( c ) ) {
+        if ( scriptName != "" && !testActiveZone( c ) ) {
             //state = DEAD;
         }
         else {

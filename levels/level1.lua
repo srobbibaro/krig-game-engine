@@ -13,10 +13,10 @@ bgColor = {0.0, 0.0, 0.3,
            0.4, 0.4, 1.0,
 	     0.8, 0.8, 1.0}
 
-x_start_camera = 50.0
-x_start_player = x_start_camera - 20.0
+x_start_camera = 100.0
+x_start_player = x_start_camera - 60.0
 
-cameraPosition = {x_start_camera, 15.0, 77.5}
+cameraPosition = {x_start_camera, 15.0, 34.5}
 cameraRotation = {0.0, 0.0, 0.0}
 cameraScript   = "camera1.lua"
 
@@ -26,40 +26,40 @@ objects = {
        modelKey	= "Ship.mdl",
 	 scale      = {2.0, 2.0, 2.0},
        rotation   = {0.0, 1.57, 0.0},
-       position   = {x_start_player, 20.0, 50.0},
-       script     = "camera1.lua"},
+       position   = {x_start_player, 20.0, 7.0},
+       script     = "player1.lua"},
 
       -- Setup the 2nd object (always boss)
 	{type		= 6,
        modelKey   = "Boss.mdl",
        scale      = {4.0, 4.0, 4.0},
        rotation   = {0.0, -1.57, 0.0},
-       position   = {860.0, 15.0, 50.0},
+       position   = {910.0, 15.0, 7.0},
        script     = "boss1.lua"},
 
       -- Setup first wave of enemy ships
       {type       = 1,
        modelKey   = "Enemy.mdl",
        scale      = {2.0, 2.0, 2.0},
-       position   = {100.0, 15.0, 50.0},
+       position   = {100.0, 15.0, 7.0},
        rotation   = {0.0, -1.57, 0.0},
        script     = "enemy_ship1.lua"},
 	{type       = 1,
        modelKey   = "Enemy.mdl",
        scale      = {2.0, 2.0, 2.0},
-       position   = {120.0, 20.0, 50.0},
+       position   = {120.0, 20.0, 7.0},
        rotation   = {0.0, -1.57, 0.0},
        script     = "enemy_ship1.lua"},
 	{type       = 1,
        modelKey   = "Enemy.mdl",
        scale      = {2.0, 2.0, 2.0},
-       position   = {140.0, 10.0, 50.0},
+       position   = {140.0, 10.0, 7.0},
        rotation   = {0.0, -1.57, 0.0},
        script     = "enemy_ship1.lua"},
 	{type       = 1,
        modelKey   = "Enemy.mdl",
        scale      = {2.0, 2.0, 2.0},
-       position   = {160.0, 15.0, 50.0},
+       position   = {160.0, 15.0, 7.0},
        rotation   = {0.0, -1.57, 0.0},
        script     = "enemy_ship1.lua"},
 	{type       = 1,

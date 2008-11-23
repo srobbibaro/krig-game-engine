@@ -81,52 +81,7 @@ using namespace std;
 #define INVUL_DURATION      2.0f
 /////////////////////////////////////////////
 
-// scripting constants //////////////////////
-#define MAX_SCRIPT_COMMANDS             256
-#define MAX_COMMANDS_PER_CYCLE          50
-
-#define MEM_LEN                         40
-
-#define MEM_SCRIPT_VAR_INDEX            0
-#define MEM_NEXT_SCRIPT_INDEX           38
-#define MEM_NEXT_SCRIPT_COMMAND_INDEX   39             
-
-// relational operators //
-#define OP_EQ   0
-#define OP_NE   1
-#define OP_LT   2
-#define OP_GT   3
-#define OP_LE   4
-#define OP_GE   5
-
-// arithmetic operators //
-#define OP_ADD  6
-#define OP_SUB  7
-#define OP_MUL  8
-#define OP_DIV  9
-#define OP_MOD  10
-
-
 // Base Scripting Language /////////////////
-#define NUM_BASE_COMMANDS               128
-
-#define SCRIPT_NO_OP                    0
-
-#define SCRIPT_ARITH_VAL_AOP_VAL        1
-#define SCRIPT_ARITH_VAL_AOP_MEM        2
-#define SCRIPT_ARITH_MEM_AOP_VAL        3
-#define SCRIPT_ARITH_MEM_AOP_MEM        4
-
-#define SCRIPT_BRANCH_VAL_REL_VAL       5
-#define SCRIPT_BRANCH_VAL_REL_MEM       6
-#define SCRIPT_BRANCH_MEM_REL_VAL       7
-#define SCRIPT_BRANCH_MEM_REL_MEM       8
-
-#define SCRIPT_STORE_VAL_IN_MEM         9
-#define SCRIPT_STORE_MEM_IN_MEM         10
-
-#define SCRIPT_JUMP                     11
-
 #define SCRIPT_SET_SCRIPT               12
 
 // 13-30 reserved for expansion //

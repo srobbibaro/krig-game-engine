@@ -72,6 +72,11 @@ Engine::Engine()
     last_height = 0.0f;
     last_type = 0;
     
+    currentScript = -1;
+    loadScripts();
+    
+    currentLevelNum = -1;
+    loadLevels();
 }
 
 //------------------------------------------------------------------------------
@@ -83,8 +88,7 @@ void Engine::gameCycle()
     if ( gameMode == 3 ) {
         totalTime += timeElapsed;
     }
-    
-    
+      
     #if PLAY_DEMO
     if ( gameMode == 1 )
     {
@@ -833,15 +837,54 @@ void Engine::processNormalKey(unsigned char key)
         }
         case 'U':
         {
-            player->scriptNum = 1;
-            player->currentScriptCommand = 0;
+            player->unloadScript();
+            
+            if (++currentScript >= scripts.size())
+                currentScript = 0;
+                
+            cout << "New player script '" << scripts[currentScript] << "'\n";
+            
+            player->loadScript(scripts[currentScript]);
             break;
         }
         case 'J':
         {
-            player->scriptNum = 3;
-            player->currentScriptCommand = 0;
+            player->unloadScript();
+            if (--currentScript < 0)
+                currentScript = scripts.size() - 1;
+                
+            //cout << "New player script '" << scripts[currentScript] << "'\n";
+            
+            player->loadScript(scripts[currentScript]);
             break; 
+        }
+        case '1':
+        {
+            if (++currentLevelNum >= levels.size())
+                currentLevelNum = 0;
+                
+            levelScript = levels[currentLevelNum];
+            cout << "Attempting to load level script '" << levelScript << "'\n";
+            
+            cout << "deleting level";
+            currentLevel->removePlayer();
+            //newLevel();
+            cout << "..done\n";
+            loadLevel();
+            break;
+        }
+        case '2':
+        {
+            if (--currentLevelNum < 0)
+                currentLevelNum = levels.size() - 1;
+                
+            levelScript = levels[currentLevelNum];
+            cout << "Attempting to load level script '" << levelScript << "'\n";
+            cout << "deleting level";
+            currentLevel->removePlayer();
+            //newLevel();
+            cout << "..done\n";
+            loadLevel();
         }
         case 'P':
         {
@@ -918,11 +961,13 @@ void Engine::processNormalKey(unsigned char key)
         }
         case 'V':
         {
-            Vector pPos = dynamic_cast<Object*>(player)->position;
-            mainCamera->setRotationEuler(0.0f, 90.0f, 0.0f);
-            mainCamera->setPosition(pPos.x - 10.0f, pPos.y, pPos.z - 10.0f);
+            ScriptedObject *plr = dynamic_cast<Object*>(player);
+            Quaternion pRot = plr->rotation;
+            Vector pPos = plr->position;
+            plr->setPosition(pPos.x, pPos.y, pPos.z - 100.0f);
+            mainCamera->setRotationQuaternion(pRot);
+            mainCamera->setPosition(pPos.x - 15.0f, pPos.y, pPos.z - 100.0f);
         }
-        
     }
 }
 
@@ -1110,7 +1155,6 @@ void Engine::loadModels()
             strcpy(filePath, "./models/");
             strcat(filePath, de->d_name);
             
-            cout << "Found model file: --" << filePath << "--Attempting to load...\n";
             // load model file into model storage //
             model = new ModelStorage();
             model->load(filePath);
@@ -1119,7 +1163,58 @@ void Engine::loadModels()
             hashKey = string(de->d_name);    
             modelHash[hashKey] = model;
             
-            cout << "Model stored with key: --" << hashKey << "--\n";
+            cout << "Loaded model file '" << filePath << "'" << endl;
+        }
+    }
+    
+    closedir(dir);   
+}
+
+// Temporary function used for tools... remove from final build
+void Engine::loadScripts()
+{
+    DIR *dir;
+    struct dirent *de;
+    ModelStorage *model;
+    char filePath[MAX_PATH_LEN];
+    string hashKey;
+    
+    dir = opendir("./scripts/");
+    
+    while((de = readdir(dir)) != NULL ) {
+        // only consider model files with the .mdl extension //
+        if( strstr(de->d_name, ".lua") != NULL ) {
+            // build full path to load //
+            strcpy(filePath, "./scripts/");
+            strcat(filePath, de->d_name);
+            
+            scripts.push_back(filePath);       
+            cout << "Found script file '" << filePath << "'" << endl;
+        }
+    }
+    
+    closedir(dir);   
+}
+
+void Engine::loadLevels()
+{
+    DIR *dir;
+    struct dirent *de;
+    ModelStorage *model;
+    char filePath[MAX_PATH_LEN];
+    string hashKey;
+    
+    dir = opendir("./levels/");
+    
+    while((de = readdir(dir)) != NULL ) {
+        // only consider model files with the .mdl extension //
+        if( strstr(de->d_name, ".lua") != NULL ) {
+            // build full path to load //
+            strcpy(filePath, "./levels/");
+            strcat(filePath, de->d_name);
+            
+            levels.push_back(filePath);       
+            cout << "Found level file '" << filePath << "'" << endl;
         }
     }
     

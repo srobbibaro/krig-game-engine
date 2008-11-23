@@ -34,7 +34,7 @@ GameLevel::~GameLevel()
     if ( camera != NULL )
         delete camera;
     if ( weather != NULL )
-        delete weather;   
+        delete weather; 
 }
 
 //------------------------------------------------------------------------------
@@ -185,6 +185,7 @@ bool GameLevel::loadLevel( string file )
       ////////////////////////////////////////////////////////
 
       // orient camera's initial setup ///////////////////////
+      /*
       cout << "Setting up Camera..." << endl;
       int scriptNum;
       
@@ -200,7 +201,6 @@ bool GameLevel::loadLevel( string file )
       //////////////////////////////////////////////
         
        
-        /*
         // load each object //////////////////////////////////////
         for ( int i = 0; i < numObjects; i++ ) {
             fin >> objectType; // type of object (object.type)
@@ -410,12 +410,11 @@ bool GameLevel::loadLevelLua( string file )
     complete = false;
     time = 0;
     eventBeginTime = 0;
-    
+        
     // initialize Lua 
     lua_State* L = lua_open();
     
-    if (L == NULL)
-    {
+    if (L == NULL) {
         printf("Error creating Lua state.\n");
 		exit(-1);
     }
@@ -455,9 +454,10 @@ bool GameLevel::loadLevelLua( string file )
                 lua_pushnumber(L, (i*3)+j+1);
                 lua_gettable(L, -2);
                 bgcolor[i][j] = (float)lua_tonumber(L, -1);
-                cout << "i=" << i << " j=" << j << " value=" << bgcolor[i][j] << endl;
                 lua_pop(L, 1);
         }
+        cout << "bgColor i=" << i << " value=" 
+             << bgcolor[i][0] << "," << bgcolor[i][1] << "," << bgcolor[i][2] << endl;
     }    
     ////////////////////////////////////////////////////////
     
@@ -473,12 +473,13 @@ bool GameLevel::loadLevelLua( string file )
     string script = "./scripts/" + string(t);
      
     //z = -z;                                      // camera correction 
-    camera->setScript( 0 ); //# hack
-    camera->setScriptName(script);
     camera->setRotationEuler( rotation.x, rotation.y, rotation.z );
     camera->setPosition( position.x, position.y, position.z );
     camera->setTimer( &time );   
     //////////////////////////////////////////////
+    
+    player->unloadScript();
+    camera->unloadScript();
     
     // load each object //////////////////////////////////////
     lua_getglobal(L, "objects");
@@ -515,6 +516,7 @@ bool GameLevel::loadLevelLua( string file )
    
      cout << "finished..." << endl << endl;
      lua_close(L);
+     L = NULL;
      
      return (true);
 }
@@ -599,73 +601,74 @@ void GameLevel::loadObject(lua_State* L, int number)
     }
     else {
         if ( objectType == OBJECT_PLAYER || objectType == OBJECT_BOSS ) {
-                objectType = -1;
+            objectType = -1;
         }
     }  
-            
-    if (player == NULL)
+    
+    // The player will always be created before a level is loaded        
+    if (player == NULL) {
+        printf("The player object was not initialized prior to loading the level.\n");
         exit(1);   
-        
-    int scriptNum = 0; //# hack
-          
+    }
+             
     switch( objectType )
     {
-                case OBJECT_PLAYER:
-                    obj = dynamic_cast<Player*>(player);
-                     
-                    obj->setTimer( &time );
-                    obj->setScriptName(script);
-                    break;          
-               case OBJECT_ENEMY_SHIP:  // Enemy ship
-                  obj = new EnemyShip( modelKey, script, &time, dynamic_cast<Player*>(player) );
-                  break;
-               case OBJECT_ASTEROID: // Asteroid
-                  obj = new Asteroid( modelKey, script, &time );
-                  break;
-               case OBJECT_BEAM: // Beam
-                  obj = new Beam( modelKey, script, &time );
-                  break;
-               case OBJECT_SAIL_BOAT: // Sail Boat
-                  obj = new SailBoat( modelKey, script, &time );
-                  break;
-               case OBJECT_BOATCANNON: // Boat Cannon
-                  obj = new BoatCannon( modelKey, script, &time, (player) );
-                  break;                    
-               case OBJECT_BOSS:
-                  // there MUST BE EXACTLY ONE boss
-                  if (boss == NULL) {
-                    obj = new Boss ( modelKey, script, &time, dynamic_cast<Player*>(player), &complete );                    
-                    boss = (Boss*)obj;
-                  }      
-                  break;      
-               case OBJECT_POWERUP_1:
-                  obj = new Powerup(1, &time);
-                  break;
-               case OBJECT_POWERUP_2:
-                  obj = new Powerup(2, &time);
-                  break;                                
-                
-               default:
-                  break;
-             }
+        case OBJECT_PLAYER:
+            obj = dynamic_cast<Player*>(player);
+            obj->setTimer( &time );
+            break;          
+       case OBJECT_ENEMY_SHIP:  // Enemy ship
+            obj = new EnemyShip( modelKey, script, &time, dynamic_cast<Player*>(player) );
+            break;
+       case OBJECT_ASTEROID: // Asteroid
+            obj = new Asteroid( modelKey, script, &time );
+            break;
+       case OBJECT_BEAM: // Beam
+            obj = new Beam( modelKey, script, &time );
+            break;
+       case OBJECT_SAIL_BOAT: // Sail Boat
+            obj = new SailBoat( modelKey, script, &time );
+            break;
+       case OBJECT_BOATCANNON: // Boat Cannon
+            obj = new BoatCannon( modelKey, script, &time, (player) );
+            break;                    
+       case OBJECT_BOSS:
+            // there MUST BE EXACTLY ONE boss
+            if (boss == NULL) {
+                obj = new Boss ( modelKey, script, &time, dynamic_cast<Player*>(player), &complete );                    
+                boss = (Boss*)obj;
+            }      
+            break;      
+       case OBJECT_POWERUP_1:
+            obj = new Powerup(1, &time);
+            break;
+       case OBJECT_POWERUP_2:
+            obj = new Powerup(2, &time);
+            break;                                       
+       default:
+            break;
+    }
         
-            if (obj != NULL) {
-                obj->setRotationEuler( rotation.x, rotation.y, rotation.z);
-                obj->setPosition( position.x, position.y, position.z );
-                obj->setScaleFactor( scale.x, scale.y, scale.z );
-                obj->setVelocity( 0.0f, 0.0f, 0.0f );
-                //obj->setLuaState(L);
-            
-                terrain->add(obj);
-                obj->setSoundClass(snd);
-                obj->setPlayerPtr(player);
-                obj->setCameraPtr(camera);
+    if (obj != NULL) {
+        // Set the object's orientation
+        obj->setRotationEuler( rotation.x, rotation.y, rotation.z);
+        obj->setPosition( position.x, position.y, position.z );
+        obj->setScaleFactor( scale.x, scale.y, scale.z );
+        obj->setVelocity( 0.0f, 0.0f, 0.0f );
+    
+        // Set required resources for the object's use       
+        obj->setSoundClass(snd);
+        obj->setPlayerPtr(player);
+        obj->setCameraPtr(camera);
                 
-                // This may not be the best place for this... it may cause a 
-                // boot strapping issue. We may need to load all scripts after
-                // all objects have been fully loaded.
-                obj->loadScript(script);
-            } 
+        // This may not be the best place for this... it may cause a 
+        // boot strapping issue. We may need to load all scripts after
+        // all objects have been fully loaded.
+        obj->loadScript(script);
+        
+        // Add the object to the level's objects list
+        terrain->add(obj);
+    } 
   
     lua_pop(L, 1);    
 }
