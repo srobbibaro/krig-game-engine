@@ -55,7 +55,7 @@ void PlayerMissle::handleDeath( void )
 }
 
 //------------------------------------------------------------------------------
-void PlayerMissle::processAI( Camera* c )
+void PlayerMissle::processAI( Camera* c, float elapsedTime )
 {
     if ( obj != NULL )
     {

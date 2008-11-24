@@ -13,7 +13,7 @@ class SailBoat : public Model
         
         SailBoat();
         SailBoat( string, string, float* );
-        void processAI( Camera* );
+        void processAI( Camera*, float elapsedTime );
         
         void printTypeName(void) 
          {

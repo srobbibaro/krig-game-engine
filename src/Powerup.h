@@ -14,7 +14,7 @@ class Powerup : public Model
         
         Powerup();
         Powerup( int, float* );
-        void processAI( Camera* ) {}
+        void processAI( Camera*, float elapsedTime ) {}
         
         void printTypeName(void) 
          {

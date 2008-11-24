@@ -18,7 +18,7 @@ class PlayerMissle : public Model
         
         PlayerMissle();
         PlayerMissle( string, float*, Player*, Object* );
-        void processAI( Camera* );
+        void processAI( Camera*, float elapsedTime );
     
         
         void printTypeName(void) 

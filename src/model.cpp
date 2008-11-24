@@ -321,7 +321,7 @@ void Model::animate( float timeElapsed, Camera* c )
         }
         else {
             animateScript(timeElapsed);
-            processAI( c );
+            processAI( c, timeElapsed );
 
             // calculate new position and orientation //
             if ( speed == 0 ) {

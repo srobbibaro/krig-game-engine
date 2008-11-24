@@ -36,7 +36,7 @@ void Beam::handleCollision( Object* temp )
 }
 
 //------------------------------------------------------------------------------
-void Beam::processAI( Camera* )
+void Beam::processAI( Camera* c, float elapsedTime )
 {     
 }
 

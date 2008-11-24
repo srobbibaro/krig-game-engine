@@ -17,7 +17,7 @@ class Player : public Model
         
         Player( string );
         virtual ~Player();
-        void processAI( Camera* );
+        void processAI( Camera*, float );
         void animate( float, Camera* );
         void fireShot ( float );
         void fireMissle( Object* tobj );

@@ -90,7 +90,7 @@ void Player::handleCollision( Object* temp )
 }
 
 //------------------------------------------------------------------------------
-void Player::processAI( Camera* c)
+void Player::processAI( Camera* c, float elapsedTime)
 {
    // I'd like to redo this logic which restricts the player from moving off screen
    // to be a little smarter depending on where the camera is located...
@@ -114,7 +114,7 @@ void Player::processAI( Camera* c)
     }
    
     // this needs to be fixed to elapsedTime
-    animateScript(0.0f);
+    animateScript(elapsedTime);
 }
 
 //------------------------------------------------------------------------------
@@ -221,7 +221,7 @@ void Player::animate( float timeElapsed, Camera* c )
             /////////////////////////////////////////////
         
     
-    processAI(c);
+    processAI(c, timeElapsed);
 }
 
 //------------------------------------------------------------------------------

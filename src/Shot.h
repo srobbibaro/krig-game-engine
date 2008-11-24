@@ -16,7 +16,7 @@ class Shot : public Model
         Shot();
         ~Shot();
         Shot( string, float*, Object* );
-        void processAI( Camera* ) {}
+        void processAI( Camera*, float elapsedTime ) {}
         
         void printTypeName(void) 
          {

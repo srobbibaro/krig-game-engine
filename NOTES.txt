@@ -1,2 +1,5 @@
 11/23
 lua Math Library Reference: http://lua-users.org/wiki/MathLibraryTutorial
+
+11/24
+lua Language Reference: http://www.lua.org/pil/

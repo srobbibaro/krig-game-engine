@@ -116,7 +116,7 @@ void EnemyShip::handleCollision( Object* temp )
 }
 
 //------------------------------------------------------------------------------
-void EnemyShip::processAI( Camera* )
+void EnemyShip::processAI( Camera*, float elapsedTime )
 {            
     if ( state != DEAD ) {
         if ( numShots < 1 ) {

@@ -1098,6 +1098,7 @@ void Engine::loadLevel()
     //currentLevel->loadLevel( levelFile[lvlNum] );
     currentLevel->loadLevelLua(levelScript);
     boss = currentLevel->returnBoss();
+    timeElapsed = timer->getElapsedSeconds(1);  
 }
 
 //------------------------------------------------------------------------------

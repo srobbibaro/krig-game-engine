@@ -105,7 +105,7 @@ void Boss::handleCollision( Object* temp )
 }
 
 //------------------------------------------------------------------------------
-void Boss::processAI( Camera* c )
+void Boss::processAI( Camera* c, float elapsedTime )
 {
     int r;   
     float tx, tz, rot;

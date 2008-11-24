@@ -16,7 +16,7 @@ class PlayerShot : public Model
         PlayerShot();
         ~PlayerShot();
         PlayerShot( string, float*, Player* );
-        void processAI( Camera* ) {}
+        void processAI( Camera*, float elapsedTime ) {}
     
         
         void printTypeName(void) 

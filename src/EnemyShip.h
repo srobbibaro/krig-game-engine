@@ -19,7 +19,7 @@ class EnemyShip : public Model
         EnemyShip( string, string, float*, Player* );
         virtual ~EnemyShip() {}
         
-        void processAI( Camera* );
+        void processAI( Camera*, float elapsedTime );
         void fireShot();
         
         void printTypeName(void) 

@@ -12,9 +12,9 @@ function on_update(this, elapsedTime)
 --	setRotation(this, prx, pry, prz)
 --	px, py, pz = getPosition(player)
 --	setPosition(this, px, py, pz - 15.0)
-totalTime = totalTime + elapsedTime
-vx = math.sin(totalTime) * 100.0
-setVelocity(this, vx, 0.0, 0.0)
+--totalTime = totalTime + elapsedTime
+--vx = math.sin(totalTime) * 100.0
+--setVelocity(this, vx, 0.0, 0.0)
 
 	--if 1 == 0 then 
       --    x,y,z = getPosition(this, elapsedTime);

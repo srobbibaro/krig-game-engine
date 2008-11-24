@@ -57,7 +57,7 @@ void SailBoat::handleCollision( Object* temp )
 }
 
 //------------------------------------------------------------------------------
-void SailBoat::processAI( Camera* )
+void SailBoat::processAI( Camera*, float elapsedTime )
 {   
 }
 

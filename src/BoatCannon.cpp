@@ -72,7 +72,7 @@ void BoatCannon::handleCollision( Object* temp )
 }
 
 //------------------------------------------------------------------------------
-void BoatCannon::processAI( Camera* )
+void BoatCannon::processAI( Camera*, float elapsedTime )
 {
     if ( numShots < 1 ) {
         if ( *animCurrTime > ( shotTime + shotDelay ) )

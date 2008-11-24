@@ -73,7 +73,7 @@ using namespace std;
             
             void buildEdges();
             
-            virtual void processAI( Camera* c ) = 0; 
+            virtual void processAI( Camera* c, float elapsedTime ) = 0; 
 	};
 
 #endif

@@ -12,7 +12,7 @@ class Explosion : public Model
         
         Explosion();
         Explosion( float, float* );
-        void processAI( Camera* ) {}
+        void processAI( Camera*, float elapsedTime ) {}
         void animate ( float, Camera * );
         
         void printTypeName(void) 

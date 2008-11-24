@@ -60,7 +60,7 @@ void Explosion::animate ( float timeElapsed, Camera *c )
         }
         else
         {
-            processAI( c );
+            processAI( c, timeElapsed );
 
             // calculate new position and orientation //
             position.x += velocity.x * timeElapsed;   

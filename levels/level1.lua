@@ -13,10 +13,10 @@ bgColor = {0.0, 0.0, 0.3,
            0.4, 0.4, 1.0,
 	     0.8, 0.8, 1.0}
 
-x_start_camera = 100.0
-x_start_player = x_start_camera - 60.0
+x_start_camera = 110.0
+x_start_player = x_start_camera - 20.0
 
-cameraPosition = {x_start_camera, 15.0, 34.5}
+cameraPosition = {x_start_camera, 15.0, 35}
 cameraRotation = {0.0, 0.0, 0.0}
 cameraScript   = "camera1.lua"
 
@@ -26,7 +26,7 @@ objects = {
        modelKey	= "Ship.mdl",
 	 scale      = {2.0, 2.0, 2.0},
        rotation   = {0.0, 1.57, 0.0},
-       position   = {x_start_player, 20.0, 7.0},
+       position   = {x_start_player, 20.0, 7.5},
        script     = "player1.lua"},
 
       -- Setup the 2nd object (always boss)

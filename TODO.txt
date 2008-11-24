@@ -15,3 +15,8 @@
 8. boss ai (revamped level 1 boss) (andy)
 9. simple script to move into trench (andy)
 10. odds and ends and clean up (steve and andy)
+
+11/24/08 ~ Steve
+   * implement "setTestZoneEnable" lua function
+   * determine whether it would be beneficial to over-ride "on_update" so that engine calls a different specified function
+   * determine whether or not ScriptedObject::animCurrTime is necessary especially in regards to interpolation... would elaped time/ duration suffice?

@@ -13,7 +13,7 @@ class Beam : public Model
         
         Beam();
         Beam( string, string, float* );
-        void processAI( Camera* );
+        void processAI( Camera*, float elapsedTime );
        
         
         void printTypeName(void) 

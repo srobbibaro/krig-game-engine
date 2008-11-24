@@ -48,6 +48,9 @@ class ScriptedObject
         lua_State* L;
         string scriptName;
         
+        bool suspend;
+        float suspendTime;
+        
    // public:
         ScriptedObject( void );
         virtual ~ScriptedObject( void );
@@ -351,20 +354,7 @@ static int setInterpolationEnableLua(lua_State *L)
         scriptedObject->interp = false;
     else
         scriptedObject->interp = true;
-            
-            //index1 = (int) t.p2;
-            //index2 = (int) t.p3;
-            
-             //cout << "interp set:" << interp << endl;
-            
-            //if (interp) {
-            //    if ( index1 == 1 )
-            //        rInterpStart = rotation;
-            //    
-            //    if ( index2 == 1 )
-            //        valInterpStart = *valInterpPtr;
-            //}
-            
+             
     return (0);
 }
 
@@ -432,6 +422,17 @@ static int getTimerLua(lua_State *L)
     
     lua_pushnumber(L, *scriptedObject->animCurrTime);
     return 1;
+}
+
+static int suspendLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    ScriptedObject *scriptedObject = static_cast<ScriptedObject*>(lua_touserdata(L, 1));
+    
+    scriptedObject->suspend = true;
+    scriptedObject->suspendTime = lua_tonumber(L, 2);
+    
+    return 0;
 }
 
        

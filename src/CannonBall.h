@@ -11,7 +11,7 @@ class CannonBall : public Model
         void prepare() {}
         
         CannonBall( string, float* );
-        void processAI( Camera* );
+        void processAI( Camera*, float );
         void animate( float, Camera* );
      
         

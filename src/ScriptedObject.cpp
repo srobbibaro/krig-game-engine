@@ -29,6 +29,9 @@ ScriptedObject::ScriptedObject( void )
     camera = NULL;
     
     L = NULL;
+    
+    suspend = false;
+    suspendTime = 0.0f;
    
     //memVars[MEM_NEXT_SCRIPT_INDEX] = NO_SCRIPT;
     //memVars[MEM_NEXT_SCRIPT_COMMAND_INDEX] = 0;
@@ -144,6 +147,15 @@ void ScriptedObject::animateScript(float elapsedTime)
     // initialized with a script
     if (L == NULL)
         return;
+        
+    // If the script is suspended, do not run until time has elapsed
+    if (suspend) {
+        suspendTime -= elapsedTime; 
+        if (suspendTime > 0.0f) 
+            return;
+        suspend = false;
+        suspendTime = 0.0f;
+    }
     
     // Find the update function and call it
     lua_getglobal(L, "on_update");
@@ -244,13 +256,14 @@ void ScriptedObject::loadScript(string name)
     lua_register(L, "setInterpolationRotationStartAxis", setInterpolationRotationStartAxisLua);
     lua_register(L, "setInterpolationRotationEndAxis", setInterpolationRotationEndAxisLua);
     lua_register(L, "setInterpolationRotationStart", setInterpolationRotationStartLua);
-    lua_register(L, "setInterpolationRotationEndLua", setInterpolationRotationEndLua);
+    lua_register(L, "setInterpolationRotationEnd", setInterpolationRotationEndLua);
     lua_register(L, "setInterpolationEnable", setInterpolationEnableLua);
     lua_register(L, "setInterpolationVariable", setInterpolationVariableLua);
     lua_register(L, "setRotationVelocityAxis", setRotationVelocityAxisLua);
     lua_register(L, "setRotationAxis", setRotationAxisLua);
     lua_register(L, "addRotationAxis", addRotationAxisLua);
     lua_register(L, "getTimer", getTimerLua);
+    lua_register(L, "suspend", suspendLua);
         
     // Load this object's animation script
     luaL_dofile(L, scriptName.c_str());

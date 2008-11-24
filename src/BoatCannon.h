@@ -17,7 +17,7 @@ class BoatCannon : public Model
         
         BoatCannon();
         BoatCannon( string, string, float*, Object* );
-        void processAI( Camera* );
+        void processAI( Camera*, float elapsedTime );
         
         void printTypeName(void) 
          {

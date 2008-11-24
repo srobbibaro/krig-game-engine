@@ -13,7 +13,7 @@ class Asteroid : public Model
         
         Asteroid();
         Asteroid( string, string, float* );
-        void processAI( Camera* ) {} 
+        void processAI( Camera*, float elapsedTime ) {} 
         
         void printTypeName(void) 
         {
