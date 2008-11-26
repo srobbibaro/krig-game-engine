@@ -20,3 +20,7 @@
    * implement "setTestZoneEnable" lua function
    * determine whether it would be beneficial to over-ride "on_update" so that engine calls a different specified function
    * determine whether or not ScriptedObject::animCurrTime is necessary especially in regards to interpolation... would elaped time/ duration suffice?
+
+11/26/08 ~ Steve
+   * Commit newest snow boss script to both krig branches.
+   * Commit newest level 4 terrain to both krigh branches.
