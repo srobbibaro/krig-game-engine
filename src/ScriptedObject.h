@@ -76,11 +76,9 @@ class ScriptedObject
         
         void setInterpolationVariable(int index);
     
-        int processBasicCommand( const ScriptCommand & );
         void animateScript( float elapsedTime );
         
         // virtual functions
-        virtual int processExtendedCommand( const ScriptCommand & ) = 0;
         virtual void printTypeName(void) = 0;
 };
 

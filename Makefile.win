@@ -1,18 +1,18 @@
 # Project: krig
 # Makefile created by Dev-C++ 4.9.8.0
 
-CPP  = g++.exe -D__DEBUG__
-CC   = gcc.exe -D__DEBUG__
+CPP  = g++.exe
+CC   = gcc.exe
 WINDRES = windres.exe
 RES  = 
-OBJ  = ./obj//Asteroid.o ./obj//Beam.o ./obj//BoatCannon.o ./obj//Boss.o ./obj//camera.o ./obj//CannonBall.o ./obj//credits.o ./obj//EnemyShip.o ./obj//Engine.o ./obj//eventqueue.o ./obj//Explosion.o ./obj//GameLevel.o ./obj//gametimer.o ./obj//main.o ./obj//matrix.o ./obj//menu.o ./obj//menuCredits.o ./obj//model.o ./obj//ObjectNode.o ./obj//objects.o ./obj//ParticleSystem.o ./obj//Player.o ./obj//PlayerMissle.o ./obj//PlayerShot.o ./obj//Powerup.o ./obj//SailBoat.o ./obj//Script.o ./obj//Shot.o ./obj//sound.o ./obj//terrain.o ./obj//text.o ./obj//Quaternion.o ./obj//ScriptedObject.o ./obj//Snow.o ./obj//QuadTreeNode.o ./obj//QuadTree.o ./obj//DisplayList.o ./obj//Plane.o ./obj//Frustum.o ./obj//Sphere.o $(RES)
-LINKOBJ  = ./obj//Asteroid.o ./obj//Beam.o ./obj//BoatCannon.o ./obj//Boss.o ./obj//camera.o ./obj//CannonBall.o ./obj//credits.o ./obj//EnemyShip.o ./obj//Engine.o ./obj//eventqueue.o ./obj//Explosion.o ./obj//GameLevel.o ./obj//gametimer.o ./obj//main.o ./obj//matrix.o ./obj//menu.o ./obj//menuCredits.o ./obj//model.o ./obj//ObjectNode.o ./obj//objects.o ./obj//ParticleSystem.o ./obj//Player.o ./obj//PlayerMissle.o ./obj//PlayerShot.o ./obj//Powerup.o ./obj//SailBoat.o ./obj//Script.o ./obj//Shot.o ./obj//sound.o ./obj//terrain.o ./obj//text.o ./obj//Quaternion.o ./obj//ScriptedObject.o ./obj//Snow.o ./obj//QuadTreeNode.o ./obj//QuadTree.o ./obj//DisplayList.o ./obj//Plane.o ./obj//Frustum.o ./obj//Sphere.o $(RES)
+OBJ  = ./obj//Asteroid.o ./obj//Beam.o ./obj//BoatCannon.o ./obj//Boss.o ./obj//camera.o ./obj//CannonBall.o ./obj//credits.o ./obj//EnemyShip.o ./obj//Engine.o ./obj//eventqueue.o ./obj//Explosion.o ./obj//GameLevel.o ./obj//gametimer.o ./obj//main.o ./obj//matrix.o ./obj//menu.o ./obj//menuCredits.o ./obj//model.o ./obj//ObjectNode.o ./obj//objects.o ./obj//ParticleSystem.o ./obj//Player.o ./obj//PlayerMissle.o ./obj//PlayerShot.o ./obj//Powerup.o ./obj//SailBoat.o ./obj//Scripting.o ./obj//Shot.o ./obj//sound.o ./obj//terrain.o ./obj//text.o ./obj//Quaternion.o ./obj//ScriptedObject.o ./obj//Snow.o ./obj//QuadTreeNode.o ./obj//QuadTree.o ./obj//DisplayList.o ./obj//Plane.o ./obj//Frustum.o ./obj//Sphere.o $(RES)
+LINKOBJ  = ./obj//Asteroid.o ./obj//Beam.o ./obj//BoatCannon.o ./obj//Boss.o ./obj//camera.o ./obj//CannonBall.o ./obj//credits.o ./obj//EnemyShip.o ./obj//Engine.o ./obj//eventqueue.o ./obj//Explosion.o ./obj//GameLevel.o ./obj//gametimer.o ./obj//main.o ./obj//matrix.o ./obj//menu.o ./obj//menuCredits.o ./obj//model.o ./obj//ObjectNode.o ./obj//objects.o ./obj//ParticleSystem.o ./obj//Player.o ./obj//PlayerMissle.o ./obj//PlayerShot.o ./obj//Powerup.o ./obj//SailBoat.o ./obj//Scripting.o ./obj//Shot.o ./obj//sound.o ./obj//terrain.o ./obj//text.o ./obj//Quaternion.o ./obj//ScriptedObject.o ./obj//Snow.o ./obj//QuadTreeNode.o ./obj//QuadTree.o ./obj//DisplayList.o ./obj//Plane.o ./obj//Frustum.o ./obj//Sphere.o $(RES)
 LIBS =  -L"C:/Dev-Cpp/lib" -pg lib/liblua5.1.a lib/libvorbisfile.a lib/libvorbisenc.a lib/libvorbis.a lib/libogg.a lib/libalut.a lib/libopenal32.a lib/libglut32.a lib/libopengl32.a lib/libglu32.a 
 INCS =  -I"C:/Dev-Cpp/include"  -I"./include/"  -I"./src/" 
 CXXINCS =  -I"C:/Dev-Cpp/include/c++"  -I"C:/Dev-Cpp/include/c++/mingw32"  -I"C:/Dev-Cpp/include/c++/backward"  -I"C:/Dev-Cpp/include"  -I"./include/"  -I"./src/" 
 BIN  = krig.exe
-CXXFLAGS = $(CXXINCS)  -g3
-CFLAGS = $(INCS)  -g3
+CXXFLAGS = $(CXXINCS) 
+CFLAGS = $(INCS) 
 
 .PHONY: all all-before all-after clean clean-custom
 
@@ -103,8 +103,8 @@ $(BIN): $(LINKOBJ)
 ./obj//SailBoat.o: src/SailBoat.cpp
 	$(CPP) -c src/SailBoat.cpp -o ./obj//SailBoat.o $(CXXFLAGS)
 
-./obj//Script.o: src/Script.cpp
-	$(CPP) -c src/Script.cpp -o ./obj//Script.o $(CXXFLAGS)
+./obj//Scripting.o: src/Scripting.cpp
+	$(CPP) -c src/Scripting.cpp -o ./obj//Scripting.o $(CXXFLAGS)
 
 ./obj//Shot.o: src/Shot.cpp
 	$(CPP) -c src/Shot.cpp -o ./obj//Shot.o $(CXXFLAGS)

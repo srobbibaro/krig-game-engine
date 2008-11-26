@@ -27,7 +27,6 @@
        
         void displayText();
         void updateText( float );
-        int processExtendedCommand( const ScriptCommand & );
     };
 
 

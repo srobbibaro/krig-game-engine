@@ -114,10 +114,11 @@ void ScriptedObject::setTimer( float* temp )
     animCurrTime = temp;   
 }
 
+
 //------------------------------------------------------------------------------
-int ScriptedObject::processBasicCommand( const ScriptCommand &t )
-{
-   int next = 1;
+//int ScriptedObject::processBasicCommand( const ScriptCommand &t )
+//{
+//   int next = 1;
    /*
    //cout << "routine: " << t.routine << endl << endl;
    int index1, index2, index3, index4, op;
@@ -137,8 +138,8 @@ int ScriptedObject::processBasicCommand( const ScriptCommand &t )
     }  
    
    */
-    return (next);
-}
+//    return (next);
+//}
 
 //------------------------------------------------------------------------------
 void ScriptedObject::animateScript(float elapsedTime)

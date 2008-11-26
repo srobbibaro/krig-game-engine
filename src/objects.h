@@ -101,8 +101,6 @@
             bool testActiveZone( Camera* );
             void setSoundClass( Sound * );
             void decrementShots( void );
-            
-            int processExtendedCommand( const ScriptCommand & );
     };
     
 #endif

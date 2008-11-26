@@ -108,6 +108,7 @@ void ScriptTextType::updateText( float timeElapsed )
 }
 
 //------------------------------------------------------------------------------
+/*
 int ScriptTextType::processExtendedCommand( const ScriptCommand &t )
 {
     cout << t.routine;
@@ -155,3 +156,4 @@ int ScriptTextType::processExtendedCommand( const ScriptCommand &t )
             
        }
 }
+*/

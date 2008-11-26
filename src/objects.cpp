@@ -335,10 +335,11 @@ void Object::setShot( Object* obj, float tVelocity )
 }
 
 //------------------------------------------------------------------------------
+/*
 int Object::processExtendedCommand( const ScriptCommand &t )
 {  
     int next = 1;
-    /*
+    
     //cout << "Extended Object Routine: " << t.routine << endl << endl;
     int index1, index2, index3, op;
    
@@ -473,9 +474,11 @@ int Object::processExtendedCommand( const ScriptCommand &t )
             }
             break;
     }
-    */
+    
     
     return( next );
 }
+
+*/
 
 

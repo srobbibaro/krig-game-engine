@@ -164,10 +164,11 @@ void Camera::getRotationMatrix( Matrix &m ) const
 }
 
 //------------------------------------------------------------------------------
+/*
 int Camera::processExtendedCommand( const ScriptCommand &t )
 {  
     int next = 1;
-    /*
+    
     //cout << "Camera extended routine: " << t.routine << endl << endl;
     int index1, index2, index3, index4, op;
    
@@ -484,10 +485,12 @@ int Camera::processExtendedCommand( const ScriptCommand &t )
         }  
     }
     
-    */
+    
     
     return( next );
 }
+
+*/
 
 //------------------------------------------------------------------------------
 void Camera::getFrustum(Frustum &f)

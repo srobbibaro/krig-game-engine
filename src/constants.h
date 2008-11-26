@@ -8,7 +8,6 @@
 
 #include "matrix.h"
 #include "Quaternion.h"
-#include "Script.h"
 #include "sound.h"
 #include "GameTimer.h"
 #include "EventQueue.h"

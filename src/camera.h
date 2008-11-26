@@ -38,8 +38,6 @@ class Camera : public ScriptedObject
         // accessor functions
         void getRotationMatrix( Matrix &m ) const;
         
-        int processExtendedCommand( const ScriptCommand &);
-        
         void printTypeName(void) {
             cout << "camera";
         }

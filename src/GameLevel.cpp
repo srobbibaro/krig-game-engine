@@ -108,6 +108,7 @@ void GameLevel::animateLevel(float timeElapsed)
 //------------------------------------------------------------------------------
 bool GameLevel::loadLevel( string file )
 {
+/*
    int numObjects;
    int terrainType;
    string modelKey;
@@ -142,7 +143,7 @@ bool GameLevel::loadLevel( string file )
       
       //cout << "here..." << endl;
       
-                /*          
+                        
       for ( int i = 0; i < numTextStrings; i++ ) {
          fin.getline( scriptText[i].line, 128 );
          scriptText[i].color[0] = 1.0f;
@@ -159,7 +160,7 @@ bool GameLevel::loadLevel( string file )
          cout << "--" << scriptText[i].line << "--" << endl;
       }  
       
-                  */            
+                          
       ////////////////////////////////////////////////////////  
       
       // load in the terrain /////////////////////////////////
@@ -288,7 +289,7 @@ bool GameLevel::loadLevel( string file )
             } 
         }
         
-        */
+        
         
         camera->setPlayerPtr(player);
         camera->setCameraPtr(camera);
@@ -371,7 +372,7 @@ bool GameLevel::loadLevel( string file )
          
       /////////////////////////////////////////////////////////////  
        
-      */ 
+      
       cout << "building quad tree..." << endl;
       q->buildTree(terrain);
       //q->traverseTree();  
@@ -393,6 +394,8 @@ bool GameLevel::loadLevel( string file )
       fin.close();
       
       cout << "finished..." << endl << endl;
+      
+      */
 }
 
 //------------------------------------------------------------------------------
@@ -898,9 +901,10 @@ void GameLevel::removePlayer()
 //------------------------------------------------------------------------------
 void GameLevel::processScripts()
 {
+/*
    ScriptCommand t;
    
-   /*
+   
    
    // process text scripts ///
     for ( int i = 0; i < numTextScripts; i++ ) {
