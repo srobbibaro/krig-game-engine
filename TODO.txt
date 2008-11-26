@@ -24,3 +24,9 @@
 11/26/08 ~ Steve
    * Commit newest snow boss script to both krig branches.
    * Commit newest level 4 terrain to both krigh branches.
+   * Steve: Convert level1.lvl to level1.lua.
+   * Steve: Convert Snow Boss script to lua.
+   * Andy: Convert volcano script to lua.
+   * Andy: Convert sweeping ships to lua.
+   * Steve/Andy: Convert level1 boss script to lua.
+   * Implement ability to change script or to end script.
