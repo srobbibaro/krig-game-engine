@@ -1,7 +1,7 @@
 [Project]
 FileName=krig.dev
 Name=krig
-UnitCount=80
+UnitCount=78
 Type=1
 Ver=1
 ObjFiles=
@@ -318,16 +318,6 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit52]
-FileName=src\Script.cpp
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit54]
 FileName=src\Shot.cpp
 CompileCpp=1
 Folder=
@@ -337,17 +327,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit55]
-FileName=src\Shot.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit56]
+[Unit54]
 FileName=src\sound.cpp
 CompileCpp=1
 Folder=
@@ -357,7 +337,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit57]
+[Unit55]
 FileName=src\sound.h
 CompileCpp=1
 Folder=
@@ -367,8 +347,28 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit58]
+[Unit56]
 FileName=src\terrain.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit57]
+FileName=src\terrain.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit58]
+FileName=src\text.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -406,7 +406,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit59]
-FileName=src\terrain.h
+FileName=src\text.h
 Folder=
 Compile=1
 Link=1
@@ -416,7 +416,7 @@ BuildCmd=
 CompileCpp=1
 
 [Unit60]
-FileName=src\text.cpp
+FileName=src\ObjectInclude.h
 CompileCpp=1
 Folder=
 Compile=1
@@ -426,7 +426,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit61]
-FileName=src\text.h
+FileName=src\Quaternion.h
 CompileCpp=1
 Folder=
 Compile=1
@@ -636,7 +636,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit53]
-FileName=src\Script.h
+FileName=src\Shot.h
 CompileCpp=1
 Folder=
 Compile=1
@@ -646,26 +646,6 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit62]
-FileName=src\ObjectInclude.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit63]
-FileName=src\Quaternion.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit64]
 FileName=src\Quaternion.cpp
 CompileCpp=1
 Folder=
@@ -675,7 +655,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit65]
+[Unit63]
 FileName=src\ScriptedObject.h
 CompileCpp=1
 Folder=
@@ -685,7 +665,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit66]
+[Unit64]
 FileName=src\ScriptedObject.cpp
 CompileCpp=1
 Folder=
@@ -695,7 +675,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit67]
+[Unit65]
 FileName=src\Snow.h
 CompileCpp=1
 Folder=
@@ -705,8 +685,28 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit68]
+[Unit66]
 FileName=src\Snow.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit67]
+FileName=src\QuadTreeNode.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit68]
+FileName=src\QuadTreeNode.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -726,26 +726,6 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit69]
-FileName=src\QuadTreeNode.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit70]
-FileName=src\QuadTreeNode.cpp
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit71]
 FileName=src\QuadTree.h
 CompileCpp=1
 Folder=
@@ -755,7 +735,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit72]
+[Unit70]
 FileName=src\QuadTree.cpp
 CompileCpp=1
 Folder=
@@ -765,7 +745,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit73]
+[Unit71]
 FileName=src\DisplayList.h
 CompileCpp=1
 Folder=
@@ -775,7 +755,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit74]
+[Unit72]
 FileName=src\DisplayList.cpp
 CompileCpp=1
 Folder=
@@ -785,7 +765,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit75]
+[Unit73]
 FileName=src\Frustum.h
 CompileCpp=1
 Folder=
@@ -795,7 +775,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit76]
+[Unit74]
 FileName=src\Plane.h
 CompileCpp=1
 Folder=
@@ -805,7 +785,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit77]
+[Unit75]
 FileName=src\Plane.cpp
 CompileCpp=1
 Folder=
@@ -815,8 +795,28 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit78]
+[Unit76]
 FileName=src\Frustum.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit77]
+FileName=src\Sphere.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit78]
+FileName=src\Sphere.cpp
 CompileCpp=1
 Folder=
 Compile=1
