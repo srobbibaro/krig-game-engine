@@ -3,38 +3,7 @@
 //------------------------------------------------------------------------------
 ScriptedObject::ScriptedObject( void )
 {
-    rotation.loadMultIdentity();
-    baseDirection.setVector( 0.0f, 0.0f, 1.0f );
-    direction.setVector( 0.0f, 0.0f, 1.0f );
-    up.setVector(0.0f, 1.0f, 0.0f);
-          
-    speed = 0.0f;
-    speedDir = 0;
-            
-    rInterpStart.loadMultIdentity();
-    rInterpEnd.loadMultIdentity();
-    
-    tieMemVarIndex = 0;
-    valInterpStart = 0.0f;
-    valInterpEnd = 0.0f;
-    interp = false;
-        
-    //scriptLastTime = 0.0f;
-    //scriptNum = NO_SCRIPT;
-    //scriptName = NO_SCRIPT;
-    //currentScriptCommand = 0;
-    
-    animCurrTime = NULL;  
-    player = NULL;
-    camera = NULL;
-    
-    L = NULL;
-    
-    suspend = false;
-    suspendTime = 0.0f;
-   
-    //memVars[MEM_NEXT_SCRIPT_INDEX] = NO_SCRIPT;
-    //memVars[MEM_NEXT_SCRIPT_COMMAND_INDEX] = 0;
+    init();
 }
 
 //------------------------------------------------------------------------------
@@ -209,6 +178,44 @@ void ScriptedObject::setInterpolationVariable(int index)
         default:
             valInterpPtr = animCurrTime;
     }
+}
+
+void ScriptedObject::init(void)
+{
+    rotation.loadMultIdentity();
+    baseDirection.setVector( 0.0f, 0.0f, 1.0f );
+    direction.setVector( 0.0f, 0.0f, 1.0f );
+    up.setVector(0.0f, 1.0f, 0.0f);
+          
+    speed = 0.0f;
+    speedDir = 0;
+    
+    velocity.setVector(0.0f, 0.0f, 0.0f);
+            
+    rInterpStart.loadMultIdentity();
+    rInterpEnd.loadMultIdentity();
+    
+    tieMemVarIndex = 0;
+    valInterpStart = 0.0f;
+    valInterpEnd = 0.0f;
+    interp = false;
+        
+    //scriptLastTime = 0.0f;
+    //scriptNum = NO_SCRIPT;
+    //scriptName = NO_SCRIPT;
+    //currentScriptCommand = 0;
+    
+    animCurrTime = NULL;  
+    player = NULL;
+    camera = NULL;
+    
+    L = NULL;
+    
+    suspend = false;
+    suspendTime = 0.0f;
+   
+    //memVars[MEM_NEXT_SCRIPT_INDEX] = NO_SCRIPT;
+    //memVars[MEM_NEXT_SCRIPT_COMMAND_INDEX] = 0;
 }
 
 void ScriptedObject::loadScript(string name)

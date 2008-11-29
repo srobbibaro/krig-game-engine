@@ -482,7 +482,9 @@ bool GameLevel::loadLevelLua( string file )
     //////////////////////////////////////////////
     
     player->unloadScript();
+    player->init();
     camera->unloadScript();
+    camera->init();
     
     // load each object //////////////////////////////////////
     lua_getglobal(L, "objects");

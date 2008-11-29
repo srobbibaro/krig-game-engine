@@ -71,6 +71,8 @@ class ScriptedObject
         void setCameraPtr( ScriptedObject* );
         void setLuaState(lua_State*);
         
+        void init(void);
+        
         void loadScript(string file);
         void unloadScript();
         
