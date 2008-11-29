@@ -1,5 +1,5 @@
 function on_load(this)
-    setVelocity(this, vx, -10.0, vz)
+    setVelocity(this, 0.0, 5.0, 0.0)
     return
 end
 
@@ -8,11 +8,13 @@ function on_update(this, elapsedTime)
     mx, my, mz = getPosition(this)
     vx, vy, vz = getVelocity(this)
     cx, cy, cz = getPosition(camera)
+    min_y = cy - 5.0
+    max_y = cy + 5.0
 
-    if my < 5.0 and vy < 0.0 then
-        setVelocity(this, vx, (vy * -1), vz)
+    if my < min_y and vy < 0.0 then
+        setVelocity(this, vx, -vy, vz)
     elseif my > 25.0 and vy > 0.0 then
-        setVelocity(this, vx, (vy * -1), vz)
+        setVelocity(this, vx, -vy, vz)
     end
 
     return

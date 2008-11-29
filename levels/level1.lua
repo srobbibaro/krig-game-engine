@@ -11,8 +11,11 @@ bgColor = {0.0, 0.0, 0.3,
 --  setup the terrain --
 terrain = "level1.txt"
 
+x_start_camera = 910 -- 110
+x_start_player = x_start_camera - 20
+
 --  setup the camera --
-cameraPosition = {110, 15, 35}
+cameraPosition = {x_start_camera, 15, 35}
 cameraRotation = {0.0, 0.0, 0.0}
 cameraScript = "camera1.lua"
 
@@ -22,14 +25,14 @@ objects = {
 	{type = 0,
 	modelKey = "Ship.mdl",
 	script = "player1.lua",
-	position = {90, 20, 7.5},
+	position = {x_start_player, 20, 7.5},
 	rotation = {0.00, 1.57, 0.00},
 	scale = {2.0, 2.0, 2.0}},
       
       -- setup the boss (always second object) --
 	{type = 6,
 	modelKey = "Boss.mdl",
-	script = "enemy_ship1.lua",
+	script = "boss1.lua",
 	position = {981, 15, 7.5},
 	rotation = {0.0, -1.57, 0.0},
 	scale = {4.0, 4.0, 4.0}},
