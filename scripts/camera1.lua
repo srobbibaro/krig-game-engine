@@ -1,4 +1,3 @@
-totalTime = 0
 stopped = 0
 
 function on_load(this)
@@ -7,25 +6,18 @@ function on_load(this)
 end
 
 function on_update(this, elapsedTime)
-     -- player = getPlayer()
---	prx, pry, prz = getRotation(player)
---	setRotation(this, prx, pry, prz)
---	px, py, pz = getPosition(player)
---	setPosition(this, px, py, pz - 15.0)
---totalTime = totalTime + elapsedTime
---vx = math.sin(totalTime) * 100.0
---setVelocity(this, vx, 0.0, 0.0)
+    mx, my, mz = getPosition(this)
+    if stopped == 0 then 
+        if mx >= 970.0 then
+            stopped = 1
+            setVelocity(this, 0.0, 0.0, 0.0)
+            player = getPlayer()
+            pvx, pvy, pvz = getVelocity(player)
+            setVelocity(player, (pvx - 10.0), pvy, pyz)
+        end
+    end
 
-	--if 1 == 0 then 
-      --    x,y,z = getPosition(this, elapsedTime);
-
---          if x >= 950.0 then
---	        stopped = 1
---              setVelocity(this, 0.0, 0.0, 0.0)
---          end
---	end
-
-	return
+    return
 end
 
 function on_unload(this)

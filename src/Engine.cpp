@@ -133,7 +133,7 @@ void Engine::gameCycle()
                 currentLevel->updateLevel( light );
                 
 
-                //currentLevel->prepareLevel();   // collision detection
+                currentLevel->prepareLevel();   // collision detection
 
                 currentLevel->updateLevel( light );    
                 

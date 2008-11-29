@@ -11,7 +11,7 @@ bgColor = {0.0, 0.0, 0.3,
 --  setup the terrain --
 terrain = "level1.txt"
 
-x_start_camera = 910 -- 110
+x_start_camera = 110 -- 110
 x_start_player = x_start_camera - 20
 
 --  setup the camera --
