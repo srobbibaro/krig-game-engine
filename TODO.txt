@@ -32,4 +32,8 @@
    * Implement ability to change script or to end script.
 
 11/27/08 ~ Steve
-   * Fix camera script for level 1
+   x Fix camera script for level 1
+
+11/30/08 ~ Steve
+   * Terrains should no longer store light direction. (This is a property of a GameLevel.)
+   * Update existing terrains to remove the light direction.
