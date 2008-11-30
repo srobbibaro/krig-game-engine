@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////
 // Authors     : Steve Robbibaro     sar2                       //
-//             : Andrew Yochum     8  amyst14                    //
+//             : Andrew Yochum       amyst14                    //
 //                                                              //
 // Filename    : camera.cpp                                     //
 //                                                              //

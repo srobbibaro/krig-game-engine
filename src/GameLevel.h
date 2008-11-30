@@ -27,9 +27,9 @@ class GameLevel
 {
     private:
         Terrain* terrain;    // list of objects starting with terrain
-        unsigned int lists; // display lists used for rendering
-        Object* obj;        // temp object for loading
-        Vector *light;
+        unsigned int lists;  // display lists used for rendering
+        Object* obj;         // temp object for loading
+        Vector light;
         Player* player;     // player object
         Boss* boss;         // pointer to boss object
         ScriptedObject* camera;     // camera
@@ -55,17 +55,19 @@ class GameLevel
         DisplayList *l; 
         
         bool grid;
-        bool bboxes;       
+        bool bboxes;
+        bool controlTriangles;     
+        
+        string musicPath;  
     
     
     public:
-        GameLevel( unsigned int, Vector* );
+        GameLevel( unsigned int);
         ~GameLevel();
-        void updateLevel( Vector* );
+        void updateLevel();
         void animateLevel( float );
         void prepareLevel( void);
         void drawLevel( void );
-        bool loadLevel( string file );
         bool loadLevelLua( string file );
         void loadScript( string file );
         void setPlayer( Player* tPlayer );
@@ -98,8 +100,9 @@ class GameLevel
         void saveTerrain(char*);
         void toggleGrid(void);
         void toggleBoundingBoxes(void);
+        void toggleControlTriangles(void);
         
-        string musicPath;
+        string getMusicPath() { return (musicPath); }
 };
 
 #endif

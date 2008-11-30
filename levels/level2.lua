@@ -7,6 +7,8 @@ terrainColor = {0.6, 0.4, 0.0,
 
 weatherEffect = 1
 
+lightDirection = {0.25, 0.25, 0.5}
+
 bgMusic = "Woodman.ogg"
 
 bgColor = {0.0, 0.0, 0.3,

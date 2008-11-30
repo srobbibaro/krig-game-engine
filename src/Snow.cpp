@@ -5,8 +5,8 @@ Snow::Snow(ScriptedObject* tOrigin)
 {
     origin = tOrigin;
      
-    maxParticles = 1000;
-    numParticles = 1000;
+    maxParticles = 3000;
+    numParticles = 3000;
  
     particles = new Particle[maxParticles];
     

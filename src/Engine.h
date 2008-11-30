@@ -44,7 +44,6 @@ class Engine
         // cell shading global variables ////////
         Matrix tempMatrix;
         GLuint shaderTexture[1];
-        Vector *light;
         
         // Sound class ///////
         Sound *sounds;

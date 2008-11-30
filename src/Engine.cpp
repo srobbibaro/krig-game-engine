@@ -8,10 +8,6 @@ Engine::Engine()
     sounds = new Sound ("sounds/sfxlist.txt");
     loadModels();
 
-    // setup light source ////////////////////////-
-    light = new Vector();
-    light->setVector( 0.0f, 0.15, .85 );
-    light->normalize();
     currentLevel = NULL;
     
     // setup game timer /////////////////////////
@@ -113,7 +109,6 @@ void Engine::gameCycle()
     switch (gameMode)
     {
         case 1:    
-            light->normalize();
             if ( currentLevel->checkComplete() )
             {
                 cout << "deleting level";
@@ -130,12 +125,12 @@ void Engine::gameCycle()
                 currentLevel->animateLevel( timeElapsed );
                 currentLevel->animateText( timeElapsed );
 
-                currentLevel->updateLevel( light );
+                currentLevel->updateLevel();
                 
 
                 currentLevel->prepareLevel();   // collision detection
 
-                currentLevel->updateLevel( light );    
+                currentLevel->updateLevel();    
                 
 
                 prepare();
@@ -272,7 +267,7 @@ void Engine::initGL()
     glEnable(GL_BLEND);   
     
     
-    currentLevel = new GameLevel( lists, light );
+    currentLevel = new GameLevel(lists);
     //mainCamera = new Camera();
     c1 = new Camera();
     c1->id = 1;
@@ -296,10 +291,10 @@ void Engine::initGL()
     currentLevel->setCamera( mainCamera );
     currentLevel->setTerrain( terrain );
     
-    loadLevel();
+    newLevel();
 
    // sounds->StopSong();
-   sounds->PlaySong(currentLevel->musicPath.c_str(), true);
+   //sounds->PlaySong(currentLevel->musicPath.c_str(), true);
    // sounds->PlaySong(4, false );
 }
 
@@ -521,7 +516,7 @@ void Engine::processCommands()
                     sounds->StopSong();
                     gameMode = 0;
                     lvlNum = 0;
-                    loadLevel();
+                    newLevel();
                     //strcpy( MenuStr, "Restart" );     
                 }   
                
@@ -542,7 +537,7 @@ void Engine::processCommands()
                 
                 if ( menuCursor ) {   
                     gameMode = 1;
-                    sounds->PlaySong(currentLevel->musicPath.c_str(), true);
+                    sounds->PlaySong(currentLevel->getMusicPath().c_str(), true);
                 }
                 else if ( !menuCursor ) 
                     control.enQueue( QUIT_GAME );
@@ -836,6 +831,11 @@ void Engine::processNormalKey(unsigned char key)
             currentLevel->toggleBoundingBoxes();
             break;
         }
+        case '4':
+        {
+            currentLevel->toggleControlTriangles();
+            break;
+        }
         case 'U':
         {
             player->unloadScript();
@@ -869,9 +869,9 @@ void Engine::processNormalKey(unsigned char key)
             
             cout << "deleting level";
             currentLevel->removePlayer();
-            //newLevel();
+            newLevel();
             cout << "..done\n";
-            loadLevel();
+            //loadLevel();
             break;
         }
         case '2':
@@ -883,10 +883,18 @@ void Engine::processNormalKey(unsigned char key)
             cout << "Attempting to load level script '" << levelScript << "'\n";
             cout << "deleting level";
             currentLevel->removePlayer();
-            //newLevel();
+            newLevel();
             cout << "..done\n";
-            loadLevel();
+            //loadLevel();
+            break;
         }
+        case '3':
+            cout << "Reloading current level from script '" << levelScript << "'\n";
+            cout << "deleting level";
+            currentLevel->removePlayer();
+            newLevel();
+            cout << "..done\n";
+            break;
         case 'P':
         {
             paint = !paint;
@@ -1106,7 +1114,7 @@ void Engine::loadLevel()
 void Engine::newLevel()
 {
     lvlNum++;
-
+/*
     if ( lvlNum > maxLevels )
     {
         gameMode = 2;
@@ -1116,10 +1124,11 @@ void Engine::newLevel()
     }
     else
     {
+    */
         loadLevel();
         sounds->StopSong();
-        sounds->PlaySong(currentLevel->musicPath.c_str(), true);
-    }
+        sounds->PlaySong(currentLevel->getMusicPath().c_str(), true);
+   // }
 }
 
 //------------------------------------------------------------------------------

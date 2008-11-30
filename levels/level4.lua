@@ -5,6 +5,8 @@ terrainColor = {0.6, 0.4, 0.0,
                 0.0, 1.0, 0.0,
                 0.0, 0.0, 0.0}
 
+lightDirection = {1.0, 0.0, 0.0}
+
 weatherEffect = 0
 
 bgMusic = "Sparkman.ogg"

@@ -2,9 +2,8 @@
 #include "Snow.h"
 
 //------------------------------------------------------------------------------
-GameLevel::GameLevel( unsigned int tLists, Vector* tLight )
+GameLevel::GameLevel( unsigned int tLists)
 { 
-    light = tLight;
     lists = tLists;
     complete = false;
     
@@ -21,6 +20,7 @@ GameLevel::GameLevel( unsigned int tLists, Vector* tLight )
     /////
     grid = true;
     bboxes = false;
+    controlTriangles = false;
     
     q = new QuadTree();
     l = new DisplayList();
@@ -50,9 +50,6 @@ void GameLevel::drawLevel()
     glCallList( lists+1 );
     terrain->drawObjectOutlines( dynamic_cast<Camera*>(camera) );
 
-
-    //terrain->showControlTriangle();
-
     // reset draw mode to "normal"
     glCallList( lists+2 );
     
@@ -66,6 +63,9 @@ void GameLevel::drawLevel()
     
     if (bboxes)
         terrain->showCollisionBox();
+        
+    if (controlTriangles)
+    terrain->showControlTriangle();
     
    /*
     drawText();
@@ -76,9 +76,9 @@ void GameLevel::drawLevel()
 }
 
 //------------------------------------------------------------------------------
-void GameLevel::updateLevel( Vector* light )
+void GameLevel::updateLevel()
 {
-    terrain->updateObjects( light );
+    terrain->updateObjects( &light );
 
     l->clearList();
     dynamic_cast<Camera*>(camera)->frustum.extractFromProjectionMatrix(dynamic_cast<Camera*>(camera)->final);
@@ -106,299 +106,6 @@ void GameLevel::animateLevel(float timeElapsed)
 }
 
 //------------------------------------------------------------------------------
-bool GameLevel::loadLevel( string file )
-{
-/*
-   int numObjects;
-   int terrainType;
-   string modelKey;
-   float angle;
-   float x, y, z;
-   float terrClr[9];
-   Vector scale, rotation, position;
-   int objectType;
-   int songNum = 0;
-    
-   complete = false;
-   time = 0;
-   eventBeginTime = 0;
-   
-  
-    
-   ifstream fin;
-   
-   cout << "loading level..." << endl;
-   
-   fin.open( file.c_str() );
-      fin >> numObjects;            // numObjects
-      fin >> numScripts;            // numObjectScripts
-      fin >> numTextScripts;        // numTextScripts
-      fin >> numTextStrings;        // numStrings
-      fin >> songNum;               // songNum
-      
-      // load any text strings used in scripting for stage //
-      //scriptText = new ScriptTextType[ numTextStrings ];
-      
-      //fin.getline( scriptText[0].line, 128 ); // not sure what this is about???
-      
-      //cout << "here..." << endl;
-      
-                        
-      for ( int i = 0; i < numTextStrings; i++ ) {
-         fin.getline( scriptText[i].line, 128 );
-         scriptText[i].color[0] = 1.0f;
-         scriptText[i].color[1] = 1.0f;
-         scriptText[i].color[2] = 1.0f;
-         scriptText[i].color[3] = 1.0f;
-         scriptText[i].visible = false;
-         scriptText[i].size = 0;
-         scriptText[i].width = 3.0;
-         scriptText[i].style = 0;
-         scriptText[i].position.setVector(0.0f, 0.0f, -20.0f );
-         scriptText[i].velocity.setVector(0.0f, 0.0f, 0.0f );
-         scriptText[i].fadeRate = 0.0f;   
-         cout << "--" << scriptText[i].line << "--" << endl;
-      }  
-      
-                          
-      ////////////////////////////////////////////////////////  
-      
-      // load in the terrain /////////////////////////////////
-      fin >> terrainType;                             // terrain.type 
-       
-      fin >> terrClr[0] >> terrClr[1] >> terrClr[2];  // terrain.color.[0]
-      fin >> terrClr[3] >> terrClr[4] >> terrClr[5];  // terrain.color.[1]
-      fin >> terrClr[6] >> terrClr[7] >> terrClr[8];  // terrain.color.[2]
-       
-      terrain->loadTerrain( "terrains/terrain1.txt", light );
-      ////////////////////////////////////////////////////////   
-      
-      cout << "here" << endl;
-    
-      // load in the sky (and weather type) //////////////////
-      fin >> weatherEffect;                                   //sky.weatherType
-      if (weatherEffect < 0 || weatherEffect > 2)
-         weatherEffect = 0;    
-        
-      fin >> bgcolor[0][0] >> bgcolor[0][1] >> bgcolor[0][2]; // sky.color[0]
-      fin >> bgcolor[1][0] >> bgcolor[1][1] >> bgcolor[1][2]; // sky.color[1]
-      fin >> bgcolor[2][0] >> bgcolor[2][1] >> bgcolor[2][2]; // sky.color[2]
-      ////////////////////////////////////////////////////////
-
-      // orient camera's initial setup ///////////////////////
-      /*
-      cout << "Setting up Camera..." << endl;
-      int scriptNum;
-      
-      fin >> scriptNum;
-      fin >> rotation.x >> rotation.y >> rotation.z; // camera.rotation
-      fin >> x >> y >> z;                            // camera.position
-      
-      //z = -z;                                        // camera correction
-      camera->setScript( scriptNum );
-      camera->setRotationEuler( rotation );
-      camera->setPosition( x, y, z );
-      camera->setTimer( &time );   
-      //////////////////////////////////////////////
-        
-       
-        // load each object //////////////////////////////////////
-        for ( int i = 0; i < numObjects; i++ ) {
-            fin >> objectType; // type of object (object.type)
-            fin >> modelKey; // type of model  (object.modelIndex)
-            fin >> scriptNum;  // ai for model   (object.AIRoutine)
-            fin >> scale.x >> scale.y >> scale.z;                   // read in scale factor for object
-            fin >> rotation.x >> rotation.y >> rotation.z;          // read in initial rotation axis   
-            fin >> position.x >> position.y >> position.z;          // read in objects coordinates
-            
-            cout << "objtype:" << objectType << endl;
-            cout << "r" << rotation.x << " " << rotation.y << " " << rotation.z << endl;
-            cout <<  "p" << position.x << " " << position.y << " " << position.z << endl;
-            cout << "mi: " << modelKey << endl;
-            
-            if ( i == 0 ) {
-               // object[0] must be player
-               objectType = OBJECT_PLAYER;
-            }
-            else if ( i == 1 ) {
-               // object[1] must be boss
-               objectType = OBJECT_BOSS;
-            }
-            else {
-               if ( objectType == OBJECT_PLAYER || objectType == OBJECT_BOSS ) {
-                  objectType = -1;
-               }
-            }  
-            
-            if (player == NULL)
-                exit(1);   
-             
-            switch( objectType )
-            {
-                case OBJECT_PLAYER:
-                    obj = dynamic_cast<Player*>(player);
-                     
-                    obj->setTimer( &time );
-                    obj->setScript(scriptNum);
-                    obj->setScriptName("test.lua");
-                    
-                    break;          
-               case OBJECT_ENEMY_SHIP:  // Enemy ship
-                  obj = new EnemyShip( "Enemy.mdl", "enemy_ship.lua", &time, dynamic_cast<Player*>(player) );
-                  break;
-               case OBJECT_ASTEROID: // Asteroid
-                  obj = new Asteroid( "Asteroid.mdl", "asteroid1.lua", &time );
-                  break;
-               case OBJECT_BEAM: // Beam
-                  obj = new Beam( modelKey, scriptNum, &time );
-                  break;
-               case OBJECT_SAIL_BOAT: // Sail Boat
-                  obj = new SailBoat( modelKey, scriptNum, &time );
-                  break;
-               case OBJECT_BOATCANNON: // Boat Cannon
-                  obj = new BoatCannon( modelKey, scriptNum, &time, (player) );
-                  break;                    
-               case OBJECT_BOSS:
-                  // there MUST BE EXACTLY ONE boss
-                  if (boss == NULL) {
-                    obj = new Boss ( "Boss.mdl", "test.lua", &time, dynamic_cast<Player*>(player), &complete );                    
-                    boss = (Boss*)obj;
-                  }      
-                  break;      
-               case OBJECT_POWERUP_1:
-                  obj = new Powerup( 1, &time );
-                  break;
-               case OBJECT_POWERUP_2:
-                  obj = new Powerup( 2, &time );
-                  break;                                
-                
-               default:
-                  break;
-             }
-        
-            if (obj != NULL ) {
-                obj->setRotationEuler( rotation.x, rotation.y, rotation.z);
-                obj->setPosition( position.x, position.y, position.z );
-                obj->setScaleFactor( scale.x, scale.y, scale.z );
-                obj->setVelocity( 0.0f, 0.0f, 0.0f );
-            
-                terrain->add( obj );
-                obj->setSoundClass( snd );
-                obj->setPlayerPtr(player);
-                obj->setCameraPtr(camera);
-            } 
-        }
-        
-        
-        
-        camera->setPlayerPtr(player);
-        camera->setCameraPtr(camera);
-        
-        // setup the weather effect ////////////////
-        if (weatherEffect > 0) {
-            weather = new Snow(camera);
-            weather->update(4.0f);
-            
-        }
-        ////////////////////////////////////////////
-        
-        
-        // load each script /////////////////////////////////
-        ScriptCommand t; 
-        int numScriptCommands;
-     
-        cout << "num scripts: " << numScripts << endl;
-        
-        script = new Script[numScripts];
-        
-        for ( int j = 0; j < numScripts; j++ ) {
-            fin >> numScriptCommands;
-            
-            cout << "nc:" << numScriptCommands << endl;
-      
-            if ( script[j].initialize(numScriptCommands) ) {
-               for ( int i = 0; i < numScriptCommands; i++ ) {
-                  fin >> t.routine >> t.time
-                      >> t.p1 >> t.p2 >> t.p3 >> t.p4;
-                         
-                   cout << "routine:" << t.routine << " time: " << t.time <<
-                   cout << " p " << t.p1 << " " << t.p2 << " " << t.p3 << " " << t.p4 << endl;
-                   
-                   script[j].setCommand(i, t);  
-               }
-            }
-         } 
-         ///////////////////////////////////////////////////////////
-         
-         
-       //Sleep(10000);
-         //exit(0);
-         
-          
-      // load each text script ///////////////////////////////  
-      /*
-      textScript = new Script[numTextScripts];
-        
-      for ( int j = 0; j < numTextScripts; j++ ) {
-         fin >> numScriptCommands;
-        
-         if ( numScriptCommands > 512 )
-            numScriptCommands = 512;
-               
-         fin >> bV;
-         fin >> beginOp;
-         fin >> beginConstant;
-    
-         fin >> running;
-    
-         fin >> scriptDuration;
-            
-         switch (bV)
-         {
-            case 0:
-               beginValue = &player->position.x;
-               break;
-         }     
-                    
-         textScript[j].initialize(numScriptCommands, beginValue, beginOp, beginConstant, running, &time, scriptDuration);
-        
-         for ( int i = 0; i < numScriptCommands; i++ ) {
-            fin >> t.routine >> t.objNum >> t.time 
-                >> t.p1 >> t.p2 >> t.p3 >> t.p4;
-                   
-            textScript[j].setCommand(i, t);
-         }
-      } 
-         
-      /////////////////////////////////////////////////////////////  
-       
-      
-      cout << "building quad tree..." << endl;
-      q->buildTree(terrain);
-      //q->traverseTree();  
-       
-      cout << "building display list..." << endl;
-      q->buildDisplayList(l, dynamic_cast<Camera*>(camera));
-      //q->buildLeafList(l);
-      cout << "traverse list..." << endl;
-      l->traverseList();
-      //Sleep(10000);
-      //exit(1);
-              
-                              
-      cout << "finished building quad tree..." << endl;
-      
-      
-      terrain->l = l;
-                          
-      fin.close();
-      
-      cout << "finished..." << endl << endl;
-      
-      */
-}
-
-//------------------------------------------------------------------------------
 bool GameLevel::loadLevelLua( string file )
 {
     int numObjects;
@@ -406,8 +113,6 @@ bool GameLevel::loadLevelLua( string file )
     float angle;
     float x, y, z;
     Vector scale, rotation, position;
-    int objectType;
-    int songNum = 0;
     Vector temp;
     
     complete = false;
@@ -434,6 +139,12 @@ bool GameLevel::loadLevelLua( string file )
     numObjects = (int)lua_tonumber(L, -1);
     lua_pop(L, 1);
     cout << "Number of objects in " << file << ": " << numObjects << endl;
+    
+    // Load the light direction
+    lua_getglobal(L, "lightDirection"); 
+    loadVector(L, &light); 
+    light.normalize();
+    cout << "Light direction: " << light.x << " " << light.y << " " << light.z << endl;
      
     // Read the name of the terrain file  
     lua_getglobal(L, "terrain");
@@ -443,9 +154,9 @@ bool GameLevel::loadLevelLua( string file )
     lua_pop(L, 1);
     
     // Load the terrain
-    terrain->loadTerrain( terrainPath.c_str(), light );
+    terrain->loadTerrain( terrainPath.c_str(), &light );
     ////////////////////////////////////////////////////////   
-      
+    
     // load in the sky (and weather type) //////////////////
     lua_getglobal(L, "weatherEffect");
     weatherEffect = (int)lua_tonumber(L, -1);
@@ -949,10 +660,7 @@ void GameLevel::drawText()
 
 //------------------------------------------------------------------------------
 void GameLevel::updateTerrain(int &x, int &z, float &height, int &type, float &red, float &green, float &blue)
-{
-    Vector light;
-     light.setVector( 0.0f, 0.15, .85 );
-     
+{    
     if ( x >= 0 && x < terrain->xSize && z >= 0 && z <= terrain->zSize ) {
         terrain->vertex[x][z][1]= height;
         terrain->color[x][z][0] = red;
@@ -965,10 +673,7 @@ void GameLevel::updateTerrain(int &x, int &z, float &height, int &type, float &r
 }
 
 void GameLevel::updateColor(int &x, int &z, float &red, float &green, float &blue)
-{
-    Vector light;
-     light.setVector( 0.0f, 0.15, .85 );
-     
+{     
     if ( x >= 0 && x < terrain->xSize && z >= 0 && z <= terrain->zSize ) {
         terrain->color[x][z][0] = red;
         terrain->color[x][z][1] = green;
@@ -991,11 +696,9 @@ void GameLevel::getTerrainInfo(int &x, int &z, float &height, int &type, float &
 
 void GameLevel::saveTerrain(char* filePath)
 {
-    Vector light;
-    light.setVector( 0.0f, 0.15, .85 );
-     
     terrain->saveTerrain(filePath, &light);
 }
 
 void GameLevel::toggleGrid(void) { grid = !grid;}
 void GameLevel::toggleBoundingBoxes(void) { bboxes = !bboxes; }
+void GameLevel::toggleControlTriangles(void) { controlTriangles = !controlTriangles; }
