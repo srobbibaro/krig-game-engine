@@ -429,17 +429,20 @@ bool GameLevel::loadLevelLua( string file )
     cout << "Loading Lua script (level file): --" << file << "--\n";
 	luaL_dofile(L, file.c_str());
 	
+	// Read the number of objects
     lua_getglobal(L, "numObjects");
     numObjects = (int)lua_tonumber(L, -1);
     lua_pop(L, 1);
     cout << "Number of objects in " << file << ": " << numObjects << endl;
-       
+     
+    // Read the name of the terrain file  
     lua_getglobal(L, "terrain");
     const char *j = lua_tostring(L, -1);
     string terrainPath = "./terrains/" + string(j);
     cout << "Terrain: " << terrainPath << endl;
     lua_pop(L, 1);
     
+    // Load the terrain
     terrain->loadTerrain( terrainPath.c_str(), light );
     ////////////////////////////////////////////////////////   
       
@@ -463,6 +466,13 @@ bool GameLevel::loadLevelLua( string file )
              << bgcolor[i][0] << "," << bgcolor[i][1] << "," << bgcolor[i][2] << endl;
     }    
     ////////////////////////////////////////////////////////
+    
+    // Read the song name to play
+    lua_getglobal(L, "bgMusic");
+    const char *k = lua_tostring(L, -1);
+    musicPath = "./music/" + string(k);
+    cout << "bgMusic: " << musicPath << endl;
+    lua_pop(L, 1);
     
     // orient camera's initial setup ///////////////////////
     cout << "Setting up Camera..." << endl;

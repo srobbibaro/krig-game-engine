@@ -5,7 +5,7 @@
 //------------------------------------------------------------------------------
 Engine::Engine()
 {
-    sounds = new Sound ("music/songlist.txt", "sounds/sfxlist.txt");
+    sounds = new Sound ("sounds/sfxlist.txt");
     loadModels();
 
     // setup light source ////////////////////////-
@@ -299,6 +299,7 @@ void Engine::initGL()
     loadLevel();
 
    // sounds->StopSong();
+   sounds->PlaySong(currentLevel->musicPath.c_str(), true);
    // sounds->PlaySong(4, false );
 }
 
@@ -541,7 +542,7 @@ void Engine::processCommands()
                 
                 if ( menuCursor ) {   
                     gameMode = 1;
-                    sounds->PlaySong((lvlNum+1), true);
+                    sounds->PlaySong(currentLevel->musicPath.c_str(), true);
                 }
                 else if ( !menuCursor ) 
                     control.enQueue( QUIT_GAME );
@@ -1111,13 +1112,13 @@ void Engine::newLevel()
         gameMode = 2;
         numLives = 0;
         sounds->StopSong();
-        sounds->PlaySong(5, false);
+        sounds->PlaySong("./music/Ending.ogg", false);
     }
     else
     {
         loadLevel();
         sounds->StopSong();
-        sounds->PlaySong(lvlNum, true);
+        sounds->PlaySong(currentLevel->musicPath.c_str(), true);
     }
 }
 

@@ -1,6 +1,6 @@
 --  header information --
 numObjects = 130
-songNum = 1
+bgMusic = "Wily.ogg"
 
 --  setup the sky --
 weatherEffect = 0

@@ -26,19 +26,15 @@ class Sound
         int processed, size, section, bytes; //variables for loop streaming
         char soundbuffer[BUFFER_SIZE];
         
-        int numofSongs;         //general song info
-        char **songs;
-        int currentSong;
-        
         ALuint *SFXSources;     //Data for loading in the sound effects
         ALuint *SFXBuffers;
         int numofSFX;
           
     public:
-        Sound(char *, char *);
+        Sound(char *);
         ~Sound();
         
-        void PlaySong(int, bool); //functions for sound playing
+        void PlaySong(const char*, bool); //functions for sound playing
         void Update();
         void StopSong();
         void PauseSong();

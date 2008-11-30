@@ -1,28 +1,14 @@
 #include "sound.h"
 #include <AL/alut.h>
 
-Sound::Sound(char *music, char *sfx)
+Sound::Sound(char *sfx)
 {
-    FILE *SFXFile, *SongFile;   //file handles for song and sfx lists
-
-    ///////////// Read in song list ////////////////////////
-    SongFile = fopen (music, "rt");
-        
-        fscanf (SongFile, "%d", &numofSongs);
-        songs = new char*[numofSongs];
-        for (int j=0; j < numofSongs; j++)
-            songs[j] = new char[80];
-            
-        for (int i=0; i < numofSongs; i++)
-            fscanf (SongFile, "%s", songs[i]);
-    
-    fclose(SongFile);    
+    FILE *SFXFile;  // file handle for sfx list
 
     alGenBuffers(2, MusicBuffers);
     alGenSources(1, &MusicSource);
     
     alSource3f (MusicSource, AL_POSITION, 0.0f, 0.0f, 0.0f);
-    ////////////////////////////////////////////////////////  
     
     /////////////// Read in sfx and load them into memory //
     char SFXName[80];
@@ -74,12 +60,11 @@ void Sound::PlaySFX(int index)
     alSourcePlay (SFXSources[index]);
 }
 
-void Sound::PlaySong(int songindex, bool rep)
+void Sound::PlaySong(const char* filePath, bool rep)
 {
-    currentSong = songindex;
     repeat = rep;
     //open binary file and set up the ov_open function for reading
-    musicFile = fopen (songs[songindex], "rb");
+    musicFile = fopen (filePath, "rb");
     ov_open(musicFile, &oggFile, NULL, 0);
 
     oggInfo = ov_info(&oggFile, -1);    //fill info struct and set format

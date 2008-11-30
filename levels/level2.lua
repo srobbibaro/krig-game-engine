@@ -1,13 +1,13 @@
 numObjects = 2
-terrain = "level1.txt"
+terrain = "level2.txt"
 
 terrainColor = {0.6, 0.4, 0.0,
                 0.0, 1.0, 0.0,
                 0.0, 0.0, 0.0}
 
-weatherEffect = 0
+weatherEffect = 1
 
-songNum = 1
+bgMusic = "Woodman.ogg"
 
 bgColor = {0.0, 0.0, 0.3,
            0.4, 0.4, 1.0,
@@ -33,7 +33,7 @@ objects = {
       -- Setup the 2nd object (always boss)
 	{type		= 6,
        modelKey   = "snowboss.mdl",
-       scale      = {4.0, 4.0, 4.0},
+       scale      = {2.0, 2.0, 2.0},
        rotation   = {0.0, -1.57, 0.0},
        position   = {x_start_boss, 15.0, 0.0},
        script     = "boss2.lua"},

@@ -98,6 +98,8 @@ class GameLevel
         void saveTerrain(char*);
         void toggleGrid(void);
         void toggleBoundingBoxes(void);
+        
+        string musicPath;
 };
 
 #endif
