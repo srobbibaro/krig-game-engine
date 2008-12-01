@@ -1,11 +1,11 @@
-numObjects = 70
-terrain = "terrain44.txt"
+numObjects = 2
+terrain = "level4.txt"
 
 terrainColor = {0.6, 0.4, 0.0,
                 0.0, 1.0, 0.0,
                 0.0, 0.0, 0.0}
 
-lightDirection = {1.0, 0.0, 0.0}
+lightDirection = {0.0, 0.2, 0.8}
 
 weatherEffect = 0
 
