@@ -3,3 +3,6 @@ lua Math Library Reference: http://lua-users.org/wiki/MathLibraryTutorial
 
 11/24
 lua Language Reference: http://www.lua.org/pil/
+
+11/30
+To convert old terrain format to new terrain format the light direction vector must be removed from the terrain definition file. (4th, 5th, and 6th values from beginning.)

@@ -35,5 +35,5 @@
    x Fix camera script for level 1
 
 11/30/08 ~ Steve
-   * Terrains should no longer store light direction. (This is a property of a GameLevel.)
-   * Update existing terrains to remove the light direction.
+   x Terrains should no longer store light direction. (This is a property of a GameLevel.)
+   x Update existing terrains to remove the light direction.

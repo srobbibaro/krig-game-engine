@@ -581,16 +581,11 @@ void Terrain::animate( float elapsedTime, Camera* c )
 //------------------------------------------------------------------------------
 void Terrain::loadTerrain( const char* filePath, Vector* light )
 {
-    Vector *tlight = new Vector();
     ifstream fin;
     fin.open(filePath);
         fin >> xSize;
         fin >> zSize;
         fin >> scaleFactor;
-        
-        fin >> tlight->x;
-        fin >> tlight->y;
-        fin >> tlight->z;
         
         for (int z = 0; z < zSize; z++) {
             for (int x = 0; x < xSize; x++) {
@@ -645,10 +640,6 @@ void Terrain::saveTerrain( char* filePath, Vector* light)
         fin << xSize << endl;
         fin << zSize << endl;
         fin << scaleFactor << endl;
-        
-        fin << light->x << endl;
-        fin << light->y << endl;
-        fin << light->z << endl;
         
         for (int z = 0; z < zSize; z++) {
             for (int x = 0; x < xSize; x++) {
