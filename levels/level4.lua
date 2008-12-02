@@ -1,19 +1,15 @@
 numObjects = 2
 terrain = "level4.txt"
 
-terrainColor = {0.6, 0.4, 0.0,
-                0.0, 1.0, 0.0,
-                0.0, 0.0, 0.0}
-
 lightDirection = {0.0, 0.2, 0.8}
 
 weatherEffect = 0
 
 bgMusic = "Sparkman.ogg"
 
-bgColor = {0.0, 0.0, 0.3,
-           0.4, 0.4, 1.0,
-	     0.8, 0.8, 1.0}
+bgColor = {0.0, 0.0, 0.0,
+           0.0, 0.0, 0.3,
+	     1.0, 0.0, 0.5}
 
 x_start_camera = 50.0
 x_start_player = x_start_camera - 20.0

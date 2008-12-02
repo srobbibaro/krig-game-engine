@@ -1,10 +1,6 @@
 numObjects = 2
 terrain = "level2.txt"
 
-terrainColor = {0.6, 0.4, 0.0,
-                0.0, 1.0, 0.0,
-                0.0, 0.0, 0.0}
-
 weatherEffect = 1
 
 lightDirection = {0.25, 0.25, 0.5}
@@ -12,8 +8,8 @@ lightDirection = {0.25, 0.25, 0.5}
 bgMusic = "Woodman.ogg"
 
 bgColor = {0.0, 0.0, 0.3,
-           0.4, 0.4, 1.0,
-	     0.8, 0.8, 1.0}
+           0.6, 0.6, 0.6,
+	     1.0, 1.0, 1.0}
 
 x_start_camera = 50.0
 x_start_player = x_start_camera - 10.0
