@@ -37,6 +37,8 @@ using namespace std;
         GLfloat color[X_SIZE][Z_SIZE][3];
         GLint type[X_SIZE][Z_SIZE];
         
+        Vector* lastLight;
+        
         
        
         float totalTime;

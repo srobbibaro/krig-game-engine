@@ -86,6 +86,8 @@ class Engine
         int currentScript;
         int currentLevelNum;
         
+        Vector* light;
+        
         vector<string> scripts;     
         vector<string> levels;   
     

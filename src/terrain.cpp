@@ -18,6 +18,9 @@ Terrain::Terrain() : Object()
 	zSize = Z_SIZE;
 	scaleFactor = SCALE_FACTOR;
 	active = true;
+	
+	lastLight = new Vector();
+	lastLight->setVector(0.0f, 0.0f, 0.0f);
 }
 
 //------------------------------------------------------------------------------
@@ -448,7 +451,10 @@ void Terrain::calcTerrainNorm( Vector* light )
 //------------------------------------------------------------------------------
 void Terrain::update( Vector* light )
 {
-    //calcTerrainNorm( light );
+    if (lastLight->x != light->x || lastLight->y != light->y || lastLight->z != light->z) {
+        calcTerrainNorm( light );
+        lastLight->setVector(light->x, light->y, light->z);
+    }
 }
 
 //------------------------------------------------------------------------------

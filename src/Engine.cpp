@@ -976,6 +976,43 @@ void Engine::processNormalKey(unsigned char key)
             plr->setPosition(pPos.x, pPos.y, pPos.z - 100.0f);
             mainCamera->setRotationQuaternion(pRot);
             mainCamera->setPosition(pPos.x - 15.0f, pPos.y, pPos.z - 100.0f);
+            break;
+        }
+        case '5':
+        {
+            light->x += .1;
+            light->normalize();
+            break;
+        }
+        case '6':
+        {
+            light->y += .1;
+            light->normalize();
+            break;
+        }
+        case '7':
+        {
+            light->z += 0.1;
+            light->normalize();
+            break;
+        }
+        case '%':
+        {
+            light->x -= .1;
+            light->normalize();
+            break;
+        }
+        case '^':
+        {
+            light->y -= .1;
+            light->normalize();
+            break;
+        }
+        case '&':
+        {
+            light->z -= 0.1;
+            light->normalize();
+            break;
         }
     }
 }
@@ -1096,6 +1133,11 @@ void Engine::displayDebug(void)
         glRasterPos2f (-1.0f, 0.10f);
         render_string(GLUT_BITMAP_9_BY_15, str);
         
+        glColor3f (1.0f, 1.0f, 1.0f);
+        sprintf (str, "light dir : %.04f %.04f %.04f", light->x, light->y, light->z);
+        glRasterPos2f (-1.0f, 0.0f);
+        render_string(GLUT_BITMAP_9_BY_15, str);
+        
     glPopMatrix();
 }
 
@@ -1108,6 +1150,7 @@ void Engine::loadLevel()
     currentLevel->loadLevelLua(levelScript);
     boss = currentLevel->returnBoss();
     timeElapsed = timer->getElapsedSeconds(1);  
+    light = currentLevel->getLight();
 }
 
 //------------------------------------------------------------------------------

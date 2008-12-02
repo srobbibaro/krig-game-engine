@@ -103,6 +103,7 @@ class GameLevel
         void toggleControlTriangles(void);
         
         string getMusicPath() { return (musicPath); }
+        Vector* getLight() { return &light; }
 };
 
 #endif
