@@ -72,7 +72,7 @@ Engine::Engine()
     loadScripts();
     
     currentLevelNum = -1;
-    loadLevels();
+    loadLevels();    
 }
 
 //------------------------------------------------------------------------------
@@ -563,12 +563,14 @@ void Engine::processCommands()
 //------------------------------------------------------------------------------
 void Engine::processNormalKey(unsigned char key)
 {
-    key = toupper(key);
+    //key = toupper(key);
 
-    switch ( key )
+    switch (key)
     {  
+        // Game controls...
         case 32:
-            if ( (player)->userControl && gameMode == 1 && (player)->state != DEAD ) control.enQueue(SHOOT_DOWN);
+            if ((player)->userControl && gameMode == 1 && (player)->state != DEAD) 
+                control.enQueue(SHOOT_DOWN);
             
             #if DEMO
             if ( gameMode == 1 && player->state != DEAD )
@@ -576,65 +578,69 @@ void Engine::processNormalKey(unsigned char key)
             #endif
             break;
         case 'M':
-            if ( (player)->userControl && gameMode == 1 && (player)->state != DEAD ) control.enQueue(MISSILE_DOWN);
+        case 'm':
+            if ((player)->userControl && gameMode == 1 && (player)->state != DEAD) 
+                control.enQueue(MISSILE_DOWN);
+            break;
         case 13:
-            if ( gameMode == 0 )
+            if (gameMode == 0)
                 control.enQueue( SELECT_OPTION );
             break; 
         case 27:
             control.enQueue(TOGGLE_MENU);
             break;
-            
-        case 'W':
+ 
+        // Move camera up/down/left/right
+        case 'W':      
+        case 'w':
             if (mainCamera->id == 4) {
-            mainCamera->position.x-=mainCamera->direction.x*2.0f;
-            mainCamera->position.y-=mainCamera->direction.y*2.0f;
-            mainCamera->position.z+=mainCamera->direction.z*2.0f;
-           }
-           if (mainCamera->id == 2 or mainCamera->id == 3) {
+                mainCamera->position.x-=mainCamera->direction.x*2.0f;
+                mainCamera->position.y-=mainCamera->direction.y*2.0f;
+                mainCamera->position.z+=mainCamera->direction.z*2.0f;
+            }
+            if (mainCamera->id == 2 or mainCamera->id == 3) {
                 mainCamera->position.z-=5.0f; //default scale factor for now
                 if( mainCamera->id == 2 ) {
                     c3->position.x = c2->position.x;
                     c3->position.z = c2->position.z;
                 
                     if (paint) {    
-                    int x = last_x;
-            int z = last_z;
-            int type = last_type;
-            float red = last_red;
-            float green = last_green;
-            float blue = last_blue;
-            float height = last_height;
+                        int x = last_x;
+                        int z = last_z;
+                        int type = last_type;
+                        float red = last_red;
+                        float green = last_green;
+                        float blue = last_blue;
+                        float height = last_height;
             
+                        updateTerrain(x,z,height,type,red,green,blue);
+                    }
+                    else if (paintColor) {
+                        float red = last_red;
+                        float green = last_green;
+                        float blue = last_blue;
+                        float height = last_height;
             
-            updateTerrain(x,z,height,type,red,green,blue);
-            }
-            else if (paintColor) {
-              float red = last_red;
-            float green = last_green;
-            float blue = last_blue;
-            float height = last_height;
-            
-            updateColor(red,green,blue);
-            }
+                        updateColor(red,green,blue);
+                    }
                 }
                 else {
                     c2->position.x = c3->position.x;
                     c2->position.z = c3->position.z;
                 }
-           }
-             break;
+            }
+            break;
         case 'A':
-        {
+        case 'a':
             if (mainCamera->id == 4) {
-            Vector rotationAxis;
+                Vector rotationAxis;
             
-            rotationAxis.crossProduct(dynamic_cast<Camera*>(mainCamera)->up, mainCamera->direction);
-            rotationAxis.normalize();
+                rotationAxis.crossProduct(dynamic_cast<Camera*>(mainCamera)->up, mainCamera->direction);
+                rotationAxis.normalize();
             
-            mainCamera->position.x+=rotationAxis.x*2.0f;
-            mainCamera->position.y+=rotationAxis.y*2.0f;
-            mainCamera->position.z-=rotationAxis.z*2.0f;
+                mainCamera->position.x+=rotationAxis.x*2.0f;
+                mainCamera->position.y+=rotationAxis.y*2.0f;
+                mainCamera->position.z-=rotationAxis.z*2.0f;
             }
             if (mainCamera->id == 2 or mainCamera->id == 3) {
                 mainCamera->position.x-=5.0f; //default scale factor for now
@@ -643,37 +649,38 @@ void Engine::processNormalKey(unsigned char key)
                     c3->position.x = c2->position.x;
                     c3->position.z = c2->position.z;
                     
-               if (paint) {     
-                    int x = last_x;
-            int z = last_z;
-            int type = last_type;
-            float red = last_red;
-            float green = last_green;
-            float blue = last_blue;
-            float height = last_height;
+                    if (paint) {     
+                        int x = last_x;
+                        int z = last_z;
+                        int type = last_type;
+                        float red = last_red;
+                        float green = last_green;
+                        float blue = last_blue;
+                        float height = last_height;
             
+                        updateTerrain(x,z,height,type,red,green,blue);
+                    }   
+                    else if (paintColor) {
+                        float red = last_red;
+                        float green = last_green;
+                        float blue = last_blue;
+                        float height = last_height;
             
-            updateTerrain(x,z,height,type,red,green,blue);
-             }   else if (paintColor) {
-                  float red = last_red;
-            float green = last_green;
-            float blue = last_blue;
-            float height = last_height;
-            
-            updateColor(red,green,blue);
-             } }
+                        updateColor(red,green,blue);
+                    } 
+                }
                 else {
                     c2->position.x = c3->position.x;
                     c2->position.z = c3->position.z;
                 }
-           }
+            }
             break;
-        }
         case 'S':
+        case 's':
             if (mainCamera->id == 4) {
-            mainCamera->position.x+=mainCamera->direction.x*2.0f;
-            mainCamera->position.y+=mainCamera->direction.y*2.0f;
-            mainCamera->position.z-=mainCamera->direction.z*2.0f;
+                mainCamera->position.x+=mainCamera->direction.x*2.0f;
+                mainCamera->position.y+=mainCamera->direction.y*2.0f;
+                mainCamera->position.z-=mainCamera->direction.z*2.0f;
             }
             if (mainCamera->id == 2 or mainCamera->id == 3) {
                 mainCamera->position.z+=5.0f; //default scale factor for now
@@ -683,41 +690,42 @@ void Engine::processNormalKey(unsigned char key)
                     c3->position.z = c2->position.z;
                     
                     if (paint) {
-                    int x = last_x;
-            int z = last_z;
-            int type = last_type;
-            float red = last_red;
-            float green = last_green;
-            float blue = last_blue;
-            float height = last_height;
+                        int x = last_x;
+                        int z = last_z;
+                        int type = last_type;
+                        float red = last_red;
+                        float green = last_green;
+                        float blue = last_blue;
+                        float height = last_height;
             
+                        updateTerrain(x,z,height,type,red,green,blue);
+                    }  
+                    else if (paintColor) {
+                        float red = last_red;
+                        float green = last_green;
+                        float blue = last_blue;
+                        float height = last_height;
             
-            updateTerrain(x,z,height,type,red,green,blue);
-              }  else if (paintColor) {
-                  float red = last_red;
-            float green = last_green;
-            float blue = last_blue;
-            float height = last_height;
-            
-            updateColor(red,green,blue);
-              } }
+                        updateColor(red,green,blue);
+                    } 
+                }
                 else {
                     c2->position.x = c3->position.x;
                     c2->position.z = c3->position.z;
                 }
-           }
+            }
             break;
         case 'D':
-        {
+        case 'd':
             if (mainCamera->id == 4) {
-            Vector rotationAxis;
+                Vector rotationAxis;
             
-            rotationAxis.crossProduct(dynamic_cast<Camera*>(mainCamera)->up, mainCamera->direction);
-            rotationAxis.normalize();
+                rotationAxis.crossProduct(dynamic_cast<Camera*>(mainCamera)->up, mainCamera->direction);
+                rotationAxis.normalize();
             
-            mainCamera->position.x-=rotationAxis.x*2.0f;
-            mainCamera->position.y-=rotationAxis.y*2.0f;
-            mainCamera->position.z+=rotationAxis.z*2.0f;    
+                mainCamera->position.x-=rotationAxis.x*2.0f;
+                mainCamera->position.y-=rotationAxis.y*2.0f;
+                mainCamera->position.z+=rotationAxis.z*2.0f;    
             }    
             if (mainCamera->id == 2 or mainCamera->id == 3) {
                 mainCamera->position.x+=5.0f; //default scale factor for now
@@ -727,86 +735,92 @@ void Engine::processNormalKey(unsigned char key)
                     c3->position.z = c2->position.z;
                     
                     if (paint) {
-                    int x = last_x;
-            int z = last_z;
-            int type = last_type;
-            float red = last_red;
-            float green = last_green;
-            float blue = last_blue;
-            float height = last_height;
+                        int x = last_x;
+                        int z = last_z;
+                        int type = last_type;
+                        float red = last_red;
+                        float green = last_green;
+                        float blue = last_blue;
+                        float height = last_height;
             
-            updateTerrain(x,z,height,type,red,green,blue);
-            } else if(paintColor) {
-                  float red = last_red;
-            float green = last_green;
-            float blue = last_blue;
-            float height = last_height;
+                        updateTerrain(x,z,height,type,red,green,blue);
+                    } 
+                    else if(paintColor) {
+                        float red = last_red;
+                        float green = last_green;
+                        float blue = last_blue;
+                        float height = last_height;
             
-            updateColor(red,green,blue);
-            }
+                        updateColor(red,green,blue);
+                    }
                 }
                 else {
                     c2->position.x = c3->position.x;
                     c2->position.z = c3->position.z;
                 }
-           }    
+            }    
             break;
-        }
-        
+            
+        // Move camera up/down
         case 'R':
-        {
+        case 'r':
             if (mainCamera->id == 4) {
-            mainCamera->position.x+=dynamic_cast<Camera*>(mainCamera)->up.x*2.0f;
-            mainCamera->position.y+=dynamic_cast<Camera*>(mainCamera)->up.y*2.0f;
-            mainCamera->position.z-=dynamic_cast<Camera*>(mainCamera)->up.z*2.0f;
+                mainCamera->position.x+=dynamic_cast<Camera*>(mainCamera)->up.x*2.0f;
+                mainCamera->position.y+=dynamic_cast<Camera*>(mainCamera)->up.y*2.0f;
+                mainCamera->position.z-=dynamic_cast<Camera*>(mainCamera)->up.z*2.0f;
             }
             if (mainCamera->id == 2 or mainCamera->id == 3) {
                 mainCamera->position.y+=1.0f; //default scale factor for now
-           }
+            }
             break;
-        }
         case 'F':
-        {
+        case 'f':
             if ( mainCamera->id == 4) {
-            mainCamera->position.x-=dynamic_cast<Camera*>(mainCamera)->up.x*2.0f;
-            mainCamera->position.y-=dynamic_cast<Camera*>(mainCamera)->up.y*2.0f;
-            mainCamera->position.z+=dynamic_cast<Camera*>(mainCamera)->up.z*2.0f;
+                mainCamera->position.x-=dynamic_cast<Camera*>(mainCamera)->up.x*2.0f;
+                mainCamera->position.y-=dynamic_cast<Camera*>(mainCamera)->up.y*2.0f;
+                mainCamera->position.z+=dynamic_cast<Camera*>(mainCamera)->up.z*2.0f;
             }
             if (mainCamera->id == 2 or mainCamera->id == 3) {
                 mainCamera->position.y-=1.0f; //default scale factor for now
-           }
-            break;
-        }
-        case 'X':
-        {
-            if (mainCamera->id == 4) {
-            mainCamera->direction.setVector(0.0f, 0.0f, -1.0f);
-            dynamic_cast<Camera*>(mainCamera)->up.setVector(0.0f, 1.0f, 0.0f);
-            mainCamera->rotation.buildFromEuler(0.0f, 0.0f, 0.0f);
             }
             break;
-        }
-        case 'C':
-            cam++;
-            
-            if ( cam > 3 )
-                cam = 0;
-                
-            if ( cam == 0 )
-                mainCamera = c1;
-            else if (cam == 1)
-                mainCamera = c2;
-            else if (cam == 2)
-                mainCamera = c3;
-            else if (cam == 3)
-                mainCamera = c4;
-                
+        
+        // Point camera to look down z axis
+        case 'Z':
+        case 'z':
+            if (mainCamera->id == 4) {
+                mainCamera->direction.setVector(0.0f, 0.0f, -1.0f);
+                dynamic_cast<Camera*>(mainCamera)->up.setVector(0.0f, 1.0f, 0.0f);
+                mainCamera->rotation.buildFromEuler(0.0f, 0.0f, 0.0f);
+            }
+            break;
+        
+        // Select current camera
+        case '1':
+            mainCamera = c1;
             currentLevel->setCamera(mainCamera);
             break;
-        case 'T':
+        case '2':
+            mainCamera = c2;
+            currentLevel->setCamera(mainCamera);
+            break;
+        case '3':
+            mainCamera = c3;
+            currentLevel->setCamera(mainCamera);
+            break;
+        case '4':
+            mainCamera = c4;
+            currentLevel->setCamera(mainCamera);
+            break;
+        
+        // Save terrain
+        case 'O':
+        case 'o':
             currentLevel->saveTerrain("terrains/new_terrain.txt" );        
             break;
-        case 'L':
+        
+        // Undo last terrain change
+        case 'U':
         {
             int x = last_x;
             int z = last_z;
@@ -816,28 +830,38 @@ void Engine::processNormalKey(unsigned char key)
             float blue = last_blue;
             float height = last_height;
             
-            updateTerrain(x,z,height,type,red,green,blue);
-            
+            updateTerrain(x,z,height,type,red,green,blue);        
             break;
-        }   
+        }
         
-        case 'G':
+        // Undo last color change
+        case 'u':
         {
+            float red = last_red;
+            float green = last_green;
+            float blue = last_blue;
+            float height = last_height;
+            
+            updateColor(red,green,blue);
+            break;
+        }  
+         
+        // Toggle settings
+        case 'G':
+        case 'g':
             currentLevel->toggleGrid();
             break;
-        } 
         case 'B':
-        {
+        case 'b':
             currentLevel->toggleBoundingBoxes();
             break;
-        }
-        case '4':
-        {
+        case 'C':
+        case 'c':
             currentLevel->toggleControlTriangles();
             break;
-        }
-        case 'U':
-        {
+        
+        // Assign next/previous script to player
+        case ':':
             player->unloadScript();
             
             if (++currentScript >= scripts.size())
@@ -847,20 +871,18 @@ void Engine::processNormalKey(unsigned char key)
             
             player->loadScript(scripts[currentScript]);
             break;
-        }
-        case 'J':
-        {
+        case ';':
             player->unloadScript();
             if (--currentScript < 0)
                 currentScript = scripts.size() - 1;
                 
-            //cout << "New player script '" << scripts[currentScript] << "'\n";
+            cout << "New player script '" << scripts[currentScript] << "'\n";
             
             player->loadScript(scripts[currentScript]);
             break; 
-        }
-        case '1':
-        {
+        
+        // Change current level to next/previous level
+        case 'L':
             if (++currentLevelNum >= levels.size())
                 currentLevelNum = 0;
                 
@@ -873,9 +895,7 @@ void Engine::processNormalKey(unsigned char key)
             cout << "..done\n";
             //loadLevel();
             break;
-        }
-        case '2':
-        {
+        case 'l':
             if (--currentLevelNum < 0)
                 currentLevelNum = levels.size() - 1;
                 
@@ -887,35 +907,29 @@ void Engine::processNormalKey(unsigned char key)
             cout << "..done\n";
             //loadLevel();
             break;
-        }
-        case '3':
+            
+        // Reload current level
+        case 'K':
+        case 'k':
             cout << "Reloading current level from script '" << levelScript << "'\n";
             cout << "deleting level";
             currentLevel->removePlayer();
             newLevel();
             cout << "..done\n";
             break;
+            
+        // Paint terrain and color
         case 'P':
-        {
             paint = !paint;
             break;
-        }
-        case 'K':
-        {
-           
-            float red = last_red;
-            float green = last_green;
-            float blue = last_blue;
-            float height = last_height;
-            
-            updateColor(red,green,blue);
-        }
-        case 'O':
-        {
+        
+        // Paint color only
+        case 'p':
             paintColor = !paintColor;
             break;
-        }
-        case '[':
+            
+        // Edit terrain height
+        case 'h':
         {
             int skip = 0;
             int xpos, zpos, type;
@@ -928,7 +942,7 @@ void Engine::processNormalKey(unsigned char key)
             updateTerrain(xpos,zpos,height, type, red, green, blue);
             break;
         }
-        case ']':
+        case 'H':
         {
             int skip = 0;
             int xpos, zpos, type;
@@ -941,7 +955,9 @@ void Engine::processNormalKey(unsigned char key)
             updateTerrain(xpos,zpos,height, type, red, green, blue);
             break;
         }
-        case '-':
+           
+        // Set terrain height to 0
+        case '0':
         {
             int skip = 0;
             int xpos, zpos, type;
@@ -954,7 +970,10 @@ void Engine::processNormalKey(unsigned char key)
             updateTerrain(xpos,zpos,height, type, red, green, blue);
             break;
         }
-        case '=':
+        
+        // Edit terrain type
+        case 'T':
+        case 't':
         {
             int skip = 0;
             int xpos, zpos, type;
@@ -966,54 +985,34 @@ void Engine::processNormalKey(unsigned char key)
                 type = 0;
             
             updateTerrain(xpos,zpos,height, type, red, green, blue);
-            break;        
+            break; 
         }
-        case 'V':
-        {
-            ScriptedObject *plr = dynamic_cast<Object*>(player);
-            Quaternion pRot = plr->rotation;
-            Vector pPos = plr->position;
-            plr->setPosition(pPos.x, pPos.y, pPos.z - 100.0f);
-            mainCamera->setRotationQuaternion(pRot);
-            mainCamera->setPosition(pPos.x - 15.0f, pPos.y, pPos.z - 100.0f);
-            break;
-        }
-        case '5':
-        {
+                   
+        // Edit light direction
+        case '[':
             light->x += .1;
             light->normalize();
             break;
-        }
-        case '6':
-        {
+        case ']':
             light->y += .1;
             light->normalize();
             break;
-        }
-        case '7':
-        {
+        case '\\':
             light->z += 0.1;
             light->normalize();
             break;
-        }
-        case '%':
-        {
+        case '{':
             light->x -= .1;
             light->normalize();
             break;
-        }
-        case '^':
-        {
+        case '}':
             light->y -= .1;
             light->normalize();
             break;
-        }
-        case '&':
-        {
+        case '|':
             light->z -= 0.1;
             light->normalize();
             break;
-        }
     }
 }
 

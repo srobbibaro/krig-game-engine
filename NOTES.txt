@@ -9,3 +9,44 @@ To convert old terrain format to new terrain format the light direction vector m
 
 12/2
 C++ Programming Style Guidelines: http://geosoft.no/development/cppstyle.html
+
+12/3
+Camera Controls:
+    a,A: move camera 4 left; move camera 2 and 3 along negative X-axis        
+    s,S: move camera 4 right; move camera 2 and 3 along positive X-axis
+    d,D: move camera 4 backward; move camera 2 and 3 along positive Z-axis
+    w,W: move camera 4 forward; move camera 2 and 3 along negative Z-axis
+    r,R: move camera 4 up; move camera 2 and 3 along positive Y-axis
+    f,F: move camera 4 down; move camera 2 and 3 along negative Y-axis
+    z,Z: point camera 4 looking down negative Z-axis    
+    1  : select camera 1 (main game camera)
+    2  : select camera 2 (overhead view, can only move along terrain editing grid)
+    3  : select camera 3 (normal view, can only move along terrain editing grid)
+    4  : select camera 4 (free roaming camera)
+
+Terrain Editing Controls:
+    o,O: output terrain file (save terrain to ./terrains/new_terrain.txt)
+    u  : undo last terrain color change only 
+    U  : undo last terrain height, type and color change
+    p  : paint only the select terrain color
+    P  : paint terrain height, color, and type
+    h  : decrease terrain height at coordinates by .05 units
+    H  : increase terrain height at coordinates by .05 units
+    0  : set terrain height at coordinates to 0 
+    t:T: change terrain type (land or water)
+    g,G: enable/disable grid
+
+Level Editing Controls: 
+    l  : load previous level
+    L  : load next level
+    k,K: reload current level
+    ;  : assign previous loaded script to player
+    :  : assign next loaded script to player  
+    [  : decrease light direction's x value by .1 (normalizes and does not save)
+    {  : increase light direction's x value by .1 (normalizes and does not save)     
+    ]  : decrease light direction's y value by .1 (normalizes and does not save)     
+    }  : increase light direction's y value by .1 (normalizes and does not save)     
+    \  : decrease light direction's z value by .1 (normalizes and does not save)     
+    |  : increase light direction's z value by .1 (normalizes and does not save)     
+    b,B: enable/disable object bounding boxes
+    c,C: enable/disable object control triangles        

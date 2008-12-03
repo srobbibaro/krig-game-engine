@@ -35,6 +35,6 @@
     x Update existing terrains to remove the light direction. (12/1/08 ~ Steve)
 
 12/2/08 ~ Steve
-    * Steve: Implement new mode based control scheme for level/terrain editing.
+    x Steve: Implement new mode based control scheme for level/terrain editing. (12/3/08 ~ Steve)
     * Andy: Change Sound class to play .ogg files instead of .wav files for sound effects.
     * Andy: Change Sound class to play sound effect described by file name rather than index obtained from sounds.txt file.
