@@ -1,44 +1,40 @@
-4. level 2 boss ai (steve)
-6. water level boss ai... (considerably toned down) (steve)
-12. use beams to stop the player's progress (steve)
-7.level 4. place objects/ai (steve and andy)
-1. fix missile ai (steve)
-2. change blue power up to be health bonus (steve)
-11. verify weather effects still work (steve)
-10. odds and ends and clean up (steve and andy)
-
-
-
-3. place enemy ships in level 2 (andy)
-5. water level (design this whole level)  place objects (andy)
-7.level 4. place objects/ai (steve and andy)
-8. boss ai (revamped level 1 boss) (andy)
-9. simple script to move into trench (andy)
-10. odds and ends and clean up (steve and andy)
+3/11/07 ~ Steve
+    x Steve: level 2 boss ai.
+    * Steve: water level boss ai... (considerably toned down).
+    * Steve: use beams to stop the player's progress.
+    * Steve/Andy: level 4 - place objects/ai.
+    * Steve: fix missile ai.
+    * Steve: change blue power up to be health bonus.
+    * Steve: verify weather effects still work.
+    * Steve/Andy: odds and ends and clean up.
+    * Andy: place enemy ships in level 2.
+    * Andy: water level (design this whole level)  place objects.
+    * Andy: boss ai (revamped level 1 boss).
+    * Andy: simple script to move into trench.
 
 11/24/08 ~ Steve
-   * implement "setTestZoneEnable" lua function
-   * determine whether it would be beneficial to over-ride "on_update" so that engine calls a different specified function
-   * determine whether or not ScriptedObject::animCurrTime is necessary especially in regards to interpolation... would elaped time/ duration suffice?
+    * implement "setTestZoneEnable" lua function
+    * determine whether it would be beneficial to over-ride "on_update" so that engine calls a different specified function
+    * determine whether or not ScriptedObject::animCurrTime is necessary especially in regards to interpolation... would elaped time/ duration suffice?
 
 11/26/08 ~ Steve
-   x Commit newest snow boss script to both krig branches.
-   x Commit newest level 4 terrain to both krig branches.
-   x Steve: Convert level1.lvl to level1.lua.
-   x Steve: Convert Snow Boss script to lua.
-   * Andy: Convert volcano script to lua.
-   * Andy: Convert sweeping ships to lua.
-   x Steve/Andy: Convert level1 boss script to lua.
-   * Implement ability to change script or to end script.
+    x Commit newest snow boss script to both krig branches.
+    x Commit newest level 4 terrain to both krig branches.
+    x Steve: Convert level1.lvl to level1.lua.
+    x Steve: Convert Snow Boss script to lua.
+    * Andy: Convert volcano script to lua.
+    * Andy: Convert sweeping ships to lua.
+    x Steve/Andy: Convert level1 boss script to lua.
+    * Implement ability to change script or to end script.
 
 11/27/08 ~ Steve
-   x Fix camera script for level 1
+    x Fix camera script for level 1
 
 11/30/08 ~ Steve
-   x Terrains should no longer store light direction. (This is a property of a GameLevel.)
-   x Update existing terrains to remove the light direction.
+    x Terrains should no longer store light direction. (This is a property of a GameLevel.) (12/1/08 ~ Steve)
+    x Update existing terrains to remove the light direction. (12/1/08 ~ Steve)
 
 12/2/08 ~ Steve
-   * Steve: Implement new mode based control scheme for level/terrain editing.
-   * Andy: Change Sound class to play .ogg files instead of .wav files for sound effects.
-   * Andy: Change Sound class to play sound effect described by file name rather than index obtained from sounds.txt file.
+    * Steve: Implement new mode based control scheme for level/terrain editing.
+    * Andy: Change Sound class to play .ogg files instead of .wav files for sound effects.
+    * Andy: Change Sound class to play sound effect described by file name rather than index obtained from sounds.txt file.
