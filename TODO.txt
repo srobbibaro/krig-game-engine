@@ -37,3 +37,8 @@
 11/30/08 ~ Steve
    x Terrains should no longer store light direction. (This is a property of a GameLevel.)
    x Update existing terrains to remove the light direction.
+
+12/2/08 ~ Steve
+   * Steve: Implement new mode based control scheme for level/terrain editing.
+   * Andy: Change Sound class to play .ogg files instead of .wav files for sound effects.
+   * Andy: Change Sound class to play sound effect described by file name rather than index obtained from sounds.txt file.
