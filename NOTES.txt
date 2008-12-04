@@ -50,3 +50,5 @@ Level Editing Controls:
     |  : increase light direction's z value by .1 (normalizes and does not save)     
     b,B: enable/disable object bounding boxes
     c,C: enable/disable object control triangles        
+
+To enable/disable terrain/level editing before building, set EDIT to 1/0 in constants.h

@@ -175,7 +175,9 @@ void Engine::prepare()
     glDepthFunc(GL_ALWAYS);
     if ( gameMode == 1 ) {
         displayHUD( (player)->life, (player)->numLives, boss->life, (player)->score );
+#if EDIT
         displayDebug();
+#endif
     }
     glDepthFunc(GL_LESS);
     
@@ -589,7 +591,8 @@ void Engine::processNormalKey(unsigned char key)
         case 27:
             control.enQueue(TOGGLE_MENU);
             break;
- 
+
+#if EDIT
         // Move camera up/down/left/right
         case 'W':      
         case 'w':
@@ -1013,6 +1016,7 @@ void Engine::processNormalKey(unsigned char key)
             light->z -= 0.1;
             light->normalize();
             break;
+#endif
     }
 }
 

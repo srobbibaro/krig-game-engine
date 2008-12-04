@@ -44,6 +44,8 @@ using namespace std;
 #define DEMO        0
 #define PLAY_DEMO   0
 
+#define EDIT        1
+
 
 //terrain parameters //
 #define X_SIZE 512         // 20

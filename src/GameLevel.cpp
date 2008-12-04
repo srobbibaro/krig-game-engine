@@ -18,7 +18,11 @@ GameLevel::GameLevel( unsigned int tLists)
     
     
     /////
+#if EDIT
     grid = true;
+#else
+    grid = false;
+#endif
     bboxes = false;
     controlTriangles = false;
     

@@ -22,6 +22,7 @@
 #include <ctime>
 #include "Engine.h"
 #include "sound.h"
+#include "constants.h"
 #include <iostream>
 
 using namespace std;
@@ -29,10 +30,9 @@ using namespace std;
 // global variables /////////////////////////////
 Engine* KRIG;
 
+#if EDIT
 // to remove before final build
 int mainWin, colorWin;
-
-
 
 //------------------------------------------------------------------------------
 void printString( char* str, float x, float y )
@@ -338,26 +338,21 @@ void mousePalette(int btn, int state, int x, int y)
 }
 
 ///////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
+#endif
 
 void display()
 {
+#if EDIT
     glutSetWindow( mainWin );
+#endif
     KRIG->gameCycle();
-    
+
+#if EDIT    
     glutSetWindow( colorWin );	  
     displayPalette();
     
     glutSetWindow( mainWin );
+#endif
 } 
 
 //------------------------------------------------------------------------------
@@ -409,8 +404,10 @@ void releaseKey( int key, GLint mouse_x, GLint mouse_y )
 //------------------------------------------------------------------------------
 void glutInit(void)
 {
-    //ShowCursor(false);              // hide mouse pointer
-    //glutIgnoreKeyRepeat(1);
+#if EDIT == 0
+    ShowCursor(false);              // hide mouse pointer
+    glutIgnoreKeyRepeat(1);
+#endif
     glutSpecialFunc( pressKey );
     glutSpecialUpFunc( releaseKey );
     glutDisplayFunc( display );
@@ -440,10 +437,10 @@ int main( int argc, char *argv[] )
         
     // setup window /////////////////////////////
     glutInitWindowSize( 800, 600 );	    // window size
-
+    
+#if EDIT
     mainWin = glutCreateWindow( "KRIG" );	// window title 
-    //glutGameModeString("800x600:32");
-     glutSetWindow( mainWin );	
+    glutSetWindow( mainWin );	
     
     KRIG->initGL();
     glutInit(); 
@@ -465,19 +462,22 @@ int main( int argc, char *argv[] )
     
     /////////////////////////////////////////////////
     
-    glutSetWindow( mainWin );		
+    glutSetWindow( mainWin );	
+#else 
+    //glutCreateWindow( "KRIG" );	// window title 
+    glutGameModeString("800x600:32");
     
-   /* 
-	if (glutGameModeGet(GLUT_GAME_MODE_POSSIBLE)) 
+    if (glutGameModeGet(GLUT_GAME_MODE_POSSIBLE)) 
 		glutEnterGameMode();
 	else {
 		printf ( "Unable to change screen resolution and setup game mode." );
 		exit(1);	
 	}
+
+	KRIG->initGL();
     glutInit(); 
-    */
-    
     /////////////////////////////////////////////
+#endif	
     
     glutMainLoop();
     return 0;
