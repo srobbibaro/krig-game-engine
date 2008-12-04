@@ -28,7 +28,7 @@ CompilerSet=0
 CompilerSettings=000000000000000000
 
 [Unit10]
-FileName=src\camera.h
+FileName=src\CannonBall.h
 CompileCpp=1
 Folder=
 Compile=1
@@ -38,26 +38,6 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit16]
-FileName=src\EnemyShip.cpp
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit17]
-FileName=src\EnemyShip.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit18]
 FileName=src\Engine.cpp
 CompileCpp=1
 Folder=
@@ -67,8 +47,28 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
+[Unit17]
+FileName=src\Engine.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit18]
+FileName=src\eventqueue.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
 [Unit22]
-FileName=src\Explosion.cpp
+FileName=src\GameLevel.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -78,16 +78,6 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit23]
-FileName=src\Explosion.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit25]
 FileName=src\GameLevel.h
 CompileCpp=1
 Folder=
@@ -97,8 +87,18 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
+[Unit25]
+FileName=src\gametimer.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
 [Unit26]
-FileName=src\gametimer.cpp
+FileName=src\main.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -108,26 +108,6 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit29]
-FileName=src\matrix.cpp
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit30]
-FileName=src\matrix.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit31]
 FileName=src\menu.cpp
 CompileCpp=1
 Folder=
@@ -137,7 +117,17 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit33]
+[Unit30]
+FileName=src\menu.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit31]
 FileName=src\menuCredits.cpp
 CompileCpp=1
 Folder=
@@ -147,17 +137,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit34]
-FileName=src\model.cpp
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit35]
+[Unit33]
 FileName=src\model.h
 CompileCpp=1
 Folder=
@@ -167,7 +147,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit36]
+[Unit34]
 FileName=src\ObjectNode.cpp
 CompileCpp=1
 Folder=
@@ -177,7 +157,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit37]
+[Unit35]
 FileName=src\ObjectNode.h
 CompileCpp=1
 Folder=
@@ -187,7 +167,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit38]
+[Unit36]
 FileName=src\objects.cpp
 CompileCpp=1
 Folder=
@@ -197,7 +177,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit39]
+[Unit37]
 FileName=src\objects.h
 CompileCpp=1
 Folder=
@@ -207,7 +187,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit40]
+[Unit38]
 FileName=src\ParticleSystem.cpp
 CompileCpp=1
 Folder=
@@ -217,7 +197,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit41]
+[Unit39]
 FileName=src\ParticleSystem.h
 CompileCpp=1
 Folder=
@@ -227,7 +207,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit42]
+[Unit40]
 FileName=src\Player.cpp
 CompileCpp=1
 Folder=
@@ -237,7 +217,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit43]
+[Unit41]
 FileName=src\Player.h
 CompileCpp=1
 Folder=
@@ -247,7 +227,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit44]
+[Unit42]
 FileName=src\PlayerMissle.cpp
 CompileCpp=1
 Folder=
@@ -257,7 +237,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit45]
+[Unit43]
 FileName=src\PlayerMissle.h
 CompileCpp=1
 Folder=
@@ -267,7 +247,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit46]
+[Unit44]
 FileName=src\PlayerShot.cpp
 CompileCpp=1
 Folder=
@@ -277,7 +257,17 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit48]
+[Unit45]
+FileName=src\PlayerShot.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit46]
 FileName=src\Powerup.cpp
 CompileCpp=1
 Folder=
@@ -287,17 +277,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit49]
-FileName=src\Powerup.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit50]
+[Unit48]
 FileName=src\SailBoat.cpp
 CompileCpp=1
 Folder=
@@ -307,7 +287,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit51]
+[Unit49]
 FileName=src\SailBoat.h
 CompileCpp=1
 Folder=
@@ -317,7 +297,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit52]
+[Unit50]
 FileName=src\Shot.cpp
 CompileCpp=1
 Folder=
@@ -327,7 +307,17 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit54]
+[Unit51]
+FileName=src\Shot.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit52]
 FileName=src\sound.cpp
 CompileCpp=1
 Folder=
@@ -337,17 +327,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit55]
-FileName=src\sound.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit56]
+[Unit54]
 FileName=src\terrain.cpp
 CompileCpp=1
 Folder=
@@ -357,7 +337,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit57]
+[Unit55]
 FileName=src\terrain.h
 CompileCpp=1
 Folder=
@@ -367,8 +347,28 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit58]
+[Unit56]
 FileName=src\text.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit57]
+FileName=src\text.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit58]
+FileName=src\ObjectInclude.h
 CompileCpp=1
 Folder=
 Compile=1
@@ -396,7 +396,7 @@ ProductVersion=
 AutoIncBuildNr=0
 
 [Unit27]
-FileName=src\gametimer.h
+FileName=src\matrix.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -406,7 +406,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit59]
-FileName=src\text.h
+FileName=src\Quaternion.h
 Folder=
 Compile=1
 Link=1
@@ -416,7 +416,7 @@ BuildCmd=
 CompileCpp=1
 
 [Unit60]
-FileName=src\ObjectInclude.h
+FileName=src\Quaternion.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -426,7 +426,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit61]
-FileName=src\Quaternion.h
+FileName=src\ScriptedObject.h
 CompileCpp=1
 Folder=
 Compile=1
@@ -515,37 +515,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit9]
-FileName=src\camera.cpp
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
 [Unit11]
-FileName=src\CannonBall.cpp
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit12]
-FileName=src\CannonBall.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit13]
 FileName=src\constants.h
 CompileCpp=1
 Folder=
@@ -555,7 +525,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit14]
+[Unit12]
 FileName=src\credits.cpp
 CompileCpp=1
 Folder=
@@ -565,7 +535,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit15]
+[Unit13]
 FileName=src\credits.h
 CompileCpp=1
 Folder=
@@ -575,27 +545,27 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
+[Unit14]
+FileName=src\EnemyShip.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit15]
+FileName=src\EnemyShip.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
 [Unit19]
-FileName=src\Engine.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit20]
-FileName=src\eventqueue.cpp
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit21]
 FileName=src\eventqueue.h
 CompileCpp=1
 Folder=
@@ -605,8 +575,28 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
+[Unit20]
+FileName=src\Explosion.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit21]
+FileName=src\Explosion.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
 [Unit24]
-FileName=src\GameLevel.cpp
+FileName=src\gametimer.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -616,7 +606,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit32]
-FileName=src\menu.h
+FileName=src\model.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -626,7 +616,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit47]
-FileName=src\PlayerShot.h
+FileName=src\Powerup.h
 CompileCpp=1
 Folder=
 Compile=1
@@ -636,7 +626,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit53]
-FileName=src\Shot.h
+FileName=src\sound.h
 CompileCpp=1
 Folder=
 Compile=1
@@ -646,26 +636,6 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit62]
-FileName=src\Quaternion.cpp
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit63]
-FileName=src\ScriptedObject.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit64]
 FileName=src\ScriptedObject.cpp
 CompileCpp=1
 Folder=
@@ -675,7 +645,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit65]
+[Unit63]
 FileName=src\Snow.h
 CompileCpp=1
 Folder=
@@ -685,7 +655,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit66]
+[Unit64]
 FileName=src\Snow.cpp
 CompileCpp=1
 Folder=
@@ -695,7 +665,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit67]
+[Unit65]
 FileName=src\QuadTreeNode.h
 CompileCpp=1
 Folder=
@@ -705,7 +675,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit68]
+[Unit66]
 FileName=src\QuadTreeNode.cpp
 CompileCpp=1
 Folder=
@@ -715,17 +685,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit28]
-FileName=src\main.cpp
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit69]
+[Unit67]
 FileName=src\QuadTree.h
 CompileCpp=1
 Folder=
@@ -735,7 +695,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit70]
+[Unit68]
 FileName=src\QuadTree.cpp
 CompileCpp=1
 Folder=
@@ -745,7 +705,17 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit71]
+[Unit28]
+FileName=src\matrix.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit69]
 FileName=src\DisplayList.h
 CompileCpp=1
 Folder=
@@ -755,7 +725,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit72]
+[Unit70]
 FileName=src\DisplayList.cpp
 CompileCpp=1
 Folder=
@@ -765,7 +735,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit73]
+[Unit71]
 FileName=src\Frustum.h
 CompileCpp=1
 Folder=
@@ -775,7 +745,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit74]
+[Unit72]
 FileName=src\Plane.h
 CompileCpp=1
 Folder=
@@ -785,7 +755,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit75]
+[Unit73]
 FileName=src\Plane.cpp
 CompileCpp=1
 Folder=
@@ -795,7 +765,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit76]
+[Unit74]
 FileName=src\Frustum.cpp
 CompileCpp=1
 Folder=
@@ -805,7 +775,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit77]
+[Unit75]
 FileName=src\Sphere.h
 CompileCpp=1
 Folder=
@@ -815,10 +785,30 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit78]
+[Unit76]
 FileName=src\Sphere.cpp
 CompileCpp=1
 Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit77]
+FileName=src\Camera.cpp
+CompileCpp=1
+Folder=krig
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit78]
+FileName=src\Camera.h
+CompileCpp=1
+Folder=krig
 Compile=1
 Link=1
 Priority=1000
@@ -837,6 +827,16 @@ BuildCmd=
 
 [Unit80]
 FileName=src\Sphere.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit9]
+FileName=src\CannonBall.cpp
 CompileCpp=1
 Folder=
 Compile=1
