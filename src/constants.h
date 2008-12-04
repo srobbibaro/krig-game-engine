@@ -46,7 +46,6 @@ using namespace std;
 
 #define EDIT        1
 
-
 //terrain parameters //
 #define X_SIZE 512         // 20
 #define Z_SIZE 256         // 7
@@ -109,43 +108,6 @@ using namespace std;
 #define SCRIPT_STORE_SCALE_IN_MEM       141
 #define SCRIPT_STORE_SCALE_RATE_IN_MEM  142
 //////////////////////////////////////////
-
-// Camera Extended Scripting Language ////
-#define SCRIPT_SET_PLR_POSITION_MEM         128 
-#define SCRIPT_SET_PLR_ROTATION_MEM         129
-#define SCRIPT_SET_PLR_VELOCITY_MEM         130
-#define SCRIPT_SET_PLR_SPEED_MEM            131
-#define SCRIPT_SET_PLR_ROT_VEL_MEM          132
-
-#define SCRIPT_SET_PLR_POSITION_VAL         133 
-#define SCRIPT_SET_PLR_ROTATION_VAL         134
-#define SCRIPT_SET_PLR_VELOCITY_VAL         135
-#define SCRIPT_SET_PLR_SPEED_VAL            136
-#define SCRIPT_SET_PLR_ROT_VEL_VAL          137
-
-// shortcuts /////
-#define SCRIPT_ADD_PLR_POSITION_MEM         138
-#define SCRIPT_ADD_PLR_ROTATION_MEM         139
-#define SCRIPT_ADD_PLR_VELOCITY_MEM         140
-#define SCRIPT_ADD_PLR_SPEED_MEM            141
-#define SCRIPT_ADD_PLR_ROT_VEL_MEM          142
-
-#define SCRIPT_ADD_PLR_POSITION_VAL         143
-#define SCRIPT_ADD_PLR_ROTATION_VAL         144
-#define SCRIPT_ADD_PLR_VELOCITY_VAL         145
-#define SCRIPT_ADD_PLR_SPEED_VAL            146
-#define SCRIPT_ADD_PLR_ROT_VEL_VAL          147
-
-#define SCRIPT_SET_PLR_ROT_VEL_AXIS_MEM         148
-#define SCRIPT_SET_PLR_ROT_VEL_AXIS_VAL         149
-
-#define SCRIPT_SET_PLR_ROTATION_AXIS_MEM        150
-#define SCRIPT_SET_PLR_ROTATION_AXIS_VAL        151
-
-#define SCRIPT_ADD_PLR_ROTATION_AXIS_MEM        152
-#define SCRIPT_ADD_PLR_ROTATION_AXIS_VAL        153
-
-/////////////////////////////////////////////
 
 // Text Extended Scripting Language ////
 #define TEXT_SCRIPT_CLEAR_ALL       90
