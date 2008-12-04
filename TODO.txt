@@ -38,3 +38,6 @@
     x Steve: Implement new mode based control scheme for level/terrain editing. (12/3/08 ~ Steve)
     * Andy: Change Sound class to play .ogg files instead of .wav files for sound effects.
     * Andy: Change Sound class to play sound effect described by file name rather than index obtained from sounds.txt file.
+
+12/3/08 ~ Steve
+    x Steve: Implement ability to conditionally compile in game mode or edit mode. (12/3/08 ~ Steve)
