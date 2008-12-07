@@ -36,8 +36,13 @@
 
 12/2/08 ~ Steve
     x Steve: Implement new mode based control scheme for level/terrain editing. (12/3/08 ~ Steve)
-    * Andy: Change Sound class to play .ogg files instead of .wav files for sound effects.
+    x Andy: Change Sound class to play .ogg files instead of .wav files for sound effects (12/6/08 ~ Andy).
     * Andy: Change Sound class to play sound effect described by file name rather than index obtained from sounds.txt file.
 
 12/3/08 ~ Steve
     x Steve: Implement ability to conditionally compile in game mode or edit mode. (12/3/08 ~ Steve)
+
+12/7/08 ~ Steve
+    * Convert level 1 to new level loading scheme.
+    * Convert level 2 to new level loading scheme.
+    * Steve: determine why setSkyBox function crashes game.
