@@ -46,7 +46,7 @@ void EnemyShip::handleCollision( Object* temp )
             if ( player != NULL )
                 player->score += 100;
             
-            s->PlaySFX(3);
+            s->PlaySFX("explosion1.wav");
             
             
             if ( rand() % 100 > 50 ) {
@@ -78,7 +78,7 @@ void EnemyShip::handleCollision( Object* temp )
             state = DEAD;
             if ( player != NULL )
                 player->score += 100;
-            s->PlaySFX(3);
+            s->PlaySFX("explosion1.wav");
             obj = new Explosion ( 2.0f, animCurrTime );
             obj->position = position;
             obj->setVelocity(0.0f, 0.0f, 0.0f);
@@ -105,7 +105,7 @@ void EnemyShip::handleCollision( Object* temp )
                 {
                     state = DEAD;
                     
-                    s->PlaySFX(3);
+                    s->PlaySFX("explosion1.wav");
                     obj = new Explosion ( 2.0f, animCurrTime );
                     obj->position = position;
                     obj->setVelocity(0.0f, 0.0f, 0.0f);
@@ -147,6 +147,6 @@ void EnemyShip::fireShot()
     //cout << "es speed: " << speed;
     setShot( obj, (speed + SHOT_SPEED) );
     
-    s->PlaySFX(0);
+    s->PlaySFX("laser.wav");
 }
 

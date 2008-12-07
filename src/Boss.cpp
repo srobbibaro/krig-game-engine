@@ -53,7 +53,7 @@ void Boss::handleCollision( Object* temp )
         {
             state = DEAD;
             //player->score += 1000;
-            s->PlaySFX(5);
+            s->PlaySFX("bossexplo.wav");
             
             obj = new Explosion ( 5.0f, animCurrTime );
             obj->position = position;
@@ -62,7 +62,7 @@ void Boss::handleCollision( Object* temp )
             *complete = true;
         }
         else
-            s->PlaySFX(3);
+            s->PlaySFX("explosion1.wav");
     }
     else if ( typeid( *temp ) == typeid( PlayerMissle ) )
     {
@@ -71,7 +71,7 @@ void Boss::handleCollision( Object* temp )
         {
             state = DEAD;
             //player->score += 1000;
-            s->PlaySFX(5);
+            s->PlaySFX("bossexplo.wav");
             
             obj = new Explosion ( 5.0f, animCurrTime );
             obj->position = position;
@@ -80,7 +80,7 @@ void Boss::handleCollision( Object* temp )
             *complete = true;
         }
         else
-            s->PlaySFX(3);
+            s->PlaySFX("explosion3.wav");
     }
     
     else if ( typeid( *temp ) == typeid( Terrain ) )
@@ -144,7 +144,7 @@ void Boss::processAI( Camera* c, float elapsedTime )
         obj->position.y=(collisionBox[1].y - 0.9);
         
         
-        s->PlaySFX(0);
+        s->PlaySFX("laser.wav");
         */
      }
      

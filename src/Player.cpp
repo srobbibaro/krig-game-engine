@@ -47,7 +47,7 @@ void Player::handleCollision( Object* temp )
             life = 10;
         }
         
-        s->PlaySFX(3);
+        s->PlaySFX("explosion1.wav");
     }
     else if ( typeid ( *temp ) == typeid( Boss ) ) {
         animStartTime = *animCurrTime;
@@ -61,7 +61,7 @@ void Player::handleCollision( Object* temp )
             life = 10;
         }
         
-        s->PlaySFX(3);
+        s->PlaySFX("explosion1.wav");
     
     }
     else if ( typeid( *temp ) == typeid( Powerup ) ) {
@@ -237,7 +237,7 @@ void Player::fireShot( float gameSpeed )
         
         add( pShot );
             
-        s->PlaySFX(0);          
+        s->PlaySFX("laser.wav");          
     }
 }
 

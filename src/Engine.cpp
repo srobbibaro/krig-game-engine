@@ -503,7 +503,7 @@ void Engine::processCommands()
                 if ( gameMode == 1 )
                 {
                     sounds->PauseSong();
-                    sounds->PlaySFX(2);
+                    sounds->PlaySFX("pause.wav");
                     MenuStr = "Resume";
                     gameMode = 0;
                     
@@ -528,7 +528,7 @@ void Engine::processCommands()
                 
             case MOVE_CURSOR:
                 menuCursor = !menuCursor;
-                sounds->PlaySFX(1);
+                sounds->PlaySFX("menu.wav");
                 
                 break;
             

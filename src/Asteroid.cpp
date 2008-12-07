@@ -27,7 +27,7 @@ void Asteroid::handleCollision( Object* temp )
 {
     if ( typeid( *temp ) == typeid( Player ) || typeid( *temp ) == typeid( PlayerShot ) || typeid( *temp ) == typeid( PlayerMissle ) )
     {
-        s->PlaySFX(3);
+        s->PlaySFX("explosion1.wav");
         life--;
         if ( life < 1)
             state = DEAD;
