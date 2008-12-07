@@ -5,6 +5,8 @@
 #include <AL/alut.h>
 #include <vorbis/vorbisfile.h>
 #include "constants.h"
+#include <map>
+#include <dirent.h>
 
 class Sound
 {
@@ -29,6 +31,9 @@ class Sound
         ALuint *SFXSources;     //Data for loading in the sound effects
         ALuint *SFXBuffers;
         int numofSFX;
+
+        // Maps sound effect file names to array indexes.
+        map <string, int> sfxHash;
           
     public:
         Sound(char *);
@@ -39,7 +44,7 @@ class Sound
         void StopSong();
         void PauseSong();
         
-        void PlaySFX(int);          //functions for sound effects playing
+        void PlaySFX(string);          //functions for sound effects playing
         void SetSFX(int, ALfloat, ALfloat, ALfloat, ALfloat, ALfloat, ALfloat, ALboolean);
         
         void SetCamera(ALfloat, ALfloat, ALfloat, ALfloat, ALfloat, ALfloat);
