@@ -43,12 +43,17 @@
     x Steve: Implement ability to conditionally compile in game mode or edit mode. (12/3/08 ~ Steve)
 
 12/7/08 ~ Steve
-    x Convert level 1 to new level loading scheme (12/8/08 ~ Steve).
-    x Convert level 2 to new level loading scheme (12/7/08 ~ Steve).
+    x Convert level 1 to new level loading scheme. (12/8/08 ~ Steve)
+    x Convert level 2 to new level loading scheme. (12/7/08 ~ Steve)
     x Steve: setSkyBox function crashes game. (12/7/08 ~ Steve)
 
 12/8/08 ~ Steve
-    * Convert level 4 to new level loading scheme.
+    x Convert level 4 to new level loading scheme. (12/8/08 ~ Steve)
     * Steve: Fix player shot lua script to mimic existing design.
-    * Steve: Game crashes when changing levels. 
+    * Steve: Game crashes when changing levels. Level 2? 
     * Steve: Game sometimes crashes while shooting.
+    * Why does game seg fault during debug before loading level?
+    * Make lua function to enable/disable collision detection for each object.
+    * Implement lua created object type identifiers for use during collision detection.
+    * Implement getScalar lua function.
+    * Implement lua function to determine if vector intersects a collision box.
