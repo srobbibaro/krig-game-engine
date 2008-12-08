@@ -1,16 +1,16 @@
-11/23
+11/23/08 ~ Steve
 lua Math Library Reference: http://lua-users.org/wiki/MathLibraryTutorial
 
-11/24
+11/24/08 ~ Steve 
 lua Language Reference: http://www.lua.org/pil/
 
-11/30
+11/30/08 ~ Steve
 To convert old terrain format to new terrain format the light direction vector must be removed from the terrain definition file. (4th, 5th, and 6th values from beginning.)
 
-12/2
+12/2/08 ~ Steve
 C++ Programming Style Guidelines: http://geosoft.no/development/cppstyle.html
 
-12/3
+12/3/08 ~ Steve
 Camera Controls:
     a,A: move camera 4 left; move camera 2 and 3 along negative X-axis        
     s,S: move camera 4 right; move camera 2 and 3 along positive X-axis
@@ -52,3 +52,69 @@ Level Editing Controls:
     c,C: enable/disable object control triangles        
 
 To enable/disable terrain/level editing before building, set EDIT to 1/0 in constants.h
+
+12/8/08 ~ Steve
+KRIG Engine lua scripting functions:
+All Scopes:
+    setModel(object_ref, model_name) - returns: n/a
+    setScript(object_ref, script_name) - returns: n/a
+
+    setScale(object_ref, x, y, z) - returns: n/a
+    getScale(object_ref) - returns: x, y, z - note: not implemented yet
+
+    setPosition(object_ref, x, y, z) - returns: n/a
+    getPosition(object_ref) - returns: x, y, z
+
+    setVelocity(object_ref, x, y, z) - returns: n/a
+    getVelocity(object_ref) - returns: x, y, z
+
+    setRotationVelocity(object_ref, x, y, z) - returns: n/a
+    getRotationVelocity(object_ref) - returns: x, y, z
+
+    setSpeed(object_ref, direction, speed) - returns: n/a
+    getSpeed(object_ref) - returns: direction, speed
+
+    setRotation(object_ref, x, y, z) - returns: n/a
+    getRotation(object_ref) - returns: x, y, z
+
+    getDirection(object_ref) - returns: x, y, z
+    getUp(object_ref) - returns: x, y, z
+    getOrthogonal(object_ref) - returns: x, y, z
+
+    addPosition(object_ref, x, y, z) - returns: n/a
+    addRotation(object_ref, x, y, z) - returns: n/a
+    addVelocity(object_ref, x, y, z) - returns: n/a
+    addSpeed(object_ref, speed) - returns: n/a
+    addRotationVelocity(object_ref, x, y, z) - returns: n/a
+
+    setInterpolationRotationStartAxis(object_ref, x, y, z) - returns: n/a
+    setInterpolationRotationEndAxis(object_ref, x, y, z) - returns: n/a
+    setInterpolationRotationStart(object_ref, x, y, z) - returns: n/a
+    setInterpolationRotationEnd(object_ref, x, y, z) - returns: n/a
+    setInterpolationEnable(object_ref, state) - returns: n/a
+    setInterpolationVariable(object_ref, interp_var, start_val, end_val) - returns: n/a
+
+    setRotationVelocityAxis(object_ref, x, y, z) - returns: n/a
+    setRotationAxis(object_ref, x, y, z) - returns: n/a
+    addRotationAxis(object_ref, x, y, z) - returns: n/a
+
+    getCamera() - returns: camera_ref
+    getPlayer() - returns: player_ref
+
+    getTimer(object_ref) - returns: timer
+    suspend(object_ref, delay) - returns: n/a - note: possibly will be removed/reworked
+
+    playSound(object_ref, sound_name) - returns: n/a
+
+    addObject(object_ref, script_name) - returns: object_ref
+    removeObject(object_Ref) - returns: n/a
+
+    addParticleSystem(object_ref, number) - returns: n/a - note: will be changed to use name
+
+Game Level Script Scope Only:
+    setBgMusic(song_name) - returns: n/a
+    setSkyBox(color1_red, color1_green, color1_blue, 
+              color2_red, color2_green, color2_blue, 
+              color3_red, color3_green, color3_blue) - returns: n/a
+    setLightDirection(x, y, z) - returns: n/a
+    setTerrain(terrain_name) - returns: n/a
