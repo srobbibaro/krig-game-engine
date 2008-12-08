@@ -11,10 +11,10 @@
 #ifndef _CAMERA_H_
 #define _CAMERA_H_
 
-#include "ScriptedObject.h"
+#include "Object.h"
 #include "Frustum.h"
 
-class Camera : public ScriptedObject
+class Camera : public Object
 {
     public:
     //private:
@@ -42,9 +42,17 @@ class Camera : public ScriptedObject
             cout << "camera";
         }
         
-        void draw(void);
+        void draw(Object*);
         
         void getFrustum(Frustum &f);
+        
+        void drawOutline( Object* ) {}; // Camera*
+        void drawShadow ( Vector* ) {}
+        void handleCollision( Object* ) {};
+        void update( Vector* ) {};
+        void prepare( void ) {};
+        void animate( float, Object* ) {}; // Camera*
+        void handleDeath() {};
 };
 
 #endif

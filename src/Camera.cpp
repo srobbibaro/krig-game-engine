@@ -13,7 +13,7 @@
 
 
 //------------------------------------------------------------------------------
-Camera::Camera( void ) : ScriptedObject()
+Camera::Camera( void ) : Object()
 {
       // default camera settings
       baseDirection.setVector(0.0f, 0.0f, -1.0f);
@@ -135,6 +135,9 @@ void Camera::update( float timeElapsed)
     
     
     final = projectionMatrix * modelViewMatrix;
+    
+     if (particleSystem != NULL)
+        particleSystem->update(timeElapsed);
 }
 
 //------------------------------------------------------------------------------
@@ -169,7 +172,7 @@ void Camera::getFrustum(Frustum &f)
 }
 
 //------------------------------------------------------------------------------
-void Camera::draw(void)
+void Camera::draw(Object* hey)
 {
     glColor3f(1.0f, 1.0f, 1.0f);
     
@@ -181,4 +184,7 @@ void Camera::draw(void)
     glEnd();
             
     glPopMatrix();
+    
+    if (particleSystem != NULL)
+        particleSystem->draw();
 }

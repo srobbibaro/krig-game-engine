@@ -1,37 +1,31 @@
-numObjects = 2
-terrain = "level4.txt"
-
-lightDirection = {0.0, 0.2, 0.8}
-
-weatherEffect = 0
-
-bgMusic = "Sparkman.ogg"
-
-bgColor = {0.0, 0.0, 0.0,
-           0.0, 0.0, 0.3,
-	     1.0, 0.0, 0.5}
-
 x_start_camera = 50.0
 x_start_player = x_start_camera - 20.0
 
-cameraPosition = {x_start_camera, 15.0, 27.5}
-cameraRotation = {0.0, 0.0, 0.0}
-cameraScript   = "camera1.lua"
+function on_load(terrain)
+    --setBgMusic("./music/Sparkman.ogg")
+    setSkyBox(0.0, 0.0, 0.0,
+              0.0, 0.0, 0.3,
+	        1.0, 0.0, 0.5)
 
-objects = {
-      -- Setup the 1st object (always player) 
-	{type 	= 0,
-       modelKey	= "Ship.mdl",
-	 scale      = {2.0, 2.0, 2.0},
-       rotation   = {0.0, 1.57, 0.0},
-       position   = {x_start_player, 20.0, 0.0},
-       script     = "camera1.lua"},
+    setLightDirection(0.0, 0.2, 0.8)
 
-      -- Setup the 2nd object (always boss)
-	{type		= 6,
-       modelKey   = "Boss.mdl",
-       scale      = {4.0, 4.0, 4.0},
-       rotation   = {0.0, -1.57, 0.0},
-       position   = {860.0, 15.0, 50.0},
-       script     = "boss1.lua"},
-}
+    setTerrain(terrain, "./terrains/level4.txt")
+
+    player = getPlayer(terrain)
+    setScript(player, "./scripts/player1.lua")
+    setPosition(player, x_start_player, 15.0, 7.5)
+
+    camera = getCamera(obj)
+    setScript(camera, "./scripts/camera1.lua")
+    setPosition(camera, x_start_camera, 15.0, 27.5)
+    
+    return
+end
+
+function on_update()
+    return
+end
+
+function on_unload()
+    return
+end

@@ -33,7 +33,7 @@ class Engine
         int numLives;
         
         
-        Boss* boss;
+        //Boss* boss;
         Terrain* terrain;           // pointer to terrain
         Object* obj;                // temp object
         int hMove; int vMove;

@@ -42,7 +42,7 @@ Terrain::~Terrain()
 }
 
 //------------------------------------------------------------------------------
-void Terrain::draw( Camera* c )
+void Terrain::draw( Object* c )
 {   
         int x1, x2;
         int z1, z2;
@@ -162,7 +162,7 @@ void Terrain::draw( Camera* c )
 }
 
 //------------------------------------------------------------------------------
-void Terrain::drawOutline( Camera* c )
+void Terrain::drawOutline( Object* c )
 {	 
     int x1, x2;
     int z1, z2;
@@ -498,7 +498,7 @@ float Terrain::getHeight( float x, float z )
 }
 
 //------------------------------------------------------------------------------
-void Terrain::animate( float elapsedTime, Camera* c )
+void Terrain::animate( float elapsedTime, Object* c )
 {
     GLfloat min[] = { 9999.0f, 9999.0f, 9999.0f };
     GLfloat max[] = { -9999.0f, -9999.0f, -9999.0f };

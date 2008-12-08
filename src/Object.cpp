@@ -10,7 +10,9 @@
 // Date        : 12-1-03                                        //
 //////////////////////////////////////////////////////////////////
 
-#include "objects.h"
+#include "Object.h"
+#include "Scripting.h"
+#include "Snow.h"
 
 GLint numObjects;
 Object* object;
@@ -19,35 +21,49 @@ Object* object;
 Object::Object() 
 : ObjectNode()
 {
-    scaleFactor.setVector( 1.0f, 1.0f, 1.0f );
+    scale.setVector( 1.0f, 1.0f, 1.0f );
     scaleRate.setVector( 0.0f, 0.0f, 0.0f );
+    
+    velocity.setVector(0.0f, 0.0f, 0.0f);
+    position.setVector(0.0f, 0.0f, 0.0f);
+    setRotationEuler(0.0f, 0.0f, 0.0f);
     
     state = NORMAL; 
     active = false;
-    animStartTime = 0.0f;
+    //#animStartTime = 0.0f;
     isVisible = true;
     s = NULL;
     collision = false;
-    isEnemy = false;
+    //#isEnemy = false;
        
-    testActiveZoneEnable = true;
+    //#testActiveZoneEnable = true;
+    
+    init();
 }
 
 //------------------------------------------------------------------------------
 Object::~Object()
 {
     s = NULL;
+    
+     if (L != NULL)
+        lua_close(L);
+        
+    if (particleSystem != NULL)
+        delete particleSystem;
+    
+    particleSystem = NULL;
 }
 
  
 //------------------------------------------------------------------------------
-void Object::setScaleFactor( GLfloat x, GLfloat y, GLfloat z )
-{ scaleFactor.setVector( x, y, z ); }
+void Object::setScale( GLfloat x, GLfloat y, GLfloat z )
+{ scale.setVector( x, y, z ); }
 
 //------------------------------------------------------------------------------
-void Object::setScaleFactor( const Vector &v )
+void Object::setScale( const Vector &v )
 {
-    scaleFactor = v;
+    scale = v;
 }
 
 //------------------------------------------------------------------------------
@@ -71,7 +87,7 @@ void Object::setSoundClass ( Sound *snd )
 { s = snd; }
 
 //------------------------------------------------------------------------------
-void Object::drawObjects( Camera* c )
+void Object::drawObjects( Object* c )
 {
     if ( active == true && state != DEAD && isVisible == true )
         draw(c);
@@ -81,7 +97,7 @@ void Object::drawObjects( Camera* c )
 }
     
 //------------------------------------------------------------------------------
-void Object::drawObjectOutlines( Camera* c )
+void Object::drawObjectOutlines( Object* c )
 {
     if ( active == true && state != DEAD && isVisible == true)
         drawOutline( c );
@@ -261,7 +277,7 @@ void Object::showControlTriangle()
 }
 
 //------------------------------------------------------------------------------
-void Object::animateObjects( float timeElapsed, Camera* c )
+void Object::animateObjects( float timeElapsed, Object* c )
 {   
     animate( timeElapsed, c );
      
@@ -280,10 +296,10 @@ float Object::calcTriangleCenter( void )
 }
 
 //------------------------------------------------------------------------------
-bool Object::testActiveZone( Camera* c )
+bool Object::testActiveZone( Object* c )
 {   
-   if ( !testActiveZoneEnable )
-      return true;
+   //#if ( !testActiveZoneEnable )
+   //#   return true;
 
     return ( 
         ( position.z > ( c->position.z - ACTIVE_VOLUME_LENGTH ) ) && 
@@ -297,42 +313,7 @@ bool Object::testActiveZone( Camera* c )
     );
 }
 
-//------------------------------------------------------------------------------
-bool Object::checkActiveEnemy( void )
-{ return ( ( active == true ) && ( state != DEAD ) && ( isEnemy == true ) ); }
 
-//------------------------------------------------------------------------------
-void Object::decrementShots ( void )
-{   //numShots--; 
-}
-
-//------------------------------------------------------------------------------
-void Object::setShot( Object* obj, float tVelocity )
-{ 
-    Vector tv;
-    bool hit = direction.intersectBox( position, collisionBox, 1.0f, tv );
-            
-    if ( hit ) {   
-        obj->setPosition( tv );
-    }
-    else {
-        obj->position = position;        
-    }
-            
-    // still undecided about what velocity the shots should be given //
-    //obj->velocity.x = ( direction.x * tVelocity );       
-    //obj->velocity.y = ( direction.y * tVelocity );
-    //obj->velocity.z = ( direction.z * tVelocity );
-            
-    obj->speed = tVelocity;
-    ///////////////////////////////////////////////////////////////////
-            
-    obj->rotationVelocity.x = direction.x * 8.0;
-    obj->rotationVelocity.y = direction.y * 8.0;
-    obj->rotationVelocity.z = direction.z * 8.0;
-            
-    obj->setRotationQuaternion(rotation);             
-}
 
 //------------------------------------------------------------------------------
 /*
@@ -435,16 +416,6 @@ int Object::processExtendedCommand( const ScriptCommand &t )
             }
             break;
         
-        case SCRIPT_STORE_LIFE_IN_MEM:
-            index1 = (int)t.p1;
-            
-            if ( index1 >= 0 && index1 < MEM_LEN ) {
-                memVars[index1] = (float)life;
-            }
-            break;
-        case SCRIPT_FIRE_WEAPON:
-            fireShot();
-            break;
         case SCRIPT_STORE_SCALE_IN_MEM:
             index1 = (int)t.p1;
             index2 = (int)t.p2;
@@ -480,5 +451,336 @@ int Object::processExtendedCommand( const ScriptCommand &t )
 }
 
 */
+
+void Object::setLuaState(lua_State* tl)
+{
+}
+
+//------------------------------------------------------------------------------
+void Object::setPosition( GLfloat x, GLfloat y, GLfloat z )
+{ position.setVector( x, y, z ); }
+
+//------------------------------------------------------------------------------
+void Object::setPosition( Vector t )
+{ position = t; }
+ 
+//------------------------------------------------------------------------------ 
+void Object::setRotationAxis( GLfloat vx, GLfloat vy, GLfloat vz, GLfloat vw )
+{
+    rotation.buildFromAxis( Vector( vx, vy, vz ), vw );
+}
+
+//------------------------------------------------------------------------------
+void Object::setRotationAxis( const Vector &v, GLfloat a )
+{
+    rotation.buildFromAxis( v, a );
+}
+
+//------------------------------------------------------------------------------
+void Object::setRotationEuler( GLfloat x, GLfloat y, GLfloat z )
+{
+    rotation.buildFromEuler( x, y, z );
+}
+
+//------------------------------------------------------------------------------
+void Object::setRotationEuler( const Vector &v )
+{
+    rotation.buildFromEuler( v );
+}
+
+//------------------------------------------------------------------------------            
+void Object::setRotationQuaternion( const Quaternion &q )
+{
+    rotation = q;
+}
+
+//------------------------------------------------------------------------------
+void Object::setRotationVelocity( GLfloat xAngle, GLfloat yAngle, GLfloat zAngle )
+{
+    rotationVelocity.setVector( xAngle, yAngle, zAngle );
+}
+
+//------------------------------------------------------------------------------            
+void Object::setRotationVelocity( const Vector &v )
+{
+    rotationVelocity = v; 
+}
+
+//------------------------------------------------------------------------------
+void Object::setVelocity( GLfloat x, GLfloat y, GLfloat z )
+{ velocity.setVector( x, y, z ); }
+
+//------------------------------------------------------------------------------
+void Object::setVelocity( const Vector &v )
+{
+    velocity = v;
+}      
+
+//------------------------------------------------------------------------------
+void Object::setTimer( float* temp )
+{
+    //#animCurrTime = temp;   
+}
+
+
+//------------------------------------------------------------------------------
+//int Object::processBasicCommand( const ScriptCommand &t )
+//{
+//   int next = 1;
+   /*
+   //cout << "routine: " << t.routine << endl << endl;
+   int index1, index2, index3, index4, op;
+   
+    switch (t.routine)
+    {
+        // load another script to execute //
+        case SCRIPT_SET_SCRIPT:
+            setScript((int)t.p1);
+            next = 0;
+            break;
+
+        // extended basic //        
+      
+            break;
+        
+    }  
+   
+   */
+//    return (next);
+//}
+
+//------------------------------------------------------------------------------
+void Object::animateScript(float elapsedTime)
+{
+    // Attempt to execute the script only if the lua state has already been
+    // initialized with a script
+    if (L == NULL)
+        return;
+        
+    // If the script is suspended, do not run until time has elapsed
+    if (suspend) {
+        suspendTime -= elapsedTime; 
+        if (suspendTime > 0.0f) 
+            return;
+        suspend = false;
+        suspendTime = 0.0f;
+    }
+    
+    // Find the update function and call it
+    lua_getglobal(L, "on_update");
+	    
+    // Push a pointer to the current object for use within the lua function
+    lua_pushlightuserdata(L, (void*)this);
+	   
+	// Push the time passed since the last iteration of the game loop
+    lua_pushnumber(L, elapsedTime);
+    
+    // Call the function with 2 argument and no return values
+    lua_call(L, 2, 0);
+
+    // get the result //
+    //position.z = (float)lua_tonumber(L, -1);
+    //position.y = (float)lua_tonumber(L, -2);
+    //position.x = (float)lua_tonumber(L, -3);
+    //lua_pop(L, 1);
+}
+
+//------------------------------------------------------------------------------
+void Object::setPlayerPtr( Object* tPlayer )
+{
+    player = tPlayer;
+}
+
+//------------------------------------------------------------------------------
+void Object::setCameraPtr( Object* tCamera)
+{
+    camera = tCamera;
+}
+
+//------------------------------------------------------------------------------
+void Object::setInterpolationVariable(int index)
+{
+    switch (index)
+    {
+        case 0:
+            //#valInterpPtr = animCurrTime;
+            break;
+        case 1:
+            valInterpPtr = &position.x;
+            break;
+        case 2:
+            valInterpPtr = &position.y;
+            break;
+        case 3:
+            valInterpPtr = &position.z;
+            break;
+        //#default:
+            //#valInterpPtr = animCurrTime;
+    }
+}
+
+void Object::init(void)
+{
+    rotation.loadMultIdentity();
+    baseDirection.setVector( 0.0f, 0.0f, 1.0f );
+    direction.setVector( 0.0f, 0.0f, 1.0f );
+    up.setVector(0.0f, 1.0f, 0.0f);
+          
+    speed = 0.0f;
+    speedDir = 0;
+    
+    velocity.setVector(0.0f, 0.0f, 0.0f);
+            
+    rInterpStart.loadMultIdentity();
+    rInterpEnd.loadMultIdentity();
+    
+    tieMemVarIndex = 0;
+    valInterpStart = 0.0f;
+    valInterpEnd = 0.0f;
+    interp = false;
+        
+    //scriptLastTime = 0.0f;
+    //scriptNum = NO_SCRIPT;
+    //scriptName = NO_SCRIPT;
+    //currentScriptCommand = 0;
+    
+    //#animCurrTime = NULL;  
+    player = NULL;
+    camera = NULL;
+    
+    L = NULL;
+    
+    suspend = false;
+    suspendTime = 0.0f;
+   
+    //memVars[MEM_NEXT_SCRIPT_INDEX] = NO_SCRIPT;
+    //memVars[MEM_NEXT_SCRIPT_COMMAND_INDEX] = 0;
+    
+    if (particleSystem != NULL)
+        delete particleSystem;
+    
+    particleSystem = NULL;
+}
+
+void Object::loadScript(string name)
+{
+    scriptName = name;
+    
+    // If the lua state has not been initialized for this object, attempt to
+    // initialize it.     
+    if (scriptName == "" || L != NULL)
+        return;
+        
+    L = lua_open();
+    
+    // If the lua state still could not be initialized, then exit the game.
+    // ... we can do something smarter with this in the finished product.
+    if (L == NULL) {
+        printf("Error creating Lua state.\n");
+	    exit(-1);
+    }
+
+    // Load the base lua libraries
+    luaL_openlibs(L);
+        
+    // Register our functions for use in lua (currently defined in 
+    // Object.h)
+    lua_register(L, "setPosition", setPositionLua);
+    lua_register(L, "getPosition", getPositionLua);
+    lua_register(L, "setVelocity", setVelocityLua);
+    lua_register(L, "getVelocity", getVelocityLua);
+    lua_register(L, "setRotationVelocity", setRotationVelocityLua);
+    lua_register(L, "getRotationVelocity", getRotationVelocityLua);
+    lua_register(L, "setSpeed", setSpeedLua);
+    lua_register(L, "getSpeed", getSpeedLua);
+    lua_register(L, "setRotation", setRotationLua);
+    lua_register(L, "getRotation", getRotationLua);
+    lua_register(L, "getCamera", getCameraLua);
+    lua_register(L, "getPlayer", getPlayerLua);
+    lua_register(L, "getDirection", getDirectionLua);
+    lua_register(L, "getUp", getUpLua);
+    lua_register(L, "getOrthogonal", getOrthogonalLua);
+    lua_register(L, "addPosition", addPositionLua);
+    lua_register(L, "addRotation", addRotationLua);
+    lua_register(L, "addVelocity", addVelocityLua);
+    lua_register(L, "addSpeed", addSpeedLua);
+    lua_register(L, "addRotationVelocity", addRotationVelocityLua);   
+    lua_register(L, "setInterpolationRotationStartAxis", setInterpolationRotationStartAxisLua);
+    lua_register(L, "setInterpolationRotationEndAxis", setInterpolationRotationEndAxisLua);
+    lua_register(L, "setInterpolationRotationStart", setInterpolationRotationStartLua);
+    lua_register(L, "setInterpolationRotationEnd", setInterpolationRotationEndLua);
+    lua_register(L, "setInterpolationEnable", setInterpolationEnableLua);
+    lua_register(L, "setInterpolationVariable", setInterpolationVariableLua);
+    lua_register(L, "setRotationVelocityAxis", setRotationVelocityAxisLua);
+    lua_register(L, "setRotationAxis", setRotationAxisLua);
+    lua_register(L, "addRotationAxis", addRotationAxisLua);
+    lua_register(L, "getTimer", getTimerLua);
+    lua_register(L, "suspend", suspendLua);
+    lua_register(L, "playSound", playSoundLua);
+    lua_register(L, "addObject", addObjectLua);
+    lua_register(L, "removeObject", removeObjectLua);
+    lua_register(L, "setModel", setModelLua);
+    lua_register(L, "setScale", setScaleLua);
+    lua_register(L, "setScript", setScriptLua);
+        
+    // Load this object's animation script
+    luaL_dofile(L, scriptName.c_str());
+        
+    // Set player and camera pointers for use within exposed c functions.
+    lplayer = player;
+    lcamera = camera;  
+        
+    // Find the update function and call it
+    lua_getglobal(L, "on_load");
+	    
+    // Push a pointer to the current object for use within the lua function
+    lua_pushlightuserdata(L, (void*)this);
+	   
+    // Call the function with 1 argument and no return values
+    lua_call(L, 1, 0);
+
+    // get the result //
+    //position.z = (float)lua_tonumber(L, -1);
+    //position.y = (float)lua_tonumber(L, -2);
+    //position.x = (float)lua_tonumber(L, -3);
+    //lua_pop(L, 1);
+}
+
+void Object::unloadScript()
+{
+    // Attempt to execute the on_unload function only if the lua state has 
+    // already been initialized with a script
+    if (L == NULL)
+        return;
+    
+    // Find the update function and call it
+    lua_getglobal(L, "on_unload");
+	    
+    // Push a pointer to the current object for use within the lua function
+    lua_pushlightuserdata(L, (void*)this);
+	   
+    // Call the function with 1 argument and no return values
+    lua_call(L, 1, 0);
+
+    // get the result //
+    //position.z = (float)lua_tonumber(L, -1);
+    //position.y = (float)lua_tonumber(L, -2);
+    //position.x = (float)lua_tonumber(L, -3);
+    //lua_pop(L, 1);
+    
+    lua_close(L);
+    L = NULL;
+}
+
+void Object::setParticleSystem(int particleSystemNumber)
+{
+     
+            // setup the weather effect ////////////////
+            if (particleSystemNumber > 0 && particleSystem == NULL) {
+                particleSystem = new Snow(this);
+                particleSystem->update(4.0f);
+            }
+        
+}
 
 

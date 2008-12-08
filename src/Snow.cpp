@@ -1,7 +1,7 @@
 #include "Snow.h"
 
 //------------------------------------------------------------------------------
-Snow::Snow(ScriptedObject* tOrigin)
+Snow::Snow(Object* tOrigin)
 {
     origin = tOrigin;
      

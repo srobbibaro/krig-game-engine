@@ -1,18 +1,18 @@
 # Project: krig
 # Makefile created by Dev-C++ 4.9.8.0
 
-CPP  = g++.exe
-CC   = gcc.exe
+CPP  = g++.exe -D__DEBUG__
+CC   = gcc.exe -D__DEBUG__
 WINDRES = windres.exe
 RES  = 
-OBJ  = ./obj//Asteroid.o ./obj//Beam.o ./obj//BoatCannon.o ./obj//Boss.o ./obj//camera.o ./obj//CannonBall.o ./obj//credits.o ./obj//EnemyShip.o ./obj//Engine.o ./obj//eventqueue.o ./obj//Explosion.o ./obj//GameLevel.o ./obj//gametimer.o ./obj//main.o ./obj//matrix.o ./obj//menu.o ./obj//menuCredits.o ./obj//model.o ./obj//ObjectNode.o ./obj//objects.o ./obj//ParticleSystem.o ./obj//Player.o ./obj//PlayerMissle.o ./obj//PlayerShot.o ./obj//Powerup.o ./obj//SailBoat.o ./obj//Shot.o ./obj//sound.o ./obj//terrain.o ./obj//text.o ./obj//Quaternion.o ./obj//ScriptedObject.o ./obj//Snow.o ./obj//QuadTreeNode.o ./obj//QuadTree.o ./obj//DisplayList.o ./obj//Plane.o ./obj//Frustum.o ./obj//Sphere.o $(RES)
-LINKOBJ  = ./obj//Asteroid.o ./obj//Beam.o ./obj//BoatCannon.o ./obj//Boss.o ./obj//camera.o ./obj//CannonBall.o ./obj//credits.o ./obj//EnemyShip.o ./obj//Engine.o ./obj//eventqueue.o ./obj//Explosion.o ./obj//GameLevel.o ./obj//gametimer.o ./obj//main.o ./obj//matrix.o ./obj//menu.o ./obj//menuCredits.o ./obj//model.o ./obj//ObjectNode.o ./obj//objects.o ./obj//ParticleSystem.o ./obj//Player.o ./obj//PlayerMissle.o ./obj//PlayerShot.o ./obj//Powerup.o ./obj//SailBoat.o ./obj//Shot.o ./obj//sound.o ./obj//terrain.o ./obj//text.o ./obj//Quaternion.o ./obj//ScriptedObject.o ./obj//Snow.o ./obj//QuadTreeNode.o ./obj//QuadTree.o ./obj//DisplayList.o ./obj//Plane.o ./obj//Frustum.o ./obj//Sphere.o $(RES)
+OBJ  = ./obj//credits.o ./obj//Engine.o ./obj//eventqueue.o ./obj//GameLevel.o ./obj//gametimer.o ./obj//main.o ./obj//matrix.o ./obj//menu.o ./obj//model.o ./obj//ObjectNode.o ./obj//ParticleSystem.o ./obj//Player.o ./obj//sound.o ./obj//terrain.o ./obj//text.o ./obj//Quaternion.o ./obj//Snow.o ./obj//QuadTreeNode.o ./obj//QuadTree.o ./obj//DisplayList.o ./obj//Plane.o ./obj//Frustum.o ./obj//Sphere.o ./obj//Camera.o ./obj//Object.o ./obj//ScriptedObject.o $(RES)
+LINKOBJ  = ./obj//credits.o ./obj//Engine.o ./obj//eventqueue.o ./obj//GameLevel.o ./obj//gametimer.o ./obj//main.o ./obj//matrix.o ./obj//menu.o ./obj//model.o ./obj//ObjectNode.o ./obj//ParticleSystem.o ./obj//Player.o ./obj//sound.o ./obj//terrain.o ./obj//text.o ./obj//Quaternion.o ./obj//Snow.o ./obj//QuadTreeNode.o ./obj//QuadTree.o ./obj//DisplayList.o ./obj//Plane.o ./obj//Frustum.o ./obj//Sphere.o ./obj//Camera.o ./obj//Object.o ./obj//ScriptedObject.o $(RES)
 LIBS =  -L"C:/Dev-Cpp/lib" -pg lib/liblua5.1.a lib/libvorbisfile.a lib/libvorbisenc.a lib/libvorbis.a lib/libogg.a lib/libalut.a lib/libopenal32.a lib/libglut32.a lib/libopengl32.a lib/libglu32.a 
 INCS =  -I"C:/Dev-Cpp/include"  -I"./include/"  -I"./src/" 
 CXXINCS =  -I"C:/Dev-Cpp/include/c++"  -I"C:/Dev-Cpp/include/c++/mingw32"  -I"C:/Dev-Cpp/include/c++/backward"  -I"C:/Dev-Cpp/include"  -I"./include/"  -I"./src/" 
 BIN  = krig.exe
-CXXFLAGS = $(CXXINCS) 
-CFLAGS = $(INCS) 
+CXXFLAGS = $(CXXINCS)  -g3
+CFLAGS = $(INCS)  -g3
 
 .PHONY: all all-before all-after clean clean-custom
 
@@ -25,38 +25,14 @@ clean: clean-custom
 $(BIN): $(LINKOBJ)
 	$(CPP) $(LINKOBJ) -o "krig.exe" $(LIBS)
 
-./obj//Asteroid.o: src/Asteroid.cpp
-	$(CPP) -c src/Asteroid.cpp -o ./obj//Asteroid.o $(CXXFLAGS)
-
-./obj//Beam.o: src/Beam.cpp
-	$(CPP) -c src/Beam.cpp -o ./obj//Beam.o $(CXXFLAGS)
-
-./obj//BoatCannon.o: src/BoatCannon.cpp
-	$(CPP) -c src/BoatCannon.cpp -o ./obj//BoatCannon.o $(CXXFLAGS)
-
-./obj//Boss.o: src/Boss.cpp
-	$(CPP) -c src/Boss.cpp -o ./obj//Boss.o $(CXXFLAGS)
-
-./obj//camera.o: src/camera.cpp
-	$(CPP) -c src/camera.cpp -o ./obj//camera.o $(CXXFLAGS)
-
-./obj//CannonBall.o: src/CannonBall.cpp
-	$(CPP) -c src/CannonBall.cpp -o ./obj//CannonBall.o $(CXXFLAGS)
-
 ./obj//credits.o: src/credits.cpp
 	$(CPP) -c src/credits.cpp -o ./obj//credits.o $(CXXFLAGS)
-
-./obj//EnemyShip.o: src/EnemyShip.cpp
-	$(CPP) -c src/EnemyShip.cpp -o ./obj//EnemyShip.o $(CXXFLAGS)
 
 ./obj//Engine.o: src/Engine.cpp
 	$(CPP) -c src/Engine.cpp -o ./obj//Engine.o $(CXXFLAGS)
 
 ./obj//eventqueue.o: src/eventqueue.cpp
 	$(CPP) -c src/eventqueue.cpp -o ./obj//eventqueue.o $(CXXFLAGS)
-
-./obj//Explosion.o: src/Explosion.cpp
-	$(CPP) -c src/Explosion.cpp -o ./obj//Explosion.o $(CXXFLAGS)
 
 ./obj//GameLevel.o: src/GameLevel.cpp
 	$(CPP) -c src/GameLevel.cpp -o ./obj//GameLevel.o $(CXXFLAGS)
@@ -73,38 +49,17 @@ $(BIN): $(LINKOBJ)
 ./obj//menu.o: src/menu.cpp
 	$(CPP) -c src/menu.cpp -o ./obj//menu.o $(CXXFLAGS)
 
-./obj//menuCredits.o: src/menuCredits.cpp
-	$(CPP) -c src/menuCredits.cpp -o ./obj//menuCredits.o $(CXXFLAGS)
-
 ./obj//model.o: src/model.cpp
 	$(CPP) -c src/model.cpp -o ./obj//model.o $(CXXFLAGS)
 
 ./obj//ObjectNode.o: src/ObjectNode.cpp
 	$(CPP) -c src/ObjectNode.cpp -o ./obj//ObjectNode.o $(CXXFLAGS)
 
-./obj//objects.o: src/objects.cpp
-	$(CPP) -c src/objects.cpp -o ./obj//objects.o $(CXXFLAGS)
-
 ./obj//ParticleSystem.o: src/ParticleSystem.cpp
 	$(CPP) -c src/ParticleSystem.cpp -o ./obj//ParticleSystem.o $(CXXFLAGS)
 
 ./obj//Player.o: src/Player.cpp
 	$(CPP) -c src/Player.cpp -o ./obj//Player.o $(CXXFLAGS)
-
-./obj//PlayerMissle.o: src/PlayerMissle.cpp
-	$(CPP) -c src/PlayerMissle.cpp -o ./obj//PlayerMissle.o $(CXXFLAGS)
-
-./obj//PlayerShot.o: src/PlayerShot.cpp
-	$(CPP) -c src/PlayerShot.cpp -o ./obj//PlayerShot.o $(CXXFLAGS)
-
-./obj//Powerup.o: src/Powerup.cpp
-	$(CPP) -c src/Powerup.cpp -o ./obj//Powerup.o $(CXXFLAGS)
-
-./obj//SailBoat.o: src/SailBoat.cpp
-	$(CPP) -c src/SailBoat.cpp -o ./obj//SailBoat.o $(CXXFLAGS)
-
-./obj//Shot.o: src/Shot.cpp
-	$(CPP) -c src/Shot.cpp -o ./obj//Shot.o $(CXXFLAGS)
 
 ./obj//sound.o: src/sound.cpp
 	$(CPP) -c src/sound.cpp -o ./obj//sound.o $(CXXFLAGS)
@@ -117,9 +72,6 @@ $(BIN): $(LINKOBJ)
 
 ./obj//Quaternion.o: src/Quaternion.cpp
 	$(CPP) -c src/Quaternion.cpp -o ./obj//Quaternion.o $(CXXFLAGS)
-
-./obj//ScriptedObject.o: src/ScriptedObject.cpp
-	$(CPP) -c src/ScriptedObject.cpp -o ./obj//ScriptedObject.o $(CXXFLAGS)
 
 ./obj//Snow.o: src/Snow.cpp
 	$(CPP) -c src/Snow.cpp -o ./obj//Snow.o $(CXXFLAGS)
@@ -141,3 +93,12 @@ $(BIN): $(LINKOBJ)
 
 ./obj//Sphere.o: src/Sphere.cpp
 	$(CPP) -c src/Sphere.cpp -o ./obj//Sphere.o $(CXXFLAGS)
+
+./obj//Camera.o: src/Camera.cpp
+	$(CPP) -c src/Camera.cpp -o ./obj//Camera.o $(CXXFLAGS)
+
+./obj//Object.o: src/Object.cpp
+	$(CPP) -c src/Object.cpp -o ./obj//Object.o $(CXXFLAGS)
+
+./obj//ScriptedObject.o: src/ScriptedObject.cpp
+	$(CPP) -c src/ScriptedObject.cpp -o ./obj//ScriptedObject.o $(CXXFLAGS)

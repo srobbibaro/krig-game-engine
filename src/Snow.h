@@ -6,7 +6,7 @@
 class Snow : public ParticleSystem
 {
     public:
-        Snow(ScriptedObject* tOrigin);
+        Snow(Object* tOrigin);
         ~Snow(void);
         
         void update(float elapsedTime);

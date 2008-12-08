@@ -1,7 +1,7 @@
 #include <map>
 #include <string>
 
-#include "objects.h"
+#include "Object.h"
 
 using namespace std;
 
@@ -62,18 +62,20 @@ using namespace std;
             void load( string );
             void unload( void );
 
-            void draw( Camera* );
-            void drawOutline( Camera* );
+            void draw( Object* ); // Camera*
+            void drawOutline( Object* ); // Camera*
             void drawShadow ( Vector* );
             void handleCollision( Object* );
             void update( Vector* );
             void prepare( void ); 
-            void animate( float, Camera* );
+            void animate( float, Object* ); // Camera*
             void handleDeath( void ) {}
             
             void buildEdges();
             
-            virtual void processAI( Camera* c, float elapsedTime ) = 0; 
+            virtual void processAI( Object* c, float elapsedTime ) {}; // Camera*
+            
+            void printTypeName() {}
 	};
 
 #endif

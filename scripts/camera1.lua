@@ -23,3 +23,7 @@ end
 function on_unload(this)
     return
 end
+
+function on_collision(this, temp)
+    return
+end

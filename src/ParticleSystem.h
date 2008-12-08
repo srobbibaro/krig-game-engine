@@ -1,9 +1,9 @@
-#include <GL/glut.h>
-#include "matrix.h"
-#include "ScriptedObject.h"
-
 #ifndef _PARTICLE_SYSTEM_H_
 #define _PARTICLE_SYSTEM_H_
+
+#include <GL/glut.h>
+#include "matrix.h"
+#include "Object.h"
 
     struct Particle
     {
@@ -30,7 +30,7 @@
             float lastTime;
             
             Particle* particles;
-            ScriptedObject* origin;
+            Object* origin;
     };
 
 #endif

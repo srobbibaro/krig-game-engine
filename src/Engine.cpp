@@ -174,7 +174,7 @@ void Engine::prepare()
     
     glDepthFunc(GL_ALWAYS);
     if ( gameMode == 1 ) {
-        displayHUD( (player)->life, (player)->numLives, boss->life, (player)->score );
+        //#displayHUD( (player)->life, (player)->numLives, boss->life, (player)->score );
 #if EDIT
         displayDebug();
 #endif
@@ -295,8 +295,10 @@ void Engine::initGL()
     
     newLevel();
 
-   // sounds->StopSong();
-   //sounds->PlaySong(currentLevel->musicPath.c_str(), true);
+   //sounds->StopSong();
+   //if (currentLevel->getMusicPath() != "") {
+   //    sounds->PlaySong(currentLevel->getMusicPath().c_str(), true);
+   //}
    // sounds->PlaySong(4, false );
 }
 
@@ -488,8 +490,14 @@ void Engine::processCommands()
                 break;
             
             case SHOOT_DOWN:
-                (player)->fireShot(mainCamera->velocity.x);        // gameSpeed
-                
+                //(player)->fireShot(mainCamera->velocity.x);        // gameSpeed
+                (player)->temp = new ScriptedObject("./scripts/player_shot.lua");
+                (player)->temp->player = player;
+                (player)->temp->camera = mainCamera;
+                (player)->temp->loadScript("./scripts/player_shot.lua");
+                (player)->temp->setPosition((player)->position.x + 4.0f, (player)->position.y, (player)->position.z);
+                (player)->temp->setRotationQuaternion((player)->rotation);
+                (player)->add((player)->temp);
                 break;
                 
             case MISSILE_DOWN:
@@ -539,7 +547,9 @@ void Engine::processCommands()
                 
                 if ( menuCursor ) {   
                     gameMode = 1;
-                    sounds->PlaySong(currentLevel->getMusicPath().c_str(), true);
+                    if (currentLevel->getMusicPath() != "") {
+                        sounds->PlaySong(currentLevel->getMusicPath().c_str(), true);
+                    }
                 }
                 else if ( !menuCursor ) 
                     control.enQueue( QUIT_GAME );
@@ -1044,9 +1054,9 @@ void Engine::displayHUD(float ShipEnergy, int ShipLives, float EnemyEnergy, long
         /////////////////////////////////////////
         
         // for fps //////////////////////////////
-        sprintf (str, "Missiles: %i", (player)->numMissiles );
-        glRasterPos2f (-1.0f, .75);
-        render_string(GLUT_BITMAP_HELVETICA_18, str);
+        //#sprintf (str, "Missiles: %i", (player)->numMissiles );
+        //#glRasterPos2f (-1.0f, .75);
+        //#render_string(GLUT_BITMAP_HELVETICA_18, str);
         /////////////////////////////////////////
         
         glBegin(GL_QUADS);
@@ -1151,7 +1161,7 @@ void Engine::loadLevel()
     currentLevel->unloadLevel();
     //currentLevel->loadLevel( levelFile[lvlNum] );
     currentLevel->loadLevelLua(levelScript);
-    boss = currentLevel->returnBoss();
+    //boss = currentLevel->returnBoss();
     timeElapsed = timer->getElapsedSeconds(1);  
     light = currentLevel->getLight();
 }
@@ -1173,7 +1183,9 @@ void Engine::newLevel()
     */
         loadLevel();
         sounds->StopSong();
-        sounds->PlaySong(currentLevel->getMusicPath().c_str(), true);
+        if (currentLevel->getMusicPath() != "") {
+            sounds->PlaySong(currentLevel->getMusicPath().c_str(), true);
+        }
    // }
 }
 

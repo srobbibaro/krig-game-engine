@@ -1,6 +1,10 @@
 progress = 0
 
 function on_load(this)
+    -- set default values
+    setRotation(this, 0.0, 1.57, 0.0)
+    setScale(this, 2.0, 2.0, 2.0)
+
     -- set test zone enable false
     setVelocity(this, 40.0, 0.0, 0.0)
     setRotationVelocity(this, -10.0, 0.0, 0.0)
@@ -28,11 +32,11 @@ function on_update(this, elapsedTime)
         progress = 2
     elseif progress == 2 then
         rx, ry, rz = getRotation(this)
-        timer = getTimer(this)
-        setInterpolationVariable(this, 0, timer, (timer + 0.5))
-        setInterpolationRotationStart(this, rx, ry, rz)
-        setInterpolationRotationEnd(this, 0.0, 1.57, 0.0)
-        setInterpolationEnable(this, 1)
+        -- timer = getTimer(this)
+        -- setInterpolationVariable(this, 0, timer, (timer + 0.5))
+        -- setInterpolationRotationStart(this, rx, ry, rz)
+        -- setInterpolationRotationEnd(this, 0.0, 1.57, 0.0)
+        -- setInterpolationEnable(this, 1)
         suspend(this, 0.75)
         progress = 3
     elseif progress == 3 then
@@ -43,7 +47,11 @@ function on_update(this, elapsedTime)
     return
 end
 
-function on_unload(this)
+function on_unload(this, temp)
     return
+end
+
+function on_collision(this,temp)
+    return 
 end
 

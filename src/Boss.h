@@ -20,7 +20,7 @@ class Boss : public Model
         Boss( string, string, float*, Player*, bool* );
         virtual ~Boss();
         
-        void processAI( Camera*, float elapsedTime );
+        void processAI( Object*, float elapsedTime ); //# Camera*
         void decrementShots( void );
         
         void printTypeName(void) 

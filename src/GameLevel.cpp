@@ -1,5 +1,6 @@
 #include "GameLevel.h"
-#include "Snow.h"
+#include "ScriptedObject.h"
+#include "Scripting.h"
 
 //------------------------------------------------------------------------------
 GameLevel::GameLevel( unsigned int tLists)
@@ -11,10 +12,11 @@ GameLevel::GameLevel( unsigned int tLists)
     obj = NULL;
     player = NULL;
     camera = NULL;
-    boss = NULL;
+    //boss = NULL;
     camera = NULL;
-    weather = NULL;
     time = 0;
+    
+    musicPath = "";
     
     
     /////
@@ -37,8 +39,6 @@ GameLevel::~GameLevel()
         delete terrain;
     if ( camera != NULL )
         delete camera;
-    if ( weather != NULL )
-        delete weather; 
 }
 
 //------------------------------------------------------------------------------
@@ -57,12 +57,9 @@ void GameLevel::drawLevel()
     // reset draw mode to "normal"
     glCallList( lists+2 );
     
-    if (weatherEffect > 0)
-        weather->draw();
-    
     if (grid) {
         terrain->drawGrid();    
-        dynamic_cast<Camera*>(camera)->draw();
+        dynamic_cast<Camera*>(camera)->draw(camera);
     }
     
     if (bboxes)
@@ -74,7 +71,6 @@ void GameLevel::drawLevel()
    /*
     drawText();
     */
-    // draw weather effects //
              
     //terrain->drawShadows( light );
 }
@@ -89,7 +85,7 @@ void GameLevel::updateLevel()
     q->buildDisplayList(l, dynamic_cast<Camera*>(camera));
     terrain->l = l;
     
-    dynamic_cast<Camera*>(camera)->draw();
+    dynamic_cast<Camera*>(camera)->draw(camera);
 }
 
 //------------------------------------------------------------------------------
@@ -104,9 +100,6 @@ void GameLevel::animateLevel(float timeElapsed)
     time += timeElapsed;    // update levels current time
     
     terrain->animateObjects(timeElapsed, dynamic_cast<Camera*>(camera));
-
-    if (weatherEffect > 0)
-        weather->update(timeElapsed);
 }
 
 //------------------------------------------------------------------------------
@@ -133,99 +126,100 @@ bool GameLevel::loadLevelLua( string file )
 
 	// load Lua base libraries 
 	luaL_openlibs(L);
+	
+    // Register our functions for use in lua (currently defined in 
+    // Object.h)
+    lua_register(L, "setPosition", setPositionLua);
+    lua_register(L, "getPosition", getPositionLua);
+    lua_register(L, "setVelocity", setVelocityLua);
+    lua_register(L, "getVelocity", getVelocityLua);
+    lua_register(L, "setRotationVelocity", setRotationVelocityLua);
+    lua_register(L, "getRotationVelocity", getRotationVelocityLua);
+    lua_register(L, "setSpeed", setSpeedLua);
+    lua_register(L, "getSpeed", getSpeedLua);
+    lua_register(L, "setRotation", setRotationLua);
+    lua_register(L, "getRotation", getRotationLua);
+    lua_register(L, "getCamera", getCameraLua);
+    lua_register(L, "getPlayer", getPlayerLua);
+    lua_register(L, "getDirection", getDirectionLua);
+    lua_register(L, "getUp", getUpLua);
+    lua_register(L, "getOrthogonal", getOrthogonalLua);
+    lua_register(L, "addPosition", addPositionLua);
+    lua_register(L, "addRotation", addRotationLua);
+    lua_register(L, "addVelocity", addVelocityLua);
+    lua_register(L, "addSpeed", addSpeedLua);
+    lua_register(L, "addRotationVelocity", addRotationVelocityLua);   
+    lua_register(L, "setInterpolationRotationStartAxis", setInterpolationRotationStartAxisLua);
+    lua_register(L, "setInterpolationRotationEndAxis", setInterpolationRotationEndAxisLua);
+    lua_register(L, "setInterpolationRotationStart", setInterpolationRotationStartLua);
+    lua_register(L, "setInterpolationRotationEnd", setInterpolationRotationEndLua);
+    lua_register(L, "setInterpolationEnable", setInterpolationEnableLua);
+    lua_register(L, "setInterpolationVariable", setInterpolationVariableLua);
+    lua_register(L, "setRotationVelocityAxis", setRotationVelocityAxisLua);
+    lua_register(L, "setRotationAxis", setRotationAxisLua);
+    lua_register(L, "addRotationAxis", addRotationAxisLua);
+    lua_register(L, "getTimer", getTimerLua);
+    lua_register(L, "suspend", suspendLua);
+    lua_register(L, "playSound", playSoundLua);
+    lua_register(L, "addObject", addObjectLua);
+    lua_register(L, "removeObject", removeObjectLua);
+    lua_register(L, "setModel", setModelLua);
+    lua_register(L, "setScale", setScaleLua);
+    lua_register(L, "setScript", setScriptLua);
+    lua_register(L, "addParticleSystem", addParticleSystemLua);
+    lua_register(L, "setBgMusic", setBgMusicLua);
+    lua_register(L, "setSkyBox", setSkyBoxLua);
+    lua_register(L, "setLightDirection", setLightDirectionLua);
+    lua_register(L, "setTerrain", setTerrainLua);
   
     // load the script 
     cout << "Loading Lua script (level file): --" << file << "--\n";
 	luaL_dofile(L, file.c_str());
-	
-	// Read the number of objects
-    lua_getglobal(L, "numObjects");
-    numObjects = (int)lua_tonumber(L, -1);
-    lua_pop(L, 1);
-    cout << "Number of objects in " << file << ": " << numObjects << endl;
-    
-    // Load the light direction
-    lua_getglobal(L, "lightDirection"); 
-    loadVector(L, &light); 
-    light.normalize();
-    cout << "Light direction: " << light.x << " " << light.y << " " << light.z << endl;
-     
-    // Read the name of the terrain file  
-    lua_getglobal(L, "terrain");
-    const char *j = lua_tostring(L, -1);
-    string terrainPath = "./terrains/" + string(j);
-    cout << "Terrain: " << terrainPath << endl;
-    lua_pop(L, 1);
-    
-    // Load the terrain
-    terrain->loadTerrain( terrainPath.c_str(), &light );
     ////////////////////////////////////////////////////////   
     
-    // load in the sky (and weather type) //////////////////
-    lua_getglobal(L, "weatherEffect");
-    weatherEffect = (int)lua_tonumber(L, -1);
-    if (weatherEffect < 0 || weatherEffect > 2)
-         weatherEffect = 0;    
-    cout << "Weather effect: " << weatherEffect << endl;
-    lua_pop(L, 1); 
-      
-    lua_getglobal(L, "bgColor");
-    for (int i = 0; i < 3; i++) { 
-        for (int j = 0; j < 3; j++) {     
-                lua_pushnumber(L, (i*3)+j+1);
-                lua_gettable(L, -2);
-                bgcolor[i][j] = (float)lua_tonumber(L, -1);
-                lua_pop(L, 1);
-        }
-        cout << "bgColor i=" << i << " value=" 
-             << bgcolor[i][0] << "," << bgcolor[i][1] << "," << bgcolor[i][2] << endl;
-    }    
-    ////////////////////////////////////////////////////////
-    
-    // Read the song name to play
-    lua_getglobal(L, "bgMusic");
-    const char *k = lua_tostring(L, -1);
-    musicPath = "./music/" + string(k);
-    cout << "bgMusic: " << musicPath << endl;
-    lua_pop(L, 1);
-    
-    // orient camera's initial setup ///////////////////////
-    cout << "Setting up Camera..." << endl;
-    lua_getglobal(L, "cameraPosition"); 
-    loadVector(L, &position); 
-    lua_getglobal(L, "cameraRotation");
-    loadVector(L, &rotation);
-    
-    lua_getglobal(L, "cameraScript"); 
-    const char *t = lua_tostring(L, -1);
-    string script = "./scripts/" + string(t);
-     
-    //z = -z;                                      // camera correction 
-    camera->setRotationEuler( rotation.x, rotation.y, rotation.z );
-    camera->setPosition( position.x, position.y, position.z );
-    camera->setTimer( &time );   
-    //////////////////////////////////////////////
+    lplayer = player;
+    lcamera = camera;
+    lgameLevel = this;
     
     player->unloadScript();
     player->init();
+    
     camera->unloadScript();
     camera->init();
     
-    // load each object //////////////////////////////////////
-    lua_getglobal(L, "objects");
-    for ( int i = 0; i < numObjects; i++ ) {
-        loadObject(L, i+1);
-    }
-                   
+    terrain->unloadScript();
+    terrain->init();
+    
+    player->setPlayerPtr(player);
+    player->setCameraPtr(camera);
+    player->setSoundClass(snd);
+    
     camera->setPlayerPtr(player);
     camera->setCameraPtr(camera);
-    camera->loadScript(script);
+    camera->setSoundClass(snd);
+    
+    terrain->setSoundClass(snd);
+    terrain->setPlayerPtr(player);
+    terrain->setCameraPtr(camera);
+     
+     // Find the update function and call it
+    lua_getglobal(L, "on_load");
+	    
+    // Push a pointer to the current object for use within the lua function
+    lua_pushlightuserdata(L, (void*)terrain);
+	   
+    // Call the function with 1 argument and no return values
+    lua_call(L, 1, 0);
+
+    // get the result //
+    //position.z = (float)lua_tonumber(L, -1);
+    //position.y = (float)lua_tonumber(L, -2);
+    //position.x = (float)lua_tonumber(L, -3);
+    //lua_pop(L, 1);
+                   
+    terrain->add(player);
         
-    // setup the weather effect ////////////////
-    if (weatherEffect > 0) {
-        weather = new Snow(camera);
-        weather->update(4.0f);
-    }
+    
     ////////////////////////////////////////////
              
       cout << "building quad tree..." << endl;
@@ -284,15 +278,6 @@ void GameLevel::loadObject(lua_State* L, int number)
     int objectType = (int)lua_tonumber(L, -1);
     cout << "type: " << objectType << endl;
     lua_pop(L, 1);
-   
-    
-    lua_pushstring(L, "modelKey");
-    lua_gettable(L, -2);
-    const char *s = lua_tostring(L, -1);
-    string modelKey = string(s);
-    cout << "Model Key: " << modelKey << endl;
-    lua_pop(L, 1);
-    
     
     lua_pushstring(L, "script");
     lua_gettable(L, -2);
@@ -302,19 +287,7 @@ void GameLevel::loadObject(lua_State* L, int number)
     lua_pop(L, 1);
     
     Vector position, rotation, scale;
-    
-    lua_pushstring(L, "scale");
-    lua_gettable(L, -2);
-    loadVector(L, &scale);
-    cout << "Scale: " << scale.x << " " << scale.y << " " << scale.z << endl;
-    lua_pop(L, 1);
-    
-    lua_pushstring(L, "rotation");
-    lua_gettable(L, -2);
-    loadVector(L, &rotation);
-    cout << "Rotation: " << rotation.x << " " << rotation.y << " " << rotation.z << endl;
-    lua_pop(L, 1);
-    
+     
     lua_pushstring(L, "position");
     lua_gettable(L, -2);
     loadVector(L, &position);
@@ -325,15 +298,6 @@ void GameLevel::loadObject(lua_State* L, int number)
         // object[0] must be player
         objectType = OBJECT_PLAYER;
     }
-    else if ( number == 2 ) {
-        // object[1] must be boss
-        objectType = OBJECT_BOSS;
-    }
-    else {
-        if ( objectType == OBJECT_PLAYER || objectType == OBJECT_BOSS ) {
-            objectType = -1;
-        }
-    }  
     
     // The player will always be created before a level is loaded        
     if (player == NULL) {
@@ -346,44 +310,15 @@ void GameLevel::loadObject(lua_State* L, int number)
         case OBJECT_PLAYER:
             obj = dynamic_cast<Player*>(player);
             obj->setTimer( &time );
-            break;          
-       case OBJECT_ENEMY_SHIP:  // Enemy ship
-            obj = new EnemyShip( modelKey, script, &time, dynamic_cast<Player*>(player) );
-            break;
-       case OBJECT_ASTEROID: // Asteroid
-            obj = new Asteroid( modelKey, script, &time );
-            break;
-       case OBJECT_BEAM: // Beam
-            obj = new Beam( modelKey, script, &time );
-            break;
-       case OBJECT_SAIL_BOAT: // Sail Boat
-            obj = new SailBoat( modelKey, script, &time );
-            break;
-       case OBJECT_BOATCANNON: // Boat Cannon
-            obj = new BoatCannon( modelKey, script, &time, (player) );
-            break;                    
-       case OBJECT_BOSS:
-            // there MUST BE EXACTLY ONE boss
-            if (boss == NULL) {
-                obj = new Boss ( modelKey, script, &time, dynamic_cast<Player*>(player), &complete );                    
-                boss = (Boss*)obj;
-            }      
-            break;      
-       case OBJECT_POWERUP_1:
-            obj = new Powerup(1, &time);
-            break;
-       case OBJECT_POWERUP_2:
-            obj = new Powerup(2, &time);
             break;                                       
-       default:
+        default:
+            obj = new ScriptedObject(script);
             break;
     }
         
     if (obj != NULL) {
         // Set the object's orientation
-        obj->setRotationEuler( rotation.x, rotation.y, rotation.z);
-        obj->setPosition( position.x, position.y, position.z );
-        obj->setScaleFactor( scale.x, scale.y, scale.z );
+        obj->setPosition( position );
         obj->setVelocity( 0.0f, 0.0f, 0.0f );
     
         // Set required resources for the object's use       
@@ -434,8 +369,8 @@ Player* GameLevel::getPlayer( void )
 { return( (Player*)player ); }
 
 //------------------------------------------------------------------------------
-Boss* GameLevel::returnBoss( void )
-{ return boss; }
+//Boss* GameLevel::returnBoss( void )
+//{ return boss; }
 
 //------------------------------------------------------------------------------
 void GameLevel::drawSky()
@@ -560,7 +495,7 @@ Object* GameLevel::findEnemy( void )
     while( obj->next != 0 )
     {
         obj = (Object*)obj->next;
-        if ( obj->checkActiveEnemy() )
+        //#if ( obj->checkActiveEnemy() )
         {
             temp = findDistance( (Object*)player, obj );
             if ( temp < closest )
@@ -597,11 +532,8 @@ bool GameLevel::checkComplete(void)
 
 //------------------------------------------------------------------------------
 void GameLevel::unloadLevel()
-{
-    if ( weather != NULL )
-        delete weather;    
-    
-    boss = NULL;
+{    
+  //  boss = NULL;
 }
 
 //------------------------------------------------------------------------------
@@ -706,3 +638,12 @@ void GameLevel::saveTerrain(char* filePath)
 void GameLevel::toggleGrid(void) { grid = !grid;}
 void GameLevel::toggleBoundingBoxes(void) { bboxes = !bboxes; }
 void GameLevel::toggleControlTriangles(void) { controlTriangles = !controlTriangles; }
+
+void GameLevel::setSkyBox(float** tBgColor, int x, int y)
+{
+    for (int i = 0; i < y; i++) {
+        for (int j = 0; j < x; j++) {
+            bgcolor[i][j] = tBgColor[i][j];
+        }
+    }
+}

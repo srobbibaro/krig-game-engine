@@ -6,14 +6,14 @@ Boss::Boss()
 {
     load( MODEL_BOSS_A );
     
-    animCurrTime = NULL;
+    //#animCurrTime = NULL;
     
-    life = 40;
+    //#life = 40;
     
-    isEnemy = true;  
+    //#isEnemy = true;  
     
-    shotDelay = 0.5f;
-    numShots = 1;   
+    //#shotDelay = 0.5f;
+    //#numShots = 1;   
     
     complete = NULL;
 }
@@ -24,14 +24,14 @@ Boss::Boss( string tModelKey, string script, float* tTime, Player* p, bool* c )
 { 
     load( tModelKey );
     
-    animCurrTime = tTime;
+    //#animCurrTime = tTime;
     
-    life = 40;
+    //#life = 40;
     
-    isEnemy = true;  
+    //#isEnemy = true;  
     
-    shotDelay = 0.5f;
-    numShots = 1;   
+    //#shotDelay = 0.5f;
+    //#numShots = 1;   
     
     complete = c;
 }
@@ -46,6 +46,7 @@ Boss::~Boss()
 //------------------------------------------------------------------------------
 void Boss::handleCollision( Object* temp )
 {
+/*
     if ( typeid( *temp ) == typeid( PlayerShot ) )
     {
         life-=1;
@@ -102,11 +103,13 @@ void Boss::handleCollision( Object* temp )
                 position.y = ((Terrain*)temp)->getHeight( position.x, position.z );
             }
     }
+*/
 }
 
 //------------------------------------------------------------------------------
-void Boss::processAI( Camera* c, float elapsedTime )
+void Boss::processAI( Object* c, float elapsedTime )
 {
+/*
     int r;   
     float tx, tz, rot;
     
@@ -119,6 +122,7 @@ void Boss::processAI( Camera* c, float elapsedTime )
       
     // if shots are available, fire a shot 
     if ( numShots > 0 ) {
+    */
     /*
         numShots--;
         shotTime = *animCurrTime;         
@@ -146,7 +150,7 @@ void Boss::processAI( Camera* c, float elapsedTime )
         
         s->PlaySFX("laser.wav");
         */
-     }
+    //# }
      
    animateScript(elapsedTime);
 }

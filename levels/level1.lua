@@ -1,825 +1,378 @@
---  header information --
-numObjects = 130
-bgMusic = "Wily.ogg"
+x_start_camera = 110.0
+x_start_player = x_start_camera - 20.0
 
---  setup the sky --
-weatherEffect = 0
-bgColor = {0.0, 0.0, 0.3,
-	     0.4, 0.4, 1.0,
-	     0.8, 0.8, 1.0}
+function on_load(terrain)
+    --setBgMusic("./music/Wily.ogg")
+    setSkyBox(0.0, 0.0, 0.3,
+	        0.4, 0.4, 1.0,
+	        0.8, 0.8, 1.0)
 
---  setup the terrain --
-terrain = "level1.txt"
+    setLightDirection(0.0, 0.15, 0.85)
 
-lightDirection = {0.0, 0.15, 0.85}
+    setTerrain(terrain, "./terrains/level1.txt")
 
-x_start_camera = 110 -- 110
-x_start_player = x_start_camera - 20
+    obj = addObject(terrain, "./scripts/boss1.lua")
+    setPosition(obj, 981.0, 15.0, 7.5)
 
---  setup the camera --
-cameraPosition = {x_start_camera, 15, 35}
-cameraRotation = {0.0, 0.0, 0.0}
-cameraScript = "camera1.lua"
+    player = getPlayer(obj)
+    setScript(player, "./scripts/player1.lua")
+    setPosition(player, x_start_player, 20.0, 7.5)
 
--- setup the objects --
-objects = {
-      -- setup the player (always first object) --
-	{type = 0,
-	modelKey = "Ship.mdl",
-	script = "player1.lua",
-	position = {x_start_player, 20, 7.5},
-	rotation = {0.00, 1.57, 0.00},
-	scale = {2.0, 2.0, 2.0}},
-      
-      -- setup the boss (always second object) --
-	{type = 6,
-	modelKey = "Boss.mdl",
-	script = "boss1.lua",
-	position = {981, 15, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {4.0, 4.0, 4.0}},
-      
-      -- setup the enemy ships
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship1.lua",
-	position = {160, 15, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship1.lua",
-	position = {180, 20, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship1.lua",
-	position = {200, 10, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship1.lua",
-	position = {220, 15, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship1.lua",
-	position = {240, 20, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship1.lua",
-	position = {260, 15, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship1.lua",
-	position = {270, 18, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship1.lua",
-	position = {270, 12, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship1.lua",
-	position = {280, 15, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship1.lua",
-	position = {300, 10, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship1.lua",
-	position = {310, 7, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship1.lua",
-	position = {310, 13, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship1.lua",
-	position = {320, 10, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship1.lua",
-	position = {340, 20, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship1.lua",
-	position = {350, 23, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship1.lua",
-	position = {350, 17, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship1.lua",
-	position = {360, 20, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship1.lua",
-	position = {390, 15, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship1.lua",
-	position = {390, 22, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship1.lua",
-	position = {390, 8, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-      
-      --  setup the asteroids --
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid1.lua",
-	position = {410, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid3.lua",
-	position = {415, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid2.lua",
-	position = {420, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid1.lua",
-	position = {425, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid3.lua",
-	position = {430, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid2.lua",
-	position = {435, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid1.lua",
-	position = {440, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid3.lua",
-	position = {445, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid2.lua",
-	position = {450, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid1.lua",
-	position = {455, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid3.lua",
-	position = {460, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid2.lua",
-	position = {465, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid1.lua",
-	position = {470, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid3.lua",
-	position = {475, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid2.lua",
-	position = {480, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid1.lua",
-	position = {485, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid3.lua",
-	position = {490, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid2.lua",
-	position = {495, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid1.lua",
-	position = {500, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid3.lua",
-	position = {505, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid2.lua",
-	position = {510, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid1.lua",
-	position = {515, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid3.lua",
-	position = {520, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid2.lua",
-	position = {525, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid1.lua",
-	position = {530, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid3.lua",
-	position = {535, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid2.lua",
-	position = {540, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid1.lua",
-	position = {545, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid3.lua",
-	position = {550, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid2.lua",
-	position = {555, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid1.lua",
-	position = {560, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid3.lua",
-	position = {565, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid2.lua",
-	position = {570, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
+    camera = getCamera(obj)
+    setScript(camera, "./scripts/camera1.lua")
+    setPosition(camera, x_start_camera, 15.0, 35.0)
+    
+    -- setup the enemy ships
+    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+    setPosition(obj, 160, 15, 7.5)
+
+    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+    setPosition(obj, 180, 20, 7.5)
+
+    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+    setPosition(obj, 200, 10, 7.5)
+
+    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+    setPosition(obj, 220, 15, 7.5)
+
+    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+    setPosition(obj, 240, 20, 7.5)
+
+    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+    setPosition(obj, 260, 15, 7.5)
+
+    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+    setPosition(obj, 270, 18, 7.5)
+	
+    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+    setPosition(obj, 270, 12, 7.5)
+
+    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+    setPosition(obj, 280, 15, 7.5)
+
+    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+    setPosition(obj, 300, 10, 7.5)
+	
+    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+    setPosition(obj, 310, 7, 7.5)
+
+    obj = addObject(terrain, "./scripts/enemy_ship1.lua")	
+    setPosition(obj, 310, 13, 7.5)
+
+    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+    setPosition(obj, 320, 10, 7.5)
+	
+    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+    setPosition(obj, 340, 20, 7.5)
+	
+    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+    setPosition(obj, 350, 23, 7.5)
+
+    obj = addObject(terrain, "./scripts/enemy_ship1.lua")	
+    setPosition(obj, 350, 17, 7.5)
+
+    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+    setPosition(obj, 360, 20, 7.5)
+	
+    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+    setPosition(obj, 390, 15, 7.5)
+
+    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+    setPosition(obj, 390, 22, 7.5)
+
+    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+    setPosition(obj, 390, 8, 7.5)
+	      
+    --  setup the asteroids --   
+    for i = 410, 560, 15 do
+        obj = addObject(terrain, "./scripts/asteroid1.lua")
+	  setPosition(obj, i, 30, 7.5)
+    end
+
+    for i = 415, 565, 15 do
+        obj = addObject(terrain, "./scripts/asteroid3.lua")
+	  setPosition(obj, i, 30, 7.5)
+    end
+
+    for i = 420, 570, 15 do
+        obj = addObject(terrain, "./scripts/asteroid2.lua")
+	  setPosition(obj, i, 30, 7.5)
+    end
 
       --  sweeping enemy ships - sweeping from above --
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship2.lua",
-	position = {610, 22, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship2.lua",
-	position = {615, 22, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship2.lua",
-	position = {620, 22, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship2.lua",
-	position = {625, 22, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship2.lua",
-	position = {630, 22, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship2.lua",
-	position = {635, 22, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
+	obj = addObject(terrain, "./scripts/enemy_ship2.lua")
+	setPosition(obj, 610, 22, 7.5)
 
-      -- sweeping from below --
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship3.lua",
-	position = {675, 8, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship3.lua",
-	position = {680, 8, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship3.lua",
-	position = {685, 8, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship3.lua",
-	position = {690, 8, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship3.lua",
-	position = {695, 8, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship3.lua",
-	position = {700, 8, 7.5},
-	rotation = {0.0, -1.57, 0.0},
-	scale = {2.0, 2.0, 2.0}},
+	obj = addObject(terrain, "./scripts/enemy_ship2.lua")
+	setPosition(obj, 615, 22, 7.5)
+	
+	obj = addObject(terrain, "./scripts/enemy_ship2.lua")
+	setPosition(obj, 620, 22, 7.5)
+	
+	obj = addObject(terrain, "./scripts/enemy_ship2.lua")
+	setPosition(obj, 625, 22, 7.5)
 
-      -- 2nd wave of asteroids --
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid1.lua",
-	position = {730, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid3.lua",
-	position = {735, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid2.lua",
-	position = {740, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid1.lua",
-	position = {745, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid3.lua",
-	position = {750, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid2.lua",
-	position = {755, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid1.lua",
-	position = {760, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid3.lua",
-	position = {765, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid2.lua",
-	position = {770, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid1.lua",
-	position = {775, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid3.lua",
-	position = {780, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid2.lua",
-	position = {785, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid1.lua",
-	position = {790, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid3.lua",
-	position = {795, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid2.lua",
-	position = {800, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid1.lua",
-	position = {805, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid3.lua",
-	position = {810, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid2.lua",
-	position = {815, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Asteroid.mdl",
-	script = "asteroid1.lua",
-	position = {820, 30, 7.5},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
+	obj = addObject(terrain, "./scripts/enemy_ship2.lua")
+	setPosition(obj, 630, 22, 7.5)
 
+	obj = addObject(terrain, "./scripts/enemy_ship2.lua")
+	setPosition(obj, 635, 22, 7.5)
+	      
+	-- sweeping from below --
+	obj = addObject(terrain, "./scripts/enemy_ship3.lua")
+	setPosition(obj, 675, 8, 7.5)
+	
+	obj = addObject(terrain, "./scripts/enemy_ship3.lua")
+	setPosition(obj, 680, 8, 7.5)
+	
+	obj = addObject(terrain, "./scripts/enemy_ship3.lua")
+	setPosition(obj, 685, 8, 7.5)
+	
+	obj = addObject(terrain, "./scripts/enemy_ship3.lua")
+	setPosition(obj, 690, 8, 7.5)
+	
+	obj = addObject(terrain, "./scripts/enemy_ship3.lua")
+	setPosition(obj, 695, 8, 7.5)
+	
+	obj = addObject(terrain, "./scripts/enemy_ship3.lua")
+	setPosition(obj, 700, 8, 7.5)
+	
+    -- 2nd wave of asteroids --
+    for i = 730, 810, 15 do
+        obj = addObject(terrain, "./scripts/asteroid1.lua"),
+	  setPosition(obj, i, 30, 7.5)
+    end
+
+    for i = 735, 815, 15 do
+        obj = addObject(terrain, "./scripts/asteroid3.lua"),
+	  setPosition(obj, i, 30, 7.5)
+    end
+
+    for i = 740, 820, 15 do
+        obj = addObject(terrain, "./scripts/asteroid2.lua"),
+	  setPosition(obj, i, 30, 7.5)
+    end
+	
       -- last wave - crashing ships --
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship4.lua",
-	position = {882, 20, 37.5},
-	rotation = {0.19625, -2.7475, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship5.lua",
-	position = {880, 15, 37.5},
-	rotation = {0.19625, -2.7475, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship4.lua",
-	position = {890, 20, 37.5},
-	rotation = {0.19625, -2.7475, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship6.lua",
-	position = {900, 20, 37.5},
-	rotation = {0.19625, -2.7475, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship6.lua",
-	position = {905, 15, 37.5},
-	rotation = {0.19625, -2.7475, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 1,
-	modelKey = "Enemy.mdl",
-	script = "enemy_ship6.lua",
-	position = {910, 20, 37.5},
-	rotation = {0.19625, -2.7475, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-
+	obj = addObject(terrain, "./scripts/enemy_ship4.lua")
+	setPosition(obj, 882, 20, 37.5)
+		
+	obj = addObject(terrain, "./scripts/enemy_ship5.lua")
+	setPosition(obj, 880, 15, 37.5)
+		
+	obj = addObject(terrain, "./scripts/enemy_ship4.lua")
+	setPosition(obj, 890, 20, 37.5)
+	
+	obj = addObject(terrain, "./scripts/enemy_ship6.lua")
+	setPosition(obj, 900, 20, 37.5)
+	
+	obj = addObject(terrain, "./scripts/enemy_ship6.lua")
+	setPosition(obj, 905, 15, 37.5)
+		
+	obj = addObject(terrain, "./scripts/enemy_ship6.lua")
+	setPosition(obj, 910, 20, 37.5)
+	
       -- scenery --
-	{type = 2,
-	modelKey = "Building.mdl",
-	script = "enemy_ship1.lua",
-	position = {160, 20, -100.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {10.0, 20.0, 10.0}},
-	{type = 2,
-	modelKey = "Building.mdl",
-	script = "enemy_ship1.lua",
-	position = {190, 20, -100.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {10.0, 30.0, 10.0}},
-	{type = 2,
-	modelKey = "Building.mdl",
-	script = "enemy_ship1.lua",
-	position = {150, 7, -50.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {7.0, 10.0, 7.0}},
-	{type = 2,
-	modelKey = "Building.mdl",
-	script = "enemy_ship1.lua",
-	position = {175, 7, -50.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {7.0, 7.0, 7.0}},
-	{type = 2,
-	modelKey = "Building.mdl",
-	script = "enemy_ship1.lua",
-	position = {200, 9, -50.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {6.0, 9.0, 6.0}},
-	{type = 2,
-	modelKey = "Building.mdl",
-	script = "enemy_ship1.lua",
-	position = {210, 10, -50.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {6.0, 10.0, 6.0}},
-	{type = 2,
-	modelKey = "Building.mdl",
-	script = "enemy_ship1.lua",
-	position = {230, 8, -50.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {6.0, 8.0, 6.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {145, 5, -25.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {150, 5, -25.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {185, 4, -20.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {190, 3, -15.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {210, 3, -15.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {213, 2.5, -12.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {216, 3, -13.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {255, 3.0, -15.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {265, 4.5, -20.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {280, 4.5, -20.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {285, 3.0, -15.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {300, 3.0, -15.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {310, 5.0, -25.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {313, 6.5, -28.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {315, 4.5, -24.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {355, 2.0, -10.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {365, 3.0, -15.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {370, 2.0, -10.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {2.0, 2.0, 2.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {370, 6.0, -65.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {4.0, 4.0, 4.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {375, 6.0, -60.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {4.0, 4.0, 4.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {380, 6.0, -55.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {4.0, 4.0, 4.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {705, 6.0, -45.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {4.0, 4.0, 4.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {708, 6.0, -42.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {4.0, 4.0, 4.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {715, 6.0, -45.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {4.0, 4.0, 4.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {725, 6.0, -40.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {4.0, 4.0, 4.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {735, 6.0, -45.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {4.0, 4.0, 4.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {740, 6.0, -42.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {4.0, 4.0, 4.0}},
+
+	obj = addObject(terrain, "./scripts/building.lua"),
+	setPosition(obj, 160, 20, -100.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 10.0, 20.0, 10.0)
+
+	obj = addObject(terrain, "./scripts/building.lua"),
+	setPosition(obj, 190, 20, -100.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 10.0, 30.0, 10.0)
+
+	obj = addObject(terrain, "./scripts/building.lua"),
+	setPosition(obj, 150, 7, -50.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 7.0, 10.0, 7.0)
+
+	obj = addObject(terrain, "./scripts/building.lua"),
+	setPosition(obj, 175, 7, -50.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 7.0, 7.0, 7.0)
+
+	obj = addObject(terrain, "./scripts/building.lua"),
+	setPosition(obj, 200, 9, -50.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 6.0, 9.0, 6.0)
+
+	obj = addObject(terrain, "./scripts/building.lua"),
+	setPosition(obj, 210, 10, -50.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 6.0, 10.0, 6.0)
+
+	obj = addObject(terrain, "./scripts/building.lua"),
+	setPosition(obj, 230, 8, -50.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 6.0, 8.0, 6.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 145, 5, -25.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 2.0, 2.0, 2.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 150, 5, -25.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 2.0, 2.0, 2.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 185, 4, -20.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 2.0, 2.0, 2.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 190, 3, -15.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 2.0, 2.0, 2.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 210, 3, -15.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 2.0, 2.0, 2.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 213, 2.5, -12.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 2.0, 2.0, 2.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 216, 3, -13.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 2.0, 2.0, 2.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 255, 3.0, -15.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 2.0, 2.0, 2.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 265, 4.5, -20.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 2.0, 2.0, 2.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 280, 4.5, -20.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 2.0, 2.0, 2.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 285, 3.0, -15.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 2.0, 2.0, 2.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 300, 3.0, -15.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 2.0, 2.0, 2.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 310, 5.0, -25.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 2.0, 2.0, 2.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 313, 6.5, -28.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 2.0, 2.0, 2.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 315, 4.5, -24.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 2.0, 2.0, 2.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 355, 2.0, -10.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 2.0, 2.0, 2.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 365, 3.0, -15.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 2.0, 2.0, 2.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 370, 2.0, -10.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 2.0, 2.0, 2.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 370, 6.0, -65.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 4.0, 4.0, 4.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 375, 6.0, -60.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 4.0, 4.0, 4.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 380, 6.0, -55.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 4.0, 4.0, 4.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 705, 6.0, -45.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 4.0, 4.0, 4.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 708, 6.0, -42.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 4.0, 4.0, 4.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 715, 6.0, -45.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 4.0, 4.0, 4.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 725, 6.0, -40.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 4.0, 4.0, 4.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 735, 6.0, -45.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 4.0, 4.0, 4.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 740, 6.0, -42.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 4.0, 4.0, 4.0)
 
       -- ------------------------------------
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {980, 9.0, -75.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {4.0, 4.0, 4.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {985, 6.5, -70.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {4.0, 4.0, 4.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {990, 10.0, -80.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {4.0, 4.0, 4.0}},
-	{type = 2,
-	modelKey = "Pinetree.mdl",
-	script = "enemy_ship1.lua",
-	position = {995, 5.5, -75.0},
-	rotation = {0.0, 0.0, 0.0},
-	scale = {4.0, 4.0, 4.0}},
-}
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 980, 9.0, -75.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 4.0, 4.0, 4.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 985, 6.5, -70.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 4.0, 4.0, 4.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 990, 10.0, -80.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 4.0, 4.0, 4.0)
+
+	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	setPosition(obj, 995, 5.5, -75.0)
+	setRotation(obj, 0.0, 0.0, 0.0)
+	setScale(obj, 4.0, 4.0, 4.0)
+
+    return
+end
+
+function on_update()
+    return
+end
+
+function on_unload()
+    return
+end

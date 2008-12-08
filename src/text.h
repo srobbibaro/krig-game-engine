@@ -10,11 +10,11 @@
 // Date        : 12-1-03                                        //
 //////////////////////////////////////////////////////////////////
 #include "constants.h"
-#include "ScriptedObject.h"
+#include "Object.h"
 
 #ifndef _TEXT_H_
 #define _TEXT_H_
-    class ScriptTextType : public ScriptedObject
+    class ScriptTextType : public Object
     {
         public:
         char line[128];

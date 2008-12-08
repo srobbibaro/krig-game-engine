@@ -79,7 +79,7 @@ void Model::unload()
 }
 
 //------------------------------------------------------------------------------
-void Model::draw(Camera* c)
+void Model::draw(Object* c)
 {
     /*
     float x = 0;
@@ -114,10 +114,13 @@ void Model::draw(Camera* c)
     glEnd();
     
     glPopMatrix();
+    
+    if (particleSystem != NULL)
+        particleSystem->draw();
 }
 
 //------------------------------------------------------------------------------
-void Model::drawOutline(Camera* c)
+void Model::drawOutline(Object* c)
 {
     ModelStorage *m = modelHash[modelKey];
     glColor3f( 0.0f, 0.0f, 0.0f );
@@ -173,7 +176,28 @@ void Model::drawShadow (Vector* light)
 
 //------------------------------------------------------------------------------
 void Model::handleCollision( Object* temp )
-{}
+{
+    // Attempt to execute the script only if the lua state has already been
+    // initialized with a script
+    if (L == NULL)
+        return;
+        
+    // Find the update function and call it
+    lua_getglobal(L, "on_collision");
+	    
+    // Push a pointer to the current object for use within the lua function
+    lua_pushlightuserdata(L, (void*)this);
+    lua_pushlightuserdata(L, (void*)temp);
+	     
+    // Call the function with 2 argument and no return values
+    lua_call(L, 2, 0);
+
+    // get the result //
+    //position.z = (float)lua_tonumber(L, -1);
+    //position.y = (float)lua_tonumber(L, -2);
+    //position.x = (float)lua_tonumber(L, -3);
+    //lua_pop(L, 1);
+}
 
 //------------------------------------------------------------------------------
 void Model::update( Vector* light )
@@ -182,7 +206,7 @@ void Model::update( Vector* light )
     GLfloat temp;
     Matrix translation;
     Matrix rotationMatrix;
-    Matrix scale;    
+    Matrix scaleMatrix;    
     Matrix transform;
     
     GLfloat min[] = { 9999.0f, 9999.0f, 9999.0f };
@@ -190,11 +214,11 @@ void Model::update( Vector* light )
   
     // setup transformation matrices ////////////
     rotation.buildRotationMatrix( rotationMatrix );   
-    scale.setScale( scaleFactor.x, scaleFactor.y, scaleFactor.z );
+    scaleMatrix.setScale( scale.x, scale.y, scale.z );
     translation.setTranslation( position.x, position.y, position.z );
     
     // setup the transformation matrix //////////
-    transform = translation * rotationMatrix * scale;   
+    transform = translation * rotationMatrix * scaleMatrix;   
 
 
     /////////////////////////////////////////////
@@ -304,9 +328,9 @@ void Model::update( Vector* light )
 //------------------------------------------------------------------------------
 void Model::prepare( void ) {} 
 //------------------------------------------------------------------------------
-void Model::animate( float timeElapsed, Camera* c ) 
+void Model::animate( float timeElapsed, Object* c ) 
 {   
-    elapsedTime = timeElapsed;
+    //#elapsedTime = timeElapsed;
     
     if ( !active ) {
         if ( testActiveZone( c ) ) {
@@ -363,9 +387,9 @@ void Model::animate( float timeElapsed, Camera* c )
                 }
             }
             
-            scaleFactor.x += scaleRate.x * timeElapsed;
-            scaleFactor.y += scaleRate.y * timeElapsed;
-            scaleFactor.z += scaleRate.z * timeElapsed;
+            scale.x += scaleRate.x * timeElapsed;
+            scale.y += scaleRate.y * timeElapsed;
+            scale.z += scaleRate.z * timeElapsed;
             
             if (!interp) {
                 if ( 
@@ -412,6 +436,9 @@ void Model::animate( float timeElapsed, Camera* c )
             /////////////////////////////////////////////
         }
     }
+    
+      if (particleSystem != NULL)
+        particleSystem->update(timeElapsed);
 }
 
 //------------------------------------------------------------------------------

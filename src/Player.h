@@ -12,12 +12,12 @@ class Player : public Model
         int numLives;
                 
    // public:
-        void handleCollision( Object* );
+        //void handleCollision( Object* );
         void prepare() {}
         
         Player( string );
         virtual ~Player();
-        void processAI( Camera*, float );
+        void processAI( Object*, float ); // Camera*
         void animate( float, Camera* );
         void fireShot ( float );
         void fireMissle( Object* tobj );

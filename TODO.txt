@@ -43,6 +43,12 @@
     x Steve: Implement ability to conditionally compile in game mode or edit mode. (12/3/08 ~ Steve)
 
 12/7/08 ~ Steve
-    * Convert level 1 to new level loading scheme.
-    * Convert level 2 to new level loading scheme.
-    * Steve: determine why setSkyBox function crashes game.
+    x Convert level 1 to new level loading scheme (12/8/08 ~ Steve).
+    x Convert level 2 to new level loading scheme (12/7/08 ~ Steve).
+    x Steve: setSkyBox function crashes game. (12/7/08 ~ Steve)
+
+12/8/08 ~ Steve
+    * Convert level 4 to new level loading scheme.
+    * Steve: Fix player shot lua script to mimic existing design.
+    * Steve: Game crashes when changing levels. 
+    * Steve: Game sometimes crashes while shooting.

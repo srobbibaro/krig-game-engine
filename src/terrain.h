@@ -17,7 +17,7 @@ using namespace std;
 
 
 #include "constants.h"
-#include "Objects.h"
+#include "Object.h"
 #include "DisplayList.h"
   
     class Terrain : public Object
@@ -45,12 +45,12 @@ using namespace std;
         
         Terrain();
         ~Terrain();
-		void draw( Camera* );
-		void drawOutline( Camera* );
+		void draw( Object* );
+		void drawOutline( Object* );
 
         void handleCollision( Object* temp ) {}
         void prepare() {}
-        void animate( float, Camera* );
+        void animate( float, Object* );
         void generateTerrain( void );
         
 	    void calcTerrainNorm( Vector* );

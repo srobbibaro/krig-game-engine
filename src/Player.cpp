@@ -8,17 +8,17 @@ Player::Player( string tModelKey )
 
     active = true;
     state = NORMAL;
-    testActiveZoneEnable = false;
+    //#testActiveZoneEnable = false;
     
-    shotDelay = .75f;
-    numShots = 3;
-    numMissiles = 300;
+    //#shotDelay = .75f;
+    //#numShots = 3;
+    //#numMissiles = 300;
     
     score = 0;
     numLives = 3;
     pShot = NULL;
     
-    life = 10;
+    //#life = 10;
     
     userControl = true;
 }
@@ -30,8 +30,9 @@ Player::~Player()
 }
 
 //------------------------------------------------------------------------------
-void Player::handleCollision( Object* temp )
-{
+//void Player::handleCollision( Object* temp )
+//{
+/*
     if ( typeid( *temp ) == typeid( EnemyShip ) || typeid( *temp ) == typeid( Shot ) 
         || typeid( *temp ) == typeid( Asteroid ) || typeid( *temp ) == typeid( Beam )
         || typeid(*temp) == typeid(CannonBall) )
@@ -87,16 +88,18 @@ void Player::handleCollision( Object* temp )
                 position.y = height;
             }
     }
-}
+*/
+//}
 
 //------------------------------------------------------------------------------
-void Player::processAI( Camera* c, float elapsedTime)
+void Player::processAI( Object* c, float elapsedTime)
 {
    // I'd like to redo this logic which restricts the player from moving off screen
    // to be a little smarter depending on where the camera is located...
    // as it is now, it is hardcored for a specific distance 
 
-    if (testActiveZoneEnable) {
+    //#if (testActiveZoneEnable) {
+    {
         if (position.x < c->position.x-13.0f)
             position.x = c->position.x-13.0f;
         else if (position.x > c->position.x+13.0f)
@@ -107,14 +110,20 @@ void Player::processAI( Camera* c, float elapsedTime)
         else if (position.y > c->position.y+10.0f)
             position.y = c->position.y+10.0f;
     }
-        
+   
+    /* 
+    //#    
     if ( numShots < 1 ) {
         if ( *animCurrTime > shotTime + shotDelay )
             numShots = 3;
     }
+    */
    
     // this needs to be fixed to elapsedTime
     animateScript(elapsedTime);
+    
+     if (particleSystem != NULL)
+        particleSystem->update(elapsedTime);
 }
 
 //------------------------------------------------------------------------------
@@ -124,11 +133,14 @@ void Player::animate( float timeElapsed, Camera* c )
     {
         isVisible = !isVisible;
         
+        /*
+        //#
         if ( *animCurrTime > ( animStartTime + INVUL_DURATION ) )
         {
             state = NORMAL;
             isVisible = true;
         }
+        */
     }
      
          // calculate new position and orientation //
@@ -171,9 +183,9 @@ void Player::animate( float timeElapsed, Camera* c )
                 }
             }
     
-    scaleFactor.x += scaleRate.x * timeElapsed;
-    scaleFactor.y += scaleRate.y * timeElapsed;
-    scaleFactor.z += scaleRate.z * timeElapsed;
+    scale.x += scaleRate.x * timeElapsed;
+    scale.y += scaleRate.y * timeElapsed;
+    scale.z += scaleRate.z * timeElapsed;
     /////////////////////////////////////////////
     
     if (!interp) {
@@ -227,6 +239,8 @@ void Player::animate( float timeElapsed, Camera* c )
 //------------------------------------------------------------------------------
 void Player::fireShot( float gameSpeed )
 {   
+/*
+//#
     if ( numShots > 0  ) {          
         numShots--;
         shotTime = *animCurrTime;
@@ -239,11 +253,14 @@ void Player::fireShot( float gameSpeed )
             
         s->PlaySFX("laser.wav");          
     }
+*/
 }
 
 //------------------------------------------------------------------------------
 void Player::fireMissle( Object* tobj )
 {
+/*
+//#
     if ( numMissiles > 0 )
     {
         numMissiles--;
@@ -257,6 +274,7 @@ void Player::fireMissle( Object* tobj )
         //pShot->setPosition( position.x + 2, position.y, position.z );
         add(pShot);
     }
+*/
 }
 
 //------------------------------------------------------------------------------

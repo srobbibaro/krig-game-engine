@@ -3,6 +3,10 @@ x_max = 0.0
 y_min = 0.0
 y_max = 0.0
 
+life = 40
+
+shot_timer = 0.0
+
 function set_window()
     camera = getCamera()
     cx, cy, cz = getPosition(camera)
@@ -21,6 +25,10 @@ function calc_speed()
 end
 
 function on_load(this)
+    setModel(this, "snowboss.mdl")
+    setRotation(this, 0.0, -1.57, 0.0)
+    setScale(this, 4.0, 4.0, 4.0)
+
     math.randomseed( os.time() )
     set_window()
     speed = calc_speed()
@@ -31,6 +39,12 @@ end
 function on_update(this, elapsedTime)
     mx, my, mz = getPosition(this)  
     vx, vy, vz = getVelocity(this)
+
+    shot_timer = shot_timer + elapsedTime
+    if shot_timer > 2.0 then
+        shot_timer = 0.0
+        fire_shot(this)
+    end
 
     if vx > 0.0 then
         if mx > x_max then
@@ -61,3 +75,18 @@ end
 function on_unload(this)
     return
 end
+
+function on_collision(this, temp)
+    playSound(this, 3)
+    life = life - 1
+    if life <= 0 then
+        removeObject(this)
+    end
+    return
+end
+
+function fire_shot(this)
+    print ("shooting...\n")
+    return
+end
+

@@ -5,19 +5,11 @@ extern "C" {
 }
 
 #include "constants.h"
-#include "Objects.h"
+#include "Object.h"
 #include "Player.h"
 #include "Terrain.h"
-#include "Boss.h"
 #include "Camera.h"
-#include "ParticleSystem.h"
 #include "Text.h"
-#include "EnemyShip.h"
-#include "Powerup.h"
-#include "BoatCannon.h"
-#include "SailBoat.h"
-#include "Asteroid.h"
-#include "Beam.h"
 #include "QuadTree.h"
 
 #ifndef _GAME_LEVEL_H_
@@ -31,12 +23,10 @@ class GameLevel
         Object* obj;         // temp object for loading
         Vector light;
         Player* player;     // player object
-        Boss* boss;         // pointer to boss object
-        ScriptedObject* camera;     // camera
+        //Boss* boss;         // pointer to boss object
+        Object* camera;     // camera
         Sound* snd;         // pointer to sound class
         float bgcolor[3][3];
-        int weatherEffect;
-        ParticleSystem *weather;
         bool complete;
         
         float time;             // current time elapsed since level began running
@@ -79,7 +69,7 @@ class GameLevel
         void setSoundClass( Sound * );
         Object* findEnemy( void );
         float findDistance( Object*, Object* );
-        Boss* returnBoss ( void );
+        //Boss* returnBoss ( void );
         void drawSky( void );
         bool checkComplete( void );
         void unloadLevel(void);
@@ -103,7 +93,15 @@ class GameLevel
         void toggleControlTriangles(void);
         
         string getMusicPath() { return (musicPath); }
+        void setMusicPath(string music) { musicPath = music; }
         Vector* getLight() { return &light; }
+        
+        void setSkyBox(float**, int, int);
+        void setLightDirection(float x, float y, float z)
+        {
+            light.setVector(x, y, z);
+            light.normalize();
+        }
 };
 
 #endif
