@@ -118,3 +118,8 @@ Game Level Script Scope Only:
               color3_red, color3_green, color3_blue) - returns: n/a
     setLightDirection(x, y, z) - returns: n/a
     setTerrain(terrain_name) - returns: n/a
+
+12/10/08 ~ Steve
+
+New KRIG Engine lua scripting functions:
+    engine_testKeyPressed(object_ref, key_number) - returns: boolean result - note: should be tweaked to not take object_ref in future

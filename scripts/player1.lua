@@ -1,6 +1,7 @@
 progress = 0
 
 nextShot = 0.0
+nextMissileShot = 0.0
 
 leftDown = 0
 rightDown = 0
@@ -21,6 +22,7 @@ end
 
 function on_update(this, elapsedTime)
     if nextShot > 0.0 then nextShot = nextShot - elapsedTime end
+    if nextMissileShot > 0.0 then nextMissileShot = nextMissileShot - elapsedTime end
 
     if progress == 0 then
         camera = getCamera()
@@ -82,6 +84,13 @@ function on_update(this, elapsedTime)
             setPosition(obj, px, py, pz)
             nextShot = .40
         end      
+
+	  if engine_testKeyPressed(this, 109) == 1 and nextMissileShot <= 0.0 then
+            obj = addObject(this, "./scripts/player_missile.lua")
+            setPosition(obj, px, py, pz)
+            nextMissileShot = .75
+        end      
+
     end
     
     return
