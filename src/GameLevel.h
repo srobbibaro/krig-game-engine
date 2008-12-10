@@ -11,6 +11,7 @@ extern "C" {
 #include "Camera.h"
 #include "Text.h"
 #include "QuadTree.h"
+#include "sound.h"
 
 #ifndef _GAME_LEVEL_H_
 #define _GAME_LEVEL_H_
@@ -49,12 +50,16 @@ class GameLevel
         bool controlTriangles;     
         
         string musicPath;  
+        
+        KeyState* keyState;
+        
+        lua_State* L;
     
     
     public:
         GameLevel( unsigned int);
         ~GameLevel();
-        void updateLevel();
+        void updateLevel(float);
         void animateLevel( float );
         void prepareLevel( void);
         void drawLevel( void );
@@ -102,6 +107,11 @@ class GameLevel
             light.setVector(x, y, z);
             light.normalize();
         }
+        
+        Sound* getSoundClass() { return snd; }
+        
+        void setKeyState(KeyState* ks) { keyState = ks; }
+        KeyState* getKeyState() { return keyState; }
 };
 
 #endif

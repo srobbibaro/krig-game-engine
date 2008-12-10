@@ -1,6 +1,8 @@
 x_start_camera = 110.0
 x_start_player = x_start_camera - 20.0
 
+soundPlayed = 0
+
 function on_load(terrain)
     --setBgMusic("./music/Wily.ogg")
     setSkyBox(0.0, 0.0, 0.3,
@@ -369,7 +371,21 @@ function on_load(terrain)
     return
 end
 
-function on_update()
+function on_update(terrain, elapsedTime)
+    player = getPlayer()
+
+    px, py, pz = getPosition(player)
+
+    if px > 250.0 and soundPlayed == 0 then
+        playSound(terrain, "bossexplo.wav")
+
+        player = getPlayer()
+        px, py, pz = getPosition(player)
+        obj = addObject(terrain, "./scripts/boss2.lua")
+        setPosition(obj, px + 30.0, py, pz)
+        soundPlayed = 1
+    end 
+
     return
 end
 

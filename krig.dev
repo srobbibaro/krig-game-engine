@@ -297,16 +297,6 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit55]
-FileName=src\ScriptedObject.h
-CompileCpp=1
-Folder=krig
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
 [Unit56]
 FileName=src\ScriptedObject.cpp
 CompileCpp=1

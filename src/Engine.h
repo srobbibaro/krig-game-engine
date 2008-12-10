@@ -32,6 +32,8 @@ class Engine
         long score;
         int numLives;
         
+        KeyState *keyState;
+        
         
         //Boss* boss;
         Terrain* terrain;           // pointer to terrain

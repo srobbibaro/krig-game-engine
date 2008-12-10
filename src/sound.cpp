@@ -30,7 +30,7 @@ Sound::Sound(char *sfx)
     alGenSources(numofSFX, SFXSources);
 
     // Load the sound files into memory.
-    ALbyte filename[10];
+    ALbyte filename[80];
     ALenum format;
     ALvoid *data;
     ALboolean loop;
@@ -45,6 +45,8 @@ Sound::Sound(char *sfx)
         SetSFX( i, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, AL_FALSE );
 
         sfxHash[ files[i] ] = i; // Create name to index map.
+        
+        cout << "Loaded sound '" << filename << "' key '" << files[i] << "'\n";
 
         //alutUnloadWAV(format, data, size, freq);
     }

@@ -10,6 +10,8 @@ extern "C" {
 #include "Object.h"
 #include "ScriptedObject.h"
 #include "GameLevel.h"
+#include "Matrix.h"
+#include "Engine.h"
 
 class Scripting
 {
@@ -384,7 +386,11 @@ static int playSoundLua(lua_State *L)
     const char *s = lua_tostring(L, 2);
     string sound = string(s);
     
-    object->s->PlaySFX(sound);
+    Sound *snd = object->s;
+    
+    if (snd != NULL) {
+        snd->PlaySFX(sound);
+    }
     
     return 0;
 }
@@ -402,6 +408,7 @@ static int addObjectLua(lua_State *L)
     object->temp->setSoundClass(object->s);
     object->temp->setPlayerPtr(object->player);
     object->temp->setCameraPtr(object->camera);
+    object->temp->keyState = object->temp->keyState;
     
     object->temp->loadScript(script);
     
@@ -525,5 +532,36 @@ static int setTerrainLua(lua_State *L)
     
     terrain->loadTerrain(s, light);
 }
-       
+
+static int vector_getScalarLua(lua_State *L)
+{
+    Vector t(lua_tonumber(L, 1), lua_tonumber(L, 2), lua_tonumber(L, 3));
+    Vector u(lua_tonumber(L, 4), lua_tonumber(L, 5), lua_tonumber(L, 6));
+    lua_pushnumber(L, t.getScaler(u));
+    return 1;
+}
+
+static int engine_testKeyPressedLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    int key = (int)lua_tonumber(L, 2);
+    
+    int result = (int)(object->keyState->testKeyPressed(key));
+    lua_pushnumber(L, result);
+    
+    return 1;
+}
+
+static int engine_testKeyReleasedLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    int key = (int)lua_tonumber(L, 2);
+
+    int result = (int)(object->keyState->testKeyReleased(key));
+    lua_pushnumber(L, result);
+    return 1;
+}
+      
 #endif

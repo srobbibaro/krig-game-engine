@@ -13,11 +13,11 @@ GameLevel::GameLevel( unsigned int tLists)
     player = NULL;
     camera = NULL;
     //boss = NULL;
-    camera = NULL;
     time = 0;
     
     musicPath = "";
     
+    snd = NULL;
     
     /////
 #if EDIT
@@ -30,6 +30,8 @@ GameLevel::GameLevel( unsigned int tLists)
     
     q = new QuadTree();
     l = new DisplayList();
+    
+    L = NULL;
 }
 
 //------------------------------------------------------------------------------
@@ -76,8 +78,31 @@ void GameLevel::drawLevel()
 }
 
 //------------------------------------------------------------------------------
-void GameLevel::updateLevel()
+void GameLevel::updateLevel(float elapsedTime)
 {
+    // Attempt to execute the script only if the lua state has already been
+    // initialized with a script
+    if (L == NULL)
+        return;
+    
+    // Find the update function and call it
+    lua_getglobal(L, "on_update");
+	    
+    // Push a pointer to the current object for use within the lua function
+    lua_pushlightuserdata(L, (void*)terrain);
+	   
+	// Push the time passed since the last iteration of the game loop
+    lua_pushnumber(L, elapsedTime);
+    
+    // Call the function with 2 argument and no return values
+    lua_call(L, 2, 0);
+
+    // get the result //
+    //position.z = (float)lua_tonumber(L, -1);
+    //position.y = (float)lua_tonumber(L, -2);
+    //position.x = (float)lua_tonumber(L, -3);
+    //lua_pop(L, 1);
+    
     terrain->updateObjects( &light );
 
     l->clearList();
@@ -115,13 +140,19 @@ bool GameLevel::loadLevelLua( string file )
     complete = false;
     time = 0;
     eventBeginTime = 0;
-        
-    // initialize Lua 
-    lua_State* L = lua_open();
     
+    // If the lua state has not been initialized for this object, attempt to
+    // initialize it.     
+    if (file == "" || L != NULL)
+        return false;
+        
+    L = lua_open();
+    
+    // If the lua state still could not be initialized, then exit the game.
+    // ... we can do something smarter with this in the finished product.
     if (L == NULL) {
         printf("Error creating Lua state.\n");
-		exit(-1);
+	    exit(-1);
     }
 
 	// load Lua base libraries 
@@ -193,14 +224,17 @@ bool GameLevel::loadLevelLua( string file )
     player->setPlayerPtr(player);
     player->setCameraPtr(camera);
     player->setSoundClass(snd);
+    player->keyState = keyState;
     
     camera->setPlayerPtr(player);
     camera->setCameraPtr(camera);
     camera->setSoundClass(snd);
+    camera->keyState = keyState;
     
     terrain->setSoundClass(snd);
     terrain->setPlayerPtr(player);
     terrain->setCameraPtr(camera);
+    terrain->keyState = keyState;
      
      // Find the update function and call it
     lua_getglobal(L, "on_load");
@@ -239,8 +273,8 @@ bool GameLevel::loadLevelLua( string file )
       terrain->l = l;
    
      cout << "finished..." << endl << endl;
-     lua_close(L);
-     L = NULL;
+     //lua_close(L);
+     //L = NULL;
      
      return (true);
 }
@@ -534,6 +568,29 @@ bool GameLevel::checkComplete(void)
 void GameLevel::unloadLevel()
 {    
   //  boss = NULL;
+  
+  // Attempt to execute the on_unload function only if the lua state has 
+    // already been initialized with a script
+    if (L == NULL)
+        return;
+    
+    // Find the update function and call it
+    lua_getglobal(L, "on_unload");
+	    
+    // Push a pointer to the current object for use within the lua function
+    lua_pushlightuserdata(L, (void*)terrain);
+	   
+    // Call the function with 1 argument and no return values
+    lua_call(L, 1, 0);
+
+    // get the result //
+    //position.z = (float)lua_tonumber(L, -1);
+    //position.y = (float)lua_tonumber(L, -2);
+    //position.x = (float)lua_tonumber(L, -3);
+    //lua_pop(L, 1);
+    
+    lua_close(L);
+    L = NULL;
 }
 
 //------------------------------------------------------------------------------

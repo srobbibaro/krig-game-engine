@@ -87,6 +87,8 @@ class Object : public ObjectNode
         
         ParticleSystem *particleSystem;
         
+        KeyState* keyState;
+        
     //public:
         Object();
         virtual ~Object();

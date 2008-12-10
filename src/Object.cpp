@@ -38,6 +38,9 @@ Object::Object()
        
     //#testActiveZoneEnable = true;
     
+    particleSystem = NULL;
+    L = NULL;
+    
     init();
 }
 
@@ -722,6 +725,12 @@ void Object::loadScript(string name)
     lua_register(L, "setModel", setModelLua);
     lua_register(L, "setScale", setScaleLua);
     lua_register(L, "setScript", setScriptLua);
+    
+    lua_register(L, "vector_getScalar", vector_getScalarLua); 
+    lua_register(L, "engine_testKeyPressed", engine_testKeyPressedLua); 
+    lua_register(L, "engine_testKeyReleased", engine_testKeyReleasedLua); 
+    
+    
         
     // Load this object's animation script
     luaL_dofile(L, scriptName.c_str());

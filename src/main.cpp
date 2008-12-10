@@ -415,6 +415,7 @@ void glutInit(void)
     glutReshapeFunc( reshape );
     glutKeyboardFunc( normalKey );
     glutMotionFunc ( mouseMove );
+    glutIgnoreKeyRepeat(1);
 }
 
 //------------------------------------------------------------------------------

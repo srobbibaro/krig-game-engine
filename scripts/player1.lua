@@ -1,5 +1,12 @@
 progress = 0
 
+nextShot = 0.0
+
+leftDown = 0
+rightDown = 0
+upDown = 0
+downDown = 0
+
 function on_load(this)
     -- set default values
     setRotation(this, 0.0, 1.57, 0.0)
@@ -13,6 +20,8 @@ function on_load(this)
 end
 
 function on_update(this, elapsedTime)
+    if nextShot > 0.0 then nextShot = nextShot - elapsedTime end
+
     if progress == 0 then
         camera = getCamera()
         mx, my, mz = getPosition(this)
@@ -42,6 +51,37 @@ function on_update(this, elapsedTime)
     elseif progress == 3 then
         setInterpolationEnable(this, 0)
         progress = 4
+    elseif progress == 4 then
+        px, py, pz = getPosition(this)
+        pvx, pvy, pvz = getVelocity(this)
+        camera = getCamera()
+        cvx, cvy, cvz = getVelocity(camera)
+
+        pvx = cvx
+        pvy = cvy
+
+        if engine_testKeyPressed(this, 101) == 1 then upDown = 1 end
+        if engine_testKeyPressed(this, 103) == 1 then downDown = 1 end
+        if engine_testKeyPressed(this, 100) == 1 then leftDown = 1 end
+        if engine_testKeyPressed(this, 102) == 1 then rightDown = 1 end
+
+	  if engine_testKeyReleased(this, 101) == 1 then upDown = 0 end
+        if engine_testKeyReleased(this, 103) == 1 then downDown = 0 end
+        if engine_testKeyReleased(this, 100) == 1 then leftDown = 0 end
+        if engine_testKeyReleased(this, 102) == 1 then rightDown = 0 end
+
+	  if upDown == 1 then pvy = pvy + 10 end
+        if downDown == 1 then pvy = pvy - 10 end
+        if leftDown == 1 then pvx = pvx - 10 end
+	  if rightDown == 1 then pvx = pvx + 10 end
+
+        setVelocity(this, pvx, pvy, pvz)
+
+        if engine_testKeyPressed(this, 32) == 1 and nextShot <= 0.0 then
+            obj = addObject(this, "./scripts/player_shot.lua")
+            setPosition(obj, px, py, pz)
+            nextShot = .40
+        end      
     end
     
     return

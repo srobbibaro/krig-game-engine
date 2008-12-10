@@ -51,8 +51,8 @@
     x Convert level 4 to new level loading scheme. (12/8/08 ~ Steve)
     * Steve: Fix player shot lua script to mimic existing design.
     * Steve: Game crashes when changing levels. Level 2? 
-    * Steve: Game sometimes crashes while shooting.
-    * Why does game seg fault during debug before loading level?
+    * Steve: Game sometimes crashes while shooting. (12/8/08 ~ Steve)
+    x Why does game seg fault during debug before loading level? (12/8/08 ~ Steve)
     * Make lua function to enable/disable collision detection for each object.
     * Implement lua created object type identifiers for use during collision detection.
     * Implement getScalar lua function.

@@ -1,10 +1,14 @@
 #include <dirent.h>
 
 #include "Engine.h"
+#include "Scripting.h"
 
 //------------------------------------------------------------------------------
 Engine::Engine()
 {
+    keyState = new KeyState();
+    keyState->initKeyState();
+    
     sounds = new Sound ("sounds/sfxlist.txt");
     loadModels();
 
@@ -29,6 +33,7 @@ Engine::Engine()
     shooting = false;
     
     player = new Player( MODEL_PLAYER );
+    player->keyState = keyState;
     
     totalTime = 0;
     
@@ -77,9 +82,9 @@ Engine::Engine()
 
 //------------------------------------------------------------------------------
 void Engine::gameCycle()
-{
+{  
     timeElapsed = timer->getElapsedSeconds(1);  
-    processCommands();
+    //processCommands();
     
     if ( gameMode == 3 ) {
         totalTime += timeElapsed;
@@ -120,17 +125,20 @@ void Engine::gameCycle()
             {
                currentLevel->processScripts();
                 
+                
                 (mainCamera)->update(timeElapsed);
             
                 currentLevel->animateLevel( timeElapsed );
                 currentLevel->animateText( timeElapsed );
+                
+                   processCommands();
 
-                currentLevel->updateLevel();
+                currentLevel->updateLevel(timeElapsed);
                 
 
                 currentLevel->prepareLevel();   // collision detection
 
-                currentLevel->updateLevel();    
+                //currentLevel->updateLevel(timeElapsed);    
                 
 
                 prepare();
@@ -270,6 +278,7 @@ void Engine::initGL()
     
     
     currentLevel = new GameLevel(lists);
+    currentLevel->setKeyState(keyState);
     //mainCamera = new Camera();
     c1 = new Camera();
     c1->id = 1;
@@ -305,24 +314,26 @@ void Engine::initGL()
 //------------------------------------------------------------------------------
 void Engine::processKeyUp(int key)
 {
+    keyState->keys[key] = 2;
+
     if ((player)->userControl) {
         switch( key )
         {
             case GLUT_KEY_UP:
                 if ( gameMode == 1 ) 
-                    control.enQueue( VEL_UP_KEY_UP );    
+                    //control.enQueue( VEL_UP_KEY_UP );    
                 break;
             case GLUT_KEY_DOWN:
                 if ( gameMode == 1 ) 
-                    control.enQueue( VEL_DOWN_KEY_UP );
+                    //control.enQueue( VEL_DOWN_KEY_UP );
                 break;
             case GLUT_KEY_LEFT:
                 if ( gameMode == 1 ) 
-                    control.enQueue( VEL_LEFT_KEY_UP );
+                    //control.enQueue( VEL_LEFT_KEY_UP );
                 break;
             case GLUT_KEY_RIGHT:
                 if ( gameMode == 1 ) 
-                    control.enQueue( VEL_RIGHT_KEY_UP );
+                    //control.enQueue( VEL_RIGHT_KEY_UP );
                 break;
         }
     }
@@ -335,31 +346,36 @@ void Engine::processKeyUp(int key)
 //------------------------------------------------------------------------------
 void Engine::processKeyDown( int key )
 {
+    cout << "key=" << key << endl;
+    keyState->keys[key] = 1;
+    
     if ((player)->userControl) {
         switch( key )
         {
             case GLUT_KEY_UP:
                 if( gameMode == 1 ) {
-                    control.enQueue( VEL_UP_KEY_DOWN ); }
+                    //control.enQueue( VEL_UP_KEY_DOWN );
+                }
                 else {
                     control.enQueue( MOVE_CURSOR ); }
                 break;
             case GLUT_KEY_DOWN:
                 if( gameMode == 1 ) {
-                    control.enQueue( VEL_DOWN_KEY_DOWN ); }
+                    //control.enQueue( VEL_DOWN_KEY_DOWN ); 
+                }
                 else {
                     control.enQueue( MOVE_CURSOR ); }
                 break;
             case GLUT_KEY_LEFT:
                 if ( gameMode == 1 ) 
-                    control.enQueue( VEL_LEFT_KEY_DOWN );
+                    //control.enQueue( VEL_LEFT_KEY_DOWN );
                 break;
             case GLUT_KEY_RIGHT:
                 if ( gameMode == 1 ) 
-                    control.enQueue( VEL_RIGHT_KEY_DOWN );
+                    //control.enQueue( VEL_RIGHT_KEY_DOWN );
                 break;
             case GLUT_KEY_F1:
-                control.enQueue( TOGGLE_LOD );
+                //control.enQueue( TOGGLE_LOD );
                 break;
         }
     }
@@ -373,6 +389,8 @@ void Engine::processKeyDown( int key )
 //------------------------------------------------------------------------------
 void Engine::processCommands()
 {
+    keyState->initKeyState();
+    /*
     int cmd = control.deQueue();    // get command from queue
     
     while( cmd != NO_COMMAND )      // while while commands are defined,
@@ -490,16 +508,27 @@ void Engine::processCommands()
                 break;
             
             case SHOOT_DOWN:
+            {
                 //(player)->fireShot(mainCamera->velocity.x);        // gameSpeed
                 (player)->temp = new ScriptedObject("./scripts/player_shot.lua");
                 (player)->temp->player = player;
                 (player)->temp->camera = mainCamera;
+                (player)->temp->s = sounds;
                 (player)->temp->loadScript("./scripts/player_shot.lua");
-                (player)->temp->setPosition((player)->position.x + 4.0f, (player)->position.y, (player)->position.z);
-                (player)->temp->setRotationQuaternion((player)->rotation);
                 (player)->add((player)->temp);
-                break;
+               
+                 Vector tv;
+                 bool hit = (player)->direction.intersectBox( (player)->position, (player)->collisionBox, 1.0f, tv );
+            
+                if ( hit ) {   
+                    (player)->temp->setPosition( tv );
+                }
+                else {
+                    (player)->temp->position = (player)->position;        
+                }
                 
+                break;
+            }    
             case MISSILE_DOWN:
                 obj = currentLevel->findEnemy();
                 (player)->fireMissle( obj );
@@ -571,18 +600,21 @@ void Engine::processCommands()
     
         cmd = control.deQueue();    // get next command from queue
     }
+    */
 }
 //------------------------------------------------------------------------------
 void Engine::processNormalKey(unsigned char key)
 {
     //key = toupper(key);
+    
+    keyState->keys[key] = 1;
 
     switch (key)
     {  
         // Game controls...
         case 32:
-            if ((player)->userControl && gameMode == 1 && (player)->state != DEAD) 
-                control.enQueue(SHOOT_DOWN);
+            //if ((player)->userControl && gameMode == 1 && (player)->state != DEAD) 
+            //    control.enQueue(SHOOT_DOWN);
             
             #if DEMO
             if ( gameMode == 1 && player->state != DEAD )
@@ -591,8 +623,8 @@ void Engine::processNormalKey(unsigned char key)
             break;
         case 'M':
         case 'm':
-            if ((player)->userControl && gameMode == 1 && (player)->state != DEAD) 
-                control.enQueue(MISSILE_DOWN);
+            //if ((player)->userControl && gameMode == 1 && (player)->state != DEAD) 
+            //    control.enQueue(MISSILE_DOWN);
             break;
         case 13:
             if (gameMode == 0)
@@ -1182,7 +1214,7 @@ void Engine::newLevel()
     {
     */
         loadLevel();
-        sounds->StopSong();
+        //sounds->StopSong();
         if (currentLevel->getMusicPath() != "") {
             sounds->PlaySong(currentLevel->getMusicPath().c_str(), true);
         }

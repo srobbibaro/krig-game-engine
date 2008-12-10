@@ -77,11 +77,11 @@ function on_unload(this)
 end
 
 function on_collision(this, temp)
-    playSound(this, 3)
-    life = life - 1
-    if life <= 0 then
-        removeObject(this)
-    end
+    --playSound(this, 3)
+    --life = life - 1
+    --if life <= 0 then
+    --    removeObject(this)
+    --end
     return
 end
 
