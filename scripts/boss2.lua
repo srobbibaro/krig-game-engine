@@ -9,11 +9,11 @@ shot_timer = 0.0
 
 function set_window()
     camera = getCamera()
-    cx, cy, cz = getPosition(camera)
-    x_min = cx - math.random(20)
-    x_max = cx + math.random(20)
-    y_min = cy - math.random(20)
-    y_max = cy + math.random(20)
+    camera_position = getPosition(camera)
+    x_min = camera_position[1] - math.random(20)
+    x_max = camera_position[1] + math.random(20)
+    y_min = camera_position[2] - math.random(20)
+    y_max = camera_position[2] + math.random(20)
 
     return
 end
@@ -37,8 +37,8 @@ function on_load(this)
 end
 
 function on_update(this, elapsedTime)
-    mx, my, mz = getPosition(this)  
-    vx, vy, vz = getVelocity(this)
+    this_position = getPosition(this)  
+    this_velocity = getVelocity(this)
 
     shot_timer = shot_timer + elapsedTime
     if shot_timer > 2.0 then
@@ -46,23 +46,23 @@ function on_update(this, elapsedTime)
         fire_shot(this)
     end
 
-    if vx > 0.0 then
-        if mx > x_max then
+    if this_velocity[1] > 0.0 then
+        if this_position[1] > x_max then
             speed = calc_speed()
             setVelocity(this, 0.0, -speed, 0.0)
         end
-    elseif vx < 0.0 then
-        if mx < x_min then
+    elseif this_velocity[1] < 0.0 then
+        if this_position[1] < x_min then
 	      speed = calc_speed()
             setVelocity(this, 0.0, speed, 0.0)
         end
-    elseif vy > 0.0 then
-        if my > y_max then
+    elseif this_position[2] > 0.0 then
+        if this_velocity[2] > y_max then
             speed = calc_speed()
             setVelocity(this, speed, 0.0, 0.0)
         end
-    elseif vy < 0.0 then
-        if my < y_min then
+    elseif this_position[2] < 0.0 then
+        if this_velocity[2] < y_min then
             speed = calc_speed()
             setVelocity(this, -speed, 0.0, 0.0)
             set_window()

@@ -374,15 +374,13 @@ end
 function on_update(terrain, elapsedTime)
     player = getPlayer()
 
-    px, py, pz = getPosition(player)
+    player_position = getPosition(player)
 
-    if px > 250.0 and soundPlayed == 0 then
+    if player_position[1] > 250.0 and soundPlayed == 0 then
         playSound(terrain, "bossexplo.wav")
 
-        player = getPlayer()
-        px, py, pz = getPosition(player)
         obj = addObject(terrain, "./scripts/boss2.lua")
-        setPosition(obj, px + 30.0, py, pz)
+        setPosition(obj, player_position[1] + 30.0, player_position[2], player_position[3])
         soundPlayed = 1
     end 
 

@@ -9,16 +9,16 @@ end
 
 function on_update(this, elapsedTime)
     camera = getCamera()
-    mx, my, mz = getPosition(this)
-    vx, vy, vz = getVelocity(this)
-    cx, cy, cz = getPosition(camera)
-    min_y = cy - 5.0
-    max_y = cy + 5.0
+    this_position = getPosition(this)
+    this_velocity = getVelocity(this)
+    camera_position = getPosition(camera)
+    min_y = camera_position[2] - 5.0
+    max_y = camera_position[2] + 5.0
 
-    if my < min_y and vy < 0.0 then
-        setVelocity(this, vx, -vy, vz)
-    elseif my > 25.0 and vy > 0.0 then
-        setVelocity(this, vx, -vy, vz)
+    if this_position[2] < min_y and this_position[2] < 0.0 then
+        setVelocity(this, this_velocity[1], -this_velocity[2], this_velocity[3])
+    elseif this_position[2] > 25.0 and this_position[2] > 0.0 then
+        setVelocity(this, this_velocity[1], -this_velocity[2], this_velocity[3])
     end
 
     return

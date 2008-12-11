@@ -20,7 +20,7 @@ function on_load(terrain)
     setPosition(player, x_start_player, 20.0, 7.5)
 
     camera = getCamera(obj)
-    setScript(camera, "./scripts/enemy_ship1.lua")
+    setScript(camera, "./scripts/camera1.lua")
     setPosition(camera, x_start_camera, 20.0, 35.0)
 
     addParticleSystem(camera, 2)

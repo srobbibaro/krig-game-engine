@@ -279,29 +279,9 @@ bool GameLevel::loadLevelLua( string file )
      return (true);
 }
 
-void GameLevel::loadVector(lua_State* L, Vector *v)
-{
-    // x
-    lua_pushnumber(L, 1);
-    lua_gettable(L, -2);
-    v->x = (float)lua_tonumber(L, -1);
-    lua_pop(L, 1);
-    
-    // y
-    lua_pushnumber(L, 2);
-    lua_gettable(L, -2);
-    v->y = (float)lua_tonumber(L, -1);
-    lua_pop(L, 1);
-    
-    // z
-    lua_pushnumber(L, 3);
-    lua_gettable(L, -2);
-    v->z = (float)lua_tonumber(L, -1);
-    lua_pop(L, 1);
-}
-
 void GameLevel::loadObject(lua_State* L, int number) 
 {
+    /*
     cout << "number: " << number << endl;
     
     lua_pushnumber(L, number);
@@ -369,7 +349,8 @@ void GameLevel::loadObject(lua_State* L, int number)
         terrain->add(obj);
     } 
   
-    lua_pop(L, 1);    
+    lua_pop(L, 1);  
+    */  
 }
 
 //------------------------------------------------------------------------------

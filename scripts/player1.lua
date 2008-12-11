@@ -26,10 +26,10 @@ function on_update(this, elapsedTime)
 
     if progress == 0 then
         camera = getCamera()
-        mx, my, mz = getPosition(this)
-        cx, cy, cz = getPosition(camera)
-        tx = cx - 20.0
-        if mx >= tx then
+        this_position = getPosition(this)
+        camera_position = getPosition(camera)
+        tx = camera_position[1] - 20.0
+        if this_position[1] >= tx then
             -- set test zone enable true
             setVelocity(this, 8.0, 0.0, 0.0)
             progress = 1
@@ -42,7 +42,7 @@ function on_update(this, elapsedTime)
         setRotationVelocity(this, 0.0, 0.0, 0.0)
         progress = 2
     elseif progress == 2 then
-        rx, ry, rz = getRotation(this)
+        this_rotation = getRotation(this)
         -- timer = getTimer(this)
         -- setInterpolationVariable(this, 0, timer, (timer + 0.5))
         -- setInterpolationRotationStart(this, rx, ry, rz)
@@ -54,14 +54,14 @@ function on_update(this, elapsedTime)
         setInterpolationEnable(this, 0)
         progress = 4
     elseif progress == 4 then
-        px, py, pz = getPosition(this)
-        pvx, pvy, pvz = getVelocity(this)
+        this_position = getPosition(this)
+        this_velocity = getVelocity(this)
         camera = getCamera()
-        cvx, cvy, cvz = getVelocity(camera)
+        camera_velocity = getVelocity(camera)
 
-        pvx = cvx
-        pvy = cvy
-
+        this_velocity[1] = camera_velocity[1]
+        this_velocity[2] = camera_velocity[2]
+       
         if engine_testKeyPressed(this, 101) == 1 then upDown = 1 end
         if engine_testKeyPressed(this, 103) == 1 then downDown = 1 end
         if engine_testKeyPressed(this, 100) == 1 then leftDown = 1 end
@@ -72,22 +72,22 @@ function on_update(this, elapsedTime)
         if engine_testKeyReleased(this, 100) == 1 then leftDown = 0 end
         if engine_testKeyReleased(this, 102) == 1 then rightDown = 0 end
 
-	  if upDown == 1 then pvy = pvy + 10 end
-        if downDown == 1 then pvy = pvy - 10 end
-        if leftDown == 1 then pvx = pvx - 10 end
-	  if rightDown == 1 then pvx = pvx + 10 end
+	  if upDown == 1 then this_velocity[2] = this_velocity[2] + 10 end
+        if downDown == 1 then this_velocity[2] = this_velocity[2] - 10 end
+        if leftDown == 1 then this_velocity[1] = this_velocity[1] - 10 end
+	  if rightDown == 1 then this_velocity[1] = this_velocity[1] + 10 end
 
-        setVelocity(this, pvx, pvy, pvz)
+        setVelocity(this, this_velocity[1], this_velocity[2], this_velocity[3])
 
         if engine_testKeyPressed(this, 32) == 1 and nextShot <= 0.0 then
             obj = addObject(this, "./scripts/player_shot.lua")
-            setPosition(obj, px, py, pz)
+            setPosition(obj, this_position[1], this_position[2], this_position[3])
             nextShot = .40
         end      
 
 	  if engine_testKeyPressed(this, 109) == 1 and nextMissileShot <= 0.0 then
             obj = addObject(this, "./scripts/player_missile.lua")
-            setPosition(obj, px, py, pz)
+            setPosition(obj, this_position[1], this_position[2], this_position[3])
             nextMissileShot = .75
         end      
 

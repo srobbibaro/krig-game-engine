@@ -29,6 +29,53 @@ static Object* lplayer;
 static Object* lcamera;
 static GameLevel* lgameLevel;
 
+// helpers
+static Vector loadVector(lua_State *L)
+{
+    Vector t;
+    
+    // x
+    lua_pushnumber(L, 1);
+    lua_gettable(L, -2);
+    t.x = (float)lua_tonumber(L, -1);
+    lua_pop(L, 1);
+    
+    // y
+    lua_pushnumber(L, 2);
+    lua_gettable(L, -2);
+    t.y = (float)lua_tonumber(L, -1);
+    lua_pop(L, 1);
+    
+    // z
+    lua_pushnumber(L, 3);
+    lua_gettable(L, -2);
+    t.z = (float)lua_tonumber(L, -1);
+    lua_pop(L, 1);
+    
+    lua_pop(L, 1);
+    
+    cout << "Loaded vector: x=" << t.x << " y=" << t.y << " z=" << t.z << endl;
+    
+    return t;
+}
+
+static void returnVector(lua_State *L, Vector &t)
+{
+    lua_newtable(L);
+    
+    lua_pushnumber(L, 1);
+    lua_pushnumber(L, t.x);
+    lua_rawset(L, -3);
+    
+    lua_pushnumber(L, 2);
+    lua_pushnumber(L, t.y);
+    lua_rawset(L, -3);
+    
+    lua_pushnumber(L, 3);
+    lua_pushnumber(L, t.z);
+    lua_rawset(L, -3);    
+}  
+
 static int setPositionLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
@@ -42,13 +89,9 @@ static int getPositionLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-		
-	lua_pushnumber(L, object->position.x);
-	lua_pushnumber(L, object->position.y);
-	lua_pushnumber(L, object->position.z);
-
-    // the number of values returned
-	return 3;
+	
+    returnVector(L, object->position); 	
+	return 1;
 }
 
 static int setVelocityLua(lua_State *L)
@@ -65,12 +108,8 @@ static int getVelocityLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 		
-	lua_pushnumber(L, object->velocity.x);
-	lua_pushnumber(L, object->velocity.y);
-	lua_pushnumber(L, object->velocity.z);
-
-	// the number of values returned
-	return 3;
+	returnVector(L, object->velocity);
+	return 1;
 }
 
 static int setRotationVelocityLua(lua_State *L) 
@@ -86,12 +125,8 @@ static int getRotationVelocityLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 		
-	lua_pushnumber(L, object->rotationVelocity.x);
-	lua_pushnumber(L, object->rotationVelocity.y);
-	lua_pushnumber(L, object->rotationVelocity.z);
-
-	// the number of values returned
-	return 3;
+	returnVector(L, object->rotationVelocity);
+	return 1;
 }
 
 static int setSpeedLua(lua_State *L) 
@@ -144,12 +179,8 @@ static int getRotationLua(lua_State *L)
     Vector tv;
     object->rotation.getEulerAngles(tv);
                 
-	lua_pushnumber(L, tv.x);
-	lua_pushnumber(L, tv.y);
-	lua_pushnumber(L, tv.z);
-
-	// the number of values returned
-	return 3;
+	returnVector(L, tv);
+	return 1;
 }
 
 static int getDirectionLua(lua_State *L)
@@ -157,12 +188,8 @@ static int getDirectionLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 		
-	lua_pushnumber(L, object->direction.x);
-	lua_pushnumber(L, object->direction.y);
-	lua_pushnumber(L, object->direction.z);
-
-	// the number of values returned
-	return 3;
+	returnVector(L, object->direction);
+	return 1;
 }
 
 static int getUpLua(lua_State *L)
@@ -170,12 +197,8 @@ static int getUpLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 		
-	lua_pushnumber(L, object->up.x);
-	lua_pushnumber(L, object->up.y);
-	lua_pushnumber(L, object->up.z);
-
-	// the number of values returned
-	return 3;
+	returnVector(L, object->up);
+	return 1;
 }
 
 static int getOrthogonalLua(lua_State *L)
@@ -188,12 +211,8 @@ static int getOrthogonalLua(lua_State *L)
     rotationAxis.crossProduct(object->up, object->direction);
     rotationAxis.normalize();
    	
-	lua_pushnumber(L, rotationAxis.x);
-	lua_pushnumber(L, rotationAxis.y);
-	lua_pushnumber(L, rotationAxis.z);
-
-	// the number of values returned
-	return 3;
+	returnVector(L, rotationAxis);
+	return 1;
 }
 
 static int addPositionLua(lua_State *L) 
@@ -535,9 +554,36 @@ static int setTerrainLua(lua_State *L)
 
 static int vector_getScalarLua(lua_State *L)
 {
-    Vector t(lua_tonumber(L, 1), lua_tonumber(L, 2), lua_tonumber(L, 3));
-    Vector u(lua_tonumber(L, 4), lua_tonumber(L, 5), lua_tonumber(L, 6));
+    Vector t = loadVector(L);
+    Vector u = loadVector(L);
     lua_pushnumber(L, t.getScaler(u));
+    return 1;
+}
+
+static int vector_normalizeLua(lua_State *L)
+{
+    Vector t = loadVector(L);
+    t.normalize();
+    returnVector(L, t);
+    return 1;
+}
+
+static int vector_dotProductLua(lua_State *L)
+{
+    Vector t = loadVector(L);
+    Vector u = loadVector(L);
+    float angle = t.dotProduct(u);
+    lua_pushnumber(L, angle);
+    return 1;
+}
+
+static int vector_crossProductLua(lua_State *L)
+{
+    Vector t = loadVector(L);
+    Vector u = loadVector(L);
+    Vector result;
+    result.crossProduct(t, u);
+    returnVector(L, result);
     return 1;
 }
 
@@ -563,5 +609,40 @@ static int engine_testKeyReleasedLua(lua_State *L)
     lua_pushnumber(L, result);
     return 1;
 }
-      
+
+static int setTypeIdLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    object->typeId = (int)lua_tonumber(L, 2);
+    return 0;    
+}
+
+static int getTypeIdLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    lua_pushnumber(L, object->typeId);
+    return 1;    
+}
+
+static int setScaleRateLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    object->scaleRate.setVector(lua_tonumber(L, 2), lua_tonumber(L, 3), lua_tonumber(L, 4));
+    return 0;    
+}
+
+static int getScriptValueLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    const char *s = lua_tostring(L, 2);
+    
+    lua_pushnumber(L, object->getScriptValue(s));
+    return 1;    
+}
+
+
 #endif

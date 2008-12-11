@@ -84,7 +84,6 @@ class GameLevel
         void animateText( float );
         void drawText( void );
         
-        void loadVector(lua_State* L, Vector* v);
         void loadObject(lua_State* L, int number);
         
         // remove this from the final build //

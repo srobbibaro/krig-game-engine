@@ -36,8 +36,8 @@
 
 12/2/08 ~ Steve
     x Steve: Implement new mode based control scheme for level/terrain editing. (12/3/08 ~ Steve)
-    x Andy: Change Sound class to play .ogg files instead of .wav files for sound effects (12/6/08 ~ Andy).
-    * Andy: Change Sound class to play sound effect described by file name rather than index obtained from sounds.txt file.
+    x Andy: Change Sound class to play .ogg files instead of .wav files for sound effects (12/6/08 ~ Andy: not feasible).
+    x Andy: Change Sound class to play sound effect described by file name rather than index obtained from sounds.txt file. (12/6/08 ~ Andy)
 
 12/3/08 ~ Steve
     x Steve: Implement ability to conditionally compile in game mode or edit mode. (12/3/08 ~ Steve)
@@ -54,6 +54,20 @@
     * Steve: Game sometimes crashes while shooting. (12/8/08 ~ Steve)
     x Why does game seg fault during debug before loading level? (12/8/08 ~ Steve)
     * Make lua function to enable/disable collision detection for each object.
-    * Implement lua created object type identifiers for use during collision detection.
-    * Implement getScalar lua function.
+    x Implement lua created object type identifiers for use during collision detection. (12/10/08 ~ Steve)
+    x Implement getScalar lua function. (12/10/08 ~ Steve)
     * Implement lua function to determine if vector intersects a collision box.
+
+12/10/08 ~ Steve
+    * Implement "engine level" scripting.
+    * Remove terrain requirement for levels.
+    * Implement player missile logic in lua script.
+    x Implement vector math lua functions (normalize, cross product, dot product). (12/10/08 ~ Steve)
+    * Implement lua function to find closest object of a particular type.
+    x Implement lua function setScaleRate. (12/10/08 ~ Steve)
+    x Implement explosion type in lua. (12/10/08 ~ Steve)
+    * Implement powerup types in lua.
+    x Investigate passing arguments (such as vectors) in tables. (12/10/08 ~ Steve)
+    * Investigate calling functions from lua with OO notation (object.setPosition()).
+    x Investigate way to pass lua only values into other lua scripts. (12/10/08 ~ Steve)
+    * Investigate way to draw simple things from within the lua script (ie energy bars, etc.).

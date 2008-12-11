@@ -2,6 +2,7 @@ function on_load(this)
     setModel(this, "Enemy.mdl")
     setScale(this, 2.0, 2.0, 2.0)
     setRotation(this, 0.19625, -2.7475, 0.0)
+    setTypeId(this, 1)   
     return
 end
 

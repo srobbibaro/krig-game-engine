@@ -89,6 +89,8 @@ class Object : public ObjectNode
         
         KeyState* keyState;
         
+        int typeId;
+        
     //public:
         Object();
         virtual ~Object();
@@ -157,6 +159,19 @@ class Object : public ObjectNode
         void setScaleRate(const Vector &v);
         
         void setParticleSystem(int particleSystemNumber);
+        
+        float getScriptValue(const char* s)
+        {
+            float value = 0.0f;
+            
+            if (L != NULL) {
+                lua_getglobal(L, s);
+                value = (float)lua_tonumber(L, -1);
+                lua_pop(L, 1);
+            }
+            
+            return value;
+        }
 };
     
 #endif

@@ -6,14 +6,14 @@ function on_load(this)
 end
 
 function on_update(this, elapsedTime)
-    mx, my, mz = getPosition(this)
+    this_position = getPosition(this)
     if stopped == 0 then 
-        if mx >= 970.0 then
+        if this_position[1] >= 970.0 then
             stopped = 1
             setVelocity(this, 0.0, 0.0, 0.0)
             player = getPlayer()
-            pvx, pvy, pvz = getVelocity(player)
-            setVelocity(player, (pvx - 10.0), pvy, pyz)
+            player_velocity = getVelocity(player)
+            setVelocity(player, (player_velocity[1] - 10.0), player_velocity[2], player_velocity[3])
         end
     end
 

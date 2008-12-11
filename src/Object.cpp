@@ -41,6 +41,8 @@ Object::Object()
     particleSystem = NULL;
     L = NULL;
     
+    typeId = 0;
+    
     init();
 }
 
@@ -729,8 +731,13 @@ void Object::loadScript(string name)
     lua_register(L, "vector_getScalar", vector_getScalarLua); 
     lua_register(L, "engine_testKeyPressed", engine_testKeyPressedLua); 
     lua_register(L, "engine_testKeyReleased", engine_testKeyReleasedLua); 
-    
-    
+    lua_register(L, "vector_normalize", vector_normalizeLua); 
+    lua_register(L, "vector_dotProduct", vector_dotProductLua); 
+    lua_register(L, "vector_crossProduct", vector_crossProductLua); 
+    lua_register(L, "getTypeId", getTypeIdLua); 
+    lua_register(L, "setTypeId", setTypeIdLua); 
+    lua_register(L, "setScaleRate", setScaleRateLua);     
+    lua_register(L, "getScriptValue", getScriptValueLua);
         
     // Load this object's animation script
     luaL_dofile(L, scriptName.c_str());
