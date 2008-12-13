@@ -137,3 +137,26 @@ New KRIG Engine lua scripting functions:
     vector_normalize(vector, vector) - returns: vector
     vector_dotProduct(vector, vector) - returns: float
     vector_crossProduct(vector, vector) - returns: vector
+
+12/12/08 ~ Steve
+Added "vector" version of all existing set/add KRIG engine lua functions:
+
+    setScalev(object_ref, vector) - returns: n/a
+    setScaleRatev(object_ref, vector) - returns: n/a
+    setPositionv(object_ref, vector) - returns: n/a
+    setVelocityv(object_ref, vector) - returns: n/a
+    setRotationv(object_ref, vector) - returns: n/a
+    setRotationVelocityv(object_ref, vector) - returns: n/a
+    addPositionv(object_ref, vector) - returns: n/a
+    addVelocityv(object_ref, vector) - returns: n/a
+    addRotationv(object_ref, vector) - returns: n/a
+    addRotationVelocityv(object_ref, vector) - returns: n/a
+    setInterpolationRotationStartAxisv(object_ref, vector) - returns: n/a
+    setInterpolationRotationEndAxisv(object_ref, vector) - returns: n/a
+    setInterpolationRotationStartv(object_ref, vector) - returns: n/a
+    setInterpolationRotationEndv(object_ref, vector) - returns: n/a
+    setRotationVelocityAxisv(object_ref, vector) - returns: n/a
+    setRotationAxisv(object_ref, vector) - returns: n/a
+    addRotationAxisv(object_ref, vector) - returns: n/a
+
+    setLightDirectionv(vector) - returns: n/a

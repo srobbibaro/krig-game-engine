@@ -17,12 +17,18 @@ function on_load(this)
     setVelocity(this, 40.0, 0.0, 0.0)
     setRotationVelocity(this, -10.0, 0.0, 0.0)
     suspend(this, 0.25)
+
+    --obj = this
     return
 end
 
 function on_update(this, elapsedTime)
     if nextShot > 0.0 then nextShot = nextShot - elapsedTime end
     if nextMissileShot > 0.0 then nextMissileShot = nextMissileShot - elapsedTime end
+
+    --stuff = getPosition(obj)
+
+    --print("x=" .. stuff[1] .. " y=" .. stuff[2] .. " z=" .. stuff[3])
 
     if progress == 0 then
         camera = getCamera()
@@ -45,7 +51,7 @@ function on_update(this, elapsedTime)
         this_rotation = getRotation(this)
         -- timer = getTimer(this)
         -- setInterpolationVariable(this, 0, timer, (timer + 0.5))
-        -- setInterpolationRotationStart(this, rx, ry, rz)
+        -- setInterpolationRotationStartv(this, this_rotation)
         -- setInterpolationRotationEnd(this, 0.0, 1.57, 0.0)
         -- setInterpolationEnable(this, 1)
         suspend(this, 0.75)
@@ -77,17 +83,17 @@ function on_update(this, elapsedTime)
         if leftDown == 1 then this_velocity[1] = this_velocity[1] - 10 end
 	  if rightDown == 1 then this_velocity[1] = this_velocity[1] + 10 end
 
-        setVelocity(this, this_velocity[1], this_velocity[2], this_velocity[3])
+        setVelocityv(this, this_velocity)
 
         if engine_testKeyPressed(this, 32) == 1 and nextShot <= 0.0 then
             obj = addObject(this, "./scripts/player_shot.lua")
-            setPosition(obj, this_position[1], this_position[2], this_position[3])
+            setPositionv(obj, this_position)
             nextShot = .40
         end      
 
 	  if engine_testKeyPressed(this, 109) == 1 and nextMissileShot <= 0.0 then
             obj = addObject(this, "./scripts/player_missile.lua")
-            setPosition(obj, this_position[1], this_position[2], this_position[3])
+            setPosition(obj, this_position)
             nextMissileShot = .75
         end      
 

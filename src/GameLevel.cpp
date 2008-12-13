@@ -160,49 +160,8 @@ bool GameLevel::loadLevelLua( string file )
 	
     // Register our functions for use in lua (currently defined in 
     // Object.h)
-    lua_register(L, "setPosition", setPositionLua);
-    lua_register(L, "getPosition", getPositionLua);
-    lua_register(L, "setVelocity", setVelocityLua);
-    lua_register(L, "getVelocity", getVelocityLua);
-    lua_register(L, "setRotationVelocity", setRotationVelocityLua);
-    lua_register(L, "getRotationVelocity", getRotationVelocityLua);
-    lua_register(L, "setSpeed", setSpeedLua);
-    lua_register(L, "getSpeed", getSpeedLua);
-    lua_register(L, "setRotation", setRotationLua);
-    lua_register(L, "getRotation", getRotationLua);
-    lua_register(L, "getCamera", getCameraLua);
-    lua_register(L, "getPlayer", getPlayerLua);
-    lua_register(L, "getDirection", getDirectionLua);
-    lua_register(L, "getUp", getUpLua);
-    lua_register(L, "getOrthogonal", getOrthogonalLua);
-    lua_register(L, "addPosition", addPositionLua);
-    lua_register(L, "addRotation", addRotationLua);
-    lua_register(L, "addVelocity", addVelocityLua);
-    lua_register(L, "addSpeed", addSpeedLua);
-    lua_register(L, "addRotationVelocity", addRotationVelocityLua);   
-    lua_register(L, "setInterpolationRotationStartAxis", setInterpolationRotationStartAxisLua);
-    lua_register(L, "setInterpolationRotationEndAxis", setInterpolationRotationEndAxisLua);
-    lua_register(L, "setInterpolationRotationStart", setInterpolationRotationStartLua);
-    lua_register(L, "setInterpolationRotationEnd", setInterpolationRotationEndLua);
-    lua_register(L, "setInterpolationEnable", setInterpolationEnableLua);
-    lua_register(L, "setInterpolationVariable", setInterpolationVariableLua);
-    lua_register(L, "setRotationVelocityAxis", setRotationVelocityAxisLua);
-    lua_register(L, "setRotationAxis", setRotationAxisLua);
-    lua_register(L, "addRotationAxis", addRotationAxisLua);
-    lua_register(L, "getTimer", getTimerLua);
-    lua_register(L, "suspend", suspendLua);
-    lua_register(L, "playSound", playSoundLua);
-    lua_register(L, "addObject", addObjectLua);
-    lua_register(L, "removeObject", removeObjectLua);
-    lua_register(L, "setModel", setModelLua);
-    lua_register(L, "setScale", setScaleLua);
-    lua_register(L, "setScript", setScriptLua);
-    lua_register(L, "addParticleSystem", addParticleSystemLua);
-    lua_register(L, "setBgMusic", setBgMusicLua);
-    lua_register(L, "setSkyBox", setSkyBoxLua);
-    lua_register(L, "setLightDirection", setLightDirectionLua);
-    lua_register(L, "setTerrain", setTerrainLua);
-  
+    registerFunctions(L, 1);
+    
     // load the script 
     cout << "Loading Lua script (level file): --" << file << "--\n";
 	luaL_dofile(L, file.c_str());

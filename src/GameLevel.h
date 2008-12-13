@@ -106,7 +106,7 @@ class GameLevel
             light.setVector(x, y, z);
             light.normalize();
         }
-        
+                
         Sound* getSoundClass() { return snd; }
         
         void setKeyState(KeyState* ks) { keyState = ks; }

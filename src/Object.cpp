@@ -690,54 +690,7 @@ void Object::loadScript(string name)
         
     // Register our functions for use in lua (currently defined in 
     // Object.h)
-    lua_register(L, "setPosition", setPositionLua);
-    lua_register(L, "getPosition", getPositionLua);
-    lua_register(L, "setVelocity", setVelocityLua);
-    lua_register(L, "getVelocity", getVelocityLua);
-    lua_register(L, "setRotationVelocity", setRotationVelocityLua);
-    lua_register(L, "getRotationVelocity", getRotationVelocityLua);
-    lua_register(L, "setSpeed", setSpeedLua);
-    lua_register(L, "getSpeed", getSpeedLua);
-    lua_register(L, "setRotation", setRotationLua);
-    lua_register(L, "getRotation", getRotationLua);
-    lua_register(L, "getCamera", getCameraLua);
-    lua_register(L, "getPlayer", getPlayerLua);
-    lua_register(L, "getDirection", getDirectionLua);
-    lua_register(L, "getUp", getUpLua);
-    lua_register(L, "getOrthogonal", getOrthogonalLua);
-    lua_register(L, "addPosition", addPositionLua);
-    lua_register(L, "addRotation", addRotationLua);
-    lua_register(L, "addVelocity", addVelocityLua);
-    lua_register(L, "addSpeed", addSpeedLua);
-    lua_register(L, "addRotationVelocity", addRotationVelocityLua);   
-    lua_register(L, "setInterpolationRotationStartAxis", setInterpolationRotationStartAxisLua);
-    lua_register(L, "setInterpolationRotationEndAxis", setInterpolationRotationEndAxisLua);
-    lua_register(L, "setInterpolationRotationStart", setInterpolationRotationStartLua);
-    lua_register(L, "setInterpolationRotationEnd", setInterpolationRotationEndLua);
-    lua_register(L, "setInterpolationEnable", setInterpolationEnableLua);
-    lua_register(L, "setInterpolationVariable", setInterpolationVariableLua);
-    lua_register(L, "setRotationVelocityAxis", setRotationVelocityAxisLua);
-    lua_register(L, "setRotationAxis", setRotationAxisLua);
-    lua_register(L, "addRotationAxis", addRotationAxisLua);
-    lua_register(L, "getTimer", getTimerLua);
-    lua_register(L, "suspend", suspendLua);
-    lua_register(L, "playSound", playSoundLua);
-    lua_register(L, "addObject", addObjectLua);
-    lua_register(L, "removeObject", removeObjectLua);
-    lua_register(L, "setModel", setModelLua);
-    lua_register(L, "setScale", setScaleLua);
-    lua_register(L, "setScript", setScriptLua);
-    
-    lua_register(L, "vector_getScalar", vector_getScalarLua); 
-    lua_register(L, "engine_testKeyPressed", engine_testKeyPressedLua); 
-    lua_register(L, "engine_testKeyReleased", engine_testKeyReleasedLua); 
-    lua_register(L, "vector_normalize", vector_normalizeLua); 
-    lua_register(L, "vector_dotProduct", vector_dotProductLua); 
-    lua_register(L, "vector_crossProduct", vector_crossProductLua); 
-    lua_register(L, "getTypeId", getTypeIdLua); 
-    lua_register(L, "setTypeId", setTypeIdLua); 
-    lua_register(L, "setScaleRate", setScaleRateLua);     
-    lua_register(L, "getScriptValue", getScriptValueLua);
+    registerFunctions(L, 2);
         
     // Load this object's animation script
     luaL_dofile(L, scriptName.c_str());

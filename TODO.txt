@@ -71,3 +71,7 @@
     * Investigate calling functions from lua with OO notation (object.setPosition()).
     x Investigate way to pass lua only values into other lua scripts. (12/10/08 ~ Steve)
     * Investigate way to draw simple things from within the lua script (ie energy bars, etc.).
+
+12/12/08 ~ Steve
+    * Investigate way to output text from within lua script.
+    * Implement way to ensure object references stored in lua are valid.
