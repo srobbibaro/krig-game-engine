@@ -75,3 +75,4 @@
 12/12/08 ~ Steve
     * Investigate way to output text from within lua script.
     * Implement way to ensure object references stored in lua are valid.
+    * Engine should still run even when objects do not have a model loaded. (12/13/08 ~ Steve)
