@@ -28,6 +28,11 @@ Object::Object()
     position.setVector(0.0f, 0.0f, 0.0f);
     setRotationEuler(0.0f, 0.0f, 0.0f);
     
+    collisionBox[0].setVector( 0.0f, 0.0f, 0.0f );
+    collisionBox[1].setVector( 0.0f, 0.0f, 0.0f );
+    
+    position.setVector(0.0f, 0.0f, 0.0f);
+    
     state = NORMAL; 
     active = false;
     //#animStartTime = 0.0f;
@@ -331,31 +336,7 @@ int Object::processExtendedCommand( const ScriptCommand &t )
    
     switch ( t.routine )
     {
-        case SCRIPT_SET_SCALE_MEM:
-            index1 = (int)t.p1;
-            index2 = (int)t.p2;
-            index3 = (int)t.p3;
-            
-            if ( index1 >= 0 && index1 < MEM_LEN &&
-                 index2 >= 0 && index2 < MEM_LEN &&
-                 index3 >= 0 && index3 < MEM_LEN )
-             {
-                scaleFactor.setVector( memVars[index1], memVars[index2], memVars[index3] );
-             }
-            break;
-        case SCRIPT_SET_SCALE_RATE_MEM:
-            index1 = (int)t.p1;
-            index2 = (int)t.p2;
-            index3 = (int)t.p3;
-            
-            if ( index1 >= 0 && index1 < MEM_LEN &&
-                 index2 >= 0 && index2 < MEM_LEN &&
-                 index3 >= 0 && index3 < MEM_LEN )
-             {
-                scaleRate.setVector( memVars[index1], memVars[index2], memVars[index3] );
-             }
-            break;
-        case SCRIPT_ADD_SCALE_MEM:
+       case SCRIPT_ADD_SCALE_MEM:
             index1 = (int)t.p1;
             index2 = (int)t.p2;
             index3 = (int)t.p3;
@@ -384,12 +365,6 @@ int Object::processExtendedCommand( const ScriptCommand &t )
              }
             break;
 
-        case SCRIPT_SET_SCALE_VAL:
-            scaleFactor.setVector(t.p1, t.p2, t.p3);
-            break;
-        case SCRIPT_SET_SCALE_RATE_VAL:
-            scaleRate.setVector(t.p1, t.p2, t.p3);
-            break;
         case SCRIPT_ADD_SCALE_VAL:
             scaleFactor.x += t.p1;
             scaleFactor.y += t.p2;
@@ -456,10 +431,6 @@ int Object::processExtendedCommand( const ScriptCommand &t )
 }
 
 */
-
-void Object::setLuaState(lua_State* tl)
-{
-}
 
 //------------------------------------------------------------------------------
 void Object::setPosition( GLfloat x, GLfloat y, GLfloat z )
@@ -591,18 +562,6 @@ void Object::animateScript(float elapsedTime)
 }
 
 //------------------------------------------------------------------------------
-void Object::setPlayerPtr( Object* tPlayer )
-{
-    player = tPlayer;
-}
-
-//------------------------------------------------------------------------------
-void Object::setCameraPtr( Object* tCamera)
-{
-    camera = tCamera;
-}
-
-//------------------------------------------------------------------------------
 void Object::setInterpolationVariable(int index)
 {
     switch (index)
@@ -650,8 +609,6 @@ void Object::init(void)
     //currentScriptCommand = 0;
     
     //#animCurrTime = NULL;  
-    player = NULL;
-    camera = NULL;
     
     L = NULL;
     
@@ -694,10 +651,6 @@ void Object::loadScript(string name)
         
     // Load this object's animation script
     luaL_dofile(L, scriptName.c_str());
-        
-    // Set player and camera pointers for use within exposed c functions.
-    lplayer = player;
-    lcamera = camera;  
         
     // Find the update function and call it
     lua_getglobal(L, "on_load");
@@ -743,13 +696,10 @@ void Object::unloadScript()
 
 void Object::setParticleSystem(int particleSystemNumber)
 {
-     
-            // setup the weather effect ////////////////
-            if (particleSystemNumber > 0 && particleSystem == NULL) {
-                particleSystem = new Snow(this);
-                particleSystem->update(4.0f);
-            }
-        
+    if (particleSystemNumber > 0 && particleSystem == NULL) {
+        particleSystem = new Snow(this);
+        particleSystem->update(4.0f);
+    } 
 }
 
 

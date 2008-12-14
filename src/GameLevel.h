@@ -21,10 +21,10 @@ class GameLevel
     private:
         Terrain* terrain;    // list of objects starting with terrain
         unsigned int lists;  // display lists used for rendering
-        Object* obj;         // temp object for loading
+
         Vector light;
         Player* player;     // player object
-        //Boss* boss;         // pointer to boss object
+
         Object* camera;     // camera
         Sound* snd;         // pointer to sound class
         float bgcolor[3][3];
@@ -65,8 +65,6 @@ class GameLevel
         void drawLevel( void );
         bool loadLevelLua( string file );
         void loadScript( string file );
-        void setPlayer( Player* tPlayer );
-        void setTerrain( Terrain* tTerrain );
         void setCamera( Camera* tCamera );
         Terrain* getTerrain( void );
         Camera* getCamera( void );
@@ -74,11 +72,11 @@ class GameLevel
         void setSoundClass( Sound * );
         Object* findEnemy( void );
         float findDistance( Object*, Object* );
-        //Boss* returnBoss ( void );
+    
         void drawSky( void );
         bool checkComplete( void );
         void unloadLevel(void);
-        void removePlayer( void );
+        void removeObjects( void );
         void processScripts( void );
         
         void animateText( float );

@@ -36,7 +36,7 @@ class Sound
         map <string, int> sfxHash;
           
     public:
-        Sound(char *);
+        Sound();
         ~Sound();
         
         void PlaySong(const char*, bool); //functions for sound playing

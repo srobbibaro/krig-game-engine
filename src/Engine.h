@@ -1,6 +1,12 @@
 #include "constants.h"
 #include "GameLevel.h"
 
+extern "C" {
+    #include "lua/lua.h"
+    #include "lua/lualib.h"
+    #include "lua/lauxlib.h"
+}
+
 // Remove from final build
 #include <vector>
 
@@ -27,21 +33,12 @@ class Engine
         float timeElapsed;          // time elapsed in game
         float totalTime;
         unsigned int lists;         // lists used for rendering
-        
-        Player* player;             // pointer to player
-        long score;
-        int numLives;
-        
+       
         KeyState *keyState;
         
-        
-        //Boss* boss;
-        Terrain* terrain;           // pointer to terrain
         Object* obj;                // temp object
-        int hMove; int vMove;
 
         char *MenuStr;
-        char levelFile[4][128];
         
         // cell shading global variables ////////
         Matrix tempMatrix;
@@ -51,11 +48,7 @@ class Engine
         Sound *sounds;
         
         bool menuCursor;
-        
-        int lvlNum;
-        int maxLevels;
-        bool shooting;
-        
+            
         #if DEMO
         ofstream demo;
         #endif
@@ -85,13 +78,9 @@ class Engine
         
         string levelScript;
         
-        int currentScript;
-        int currentLevelNum;
-        
         Vector* light;
         
-        vector<string> scripts;     
-        vector<string> levels;   
+        lua_State* L;  
     
     public:
         Engine();                   // initialize game
@@ -103,7 +92,7 @@ class Engine
         void processCommands();
         void displayHUD( float, int, float, long );
         void processNormalKey( unsigned char );
-        void loadLevel(void);
+        void loadLevel(const char*);
         void newLevel(void);
         void deleteDead(void);
         void loadModels(void);
@@ -125,11 +114,13 @@ class Engine
             levelScript = level;    
         }
         
-        void loadScripts();
-        void loadLevels();
+        bool loadGame(string);
+        void updateGame(float);
+        void unloadGame();
+        void shutdown();
+        
+        KeyState* getKeyState() { return keyState; }
 };
-
-
 
 
 #endif

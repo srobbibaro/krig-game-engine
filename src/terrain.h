@@ -15,15 +15,15 @@ using namespace std;
 #ifndef _TERRAIN_H_
 #define _TERRAIN_H_
 
-
 #include "constants.h"
 #include "Object.h"
 #include "DisplayList.h"
   
-    class Terrain : public Object
-	{
-	   public:
-	       DisplayList* l;
+class Terrain : public Object
+{
+    public:
+        DisplayList* l;
+        
         GLint xSize, zSize;
 		GLfloat scaleFactor;
 		
@@ -32,32 +32,34 @@ using namespace std;
 		//GLfloat lightIntensity[X_SIZE*Z_SIZE];
         //GLfloat color[X_SIZE*Z_SIZE][3];
         
-        GLfloat vertex[X_SIZE][Z_SIZE][3];
-        GLfloat lightIntensity[X_SIZE][Z_SIZE];
-        GLfloat color[X_SIZE][Z_SIZE][3];
-        GLint type[X_SIZE][Z_SIZE];
+        GLfloat*** vertex;
+        GLfloat** lightIntensity;
+        GLfloat*** color;
+        GLint** type;
         
         Vector* lastLight;
         
-        
-       
         float totalTime;
         
         Terrain();
         ~Terrain();
+        
 		void draw( Object* );
 		void drawOutline( Object* );
 
         void handleCollision( Object* temp ) {}
         void prepare() {}
         void animate( float, Object* );
-        void generateTerrain( void );
+        void generate( void );
         
 	    void calcTerrainNorm( Vector* );
-        void loadTerrain( const char*, Vector* );
-        void saveTerrain( char*, Vector* );
         void update( Vector* );
         void handleDeath( void ) {}
+        
+        void init();
+        void load( const char*, Vector* );
+        void save( char*, Vector* );
+        void unload();
         
         float getHeight( float, float );
         

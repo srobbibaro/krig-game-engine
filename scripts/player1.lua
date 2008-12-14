@@ -9,6 +9,7 @@ upDown = 0
 downDown = 0
 
 function on_load(this)
+    setModel(this, "Ship.mdl")
     -- set default values
     setRotation(this, 0.0, 1.57, 0.0)
     setScale(this, 2.0, 2.0, 2.0)
@@ -68,15 +69,15 @@ function on_update(this, elapsedTime)
         this_velocity[1] = camera_velocity[1]
         this_velocity[2] = camera_velocity[2]
        
-        if engine_testKeyPressed(this, 101) == 1 then upDown = 1 end
-        if engine_testKeyPressed(this, 103) == 1 then downDown = 1 end
-        if engine_testKeyPressed(this, 100) == 1 then leftDown = 1 end
-        if engine_testKeyPressed(this, 102) == 1 then rightDown = 1 end
+        if engine_testKeyPressed(101) == 1 then upDown = 1 end
+        if engine_testKeyPressed(103) == 1 then downDown = 1 end
+        if engine_testKeyPressed(100) == 1 then leftDown = 1 end
+        if engine_testKeyPressed(102) == 1 then rightDown = 1 end
 
-	  if engine_testKeyReleased(this, 101) == 1 then upDown = 0 end
-        if engine_testKeyReleased(this, 103) == 1 then downDown = 0 end
-        if engine_testKeyReleased(this, 100) == 1 then leftDown = 0 end
-        if engine_testKeyReleased(this, 102) == 1 then rightDown = 0 end
+	  if engine_testKeyReleased(101) == 1 then upDown = 0 end
+        if engine_testKeyReleased(103) == 1 then downDown = 0 end
+        if engine_testKeyReleased(100) == 1 then leftDown = 0 end
+        if engine_testKeyReleased(102) == 1 then rightDown = 0 end
 
 	  if upDown == 1 then this_velocity[2] = this_velocity[2] + 10 end
         if downDown == 1 then this_velocity[2] = this_velocity[2] - 10 end
@@ -85,7 +86,7 @@ function on_update(this, elapsedTime)
 
         setVelocityv(this, this_velocity)
 
-        if engine_testKeyPressed(this, 32) == 1 and nextShot <= 0.0 then
+        if engine_testKeyPressed(32) == 1 and nextShot <= 0.0 then
             obj = addObject(this, "./scripts/player_shot.lua")
             setPositionv(obj, this_position)
             nextShot = .40

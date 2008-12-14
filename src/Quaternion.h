@@ -2,6 +2,7 @@
 #define _QUATERNION_H_
 
 #include "matrix.h"
+#include "Vector.h"
 
 class Quaternion
 {

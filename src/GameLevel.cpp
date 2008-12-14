@@ -2,6 +2,9 @@
 #include "ScriptedObject.h"
 #include "Scripting.h"
 
+Object* lcamera;
+Object* lplayer;
+
 //------------------------------------------------------------------------------
 GameLevel::GameLevel( unsigned int tLists)
 { 
@@ -9,10 +12,10 @@ GameLevel::GameLevel( unsigned int tLists)
     complete = false;
     
     terrain = NULL;
-    obj = NULL;
+
     player = NULL;
     camera = NULL;
-    //boss = NULL;
+
     time = 0;
     
     musicPath = "";
@@ -37,10 +40,7 @@ GameLevel::GameLevel( unsigned int tLists)
 //------------------------------------------------------------------------------
 GameLevel::~GameLevel()
 {
-    if ( terrain != NULL )
-        delete terrain;
-    if ( camera != NULL )
-        delete camera;
+    unloadLevel();
 }
 
 //------------------------------------------------------------------------------
@@ -129,14 +129,7 @@ void GameLevel::animateLevel(float timeElapsed)
 
 //------------------------------------------------------------------------------
 bool GameLevel::loadLevelLua( string file )
-{
-    int numObjects;
-    string modelKey;
-    float angle;
-    float x, y, z;
-    Vector scale, rotation, position;
-    Vector temp;
-    
+{   
     complete = false;
     time = 0;
     eventBeginTime = 0;
@@ -167,35 +160,32 @@ bool GameLevel::loadLevelLua( string file )
 	luaL_dofile(L, file.c_str());
     ////////////////////////////////////////////////////////   
     
+    terrain = new Terrain();
+    player = new Player();
+    
+    if (camera == NULL) {
+        cout << "Error: Camera was not allocated in GameLevel class.\n";
+        Sleep(5000);
+        exit (1);
+    }
+    
     lplayer = player;
     lcamera = camera;
     lgameLevel = this;
     
-    player->unloadScript();
-    player->init();
-    
-    camera->unloadScript();
-    camera->init();
-    
-    terrain->unloadScript();
-    terrain->init();
-    
-    player->setPlayerPtr(player);
-    player->setCameraPtr(camera);
     player->setSoundClass(snd);
     player->keyState = keyState;
     
-    camera->setPlayerPtr(player);
-    camera->setCameraPtr(camera);
     camera->setSoundClass(snd);
     camera->keyState = keyState;
     
     terrain->setSoundClass(snd);
-    terrain->setPlayerPtr(player);
-    terrain->setCameraPtr(camera);
     terrain->keyState = keyState;
+    
+    lplayer = player;
+    lcamera = camera;
      
-     // Find the update function and call it
+    // Find the update function and call it
     lua_getglobal(L, "on_load");
 	    
     // Push a pointer to the current object for use within the lua function
@@ -313,16 +303,6 @@ void GameLevel::loadObject(lua_State* L, int number)
 }
 
 //------------------------------------------------------------------------------
-void GameLevel::setPlayer( Player* tPlayer )
-{
-    player = (tPlayer);
-}
-
-//------------------------------------------------------------------------------
-void GameLevel::setTerrain( Terrain* tTerrain )
-{ terrain = tTerrain; }
-
-//------------------------------------------------------------------------------
 void GameLevel::setSoundClass( Sound *sound )
 { snd = sound; }
 
@@ -341,10 +321,6 @@ Camera* GameLevel::getCamera( void )
 //------------------------------------------------------------------------------
 Player* GameLevel::getPlayer( void )
 { return( (Player*)player ); }
-
-//------------------------------------------------------------------------------
-//Boss* GameLevel::returnBoss( void )
-//{ return boss; }
 
 //------------------------------------------------------------------------------
 void GameLevel::drawSky()
@@ -507,48 +483,55 @@ bool GameLevel::checkComplete(void)
 //------------------------------------------------------------------------------
 void GameLevel::unloadLevel()
 {    
-  //  boss = NULL;
-  
-  // Attempt to execute the on_unload function only if the lua state has 
+    // Attempt to execute the on_unload function only if the lua state has 
     // already been initialized with a script
-    if (L == NULL)
-        return;
-    
-    // Find the update function and call it
-    lua_getglobal(L, "on_unload");
+    if (L != NULL) {
+        // Find the update function and call it
+        lua_getglobal(L, "on_unload");
 	    
-    // Push a pointer to the current object for use within the lua function
-    lua_pushlightuserdata(L, (void*)terrain);
+        // Push a pointer to the current object for use within the lua function
+        lua_pushlightuserdata(L, (void*)terrain);
 	   
-    // Call the function with 1 argument and no return values
-    lua_call(L, 1, 0);
+        // Call the function with 1 argument and no return values
+        lua_call(L, 1, 0);
 
-    // get the result //
-    //position.z = (float)lua_tonumber(L, -1);
-    //position.y = (float)lua_tonumber(L, -2);
-    //position.x = (float)lua_tonumber(L, -3);
-    //lua_pop(L, 1);
+        // get the result //
+        //position.z = (float)lua_tonumber(L, -1);
+        //position.y = (float)lua_tonumber(L, -2);
+        //position.x = (float)lua_tonumber(L, -3);
+        //lua_pop(L, 1);
+    }
     
-    lua_close(L);
+    removeObjects();
+    
+    if (q != NULL)
+        delete q;
+        
+    if (l != NULL)
+        delete l;
+    
+    if (L != NULL)
+        lua_close(L);
+        
+    terrain = NULL;
+    player = NULL;
+    camera = NULL;
     L = NULL;
+    snd = NULL;   
 }
 
 //------------------------------------------------------------------------------
-void GameLevel::removePlayer()
+void GameLevel::removeObjects()
 {
-    ObjectNode* obj = terrain->next, *temp;
+    if (terrain == NULL)
+        return;
+        
+    ObjectNode* obj = terrain, *temp;
 
-    while( obj != NULL )
-    {
+    while( obj != NULL ) {
         temp = obj->next;
-        if ( typeid(*obj) == typeid(Player) ) {
-            obj->remove();
-            cout << "player found and removed";
-           
-        } else {
-            obj->remove();
-            delete obj;
-        }
+        obj->remove();
+        delete obj;
         
         obj = temp;
     }
@@ -629,7 +612,7 @@ void GameLevel::getTerrainInfo(int &x, int &z, float &height, int &type, float &
 
 void GameLevel::saveTerrain(char* filePath)
 {
-    terrain->saveTerrain(filePath, &light);
+    terrain->save(filePath, &light);
 }
 
 void GameLevel::toggleGrid(void) { grid = !grid;}

@@ -1,11 +1,9 @@
 #include "ObjectInclude.h"
 
 //------------------------------------------------------------------------------
-Player::Player( string tModelKey )
-: Model(  )
+Player::Player()
+: Model()
 { 
-    load( tModelKey );
-
     active = true;
     state = NORMAL;
     //#testActiveZoneEnable = false;
@@ -14,9 +12,8 @@ Player::Player( string tModelKey )
     //#numShots = 3;
     //#numMissiles = 300;
     
-    score = 0;
-    numLives = 3;
-    pShot = NULL;
+    //score = 0;
+    //numLives = 3;
     
     //#life = 10;
     
@@ -26,7 +23,6 @@ Player::Player( string tModelKey )
 //------------------------------------------------------------------------------
 Player::~Player()
 {
-    pShot = NULL;
 }
 
 //------------------------------------------------------------------------------
@@ -276,16 +272,3 @@ void Player::fireMissle( Object* tobj )
     }
 */
 }
-
-//------------------------------------------------------------------------------
-long Player::getScore()
-{   return score; }
-//------------------------------------------------------------------------------
-int Player::getNumLives()
-{ return numLives; }
-//------------------------------------------------------------------------------
-void Player::setScore( long tscore )
-{ score = tscore; }
-//------------------------------------------------------------------------------
-void Player::setNumLives( int tNumLives )
-{ numLives = tNumLives; }

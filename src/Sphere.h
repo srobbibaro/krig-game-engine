@@ -2,6 +2,7 @@
 #define _SPHERE_H_
 
 #include "Matrix.h"
+#include "Vector.h"
 
 class Sphere
 {

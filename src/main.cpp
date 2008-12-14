@@ -30,6 +30,8 @@ using namespace std;
 // global variables /////////////////////////////
 Engine* KRIG;
 
+Engine *lengine;
+
 #if EDIT
 // to remove before final build
 int mainWin, colorWin;
@@ -238,7 +240,7 @@ void displayPalette( void )
         sprintf( m, "20                           25                           30" );
         printString( m, 0, 265 ); 
         
-        sprintf( m, "grass(0)    water(1)");
+        sprintf( m, "land(0)    water(1)");
         printString( m, 0, 305 );       
        
         
@@ -427,15 +429,8 @@ int main( int argc, char *argv[] )
     glutInitDisplayMode( GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH );
     
     KRIG = new Engine();
+    lengine = KRIG;
     
-    // Hack for now to allow us to easily specify the level to run //
-    string levelScript = "levels/level1.lua";
-    if (argc > 1) {
-        levelScript = "levels/" + string(argv[1]);        
-    }
-    KRIG->setLevelScript(levelScript);
-    /////////////////////////////////////////////////////////////////
-        
     // setup window /////////////////////////////
     glutInitWindowSize( 800, 600 );	    // window size
     
@@ -460,7 +455,6 @@ int main( int argc, char *argv[] )
     glutReshapeFunc( reshapePalette );
     glutIdleFunc(idle);
     initPalette();
-    
     /////////////////////////////////////////////////
     
     glutSetWindow( mainWin );	
@@ -478,7 +472,9 @@ int main( int argc, char *argv[] )
 	KRIG->initGL();
     glutInit(); 
     /////////////////////////////////////////////
-#endif	
+#endif
+
+    KRIG->loadGame("./scripts/main.lua");	
     
     glutMainLoop();
     return 0;

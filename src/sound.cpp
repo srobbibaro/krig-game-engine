@@ -1,6 +1,6 @@
 #include "sound.h"
 
-Sound::Sound(char *sfx)
+Sound::Sound()
 {
     alGenBuffers(2, MusicBuffers);
     alGenSources(1, &MusicSource);

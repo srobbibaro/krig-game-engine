@@ -14,36 +14,41 @@
 //------------------------------------------------------------------------------
 Terrain::Terrain() : Object()
 {
-    xSize = X_SIZE;
-	zSize = Z_SIZE;
-	scaleFactor = SCALE_FACTOR;
+	vertex = NULL;
+    lightIntensity = NULL;
+    color = NULL;
+    type = NULL;
+    lastLight = NULL;
+    
+    init();
+}
+
+void Terrain::init()
+{
+    unload();   
+
+    xSize = 0;
+	zSize = 0;
+	scaleFactor = 1.0f;
 	active = true;
 	
 	lastLight = new Vector();
-	lastLight->setVector(0.0f, 0.0f, 0.0f);
+	lastLight->setVector(0.0f, 0.0f, 1.0f);
 }
 
 //------------------------------------------------------------------------------
 Terrain::~Terrain()
-{
-    cout << "deleting terrain";
-    ObjectNode* obj = (Object*)next; ObjectNode* temp;
-    
-    while ( obj != NULL )
-    {
-        temp = obj->next;
-        obj->remove();
-        delete obj;
-        obj = temp;
-    }
-    cout <<"..done deleting terrain";
-    
-    // code will have to be added to delete dynamic arrays //
+{   
+    unload();
 }
 
 //------------------------------------------------------------------------------
 void Terrain::draw( Object* c )
 {   
+    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL || lastLight == NULL) {
+        return;
+    }
+    
         int x1, x2;
         int z1, z2;
         
@@ -163,7 +168,11 @@ void Terrain::draw( Object* c )
 
 //------------------------------------------------------------------------------
 void Terrain::drawOutline( Object* c )
-{	 
+{	
+    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL || lastLight == NULL) {
+        return;
+    } 
+    
     int x1, x2;
     int z1, z2;
         
@@ -275,7 +284,7 @@ void Terrain::drawOutline( Object* c )
 }
 
 //------------------------------------------------------------------------------
-void Terrain::generateTerrain( void )
+void Terrain::generate( void )
 {
    
 }
@@ -367,6 +376,11 @@ void Terrain::calcTerrainNorm( Vector* light )
     }
     */
     
+    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL || lastLight == NULL) {
+        cout << "Error: Could not save terrain." << endl;
+        return;
+    }
+    
     Vector surfaceNormal;
    Vector vertexNormal[X_SIZE][Z_SIZE];
    Vector temp1;
@@ -451,6 +465,10 @@ void Terrain::calcTerrainNorm( Vector* light )
 //------------------------------------------------------------------------------
 void Terrain::update( Vector* light )
 {
+    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL || lastLight == NULL) {
+        return;
+    }
+    
     if (lastLight->x != light->x || lastLight->y != light->y || lastLight->z != light->z) {
         calcTerrainNorm( light );
         lastLight->setVector(light->x, light->y, light->z);
@@ -460,6 +478,10 @@ void Terrain::update( Vector* light )
 //------------------------------------------------------------------------------
 float Terrain::getHeight( float x, float z )
 {
+    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL || lastLight == NULL) {
+        return 0.0f;
+    }
+
     float terX, terZ;
 
     // x and z value in terms of the terrain
@@ -500,6 +522,10 @@ float Terrain::getHeight( float x, float z )
 //------------------------------------------------------------------------------
 void Terrain::animate( float elapsedTime, Object* c )
 {
+    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL || lastLight == NULL) {
+        return;
+    }
+    
     GLfloat min[] = { 9999.0f, 9999.0f, 9999.0f };
     GLfloat max[] = { -9999.0f, -9999.0f, -9999.0f };
     
@@ -560,8 +586,8 @@ void Terrain::animate( float elapsedTime, Object* c )
         QuadTreeNode* n = l->head;
         
         while (n != NULL) {
-                xStart = n->min[0] / SCALE_FACTOR;
-                zStart = n->min[1] /  SCALE_FACTOR;
+                xStart = n->min[0] / scaleFactor;
+                zStart = n->min[1] / scaleFactor;
                                 
                 x1 = (int)xStart;
                 x2 = ((int)xStart) + 1;
@@ -585,13 +611,32 @@ void Terrain::animate( float elapsedTime, Object* c )
 }
 
 //------------------------------------------------------------------------------
-void Terrain::loadTerrain( const char* filePath, Vector* light )
+void Terrain::load( const char* filePath, Vector* light )
 {
+    init();
+    
     ifstream fin;
     fin.open(filePath);
         fin >> xSize;
         fin >> zSize;
         fin >> scaleFactor;
+           
+        vertex = new GLfloat**[xSize];
+        lightIntensity = new GLfloat*[xSize];
+        color = new GLfloat**[xSize];
+        type = new GLint*[xSize];
+        
+        for (int i = 0; i < xSize; i++) {
+            vertex[i] = new GLfloat*[zSize];
+            lightIntensity[i] = new GLfloat[zSize];
+            color[i] = new GLfloat*[zSize];
+            type[i] = new GLint[zSize];
+            
+            for (int j = 0; j < zSize; j++) {
+                vertex[i][j] = new GLfloat[3];
+                color[i][j] = new GLfloat[3];
+            }
+        }
         
         for (int z = 0; z < zSize; z++) {
             for (int x = 0; x < xSize; x++) {
@@ -610,6 +655,37 @@ void Terrain::loadTerrain( const char* filePath, Vector* light )
     calcTerrainNorm(light);
 }
 
+void Terrain::unload()
+{
+    if (vertex != NULL && lightIntensity != NULL && color != NULL && type != NULL) {
+        for (int i = 0; i < xSize; i++) {
+            for (int j = 0; j < zSize; j++) {
+                delete[] vertex[i][j];
+                delete[] color[i][j];
+            }
+            
+            delete[] vertex[i];
+            delete[] lightIntensity[i];
+            delete[] color[i];
+            delete[] type;
+        }
+        
+        delete[] vertex;
+        delete[] lightIntensity;
+        delete[] color;
+        delete[] type;
+    }
+    
+    if (lastLight != NULL)
+        delete lastLight;
+    
+    vertex = NULL;
+    lightIntensity = NULL;
+    color = NULL;
+    type = NULL;
+    lastLight = NULL;
+}
+
 //------------------------------------------------------------------------------
 void Terrain::drawGrid(void)
 {
@@ -619,28 +695,27 @@ void Terrain::drawGrid(void)
     glBegin(GL_LINES);
     
     for (int x = 0; x < xSize; x++) {
-        
-        
-        glVertex3f(x*SCALE_FACTOR, 10.0f, 0.0f);
-        glVertex3f(x*SCALE_FACTOR, 10.0f, -(zSize-1)*SCALE_FACTOR);
-        
+        glVertex3f(x*scaleFactor, 10.0f, 0.0f);
+        glVertex3f(x*scaleFactor, 10.0f, -(zSize-1)*scaleFactor);
     } 
    
     for (int z = 0; z < zSize; z++ ) {
-        
-        glVertex3f(0.0f, 10.0f, -z*SCALE_FACTOR);
-        glVertex3f((xSize-1)*SCALE_FACTOR, 10.0f, -z*SCALE_FACTOR);    
+        glVertex3f(0.0f, 10.0f, -z*scaleFactor);
+        glVertex3f((xSize-1)*scaleFactor, 10.0f, -z*scaleFactor);    
     } 
     
-    
-    glEnd();   
-    
+    glEnd();    
     glPopMatrix(); 
 }
 
 //------------------------------------------------------------------------------
-void Terrain::saveTerrain( char* filePath, Vector* light)
+void Terrain::save( char* filePath, Vector* light)
 {
+    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL || lastLight == NULL) {
+        cout << "Error: Could not save terrain." << endl;
+        return;
+    }
+        
     ofstream fin;
     fin.open(filePath);
         fin << xSize << endl;

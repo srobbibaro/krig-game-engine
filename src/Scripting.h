@@ -25,9 +25,10 @@ class Scripting
      
 };
 
-static Object* lplayer;
-static Object* lcamera;
-static GameLevel* lgameLevel;
+extern Object* lplayer;
+extern Object* lcamera;
+extern GameLevel* lgameLevel;
+extern Engine* lengine;
 
 // helpers
 static Vector loadVector(lua_State *L)
@@ -54,7 +55,7 @@ static Vector loadVector(lua_State *L)
     
     lua_pop(L, 1);
     
-    cout << "Loaded vector: x=" << t.x << " y=" << t.y << " z=" << t.z << endl;
+    //cout << "Loaded vector: x=" << t.x << " y=" << t.y << " z=" << t.z << endl;
     
     return t;
 }
@@ -575,13 +576,10 @@ static int addObjectLua(lua_State *L)
     const char *s = lua_tostring(L, 2);
     string script = string(s);
     
-    object->temp = new ScriptedObject(script);
+    object->temp = new ScriptedObject();
     
     object->temp->setSoundClass(object->s);
-    object->temp->setPlayerPtr(object->player);
-    object->temp->setCameraPtr(object->camera);
     object->temp->keyState = object->temp->keyState;
-    
     object->temp->loadScript(script);
     
     object->add(object->temp);
@@ -717,8 +715,8 @@ static int setTerrainLua(lua_State *L)
     const char *s = lua_tostring(L, 2);
     
     Vector *light = lgameLevel->getLight();
-    
-    terrain->loadTerrain(s, light);
+    terrain->load(s, light);
+    return 0;
 }
 
 static int vector_getScalarLua(lua_State *L)
@@ -758,11 +756,12 @@ static int vector_crossProductLua(lua_State *L)
 
 static int engine_testKeyPressedLua(lua_State *L)
 {
-    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-    int key = (int)lua_tonumber(L, 2);
-    
-    int result = (int)(object->keyState->testKeyPressed(key));
+    //luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    //Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    //int key = (int)lua_tonumber(L, 2);
+    int key = (int)lua_tonumber(L, 1);
+    //int result = (int)(object->keyState->testKeyPressed(key));
+    int result = (int)(lengine->getKeyState()->testKeyPressed(key));
     lua_pushnumber(L, result);
     
     return 1;
@@ -770,11 +769,12 @@ static int engine_testKeyPressedLua(lua_State *L)
 
 static int engine_testKeyReleasedLua(lua_State *L)
 {
-    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-    int key = (int)lua_tonumber(L, 2);
-
-    int result = (int)(object->keyState->testKeyReleased(key));
+    //luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    //Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    //int key = (int)lua_tonumber(L, 2);
+    int key = (int)lua_tonumber(L, 1);
+    //int result = (int)(object->keyState->testKeyReleased(key));
+    int result = (int)(lengine->getKeyState()->testKeyReleased(key));
     lua_pushnumber(L, result);
     return 1;
 }
@@ -819,6 +819,21 @@ static int getScriptValueLua(lua_State *L)
     
     lua_pushnumber(L, object->getScriptValue(s));
     return 1;    
+}
+
+static int loadLevelLua(lua_State *L)
+{
+    const char *s = lua_tostring(L, 1);
+    lengine->loadLevel(s);
+    
+    return 0;
+}
+
+static int shutdownLua(lua_State *L)
+{
+    lengine->shutdown();
+    
+    return 0;
 }
 
 static int registerFunctions(lua_State *L, int level)
@@ -895,6 +910,11 @@ static int registerFunctions(lua_State *L, int level)
         lua_register(L, "setLightDirection", setLightDirectionLua);
         lua_register(L, "setLightDirectionv", setLightDirectionvLua);
         lua_register(L, "setTerrain", setTerrainLua);
+    }
+    
+    if (level == 0) {
+        lua_register(L, "loadLevel", loadLevelLua);  
+        lua_register(L, "shutdown", shutdownLua);  
     }
 }
 

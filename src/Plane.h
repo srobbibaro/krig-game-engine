@@ -2,6 +2,7 @@
 #define _PLANE_H_
 
 #include "Matrix.h"
+#include "Vector.h"
 
 class Plane
 {

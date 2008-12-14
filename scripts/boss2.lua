@@ -86,7 +86,6 @@ function on_collision(this, temp)
 end
 
 function fire_shot(this)
-    print ("shooting...\n")
     return
 end
 

@@ -7,24 +7,17 @@ class Player : public Model
 {
     public:
     //private:
-        Object *pShot;          // pointer to player's laser shot
-        long score;
-        int numLives;
                 
    // public:
         //void handleCollision( Object* );
         void prepare() {}
         
-        Player( string );
+        Player();
         virtual ~Player();
         void processAI( Object*, float ); // Camera*
         void animate( float, Camera* );
         void fireShot ( float );
         void fireMissle( Object* tobj );
-        long getScore();
-        int getNumLives();
-        void setScore(long);
-        void setNumLives(int);
         
         bool userControl;
         

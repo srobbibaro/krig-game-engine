@@ -38,19 +38,20 @@ class Object : public ObjectNode
         // orientation //
         Vector position;            // x,y,z position of object
         Quaternion rotation;
+        Vector scale;               // x,y,z scale values
+        
         Vector baseDirection;       // base direction of object
         Vector direction;           // direction facing
         Vector up;
         
-        Vector scale;              // x,y,z scale values
-        
         // rate of change //
         Vector velocity;
         Vector rotationVelocity;
+        Vector scaleRate;    
+        
         float speed;                // speed of object, used in scripting  
         int speedDir; 
-        Vector scaleRate;          // x,y,z rate of scale 
-            
+           
         // collision detection //
         Vector collisionBox[2];    // 0 = min points, 1 = max points
         Vector controlPoints[3];   // used for orienting objects on surfaces
@@ -74,10 +75,6 @@ class Object : public ObjectNode
         float* valInterpPtr;
         bool interp;
                  
-        // pointer to camera and player //
-        Object* camera;
-        Object* player;
-          
         // Necessary for the Lua implementation
         lua_State* L;
         string scriptName;
@@ -90,6 +87,8 @@ class Object : public ObjectNode
         KeyState* keyState;
         
         int typeId;
+        
+        bool testCollision;
         
     //public:
         Object();
@@ -150,9 +149,7 @@ class Object : public ObjectNode
         void setRotationVelocity( GLfloat xAngle, GLfloat yAngle, GLfloat zAngle );
         void setRotationVelocity( const Vector &v );
         void setTimer( float* );
-        void setPlayerPtr( Object* );
-        void setCameraPtr( Object* );
-        void setLuaState(lua_State*);
+        
         void setScale(GLfloat, GLfloat, GLfloat);
         void setScale(const Vector &v);
         void setScaleRate(GLfloat, GLfloat, GLfloat);

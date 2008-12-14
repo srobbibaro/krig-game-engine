@@ -1,7 +1,7 @@
 [Project]
 FileName=krig.dev
 Name=krig
-UnitCount=54
+UnitCount=56
 Type=1
 Ver=1
 ObjFiles=
@@ -298,7 +298,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit56]
-FileName=src\ScriptedObject.cpp
+FileName=src\Vector.h
 CompileCpp=1
 Folder=krig
 Compile=1
@@ -829,6 +829,16 @@ BuildCmd=
 FileName=src\model.cpp
 CompileCpp=1
 Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit55]
+FileName=src\Vector.cpp
+CompileCpp=1
+Folder=krig
 Compile=1
 Link=1
 Priority=1000

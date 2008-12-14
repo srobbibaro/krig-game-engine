@@ -3,15 +3,18 @@
 #include "Engine.h"
 #include "Scripting.h"
 
+GameLevel *lgameLevel;
+
 //------------------------------------------------------------------------------
 Engine::Engine()
 {
+    // initialize resources used by the engine //
     keyState = new KeyState();
     keyState->initKeyState();
     
-    sounds = new Sound ("sounds/sfxlist.txt");
+    sounds = new Sound ();
     loadModels();
-
+      
     currentLevel = NULL;
     
     // setup game timer /////////////////////////
@@ -20,27 +23,11 @@ Engine::Engine()
         printf ( "Timer initialization failed." );
         exit (1);
     }
-     
-    vMove = hMove = 0;
-
-    gameMode = 1;  // 0
-    menuCursor = false;
-    MenuStr = "Start Game";
-    lvlNum = 0;
-    maxLevels = 0;
-    numLives = 5;
-    score = 0;
-    shooting = false;
+    ///////////////////////////////////////////////
     
-    player = new Player( MODEL_PLAYER );
-    player->keyState = keyState;
+    gameMode = 2;  // 0
     
     totalTime = 0;
-    
-    strcpy(levelFile[0],  "./levels/level1.txt" );
-    strcpy(levelFile[1],  "./levels/level2.txt" );
-    strcpy(levelFile[2],  "./levels/level3.txt" );
-    strcpy(levelFile[3],  "./levels/level4.txt" );    
     
     #if DEMO || PLAY_DEMO
         demo.open( "demo.txt" );
@@ -56,10 +43,14 @@ Engine::Engine()
     }
     #endif
     
+     // values used for menu
+    menuCursor = false;
+    MenuStr = "Start Game";
+    
+    // terrain editing values //
     paint = false;
     paintColor = false;
-    
-    
+      
     lastX = 0.0f;
     lastY = 0.0f;
     
@@ -72,12 +63,97 @@ Engine::Engine()
     last_blue = 0.0f;
     last_height = 0.0f;
     last_type = 0;
+    ////////////////////////////
     
-    currentScript = -1;
-    loadScripts();
+    L = NULL;
+    mainCamera = c1 = c2 = c3 = c4 = NULL;
+}
+
+//------------------------------------------------------------------------------
+bool Engine::loadGame( string file )
+{  
+    lengine = this; 
     
-    currentLevelNum = -1;
-    loadLevels();    
+    // If the lua state has not been initialized for this object, attempt to
+    // initialize it.     
+    if (file == "" || L != NULL)
+        return false;
+        
+    L = lua_open();
+    
+    // If the lua state still could not be initialized, then exit the game.
+    // ... we can do something smarter with this in the finished product.
+    if (L == NULL) {
+        printf("Error creating Lua state.\n");
+	    exit(-1);
+    }
+
+	// load Lua base libraries 
+	luaL_openlibs(L);
+	
+    // Register our functions for use in lua (currently defined in 
+    // Object.h)
+    registerFunctions(L, 0);
+    
+    // load the script 
+    cout << "Loading Lua script (game file): --" << file << "--\n";
+	luaL_dofile(L, file.c_str());
+	
+	// Find the update function and call it
+    lua_getglobal(L, "on_load");
+	    	   
+    // Call the function with 1 argument and no return values
+    lua_call(L, 0, 0);
+    
+    return (true);
+}
+
+//------------------------------------------------------------------------------
+void Engine::updateGame(float elapsedTime)
+{
+    // Attempt to execute the script only if the lua state has already been
+    // initialized with a script
+    if (L == NULL)
+        return;
+    
+    // Find the update function and call it
+    lua_getglobal(L, "on_update");
+	     
+    // Push the time passed since the last iteration of the game loop
+    lua_pushnumber(L, elapsedTime);
+    
+    // Call the function with 2 argument and no return values
+    lua_call(L, 1, 0);
+
+    // get the result //
+    //position.z = (float)lua_tonumber(L, -1);
+    //position.y = (float)lua_tonumber(L, -2);
+    //position.x = (float)lua_tonumber(L, -3);
+    //lua_pop(L, 1);
+}
+
+//------------------------------------------------------------------------------
+void Engine::unloadGame()
+{    
+    // Attempt to execute the on_unload function only if the lua state has 
+    // already been initialized with a script
+    if (L == NULL)
+        return;
+    
+    // Find the update function and call it
+    lua_getglobal(L, "on_unload");
+	    	   
+    // Call the function with 1 argument and no return values
+    lua_call(L, 0, 0);
+
+    // get the result //
+    //position.z = (float)lua_tonumber(L, -1);
+    //position.y = (float)lua_tonumber(L, -2);
+    //position.x = (float)lua_tonumber(L, -3);
+    //lua_pop(L, 1);
+    
+    lua_close(L);
+    L = NULL;
 }
 
 //------------------------------------------------------------------------------
@@ -85,6 +161,8 @@ void Engine::gameCycle()
 {  
     timeElapsed = timer->getElapsedSeconds(1);  
     //processCommands();
+    
+    this->updateGame(timeElapsed);
     
     if ( gameMode == 3 ) {
         totalTime += timeElapsed;
@@ -117,7 +195,7 @@ void Engine::gameCycle()
             if ( currentLevel->checkComplete() )
             {
                 cout << "deleting level";
-                currentLevel->removePlayer();
+                //currentLevel->removePlayer();
                 newLevel();
                 cout << "..done\n";
             }
@@ -271,40 +349,11 @@ void Engine::initGL()
         glCullFace( GL_BACK );
     glEndList();
    
-   
     glHint(GL_POLYGON_SMOOTH, GL_NICEST);
     glEnable(GL_POLYGON_SMOOTH);
-    glEnable(GL_BLEND);   
+    glEnable(GL_BLEND);  
     
-    
-    currentLevel = new GameLevel(lists);
-    currentLevel->setKeyState(keyState);
-    //mainCamera = new Camera();
-    c1 = new Camera();
-    c1->id = 1;
-    c2 = new Camera();
-    c2->id = 2;
-    c3 = new Camera();
-    c3->id = 3;
-    c4 = new Camera();
-    c4->id = 4;
-    
-    mainCamera = c1;
-    c2->setPosition(0.0f, 100.0f, 0.0f);
-    c2->setRotationEuler(1.57, 0.0f, 0.0f);
-    c3->setPosition(0.0f, 0.0f, 0.0f);
-    c4->setPosition(0.0f, 0.0f, 0.0f);
-    
-    terrain = new Terrain();
-    
-    currentLevel->setPlayer( player );
-    currentLevel->setSoundClass( sounds ); 
-    currentLevel->setCamera( mainCamera );
-    currentLevel->setTerrain( terrain );
-    
-    newLevel();
-
-   //sounds->StopSong();
+    //sounds->StopSong();
    //if (currentLevel->getMusicPath() != "") {
    //    sounds->PlaySong(currentLevel->getMusicPath().c_str(), true);
    //}
@@ -316,6 +365,7 @@ void Engine::processKeyUp(int key)
 {
     keyState->keys[key] = 2;
 
+/*
     if ((player)->userControl) {
         switch( key )
         {
@@ -337,6 +387,7 @@ void Engine::processKeyUp(int key)
                 break;
         }
     }
+*/
     
     #if DEMO
         if ( gameMode == 1 )
@@ -348,7 +399,8 @@ void Engine::processKeyDown( int key )
 {
     cout << "key=" << key << endl;
     keyState->keys[key] = 1;
-    
+
+/*    
     if ((player)->userControl) {
         switch( key )
         {
@@ -379,6 +431,7 @@ void Engine::processKeyDown( int key )
                 break;
         }
     }
+*/
 
     #if DEMO
         if ( gameMode == 1 )
@@ -608,6 +661,8 @@ void Engine::processNormalKey(unsigned char key)
     //key = toupper(key);
     
     keyState->keys[key] = 1;
+    
+    cout << "key=" << key << endl;
 
     switch (key)
     {  
@@ -904,64 +959,6 @@ void Engine::processNormalKey(unsigned char key)
         case 'c':
             currentLevel->toggleControlTriangles();
             break;
-        
-        // Assign next/previous script to player
-        case ':':
-            player->unloadScript();
-            
-            if (++currentScript >= scripts.size())
-                currentScript = 0;
-                
-            cout << "New player script '" << scripts[currentScript] << "'\n";
-            
-            player->loadScript(scripts[currentScript]);
-            break;
-        case ';':
-            player->unloadScript();
-            if (--currentScript < 0)
-                currentScript = scripts.size() - 1;
-                
-            cout << "New player script '" << scripts[currentScript] << "'\n";
-            
-            player->loadScript(scripts[currentScript]);
-            break; 
-        
-        // Change current level to next/previous level
-        case 'L':
-            if (++currentLevelNum >= levels.size())
-                currentLevelNum = 0;
-                
-            levelScript = levels[currentLevelNum];
-            cout << "Attempting to load level script '" << levelScript << "'\n";
-            
-            cout << "deleting level";
-            currentLevel->removePlayer();
-            newLevel();
-            cout << "..done\n";
-            //loadLevel();
-            break;
-        case 'l':
-            if (--currentLevelNum < 0)
-                currentLevelNum = levels.size() - 1;
-                
-            levelScript = levels[currentLevelNum];
-            cout << "Attempting to load level script '" << levelScript << "'\n";
-            cout << "deleting level";
-            currentLevel->removePlayer();
-            newLevel();
-            cout << "..done\n";
-            //loadLevel();
-            break;
-            
-        // Reload current level
-        case 'K':
-        case 'k':
-            cout << "Reloading current level from script '" << levelScript << "'\n";
-            cout << "deleting level";
-            currentLevel->removePlayer();
-            newLevel();
-            cout << "..done\n";
-            break;
             
         // Paint terrain and color
         case 'P':
@@ -1135,6 +1132,7 @@ void Engine::displayHUD(float ShipEnergy, int ShipLives, float EnemyEnergy, long
 //------------------------------------------------------------------------------
 void Engine::displayDebug(void)
 {
+    /*
     char str[128];
     
     glPushMatrix();
@@ -1184,24 +1182,61 @@ void Engine::displayDebug(void)
         render_string(GLUT_BITMAP_9_BY_15, str);
         
     glPopMatrix();
+    */
 }
 
 
 //------------------------------------------------------------------------------
-void Engine::loadLevel()
+void Engine::loadLevel(const char* levelFile)
 {
-    currentLevel->unloadLevel();
-    //currentLevel->loadLevel( levelFile[lvlNum] );
+    levelScript = levelFile;
+    
+    if (currentLevel != NULL)
+        delete currentLevel;
+        
+    if (mainCamera == NULL) {
+        // setup the current level... this really ought to be moved.
+        //mainCamera = new Camera();
+        c1 = new Camera();
+        c1->id = 1;
+        c2 = new Camera();
+        c2->id = 2;
+        c3 = new Camera();
+        c3->id = 3;
+        c4 = new Camera();
+        c4->id = 4;
+    
+        mainCamera = c1;
+        c2->setPosition(0.0f, 100.0f, 0.0f);
+        c2->setRotationEuler(1.57, 0.0f, 0.0f);
+        c3->setPosition(0.0f, 0.0f, 0.0f);
+        c4->setPosition(0.0f, 0.0f, 0.0f);
+    }
+    
+    mainCamera->init();
+    mainCamera->unloadScript();
+    
+    currentLevel = new GameLevel(lists);
+    currentLevel->setKeyState(keyState);   
+    currentLevel->setSoundClass( sounds ); 
+    currentLevel->setCamera( mainCamera );
+    
+    lgameLevel = currentLevel;
+    
     currentLevel->loadLevelLua(levelScript);
-    //boss = currentLevel->returnBoss();
     timeElapsed = timer->getElapsedSeconds(1);  
     light = currentLevel->getLight();
+    
+    if (currentLevel->getMusicPath() != "") {
+        sounds->PlaySong(currentLevel->getMusicPath().c_str(), true);
+    }
+    
+    gameMode = 1;
 }
 
 //------------------------------------------------------------------------------
 void Engine::newLevel()
 {
-    lvlNum++;
 /*
     if ( lvlNum > maxLevels )
     {
@@ -1213,11 +1248,9 @@ void Engine::newLevel()
     else
     {
     */
-        loadLevel();
+        //loadLevel();
         //sounds->StopSong();
-        if (currentLevel->getMusicPath() != "") {
-            sounds->PlaySong(currentLevel->getMusicPath().c_str(), true);
-        }
+        
    // }
 }
 
@@ -1225,15 +1258,6 @@ void Engine::newLevel()
 void Engine::loadModels()
 {
     /*
-    model = new ModelStorage[NUM_MODELS];
-    char fileName[NUM_MODELS][30] = { 
-        "./models/Ship.mdl", "./models/Enemy.mdl", "./models/Asteroid.mdl", "./models/Beam.mdl", "./models/Boss.mdl",
-        "./models/SailBoat.mdl", "./models/BoatCannon.mdl", "./models/Arwing.mdl", "./models/NeskimosLogo.mdl",
-        "./models/Explosion.mdl", "./models/BlueShot.mdl", "./models/GreenShot.mdl", "./models/missle.mdl",
-        "./models/CannonBall.mdl", "./models/Powerup.mdl", "./models/Powerup2.mdl", "./models/Building.mdl",
-        "./models/FishBoss.mdl", "./models/SnowBoss.mdl", "./models/cactus1.mdl", "./models/cactus2.mdl", "./models/EnemyMissle.mdl"
-    };
-       
     for ( int i = 0; i < NUM_MODELS; i++ ) {
         model[i].load( fileName[i] );
         //model[i].buildEdges(); $shadow
@@ -1271,59 +1295,11 @@ void Engine::loadModels()
     closedir(dir);   
 }
 
-// Temporary function used for tools... remove from final build
-void Engine::loadScripts()
-{
-    DIR *dir;
-    struct dirent *de;
-    ModelStorage *model;
-    char filePath[MAX_PATH_LEN];
-    string hashKey;
-    
-    dir = opendir("./scripts/");
-    
-    while((de = readdir(dir)) != NULL ) {
-        // only consider model files with the .mdl extension //
-        if( strstr(de->d_name, ".lua") != NULL ) {
-            // build full path to load //
-            strcpy(filePath, "./scripts/");
-            strcat(filePath, de->d_name);
-            
-            scripts.push_back(filePath);       
-            cout << "Found script file '" << filePath << "'" << endl;
-        }
-    }
-    
-    closedir(dir);   
-}
-
-void Engine::loadLevels()
-{
-    DIR *dir;
-    struct dirent *de;
-    ModelStorage *model;
-    char filePath[MAX_PATH_LEN];
-    string hashKey;
-    
-    dir = opendir("./levels/");
-    
-    while((de = readdir(dir)) != NULL ) {
-        // only consider model files with the .mdl extension //
-        if( strstr(de->d_name, ".lua") != NULL ) {
-            // build full path to load //
-            strcpy(filePath, "./levels/");
-            strcat(filePath, de->d_name);
-            
-            levels.push_back(filePath);       
-            cout << "Found level file '" << filePath << "'" << endl;
-        }
-    }
-    
-    closedir(dir);   
-}
-
 void Engine::processMouseMove(int x, int y)
 {
+    if (mainCamera == NULL)
+        return;
+        
     if (mainCamera->id == 3 or mainCamera->id == 4) {
     y -= 300;
     x -= 400;
@@ -1358,14 +1334,19 @@ void Engine::processMouseMove(int x, int y)
 
 void Engine::getTerrainInfo(int &x, int &z, float &height, int &type, float &red, float &green, float &blue)
 {
+    if (mainCamera == NULL)
+        return;
+        
     x = (int)(c2->position.x /5.0f);
     z = -(int)(c2->position.z /5.0f);
     currentLevel->getTerrainInfo(x,z,height,type,red,green,blue);
 }
 
-
 void Engine::updateTerrain(int &x, int &z, float &height, int &type, float &red, float &green, float &blue)
 {
+    if (mainCamera == NULL)
+        return;
+        
     if (mainCamera->id == 2 || mainCamera->id == 3) {
         x = (int)(c2->position.x /5.0f);
         z = -(int)(c2->position.z /5.0f);
@@ -1383,6 +1364,9 @@ void Engine::updateTerrain(int &x, int &z, float &height, int &type, float &red,
 
 void Engine::updateColor(float &red, float &green, float &blue)
 {
+    if (mainCamera == NULL)
+        return;
+        
     if (mainCamera->id == 2 || mainCamera->id == 3) {
         int x = (int)(c2->position.x /5.0f);
         int z = -(int)(c2->position.z /5.0f);
@@ -1392,6 +1376,35 @@ void Engine::updateColor(float &red, float &green, float &blue)
         last_green = green;
         last_blue = blue;
     }
+}
+
+void Engine::shutdown()
+{
+    //unloadGame();
+    
+    if (currentLevel != NULL)
+        delete currentLevel;
+        
+    if (mainCamera != NULL) {
+        delete c1;
+        delete c2;
+        delete c3;
+        delete c4;
+    }
+    
+    if (sounds != NULL)
+        delete sounds;
+        
+    if (timer != NULL)
+        delete timer;
+        
+    if (keyState != NULL)
+        delete keyState;
+        
+    currentLevel = NULL;
+    c1 = c2 = c3 = c4 = mainCamera = NULL;
+    
+    exit(0);
 }
 
 

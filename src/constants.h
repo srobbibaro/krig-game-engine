@@ -81,19 +81,10 @@ using namespace std;
 #define INVUL_DURATION      2.0f
 /////////////////////////////////////////////
 
-// Base Scripting Language /////////////////
-#define SCRIPT_SET_SCRIPT               12
-
-// 73-90 reserved for expansion
-
 // Object Extended Scripting Language ////
-#define SCRIPT_SET_SCALE_MEM        128
-#define SCRIPT_SET_SCALE_RATE_MEM   129
 #define SCRIPT_ADD_SCALE_MEM        130
 #define SCRIPT_ADD_SCALE_RATE_MEM   131
 
-#define SCRIPT_SET_SCALE_VAL        132
-#define SCRIPT_SET_SCALE_RATE_VAL   133
 #define SCRIPT_ADD_SCALE_VAL        134
 #define SCRIPT_ADD_SCALE_RATE_VAL   135
 
@@ -101,9 +92,6 @@ using namespace std;
 #define SCRIPT_SET_TEST_ZONE_ENABLE_VAL 136
 #define SCRIPT_SET_STATE_VAL            137
 #define SCRIPT_STORE_STATE_IN_MEM       138
-#define SCRIPT_STORE_LIFE_IN_MEM        139
-
-#define SCRIPT_FIRE_WEAPON              140
 
 #define SCRIPT_STORE_SCALE_IN_MEM       141
 #define SCRIPT_STORE_SCALE_RATE_IN_MEM  142
@@ -121,33 +109,6 @@ using namespace std;
 #define TEXT_SCRIPT_SET_TYPE        98
 /////////////////////////////////////////            
         
-
-// models ///////////////////////////
-#define NUM_MODELS 22
-                    
-#define MODEL_PLAYER        "Ship.mdl"
-#define MODEL_ENEMY_SHIP    "Enemy.mdl"
-#define MODEL_ASTEROID      "Asteroid.mdl"
-#define MODEL_BEAM          "Beam.mdl"
-#define MODEL_BOSS_A        "Boss.mdl"
-#define MODEL_SAIL_BOAT     "SailBoat.mdl"
-#define MODEL_BOAT_CANNON   "BoatCannon.mdl"
-#define MODEL_ARWING        "Arwing.mdl"
-#define MODEL_NESKIMOS      "NeskimosLogo.mdl"
-#define MODEL_EXPLOSION     "Explosion.mdl"
-#define MODEL_BLUE_SHOT     "blueshot.mdl"
-#define MODEL_GREEN_SHOT    "GreenShot.mdl"
-#define MODEL_RED_MISSLE    "Missle.mdl"
-#define MODEL_CANNON_BALL   "CannonBall.mdl"
-#define MODEL_POWERUP_1     "Powerup.mdl"
-#define MODEL_POWERUP_2     "Powerup2.mdl"
-#define MODEL_BUILDING      "Building.mdl"
-#define MODEL_FISH_BOSS     "FishBoss.mdl"
-#define MODEL_SNOW_BOSS     "snowboss.mdl"
-#define MODEL_CACTUS_1      "Cactus1.mdl"
-#define MODEL_CACTUS_2      "Cactus2.mdl"
-#define MODEL_ENEMY_MISSLE  "EnemyMissle.mdl"
-////////////////////////////////////
 
 #define ACTIVE_VOLUME_LENGTH 400.0f
 

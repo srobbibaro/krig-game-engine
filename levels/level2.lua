@@ -12,18 +12,18 @@ function on_load(terrain)
 
     setTerrain(terrain, "./terrains/level2.txt")
 
-    obj = addObject(terrain, "./scripts/boss2.lua")
-    setPosition(obj, x_start_boss, 15.0, 7.5)
-
-    player = getPlayer(obj)
+    player = getPlayer()
     setScript(player, "./scripts/player1.lua")
     setPosition(player, x_start_player, 20.0, 7.5)
 
-    camera = getCamera(obj)
+    camera = getCamera()
     setScript(camera, "./scripts/camera1.lua")
     setPosition(camera, x_start_camera, 20.0, 35.0)
 
-    addParticleSystem(camera, 2)
+    --addParticleSystem(camera, 2)
+
+    obj = addObject(terrain, "./scripts/boss2.lua")
+    setPosition(obj, x_start_boss, 15.0, 7.5)
     
     return
 end

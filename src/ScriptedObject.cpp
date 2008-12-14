@@ -3,27 +3,9 @@
 
 //------------------------------------------------------------------------------
 ScriptedObject::ScriptedObject()
-: Model( NO_SCRIPT )
-{
-    load( MODEL_BOSS_A );
-    
+: Model()
+{   
     //#animCurrTime = NULL;
-    
-    //#life = 40;
-    
-    //#isEnemy = true;  
-    
-    //#shotDelay = 0.5f;
-    //#numShots = 1;   
-}
-
-//------------------------------------------------------------------------------
-ScriptedObject::ScriptedObject( string script )
-: Model( script )
-{ 
-    //load( tModelKey );
-    
-    //#animCurrTime = tTime;
     
     //#life = 40;
     

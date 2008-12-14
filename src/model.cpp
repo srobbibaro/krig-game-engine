@@ -5,7 +5,10 @@ using namespace std;
 map <string, ModelStorage*> modelHash;
 
 Model::Model()
+: Object()
 {
+    updatedVertex = NULL;
+    lightIntensity = NULL;
 }
 
 //------------------------------------------------------------------------------
@@ -31,6 +34,10 @@ Model::~Model()
 //------------------------------------------------------------------------------
 void Model::load( string tModelKey )
 {
+    // model must have been unloaded first
+    if (lightIntensity != NULL || updatedVertex != NULL)
+        return;
+
     GLfloat temp;
     modelKey = tModelKey;
     
@@ -99,6 +106,11 @@ void Model::draw(Object* c)
         y = 0;
 
     */    
+    
+    // model must be loaded
+    if (lightIntensity == NULL || updatedVertex == NULL)
+        return;
+    
     glPushMatrix();
     //glTranslatef(x, y, zp);
 
@@ -122,6 +134,10 @@ void Model::draw(Object* c)
 //------------------------------------------------------------------------------
 void Model::drawOutline(Object* c)
 {
+    // model must first be loaded
+    if (lightIntensity == NULL || updatedVertex == NULL)
+        return;
+        
     ModelStorage *m = modelHash[modelKey];
     glColor3f( 0.0f, 0.0f, 0.0f );
        
@@ -202,6 +218,10 @@ void Model::handleCollision( Object* temp )
 //------------------------------------------------------------------------------
 void Model::update( Vector* light )
 {
+    // model must first be loaded
+    if (lightIntensity == NULL || updatedVertex == NULL)
+        return;
+
     Vector tempV;
     GLfloat temp;
     Matrix translation;
