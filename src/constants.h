@@ -16,30 +16,8 @@
 
 using namespace std;
 
-
 #ifndef _CONSTANTS_H_
 #define _CONSTANTS_H_
-
-// CONTROL COMMANDS //
-#define NO_COMMAND          0
-#define VEL_UP_KEY_DOWN     1
-#define VEL_DOWN_KEY_DOWN   2
-#define VEL_LEFT_KEY_DOWN   3
-#define VEL_RIGHT_KEY_DOWN  4
-#define VEL_UP_KEY_UP       5
-#define VEL_DOWN_KEY_UP     6
-#define VEL_LEFT_KEY_UP     7
-#define VEL_RIGHT_KEY_UP    8
-#define SHOOT_DOWN          9
-#define TOGGLE_MENU         13
-#define MOVE_CURSOR         14
-#define SELECT_OPTION       15
-#define QUIT_GAME           16
-#define TOGGLE_LOD          17
-#define TOGGLE_PARTICLE     18
-#define TOGGLE_TERRAIN      19
-#define MISSILE_DOWN        20
-////////////////////////
 
 #define DEMO        0
 #define PLAY_DEMO   0
@@ -109,13 +87,11 @@ using namespace std;
 #define TEXT_SCRIPT_SET_TYPE        98
 /////////////////////////////////////////            
         
-
 #define ACTIVE_VOLUME_LENGTH 400.0f
 
 #define NO_SCRIPT           ""
 #define SHOT_SPEED          25.0f
 
 #define MAX_PATH_LEN        128
-
 
 #endif

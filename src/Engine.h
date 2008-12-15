@@ -20,11 +20,7 @@ class Engine
     private:
         GameLevel* currentLevel;    // current level
         GameTimer* timer;           // game's timer
-        Camera* mainCamera;         // main camera used in level
-        
-        Camera* c1, *c2, *c3, *c4;
-        
-        int cam;
+        Camera *mainCamera, *c1, *c2, *c3, *c4;
         
         EventQueue control;         // queue for handeling input
         Credits credits;
@@ -91,19 +87,6 @@ class Engine
         void displayHUD( float, int, float, long );
         void processNormalKey( unsigned char );
         void loadLevel(const char*);
-        void loadModels(void);
-        void displayDebug(void);
-        void processMouseMove( int x, int y);
-        
-        
-        // Temporary functions used for tools (remove from final build)...
-        void getTerrainInfo(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
-        
-        
-        
-        
-        void updateTerrain(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
-        void updateColor(float &red, float &green, float &blue);
         
         void setLevelScript(string level) 
         {
@@ -113,10 +96,20 @@ class Engine
         bool loadGame(string);
         void updateGame(float);
         void unloadGame();
+        
         void shutdown();
         
         KeyState* getKeyState() { return keyState; }
+        
+        void loadModels(void);
+        void displayDebug(void);
+        
+        // Temporary functions used for tools (remove from final build)...
+        void processMouseMove( int x, int y);
+        
+        void getTerrainInfo(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
+        void updateTerrain(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
+        void updateColor(float &red, float &green, float &blue);      
 };
-
 
 #endif

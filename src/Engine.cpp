@@ -54,8 +54,6 @@ Engine::Engine()
     lastX = 0.0f;
     lastY = 0.0f;
     
-    cam = 0;
-    
     last_x = 0;
     last_z = 0;
     last_red = 0.0f;
@@ -604,11 +602,11 @@ void Engine::processNormalKey(unsigned char key)
             //    control.enQueue(MISSILE_DOWN);
             break;
         case 13:
-            if (gameMode == 0)
-                control.enQueue( SELECT_OPTION );
+            //if (gameMode == 0)
+            //    control.enQueue( SELECT_OPTION );
             break; 
         case 27:
-            control.enQueue(TOGGLE_MENU);
+            //control.enQueue(TOGGLE_MENU);
             break;
 
 #if EDIT
