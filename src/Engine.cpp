@@ -12,7 +12,7 @@ Engine::Engine()
     keyState = new KeyState();
     keyState->initKeyState();
     
-    sounds = new Sound ();
+    sounds = new Sound();
     loadModels();
       
     currentLevel = NULL;
@@ -192,41 +192,29 @@ void Engine::gameCycle()
     switch (gameMode)
     {
         case 1:    
-            if ( currentLevel->checkComplete() )
-            {
-                cout << "deleting level";
-                //currentLevel->removePlayer();
-                newLevel();
-                cout << "..done\n";
-            }
+            if ( currentLevel->checkComplete() ) {}
             else
             {
-               currentLevel->processScripts();
-                
+                currentLevel->processScripts();
                 
                 (mainCamera)->update(timeElapsed);
             
                 currentLevel->animateLevel( timeElapsed );
                 currentLevel->animateText( timeElapsed );
                 
-                   processCommands();
+                processCommands();
 
                 currentLevel->updateLevel(timeElapsed);
                 
-
                 currentLevel->prepareLevel();   // collision detection
 
                 //currentLevel->updateLevel(timeElapsed);    
                 
-
                 prepare();
              
                 currentLevel->drawLevel();
-             
-                
              }
-            break;
-            
+            break;  
         case 0:
             glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
             glLoadIdentity();  
@@ -236,8 +224,7 @@ void Engine::gameCycle()
             glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
             glLoadIdentity();  
             credits.draw( 500, timeElapsed );
-            break;
-            
+            break;      
         default:
             break;
     }
@@ -266,8 +253,7 @@ void Engine::prepare()
 #endif
     }
     glDepthFunc(GL_LESS);
-    
-    
+       
     Matrix translationMatrix;
     translationMatrix.setTranslation(-mainCamera->position.x, -mainCamera->position.y, -mainCamera->position.z);  
     
@@ -305,7 +291,6 @@ void Engine::initGL()
     glEnable( GL_BLEND );
     
     // setup projection matrix //////////////////
-   
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
     gluPerspective ( 45.0 , (800.0f/600.0f) , 0.001f, 300.0f ); 
@@ -318,8 +303,7 @@ void Engine::initGL()
     
     glDepthFunc( GL_LESS );
 
-    // setup display lists //////////////////////
-    
+    // setup display lists //////////////////////   
     lists = glGenLists( 3 );
     
     // list to setup cel shading ////////////////
@@ -352,42 +336,13 @@ void Engine::initGL()
     glHint(GL_POLYGON_SMOOTH, GL_NICEST);
     glEnable(GL_POLYGON_SMOOTH);
     glEnable(GL_BLEND);  
-    
-    //sounds->StopSong();
-   //if (currentLevel->getMusicPath() != "") {
-   //    sounds->PlaySong(currentLevel->getMusicPath().c_str(), true);
-   //}
-   // sounds->PlaySong(4, false );
 }
 
 //------------------------------------------------------------------------------
 void Engine::processKeyUp(int key)
 {
+    cout << "key up=" << key << endl;
     keyState->keys[key] = 2;
-
-/*
-    if ((player)->userControl) {
-        switch( key )
-        {
-            case GLUT_KEY_UP:
-                if ( gameMode == 1 ) 
-                    //control.enQueue( VEL_UP_KEY_UP );    
-                break;
-            case GLUT_KEY_DOWN:
-                if ( gameMode == 1 ) 
-                    //control.enQueue( VEL_DOWN_KEY_UP );
-                break;
-            case GLUT_KEY_LEFT:
-                if ( gameMode == 1 ) 
-                    //control.enQueue( VEL_LEFT_KEY_UP );
-                break;
-            case GLUT_KEY_RIGHT:
-                if ( gameMode == 1 ) 
-                    //control.enQueue( VEL_RIGHT_KEY_UP );
-                break;
-        }
-    }
-*/
     
     #if DEMO
         if ( gameMode == 1 )
@@ -397,41 +352,8 @@ void Engine::processKeyUp(int key)
 //------------------------------------------------------------------------------
 void Engine::processKeyDown( int key )
 {
-    cout << "key=" << key << endl;
+    cout << "key down=" << key << endl;
     keyState->keys[key] = 1;
-
-/*    
-    if ((player)->userControl) {
-        switch( key )
-        {
-            case GLUT_KEY_UP:
-                if( gameMode == 1 ) {
-                    //control.enQueue( VEL_UP_KEY_DOWN );
-                }
-                else {
-                    control.enQueue( MOVE_CURSOR ); }
-                break;
-            case GLUT_KEY_DOWN:
-                if( gameMode == 1 ) {
-                    //control.enQueue( VEL_DOWN_KEY_DOWN ); 
-                }
-                else {
-                    control.enQueue( MOVE_CURSOR ); }
-                break;
-            case GLUT_KEY_LEFT:
-                if ( gameMode == 1 ) 
-                    //control.enQueue( VEL_LEFT_KEY_DOWN );
-                break;
-            case GLUT_KEY_RIGHT:
-                if ( gameMode == 1 ) 
-                    //control.enQueue( VEL_RIGHT_KEY_DOWN );
-                break;
-            case GLUT_KEY_F1:
-                //control.enQueue( TOGGLE_LOD );
-                break;
-        }
-    }
-*/
 
     #if DEMO
         if ( gameMode == 1 )
@@ -1132,38 +1054,41 @@ void Engine::displayHUD(float ShipEnergy, int ShipLives, float EnemyEnergy, long
 //------------------------------------------------------------------------------
 void Engine::displayDebug(void)
 {
-    /*
     char str[128];
     
     glPushMatrix();
+        /*
         glTranslatef (0.0f, 0.0f, -2.0f);
         glColor3f (1.0f, 1.0f, 1.0f);
         sprintf (str, "plr pos: %.04f %.04f %.04f", player->position.x, player->position.y, player->position.z);
         glRasterPos2f (-1.0f, 0.55f);
         render_string(GLUT_BITMAP_9_BY_15, str);
+        */
         
-        glColor3f (1.0f, 1.0f, 1.0f);
-        sprintf (str, "cam pos: %.04f %.04f %.04f", mainCamera->position.x, mainCamera->position.y, mainCamera->position.z);
-        glRasterPos2f (-1.0f, 0.48f);
-        render_string(GLUT_BITMAP_9_BY_15, str);
+        if (mainCamera != NULL) {
+            glColor3f (1.0f, 1.0f, 1.0f);
+            sprintf (str, "cam pos: %.04f %.04f %.04f", mainCamera->position.x, mainCamera->position.y, mainCamera->position.z);
+            glRasterPos2f (-1.0f, 0.48f);
+            render_string(GLUT_BITMAP_9_BY_15, str);
         
-        glColor3f (1.0f, 1.0f, 1.0f);
-        sprintf (str, "cam dir: %.04f %.04f %.04f", mainCamera->direction.x, mainCamera->direction.y, mainCamera->direction.z);
-        glRasterPos2f (-1.0f, 0.40f);
-        render_string(GLUT_BITMAP_9_BY_15, str);
+            glColor3f (1.0f, 1.0f, 1.0f);
+            sprintf (str, "cam dir: %.04f %.04f %.04f", mainCamera->direction.x, mainCamera->direction.y, mainCamera->direction.z);
+            glRasterPos2f (-1.0f, 0.40f);
+            render_string(GLUT_BITMAP_9_BY_15, str);
         
-        glColor3f (1.0f, 1.0f, 1.0f);
-        sprintf (str, "cam up : %.04f %.04f %.04f", (mainCamera)->up.x, (mainCamera)->up.y, (mainCamera)->up.z);
-        glRasterPos2f (-1.0f, 0.33f);
-        render_string(GLUT_BITMAP_9_BY_15, str);
+            glColor3f (1.0f, 1.0f, 1.0f);
+            sprintf (str, "cam up : %.04f %.04f %.04f", (mainCamera)->up.x, (mainCamera)->up.y, (mainCamera)->up.z);
+            glRasterPos2f (-1.0f, 0.33f);
+            render_string(GLUT_BITMAP_9_BY_15, str);
         
-        Vector tv;
-        mainCamera->rotation.getEulerAngles(tv);
+            Vector tv;
+            mainCamera->rotation.getEulerAngles(tv);
         
-        glColor3f (1.0f, 1.0f, 1.0f);
-        sprintf (str, "cam rot: %.04f %.04f %.04f", tv.x, tv.y, tv.z);
-        glRasterPos2f (-1.0f, 0.26f);
-        render_string(GLUT_BITMAP_9_BY_15, str);
+            glColor3f (1.0f, 1.0f, 1.0f);
+            sprintf (str, "cam rot: %.04f %.04f %.04f", tv.x, tv.y, tv.z);
+            glRasterPos2f (-1.0f, 0.26f);
+            render_string(GLUT_BITMAP_9_BY_15, str);
+        }
         
         float fps = timer->getFPS();
         glColor3f (1.0f, 1.0f, 1.0f);
@@ -1171,18 +1096,21 @@ void Engine::displayDebug(void)
         glRasterPos2f (-1.0f, 0.18f);
         render_string(GLUT_BITMAP_9_BY_15, str);
         
-        glColor3f (1.0f, 1.0f, 1.0f);
-        sprintf (str, "cam id : %d", mainCamera->id);
-        glRasterPos2f (-1.0f, 0.10f);
-        render_string(GLUT_BITMAP_9_BY_15, str);
+        if (mainCamera != NULL) {
+            glColor3f (1.0f, 1.0f, 1.0f);
+            sprintf (str, "cam id : %d", mainCamera->id);
+            glRasterPos2f (-1.0f, 0.10f);
+            render_string(GLUT_BITMAP_9_BY_15, str);
+        }
         
-        glColor3f (1.0f, 1.0f, 1.0f);
-        sprintf (str, "light dir : %.04f %.04f %.04f", light->x, light->y, light->z);
-        glRasterPos2f (-1.0f, 0.0f);
-        render_string(GLUT_BITMAP_9_BY_15, str);
+        if (light != NULL) {
+            glColor3f (1.0f, 1.0f, 1.0f);
+            sprintf (str, "light dir : %.04f %.04f %.04f", light->x, light->y, light->z);
+            glRasterPos2f (-1.0f, 0.0f);
+            render_string(GLUT_BITMAP_9_BY_15, str);
+        }
         
     glPopMatrix();
-    */
 }
 
 
@@ -1227,31 +1155,7 @@ void Engine::loadLevel(const char* levelFile)
     timeElapsed = timer->getElapsedSeconds(1);  
     light = currentLevel->getLight();
     
-    if (currentLevel->getMusicPath() != "") {
-        sounds->PlaySong(currentLevel->getMusicPath().c_str(), true);
-    }
-    
     gameMode = 1;
-}
-
-//------------------------------------------------------------------------------
-void Engine::newLevel()
-{
-/*
-    if ( lvlNum > maxLevels )
-    {
-        gameMode = 2;
-        numLives = 0;
-        sounds->StopSong();
-        sounds->PlaySong("./music/Ending.ogg", false);
-    }
-    else
-    {
-    */
-        //loadLevel();
-        //sounds->StopSong();
-        
-   // }
 }
 
 //------------------------------------------------------------------------------

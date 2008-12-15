@@ -2,7 +2,7 @@ x_start_camera = 50.0
 x_start_player = x_start_camera - 20.0
 
 function on_load(terrain)
-    --setBgMusic("./music/Sparkman.ogg")
+    --playBgMusic("./music/Sparkman.ogg", 1)
     setSkyBox(0.0, 0.0, 0.0,
               0.0, 0.0, 0.3,
 	        1.0, 0.0, 0.5)

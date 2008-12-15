@@ -3,7 +3,7 @@ x_start_player = x_start_camera - 10.0
 x_start_boss   = x_start_camera + 10.0
 
 function on_load(terrain)
-    --setBgMusic("./music/Woodman.ogg")
+    --playBgMusic("./music/Woodman.ogg", 1)
     setSkyBox(0.0, 0.0, 0.3,
               0.6, 0.6, 0.6,
               1.0, 1.0, 1.0)

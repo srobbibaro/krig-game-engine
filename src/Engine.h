@@ -35,8 +35,6 @@ class Engine
         unsigned int lists;         // lists used for rendering
        
         KeyState *keyState;
-        
-        Object* obj;                // temp object
 
         char *MenuStr;
         
@@ -93,8 +91,6 @@ class Engine
         void displayHUD( float, int, float, long );
         void processNormalKey( unsigned char );
         void loadLevel(const char*);
-        void newLevel(void);
-        void deleteDead(void);
         void loadModels(void);
         void displayDebug(void);
         void processMouseMove( int x, int y);

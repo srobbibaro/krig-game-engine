@@ -667,11 +667,26 @@ static int addParticleSystemLua(lua_State *L)
 	return 0;   
 }
 
-static int setBgMusicLua(lua_State *L)
+static int playBgMusicLua(lua_State *L)
 {
     const char *s = lua_tostring(L, 1);
+    int repeat = lua_tonumber(L, 2);
     lgameLevel->setMusicPath(string(s));
+    lgameLevel->getSoundClass()->StopSong();
+    lgameLevel->getSoundClass()->PlaySong(s, repeat);
     
+    return 0;
+}
+
+static int stopBgMusicLua(lua_State *L)
+{
+    lgameLevel->getSoundClass()->StopSong();
+    return 0;
+}
+
+static int pauseBgMusicLua(lua_State *L)
+{
+    lgameLevel->getSoundClass()->PauseSong();
     return 0;
 }
 
@@ -905,7 +920,9 @@ static int registerFunctions(lua_State *L, int level)
     
     // game level only
     if (level < 2) {
-        lua_register(L, "setBgMusic", setBgMusicLua);
+        lua_register(L, "playBgMusic", playBgMusicLua);
+        lua_register(L, "stopBgMusic", stopBgMusicLua);
+        lua_register(L, "pauseBgMusic", pauseBgMusicLua);
         lua_register(L, "setSkyBox", setSkyBoxLua);
         lua_register(L, "setLightDirection", setLightDirectionLua);
         lua_register(L, "setLightDirectionv", setLightDirectionvLua);

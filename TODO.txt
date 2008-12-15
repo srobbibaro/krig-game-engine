@@ -59,7 +59,7 @@
     * Implement lua function to determine if vector intersects a collision box.
 
 12/10/08 ~ Steve
-    * Implement "engine level" scripting.
+    x Implement "engine level" scripting. (12/14/08 ~ Steve)
     * Remove terrain requirement for levels.
     * Implement player missile logic in lua script.
     x Implement vector math lua functions (normalize, cross product, dot product). (12/10/08 ~ Steve)
@@ -75,4 +75,7 @@
 12/12/08 ~ Steve
     * Investigate way to output text from within lua script.
     * Implement way to ensure object references stored in lua are valid.
-    * Engine should still run even when objects do not have a model loaded. (12/13/08 ~ Steve)
+    x Engine should still run even when objects do not have a model loaded. (12/13/08 ~ Steve)
+
+12/14/08 ~ Steve
+    x Implement ability to start/stop/pause bgMusic from lua script. (12/14/08 ~ Steve)
