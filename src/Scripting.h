@@ -20,9 +20,7 @@ class Scripting
         ~Scripting( void ) {}
         
     private:
-        lua_State* lua_;
-
-     
+        lua_State* lua_; 
 };
 
 extern Object* lplayer;
@@ -329,6 +327,38 @@ static int addRotationVelocityvLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 	object->rotationVelocity += Vector(loadVector(L));
+	return 0;
+}
+
+static int addScaleLua(lua_State *L) 
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+	object->scale += Vector(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+	return 0;
+}
+
+static int addScalevLua(lua_State *L) 
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+	object->scale += Vector(loadVector(L));
+	return 0;
+}
+
+static int addScaleRateLua(lua_State *L) 
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+	object->scaleRate += Vector(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+	return 0;
+}
+
+static int addScaleRatevLua(lua_State *L) 
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+	object->scaleRate += Vector(loadVector(L));
 	return 0;
 }
 
@@ -826,6 +856,24 @@ static int setScaleRatevLua(lua_State *L)
     return 0;    
 }
 
+static int getScaleLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+		
+	returnVector(L, object->scale);
+	return 1;
+}
+
+static int getScaleRateLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+		
+	returnVector(L, object->scaleRate);
+	return 1;
+}
+
 static int getScriptValueLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
@@ -847,6 +895,13 @@ static int loadLevelLua(lua_State *L)
 static int shutdownLua(lua_State *L)
 {
     lengine->shutdown();
+    
+    return 0;
+}
+
+static int pauseLua(lua_State *L)
+{
+    lengine->pause();
     
     return 0;
 }
@@ -881,6 +936,10 @@ static int registerFunctions(lua_State *L, int level)
     lua_register(L, "addSpeed", addSpeedLua);
     lua_register(L, "addRotationVelocity", addRotationVelocityLua);   
     lua_register(L, "addRotationVelocityv", addRotationVelocityvLua);   
+    lua_register(L, "addScale", addScaleLua);   
+    lua_register(L, "addScalev", addScalevLua);   
+    lua_register(L, "addScaleRate", addScaleRateLua);   
+    lua_register(L, "addScaleRatev", addScaleRatevLua);   
     lua_register(L, "setInterpolationRotationStartAxis", setInterpolationRotationStartAxisLua);
     lua_register(L, "setInterpolationRotationStartAxisv", setInterpolationRotationStartAxisvLua);
     lua_register(L, "setInterpolationRotationEndAxis", setInterpolationRotationEndAxisLua);
@@ -907,6 +966,8 @@ static int registerFunctions(lua_State *L, int level)
     lua_register(L, "setScript", setScriptLua);
     lua_register(L, "setScaleRate", setScaleRateLua);   
     lua_register(L, "setScaleRatev", setScaleRatevLua);
+    lua_register(L, "getScale", getScaleLua);
+    lua_register(L, "getScaleRate", getScaleRateLua);
     lua_register(L, "addParticleSystem", addParticleSystemLua);     
     lua_register(L, "vector_getScalar", vector_getScalarLua); 
     lua_register(L, "engine_testKeyPressed", engine_testKeyPressedLua); 
@@ -932,6 +993,7 @@ static int registerFunctions(lua_State *L, int level)
     if (level == 0) {
         lua_register(L, "loadLevel", loadLevelLua);  
         lua_register(L, "shutdown", shutdownLua);  
+        lua_register(L, "pause", pauseLua);  
     }
 }
 

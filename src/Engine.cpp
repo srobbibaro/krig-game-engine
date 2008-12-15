@@ -65,6 +65,8 @@ Engine::Engine()
     
     L = NULL;
     mainCamera = c1 = c2 = c3 = c4 = NULL;
+    
+    isPaused = false;
 }
 
 //------------------------------------------------------------------------------
@@ -158,17 +160,16 @@ void Engine::unloadGame()
 void Engine::gameCycle()
 {  
     timeElapsed = timer->getElapsedSeconds(1);  
-    //processCommands();
-    
     this->updateGame(timeElapsed);
     
-    if ( gameMode == 3 ) {
+    if ( gameMode == 3 ) 
         totalTime += timeElapsed;
-    }
+    
+    if (currentLevel != NULL && !isPaused)
+        currentLevel->setElapsedTime(timeElapsed);
       
     #if PLAY_DEMO
-    if ( gameMode == 1 )
-    {
+    if ( gameMode == 1 ) {
         while ( demoCommands[currentDemoCommand].time <= totalTime && currentDemoCommand < 512 ) {
             switch ( demoCommands[currentDemoCommand].routine )
             {
@@ -191,26 +192,27 @@ void Engine::gameCycle()
     {
         case 1:    
             if ( currentLevel->checkComplete() ) {}
-            else
-            {
-                currentLevel->processScripts();
+            else {
+                if (!isPaused) {
+                    currentLevel->processScripts();
                 
-                (mainCamera)->update(timeElapsed);
+                    mainCamera->update(currentLevel->getElapsedTime());
             
-                currentLevel->animateLevel( timeElapsed );
-                currentLevel->animateText( timeElapsed );
+                    currentLevel->animateLevel();
+                    currentLevel->animateText();
                 
-                processCommands();
+                    //processCommands();
 
-                currentLevel->updateLevel(timeElapsed);
+                    currentLevel->updateLevel();
                 
-                currentLevel->prepareLevel();   // collision detection
+                    currentLevel->prepareLevel();   // collision detection
 
-                //currentLevel->updateLevel(timeElapsed);    
+                    //currentLevel->updateLevel();    
                 
-                prepare();
+                    prepare();
              
-                currentLevel->drawLevel();
+                    currentLevel->drawLevel();
+                }
              }
             break;  
         case 0:
@@ -226,6 +228,8 @@ void Engine::gameCycle()
         default:
             break;
     }
+    
+    processCommands();
     
     sounds->Update(); 
     glutSwapBuffers();
@@ -443,44 +447,8 @@ void Engine::processCommands()
                 }
                 break;
             }
-            case VEL_LEFT_KEY_DOWN:
-                hMove += 1;
-                player->velocity.x = mainCamera->velocity.x-10.0f;
                 
-                break;
-                
-            case VEL_LEFT_KEY_UP:
-                hMove -= 1;
-                if ( hMove < 0 )
-                    hMove = 0;
-                    
-                if ( hMove == 2 )
-                    player->velocity.x = mainCamera->velocity.x+10.0f;
-                       
-                else
-                   player->velocity.x = mainCamera->velocity.x;
-                
-                break;
-        
-            case VEL_RIGHT_KEY_DOWN:
-                hMove += 2;
-                player->velocity.x = mainCamera->velocity.x+10.0f;
-
-                break;
-                
-            case VEL_RIGHT_KEY_UP:
-                hMove -= 2;
-                if ( hMove < 0 )
-                    hMove = 0;
-                    
-                if ( hMove == 1 )
-                    player->velocity.x = mainCamera->velocity.x-10.0f;
-                else
-                    player->velocity.x = mainCamera->velocity.x; 
-
-                break;
-            
-            case SHOOT_DOWN:
+           case SHOOT_DOWN:
             {
                 //(player)->fireShot(mainCamera->velocity.x);        // gameSpeed
                 (player)->temp = new ScriptedObject("./scripts/player_shot.lua");
@@ -1309,4 +1277,9 @@ void Engine::shutdown()
     exit(0);
 }
 
+void Engine::pause()
+{
+    isPaused = !isPaused;
+    sounds->PauseSong();
+}
 

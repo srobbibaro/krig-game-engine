@@ -24,12 +24,6 @@ using namespace std;
 
 #define EDIT        1
 
-//terrain parameters //
-#define X_SIZE 512         // 20
-#define Z_SIZE 256         // 7
-#define SCALE_FACTOR 5     //7
-///////////////////////
-
 // sound library constants //
 #define BUFFER_SIZE 65536
 /////////////////////////////
@@ -60,19 +54,9 @@ using namespace std;
 /////////////////////////////////////////////
 
 // Object Extended Scripting Language ////
-#define SCRIPT_ADD_SCALE_MEM        130
-#define SCRIPT_ADD_SCALE_RATE_MEM   131
-
-#define SCRIPT_ADD_SCALE_VAL        134
-#define SCRIPT_ADD_SCALE_RATE_VAL   135
-
-
 #define SCRIPT_SET_TEST_ZONE_ENABLE_VAL 136
 #define SCRIPT_SET_STATE_VAL            137
 #define SCRIPT_STORE_STATE_IN_MEM       138
-
-#define SCRIPT_STORE_SCALE_IN_MEM       141
-#define SCRIPT_STORE_SCALE_RATE_IN_MEM  142
 //////////////////////////////////////////
 
 // Text Extended Scripting Language ////

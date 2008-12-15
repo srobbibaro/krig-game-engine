@@ -27,14 +27,18 @@ class GameLevel
 
         Object* camera;     // camera
         Sound* snd;         // pointer to sound class
+        
+        // colors for sky box
         float bgcolor[3][3];
+        
         bool complete;
         
         float time;             // current time elapsed since level began running
         float eventBeginTime;   // beginning time of event
+
+        float elapsedTime;  
         
         // script information //
-        float scriptDuration;   // duration of script
         //ScriptTextType *scriptText;
         //Script* textScript;
         
@@ -55,12 +59,11 @@ class GameLevel
         
         lua_State* L;
     
-    
     public:
         GameLevel( unsigned int);
         ~GameLevel();
-        void updateLevel(float);
-        void animateLevel( float );
+        void updateLevel();
+        void animateLevel();
         void prepareLevel( void);
         void drawLevel( void );
         bool loadLevelLua( string file );
@@ -79,7 +82,7 @@ class GameLevel
         void removeObjects( void );
         void processScripts( void );
         
-        void animateText( float );
+        void animateText();
         void drawText( void );
         
         void loadObject(lua_State* L, int number);
@@ -109,6 +112,9 @@ class GameLevel
         
         void setKeyState(KeyState* ks) { keyState = ks; }
         KeyState* getKeyState() { return keyState; }
+        
+        float getElapsedTime() { return elapsedTime; }
+        void setElapsedTime(float tElapsedTime) { elapsedTime = tElapsedTime; }
 };
 
 #endif

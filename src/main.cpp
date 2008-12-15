@@ -44,7 +44,6 @@ void printString( char* str, float x, float y )
     int i = 0;
     while (str[i] != '\0') 
         glutBitmapCharacter( GLUT_BITMAP_HELVETICA_12, str[i++] ); 
-
 }
 
 //------------------------------------------------------------------------------
@@ -56,12 +55,9 @@ void displayPalette( void )
     char m[120];
     glClear( GL_COLOR_BUFFER_BIT );
     
-   
     KRIG->getTerrainInfo(xpos, zpos, height, type, red, green, blue);
     
     glClear( GL_COLOR_BUFFER_BIT );
-    
-    
         glColor3f( 0.0f, 0.0f, 0.0f );
     
         sprintf( m, "Red Attribute: %f", red );
@@ -83,8 +79,7 @@ void displayPalette( void )
         sprintf( m, "Type: %d", type );
         printString( m, 10, 285 ); 
         
-        glBegin(GL_QUADS);
-            
+        glBegin(GL_QUADS);       
             // RED //
             glColor3f(0.0f, 0.0f, 0.0f);
             glVertex2f(0.0f,15.0f); 
@@ -133,8 +128,7 @@ void displayPalette( void )
             glVertex2f(255.0f,75.0f);
             
             glColor3f(1.0f, 1.0f, 1.0f);
-            glVertex2f(255.0f,55.0f);  
-       
+            glVertex2f(255.0f,55.0f);        
               
              // BLUE //
             glColor3f(0.0f, 0.0f, 0.0f);
@@ -160,7 +154,6 @@ void displayPalette( void )
             
             glColor3f(1.0f, 1.0f, 1.0f);
             glVertex2f(255.0f,95.0f);  
-         
         glEnd();
         
         glBegin(GL_LINES);
@@ -192,10 +185,9 @@ void displayPalette( void )
             glVertex2f(i, 195.0f);
         }
         
-         glColor3f(1.0f, 0.0f, 0.0f);
+        glColor3f(1.0f, 0.0f, 0.0f);
         glVertex2f(0.0f, 235.0f);
         glVertex2f(240.0f, 235.0f);
-
         
         for (int i = 0; i <= 240; i +=24) {
             glVertex2f(i, 235.0f);
@@ -206,12 +198,8 @@ void displayPalette( void )
             glVertex2f(i, 235.0f);
             glVertex2f(i, 245.0f);
         }
-
-
-
         glEnd();
-        
-        
+          
         glBegin(GL_QUADS);
             glColor3f(1.0f, 0.0f, 0.0f);
             glVertex2f(0.0f,325.0f); 
@@ -224,25 +212,20 @@ void displayPalette( void )
             glVertex2f(1.0f,344.0f); 
             glVertex2f(26.0f,344.0f);
             glVertex2f(26.0f,326.0f);  
-            
-        
         glEnd();
-        
         
         glColor3f(0.0f, 0.0f, 0.0f);
         sprintf( m, "00                           05                           10" );
         printString( m, 0, 165 );
         
-         sprintf( m, "10                           15                           20" );
+        sprintf( m, "10                           15                           20" );
         printString( m, 0, 215 );        
-       
         
         sprintf( m, "20                           25                           30" );
         printString( m, 0, 265 ); 
         
         sprintf( m, "land(0)    water(1)");
         printString( m, 0, 305 );       
-       
         
     glutSwapBuffers();	
     
@@ -251,22 +234,19 @@ void displayPalette( void )
 
 //------------------------------------------------------------------------------
 void initPalette( void )
-{
-    
+{ 
     glClearColor( 1.0, 1.0, 1.0, 0.0 );
 
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
     gluOrtho2D( 0.0, 255, 350, 0.0 );
 
-    glMatrixMode(GL_MODELVIEW);
-    
+    glMatrixMode(GL_MODELVIEW); 
 }
 
 //------------------------------------------------------------------------------
 void reshapePalette( int w, int h )
 {
-    
    glViewport( 0, 0, (GLsizei) w, (GLsizei) h );
    glMatrixMode( GL_PROJECTION );
    glLoadIdentity();
@@ -324,17 +304,13 @@ void mousePalette(int btn, int state, int x, int y)
         else {
             skip = 1;
         }
-        
-        
+            
         if ( skip == 0 )
-        KRIG->updateTerrain(xpos,zpos,height, type, red, green, blue);
-       
-       
+            KRIG->updateTerrain(xpos,zpos,height, type, red, green, blue);
     }
     if( btn == GLUT_RIGHT_BUTTON && state == GLUT_DOWN) 
     { 
     }
-    
    		
     glutPostRedisplay();		
 }

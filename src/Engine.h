@@ -75,6 +75,8 @@ class Engine
         Vector* light;
         
         lua_State* L;  
+        
+        bool isPaused;
     
     public:
         Engine();                   // initialize game
@@ -98,6 +100,7 @@ class Engine
         void unloadGame();
         
         void shutdown();
+        void pause();
         
         KeyState* getKeyState() { return keyState; }
         

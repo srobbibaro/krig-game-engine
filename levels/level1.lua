@@ -378,22 +378,29 @@ end
 function on_update(terrain, elapsedTime)
     totalTime = totalTime + elapsedTime
 
-    if songPlayed == 0 and totalTime > 20.0 then
+    if songPlayed == 0 and totalTime > 15.0 then
         playBgMusic("./music/Wily.ogg", 1)
-        songPlayed = 1 
+        songPlayed = 1
+        totalTime = 0.0 
     end
 
     player = getPlayer()
 
     player_position = getPosition(player)
 
-    if player_position[1] > 250.0 and soundPlayed == 0 then
+    if player_position[1] > 200.0 and soundPlayed == 0 then
         playSound(terrain, "bossexplo.wav")
 
         obj = addObject(terrain, "./scripts/boss2.lua")
         setPosition(obj, player_position[1] + 30.0, player_position[2], player_position[3])
         soundPlayed = 1
+        setLightDirection(0.0, 1.0, 0.0)
     end 
+
+    if songPlayed == 1 and totalTime <= 10.0 then
+        setLightDirection(0.0, 1.0, totalTime)
+    end
+
 
     return
 end

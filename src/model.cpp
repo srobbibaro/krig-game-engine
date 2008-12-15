@@ -239,8 +239,6 @@ void Model::update( Vector* light )
     
     // setup the transformation matrix //////////
     transform = translation * rotationMatrix * scaleMatrix;   
-
-
     /////////////////////////////////////////////
     
     ModelStorage *m;

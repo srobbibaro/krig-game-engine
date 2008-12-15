@@ -79,3 +79,8 @@
 
 12/14/08 ~ Steve
     x Implement ability to start/stop/pause bgMusic from lua script. (12/14/08 ~ Steve)
+
+12/15/08 ~ Steve
+    * Particle systems should be defined in lua scripts similar to the ways objects are defined.
+    * We need the ability to store/restore a level's state.
+    * Implement getLightDirection lua scripting function.

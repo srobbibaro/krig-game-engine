@@ -49,25 +49,23 @@ void Terrain::draw( Object* c )
         return;
     }
     
-        int x1, x2;
-        int z1, z2;
+    int x1, x2;
+    int z1, z2;
         
-        float xStart, zStart;
-        float xPer1, xPer2, zPer1, zPer2 ;
-        float tPer;
-        GLfloat v[3];
+    float xStart, zStart;
+    float xPer1, xPer2, zPer1, zPer2 ;
+    float tPer;
+    GLfloat v[3];
         
-        xStart = zStart = 0;   
+    xStart = zStart = 0;   
             
-        glPushMatrix();
-    
-    
+    glPushMatrix();
         QuadTreeNode* n = l->head;
         
         while (n != NULL) {
             glBegin(GL_TRIANGLE_STRIP);
-                xStart = n->min[0] / SCALE_FACTOR;
-                zStart = n->min[1] /  SCALE_FACTOR;
+                xStart = n->min[0] / scaleFactor;
+                zStart = n->min[1] /  scaleFactor;
                                 
                 x1 = (int)xStart;
                 x2 = ((int)xStart) + 1;
@@ -95,9 +93,7 @@ void Terrain::draw( Object* c )
                 }
                 else
                     v[1] = vertex[x1][z1][1];
-                    
-               
-                
+                            
                 glColor3fv( color[x1][z1] ); 
                 glTexCoord1f( lightIntensity[x1][z1] ); 
                 glVertex3fv( v );
@@ -114,12 +110,9 @@ void Terrain::draw( Object* c )
                 else
                     v[1] = vertex[x2][z1][1];
                     
-              
-                
                 glColor3fv( color[x2][z1] ); 
                 glTexCoord1f( lightIntensity[x2][z1] ); 
                 glVertex3fv( v );
-                
                 
                 v[0] = vertex[x1][z2][0];
                 v[2] = vertex[x1][z2][2];
@@ -127,20 +120,16 @@ void Terrain::draw( Object* c )
                 tPer = sqrt(xPer1 + zPer2);
                 
                  if ( tPer > offset ) {
-                    tPer = tPer - offset;
-                 
+                    tPer = tPer - offset; 
                     v[1] = -(rate * (tPer)) * ( rate * (tPer) )  + vertex[x1][z2][1]; 
                 }
                 else
                     v[1] = vertex[x1][z2][1];
                     
-              
-               
                 glColor3fv( color[x1][z2] ); 
                 glTexCoord1f( lightIntensity[x1][z2] ); 
                 glVertex3fv( v );
                
-                
                 tPer = sqrt(xPer2 + zPer2);
                     
                 v[0] = vertex[x2][z2][0];
@@ -152,8 +141,6 @@ void Terrain::draw( Object* c )
                 }
                 else
                     v[1] = vertex[x2][z2][1];
-               
-                
                
                 glColor3fv( color[x2][z2] );
                 glTexCoord1f( lightIntensity[x2][z2] ); 
@@ -177,25 +164,21 @@ void Terrain::drawOutline( Object* c )
     int z1, z2;
         
     float xStart, zStart;
+    float xPer1, xPer2, zPer1, zPer2 ;
+    float tPer;
+    GLfloat v[3];
         
-        
-        float xPer1, xPer2, zPer1, zPer2 ;
-        float tPer;
-        GLfloat v[3];
-        
-        xStart = zStart = 0;   
+    xStart = zStart = 0;   
        
-        glPushMatrix();
-       
-        QuadTreeNode* n = l->head;
-        
+    glPushMatrix();
+       QuadTreeNode* n = l->head;
         
         glColor3f(0.0f, 0.0f, 0.0f);
         
         while (n != NULL) {
             glBegin(GL_TRIANGLES);
-                xStart = n->min[0] / SCALE_FACTOR;
-                zStart = n->min[1] /  SCALE_FACTOR;
+                xStart = n->min[0] / scaleFactor;
+                zStart = n->min[1] / scaleFactor;
                                 
                 x1 = (int)xStart;
                 x2 = ((int)xStart) + 1;
@@ -223,7 +206,7 @@ void Terrain::drawOutline( Object* c )
                 else
                     v[1] = vertex[x1][z1][1];
            
-               glVertex3fv( v );
+                glVertex3fv( v );
 
                 v[0] = vertex[x2][z1][0];
                 v[2] = vertex[x2][z1][2];
@@ -239,7 +222,6 @@ void Terrain::drawOutline( Object* c )
                     
                      glVertex3fv( v );
                 
-                
                 v[0] = vertex[x1][z2][0];
                 v[2] = vertex[x1][z2][2];
                 
@@ -253,8 +235,7 @@ void Terrain::drawOutline( Object* c )
                 else
                     v[1] = vertex[x1][z2][1];
                     
-                 glVertex3fv( v );
-               
+                glVertex3fv( v );
                 
                 tPer = sqrt(xPer2 + zPer2);
                     
@@ -278,9 +259,6 @@ void Terrain::drawOutline( Object* c )
         
     
         glPopMatrix();
-        
-
-       
 }
 
 //------------------------------------------------------------------------------
@@ -382,62 +360,65 @@ void Terrain::calcTerrainNorm( Vector* light )
     }
     
     Vector surfaceNormal;
-   Vector vertexNormal[X_SIZE][Z_SIZE];
-   Vector temp1;
-   Vector temp2;
-   GLfloat tempLightIntensity;
+    Vector **vertexNormal;
+    Vector temp1;
+    Vector temp2;
+    GLfloat tempLightIntensity;
     
-   Vector temp[5];
-   int count = 0;
+    Vector temp[5];
+    int count = 0;
     
-   Matrix tempMatrix;
-   tempMatrix.loadIdentity();
+    Matrix tempMatrix;
+    tempMatrix.loadIdentity();
     
+    int x1, x2;
+    int z1, z2;    
     
-   int x1, x2;
-   int z1, z2;    
+    vertexNormal = new Vector*[xSize];
+    for (int i = 0; i < xSize; i++) {
+        vertexNormal[i] = new Vector[zSize];
+    }
     
-   // calculate surface normal
-   for ( int z = 0; z < (zSize-1); z++ ) {
-      for ( int x = 0; x < (xSize-1); x++ )  {
+    // calculate surface normal
+    for ( int z = 0; z < (zSize-1); z++ ) {
+        for ( int x = 0; x < (xSize-1); x++ )  {
             x1 = x;
             x2 = x+1;
             z1 = z;
             z2 = z+1;
            	    
-           temp[0].setVector( vertex[x1][z1][0], vertex[x1][z1][1], vertex[x1][z1][2] );
-           temp[1].setVector( vertex[x1][z2][0], vertex[x1][z2][1], vertex[x1][z2][2] );
-           temp[2].setVector( vertex[x2][z1][0], vertex[x2][z1][1], vertex[x2][z1][2] );
-           temp[3].setVector( vertex[x2][z2][0], vertex[x2][z2][1], vertex[x2][z2][2] );
+            temp[0].setVector( vertex[x1][z1][0], vertex[x1][z1][1], vertex[x1][z1][2] );
+            temp[1].setVector( vertex[x1][z2][0], vertex[x1][z2][1], vertex[x1][z2][2] );
+            temp[2].setVector( vertex[x2][z1][0], vertex[x2][z1][1], vertex[x2][z1][2] );
+            temp[3].setVector( vertex[x2][z2][0], vertex[x2][z2][1], vertex[x2][z2][2] );
         
-           surfaceNormal.calcNorm( temp[0], temp[2], temp[1] );
+            surfaceNormal.calcNorm( temp[0], temp[2], temp[1] );
 
-           vertexNormal[x1][z1].x += surfaceNormal.x;
-           vertexNormal[x1][z1].y += surfaceNormal.y;
-           vertexNormal[x1][z1].z += surfaceNormal.z;
+            vertexNormal[x1][z1].x += surfaceNormal.x;
+            vertexNormal[x1][z1].y += surfaceNormal.y;
+            vertexNormal[x1][z1].z += surfaceNormal.z;
            
-           vertexNormal[x1][z2].x += surfaceNormal.x;
-           vertexNormal[x1][z2].y += surfaceNormal.y;
-           vertexNormal[x1][z2].z += surfaceNormal.z;
+            vertexNormal[x1][z2].x += surfaceNormal.x;
+            vertexNormal[x1][z2].y += surfaceNormal.y;
+            vertexNormal[x1][z2].z += surfaceNormal.z;
 
-           vertexNormal[x2][z1].x += surfaceNormal.x;
-           vertexNormal[x2][z1].y += surfaceNormal.y;
-           vertexNormal[x2][z1].z += surfaceNormal.z;
+            vertexNormal[x2][z1].x += surfaceNormal.x;
+            vertexNormal[x2][z1].y += surfaceNormal.y;
+            vertexNormal[x2][z1].z += surfaceNormal.z;
 
-           surfaceNormal.calcNorm( temp[2], temp[3], temp[1] );
+            surfaceNormal.calcNorm( temp[2], temp[3], temp[1] );
 
-           vertexNormal[x2][z1].x += surfaceNormal.x;
-           vertexNormal[x2][z1].y += surfaceNormal.y;
-           vertexNormal[x2][z1].z += surfaceNormal.z;
+            vertexNormal[x2][z1].x += surfaceNormal.x;
+            vertexNormal[x2][z1].y += surfaceNormal.y;
+            vertexNormal[x2][z1].z += surfaceNormal.z;
 
-           vertexNormal[x1][z2].x += surfaceNormal.x;
-           vertexNormal[x1][z2].y += surfaceNormal.y;
-           vertexNormal[x1][z2].z += surfaceNormal.z;
+            vertexNormal[x1][z2].x += surfaceNormal.x;
+            vertexNormal[x1][z2].y += surfaceNormal.y;
+            vertexNormal[x1][z2].z += surfaceNormal.z;
 
-
-           vertexNormal[x2][z2].x += surfaceNormal.x;
-           vertexNormal[x2][z2].y += surfaceNormal.y;
-           vertexNormal[x2][z2].z += surfaceNormal.z;
+            vertexNormal[x2][z2].x += surfaceNormal.x;
+            vertexNormal[x2][z2].y += surfaceNormal.y;
+            vertexNormal[x2][z2].z += surfaceNormal.z;
         }
     }
     

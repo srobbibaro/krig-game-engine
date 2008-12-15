@@ -26,12 +26,7 @@ class Terrain : public Object
         
         GLint xSize, zSize;
 		GLfloat scaleFactor;
-		
-        //GLfloat terrain[X_SIZE*Z_SIZE][3];
-        //int terrainIndex[17];       // 14 x positions to draw
-		//GLfloat lightIntensity[X_SIZE*Z_SIZE];
-        //GLfloat color[X_SIZE*Z_SIZE][3];
-        
+	      
         GLfloat*** vertex;
         GLfloat** lightIntensity;
         GLfloat*** color;

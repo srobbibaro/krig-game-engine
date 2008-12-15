@@ -15,7 +15,6 @@ class Snow : public ParticleSystem
         
     private:
         void initParticle(int index);
-
 };
 
 #endif

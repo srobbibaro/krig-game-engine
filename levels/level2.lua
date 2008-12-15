@@ -3,7 +3,7 @@ x_start_player = x_start_camera - 10.0
 x_start_boss   = x_start_camera + 10.0
 
 function on_load(terrain)
-    --playBgMusic("./music/Woodman.ogg", 1)
+    playBgMusic("./music/Woodman.ogg", 1)
     setSkyBox(0.0, 0.0, 0.3,
               0.6, 0.6, 0.6,
               1.0, 1.0, 1.0)
@@ -20,7 +20,7 @@ function on_load(terrain)
     setScript(camera, "./scripts/camera1.lua")
     setPosition(camera, x_start_camera, 20.0, 35.0)
 
-    --addParticleSystem(camera, 2)
+    addParticleSystem(camera, 2)
 
     obj = addObject(terrain, "./scripts/boss2.lua")
     setPosition(obj, x_start_boss, 15.0, 7.5)

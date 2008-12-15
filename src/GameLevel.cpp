@@ -35,6 +35,8 @@ GameLevel::GameLevel( unsigned int tLists)
     l = new DisplayList();
     
     L = NULL;
+    
+    elapsedTime = 0.0f;
 }
 
 //------------------------------------------------------------------------------
@@ -78,7 +80,7 @@ void GameLevel::drawLevel()
 }
 
 //------------------------------------------------------------------------------
-void GameLevel::updateLevel(float elapsedTime)
+void GameLevel::updateLevel()
 {
     // Attempt to execute the script only if the lua state has already been
     // initialized with a script
@@ -120,11 +122,11 @@ void GameLevel::prepareLevel()
 }
 
 //------------------------------------------------------------------------------
-void GameLevel::animateLevel(float timeElapsed)
+void GameLevel::animateLevel()
 {
-    time += timeElapsed;    // update levels current time
+    time += elapsedTime;    // update levels current time
     
-    terrain->animateObjects(timeElapsed, dynamic_cast<Camera*>(camera));
+    terrain->animateObjects(elapsedTime, dynamic_cast<Camera*>(camera));
 }
 
 //------------------------------------------------------------------------------
@@ -561,7 +563,7 @@ void GameLevel::processScripts()
 
 
 //------------------------------------------------------------------------------
-void GameLevel::animateText( float timeElapsed )
+void GameLevel::animateText()
 {
     //for ( int i = 0; i < numTextStrings; i++ ) 
         //scriptText[i].updateText( timeElapsed );

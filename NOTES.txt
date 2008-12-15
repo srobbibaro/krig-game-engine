@@ -139,6 +139,8 @@ New KRIG Engine lua scripting functions:
     vector_crossProduct(vector, vector) - returns: vector
 
 12/12/08 ~ Steve
+Engine level script is used for loading levels and handeling global user control. The engine level script controls the game's flow.
+
 Added "vector" version of all existing set/add KRIG engine lua functions:
 
     setScalev(object_ref, vector) - returns: n/a
@@ -160,3 +162,27 @@ Added "vector" version of all existing set/add KRIG engine lua functions:
     addRotationAxisv(object_ref, vector) - returns: n/a
 
     setLightDirectionv(vector) - returns: n/a
+
+12/15/08 ~ Steve
+Added new KRIG Engine lua scripting functions:
+Engine Level:
+    loadLevel(fileName) - returns: n/a
+    shutdown() - returns: n/a
+    pause() - returns: n/a
+
+Game Level:
+    playBgMusic(fileName, repeat) - returns: n/a
+    stopBgMusic() - returns: n/a
+    pauseBgMusic() - returns: n/a
+
+Object Level:
+    getScale() - returns: vector
+    getScaleRate() - returns: vector
+    addScale() - returns: n/a
+    addScalev() - returns: n/a
+    addScaleRate() - returns: n/a
+    addScaleRatev() - returns: n/a
+
+Removed KRIG Engine lua scripting functions:
+Game Level:
+    setBgMusic()
