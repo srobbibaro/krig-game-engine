@@ -1,7 +1,7 @@
 [Project]
 FileName=krig.dev
 Name=krig
-UnitCount=56
+UnitCount=58
 Type=1
 Ver=1
 ObjFiles=
@@ -307,26 +307,6 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit57]
-FileName=src\text.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit58]
-FileName=src\ObjectInclude.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
 [VersionInfo]
 Major=0
 Minor=1
@@ -354,16 +334,6 @@ Link=1
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
-
-[Unit59]
-FileName=src\Quaternion.h
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-CompileCpp=1
 
 [Unit60]
 FileName=src\Quaternion.cpp
@@ -837,6 +807,26 @@ BuildCmd=
 
 [Unit55]
 FileName=src\Vector.cpp
+CompileCpp=1
+Folder=krig
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit57]
+FileName=src\LuaGL.cpp
+CompileCpp=1
+Folder=krig
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit58]
+FileName=..\..\..\..\Documents and Settings\srobbibaro\Desktop\LuaGL\include\LuaGL.h
 CompileCpp=1
 Folder=krig
 Compile=1

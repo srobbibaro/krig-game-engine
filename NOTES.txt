@@ -186,3 +186,14 @@ Object Level:
 Removed KRIG Engine lua scripting functions:
 Game Level:
     setBgMusic()
+
+12/16/08 ~ Steve
+
+OpenGL can now be used in lua scripts to draw objects on the screen. 
+LuaGL Reference: http://luagl.wikidot.com/
+
+New KRIG Engine lua scripting functions:
+    getLightDirection() - returns: vector
+    getFps() - returns: value
+    displayText(string, x, y) - returns: n/a
+    getCameraId() - returns: currently set camera's ID

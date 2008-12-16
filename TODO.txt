@@ -70,10 +70,10 @@
     x Investigate passing arguments (such as vectors) in tables. (12/10/08 ~ Steve)
     * Investigate calling functions from lua with OO notation (object.setPosition()).
     x Investigate way to pass lua only values into other lua scripts. (12/10/08 ~ Steve)
-    * Investigate way to draw simple things from within the lua script (ie energy bars, etc.).
+    x Investigate way to draw simple things from within the lua script (ie energy bars, etc.). (12/16/08 ~ Steve)
 
 12/12/08 ~ Steve
-    * Investigate way to output text from within lua script.
+    x Investigate way to output text from within lua script. (12/16/08 ~ Steve)
     * Implement way to ensure object references stored in lua are valid.
     x Engine should still run even when objects do not have a model loaded. (12/13/08 ~ Steve)
 
@@ -83,4 +83,4 @@
 12/15/08 ~ Steve
     * Particle systems should be defined in lua scripts similar to the ways objects are defined.
     * We need the ability to store/restore a level's state.
-    * Implement getLightDirection lua scripting function.
+    x Implement getLightDirection lua scripting function. (12/16/08 ~ Steve)

@@ -7,9 +7,6 @@ extern "C" {
     #include "lua/lauxlib.h"
 }
 
-// Remove from final build
-#include <vector>
-
 using namespace std;
 
 #ifndef _ENGINE_H_
@@ -77,6 +74,7 @@ class Engine
         lua_State* L;  
         
         bool isPaused;
+        float fps;
     
     public:
         Engine();                   // initialize game
@@ -86,7 +84,6 @@ class Engine
         void processKeyUp( int );
         void processKeyDown( int );
         void processCommands();
-        void displayHUD( float, int, float, long );
         void processNormalKey( unsigned char );
         void loadLevel(const char*);
         
@@ -105,14 +102,22 @@ class Engine
         KeyState* getKeyState() { return keyState; }
         
         void loadModels(void);
-        void displayDebug(void);
+        
+        void displayText(const char* s, float x, float y) 
+        {
+            glRasterPos2f (x, y);
+            render_string(GLUT_BITMAP_HELVETICA_18, s);
+        }
         
         // Temporary functions used for tools (remove from final build)...
         void processMouseMove( int x, int y);
         
         void getTerrainInfo(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
         void updateTerrain(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
+    
         void updateColor(float &red, float &green, float &blue);      
+        
+        float getFps() { return fps; }
 };
 
 #endif

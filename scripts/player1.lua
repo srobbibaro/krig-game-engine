@@ -1,5 +1,6 @@
 progress = 0
-
+life = 10
+lives = 100
 nextShot = 0.0
 nextMissileShot = 0.0
 
@@ -108,6 +109,15 @@ function on_unload(this, temp)
 end
 
 function on_collision(this,temp)
+    tempId = getTypeId(temp)
+
+    if tempId == 1 then
+        life = life - 1
+        if life < 0 then 
+            life = 10
+            if lives > 0 then lives = lives - 1 end
+        end
+    end
     return 
 end
 

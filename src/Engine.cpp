@@ -27,6 +27,8 @@ Engine::Engine()
     
     gameMode = 2;  // 0
     
+    fps = 0.0f;
+    
     totalTime = 0;
     
     #if DEMO || PLAY_DEMO
@@ -161,6 +163,7 @@ void Engine::gameCycle()
 {  
     timeElapsed = timer->getElapsedSeconds(1);  
     this->updateGame(timeElapsed);
+    fps = timer->getFPS();
     
     if ( gameMode == 3 ) 
         totalTime += timeElapsed;
@@ -241,19 +244,15 @@ void Engine::prepare()
     glClear( GL_DEPTH_BUFFER_BIT );
     glLoadIdentity();  
        
-    (mainCamera)->prepareGLView();  
+    mainCamera->prepareGLView();  
     
     glDepthMask(GL_FALSE);
     currentLevel->drawSky();
     glDepthMask(GL_TRUE);
     
     glDepthFunc(GL_ALWAYS);
-    if ( gameMode == 1 ) {
-        //#displayHUD( (player)->life, (player)->numLives, boss->life, (player)->score );
-#if EDIT
-        displayDebug();
-#endif
-    }
+    if ( gameMode == 1 )
+        currentLevel->postDraw();
     glDepthFunc(GL_LESS);
        
     Matrix translationMatrix;
@@ -946,139 +945,6 @@ void Engine::processNormalKey(unsigned char key)
 #endif
     }
 }
-
-//------------------------------------------------------------------------------
-void Engine::displayHUD(float ShipEnergy, int ShipLives, float EnemyEnergy, long score)
-{
-    char str[128];
-    float EnergyBar = -0.99 + (0.068 * ShipEnergy);
-    float BossEnergy = 0.99 - (0.017 * EnemyEnergy);
-    
-    glPushMatrix();
-        glTranslatef (0.0f, 0.0f, -2.0f);
-        glColor3f (1.0f, 1.0f, 1.0f);
-        sprintf (str, "Lives: %i", ShipLives);
-        glRasterPos2f (-1.0f, 0.7f);
-        render_string(GLUT_BITMAP_HELVETICA_18, str);
-        sprintf (str, "Enemy");
-        glRasterPos2f (0.85f, 0.7f);
-        render_string(GLUT_BITMAP_HELVETICA_18, str);
-        
-        // for fps //////////////////////////////
-        sprintf (str, "Score: %08i", score );
-        glRasterPos2f (-.2f, 0.7f);
-        render_string(GLUT_BITMAP_HELVETICA_18, str);
-        /////////////////////////////////////////
-        
-        // for fps //////////////////////////////
-        //#sprintf (str, "Missiles: %i", (player)->numMissiles );
-        //#glRasterPos2f (-1.0f, .75);
-        //#render_string(GLUT_BITMAP_HELVETICA_18, str);
-        /////////////////////////////////////////
-        
-        glBegin(GL_QUADS);
-            glColor3f (1.0f, 0.0f, 0.0f);
-            glVertex3f (-1.0f, 0.68f, 0.0f);
-            glVertex3f (-1.0f, 0.63f, 0.0f);
-            glVertex3f (-0.3f, 0.63f, 0.0f);
-            glVertex3f (-0.3f, 0.68f, 0.0f);
-            
-            glColor3f (0.0f, 0.0f, 0.0f);
-            glVertex3f (-0.99f, 0.67f, 0.001f);
-            glVertex3f (-0.99f, 0.64f, 0.001f);
-            glVertex3f (-0.31f, 0.64f, 0.001f);
-            glVertex3f (-0.31f, 0.67f, 0.001f);
-            
-            glColor3f (0.0f, 1.0f, 1.0f);
-            glVertex3f (-0.99f, 0.67f, 0.002f);
-            glVertex3f (-0.99f, 0.64f, 0.002f);
-            glVertex3f (EnergyBar, 0.64f, 0.002f);
-            glVertex3f (EnergyBar, 0.67f, 0.002f);
-            
-            glColor3f (1.0f, 0.0f, 0.0f);
-            glVertex3f (0.3f, 0.68f, 0.0f);
-            glVertex3f (0.3f, 0.63f, 0.0f);
-            glVertex3f (1.0f, 0.63f, 0.0f);
-            glVertex3f (1.0f, 0.68f, 0.0f);
-            
-            glColor3f (0.0f, 0.0f, 0.0f);
-            glVertex3f (0.31f, 0.67f, 0.001f);
-            glVertex3f (0.31f, 0.64f, 0.001f);
-            glVertex3f (0.99f, 0.64f, 0.001f);
-            glVertex3f (0.99f, 0.67f, 0.001f);
-            
-            glColor3f (1.0f, 1.0f, 0.0f);
-            glVertex3f (BossEnergy, 0.67f, 0.002f);
-            glVertex3f (BossEnergy, 0.64f, 0.002f);
-            glVertex3f (0.99f, 0.64f, 0.002f);
-            glVertex3f (0.99f, 0.67f, 0.002f);
-        glEnd();
-        
-    glPopMatrix();
-}
-
-//------------------------------------------------------------------------------
-void Engine::displayDebug(void)
-{
-    char str[128];
-    
-    glPushMatrix();
-        /*
-        glTranslatef (0.0f, 0.0f, -2.0f);
-        glColor3f (1.0f, 1.0f, 1.0f);
-        sprintf (str, "plr pos: %.04f %.04f %.04f", player->position.x, player->position.y, player->position.z);
-        glRasterPos2f (-1.0f, 0.55f);
-        render_string(GLUT_BITMAP_9_BY_15, str);
-        */
-        
-        if (mainCamera != NULL) {
-            glColor3f (1.0f, 1.0f, 1.0f);
-            sprintf (str, "cam pos: %.04f %.04f %.04f", mainCamera->position.x, mainCamera->position.y, mainCamera->position.z);
-            glRasterPos2f (-1.0f, 0.48f);
-            render_string(GLUT_BITMAP_9_BY_15, str);
-        
-            glColor3f (1.0f, 1.0f, 1.0f);
-            sprintf (str, "cam dir: %.04f %.04f %.04f", mainCamera->direction.x, mainCamera->direction.y, mainCamera->direction.z);
-            glRasterPos2f (-1.0f, 0.40f);
-            render_string(GLUT_BITMAP_9_BY_15, str);
-        
-            glColor3f (1.0f, 1.0f, 1.0f);
-            sprintf (str, "cam up : %.04f %.04f %.04f", (mainCamera)->up.x, (mainCamera)->up.y, (mainCamera)->up.z);
-            glRasterPos2f (-1.0f, 0.33f);
-            render_string(GLUT_BITMAP_9_BY_15, str);
-        
-            Vector tv;
-            mainCamera->rotation.getEulerAngles(tv);
-        
-            glColor3f (1.0f, 1.0f, 1.0f);
-            sprintf (str, "cam rot: %.04f %.04f %.04f", tv.x, tv.y, tv.z);
-            glRasterPos2f (-1.0f, 0.26f);
-            render_string(GLUT_BITMAP_9_BY_15, str);
-        }
-        
-        float fps = timer->getFPS();
-        glColor3f (1.0f, 1.0f, 1.0f);
-        sprintf (str, "fps    : %.04f", fps);
-        glRasterPos2f (-1.0f, 0.18f);
-        render_string(GLUT_BITMAP_9_BY_15, str);
-        
-        if (mainCamera != NULL) {
-            glColor3f (1.0f, 1.0f, 1.0f);
-            sprintf (str, "cam id : %d", mainCamera->id);
-            glRasterPos2f (-1.0f, 0.10f);
-            render_string(GLUT_BITMAP_9_BY_15, str);
-        }
-        
-        if (light != NULL) {
-            glColor3f (1.0f, 1.0f, 1.0f);
-            sprintf (str, "light dir : %.04f %.04f %.04f", light->x, light->y, light->z);
-            glRasterPos2f (-1.0f, 0.0f);
-            render_string(GLUT_BITMAP_9_BY_15, str);
-        }
-        
-    glPopMatrix();
-}
-
 
 //------------------------------------------------------------------------------
 void Engine::loadLevel(const char* levelFile)

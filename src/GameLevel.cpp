@@ -2,8 +2,12 @@
 #include "ScriptedObject.h"
 #include "Scripting.h"
 
+#include "lua/LuaGL.h"
+
 Object* lcamera;
 Object* lplayer;
+
+extern int luaopen_opengl (lua_State *L);
 
 //------------------------------------------------------------------------------
 GameLevel::GameLevel( unsigned int tLists)
@@ -53,7 +57,32 @@ void GameLevel::drawLevel()
     
     // draw scene and shade /////////////////////
     terrain->drawObjects( dynamic_cast<Camera*>(camera) );
+    
+    /*
+    // Attempt to execute the script only if the lua state has already been
+    // initialized with a script
+    if (L == NULL)
+        return;
+    
+    // Find the update function and call it
+    lua_getglobal(L, "on_draw");
+	    
+    // Push a pointer to the current object for use within the lua function
+    lua_pushlightuserdata(L, (void*)terrain);
+	   
+	// Push the time passed since the last iteration of the game loop
+    lua_pushnumber(L, elapsedTime);
+    
+    // Call the function with 2 argument and no return values
+    lua_call(L, 2, 0);
 
+    // get the result //
+    //position.z = (float)lua_tonumber(L, -1);
+    //position.y = (float)lua_tonumber(L, -2);
+    //position.x = (float)lua_tonumber(L, -3);
+    //lua_pop(L, 1);
+    */
+    
     // setup to draw outline ////////////////////
     glCallList( lists+1 );
     terrain->drawObjectOutlines( dynamic_cast<Camera*>(camera) );
@@ -72,6 +101,39 @@ void GameLevel::drawLevel()
     if (controlTriangles)
     terrain->showControlTriangle();
     
+   /*
+    drawText();
+    */
+             
+    //terrain->drawShadows( light );
+}
+
+//------------------------------------------------------------------------------
+void GameLevel::postDraw()
+{
+    // Attempt to execute the script only if the lua state has already been
+    // initialized with a script
+    if (L == NULL)
+        return;
+    
+    // Find the update function and call it
+    lua_getglobal(L, "on_draw_screen");
+	    
+    // Push a pointer to the current object for use within the lua function
+    lua_pushlightuserdata(L, (void*)terrain);
+	   
+	// Push the time passed since the last iteration of the game loop
+    lua_pushnumber(L, elapsedTime);
+    
+    // Call the function with 2 argument and no return values
+    lua_call(L, 2, 0);
+
+    // get the result //
+    //position.z = (float)lua_tonumber(L, -1);
+    //position.y = (float)lua_tonumber(L, -2);
+    //position.x = (float)lua_tonumber(L, -3);
+    //lua_pop(L, 1);
+
    /*
     drawText();
     */
@@ -152,6 +214,8 @@ bool GameLevel::loadLevelLua( string file )
 
 	// load Lua base libraries 
 	luaL_openlibs(L);
+	
+	luaopen_opengl(L);
 	
     // Register our functions for use in lua (currently defined in 
     // Object.h)

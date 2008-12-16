@@ -1,9 +1,3 @@
-extern "C" {
-    #include "lua/lua.h"
-    #include "lua/lualib.h"
-    #include "lua/lauxlib.h"
-}
-
 #include "constants.h"
 #include "Object.h"
 #include "Player.h"
@@ -12,6 +6,12 @@ extern "C" {
 #include "Text.h"
 #include "QuadTree.h"
 #include "sound.h"
+
+extern "C" {  
+    #include "lua/lua.h"
+    #include "lua/lualib.h"
+    #include "lua/lauxlib.h"
+}
 
 #ifndef _GAME_LEVEL_H_
 #define _GAME_LEVEL_H_
@@ -115,6 +115,8 @@ class GameLevel
         
         float getElapsedTime() { return elapsedTime; }
         void setElapsedTime(float tElapsedTime) { elapsedTime = tElapsedTime; }
+        
+        void postDraw();
 };
 
 #endif

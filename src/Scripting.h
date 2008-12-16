@@ -906,6 +906,35 @@ static int pauseLua(lua_State *L)
     return 0;
 }
 
+static int displayTextLua(lua_State *L)
+{
+    const char *s = lua_tostring(L, 1);
+    float x = lua_tonumber(L, 2);
+    float y = lua_tonumber(L, 3);
+    
+    lengine->displayText(s, x, y);
+    
+    return 0;
+}
+
+static int getFpsLua(lua_State *L)
+{
+    lua_pushnumber(L, lengine->getFps());
+    return 1;
+}
+
+static int getCameraIdLua(lua_State *L)
+{
+    lua_pushnumber(L, lgameLevel->getCamera()->id);
+    return 1;
+}
+
+static int getLightDirectionLua(lua_State *L)
+{
+    returnVector(L, *lgameLevel->getLight());
+    return 1;
+}
+
 static int registerFunctions(lua_State *L, int level)
 {
     lua_register(L, "setPosition", setPositionLua);
@@ -988,6 +1017,10 @@ static int registerFunctions(lua_State *L, int level)
         lua_register(L, "setLightDirection", setLightDirectionLua);
         lua_register(L, "setLightDirectionv", setLightDirectionvLua);
         lua_register(L, "setTerrain", setTerrainLua);
+        lua_register(L, "displayText", displayTextLua);
+        lua_register(L, "getFps", getFpsLua);
+        lua_register(L, "getCameraId", getCameraIdLua);
+        lua_register(L, "getLightDirection", getLightDirectionLua);
     }
     
     if (level == 0) {
