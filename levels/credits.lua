@@ -142,7 +142,7 @@ function on_draw()
 
     for i=1,3 do
     gl.PushMatrix()
-    gl.Translate(plr_pos[1], plr_pos[2], plr_pos[3] - (15.0 * i))
+    gl.Translate(plr_pos[1], plr_pos[2], plr_pos[3] - (25.0 * i))
     gl.Color(0.0, 0.4, 0.7)
     gl.Begin("LINES")
     gl.Vertex(-1.0, -1.0, -1.0)

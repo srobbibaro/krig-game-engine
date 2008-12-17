@@ -20,7 +20,7 @@ using namespace std;
 #define DEMO        0
 #define PLAY_DEMO   0
 
-#define EDIT        1
+#define EDIT        0
 
 // sound library constants //
 #define BUFFER_SIZE 65536
