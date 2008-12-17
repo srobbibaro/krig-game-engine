@@ -5,8 +5,8 @@ CPP  = g++.exe -D__DEBUG__
 CC   = gcc.exe -D__DEBUG__
 WINDRES = windres.exe
 RES  = 
-OBJ  = ./obj//credits.o ./obj//Engine.o ./obj//eventqueue.o ./obj//GameLevel.o ./obj//gametimer.o ./obj//main.o ./obj//matrix.o ./obj//menu.o ./obj//model.o ./obj//ObjectNode.o ./obj//ParticleSystem.o ./obj//Player.o ./obj//sound.o ./obj//terrain.o ./obj//text.o ./obj//Quaternion.o ./obj//Snow.o ./obj//QuadTreeNode.o ./obj//QuadTree.o ./obj//DisplayList.o ./obj//Plane.o ./obj//Frustum.o ./obj//Sphere.o ./obj//Camera.o ./obj//Object.o ./obj//ScriptedObject.o ./obj//Vector.o ./obj//LuaGL.o $(RES)
-LINKOBJ  = ./obj//credits.o ./obj//Engine.o ./obj//eventqueue.o ./obj//GameLevel.o ./obj//gametimer.o ./obj//main.o ./obj//matrix.o ./obj//menu.o ./obj//model.o ./obj//ObjectNode.o ./obj//ParticleSystem.o ./obj//Player.o ./obj//sound.o ./obj//terrain.o ./obj//text.o ./obj//Quaternion.o ./obj//Snow.o ./obj//QuadTreeNode.o ./obj//QuadTree.o ./obj//DisplayList.o ./obj//Plane.o ./obj//Frustum.o ./obj//Sphere.o ./obj//Camera.o ./obj//Object.o ./obj//ScriptedObject.o ./obj//Vector.o ./obj//LuaGL.o $(RES)
+OBJ  = ./obj//Engine.o ./obj//eventqueue.o ./obj//GameLevel.o ./obj//gametimer.o ./obj//main.o ./obj//matrix.o ./obj//model.o ./obj//ObjectNode.o ./obj//ParticleSystem.o ./obj//Player.o ./obj//sound.o ./obj//terrain.o ./obj//text.o ./obj//Quaternion.o ./obj//Snow.o ./obj//QuadTreeNode.o ./obj//QuadTree.o ./obj//DisplayList.o ./obj//Plane.o ./obj//Frustum.o ./obj//Sphere.o ./obj//Camera.o ./obj//Object.o ./obj//ScriptedObject.o ./obj//Vector.o ./obj//LuaGL.o $(RES)
+LINKOBJ  = ./obj//Engine.o ./obj//eventqueue.o ./obj//GameLevel.o ./obj//gametimer.o ./obj//main.o ./obj//matrix.o ./obj//model.o ./obj//ObjectNode.o ./obj//ParticleSystem.o ./obj//Player.o ./obj//sound.o ./obj//terrain.o ./obj//text.o ./obj//Quaternion.o ./obj//Snow.o ./obj//QuadTreeNode.o ./obj//QuadTree.o ./obj//DisplayList.o ./obj//Plane.o ./obj//Frustum.o ./obj//Sphere.o ./obj//Camera.o ./obj//Object.o ./obj//ScriptedObject.o ./obj//Vector.o ./obj//LuaGL.o $(RES)
 LIBS =  -L"C:/Dev-Cpp/lib" -pg lib/liblua5.1.a lib/libvorbisfile.a lib/libvorbisenc.a lib/libvorbis.a lib/libogg.a lib/libalut.a lib/libopenal32.a lib/libglut32.a lib/libopengl32.a lib/libglu32.a 
 INCS =  -I"C:/Dev-Cpp/include"  -I"./include/"  -I"./src/" 
 CXXINCS =  -I"C:/Dev-Cpp/include/c++"  -I"C:/Dev-Cpp/include/c++/mingw32"  -I"C:/Dev-Cpp/include/c++/backward"  -I"C:/Dev-Cpp/include"  -I"./include/"  -I"./src/" 
@@ -25,9 +25,6 @@ clean: clean-custom
 $(BIN): $(LINKOBJ)
 	$(CPP) $(LINKOBJ) -o "krig.exe" $(LIBS)
 
-./obj//credits.o: src/credits.cpp
-	$(CPP) -c src/credits.cpp -o ./obj//credits.o $(CXXFLAGS)
-
 ./obj//Engine.o: src/Engine.cpp
 	$(CPP) -c src/Engine.cpp -o ./obj//Engine.o $(CXXFLAGS)
 
@@ -45,9 +42,6 @@ $(BIN): $(LINKOBJ)
 
 ./obj//matrix.o: src/matrix.cpp
 	$(CPP) -c src/matrix.cpp -o ./obj//matrix.o $(CXXFLAGS)
-
-./obj//menu.o: src/menu.cpp
-	$(CPP) -c src/menu.cpp -o ./obj//menu.o $(CXXFLAGS)
 
 ./obj//model.o: src/model.cpp
 	$(CPP) -c src/model.cpp -o ./obj//model.o $(CXXFLAGS)

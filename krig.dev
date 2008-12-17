@@ -1,7 +1,7 @@
 [Project]
 FileName=krig.dev
 Name=krig
-UnitCount=58
+UnitCount=54
 Type=1
 Ver=1
 ObjFiles=
@@ -28,7 +28,7 @@ CompilerSet=0
 CompilerSettings=000000000000000100
 
 [Unit10]
-FileName=src\gametimer.cpp
+FileName=src\main.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -38,7 +38,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit16]
-FileName=src\menu.h
+FileName=src\ObjectNode.h
 CompileCpp=1
 Folder=
 Compile=1
@@ -48,16 +48,6 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit18]
-FileName=src\model.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit22]
 FileName=src\ParticleSystem.h
 CompileCpp=1
 Folder=
@@ -67,8 +57,18 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
+[Unit22]
+FileName=src\sound.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
 [Unit23]
-FileName=src\Player.cpp
+FileName=src\terrain.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -78,16 +78,6 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit25]
-FileName=src\sound.cpp
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit29]
 FileName=src\text.cpp
 CompileCpp=1
 Folder=
@@ -97,27 +87,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit30]
-FileName=src\text.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit31]
-FileName=src\ObjectInclude.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit33]
+[Unit29]
 FileName=src\Quaternion.cpp
 CompileCpp=1
 Folder=
@@ -127,7 +97,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit34]
+[Unit30]
 FileName=src\Snow.h
 CompileCpp=1
 Folder=
@@ -137,7 +107,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit35]
+[Unit31]
 FileName=src\Snow.cpp
 CompileCpp=1
 Folder=
@@ -147,8 +117,8 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit36]
-FileName=src\QuadTreeNode.h
+[Unit33]
+FileName=src\QuadTreeNode.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -157,7 +127,17 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit39]
+[Unit34]
+FileName=src\QuadTree.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit35]
 FileName=src\QuadTree.cpp
 CompileCpp=1
 Folder=
@@ -167,7 +147,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit40]
+[Unit36]
 FileName=src\DisplayList.h
 CompileCpp=1
 Folder=
@@ -177,27 +157,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit41]
-FileName=src\DisplayList.cpp
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit42]
-FileName=src\Frustum.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit43]
+[Unit39]
 FileName=src\Plane.h
 CompileCpp=1
 Folder=
@@ -207,7 +167,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit44]
+[Unit40]
 FileName=src\Plane.cpp
 CompileCpp=1
 Folder=
@@ -217,7 +177,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit45]
+[Unit41]
 FileName=src\Frustum.cpp
 CompileCpp=1
 Folder=
@@ -227,7 +187,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit46]
+[Unit42]
 FileName=src\Sphere.h
 CompileCpp=1
 Folder=
@@ -237,7 +197,17 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit48]
+[Unit43]
+FileName=src\Sphere.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit44]
 FileName=src\Camera.cpp
 CompileCpp=1
 Folder=krig
@@ -247,7 +217,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit49]
+[Unit45]
 FileName=src\Camera.h
 CompileCpp=1
 Folder=krig
@@ -257,7 +227,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit50]
+[Unit46]
 FileName=src\Object.h
 CompileCpp=1
 Folder=krig
@@ -267,17 +237,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit51]
-FileName=src\Object.cpp
-CompileCpp=1
-Folder=krig
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit52]
+[Unit48]
 FileName=src\ScriptedObject.h
 CompileCpp=1
 Folder=krig
@@ -287,7 +247,17 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit54]
+[Unit49]
+FileName=src\ScriptedObject.cpp
+CompileCpp=1
+Folder=krig
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit50]
 FileName=src\Scripting.h
 CompileCpp=1
 Folder=krig
@@ -297,8 +267,38 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit56]
+[Unit51]
+FileName=src\Vector.cpp
+CompileCpp=1
+Folder=krig
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit52]
 FileName=src\Vector.h
+CompileCpp=1
+Folder=krig
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit54]
+FileName=..\..\..\..\Documents and Settings\srobbibaro\Desktop\LuaGL\include\LuaGL.h
+CompileCpp=1
+Folder=krig
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit56]
+FileName=..\..\..\..\Documents and Settings\srobbibaro\Desktop\LuaGL\include\LuaGL.h
 CompileCpp=1
 Folder=krig
 Compile=1
@@ -326,7 +326,7 @@ ProductVersion=
 AutoIncBuildNr=0
 
 [Unit27]
-FileName=src\terrain.cpp
+FileName=src\ObjectInclude.h
 CompileCpp=1
 Folder=
 Compile=1
@@ -355,47 +355,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit2]
-FileName=src\credits.cpp
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit3]
-FileName=src\credits.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
 [Unit5]
-FileName=src\Engine.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit6]
-FileName=src\eventqueue.cpp
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit7]
 FileName=src\eventqueue.h
 CompileCpp=1
 Folder=
@@ -405,27 +365,27 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
+[Unit6]
+FileName=src\GameLevel.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit7]
+FileName=src\GameLevel.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
 [Unit11]
-FileName=src\gametimer.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit12]
-FileName=src\main.cpp
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit13]
 FileName=src\matrix.cpp
 CompileCpp=1
 Folder=
@@ -435,7 +395,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit14]
+[Unit12]
 FileName=src\matrix.h
 CompileCpp=1
 Folder=
@@ -445,8 +405,18 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit15]
-FileName=src\menu.cpp
+[Unit13]
+FileName=src\model.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit14]
+FileName=src\model.h
 CompileCpp=1
 Folder=
 Compile=1
@@ -456,7 +426,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit19]
-FileName=src\ObjectNode.cpp
+FileName=src\Player.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -466,26 +436,6 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit20]
-FileName=src\ObjectNode.h
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit21]
-FileName=src\ParticleSystem.cpp
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit24]
 FileName=src\Player.h
 CompileCpp=1
 Folder=
@@ -495,8 +445,28 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
+[Unit21]
+FileName=src\sound.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit24]
+FileName=src\terrain.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
 [Unit32]
-FileName=src\Quaternion.h
+FileName=src\QuadTreeNode.h
 CompileCpp=1
 Folder=
 Compile=1
@@ -506,9 +476,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit47]
-FileName=src\Sphere.cpp
+FileName=src\Object.cpp
 CompileCpp=1
-Folder=
+Folder=krig
 Compile=1
 Link=1
 Priority=1000
@@ -586,7 +556,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit28]
-FileName=src\terrain.h
+FileName=src\Quaternion.h
 CompileCpp=1
 Folder=
 Compile=1
@@ -716,7 +686,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit9]
-FileName=src\GameLevel.h
+FileName=src\gametimer.h
 CompileCpp=1
 Folder=
 Compile=1
@@ -736,7 +706,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit4]
-FileName=src\Engine.cpp
+FileName=src\eventqueue.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -746,7 +716,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit8]
-FileName=src\GameLevel.cpp
+FileName=src\gametimer.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -756,7 +726,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit26]
-FileName=src\sound.h
+FileName=src\text.h
 CompileCpp=1
 Folder=
 Compile=1
@@ -766,7 +736,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit37]
-FileName=src\QuadTreeNode.cpp
+FileName=src\DisplayList.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -776,7 +746,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit38]
-FileName=src\QuadTree.h
+FileName=src\Frustum.h
 CompileCpp=1
 Folder=
 Compile=1
@@ -786,7 +756,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit53]
-FileName=src\ScriptedObject.cpp
+FileName=src\LuaGL.cpp
 CompileCpp=1
 Folder=krig
 Compile=1
@@ -796,7 +766,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit17]
-FileName=src\model.cpp
+FileName=src\ParticleSystem.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -806,7 +776,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit55]
-FileName=src\Vector.cpp
+FileName=src\LuaGL.cpp
 CompileCpp=1
 Folder=krig
 Compile=1
@@ -829,6 +799,36 @@ BuildCmd=
 FileName=..\..\..\..\Documents and Settings\srobbibaro\Desktop\LuaGL\include\LuaGL.h
 CompileCpp=1
 Folder=krig
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit15]
+FileName=src\ObjectNode.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit2]
+FileName=src\Engine.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit3]
+FileName=src\Engine.h
+CompileCpp=1
+Folder=
 Compile=1
 Link=1
 Priority=1000

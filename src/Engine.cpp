@@ -44,11 +44,7 @@ Engine::Engine()
         i++;
     }
     #endif
-    
-     // values used for menu
-    menuCursor = false;
-    MenuStr = "Start Game";
-    
+      
     // terrain editing values //
     paint = false;
     paintColor = false;
@@ -218,16 +214,6 @@ void Engine::gameCycle()
                 }
              }
             break;  
-        case 0:
-            glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-            glLoadIdentity();  
-            menu.draw( MenuStr, menuCursor );
-            break;
-        case 2:
-            glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-            glLoadIdentity();  
-            credits.draw( 500, timeElapsed );
-            break;      
         default:
             break;
     }
@@ -503,12 +489,6 @@ void Engine::processCommands()
                 player->setVelocity( mainCamera->velocity.x, mainCamera->velocity.y, mainCamera->velocity.z );
                 break;
                 
-            case MOVE_CURSOR:
-                menuCursor = !menuCursor;
-                sounds->PlaySFX("menu.wav");
-                
-                break;
-            
             case SELECT_OPTION:
                 sounds->StopSong();
                 vMove = hMove = 0;
@@ -524,11 +504,7 @@ void Engine::processCommands()
                     control.enQueue( QUIT_GAME );
                     
                 break;
-                
-            case TOGGLE_LOD:
-              //  detailLevel = !detailLevel;
-                break;
-            
+                    
             case QUIT_GAME:
             #if DEMO
                 demo.close();

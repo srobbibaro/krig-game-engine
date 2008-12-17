@@ -58,7 +58,6 @@ void GameLevel::drawLevel()
     // draw scene and shade /////////////////////
     terrain->drawObjects( dynamic_cast<Camera*>(camera) );
     
-    /*
     // Attempt to execute the script only if the lua state has already been
     // initialized with a script
     if (L == NULL)
@@ -81,7 +80,6 @@ void GameLevel::drawLevel()
     //position.y = (float)lua_tonumber(L, -2);
     //position.x = (float)lua_tonumber(L, -3);
     //lua_pop(L, 1);
-    */
     
     // setup to draw outline ////////////////////
     glCallList( lists+1 );

@@ -11,8 +11,6 @@
 #include "sound.h"
 #include "GameTimer.h"
 #include "EventQueue.h"
-#include "Credits.h"
-#include "Menu.h"
 
 using namespace std;
 

@@ -48,14 +48,14 @@ function display_hud()
     gl.PushMatrix()
         gl.Translate (0.0, 0.0, -2.0)
         gl.Color (1.0, 1.0, 1.0)
-        displayText("Lives: " .. getScriptValue(player, "lives"), -1.0, 0.7)
+        renderText("Lives: " .. getScriptValue(player, "lives"), -1.0, 0.7)
 
         if plr_pos[1] > 300.0 then
-            displayText("Enemy", 0.85, 0.7)
+            renderText("Enemy", 0.85, 0.7)
         end 
 
-        displayText("Score: 1000", -.2, 0.7)
-        displayText("Missiles: 30", -1.0, .75)
+        renderText("Score: 1000", -.2, 0.7)
+        renderText("Missiles: 30", -1.0, .75)
         
         gl.Begin("QUADS")
             gl.Color (1.0, 0.0, 0.0)
@@ -124,15 +124,15 @@ function display_debug()
         gl.Translate (0.0, 0.0, -2.0)
         gl.Color (1.0, 1.0, 1.0)
 
-        displayText(string.format("plr pos: %.04f %.04f %.04f", plr_pos[1], plr_pos[2], plr_pos[3]), -1.0, 0.55)
-        displayText(string.format("cam pos: %.04f %.04f %.04f", cam_pos[1], cam_pos[2], cam_pos[3]), -1.0, 0.48)
-        displayText(string.format("cam dir: %.04f %.04f %.04f", cam_dir[1], cam_dir[2], cam_dir[3]), -1.0, 0.40)
-        displayText(string.format("cam up: %.04f %.04f %.04f", cam_up[1], cam_up[2], cam_up[3]), -1.0, 0.33)
-        displayText(string.format("cam rot: %.04f %.04f %.04f", cam_rot[1], cam_rot[2], cam_rot[3]), -1.0, 0.26)
-        displayText(string.format("fps: %.04f", getFps()), -1.0, 0.18)
-        displayText(string.format("cam id: %d", getCameraId()), -1.0, 0.10)
+        renderText(string.format("plr pos: %.04f %.04f %.04f", plr_pos[1], plr_pos[2], plr_pos[3]), -1.0, 0.55)
+        renderText(string.format("cam pos: %.04f %.04f %.04f", cam_pos[1], cam_pos[2], cam_pos[3]), -1.0, 0.48)
+        renderText(string.format("cam dir: %.04f %.04f %.04f", cam_dir[1], cam_dir[2], cam_dir[3]), -1.0, 0.40)
+        renderText(string.format("cam up: %.04f %.04f %.04f", cam_up[1], cam_up[2], cam_up[3]), -1.0, 0.33)
+        renderText(string.format("cam rot: %.04f %.04f %.04f", cam_rot[1], cam_rot[2], cam_rot[3]), -1.0, 0.26)
+        renderText(string.format("fps: %.04f", getFps()), -1.0, 0.18)
+        renderText(string.format("cam id: %d", getCameraId()), -1.0, 0.10)
         
-        displayText(string.format("light dir: %.04f %.04f %.04f", light_dir[1], light_dir[2], light_dir[3]), -1.0, 0.0)
+        renderText(string.format("light dir: %.04f %.04f %.04f", light_dir[1], light_dir[2], light_dir[3]), -1.0, 0.0)
         gl.End()
         
     gl.PopMatrix()

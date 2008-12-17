@@ -20,16 +20,13 @@ class Engine
         Camera *mainCamera, *c1, *c2, *c3, *c4;
         
         EventQueue control;         // queue for handeling input
-        Credits credits;
-        Menu menu;
+        
         int gameMode;               // current gameMode
         float timeElapsed;          // time elapsed in game
         float totalTime;
         unsigned int lists;         // lists used for rendering
        
         KeyState *keyState;
-
-        char *MenuStr;
         
         // cell shading global variables ////////
         Matrix tempMatrix;
@@ -37,8 +34,6 @@ class Engine
         
         // Sound class ///////
         Sound *sounds;
-        
-        bool menuCursor;
             
         #if DEMO
         ofstream demo;
@@ -103,7 +98,7 @@ class Engine
         
         void loadModels(void);
         
-        void displayText(const char* s, float x, float y) 
+        void renderText(const char* s, float x, float y) 
         {
             glRasterPos2f (x, y);
             render_string(GLUT_BITMAP_HELVETICA_18, s);

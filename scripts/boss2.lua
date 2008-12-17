@@ -33,6 +33,7 @@ function on_load(this)
     set_window()
     speed = calc_speed()
     setVelocity(this, -speed, 0.0, 0.0)
+    setTypeId(this, 1)
     return   
 end
 
@@ -56,13 +57,13 @@ function on_update(this, elapsedTime)
 	      speed = calc_speed()
             setVelocity(this, 0.0, speed, 0.0)
         end
-    elseif this_position[2] > 0.0 then
-        if this_velocity[2] > y_max then
+    elseif this_velocity[2] > 0.0 then
+        if this_position[2] > y_max then
             speed = calc_speed()
             setVelocity(this, speed, 0.0, 0.0)
         end
-    elseif this_position[2] < 0.0 then
-        if this_velocity[2] < y_min then
+    elseif this_velocity[2] < 0.0 then
+        if this_position[2] < y_min then
             speed = calc_speed()
             setVelocity(this, -speed, 0.0, 0.0)
             set_window()
@@ -77,11 +78,21 @@ function on_unload(this)
 end
 
 function on_collision(this, temp)
-    --playSound(this, 3)
-    --life = life - 1
-    --if life <= 0 then
-    --    removeObject(this)
-    --end
+     typeId = getTypeId(temp)
+
+     if typeId == 2 then
+        life = life - 1
+        playSound(this, "explosion1.wav")
+
+        if life <= 0 then
+            this_position = getPosition(this)
+
+            obj = addObject(this, "./scripts/explosion.lua")
+            setPosition(obj, this_position[1], this_position[2], this_position[3])
+            removeObject(this)
+        end
+    end
+
     return
 end
 

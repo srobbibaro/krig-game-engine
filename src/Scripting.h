@@ -906,13 +906,28 @@ static int pauseLua(lua_State *L)
     return 0;
 }
 
-static int displayTextLua(lua_State *L)
+static int renderTextLua(lua_State *L)
 {
     const char *s = lua_tostring(L, 1);
     float x = lua_tonumber(L, 2);
     float y = lua_tonumber(L, 3);
     
-    lengine->displayText(s, x, y);
+    lengine->renderText(s, x, y);
+    
+    return 0;
+}
+
+static int displayTextLua(lua_State *L)
+{
+    const char *s = lua_tostring(L, 1);
+    char * t = (char*)s;
+    float x = lua_tonumber(L, 2);
+    float y = lua_tonumber(L, 3);
+    float z = lua_tonumber(L, 4);
+    float sx = lua_tonumber(L, 5);
+    float sy = lua_tonumber(L, 6);
+    
+    displayText(t, x, y, z, sx, sy);
     
     return 0;
 }
@@ -1018,6 +1033,7 @@ static int registerFunctions(lua_State *L, int level)
         lua_register(L, "setLightDirectionv", setLightDirectionvLua);
         lua_register(L, "setTerrain", setTerrainLua);
         lua_register(L, "displayText", displayTextLua);
+        lua_register(L, "renderText", renderTextLua);
         lua_register(L, "getFps", getFpsLua);
         lua_register(L, "getCameraId", getCameraIdLua);
         lua_register(L, "getLightDirection", getLightDirectionLua);
