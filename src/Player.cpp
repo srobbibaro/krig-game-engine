@@ -232,10 +232,10 @@ void Player::animate( float timeElapsed, Camera* c )
     processAI(c, timeElapsed);
 }
 
+/*
 //------------------------------------------------------------------------------
 void Player::fireShot( float gameSpeed )
 {   
-/*
 //#
     if ( numShots > 0  ) {          
         numShots--;
@@ -249,13 +249,11 @@ void Player::fireShot( float gameSpeed )
             
         s->PlaySFX("laser.wav");          
     }
-*/
 }
 
 //------------------------------------------------------------------------------
 void Player::fireMissle( Object* tobj )
 {
-/*
 //#
     if ( numMissiles > 0 )
     {
@@ -270,5 +268,5 @@ void Player::fireMissle( Object* tobj )
         //pShot->setPosition( position.x + 2, position.y, position.z );
         add(pShot);
     }
-*/
 }
+*/

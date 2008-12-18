@@ -19,9 +19,6 @@ class Engine
         GameTimer* timer;           // game's timer
         Camera *mainCamera, *c1, *c2, *c3, *c4;
         
-        EventQueue control;         // queue for handeling input
-        
-        int gameMode;               // current gameMode
         float timeElapsed;          // time elapsed in game
         float totalTime;
         unsigned int lists;         // lists used for rendering
@@ -34,6 +31,15 @@ class Engine
         
         // Sound class ///////
         Sound *sounds;
+        
+        string levelScript;
+        
+        Vector* light;
+        
+        lua_State* L;  
+        
+        bool isPaused;
+        float fps;
             
         #if DEMO
         ofstream demo;
@@ -61,15 +67,6 @@ class Engine
         float last_height, last_red, last_green, last_blue;
         bool paint;
         bool paintColor;
-        
-        string levelScript;
-        
-        Vector* light;
-        
-        lua_State* L;  
-        
-        bool isPaused;
-        float fps;
     
     public:
         Engine();                   // initialize game
@@ -94,6 +91,8 @@ class Engine
         void shutdown();
         void pause();
         
+        float getFps() { return fps; }
+        
         KeyState* getKeyState() { return keyState; }
         
         void loadModels(void);
@@ -112,7 +111,24 @@ class Engine
     
         void updateColor(float &red, float &green, float &blue);      
         
-        float getFps() { return fps; }
+        void incTerrainHeight(float inc)
+        {
+            int skip = 0;
+            int xpos, zpos, type;
+            float height, red, green, blue;
+    
+            getTerrainInfo(xpos, zpos, height, type, red, green, blue);
+            
+            //# hack...
+            if (inc > 999)
+                height = 0.0f;
+            else
+                height += inc;
+            
+            updateTerrain(xpos,zpos,height, type, red, green, blue);
+            return;
+        }
+      
 };
 
 #endif

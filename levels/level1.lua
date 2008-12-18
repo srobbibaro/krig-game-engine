@@ -401,6 +401,10 @@ function on_update(terrain, elapsedTime)
         setLightDirection(0.0, 1.0, totalTime)
     end
 
+    if player_position[1] > 970.0 then
+        setComplete(1)
+    end
+
 
     return
 end

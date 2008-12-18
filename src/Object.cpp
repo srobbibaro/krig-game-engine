@@ -250,8 +250,7 @@ void Object::updateObjects( Vector* light  )
     if ( next != NULL )
         ((Object*)next)->updateObjects( light );
         
-    if ( state == DEAD )
-    {
+    if ( state == DEAD ) {
         remove();
         delete this;
     }

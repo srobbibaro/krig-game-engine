@@ -1,6 +1,5 @@
 #include "Player.h"
 #include "Terrain.h"
-#include "Boss.h"
 #include "Camera.h"
 #include "ParticleSystem.h"
 #include "Text.h"

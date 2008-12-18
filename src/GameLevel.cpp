@@ -23,6 +23,9 @@ GameLevel::GameLevel( unsigned int tLists)
     time = 0;
     
     musicPath = "";
+    scriptName = "";
+    
+    id = 0;
     
     snd = NULL;
     
@@ -58,6 +61,24 @@ void GameLevel::drawLevel()
     // draw scene and shade /////////////////////
     terrain->drawObjects( dynamic_cast<Camera*>(camera) );
     
+    // setup to draw outline ////////////////////
+    glCallList( lists+1 );
+    terrain->drawObjectOutlines( dynamic_cast<Camera*>(camera) );
+
+    // reset draw mode to "normal"
+    glCallList( lists+2 );
+    
+    if (grid) {
+        terrain->drawGrid();    
+        dynamic_cast<Camera*>(camera)->draw(camera);
+    }
+    
+    if (bboxes)
+        terrain->showCollisionBox();
+        
+    if (controlTriangles)
+    terrain->showControlTriangle();
+    
     // Attempt to execute the script only if the lua state has already been
     // initialized with a script
     if (L == NULL)
@@ -80,24 +101,6 @@ void GameLevel::drawLevel()
     //position.y = (float)lua_tonumber(L, -2);
     //position.x = (float)lua_tonumber(L, -3);
     //lua_pop(L, 1);
-    
-    // setup to draw outline ////////////////////
-    glCallList( lists+1 );
-    terrain->drawObjectOutlines( dynamic_cast<Camera*>(camera) );
-
-    // reset draw mode to "normal"
-    glCallList( lists+2 );
-    
-    if (grid) {
-        terrain->drawGrid();    
-        dynamic_cast<Camera*>(camera)->draw(camera);
-    }
-    
-    if (bboxes)
-        terrain->showCollisionBox();
-        
-    if (controlTriangles)
-    terrain->showControlTriangle();
     
    /*
     drawText();
@@ -195,6 +198,8 @@ bool GameLevel::loadLevelLua( string file )
     complete = false;
     time = 0;
     eventBeginTime = 0;
+    id = 0;
+    scriptName = file;
     
     // If the lua state has not been initialized for this object, attempt to
     // initialize it.     
@@ -290,80 +295,6 @@ bool GameLevel::loadLevelLua( string file )
      //L = NULL;
      
      return (true);
-}
-
-void GameLevel::loadObject(lua_State* L, int number) 
-{
-    /*
-    cout << "number: " << number << endl;
-    
-    lua_pushnumber(L, number);
-    lua_gettable(L, -2);
-    
-    lua_pushstring(L, "type");
-    lua_gettable(L, -2);
-    int objectType = (int)lua_tonumber(L, -1);
-    cout << "type: " << objectType << endl;
-    lua_pop(L, 1);
-    
-    lua_pushstring(L, "script");
-    lua_gettable(L, -2);
-    const char *t = lua_tostring(L, -1);
-    string script = "./scripts/" + string(t);
-    cout << "Script: " << script << endl;
-    lua_pop(L, 1);
-    
-    Vector position, rotation, scale;
-     
-    lua_pushstring(L, "position");
-    lua_gettable(L, -2);
-    loadVector(L, &position);
-    cout << "Position: " << position.x << " " << position.y << " " << position.z << endl;
-    lua_pop(L, 1);
-        
-    if ( number == 1 ) {
-        // object[0] must be player
-        objectType = OBJECT_PLAYER;
-    }
-    
-    // The player will always be created before a level is loaded        
-    if (player == NULL) {
-        printf("The player object was not initialized prior to loading the level.\n");
-        exit(1);   
-    }
-             
-    switch( objectType )
-    {
-        case OBJECT_PLAYER:
-            obj = dynamic_cast<Player*>(player);
-            obj->setTimer( &time );
-            break;                                       
-        default:
-            obj = new ScriptedObject(script);
-            break;
-    }
-        
-    if (obj != NULL) {
-        // Set the object's orientation
-        obj->setPosition( position );
-        obj->setVelocity( 0.0f, 0.0f, 0.0f );
-    
-        // Set required resources for the object's use       
-        obj->setSoundClass(snd);
-        obj->setPlayerPtr(player);
-        obj->setCameraPtr(camera);
-                
-        // This may not be the best place for this... it may cause a 
-        // boot strapping issue. We may need to load all scripts after
-        // all objects have been fully loaded.
-        obj->loadScript(script);
-        
-        // Add the object to the level's objects list
-        terrain->add(obj);
-    } 
-  
-    lua_pop(L, 1);  
-    */  
 }
 
 //------------------------------------------------------------------------------
@@ -485,17 +416,14 @@ void GameLevel::drawSky()
             glVertex3f (1.0f, 1.0f, 1.0f);         
         glEnd();
         
-         // bottom sky //
+        // bottom sky //
         glBegin(GL_TRIANGLE_STRIP); 
             glColor3fv ( bgcolor[2]);
             glVertex3f (1.0f, -1.0f, -1.0f);  
             glVertex3f (-1.0f, -1.0f, -1.0f);
             glVertex3f (1.0f, -1.0f, 1.0f);
             glVertex3f (-1.0f, -1.0f, 1.0f); 
-        glEnd();
-        
-       
-        
+        glEnd();    
     //glPopMatrix();
 }
 
@@ -534,14 +462,7 @@ float GameLevel::findDistance ( Object* obj1, Object* obj2 )
 //------------------------------------------------------------------------------
 bool GameLevel::checkComplete(void)
 {
-    if ( complete == true ) {
-        if ( eventBeginTime == 0 ) 
-            eventBeginTime = time;
-        else if ( (eventBeginTime + 7.0) > time )
-            return true;
-    }
-    else
-        return false;
+    return complete;
 }
 
 //------------------------------------------------------------------------------

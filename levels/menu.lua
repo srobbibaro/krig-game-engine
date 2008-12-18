@@ -39,8 +39,8 @@ function on_update(this)
     if engine_testKeyPressed(13) == 1 then
         stopBgMusic()
 
-        if cursor == 1 then
-            -- load first level
+        if cursor == 0.0 then
+            setComplete(1)
         else
             -- shutdown 
         end

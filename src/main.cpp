@@ -30,7 +30,7 @@ using namespace std;
 // global variables /////////////////////////////
 Engine* KRIG;
 
-Engine *lengine;
+Engine *lengine;    // used for scripting
 
 #if EDIT
 // to remove before final build

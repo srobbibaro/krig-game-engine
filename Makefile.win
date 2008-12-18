@@ -5,14 +5,14 @@ CPP  = g++.exe -D__DEBUG__
 CC   = gcc.exe -D__DEBUG__
 WINDRES = windres.exe
 RES  = 
-OBJ  = ./obj//Engine.o ./obj//eventqueue.o ./obj//GameLevel.o ./obj//gametimer.o ./obj//main.o ./obj//matrix.o ./obj//model.o ./obj//ObjectNode.o ./obj//ParticleSystem.o ./obj//Player.o ./obj//sound.o ./obj//terrain.o ./obj//text.o ./obj//Quaternion.o ./obj//Snow.o ./obj//QuadTreeNode.o ./obj//QuadTree.o ./obj//DisplayList.o ./obj//Plane.o ./obj//Frustum.o ./obj//Sphere.o ./obj//Camera.o ./obj//Object.o ./obj//ScriptedObject.o ./obj//Vector.o ./obj//LuaGL.o $(RES)
-LINKOBJ  = ./obj//Engine.o ./obj//eventqueue.o ./obj//GameLevel.o ./obj//gametimer.o ./obj//main.o ./obj//matrix.o ./obj//model.o ./obj//ObjectNode.o ./obj//ParticleSystem.o ./obj//Player.o ./obj//sound.o ./obj//terrain.o ./obj//text.o ./obj//Quaternion.o ./obj//Snow.o ./obj//QuadTreeNode.o ./obj//QuadTree.o ./obj//DisplayList.o ./obj//Plane.o ./obj//Frustum.o ./obj//Sphere.o ./obj//Camera.o ./obj//Object.o ./obj//ScriptedObject.o ./obj//Vector.o ./obj//LuaGL.o $(RES)
+OBJ  = ./obj//Engine.o ./obj//GameLevel.o ./obj//gametimer.o ./obj//main.o ./obj//matrix.o ./obj//model.o ./obj//ObjectNode.o ./obj//ParticleSystem.o ./obj//Player.o ./obj//sound.o ./obj//terrain.o ./obj//text.o ./obj//Quaternion.o ./obj//Snow.o ./obj//QuadTreeNode.o ./obj//QuadTree.o ./obj//DisplayList.o ./obj//Plane.o ./obj//Frustum.o ./obj//Sphere.o ./obj//Camera.o ./obj//Object.o ./obj//ScriptedObject.o ./obj//Vector.o ./obj//LuaGL.o ./obj//KeyState.o $(RES)
+LINKOBJ  = ./obj//Engine.o ./obj//GameLevel.o ./obj//gametimer.o ./obj//main.o ./obj//matrix.o ./obj//model.o ./obj//ObjectNode.o ./obj//ParticleSystem.o ./obj//Player.o ./obj//sound.o ./obj//terrain.o ./obj//text.o ./obj//Quaternion.o ./obj//Snow.o ./obj//QuadTreeNode.o ./obj//QuadTree.o ./obj//DisplayList.o ./obj//Plane.o ./obj//Frustum.o ./obj//Sphere.o ./obj//Camera.o ./obj//Object.o ./obj//ScriptedObject.o ./obj//Vector.o ./obj//LuaGL.o ./obj//KeyState.o $(RES)
 LIBS =  -L"C:/Dev-Cpp/lib" -pg lib/liblua5.1.a lib/libvorbisfile.a lib/libvorbisenc.a lib/libvorbis.a lib/libogg.a lib/libalut.a lib/libopenal32.a lib/libglut32.a lib/libopengl32.a lib/libglu32.a 
 INCS =  -I"C:/Dev-Cpp/include"  -I"./include/"  -I"./src/" 
 CXXINCS =  -I"C:/Dev-Cpp/include/c++"  -I"C:/Dev-Cpp/include/c++/mingw32"  -I"C:/Dev-Cpp/include/c++/backward"  -I"C:/Dev-Cpp/include"  -I"./include/"  -I"./src/" 
 BIN  = krig.exe
-CXXFLAGS = $(CXXINCS)  -g3
-CFLAGS = $(INCS)  -g3
+CXXFLAGS = $(CXXINCS)  -pg -g3
+CFLAGS = $(INCS)  -pg -g3
 
 .PHONY: all all-before all-after clean clean-custom
 
@@ -27,9 +27,6 @@ $(BIN): $(LINKOBJ)
 
 ./obj//Engine.o: src/Engine.cpp
 	$(CPP) -c src/Engine.cpp -o ./obj//Engine.o $(CXXFLAGS)
-
-./obj//eventqueue.o: src/eventqueue.cpp
-	$(CPP) -c src/eventqueue.cpp -o ./obj//eventqueue.o $(CXXFLAGS)
 
 ./obj//GameLevel.o: src/GameLevel.cpp
 	$(CPP) -c src/GameLevel.cpp -o ./obj//GameLevel.o $(CXXFLAGS)
@@ -102,3 +99,6 @@ $(BIN): $(LINKOBJ)
 
 ./obj//LuaGL.o: src/LuaGL.cpp
 	$(CPP) -c src/LuaGL.cpp -o ./obj//LuaGL.o $(CXXFLAGS)
+
+./obj//KeyState.o: src/KeyState.cpp
+	$(CPP) -c src/KeyState.cpp -o ./obj//KeyState.o $(CXXFLAGS)

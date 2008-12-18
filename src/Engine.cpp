@@ -25,8 +25,6 @@ Engine::Engine()
     }
     ///////////////////////////////////////////////
     
-    gameMode = 2;  // 0
-    
     fps = 0.0f;
     
     totalTime = 0;
@@ -158,17 +156,15 @@ void Engine::unloadGame()
 void Engine::gameCycle()
 {  
     timeElapsed = timer->getElapsedSeconds(1);  
-    this->updateGame(timeElapsed);
+    updateGame(timeElapsed);
     fps = timer->getFPS();
-    
-    if ( gameMode == 3 ) 
-        totalTime += timeElapsed;
-    
+        
     if (currentLevel != NULL && !isPaused)
         currentLevel->setElapsedTime(timeElapsed);
       
     #if PLAY_DEMO
-    if ( gameMode == 1 ) {
+        totalTime += timeElapsed;
+        
         while ( demoCommands[currentDemoCommand].time <= totalTime && currentDemoCommand < 512 ) {
             switch ( demoCommands[currentDemoCommand].routine )
             {
@@ -184,44 +180,38 @@ void Engine::gameCycle()
             }
             currentDemoCommand++;
         }
-    }
     #endif
     
-    switch (gameMode)
-    {
-        case 1:    
-            if ( currentLevel->checkComplete() ) {}
-            else {
-                if (!isPaused) {
-                    currentLevel->processScripts();
+    if (currentLevel != NULL) {
+        if ( currentLevel->checkComplete() ) {}
+        else {
+            if (!isPaused) {
+                currentLevel->processScripts();
                 
-                    mainCamera->update(currentLevel->getElapsedTime());
+                mainCamera->update(currentLevel->getElapsedTime());
             
-                    currentLevel->animateLevel();
-                    currentLevel->animateText();
+                currentLevel->animateLevel();
+                currentLevel->animateText();
                 
-                    //processCommands();
+                //processCommands();
 
-                    currentLevel->updateLevel();
+                currentLevel->updateLevel();
                 
-                    currentLevel->prepareLevel();   // collision detection
+                currentLevel->prepareLevel();   // collision detection
 
-                    //currentLevel->updateLevel();    
+                //currentLevel->updateLevel();    
                 
-                    prepare();
+                prepare();
              
-                    currentLevel->drawLevel();
-                }
-             }
-            break;  
-        default:
-            break;
+                currentLevel->drawLevel();
+                
+                sounds->Update(); 
+                glutSwapBuffers();
+            }
+        }
     }
-    
-    processCommands();
-    
-    sounds->Update(); 
-    glutSwapBuffers();
+     
+    processCommands();   
 }
 
 //------------------------------------------------------------------------------
@@ -233,11 +223,10 @@ void Engine::prepare()
     mainCamera->prepareGLView();  
     
     glDepthMask(GL_FALSE);
-    currentLevel->drawSky();
+        currentLevel->drawSky();
     glDepthMask(GL_TRUE);
     
     glDepthFunc(GL_ALWAYS);
-    if ( gameMode == 1 )
         currentLevel->postDraw();
     glDepthFunc(GL_LESS);
        
@@ -513,8 +502,6 @@ void Engine::processCommands()
                 exit(0);
                 break; 
         }
-    
-        cmd = control.deQueue();    // get next command from queue
     }
     */
 }
@@ -835,47 +822,17 @@ void Engine::processNormalKey(unsigned char key)
             
         // Edit terrain height
         case 'h':
-        {
-            int skip = 0;
-            int xpos, zpos, type;
-            float height, red, green, blue;
-    
-            getTerrainInfo(xpos, zpos, height, type, red, green, blue);
-            
-            height -= .05;
-            
-            updateTerrain(xpos,zpos,height, type, red, green, blue);
-            break;
-        }
+            incTerrainHeight(-.05f);   
+            break;  
         case 'H':
-        {
-            int skip = 0;
-            int xpos, zpos, type;
-            float height, red, green, blue;
-    
-            getTerrainInfo(xpos, zpos, height, type, red, green, blue);
-            
-            height += .05;
-            
-            updateTerrain(xpos,zpos,height, type, red, green, blue);
+            incTerrainHeight(.05f);
             break;
-        }
-           
+        
         // Set terrain height to 0
         case '0':
-        {
-            int skip = 0;
-            int xpos, zpos, type;
-            float height, red, green, blue;
-    
-            getTerrainInfo(xpos, zpos, height, type, red, green, blue);
-            
-            height = 0;
-            
-            updateTerrain(xpos,zpos,height, type, red, green, blue);
+            incTerrainHeight(1000.0);
             break;
-        }
-        
+                 
         // Edit terrain type
         case 'T':
         case 't':
@@ -962,21 +919,11 @@ void Engine::loadLevel(const char* levelFile)
     currentLevel->loadLevelLua(levelScript);
     timeElapsed = timer->getElapsedSeconds(1);  
     light = currentLevel->getLight();
-    
-    gameMode = 1;
 }
 
 //------------------------------------------------------------------------------
 void Engine::loadModels()
 {
-    /*
-    for ( int i = 0; i < NUM_MODELS; i++ ) {
-        model[i].load( fileName[i] );
-        //model[i].buildEdges(); $shadow
-    }
-    */
-    
-    
     DIR *dir;
     struct dirent *de;
     ModelStorage *model;
@@ -995,6 +942,7 @@ void Engine::loadModels()
             // load model file into model storage //
             model = new ModelStorage();
             model->load(filePath);
+            //#model->.buildEdges(); - used for shadows "converted from old code"
             
             // insert model file into model hash //
             hashKey = string(de->d_name);    

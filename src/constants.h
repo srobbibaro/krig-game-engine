@@ -10,7 +10,7 @@
 #include "Quaternion.h"
 #include "sound.h"
 #include "GameTimer.h"
-#include "EventQueue.h"
+#include "KeyState.h"
 
 using namespace std;
 
@@ -20,23 +20,11 @@ using namespace std;
 #define DEMO        0
 #define PLAY_DEMO   0
 
-#define EDIT        0
+#define EDIT        1
 
 // sound library constants //
 #define BUFFER_SIZE 65536
 /////////////////////////////
-
-// object types ////////////////
-#define OBJECT_PLAYER       0
-#define OBJECT_ENEMY_SHIP   1
-#define OBJECT_ASTEROID     2
-#define OBJECT_BEAM         3
-#define OBJECT_SAIL_BOAT    4
-#define OBJECT_BOATCANNON   5
-#define OBJECT_BOSS         6
-#define OBJECT_POWERUP_1    7
-#define OBJECT_POWERUP_2    8
-////////////////////////////////
 
 // object states ////////////////////////////
 #define DEAD        0

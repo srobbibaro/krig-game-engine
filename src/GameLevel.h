@@ -57,6 +57,10 @@ class GameLevel
         
         KeyState* keyState;
         
+        string scriptName;
+        
+        int id;
+        
         lua_State* L;
     
     public:
@@ -85,18 +89,6 @@ class GameLevel
         void animateText();
         void drawText( void );
         
-        void loadObject(lua_State* L, int number);
-        
-        // remove this from the final build //
-        void updateTerrain(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
-        void updateColor(int &x, int &z, float &red, float &green, float &blue);
-        
-        void getTerrainInfo(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
-        void saveTerrain(char*);
-        void toggleGrid(void);
-        void toggleBoundingBoxes(void);
-        void toggleControlTriangles(void);
-        
         string getMusicPath() { return (musicPath); }
         void setMusicPath(string music) { musicPath = music; }
         Vector* getLight() { return &light; }
@@ -110,13 +102,29 @@ class GameLevel
                 
         Sound* getSoundClass() { return snd; }
         
+        void setId(int tid) { id = tid; }
+        int getId() { return id; }
+        
         void setKeyState(KeyState* ks) { keyState = ks; }
         KeyState* getKeyState() { return keyState; }
         
         float getElapsedTime() { return elapsedTime; }
         void setElapsedTime(float tElapsedTime) { elapsedTime = tElapsedTime; }
         
+        void setComplete(bool value) { complete = value; }
+        string getScriptName() { return scriptName; }
+        
         void postDraw();
+        
+        // remove this from the final build //
+        void updateTerrain(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
+        void updateColor(int &x, int &z, float &red, float &green, float &blue);
+        
+        void getTerrainInfo(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
+        void saveTerrain(char*);
+        void toggleGrid(void);
+        void toggleBoundingBoxes(void);
+        void toggleControlTriangles(void);
 };
 
 #endif
