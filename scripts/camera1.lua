@@ -1,22 +1,9 @@
-stopped = 0
-
 function on_load(this)
     setVelocity(this, 10.0, 0.0, 0.0)
     return
 end
 
 function on_update(this, elapsedTime)
-    this_position = getPosition(this)
-    if stopped == 0 then 
-        if this_position[1] >= 970.0 then
-            stopped = 1
-            setVelocity(this, 0.0, 0.0, 0.0)
-            player = getPlayer()
-            player_velocity = getVelocity(player)
-            setVelocity(player, (player_velocity[1] - 10.0), player_velocity[2], player_velocity[3])
-        end
-    end
-
     return
 end
 

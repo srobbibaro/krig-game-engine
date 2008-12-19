@@ -1,3 +1,5 @@
+dofile("./levels/level_lib.lua")
+
 creditsPos = 0.0
 credTrans = 0.0
 
@@ -36,6 +38,8 @@ credCoord = { {-0.2   , 0.0  }, { -0.22, -0.1 },
               {-0.37  , -7.8 } }
 
 function on_draw_screen(terrain, elapsedTime)
+    display_debug()
+
     highScore = 1024545 --score
     delay = elapsedTime 
     
