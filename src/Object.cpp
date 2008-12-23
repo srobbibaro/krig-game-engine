@@ -263,21 +263,37 @@ void Object::updateObjects( Vector* light  )
 //------------------------------------------------------------------------------
 void Object::processCollisions( Object* temp )
 {
-    Vector boxA[2];
+       if ( this != temp && 
+         active && temp->active && 
+         state == NORMAL && temp->state == NORMAL &&
+         isCollisionDetectionEnabled_ && temp->isCollisionDetectionEnabled_ &&
+         this != NULL && temp != NULL ) {
+ /*
+       
+ */   
+    //# try a sphere-based collision
+    
+        float radius1 = boundingSphere.getRadius();
+        float radius2 = boundingSphere.getRadius();
+        float radius_sum = radius1 + radius2;
+        radius_sum = radius_sum * radius_sum;
+        
+        float distance =
+            (position.x - temp->position.x)*( position.x - temp->position.x)+
+            (position.y - temp->position.y)*( position.y - temp->position.y)+
+            (position.z - temp->position.z)*( position.z - temp->position.z);
+
+            if (radius_sum >= distance) { 
+            
+             Vector boxA[2];
     Vector boxB[2];  
 		
     boxA[0].setVector(collisionBox[0].x + position.x, collisionBox[0].y + position.y, collisionBox[0].z + position.z);
     boxA[1].setVector(collisionBox[1].x + position.x, collisionBox[1].y + position.y, collisionBox[1].z + position.z);
     boxB[0].setVector(temp->collisionBox[0].x + temp->position.x, temp->collisionBox[0].y + temp->position.y, temp->collisionBox[0].z + temp->position.z);
     boxB[1].setVector(temp->collisionBox[1].x + temp->position.x, temp->collisionBox[1].y + temp->position.y, temp->collisionBox[1].z + temp->position.z);
-
-       if ( this != temp && 
-         active && temp->active && 
-         state == NORMAL && temp->state == NORMAL &&
-         isCollisionDetectionEnabled_ && temp->isCollisionDetectionEnabled_ &&
-         this != NULL && temp != NULL ) {
- 
-        if( ((boxA[0].x >= boxB[0].x && boxA[0].x <= boxB[1].x) ||
+            
+             if( ((boxA[0].x >= boxB[0].x && boxA[0].x <= boxB[1].x) ||
             (boxA[1].x >= boxB[0].x && boxA[1].x <= boxB[1].x)  ||
             (boxB[0].x >= boxA[0].x && boxB[0].x <= boxA[1].x)  ||
             (boxB[1].x >= boxA[0].x && boxB[1].x <= boxA[1].x)) &&
@@ -289,22 +305,9 @@ void Object::processCollisions( Object* temp )
             (boxA[1].z >= boxB[0].z && boxA[1].z <= boxB[1].z)  ||
             (boxB[0].z >= boxA[0].z && boxB[0].z <= boxA[1].z)  ||
             (boxB[1].z >= boxA[0].z && boxB[1].z <= boxA[1].z)) ) {  
-    
-    //# try a sphere-based collision
-    /*
-        float radius1 = boundingSphere.getRadius();
-        float radius2 = boundingSphere.getRadius();
-        float radius_sum = radius1 + radius2;
-        //radius_sum = radius_sum * radius_sum;
-        
-        float distance = sqrt(
-            (position.x - temp->position.x)*( position.x - temp->position.x)+
-            (position.y - temp->position.y)*( position.y - temp->position.y)+
-            (position.z - temp->position.z)*( position.z - temp->position.z));
-
-            if (radius_sum >= distance) {  */
                 handleCollision( temp );
                 temp->handleCollision(this);
+            }
         }
     }
 
