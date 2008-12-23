@@ -13,8 +13,8 @@
     * Andy: simple script to move into trench.
 
 11/24/08 ~ Steve
-    * implement "setTestZoneEnable" lua function
-    * determine whether it would be beneficial to over-ride "on_update" so that engine calls a different specified function
+    x implement "setTestZoneEnable" lua function. (12/22/08 ~ Steve: no longer applies)
+    x determine whether it would be beneficial to over-ride "on_update" so that engine calls a different specified function. (12/22/08 ~ Steve: added ability to change script which should be sufficient).
     * determine whether or not ScriptedObject::animCurrTime is necessary especially in regards to interpolation... would elaped time/ duration suffice?
 
 11/26/08 ~ Steve
@@ -23,9 +23,9 @@
     x Steve: Convert level1.lvl to level1.lua.
     x Steve: Convert Snow Boss script to lua.
     * Andy: Convert volcano script to lua.
-    * Andy: Convert sweeping ships to lua.
-    x Steve/Andy: Convert level1 boss script to lua.
-    * Implement ability to change script or to end script.
+    * Andy: Convert level 1 sweeping ships to lua.
+    x Steve/Andy: Convert level1 boss script to lua. (12/22/08 ~ Steve)
+    x Implement ability to change script or to end script. (12/22/08 ~ Steve)
 
 11/27/08 ~ Steve
     x Fix camera script for level 1
@@ -49,11 +49,11 @@
 
 12/8/08 ~ Steve
     x Convert level 4 to new level loading scheme. (12/8/08 ~ Steve)
-    * Steve: Fix player shot lua script to mimic existing design.
+    x Steve: Fix player shot lua script to mimic existing design. (12/22/08 ~ Steve)
     * Steve: Game crashes when changing levels. Level 2? 
-    * Steve: Game sometimes crashes while shooting. (12/8/08 ~ Steve)
+    x Steve: Game sometimes crashes while shooting. (12/8/08 ~ Steve)
     x Why does game seg fault during debug before loading level? (12/8/08 ~ Steve)
-    * Make lua function to enable/disable collision detection for each object.
+    x Make lua function to enable/disable collision detection for each object. (12/22/08 ~ Steve)
     x Implement lua created object type identifiers for use during collision detection. (12/10/08 ~ Steve)
     x Implement getScalar lua function. (12/10/08 ~ Steve)
     * Implement lua function to determine if vector intersects a collision box.
@@ -84,3 +84,16 @@
     * Particle systems should be defined in lua scripts similar to the ways objects are defined.
     * We need the ability to store/restore a level's state.
     x Implement getLightDirection lua scripting function. (12/16/08 ~ Steve)
+
+12/22/08 ~ Steve
+    * Andy: Consider creating two seperate classes Music and Sound (or similar) from the existing Sound.h/cpp.
+    * Steve: 'G' key should not map to down arrow key.
+    * Steve: Fix terrain collision detection (use QuadTree and test spheres).
+    * Steve: Implement ability to set variables in a script (opposite of getScriptValue).
+    * Steve: Why are some object in level 1 not placed properly (ie pine tree at 0,0,0).
+    * Steve: Implement enemy shooting.
+    * Steve: Implement boss shooting.
+    * Steve/Andy: Convert snow particle system to lua.
+    * Steve/Andy: Convert star field particle system to lua.
+    * Steve: Tweak terrain-water animation to make less CPU intensive (and possibly look better).
+    * Steve: Fix issue where computer beeps when a number of keys are down at the same time (ie arrow keys and space).

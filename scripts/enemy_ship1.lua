@@ -1,4 +1,7 @@
+dofile('./scripts/base_object.lua')
 dofile('./scripts/base_enemy.lua')
+
+nextShot = 0.5
 
 function on_load(this)
     setModel(this, "Enemy.mdl")
@@ -9,6 +12,20 @@ function on_load(this)
 end
 
 function on_update(this, elapsedTime)
+    plr = getPlayer()
+    this_pos = getPosition(this)
+    plr_pos = getPosition(plr)
+    in_view = getInView(this)
+
+    if nextShot > 0.0 then nextShot = nextShot - elapsedTime end
+
+    if plr_pos[2] < (this_pos[2] + .5) and 
+       plr_pos[2] > (this_pos[2] - .5) and 
+       nextShot <= 0.0 and
+       in_view == 1 then
+        setShot(this, "./scripts/enemy_shot.lua") 
+        nextShot = .85
+    end
     return
 end
 

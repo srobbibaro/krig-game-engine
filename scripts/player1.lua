@@ -1,3 +1,5 @@
+dofile('./scripts/base_object.lua')
+
 progress = 0
 life = 10
 lives = 3
@@ -108,18 +110,7 @@ function on_update(this, elapsedTime)
         setVelocityv(this, this_velocity)
 
         if engine_testKeyPressed(32) == 1 and nextShot <= 0.0 then
-            obj = addObject(this, "./scripts/player_shot.lua")
-            radius = getBoundingSphereRadius(this)
-            direction = getDirection(this)
-            direction[1] = direction[1] * radius
-            direction[2] = direction[2] * radius
-            direction[3] = direction[3] * radius
-
-            this_position[1] = this_position[1] + direction[1]
-            this_position[2] = this_position[2] + direction[2]
-            this_position[3] = this_position[3] + direction[3]
-
-            setPositionv(obj, this_position)
+            setShot(this, "./scripts/player_shot.lua") 
             nextShot = .40
         end      
 
@@ -141,7 +132,7 @@ end
 function on_collision(this,temp)
     tempId = getTypeId(temp)
 
-    if tempId == 1 then
+    if tempId == 1 or tempId == 10 or typeId == 4 then
         life = life - 1
         collisionRecover = 1
         disableCollisionDetection(this)

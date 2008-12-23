@@ -1,7 +1,11 @@
 duration = 0.0
 
 function on_load(this)
-    setVelocity(this, 15.0, 0.0, 0.0)
+    setModel(this, "GreenShot.mdl")
+    setTypeId(this, 10)
+
+    playSound(this, "laser.wav")
+
     return
 end
 
@@ -19,6 +23,10 @@ function on_unload(this)
 end
 
 function on_collision(this, temp)
-    removeObject(this)
+    typeId = getTypeId(temp)
+
+    if typeId ~= 1 and typeId ~= 3 then
+        removeObject(this)
+    end
     return 
 end

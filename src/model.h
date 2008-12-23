@@ -33,8 +33,6 @@ using namespace std;
         GLfloat** baseVertex;        // list of base vertices ( not transformed )
         Vector* normal;              // list of normals that comprise the model
         Triangle* triangle;     
-        
-        float radius;
     
         void load( char[] );
     };
@@ -49,12 +47,7 @@ using namespace std;
             // transformed data //
             GLfloat *lightIntensity;     // light intensity due to each normal, updated per cycle
             GLfloat **updatedVertex;     // list of vertices that comprise the model
-
-            Matrix transform;
-            
-            float radius;
           
-            
             // this is in here for shadows...???
             int numEdges;
             Edge *edges;

@@ -1,6 +1,7 @@
 function on_load(this)
     setModel(this, "Pinetree.mdl")
     setRotation(this, 0.0, 0.0, 0.0)     
+    disableCollisionDetection(this)
     return
 end
 

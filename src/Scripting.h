@@ -1038,6 +1038,14 @@ static int getBoundingSphereRadiusLua(lua_State *L)
     return 1;
 }
 
+static int getInViewLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    lua_pushnumber(L, object->getInView());
+    return 1;
+}
+
 static int registerFunctions(lua_State *L, int level)
 {
     lua_register(L, "setPosition", setPositionLua);
@@ -1117,6 +1125,7 @@ static int registerFunctions(lua_State *L, int level)
     lua_register(L, "enableDraw", enableDrawLua);
     lua_register(L, "disableDraw", disableDrawLua);
     lua_register(L, "getBoundingSphereRadius", getBoundingSphereRadiusLua);
+    lua_register(L, "getInView", getInViewLua);
     
     // game level only
     if (level < 2) {

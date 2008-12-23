@@ -93,9 +93,9 @@ class Object : public ObjectNode
         int typeId;
         
           
-            Vector lastLight;
-            bool scaleChanged;
-            bool rotationChanged;
+        Vector lastLight;
+        bool scaleChanged;
+        bool rotationChanged;
         
     //public:
         Object();

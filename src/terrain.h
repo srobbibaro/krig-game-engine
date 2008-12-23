@@ -32,8 +32,6 @@ class Terrain : public Object
         GLfloat*** color;
         GLint** type;
         
-        Vector* lastLight;
-        
         float totalTime;
         
         Terrain();
@@ -43,13 +41,11 @@ class Terrain : public Object
 		void drawOutline( Object* );
 
         void handleCollision( Object* temp ) {}
-        void prepare() {}
         void animate( float, Object* );
         void generate( void );
         
 	    void calcTerrainNorm( Vector* );
         void update( Vector* );
-        void handleDeath( void ) {}
         
         void init();
         void load( const char*, Vector* );
@@ -57,13 +53,9 @@ class Terrain : public Object
         void unload();
         
         float getHeight( float, float );
-        
-        void printTypeName(void) 
-         {
-            cout << "Terrain";
-         }
          
-         // remove from final version //
+        // remove from final version //
+        void printTypeName(void) { cout << "Terrain"; }
  		void drawGrid(void);
      };
 

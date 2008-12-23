@@ -39,11 +39,6 @@ void Model::load( string tModelKey )
     while ( updatedVertex[ r ] != NULL && r < numVertices-1 ) {
         updatedVertex[++r] = new GLfloat[3];
     }
-    
-    lastLight.setVector(0.0f, 0.0f, 0.0f);
-    scaleChanged = true;
-    rotationChanged = true;
-    radius = 0.0f;
             
     // load in vertices used for model //////
     for ( int i = 0; i < numVertices; i++ ) {    
@@ -79,32 +74,12 @@ void Model::unload()
 //------------------------------------------------------------------------------
 void Model::draw(Object* c)
 {
-    /*
-    float x = 0;
-    float y = position.y;
-    float zp = 0;
-    
-    
-    float zPer = fmod(-c->position.z, 5.0f);
-        zPer = zPer / 5;
-    
-     float diff = c->position.z - position.z;
-     float z = (diff)/5.0f;
-      
-     if ( z > 10 )
-        y = -(.15f * (z-10.0)) * ( .15 * (z-10.0) ) ; 
-    else
-        y = 0;
-
-    */    
-    
     // model must be loaded
     if (lightIntensity == NULL || updatedVertex == NULL)
         return;
     
     glPushMatrix();
     glTranslatef(position.x, position.y, position.z);
-    //glMultMatrixf(transform.data); //#
 
     ModelStorage *m = modelHash[modelKey];
     glBegin( GL_TRIANGLES );
@@ -113,7 +88,6 @@ void Model::draw(Object* c)
                 glColor3fv( m->triangle[i].colors[j] );
                 glTexCoord1f( lightIntensity[m->triangle[i].vertices[j]] ); 
                 glVertex3fv( updatedVertex[m->triangle[i].vertices[j]] ); 
-                //glVertex3fv( m->baseVertex[m->triangle[i].vertices[j]] ); 
             }
         }   
     glEnd();
@@ -135,15 +109,13 @@ void Model::drawOutline(Object* c)
     
     glPushMatrix();  
     glTranslatef(position.x, position.y, position.z);
-    //glMultMatrixf(transform.data); //#  
 
     glColor3f( 0.0f, 0.0f, 0.0f );
        
     glBegin( GL_TRIANGLES );
         for ( int i = 0; i < m->numTriangles; i++ ) {	
             for ( int j = 0; j < 3; j++ ) {
-                glVertex3fv( updatedVertex[m->triangle[i].vertices[j]] );    
-                //glVertex3fv( m->baseVertex[m->triangle[i].vertices[j]] );    
+                glVertex3fv( updatedVertex[m->triangle[i].vertices[j]] );       
             }
         }
     glEnd();
@@ -222,9 +194,11 @@ void Model::update( Vector* light )
     if (lightIntensity == NULL || updatedVertex == NULL)
         return;
         
-    if (scaleChanged == false && rotationChanged == false && lastLight.x == light->x &&
-        lastLight.y == light->y && lastLight.z == light->z) {
-        boundingSphere.setSphere(position.x, position.y, position.z, radius);
+    if (scaleChanged == false && rotationChanged == false && 
+        lastLight.x == light->x &&
+        lastLight.y == light->y && 
+        lastLight.z == light->z) {
+        boundingSphere.setOriginVector(position);
         return;
     }
     
@@ -236,10 +210,9 @@ void Model::update( Vector* light )
 
     Vector tempV;
     GLfloat temp;
-    Matrix translation;
     Matrix rotationMatrix;
     Matrix scaleMatrix;    
-//#    Matrix transform;
+    Matrix transform;
     
     GLfloat min[] = { 9999.0f, 9999.0f, 9999.0f };
     GLfloat max[] = { -9999.0f, -9999.0f, -9999.0f };
@@ -247,16 +220,14 @@ void Model::update( Vector* light )
     // setup transformation matrices ////////////
     rotation.buildRotationMatrix( rotationMatrix );   
     scaleMatrix.setScale( scale.x, scale.y, scale.z );
-    translation.setTranslation( position.x, position.y, position.z );
     
     // setup the transformation matrix //////////
-    //#transform = translation * rotationMatrix * scaleMatrix;   
     transform = rotationMatrix * scaleMatrix;   
     /////////////////////////////////////////////
     
     ModelStorage *m = modelHash[modelKey];
     
-    radius = 0.0f;
+    float radius = 0.0f;
     
     for ( int i = 0; i < m->numVertices; i++ ) {   
         // transform vertex /////////////////////   
@@ -507,15 +478,6 @@ void ModelStorage::load( char fileName[] )
                 fin >> normal[i].x;
                 fin >> normal[i].y;
                 fin >> normal[i].z;
-                
-                float x = (baseVertex[i][0]);
-                float y = (baseVertex[i][1]);
-                float z = (baseVertex[i][2]);
-        
-                float distance = sqrt( (x * x) + (y * y) +(z * z) );
-                         
-                if (distance > radius)
-                    radius = distance;
             }      
             /////////////////////////////////////////
    

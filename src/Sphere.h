@@ -14,6 +14,7 @@ class Sphere
         
         void getOriginVector(Vector &v);
         float getRadius(void) const;
+        void setOriginVector(Vector &v) { x = v.x; y = v.y; z = v.z; }
         
     private:
         float x, y, z;  // origin

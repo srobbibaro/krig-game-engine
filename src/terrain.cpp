@@ -18,7 +18,6 @@ Terrain::Terrain() : Object()
     lightIntensity = NULL;
     color = NULL;
     type = NULL;
-    lastLight = NULL;
     
     init();
 }
@@ -30,10 +29,6 @@ void Terrain::init()
     xSize = 0;
 	zSize = 0;
 	scaleFactor = 1.0f;
-	active = true;
-	
-	lastLight = new Vector();
-	lastLight->setVector(0.0f, 0.0f, 1.0f);
 }
 
 //------------------------------------------------------------------------------
@@ -45,7 +40,7 @@ Terrain::~Terrain()
 //------------------------------------------------------------------------------
 void Terrain::draw( Object* c )
 {   
-    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL || lastLight == NULL) {
+    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL) {
         return;
     }
     
@@ -156,7 +151,7 @@ void Terrain::draw( Object* c )
 //------------------------------------------------------------------------------
 void Terrain::drawOutline( Object* c )
 {	
-    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL || lastLight == NULL) {
+    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL) {
         return;
     } 
     
@@ -354,7 +349,7 @@ void Terrain::calcTerrainNorm( Vector* light )
     }
     */
     
-    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL || lastLight == NULL) {
+    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL) {
         cout << "Error: Could not save terrain." << endl;
         return;
     }
@@ -446,20 +441,20 @@ void Terrain::calcTerrainNorm( Vector* light )
 //------------------------------------------------------------------------------
 void Terrain::update( Vector* light )
 {
-    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL || lastLight == NULL) {
+    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL) {
         return;
     }
     
-    if (lastLight->x != light->x || lastLight->y != light->y || lastLight->z != light->z) {
+    if (lastLight.x != light->x || lastLight.y != light->y || lastLight.z != light->z) {
         calcTerrainNorm( light );
-        lastLight->setVector(light->x, light->y, light->z);
+        lastLight.setVector(light->x, light->y, light->z);
     }
 }
 
 //------------------------------------------------------------------------------
 float Terrain::getHeight( float x, float z )
 {
-    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL || lastLight == NULL) {
+    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL) {
         return 0.0f;
     }
 
@@ -503,7 +498,7 @@ float Terrain::getHeight( float x, float z )
 //------------------------------------------------------------------------------
 void Terrain::animate( float elapsedTime, Object* c )
 {
-    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL || lastLight == NULL) {
+    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL) {
         return;
     }
     
@@ -656,15 +651,11 @@ void Terrain::unload()
         delete[] color;
         delete[] type;
     }
-    
-    if (lastLight != NULL)
-        delete lastLight;
-    
+      
     vertex = NULL;
     lightIntensity = NULL;
     color = NULL;
     type = NULL;
-    lastLight = NULL;
 }
 
 //------------------------------------------------------------------------------
@@ -692,7 +683,7 @@ void Terrain::drawGrid(void)
 //------------------------------------------------------------------------------
 void Terrain::save( char* filePath, Vector* light)
 {
-    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL || lastLight == NULL) {
+    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL) {
         cout << "Error: Could not save terrain." << endl;
         return;
     }

@@ -103,6 +103,10 @@ void Object::init(void)
     
     isInView = true;
     isDrawEnabled_ = true;
+    
+    lastLight.setVector(0.0f, 0.0f, 0.0f);
+    scaleChanged = true;
+    rotationChanged = true;
 }
 
 void Object::loadScript(string name)
