@@ -1,6 +1,6 @@
 progress = 0
 life = 10
-lives = 100
+lives = 3
 nextShot = 0.0
 nextMissileShot = 0.0
 
@@ -8,6 +8,9 @@ leftDown = 0
 rightDown = 0
 upDown = 0
 downDown = 0
+
+invul = 0.0
+collisionRecover = 0
 
 function on_load(this)
     setModel(this, "Ship.mdl")
@@ -27,6 +30,23 @@ end
 function on_update(this, elapsedTime)
     if nextShot > 0.0 then nextShot = nextShot - elapsedTime end
     if nextMissileShot > 0.0 then nextMissileShot = nextMissileShot - elapsedTime end
+    if invul > 0.0 then invul = invul - elapsedTime end
+
+    if collisionRecover == 1 then
+        isDrawn = getDrawEnabled(this)
+        
+        if isDrawn == 0 then
+            enableDraw(this)
+        else
+            disableDraw(this)
+        end
+        
+        if invul <= 0.0 then
+            enableDraw(this)
+            collisionRecover = 0
+            enableCollisionDetection(this)
+        end
+    end
 
     --stuff = getPosition(obj)
 
@@ -89,6 +109,16 @@ function on_update(this, elapsedTime)
 
         if engine_testKeyPressed(32) == 1 and nextShot <= 0.0 then
             obj = addObject(this, "./scripts/player_shot.lua")
+            radius = getBoundingSphereRadius(this)
+            direction = getDirection(this)
+            direction[1] = direction[1] * radius
+            direction[2] = direction[2] * radius
+            direction[3] = direction[3] * radius
+
+            this_position[1] = this_position[1] + direction[1]
+            this_position[2] = this_position[2] + direction[2]
+            this_position[3] = this_position[3] + direction[3]
+
             setPositionv(obj, this_position)
             nextShot = .40
         end      
@@ -113,7 +143,10 @@ function on_collision(this,temp)
 
     if tempId == 1 then
         life = life - 1
-        if life < 0 then 
+        collisionRecover = 1
+        disableCollisionDetection(this)
+        invul = 2.0
+        if life <= 0 then 
             life = 10
             if lives > 0 then lives = lives - 1 end
         end

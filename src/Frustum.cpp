@@ -70,16 +70,15 @@ void Frustum::extractFromProjectionMatrix(const Matrix &m)
 int Frustum::testSphere(Sphere sphere)
 {
     float distance;
+    Vector origin;
 
     // calculate distance between sphere and each plane //
 	for(int i = 0; i < 6; i++) {
-        Vector origin;
         sphere.getOriginVector(origin);
         
         distance = planes[i].distanceToPoint(origin.x, origin.y, origin.z);
         
-		// if this distance is < -sphere.radius, we are outside
-		
+		// if this distance is < -sphere.radius, we are outside	
 		if(distance < -sphere.getRadius())
 			return(-1);
 

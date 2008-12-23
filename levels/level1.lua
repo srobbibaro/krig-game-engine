@@ -4,6 +4,8 @@ x_start_camera = 110.0 -- 110.0
 x_start_player = x_start_camera - 20.0
 
 bossBattle = 0
+boss = nil
+bossLife = 0
 
 function setAsteroidWave(terrain, x_start, x_end)
     for i = x_start, x_end, 15 do
@@ -117,23 +119,23 @@ function on_load(terrain)
     setAsteroidWave(terrain, 730.0, 810.0)
 	
     -- last wave - crashing ships --
-	obj = addObject(terrain, "./scripts/enemy_ship4.lua")
-	setPosition(obj, 882, 20, 37.5)
+	obj6 = addObject(terrain, "./scripts/enemy_ship4.lua")
+	setPosition(obj6, 882, 20, 37.5)
 		
-	obj = addObject(terrain, "./scripts/enemy_ship5.lua")
-	setPosition(obj, 880, 15, 37.5)
+	obj5 = addObject(terrain, "./scripts/enemy_ship5.lua")
+	setPosition(obj5, 880, 15, 37.5)
 		
-	obj = addObject(terrain, "./scripts/enemy_ship4.lua")
-	setPosition(obj, 890, 20, 37.5)
+	obj4 = addObject(terrain, "./scripts/enemy_ship4.lua")
+	setPosition(obj4, 890, 20, 37.5)
 	
-	obj = addObject(terrain, "./scripts/enemy_ship6.lua")
-	setPosition(obj, 900, 20, 37.5)
+	obj3 = addObject(terrain, "./scripts/enemy_ship6.lua")
+	setPosition(obj3, 900, 20, 37.5)
 	
-	obj = addObject(terrain, "./scripts/enemy_ship6.lua")
-	setPosition(obj, 905, 15, 37.5)
+	obj2 = addObject(terrain, "./scripts/enemy_ship6.lua")
+	setPosition(obj2, 905, 15, 37.5)
 		
-	obj = addObject(terrain, "./scripts/enemy_ship6.lua")
-	setPosition(obj, 910, 20, 37.5)
+	obj1 = addObject(terrain, "./scripts/enemy_ship6.lua")
+	setPosition(obj1, 910, 20, 37.5)
 	
     -- scenery --
 	obj = addObject(terrain, "./scripts/building.lua"),
@@ -313,6 +315,8 @@ function on_update(terrain, elapsedTime)
             -- Create the boss...
             obj = addObject(terrain, "./scripts/boss1.lua")
             setPosition(obj, 995.0, 15.0, 7.5)
+
+            boss = obj
         end
     end
 
@@ -328,7 +332,13 @@ function on_draw()
 end
 
 function on_draw_screen()
-    display_hud(bossBattle)
+    if bossBattle == 1 then
+        bossLife = 0
+        if boss ~= nil then bossLife = getScriptValue(boss, "life") end
+        if bossLife == 0 then boss = nil end
+    end
+
+    display_hud(bossBattle, bossLife)
     display_debug()
     return
 end

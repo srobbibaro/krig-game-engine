@@ -9,7 +9,7 @@ end
 function on_update(this, elapsedTime)
     duration = duration + elapsedTime
 
-    if duration > 5.0 then
+    if duration >= 2.0 then
         removeObject(this)   
     end
 

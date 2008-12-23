@@ -23,9 +23,10 @@ class GameLevel
         unsigned int lists;  // display lists used for rendering
 
         Vector light;
+        
         Player* player;     // player object
-
         Object* camera;     // camera
+        
         Sound* snd;         // pointer to sound class
         
         // colors for sky box
@@ -34,7 +35,6 @@ class GameLevel
         bool complete;
         
         float time;             // current time elapsed since level began running
-        float eventBeginTime;   // beginning time of event
 
         float elapsedTime;  
         

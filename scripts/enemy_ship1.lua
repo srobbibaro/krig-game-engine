@@ -1,3 +1,5 @@
+dofile('./scripts/base_enemy.lua')
+
 function on_load(this)
     setModel(this, "Enemy.mdl")
     setScale(this, 2.0, 2.0, 2.0)
@@ -15,15 +17,6 @@ function on_unload(this)
 end
 
 function on_collision(this, temp)
-    typeId = getTypeId(temp)
-
-    if typeId == 2 then
-        playSound(this, "explosion1.wav")
-        this_position = getPosition(this)
-
-        obj = addObject(this, "./scripts/explosion.lua")
-        setPosition(obj, this_position[1], this_position[2], this_position[3])
-        removeObject(this)
-    end
+    handle_collision(this, temp)
     return
 end

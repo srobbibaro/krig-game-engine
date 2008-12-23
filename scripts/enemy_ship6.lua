@@ -1,3 +1,5 @@
+dofile('./scripts/base_enemy.lua')
+
 function on_load(this)
     setModel(this, "Enemy.mdl")
     setScale(this, 2.0, 2.0, 2.0)
@@ -15,6 +17,7 @@ function on_unload(this)
 end
 
 function on_collision(this, temp)
+    handle_collision(this, temp)
     return
 end
 

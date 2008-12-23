@@ -3,19 +3,12 @@
 //------------------------------------------------------------------------------
 Player::Player()
 : Model()
-{ 
-    active = true;
-    state = NORMAL;
-    //#testActiveZoneEnable = false;
-    
+{   
     //#shotDelay = .75f;
     //#numShots = 3;
     //#numMissiles = 300;
     
     //score = 0;
-    //numLives = 3;
-    
-    //#life = 10;
     
     userControl = true;
 }
@@ -88,6 +81,7 @@ Player::~Player()
 //}
 
 //------------------------------------------------------------------------------
+/*
 void Player::processAI( Object* c, float elapsedTime)
 {
    // I'd like to redo this logic which restricts the player from moving off screen
@@ -106,7 +100,7 @@ void Player::processAI( Object* c, float elapsedTime)
         else if (position.y > c->position.y+10.0f)
             position.y = c->position.y+10.0f;
     }
-   
+ */  
     /* 
     //#    
     if ( numShots < 1 ) {
@@ -114,6 +108,7 @@ void Player::processAI( Object* c, float elapsedTime)
             numShots = 3;
     }
     */
+    /*
    
     // this needs to be fixed to elapsedTime
     animateScript(elapsedTime);
@@ -121,136 +116,9 @@ void Player::processAI( Object* c, float elapsedTime)
      if (particleSystem != NULL)
         particleSystem->update(elapsedTime);
 }
-
-//------------------------------------------------------------------------------
-void Player::animate( float timeElapsed, Camera* c )
-{
-    if ( state == INVUL )
-    {
-        isVisible = !isVisible;
-        
-        /*
-        //#
-        if ( *animCurrTime > ( animStartTime + INVUL_DURATION ) )
-        {
-            state = NORMAL;
-            isVisible = true;
-        }
-        */
-    }
-     
-         // calculate new position and orientation //
-            if ( speed == 0 ) {
-                position.x += velocity.x * timeElapsed;   
-                position.y += velocity.y * timeElapsed;   
-                position.z += velocity.z * timeElapsed;   
-            }
-            else {
-                switch (speedDir)
-                {
-                    case 0:
-                        direction.scale(speed*timeElapsed);
-                        position.x += direction.x;
-                        position.y += direction.y;
-                        position.z += direction.z;
-                        direction.normalize();
-                        break;
-                    case 1:
-                    {
-                        Vector rotationAxis;
-            
-                        rotationAxis.crossProduct(up, direction);
-                        rotationAxis.normalize();
-                        
-                        rotationAxis.scale(speed*timeElapsed);
-                        position.x += rotationAxis.x;
-                        position.y += rotationAxis.y;
-                        position.z += rotationAxis.z;
-                        
-                        break;
-                    }
-                    case 2:
-                        up.scale(speed*timeElapsed);
-                        position.x += up.x;
-                        position.y += up.y;
-                        position.z += up.z;
-                        direction.normalize();
-                        break;
-                }
-            }
-    
-    scale.x += scaleRate.x * timeElapsed;
-    scale.y += scaleRate.y * timeElapsed;
-    scale.z += scaleRate.z * timeElapsed;
-    /////////////////////////////////////////////
-    
-    if (!interp) {
-                if ( 
-                    rotationVelocity.x != 0.0f ||
-                    rotationVelocity.y != 0.0f ||
-                    rotationVelocity.z != 0.0f 
-                ) {
-                    Vector tempV;
-                    Quaternion tempQ;
-	
-                    tempV.x = rotationVelocity.x * timeElapsed;
-                    tempV.y = rotationVelocity.y * timeElapsed;
-                    tempV.z = rotationVelocity.z * timeElapsed;
-	             
-                    tempQ.buildFromEuler(tempV);	
-                    rotation = rotation * tempQ;
-                }
-            }
-            else {
-                float endVal = valInterpEnd - valInterpStart;
-                float curVal = *valInterpPtr - valInterpStart;
-              
-                float t = 0.0f;
-                                              
-                if ( endVal > 0 ) {
-                    if ( curVal > endVal )
-                        t = 1.0f;
-                    else if ( curVal < 0.0f )
-                        t = 0.0f;
-                    else
-                        t = curVal / endVal; 
-                }
-                else if ( endVal < 0 ) {
-                    if ( curVal < endVal )
-                        t = 1.0f;
-                    else if ( curVal > 0.0f )
-                        t = 0.0f;
-                    else
-                        t = curVal / endVal; 
-                }
-                                
-                rotation.slerp(rInterpStart, t, rInterpEnd );
-            }
-            /////////////////////////////////////////////
-        
-    
-    processAI(c, timeElapsed);
-}
+*/
 
 /*
-//------------------------------------------------------------------------------
-void Player::fireShot( float gameSpeed )
-{   
-//#
-    if ( numShots > 0  ) {          
-        numShots--;
-        shotTime = *animCurrTime;
-            
-        pShot = new PlayerShot( MODEL_BLUE_SHOT, animCurrTime, this );
-        float speed = velocity.getScaler(direction);
-        setShot( pShot, (speed + SHOT_SPEED) );
-        
-        add( pShot );
-            
-        s->PlaySFX("laser.wav");          
-    }
-}
-
 //------------------------------------------------------------------------------
 void Player::fireMissle( Object* tobj )
 {

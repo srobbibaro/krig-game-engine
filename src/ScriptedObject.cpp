@@ -20,11 +20,4 @@ ScriptedObject::~ScriptedObject()
 {
 }
 
-//------------------------------------------------------------------------------
-void ScriptedObject::processAI( Object* c, float elapsedTime )
-{     
-   animateScript(elapsedTime);
-    if (particleSystem != NULL)
-        particleSystem->update(elapsedTime);
-}
 

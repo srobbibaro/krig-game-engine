@@ -1,9 +1,9 @@
+dofile('./scripts/base_enemy.lua')
+
 x_min = 0.0
 x_max = 0.0
 y_min = 0.0
 y_max = 0.0
-
-life = 40
 
 shot_timer = 0.0
 
@@ -14,7 +14,6 @@ function set_window()
     x_max = camera_position[1] + math.random(20)
     y_min = camera_position[2] - math.random(20)
     y_max = camera_position[2] + math.random(20)
-
     return
 end
 
@@ -33,7 +32,9 @@ function on_load(this)
     set_window()
     speed = calc_speed()
     setVelocity(this, -speed, 0.0, 0.0)
+
     setTypeId(this, 1)
+    life = 40
     return   
 end
 
@@ -78,21 +79,7 @@ function on_unload(this)
 end
 
 function on_collision(this, temp)
-     typeId = getTypeId(temp)
-
-     if typeId == 2 then
-        life = life - 1
-        playSound(this, "explosion1.wav")
-
-        if life <= 0 then
-            this_position = getPosition(this)
-
-            obj = addObject(this, "./scripts/explosion.lua")
-            setPosition(obj, this_position[1], this_position[2], this_position[3])
-            removeObject(this)
-        end
-    end
-
+    handle_collision(this, temp)
     return
 end
 

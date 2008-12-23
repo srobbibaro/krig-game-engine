@@ -12,20 +12,6 @@ Model::Model()
 }
 
 //------------------------------------------------------------------------------
-Model::Model( string script )
-: Object()
-{ 
-    updatedVertex = NULL;
-    lightIntensity = NULL;
-    
-    if ( script != "" ) {
-        active = true;
-    }
-    
-    scriptName = script;
-}
-
-//------------------------------------------------------------------------------
 Model::~Model()
 {
     unload();
@@ -53,6 +39,11 @@ void Model::load( string tModelKey )
     while ( updatedVertex[ r ] != NULL && r < numVertices-1 ) {
         updatedVertex[++r] = new GLfloat[3];
     }
+    
+    lastLight.setVector(0.0f, 0.0f, 0.0f);
+    scaleChanged = true;
+    rotationChanged = true;
+    radius = 0.0f;
             
     // load in vertices used for model //////
     for ( int i = 0; i < numVertices; i++ ) {    
@@ -112,7 +103,8 @@ void Model::draw(Object* c)
         return;
     
     glPushMatrix();
-    //glTranslatef(x, y, zp);
+    glTranslatef(position.x, position.y, position.z);
+    //glMultMatrixf(transform.data); //#
 
     ModelStorage *m = modelHash[modelKey];
     glBegin( GL_TRIANGLES );
@@ -121,6 +113,7 @@ void Model::draw(Object* c)
                 glColor3fv( m->triangle[i].colors[j] );
                 glTexCoord1f( lightIntensity[m->triangle[i].vertices[j]] ); 
                 glVertex3fv( updatedVertex[m->triangle[i].vertices[j]] ); 
+                //glVertex3fv( m->baseVertex[m->triangle[i].vertices[j]] ); 
             }
         }   
     glEnd();
@@ -137,17 +130,24 @@ void Model::drawOutline(Object* c)
     // model must first be loaded
     if (lightIntensity == NULL || updatedVertex == NULL)
         return;
-        
+
     ModelStorage *m = modelHash[modelKey];
+    
+    glPushMatrix();  
+    glTranslatef(position.x, position.y, position.z);
+    //glMultMatrixf(transform.data); //#  
+
     glColor3f( 0.0f, 0.0f, 0.0f );
        
     glBegin( GL_TRIANGLES );
         for ( int i = 0; i < m->numTriangles; i++ ) {	
             for ( int j = 0; j < 3; j++ ) {
                 glVertex3fv( updatedVertex[m->triangle[i].vertices[j]] );    
+                //glVertex3fv( m->baseVertex[m->triangle[i].vertices[j]] );    
             }
         }
     glEnd();
+    glPopMatrix();
 }
 
 //------------------------------------------------------------------------------
@@ -221,13 +221,25 @@ void Model::update( Vector* light )
     // model must first be loaded
     if (lightIntensity == NULL || updatedVertex == NULL)
         return;
+        
+    if (scaleChanged == false && rotationChanged == false && lastLight.x == light->x &&
+        lastLight.y == light->y && lastLight.z == light->z) {
+        boundingSphere.setSphere(position.x, position.y, position.z, radius);
+        return;
+    }
+    
+    lastLight.x = light->x;
+    lastLight.y = light->y;
+    lastLight.z = light->z;
+    scaleChanged = false;
+    rotationChanged = false;
 
     Vector tempV;
     GLfloat temp;
     Matrix translation;
     Matrix rotationMatrix;
     Matrix scaleMatrix;    
-    Matrix transform;
+//#    Matrix transform;
     
     GLfloat min[] = { 9999.0f, 9999.0f, 9999.0f };
     GLfloat max[] = { -9999.0f, -9999.0f, -9999.0f };
@@ -238,11 +250,13 @@ void Model::update( Vector* light )
     translation.setTranslation( position.x, position.y, position.z );
     
     // setup the transformation matrix //////////
-    transform = translation * rotationMatrix * scaleMatrix;   
+    //#transform = translation * rotationMatrix * scaleMatrix;   
+    transform = rotationMatrix * scaleMatrix;   
     /////////////////////////////////////////////
     
-    ModelStorage *m;
-    m = modelHash[modelKey];
+    ModelStorage *m = modelHash[modelKey];
+    
+    radius = 0.0f;
     
     for ( int i = 0; i < m->numVertices; i++ ) {   
         // transform vertex /////////////////////   
@@ -271,10 +285,22 @@ void Model::update( Vector* light )
                   min[j] = updatedVertex[i][j];
         }
         /////////////////////////////////////////
+       
+        float x = (updatedVertex[i][0]);
+        float y = (updatedVertex[i][1]);
+        float z = (updatedVertex[i][2]);
+        
+        float distance = (x * x) + (y * y) +(z * z);
+                         
+        if (distance > radius)
+            radius = distance;
     }
-
+    
     collisionBox[0].setVector( min[0], min[1], min[2] );
     collisionBox[1].setVector( max[0], max[1], max[2] );
+    
+    radius = sqrt(radius);    
+    boundingSphere.setSphere(position.x, position.y, position.z, radius );
     
     controlPoints[0].setVector( max[0], min[1], min[2] );
     controlPoints[1].setVector( max[0], min[1], max[2] );
@@ -343,119 +369,113 @@ void Model::update( Vector* light )
 
 */
 }
-//------------------------------------------------------------------------------
-void Model::prepare( void ) {} 
+
 //------------------------------------------------------------------------------
 void Model::animate( float timeElapsed, Object* c ) 
 {   
-    //#elapsedTime = timeElapsed;
+    int r =  dynamic_cast<Camera*>(c)->frustum.testSphere(boundingSphere);
+    isInView = (r != -1);
     
-    if ( !active ) {
-        if ( testActiveZone( c ) ) {
-            active = true;
-            //scriptLastTime = *animCurrTime;
-        }
-    }
-    else if ( active ) {
-        //if ( scriptNum < 0 && !testActiveZone( c ) ) {
-        if ( scriptName != "" && !testActiveZone( c ) ) {
-            //state = DEAD;
-        }
-        else {
-            animateScript(timeElapsed);
-            processAI( c, timeElapsed );
+    animateScript(timeElapsed);
 
-            // calculate new position and orientation //
-            if ( speed == 0 ) {
-                position.x += velocity.x * timeElapsed;   
-                position.y += velocity.y * timeElapsed;   
-                position.z += velocity.z * timeElapsed;   
-            }
-            else {
-                switch (speedDir)
-                {
-                    case 0:
-                        direction.scale(speed*timeElapsed);
-                        position.x += direction.x;
-                        position.y += direction.y;
-                        position.z += direction.z;
-                        direction.normalize();
-                        break;
-                    case 1:
-                    {
-                        Vector rotationAxis;
+    // calculate new position and orientation //
+    if ( speed == 0 ) {
+        position.x += velocity.x * timeElapsed;   
+        position.y += velocity.y * timeElapsed;   
+        position.z += velocity.z * timeElapsed;   
+    }
+    else {
+        switch (speedDir)
+        {
+            case 0:
+                direction.scale(speed*timeElapsed);
+                position.x += direction.x;
+                position.y += direction.y;
+                position.z += direction.z;
+                direction.normalize();
+                break;
+            case 1:
+            {
+                Vector rotationAxis;
             
-                        rotationAxis.crossProduct(up, direction);
-                        rotationAxis.normalize();
+                rotationAxis.crossProduct(up, direction);
+                rotationAxis.normalize();
                         
-                        rotationAxis.scale(speed*timeElapsed);
-                        position.x += rotationAxis.x;
-                        position.y += rotationAxis.y;
-                        position.z += rotationAxis.z;
-                        
-                        break;
-                    }
-                    case 2:
-                        up.scale(speed*timeElapsed);
-                        position.x += up.x;
-                        position.y += up.y;
-                        position.z += up.z;
-                        direction.normalize();
-                        break;
-                }
+                rotationAxis.scale(speed*timeElapsed);
+                position.x += rotationAxis.x;
+                position.y += rotationAxis.y;
+                position.z += rotationAxis.z;
+                break;
             }
-            
-            scale.x += scaleRate.x * timeElapsed;
-            scale.y += scaleRate.y * timeElapsed;
-            scale.z += scaleRate.z * timeElapsed;
-            
-            if (!interp) {
-                if ( 
-                    rotationVelocity.x != 0.0f ||
-                    rotationVelocity.y != 0.0f ||
-                    rotationVelocity.z != 0.0f 
-                ) {
-                    Vector tempV;
-                    Quaternion tempQ;
-	
-                    tempV.x = rotationVelocity.x * timeElapsed;
-                    tempV.y = rotationVelocity.y * timeElapsed;
-                    tempV.z = rotationVelocity.z * timeElapsed;
-	             
-                    tempQ.buildFromEuler(tempV);	
-                    rotation = rotation * tempQ;
-                }
+            case 2:
+            {
+                up.scale(speed*timeElapsed);
+                position.x += up.x;
+                position.y += up.y;
+                position.z += up.z;
+                direction.normalize();
+                break;
             }
-            else {
-                float endVal = valInterpEnd - valInterpStart;
-                float curVal = *valInterpPtr - valInterpStart;
-              
-                float t = 0.0f;
-                                              
-                if ( endVal > 0 ) {
-                    if ( curVal > endVal )
-                        t = 1.0f;
-                    else if ( curVal < 0.0f )
-                        t = 0.0f;
-                    else
-                        t = curVal / endVal; 
-                }
-                else if ( endVal < 0 ) {
-                    if ( curVal < endVal )
-                        t = 1.0f;
-                    else if ( curVal > 0.0f )
-                        t = 0.0f;
-                    else
-                        t = curVal / endVal; 
-                }
-                                
-                rotation.slerp(rInterpStart, t, rInterpEnd );
-            }
-            /////////////////////////////////////////////
         }
     }
     
-      if (particleSystem != NULL)
+    if (scaleRate.x != 0.0f ||
+        scaleRate.y != 0.0f ||
+        scaleRate.z != 0.0f) {        
+        scale.x += scaleRate.x * timeElapsed;
+        scale.y += scaleRate.y * timeElapsed;
+        scale.z += scaleRate.z * timeElapsed;
+        scaleChanged = true;
+    }
+            
+    if (!interp) {
+        if ( rotationVelocity.x != 0.0f ||
+             rotationVelocity.y != 0.0f ||
+             rotationVelocity.z != 0.0f ) {
+                rotationChanged = true;
+             
+                Vector tempV;
+                Quaternion tempQ;
+	
+                tempV.x = rotationVelocity.x * timeElapsed;
+                tempV.y = rotationVelocity.y * timeElapsed;
+                tempV.z = rotationVelocity.z * timeElapsed;
+	             
+                tempQ.buildFromEuler(tempV);	
+                rotation = rotation * tempQ;
+        }
+    }
+    else {
+        rotationChanged = true;
+        
+        float endVal = valInterpEnd - valInterpStart;
+        float curVal = *valInterpPtr - valInterpStart;
+              
+        float t = 0.0f;
+                                              
+        if ( endVal > 0 ) {
+            if ( curVal > endVal )
+                t = 1.0f;
+            else if ( curVal < 0.0f )
+                t = 0.0f;
+            else
+                t = curVal / endVal; 
+        }
+        else if ( endVal < 0 ) {
+            if ( curVal < endVal )
+                t = 1.0f;
+            else if ( curVal > 0.0f )
+                t = 0.0f;
+            else
+                t = curVal / endVal; 
+        }
+                                
+        rotation.slerp(rInterpStart, t, rInterpEnd );
+    }
+    /////////////////////////////////////////////
+    
+    // The particle systems might not always live here...
+    if (particleSystem != NULL)
         particleSystem->update(timeElapsed);
 }
 
@@ -479,16 +499,24 @@ void ModelStorage::load( char fileName[] )
             
             // load in vertices used for model //////
             for ( int i = 0; i < numVertices; i++ ) {    
-                for ( int j = 0; j < 3; j++ )
-                {    
+                for ( int j = 0; j < 3; j++ ) {    
                     fin >> temp;
-                    baseVertex[i][j] = temp; // * initalScale;    
+                    baseVertex[i][j] = temp;   
                 }
 
                 fin >> normal[i].x;
                 fin >> normal[i].y;
                 fin >> normal[i].z;
-            }
+                
+                float x = (baseVertex[i][0]);
+                float y = (baseVertex[i][1]);
+                float z = (baseVertex[i][2]);
+        
+                float distance = sqrt( (x * x) + (y * y) +(z * z) );
+                         
+                if (distance > radius)
+                    radius = distance;
+            }      
             /////////////////////////////////////////
    
             fin >> numTriangles;

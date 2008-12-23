@@ -16,7 +16,6 @@
 class GameTimer
 {
     public:
-
         bool init(void);
         float getElapsedSeconds(unsigned long );
         float getFPS(void);

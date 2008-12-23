@@ -1,7 +1,7 @@
 dofile("./levels/level_lib.lua")
 
 x_start_camera = 50.0
-x_start_player = x_start_camera - 10.0
+x_start_player = x_start_camera - 30.0
 x_start_boss   = x_start_camera + 10.0
 
 function on_load(terrain)
@@ -44,7 +44,7 @@ function on_draw()
 end
 
 function on_draw_screen()
-    display_hud(0)
+    display_hud(0,0)
     display_debug()
     return
 end

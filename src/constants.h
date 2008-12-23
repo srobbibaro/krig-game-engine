@@ -26,21 +26,14 @@ using namespace std;
 #define BUFFER_SIZE 65536
 /////////////////////////////
 
+#define MAX_PATH_LEN        128
+
 // object states ////////////////////////////
 #define DEAD        0
 #define NORMAL      1
-#define INVUL       2
-#define EXPLOSION   3
-#define BACKGROUND  4
 /////////////////////////////////////////////
     
-// animation times //////////////////////////
-#define EXPLOSION_DURATION  2.0f
-#define INVUL_DURATION      2.0f
-/////////////////////////////////////////////
-
 // Object Extended Scripting Language ////
-#define SCRIPT_SET_TEST_ZONE_ENABLE_VAL 136
 #define SCRIPT_SET_STATE_VAL            137
 #define SCRIPT_STORE_STATE_IN_MEM       138
 //////////////////////////////////////////
@@ -56,12 +49,5 @@ using namespace std;
 #define TEXT_SCRIPT_SET_SIZE        97
 #define TEXT_SCRIPT_SET_TYPE        98
 /////////////////////////////////////////            
-        
-#define ACTIVE_VOLUME_LENGTH 400.0f
-
-#define NO_SCRIPT           ""
-#define SHOT_SPEED          25.0f
-
-#define MAX_PATH_LEN        128
 
 #endif

@@ -7,13 +7,10 @@
 class ScriptedObject : public Model
 {
       public:
-        void prepare() {}
         
         ScriptedObject();
         ScriptedObject( string );
         virtual ~ScriptedObject();
-        
-        void processAI( Object*, float elapsedTime ); //# Camera*
         
         void printTypeName(void) 
          {

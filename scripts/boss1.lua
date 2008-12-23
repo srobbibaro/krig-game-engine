@@ -1,3 +1,5 @@
+dofile('./scripts/base_enemy.lua')
+
 state = 0
 
 function on_load(this)
@@ -6,6 +8,8 @@ function on_load(this)
     setRotation(this, 0.0, -1.57, 0.0)
 
     setVelocity(this, -5.0, 0.0, 0.0)
+    life = 40
+    setTypeId(this, 3)
     return
 end
 
@@ -39,5 +43,6 @@ function on_unload(this)
 end
 
 function on_collision(this, temp)
+    handle_collision(this, temp)
     return 
 end

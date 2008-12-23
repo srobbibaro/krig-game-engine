@@ -132,11 +132,10 @@ void Camera::update( float timeElapsed)
     translationMatrix.setTranslation(-position.x, -position.y, -position.z);
     
     modelViewMatrix = rotationMatrix * translationMatrix;
-    
-    
+       
     final = projectionMatrix * modelViewMatrix;
     
-     if (particleSystem != NULL)
+    if (particleSystem != NULL)
         particleSystem->update(timeElapsed);
 }
 

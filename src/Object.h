@@ -16,6 +16,7 @@
 #include "Sound.h"
 #include "ScriptedObject.h"
 #include "ParticleSystem.h"
+#include "Sphere.h"
 
 #include "Camera.h"
 
@@ -33,7 +34,6 @@ class ParticleSystem;
 class Object : public ObjectNode
 { 
     public:
-        Object *temp;
     //protected:
         // orientation //
         Vector position;            // x,y,z position of object
@@ -55,12 +55,16 @@ class Object : public ObjectNode
         // collision detection //
         Vector collisionBox[2];    // 0 = min points, 1 = max points
         Vector controlPoints[3];   // used for orienting objects on surfaces
+        Sphere boundingSphere;
             
         // state attributes //   
         unsigned char state;    // objects current state
         bool active;            // is object active?
-        bool isVisible;         // is the object visible
-        bool collision;        // was there a collision?
+        bool isDrawEnabled_;
+        
+        bool isInView;          // is the object within the camera's view
+        
+        bool isCollisionDetectionEnabled_;
                                    
         // pointer to sound class //
         Sound *s;           // pointer to sound library
@@ -88,13 +92,14 @@ class Object : public ObjectNode
         
         int typeId;
         
-        bool testCollision;
+          
+            Vector lastLight;
+            bool scaleChanged;
+            bool rotationChanged;
         
     //public:
         Object();
         virtual ~Object();
-            
-        void setState(unsigned char);    
             
         void drawObjects( Object* ); // Camera*
         void drawObjectOutlines( Object* ); // Camera*
@@ -113,26 +118,20 @@ class Object : public ObjectNode
         virtual void drawShadow ( Vector* ) {}
         virtual void handleCollision( Object* ) = 0;
         virtual void update( Vector* ) = 0;
-        virtual void prepare( void ) = 0;
         virtual void animate( float, Object* ) = 0; // Camera*
-        virtual void handleDeath() = 0;
         ////////////////////////////////////////////            
 
-            
         void showCollisionBox(); 
         void showControlTriangle();
+        
         float calcTriangleCenter( void );
-        bool testActiveZone( Object* ); // Camera*
-        void setSoundClass( Sound * );
-             
+          
         void init(void);
+        void cleanup(void);
         
         void loadScript(string file);
-        void unloadScript();
-        
-        void setInterpolationVariable(int index);
-    
         void animateScript( float elapsedTime );
+        void unloadScript();
         
         // virtual functions
         virtual void printTypeName(void) = 0;
@@ -155,6 +154,10 @@ class Object : public ObjectNode
         void setScaleRate(GLfloat, GLfloat, GLfloat);
         void setScaleRate(const Vector &v);
         
+        void setDrawEnabled(bool isDrawEnabled) { isDrawEnabled_ = isDrawEnabled; }
+        bool getDrawEnabled() { return isDrawEnabled_; }
+        
+        bool getInView() { return isInView; }
         void setParticleSystem(int particleSystemNumber);
         
         float getScriptValue(const char* s)
@@ -169,6 +172,17 @@ class Object : public ObjectNode
             
             return value;
         }
+        
+        void setSoundClass( Sound * );
+        void setInterpolationVariable(int index);
+        void setState(unsigned char);    
+        
+        void setCollisionDetectionEnabled(bool isCollisionDetectionEnabled)
+        {
+            isCollisionDetectionEnabled_ = isCollisionDetectionEnabled;
+        }
+        
+        bool getCollisionDetectionEnabled() { return isCollisionDetectionEnabled_; }
 };
     
 #endif

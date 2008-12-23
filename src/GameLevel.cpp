@@ -111,7 +111,7 @@ void GameLevel::drawLevel()
 
 //------------------------------------------------------------------------------
 void GameLevel::postDraw()
-{
+{   
     // Attempt to execute the script only if the lua state has already been
     // initialized with a script
     if (L == NULL)
@@ -197,7 +197,6 @@ bool GameLevel::loadLevelLua( string file )
 {   
     complete = false;
     time = 0;
-    eventBeginTime = 0;
     id = 0;
     scriptName = file;
     
@@ -269,9 +268,7 @@ bool GameLevel::loadLevelLua( string file )
     //position.x = (float)lua_tonumber(L, -3);
     //lua_pop(L, 1);
                    
-    terrain->add(player);
-        
-    
+    terrain->add(player);  
     ////////////////////////////////////////////
              
       cout << "building quad tree..." << endl;
@@ -528,8 +525,6 @@ void GameLevel::processScripts()
 /*
    ScriptCommand t;
    
-   
-   
    // process text scripts ///
     for ( int i = 0; i < numTextScripts; i++ ) {
       if ( !textScript[i].isRunning() )
@@ -540,7 +535,6 @@ void GameLevel::processScripts()
             (scriptText[t.objNum]).processScriptCommand( t );
       }
    }
-   
    */
 }
 

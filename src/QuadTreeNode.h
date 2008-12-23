@@ -15,7 +15,6 @@ class QuadTreeNode
         Sphere boundingSphere;
         
         QuadTreeNode* next;
-        
 };
 
 #endif

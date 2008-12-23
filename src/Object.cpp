@@ -21,6 +21,40 @@ Object* object;
 Object::Object() 
 : ObjectNode()
 {
+    s = NULL;
+    particleSystem = NULL;
+    L = NULL;
+    keyState = NULL;
+    valInterpPtr = NULL;
+    
+    init();
+}
+
+//------------------------------------------------------------------------------
+Object::~Object()
+{
+   cleanup();
+}
+
+void Object::cleanup(void)
+{
+    if (L != NULL)
+        lua_close(L);
+        
+    if (particleSystem != NULL)
+        delete particleSystem;
+        
+    L = NULL;
+    s = NULL;
+    particleSystem = NULL;
+    keyState = NULL;
+    valInterpPtr = NULL;
+}
+
+void Object::init(void)
+{
+    cleanup();
+    
     scale.setVector( 1.0f, 1.0f, 1.0f );
     scaleRate.setVector( 0.0f, 0.0f, 0.0f );
     
@@ -34,38 +68,12 @@ Object::Object()
     position.setVector(0.0f, 0.0f, 0.0f);
     
     state = NORMAL; 
-    active = false;
-
-    isVisible = true;
-    s = NULL;
-    collision = false;
-       
-    //#testActiveZoneEnable = true;
+    active = true;
     
-    particleSystem = NULL;
-    L = NULL;
+    isCollisionDetectionEnabled_ = true;
     
     typeId = 0;
-    
-    init();
-}
 
-//------------------------------------------------------------------------------
-Object::~Object()
-{
-    s = NULL;
-    
-     if (L != NULL)
-        lua_close(L);
-        
-    if (particleSystem != NULL)
-        delete particleSystem;
-    
-    particleSystem = NULL;
-}
-
-void Object::init(void)
-{
     rotation.loadMultIdentity();
     baseDirection.setVector( 0.0f, 0.0f, 1.0f );
     direction.setVector( 0.0f, 0.0f, 1.0f );
@@ -83,23 +91,18 @@ void Object::init(void)
     valInterpStart = 0.0f;
     valInterpEnd = 0.0f;
     interp = false;
-        
-    //scriptLastTime = 0.0f;
-    //scriptNum = NO_SCRIPT;
-    //scriptName = NO_SCRIPT;
-    //currentScriptCommand = 0;
     
     //#animCurrTime = NULL;  
     
-    L = NULL;
+    scriptName = "";
     
     suspend = false;
     suspendTime = 0.0f;
+     
+    boundingSphere.setSphere(0.0f, 0.0f, 0.0f, 0.1f);
     
-    if (particleSystem != NULL)
-        delete particleSystem;
-    
-    particleSystem = NULL;
+    isInView = true;
+    isDrawEnabled_ = true;
 }
 
 void Object::loadScript(string name)
@@ -211,7 +214,8 @@ void Object::animateScript(float elapsedTime)
 //------------------------------------------------------------------------------
 void Object::drawObjects( Object* c )
 {
-    if ( active == true && state != DEAD && isVisible == true )
+    //if ( active == true && state != DEAD && isVisible == true )
+    if (isInView && isDrawEnabled_ && state != DEAD)
         draw(c);
     
     if ( next != NULL )
@@ -221,30 +225,30 @@ void Object::drawObjects( Object* c )
 //------------------------------------------------------------------------------
 void Object::drawObjectOutlines( Object* c )
 {
-    if ( active == true && state != DEAD && isVisible == true)
+    //if ( active == true && state != DEAD && isVisible == true)
+    if (isInView && isDrawEnabled_ && state != DEAD)
         drawOutline( c );
     
     if ( next != NULL )
-    {    
         ((Object*)next)->drawObjectOutlines(c);
-    }
 }
 
 //------------------------------------------------------------------------------
 void Object::drawShadows( Vector* l )
 {
-    if ( active == true && state != DEAD && isVisible == true )
+    //if ( active == true && state != DEAD && isVisible == true )
+    if (isInView && isDrawEnabled_ && state != DEAD)
         drawShadow( l );
     
-    if ( next != NULL )
-    {    
+    if ( next != NULL )   
         ((Object*)next)->drawShadows(l);
-    }
 }
 //------------------------------------------------------------------------------
 void Object::updateObjects( Vector* light  )
 {
-    if ( active == true && state != DEAD )
+    //if ( active == true && state != DEAD )
+    //if (isInView && state != DEAD)
+    if (state != DEAD)
         update( light );
     
     if ( next != NULL )
@@ -262,16 +266,18 @@ void Object::processCollisions( Object* temp )
     Vector boxA[2];
     Vector boxB[2];  
 		
-    boxA[0] = collisionBox[0];
-    boxA[1] = collisionBox[1];
-    boxB[0].setVector(temp->collisionBox[0].x, temp->collisionBox[0].y, temp->collisionBox[0].z );
-    boxB[1].setVector(temp->collisionBox[1].x, temp->collisionBox[1].y, temp->collisionBox[1].z );
+    boxA[0].setVector(collisionBox[0].x + position.x, collisionBox[0].y + position.y, collisionBox[0].z + position.z);
+    boxA[1].setVector(collisionBox[1].x + position.x, collisionBox[1].y + position.y, collisionBox[1].z + position.z);
+    boxB[0].setVector(temp->collisionBox[0].x + temp->position.x, temp->collisionBox[0].y + temp->position.y, temp->collisionBox[0].z + temp->position.z);
+    boxB[1].setVector(temp->collisionBox[1].x + temp->position.x, temp->collisionBox[1].y + temp->position.y, temp->collisionBox[1].z + temp->position.z);
 
-    if ( (Object*)this != temp && active == true && state == NORMAL && (collision == true || temp->state != INVUL ) 
-    && this != NULL && temp != NULL )
-    {
-        if(
-            ((boxA[0].x >= boxB[0].x && boxA[0].x <= boxB[1].x) ||
+       if ( this != temp && 
+         active && temp->active && 
+         state == NORMAL && temp->state == NORMAL &&
+         isCollisionDetectionEnabled_ && temp->isCollisionDetectionEnabled_ &&
+         this != NULL && temp != NULL ) {
+ 
+        if( ((boxA[0].x >= boxB[0].x && boxA[0].x <= boxB[1].x) ||
             (boxA[1].x >= boxB[0].x && boxA[1].x <= boxB[1].x)  ||
             (boxB[0].x >= boxA[0].x && boxB[0].x <= boxA[1].x)  ||
             (boxB[1].x >= boxA[0].x && boxB[1].x <= boxA[1].x)) &&
@@ -282,28 +288,36 @@ void Object::processCollisions( Object* temp )
             ((boxA[0].z >= boxB[0].z && boxA[0].z <= boxB[1].z) ||
             (boxA[1].z >= boxB[0].z && boxA[1].z <= boxB[1].z)  ||
             (boxB[0].z >= boxA[0].z && boxB[0].z <= boxA[1].z)  ||
-            (boxB[1].z >= boxA[0].z && boxB[1].z <= boxA[1].z)) 
-        )
-        {
-            handleCollision( temp );
-            
-            if ( next != NULL )
-                ((Object*)next)->processCollisions(temp);
+            (boxB[1].z >= boxA[0].z && boxB[1].z <= boxA[1].z)) ) {  
+    
+    //# try a sphere-based collision
+    /*
+        float radius1 = boundingSphere.getRadius();
+        float radius2 = boundingSphere.getRadius();
+        float radius_sum = radius1 + radius2;
+        //radius_sum = radius_sum * radius_sum;
+        
+        float distance = sqrt(
+            (position.x - temp->position.x)*( position.x - temp->position.x)+
+            (position.y - temp->position.y)*( position.y - temp->position.y)+
+            (position.z - temp->position.z)*( position.z - temp->position.z));
+
+            if (radius_sum >= distance) {  */
+                handleCollision( temp );
+                temp->handleCollision(this);
         }
     }
 
     if ( temp->next != NULL )
-    {    
         processCollisions(((Object*)temp->next));
-    }
 }
 
 //------------------------------------------------------------------------------
 void Object::prepareObjects()
 {
-    if ( next != NULL ) {
+    if ( next != NULL )
         ((Object*)next)->prepareObjects();
-    }
+
     processCollisions( getRoot() );
 }
 
@@ -313,8 +327,7 @@ void Object::animateObjects( float timeElapsed, Object* c )
     animate( timeElapsed, c );
      
     if ( next != NULL )
-        ((Object*)next)->animateObjects( timeElapsed, c );
-        
+        ((Object*)next)->animateObjects( timeElapsed, c );       
 }
 
 //------------------------------------------------------------------------------
@@ -324,24 +337,6 @@ float Object::calcTriangleCenter( void )
     float finalHeight = ( .5 )*th1 + ( .5 * controlPoints[2].y );
     
     return( finalHeight );
-}
-
-//------------------------------------------------------------------------------
-bool Object::testActiveZone( Object* c )
-{   
-   //#if ( !testActiveZoneEnable )
-   //#   return true;
-
-    return ( 
-        ( position.z > ( c->position.z - ACTIVE_VOLUME_LENGTH ) ) && 
-        ( position.z < ( c->position.z + ACTIVE_VOLUME_LENGTH ) ) && // near-far
-         
-        ( position.x > ( c->position.x - ACTIVE_VOLUME_LENGTH ) ) && 
-        ( position.x < ( c->position.x + ACTIVE_VOLUME_LENGTH ) ) && // left-right
-                       
-        ( position.y > ( c->position.y - ACTIVE_VOLUME_LENGTH ) ) &&  
-        ( position.y < ( c->position.y + ACTIVE_VOLUME_LENGTH ) )    // up-down
-    );
 }
 
 //------------------------------------------------------------------------------
@@ -378,9 +373,22 @@ void Object::showCollisionBox( void )
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	
 	glPushMatrix();
+	   glTranslatef(position.x, position.y, position.z);
 		
         glColor3f(1.0f, 0.0f, 0.0f);
-			
+    
+            
+        float radius = boundingSphere.getRadius();
+        
+        float rad = 6.28f/16.0f;
+        
+        glBegin(GL_LINE_LOOP);
+            for (int i = 0; i < 16; i++) {
+                glVertex3f((cos(rad * i) * radius), (sin(rad * i) * radius), 0.0f);
+            }
+         glEnd();    
+        
+		
         glBegin( GL_QUADS );
             
         glVertex3f( collisionBox[0].x, collisionBox[1].y, collisionBox[1].z );
@@ -414,7 +422,8 @@ void Object::showCollisionBox( void )
         glVertex3f( collisionBox[0].x, collisionBox[0].y, collisionBox[1].z );
            
         glEnd();
-     
+    
+      
     glPopMatrix();	
 	glEnable( GL_CULL_FACE );
 	glPolygonMode(GL_FRONT, GL_FILL);	

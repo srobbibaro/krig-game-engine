@@ -195,6 +195,7 @@ static int setRotationLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 	object->setRotationEuler(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+	object->rotationChanged = true;
 	return 0;
 }
 
@@ -203,6 +204,7 @@ static int setRotationvLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 	object->setRotationEuler(loadVector(L));
+    object->rotationChanged = true;
 	return 0;
 }
 
@@ -514,6 +516,7 @@ static int setRotationAxisLua(lua_State *L)
     tv.normalize();
             
     object->rotation.buildFromAxis(tv, lua_tonumber(L,5));
+   	object->rotationChanged = true;
     
 	return 0;
 }
@@ -527,6 +530,7 @@ static int setRotationAxisvLua(lua_State *L)
     tv.normalize();
             
     object->rotation.buildFromAxis(tv, lua_tonumber(L,2));
+   	object->rotationChanged = true;
     
 	return 0;
 }
@@ -608,15 +612,15 @@ static int addObjectLua(lua_State *L)
     const char *s = lua_tostring(L, 2);
     string script = string(s);
     
-    object->temp = new ScriptedObject();
+    Object *temp = new ScriptedObject();
     
-    object->temp->setSoundClass(object->s);
-    object->temp->keyState = object->temp->keyState;
-    object->temp->loadScript(script);
+    temp->setSoundClass(object->s);
+    temp->keyState = object->keyState;
+    temp->loadScript(script);
     
-    object->add(object->temp);
+    object->add(temp);
     
-	lua_pushlightuserdata(L, (void*)object->temp);
+	lua_pushlightuserdata(L, (void*)temp);
 	return 1;
 }
 
@@ -663,6 +667,7 @@ static int setScaleLua(lua_State *L)
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
     
 	object->setScale(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+	object->scaleChanged = true;
 	return 0;
 }
 
@@ -672,6 +677,7 @@ static int setScalevLua(lua_State *L)
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
     
 	object->setScale(loadVector(L));
+    object->scaleChanged = true;
 	return 0;
 }
 
@@ -972,8 +978,64 @@ static int getLevelIdLua(lua_State *L)
 
 static int setLevelIdLua(lua_State *L)
 {
-    lgameLevel->setId(lua_tonumber(L, 1));
+    lgameLevel->setId((int)lua_tonumber(L, 1));
     return 0;
+}
+
+static int enableCollisionDetectionLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    object->setCollisionDetectionEnabled(true);
+    return 0;
+}
+
+static int disableCollisionDetectionLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    object->setCollisionDetectionEnabled(false);
+    return 0;
+}
+
+static int getCollisionDetectionEnabledLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    lua_pushnumber(L, object->getCollisionDetectionEnabled());
+    return 1;
+}
+
+static int enableDrawLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    object->setDrawEnabled(true);
+    return 0;
+}
+
+static int disableDrawLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    object->setDrawEnabled(false);
+    return 0;
+}
+
+static int getDrawEnabledLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    lua_pushnumber(L, object->getDrawEnabled());
+    return 1;
+}
+
+static int getBoundingSphereRadiusLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    lua_pushnumber(L, object->boundingSphere.getRadius());
+    return 1;
 }
 
 static int registerFunctions(lua_State *L, int level)
@@ -1048,6 +1110,13 @@ static int registerFunctions(lua_State *L, int level)
     lua_register(L, "getTypeId", getTypeIdLua); 
     lua_register(L, "setTypeId", setTypeIdLua); 
     lua_register(L, "getScriptValue", getScriptValueLua);
+    lua_register(L, "getCollisionDetectionEnabled", getCollisionDetectionEnabledLua);
+    lua_register(L, "enableCollisionDetection", enableCollisionDetectionLua);
+    lua_register(L, "disableCollisionDetection", disableCollisionDetectionLua);
+    lua_register(L, "getDrawEnabled", getDrawEnabledLua);
+    lua_register(L, "enableDraw", enableDrawLua);
+    lua_register(L, "disableDraw", disableDrawLua);
+    lua_register(L, "getBoundingSphereRadius", getBoundingSphereRadiusLua);
     
     // game level only
     if (level < 2) {

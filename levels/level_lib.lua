@@ -28,11 +28,11 @@ function display_debug()
     return
 end
 
-function display_hud(bossBattle)
+function display_hud(bossBattle, bossLife)
     player = getPlayer()
 
     ShipEnergy = getScriptValue(player, "life")
-    EnemyEnergy = 30
+    EnemyEnergy = bossLife 
     EnergyBar = -0.99 + (0.068 * ShipEnergy)
     BossEnergy = 0.99 - (0.017 * EnemyEnergy)
 

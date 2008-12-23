@@ -33,6 +33,8 @@ using namespace std;
         GLfloat** baseVertex;        // list of base vertices ( not transformed )
         Vector* normal;              // list of normals that comprise the model
         Triangle* triangle;     
+        
+        float radius;
     
         void load( char[] );
     };
@@ -45,19 +47,23 @@ using namespace std;
             string modelKey;
             
             // transformed data //
-            GLfloat* lightIntensity;     // light intensity due to each normal, updated per cycle
-            GLfloat** updatedVertex;     // list of vertices that comprise the model
+            GLfloat *lightIntensity;     // light intensity due to each normal, updated per cycle
+            GLfloat **updatedVertex;     // list of vertices that comprise the model
+
+            Matrix transform;
+            
+            float radius;
+          
             
             // this is in here for shadows...???
             int numEdges;
-            Edge* edges;
+            Edge *edges;
     
-            TransformedEdge* sEdge;
+            TransformedEdge *sEdge;
             int numSEdge;
         
         public:
             Model();
-            Model( string );
             virtual ~Model();
             void load( string );
             void unload( void );
@@ -66,14 +72,10 @@ using namespace std;
             void drawOutline( Object* ); // Camera*
             void drawShadow ( Vector* );
             void handleCollision( Object* );
-            void update( Vector* );
-            void prepare( void ); 
+            void update( Vector* ); 
             void animate( float, Object* ); // Camera*
-            void handleDeath( void ) {}
             
             void buildEdges();
-            
-            virtual void processAI( Object* c, float elapsedTime ) {}; // Camera*
             
             void printTypeName() {}
 	};

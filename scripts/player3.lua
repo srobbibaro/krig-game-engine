@@ -57,6 +57,31 @@ function on_update(this, elapsedTime)
 
         if engine_testKeyPressed(32) == 1 and nextShot <= 0.0 then
             obj = addObject(this, "./scripts/player_shot.lua")
+            radius = getBoundingSphereRadius(this)
+            direction = getDirection(this)
+            direction[1] = direction[1] * radius
+            direction[2] = direction[2] * radius
+            direction[3] = direction[3] * radius
+
+            this_position[1] = this_position[1] + direction[1]
+            this_position[2] = this_position[2] + direction[2]
+            this_position[3] = this_position[3] + direction[3]
+
+            obj = addObject(this, "./scripts/player_shot.lua")
+            setPosition(obj, this_position[1] - .5, this_position[2], this_position[3])
+		    setScale(obj, 2.0, 2.0, 2.0)
+		    setSpeed(obj, 0, 100.0)
+		    
+            obj = addObject(this, "./scripts/player_shot.lua")
+		    setPosition(obj, this_position[1] + .5, this_position[2], this_position[3])
+		    setScale(obj, 2.0, 2.0, 2.0)
+		    setSpeed(obj, 0, 100.0)
+            
+            nextShot = .40
+        end      
+
+        if engine_testKeyPressed(32) == 1 and nextShot <= 0.0 then
+            obj = addObject(this, "./scripts/player_shot.lua")
             setPosition(obj, this_position[1] - .5, this_position[2], this_position[3])
 		setScale(obj, 2.0, 2.0, 2.0)
 		setSpeed(obj, 0, 100.0)

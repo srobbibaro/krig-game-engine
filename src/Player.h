@@ -10,12 +10,9 @@ class Player : public Model
                 
    // public:
         //void handleCollision( Object* );
-        void prepare() {}
         
         Player();
         virtual ~Player();
-        void processAI( Object*, float ); // Camera*
-        void animate( float, Camera* );
         
         bool userControl;
         

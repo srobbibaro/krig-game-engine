@@ -144,7 +144,7 @@ function on_draw()
     player = getPlayer()
     plr_pos = getPosition(player)
 
-    for i=1,3 do
+    for i=1,4 do
     gl.PushMatrix()
     gl.Translate(plr_pos[1], plr_pos[2], plr_pos[3] - (25.0 * i))
     gl.Color(0.0, 0.4, 0.7)

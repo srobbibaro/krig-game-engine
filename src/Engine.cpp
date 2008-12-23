@@ -186,16 +186,17 @@ void Engine::gameCycle()
         if ( currentLevel->checkComplete() ) {}
         else {
             if (!isPaused) {
-                currentLevel->processScripts();
+                //currentLevel->processScripts();
                 
                 mainCamera->update(currentLevel->getElapsedTime());
             
                 currentLevel->animateLevel();
-                currentLevel->animateText();
+                //currentLevel->animateText();
                 
                 //processCommands();
 
                 currentLevel->updateLevel();
+            
                 
                 currentLevel->prepareLevel();   // collision detection
 
