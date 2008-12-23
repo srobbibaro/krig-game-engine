@@ -1,7 +1,7 @@
 dofile("./levels/level_lib.lua")
 
 x_start_camera = 50.0
-x_start_player = x_start_camera - 30.0
+x_start_player = x_start_camera --- 30.0
 x_start_boss   = x_start_camera + 10.0
 
 function on_load(terrain)
@@ -16,10 +16,12 @@ function on_load(terrain)
     player = getPlayer()
     setScript(player, "./scripts/player1.lua")
     setPosition(player, x_start_player, 20.0, 7.5)
+    --setVelocity(player, 0.0, 0.0, 0.0)
 
     camera = getCamera()
     setScript(camera, "./scripts/camera1.lua")
     setPosition(camera, x_start_camera, 20.0, 35.0)
+    setVelocity(camera, 0.0, 0.0, 0.0)
 
     addParticleSystem(camera, 2)
 
