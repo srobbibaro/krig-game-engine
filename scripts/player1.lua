@@ -136,7 +136,7 @@ end
 function on_collision(this,temp)
     tempId = getTypeId(temp)
 
-    if tempId == 1 or tempId == 10 or typeId == 4 then
+    if tempId == 1 or tempId == 10 or tempId == 4 then
         life = life - 1
         collisionRecover = 1
         disableCollisionDetection(this)
