@@ -18,6 +18,7 @@ Music::Music() {
 // Cleans up OpenAL buffer information.
 
 Music::~Music() {
+    StopSong();
     alDeleteBuffers( 2, Buffers );
     alDeleteSources( 1, &Source );
 }
@@ -55,6 +56,7 @@ void Music::PlaySong( const char* file_path, bool rep ) {
         }
         alBufferData( Buffers[i], Format, Sound_Buffer, Size, Ogg_Info->rate );
     }
+    Size = 0;
 
     alSourceQueueBuffers( Source, 2, Buffers );
     alSourcePlay( Source );
@@ -67,6 +69,9 @@ void Music::PlaySong( const char* file_path, bool rep ) {
 // currently allocated song buffers.  Takes no parameters.
 
 void Music::StopSong() {
+    if ( !Playing ) 
+        return;
+
     alSourceStop( Source );  // Stops OpenAL.
     ov_clear( &Ogg_File );   // Closes the music file.
 
