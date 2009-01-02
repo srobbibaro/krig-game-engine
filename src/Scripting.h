@@ -757,13 +757,13 @@ static int playBgMusicLua(lua_State *L)
 
 static int stopBgMusicLua(lua_State *L)
 {
-    lgameLevel->getMusic()->StopSong();
+    //lgameLevel->getMusic()->StopSong();
     return 0;
 }
 
 static int pauseBgMusicLua(lua_State *L)
 {
-    lgameLevel->getMusic()->PauseSong();
+    //lgameLevel->getMusic()->PauseSong();
     return 0;
 }
 

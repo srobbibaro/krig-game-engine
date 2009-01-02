@@ -26,6 +26,7 @@ GameLevel::GameLevel( unsigned int tLists)
     id = 0;
     
     //music_ = new Music();
+    //music_ = NULL;
     
     /////
 #if EDIT
@@ -425,7 +426,7 @@ void GameLevel::unloadLevel()
     
     removeObjects();
     
-    music_->StopSong();
+    //music_->StopSong();
     
     if (quadTree_ != NULL)
         delete quadTree_;
