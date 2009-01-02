@@ -57,3 +57,11 @@ function on_update(this, elapsedTime)
     return
 end
 
+function on_unload(this)
+    return
+end
+
+function on_collision(this, temp)
+    handle_collision(this, temp)
+    return
+end
