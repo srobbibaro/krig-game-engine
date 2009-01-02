@@ -277,18 +277,8 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit52]
-FileName=..\..\..\..\Documents and Settings\srobbibaro\Desktop\LuaGL\include\LuaGL.h
-CompileCpp=1
-Folder=krig
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
 [Unit54]
-FileName=src\KeyState.h
+FileName=src\Music.cpp
 CompileCpp=1
 Folder=krig
 Compile=1
@@ -298,7 +288,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit56]
-FileName=src\Music.h
+FileName=src\SoundFX.cpp
 CompileCpp=1
 Folder=krig
 Compile=1
@@ -746,7 +736,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit53]
-FileName=src\KeyState.cpp
+FileName=src\KeyState.h
 CompileCpp=1
 Folder=krig
 Compile=1
@@ -766,7 +756,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit55]
-FileName=src\Music.cpp
+FileName=src\Music.h
 CompileCpp=1
 Folder=krig
 Compile=1
@@ -776,7 +766,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit57]
-FileName=src\SoundFX.cpp
+FileName=src\SoundFX.h
 CompileCpp=1
 Folder=krig
 Compile=1
@@ -786,7 +776,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit58]
-FileName=src\SoundFX.h
+FileName=..\..\..\..\Documents and Settings\srobbibaro\Desktop\LuaGL\include\LuaGL.h
 CompileCpp=1
 Folder=krig
 Compile=1
@@ -829,6 +819,16 @@ BuildCmd=
 FileName=src\GameLevel.cpp
 CompileCpp=1
 Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit52]
+FileName=src\KeyState.cpp
+CompileCpp=1
+Folder=krig
 Compile=1
 Link=1
 Priority=1000

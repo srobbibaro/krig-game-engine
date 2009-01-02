@@ -745,12 +745,14 @@ static int addParticleSystemLua(lua_State *L)
 
 static int playBgMusicLua(lua_State *L)
 {   
+    /*
     const char *s = lua_tostring(L, 1);
     int repeat = (int)lua_tonumber(L, 2);
     lgameLevel->setMusicPath(string(s));
     lgameLevel->getMusic()->StopSong();
     lgameLevel->getMusic()->PlaySong(s, repeat);  
     return 0;
+    */
 }
 
 static int stopBgMusicLua(lua_State *L)
