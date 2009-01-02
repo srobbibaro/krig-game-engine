@@ -25,7 +25,7 @@ GameLevel::GameLevel( unsigned int tLists)
     
     id = 0;
     
-    music_ = new Music();
+    //music_ = new Music();
     
     /////
 #if EDIT

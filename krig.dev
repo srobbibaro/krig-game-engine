@@ -1,7 +1,7 @@
 [Project]
 FileName=krig.dev
 Name=krig
-UnitCount=58
+UnitCount=57
 Type=1
 Ver=1
 ObjFiles=
@@ -767,16 +767,6 @@ BuildCmd=
 
 [Unit57]
 FileName=src\SoundFX.h
-CompileCpp=1
-Folder=krig
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit58]
-FileName=..\..\..\..\Documents and Settings\srobbibaro\Desktop\LuaGL\include\LuaGL.h
 CompileCpp=1
 Folder=krig
 Compile=1
