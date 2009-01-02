@@ -25,8 +25,7 @@ GameLevel::GameLevel( unsigned int tLists)
     
     id = 0;
     
-    //music_ = new Music();
-    //music_ = NULL;
+    music_ = new Music();
     
     /////
 #if EDIT
@@ -426,8 +425,6 @@ void GameLevel::unloadLevel()
     
     removeObjects();
     
-    //music_->StopSong();
-    
     if (quadTree_ != NULL)
         delete quadTree_;
         
@@ -437,14 +434,14 @@ void GameLevel::unloadLevel()
     if (L != NULL)
         lua_close(L);
      
-    //if (music_ != NULL)
-    //    delete music_;
+    if (music_ != NULL)
+        delete music_;
         
     terrain = NULL;
     player = NULL;
     camera = NULL;
     L = NULL;
-    //music_ = NULL;   
+    music_ = NULL;   
 }
 
 //------------------------------------------------------------------------------

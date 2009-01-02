@@ -201,7 +201,7 @@ void Engine::gameCycle()
              
                 currentLevel->drawLevel();
                 
-                //currentLevel->getMusic()->Update();
+                currentLevel->getMusic()->Update();
                 glutSwapBuffers();
             }
         }

@@ -27,7 +27,7 @@ class GameLevel
         Player* player;     // player object
         Object* camera;     // camera
         
-        //Music *music_;
+        Music *music_;
         
         // colors for sky box
         float bgcolor[3][3];
@@ -91,7 +91,7 @@ class GameLevel
             lightDirection_.normalize();
         }
                 
-        //Music* getMusic() { return music_; }
+        Music* getMusic() { return music_; }
         
         void setId(int tid) { id = tid; }
         int getId() { return id; }
