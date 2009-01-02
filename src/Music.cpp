@@ -53,7 +53,7 @@ void Music::PlaySong( const char* file_path, bool rep ) {
                     );
             Size += Bytes;
         }
-        alBufferData( Buffers[0], Format, Sound_Buffer, Size, Ogg_Info->rate );
+        alBufferData( Buffers[i], Format, Sound_Buffer, Size, Ogg_Info->rate );
     }
 
     alSourceQueueBuffers( Source, 2, Buffers );
