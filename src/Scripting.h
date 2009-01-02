@@ -618,11 +618,10 @@ static int playSoundLua(lua_State *L)
     const char *s = lua_tostring(L, 2);
     string sound = string(s);
     
-    Sound *snd = lgameLevel->getSoundClass();
+    SoundFX *soundFx = lengine->getSoundFxClass();
     
-    if (snd != NULL) {
-        snd->PlaySFX(sound);
-    }
+    if (soundFx != NULL) 
+        soundFx->PlaySFX(sound);
     
     return 0;
 }
@@ -745,25 +744,24 @@ static int addParticleSystemLua(lua_State *L)
 }
 
 static int playBgMusicLua(lua_State *L)
-{
+{   
     const char *s = lua_tostring(L, 1);
     int repeat = (int)lua_tonumber(L, 2);
     lgameLevel->setMusicPath(string(s));
-    lgameLevel->getSoundClass()->StopSong();
-    lgameLevel->getSoundClass()->PlaySong(s, repeat);
-    
+    lgameLevel->getMusic()->StopSong();
+    lgameLevel->getMusic()->PlaySong(s, repeat);  
     return 0;
 }
 
 static int stopBgMusicLua(lua_State *L)
 {
-    lgameLevel->getSoundClass()->StopSong();
+    lgameLevel->getMusic()->StopSong();
     return 0;
 }
 
 static int pauseBgMusicLua(lua_State *L)
 {
-    lgameLevel->getSoundClass()->PauseSong();
+    lgameLevel->getMusic()->PauseSong();
     return 0;
 }
 

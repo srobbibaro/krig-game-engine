@@ -12,7 +12,7 @@ Engine::Engine()
     keyState = new KeyState();
     keyState->initKeyState();
     
-    sounds = new Sound();
+    soundFx_ = new SoundFX();
     loadModels();
       
     currentLevel = NULL;
@@ -184,18 +184,14 @@ void Engine::gameCycle()
     if (currentLevel != NULL) {
         if ( currentLevel->checkComplete() ) {}
         else {
-            if (!isPaused) {
-                //currentLevel->processScripts();
-                
+            if (!isPaused) {  
                 mainCamera->update(currentLevel->getElapsedTime());
             
                 currentLevel->animateLevel();
-                //currentLevel->animateText();
                 
                 //processCommands();
 
                 currentLevel->updateLevel();
-            
                 
                 currentLevel->prepareLevel();   // collision detection
 
@@ -205,7 +201,7 @@ void Engine::gameCycle()
              
                 currentLevel->drawLevel();
                 
-                sounds->Update(); 
+                currentLevel->getMusic()->Update();
                 glutSwapBuffers();
             }
         }
@@ -906,7 +902,6 @@ void Engine::loadLevel(const char* levelFile)
     mainCamera->unloadScript();
     
     currentLevel = new GameLevel(lists);
-    currentLevel->setSoundClass( sounds ); 
     currentLevel->setCamera( mainCamera );
     
     lgameLevel = currentLevel;
@@ -1050,8 +1045,8 @@ void Engine::shutdown()
         delete c4;
     }
     
-    if (sounds != NULL)
-        delete sounds;
+    if (soundFx_ != NULL)
+        delete soundFx_;
         
     if (timer != NULL)
         delete timer;
@@ -1068,6 +1063,5 @@ void Engine::shutdown()
 void Engine::pause()
 {
     isPaused = !isPaused;
-    sounds->PauseSong();
 }
 

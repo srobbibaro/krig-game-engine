@@ -15,7 +15,7 @@
 11/24/08 ~ Steve
     x implement "setTestZoneEnable" lua function. (12/22/08 ~ Steve: no longer applies)
     x determine whether it would be beneficial to over-ride "on_update" so that engine calls a different specified function. (12/22/08 ~ Steve: added ability to change script which should be sufficient).
-    * determine whether or not ScriptedObject::animCurrTime is necessary especially in regards to interpolation... would elaped time/ duration suffice?
+    x determine whether or not ScriptedObject::animCurrTime is necessary especially in regards to interpolation... would elaped time/ duration suffice? (1/2/09 ~ Steve)
 
 11/26/08 ~ Steve
     x Commit newest snow boss script to both krig branches.
@@ -86,7 +86,7 @@
     x Implement getLightDirection lua scripting function. (12/16/08 ~ Steve)
 
 12/22/08 ~ Steve
-    * Andy: Consider creating two seperate classes Music and Sound (or similar) from the existing Sound.h/cpp.
+    x Andy: Consider creating two seperate classes Music and Sound (or similar) from the existing Sound.h/cpp. (1/2/09 ~ Andy)
     * Steve: 'G' key should not map to down arrow key.
     * Steve: Fix terrain collision detection (use QuadTree and test spheres).
     * Steve: Implement ability to set variables in a script (opposite of getScriptValue).

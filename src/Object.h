@@ -13,7 +13,6 @@
 //////////////////////////////////////////////////////////////////
 
 #include "ObjectNode.h"
-#include "Sound.h"
 #include "ScriptedObject.h"
 #include "ParticleSystem.h"
 #include "Sphere.h"

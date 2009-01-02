@@ -8,7 +8,7 @@
 
 #include "matrix.h"
 #include "Quaternion.h"
-#include "sound.h"
+#include "SoundFX.h"
 #include "GameTimer.h"
 #include "KeyState.h"
 
@@ -40,13 +40,7 @@ using namespace std;
 
 // Text Extended Scripting Language ////
 #define TEXT_SCRIPT_CLEAR_ALL       90
-#define TEXT_SCRIPT_SET_VELOCITY    91
-#define TEXT_SCRIPT_SET_POSITION    92
-#define TEXT_SCRIPT_SET_COLOR       93
-#define TEXT_SCRIPT_SET_FADE        94
-#define TEXT_SCRIPT_SET_ALPHA       95
 #define TEXT_SCRIPT_SET_VISIBLE     96
-#define TEXT_SCRIPT_SET_SIZE        97
 #define TEXT_SCRIPT_SET_TYPE        98
 /////////////////////////////////////////            
 

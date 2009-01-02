@@ -27,8 +27,7 @@ class Engine
         // cell shading global variables ////////
         GLuint shaderTexture[1];
         
-        // Sound class ///////
-        Sound *sounds;
+        SoundFX *soundFx_;
         
         string levelScript;
         
@@ -132,6 +131,8 @@ class Engine
             currentLevel = storedLevel;
             storedLevel = temp;
         }
+        
+        SoundFX* getSoundFxClass() { return soundFx_; }
 };
 
 #endif

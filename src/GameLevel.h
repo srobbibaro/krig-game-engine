@@ -5,7 +5,7 @@
 #include "Camera.h"
 #include "Text.h"
 #include "QuadTree.h"
-#include "sound.h"
+#include "Music.h"
 
 extern "C" {  
     #include "lua/lua.h"
@@ -27,7 +27,7 @@ class GameLevel
         Player* player;     // player object
         Object* camera;     // camera
         
-        Sound* snd;         // pointer to sound class
+        Music *music_;
         
         // colors for sky box
         float bgcolor[3][3];
@@ -72,7 +72,6 @@ class GameLevel
         Terrain* getTerrain( void );
         Camera* getCamera( void );
         Player* getPlayer( void );
-        void setSoundClass( Sound * );
         Object* findEnemy( void );
         float findDistance( Object*, Object* );
     
@@ -80,10 +79,6 @@ class GameLevel
         bool checkComplete( void );
         void unloadLevel(void);
         void removeObjects( void );
-        void processScripts( void );
-        
-        void animateText();
-        void drawText( void );
         
         string getMusicPath() { return (musicPath); }
         void setMusicPath(string music) { musicPath = music; }
@@ -96,7 +91,7 @@ class GameLevel
             lightDirection_.normalize();
         }
                 
-        Sound* getSoundClass() { return snd; }
+        Music* getMusic() { return music_; }
         
         void setId(int tid) { id = tid; }
         int getId() { return id; }

@@ -174,12 +174,12 @@ void Sound::Update()
                         BUFFER_SIZE - size, 
                         0, 2, 1, &section
                     );
-
+/*
             if (bytes == 0 && repeat)
                 ov_raw_seek(&oggFile, 1);
             else if (bytes == 0 && !repeat)
                 StopSong();
-
+*/
             size += bytes;
         }
             

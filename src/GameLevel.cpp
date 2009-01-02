@@ -25,7 +25,7 @@ GameLevel::GameLevel( unsigned int tLists)
     
     id = 0;
     
-    snd = NULL;
+    music_ = new Music();
     
     /////
 #if EDIT
@@ -77,6 +77,8 @@ void GameLevel::drawLevel()
     if (controlTriangles)
     terrain->showControlTriangle();
     
+    //terrain->drawShadows( light );
+    
     // Attempt to execute the script only if the lua state has already been
     // initialized with a script
     if (L == NULL)
@@ -93,18 +95,6 @@ void GameLevel::drawLevel()
     
     // Call the function with 2 argument and no return values
     lua_call(L, 2, 0);
-
-    // get the result //
-    //position.z = (float)lua_tonumber(L, -1);
-    //position.y = (float)lua_tonumber(L, -2);
-    //position.x = (float)lua_tonumber(L, -3);
-    //lua_pop(L, 1);
-    
-   /*
-    drawText();
-    */
-             
-    //terrain->drawShadows( light );
 }
 
 //------------------------------------------------------------------------------
@@ -126,18 +116,6 @@ void GameLevel::postDraw()
     
     // Call the function with 2 argument and no return values
     lua_call(L, 2, 0);
-
-    // get the result //
-    //position.z = (float)lua_tonumber(L, -1);
-    //position.y = (float)lua_tonumber(L, -2);
-    //position.x = (float)lua_tonumber(L, -3);
-    //lua_pop(L, 1);
-
-   /*
-    drawText();
-    */
-             
-    //terrain->drawShadows( light );
 }
 
 //------------------------------------------------------------------------------
@@ -266,10 +244,6 @@ bool GameLevel::loadLevelLua( string file )
     cout << "finished..." << endl << endl;
     return (true);
 }
-
-//------------------------------------------------------------------------------
-void GameLevel::setSoundClass( Sound *sound )
-{ snd = sound; }
 
 //------------------------------------------------------------------------------
 void GameLevel::setCamera( Camera* tCamera )
@@ -459,12 +433,15 @@ void GameLevel::unloadLevel()
     
     if (L != NULL)
         lua_close(L);
+     
+    if (music_ != NULL)
+        delete music_;
         
     terrain = NULL;
     player = NULL;
     camera = NULL;
     L = NULL;
-    snd = NULL;   
+    music_ = NULL;   
 }
 
 //------------------------------------------------------------------------------
@@ -482,40 +459,6 @@ void GameLevel::removeObjects()
         
         obj = temp;
     }
-}
-
-//------------------------------------------------------------------------------
-void GameLevel::processScripts()
-{
-/*
-   ScriptCommand t;
-   
-   // process text scripts ///
-    for ( int i = 0; i < numTextScripts; i++ ) {
-      if ( !textScript[i].isRunning() )
-         textScript[i].evaluateBeginExpression();
-           
-      while (  textScript[i].getNextCommand(t) ) {
-          if ( t.objNum < numTextStrings )
-            (scriptText[t.objNum]).processScriptCommand( t );
-      }
-   }
-   */
-}
-
-
-//------------------------------------------------------------------------------
-void GameLevel::animateText()
-{
-    //for ( int i = 0; i < numTextStrings; i++ ) 
-        //scriptText[i].updateText( timeElapsed );
-}
-
-//------------------------------------------------------------------------------
-void GameLevel::drawText()
-{
-    //for ( int i = 0; i < numTextStrings; i++ ) 
-        //scriptText[i].displayText();
 }
 
 //------------------------------------------------------------------------------
