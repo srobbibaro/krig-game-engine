@@ -21,11 +21,8 @@ Object* object;
 Object::Object() 
 : ObjectNode()
 {
-    s = NULL;
     particleSystem = NULL;
     L = NULL;
-    keyState = NULL;
-    valInterpPtr = NULL;
     
     init();
 }
@@ -45,61 +42,45 @@ void Object::cleanup(void)
         delete particleSystem;
         
     L = NULL;
-    s = NULL;
     particleSystem = NULL;
-    keyState = NULL;
-    valInterpPtr = NULL;
 }
 
 void Object::init(void)
 {
     cleanup();
     
-    scale.setVector( 1.0f, 1.0f, 1.0f );
-    scaleRate.setVector( 0.0f, 0.0f, 0.0f );
-    
     velocity.setVector(0.0f, 0.0f, 0.0f);
+    speed.setVector(0.0f, 0.0f, 0.0f);
+    scaleRate.setVector( 0.0f, 0.0f, 0.0f ); 
+    rotationVelocity.setVector(0.0f, 0.0f, 0.0f);
+    
+    setRotationEuler(0.0f, 0.0f, 0.0f); 
     position.setVector(0.0f, 0.0f, 0.0f);
-    setRotationEuler(0.0f, 0.0f, 0.0f);
+    scale.setVector( 1.0f, 1.0f, 1.0f );
     
-    collisionBox[0].setVector( 0.0f, 0.0f, 0.0f );
-    collisionBox[1].setVector( 0.0f, 0.0f, 0.0f );
-    
-    position.setVector(0.0f, 0.0f, 0.0f);
-    
-    state = NORMAL; 
-    active = true;
-    
-    isCollisionDetectionEnabled_ = true;
-    
-    typeId = 0;
-
     rotation.loadMultIdentity();
     baseDirection.setVector( 0.0f, 0.0f, 1.0f );
     direction.setVector( 0.0f, 0.0f, 1.0f );
     up.setVector(0.0f, 1.0f, 0.0f);
-          
-    speed = 0.0f;
-    speedDir = 0;
-    
-    velocity.setVector(0.0f, 0.0f, 0.0f);
             
+    // set default orientation and disable interpolation
     rInterpStart.loadMultIdentity();
     rInterpEnd.loadMultIdentity();
     
-    tieMemVarIndex = 0;
-    valInterpStart = 0.0f;
-    valInterpEnd = 0.0f;
-    interp = false;
+    valInterpBegin_ = valInterpCurrent_ = valInterpEnd_ = 0.0f;
+    isInterpolationEnabled_ = false;
     
-    //#animCurrTime = NULL;  
+    // setup default collision detection
+    boundingSphere.setSphere(0.0f, 0.0f, 0.0f, 0.0f);
+    collisionBox[0].setVector( 0.0f, 0.0f, 0.0f );
+    collisionBox[1].setVector( 0.0f, 0.0f, 0.0f );
+    isCollisionDetectionEnabled_ = true;
     
+    state = NORMAL; 
+    active = true;
     scriptName = "";
-    
-    suspend = false;
     suspendTime = 0.0f;
-     
-    boundingSphere.setSphere(0.0f, 0.0f, 0.0f, 0.1f);
+    typeId = 0;
     
     isInView = true;
     isDrawEnabled_ = true;
@@ -188,11 +169,10 @@ void Object::animateScript(float elapsedTime)
         return;
         
     // If the script is suspended, do not run until time has elapsed
-    if (suspend) {
+    if (suspendTime > 0.0f) {
         suspendTime -= elapsedTime; 
         if (suspendTime > 0.0f) 
             return;
-        suspend = false;
         suspendTime = 0.0f;
     }
     
@@ -350,16 +330,7 @@ float Object::calcTriangleCenter( void )
 /*
 int Object::processExtendedCommand( const ScriptCommand &t )
 {  
-        case SCRIPT_SET_TEST_ZONE_ENABLE_VAL:
-            op = (int)t.p1;
-            
-            if (op == 0)
-                testActiveZoneEnable = false;
-            else
-                testActiveZoneEnable = true;
-            
-            break;
-        case SCRIPT_SET_STATE_VAL:
+         case SCRIPT_SET_STATE_VAL:
             state = (int)t.p1;
             break;
         case SCRIPT_STORE_STATE_IN_MEM:
@@ -446,7 +417,7 @@ void Object::showControlTriangle()
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	
 	glPushMatrix();
-		
+	   glTranslatef( position.x, position.y, position.z);	
         glColor3f(1.0f, 0.0f, 0.0f);
         glBegin( GL_TRIANGLES );
             
@@ -509,32 +480,12 @@ void Object::setVelocity( const Vector &v )
 { velocity = v; }      
 
 //------------------------------------------------------------------------------
-void Object::setTimer( float* temp )
-{
-    //#animCurrTime = temp;   
-}
+void Object::setSpeed( GLfloat x, GLfloat y, GLfloat z )
+{ speed.setVector( x, y, z ); }
 
 //------------------------------------------------------------------------------
-void Object::setInterpolationVariable(int index)
-{
-    switch (index)
-    {
-        case 0:
-            //#valInterpPtr = animCurrTime;
-            break;
-        case 1:
-            valInterpPtr = &position.x;
-            break;
-        case 2:
-            valInterpPtr = &position.y;
-            break;
-        case 3:
-            valInterpPtr = &position.z;
-            break;
-        //#default:
-            //#valInterpPtr = animCurrTime;
-    }
-}
+void Object::setSpeed( const Vector &v )
+{ speed = v; }      
 
 void Object::setParticleSystem(int particleSystemNumber)
 {
@@ -563,10 +514,6 @@ void Object::setScaleRate( GLfloat x, GLfloat y, GLfloat z )
 //------------------------------------------------------------------------------
 void Object::setScaleRate( const Vector &v )
 { scaleRate = v; }
-
-//------------------------------------------------------------------------------
-void Object::setSoundClass ( Sound *snd )
-{ s = snd; }
 
 //------------------------------------------------------------------------------
 Object* Object::getRoot()

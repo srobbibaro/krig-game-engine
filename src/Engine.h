@@ -15,26 +15,22 @@ using namespace std;
 class Engine
 {
     private:
-        GameLevel* currentLevel;    // current level
+        GameLevel *currentLevel, *storedLevel;
         GameTimer* timer;           // game's timer
         Camera *mainCamera, *c1, *c2, *c3, *c4;
         
         float timeElapsed;          // time elapsed in game
-        float totalTime;
         unsigned int lists;         // lists used for rendering
        
         KeyState *keyState;
         
         // cell shading global variables ////////
-        Matrix tempMatrix;
         GLuint shaderTexture[1];
         
         // Sound class ///////
         Sound *sounds;
         
         string levelScript;
-        
-        Vector* light;
         
         lua_State* L;  
         
@@ -67,6 +63,7 @@ class Engine
         float last_height, last_red, last_green, last_blue;
         bool paint;
         bool paintColor;
+        Vector* light;
     
     public:
         Engine();                   // initialize game
@@ -128,7 +125,13 @@ class Engine
             updateTerrain(xpos,zpos,height, type, red, green, blue);
             return;
         }
-      
+        
+        void swapLevel()
+        {
+            GameLevel *temp = currentLevel;
+            currentLevel = storedLevel;
+            storedLevel = temp;
+        }
 };
 
 #endif

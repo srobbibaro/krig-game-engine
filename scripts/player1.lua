@@ -13,6 +13,7 @@ downDown = 0
 
 invul = 0.0
 collisionRecover = 0
+interpTime = 0.0
 
 function on_load(this)
     setModel(this, "Ship.mdl")
@@ -34,6 +35,7 @@ function on_update(this, elapsedTime)
     if nextMissileShot > 0.0 then nextMissileShot = nextMissileShot - elapsedTime end
     if invul > 0.0 then invul = invul - elapsedTime end
 
+    -- handle invul --
     if collisionRecover == 1 then
         isDrawn = getDrawEnabled(this)
         
@@ -50,10 +52,7 @@ function on_update(this, elapsedTime)
         end
     end
 
-    --stuff = getPosition(obj)
-
-    --print("x=" .. stuff[1] .. " y=" .. stuff[2] .. " z=" .. stuff[3])
-
+    -- handle individual states
     if progress == 0 then
         camera = getCamera()
         this_position = getPosition(this)
@@ -73,16 +72,21 @@ function on_update(this, elapsedTime)
         progress = 2
     elseif progress == 2 then
         this_rotation = getRotation(this)
-        -- timer = getTimer(this)
-        -- setInterpolationVariable(this, 0, timer, (timer + 0.5))
-        -- setInterpolationRotationStartv(this, this_rotation)
-        -- setInterpolationRotationEnd(this, 0.0, 1.57, 0.0)
-        -- setInterpolationEnable(this, 1)
-        suspend(this, 0.75)
+        setInterpolationVariableBeginValue(this, 0.0)
+        setInterpolationVariableEndValue(this, 0.5)
+        setInterpolationVariableCurrentValue(this, 0.0)
+        setInterpolationRotationStartv(this, this_rotation)
+        setInterpolationRotationEnd(this, 0.0, 1.57, 0.0)
+        setInterpolationEnable(this, 1)
         progress = 3
     elseif progress == 3 then
-        setInterpolationEnable(this, 0)
-        progress = 4
+        interpTime = interpTime + elapsedTime
+        setInterpolationVariableCurrentValue(this, interpTime)
+
+        if interpTime > 0.5 then
+            setInterpolationEnable(this, 0)
+            progress = 4
+        end
     elseif progress == 4 then
         this_position = getPosition(this)
         this_velocity = getVelocity(this)
@@ -97,15 +101,15 @@ function on_update(this, elapsedTime)
         if engine_testKeyPressed(100) == 1 then leftDown = 1 end
         if engine_testKeyPressed(102) == 1 then rightDown = 1 end
 
-	  if engine_testKeyReleased(101) == 1 then upDown = 0 end
+	    if engine_testKeyReleased(101) == 1 then upDown = 0 end
         if engine_testKeyReleased(103) == 1 then downDown = 0 end
         if engine_testKeyReleased(100) == 1 then leftDown = 0 end
         if engine_testKeyReleased(102) == 1 then rightDown = 0 end
 
-	  if upDown == 1 then this_velocity[2] = this_velocity[2] + 10 end
+	    if upDown == 1 then this_velocity[2] = this_velocity[2] + 10 end
         if downDown == 1 then this_velocity[2] = this_velocity[2] - 10 end
         if leftDown == 1 then this_velocity[1] = this_velocity[1] - 10 end
-	  if rightDown == 1 then this_velocity[1] = this_velocity[1] + 10 end
+	    if rightDown == 1 then this_velocity[1] = this_velocity[1] + 10 end
 
         setVelocityv(this, this_velocity)
 
@@ -114,9 +118,9 @@ function on_update(this, elapsedTime)
             nextShot = .40
         end      
 
-	  if engine_testKeyPressed(this, 109) == 1 and nextMissileShot <= 0.0 then
-            obj = addObject(this, "./scripts/player_missile.lua")
-            setPosition(obj, this_position)
+	    if engine_testKeyPressed(this, 109) == 1 and nextMissileShot <= 0.0 then
+            --obj = addObject(this, "./scripts/player_missile.lua")
+            obj = setShot(this, "./scripts/player_shot.lua") 
             nextMissileShot = .75
         end      
 

@@ -22,7 +22,11 @@ function on_update(elapsedTime)
         loadLevel(levels[1]) 
         setLevelId(1)
     end
-    
+   
+    if engine_testKeyPressed(string.byte("*", 1)) == 1 then
+        swapLevel()
+    end
+
     if engine_testKeyPressed(string.byte("q", 1)) == 1 or 
        engine_testKeyPressed(string.byte("Q", 1)) == 1 then 
        shutdown()

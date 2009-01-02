@@ -13,14 +13,12 @@ extern int luaopen_opengl (lua_State *L);
 GameLevel::GameLevel( unsigned int tLists)
 { 
     lists = tLists;
-    complete = false;
+    isComplete_ = false;
     
     terrain = NULL;
 
     player = NULL;
     camera = NULL;
-
-    time = 0;
     
     musicPath = "";
     scriptName = "";
@@ -38,8 +36,8 @@ GameLevel::GameLevel( unsigned int tLists)
     bboxes = false;
     controlTriangles = false;
     
-    q = new QuadTree();
-    l = new DisplayList();
+    quadTree_ = new QuadTree();
+    displayList_ = new DisplayList();
     
     L = NULL;
     
@@ -161,19 +159,13 @@ void GameLevel::updateLevel()
     
     // Call the function with 2 argument and no return values
     lua_call(L, 2, 0);
+  
+    terrain->updateObjects( &lightDirection_ );
 
-    // get the result //
-    //position.z = (float)lua_tonumber(L, -1);
-    //position.y = (float)lua_tonumber(L, -2);
-    //position.x = (float)lua_tonumber(L, -3);
-    //lua_pop(L, 1);
-    
-    terrain->updateObjects( &light );
-
-    l->clearList();
+    displayList_->clearList();
     dynamic_cast<Camera*>(camera)->frustum.extractFromProjectionMatrix(dynamic_cast<Camera*>(camera)->final);
-    q->buildDisplayList(l, dynamic_cast<Camera*>(camera));
-    terrain->l = l;
+    quadTree_->buildDisplayList(displayList_, dynamic_cast<Camera*>(camera));
+    terrain->l = displayList_;
     
     dynamic_cast<Camera*>(camera)->draw(camera);
 }
@@ -187,16 +179,13 @@ void GameLevel::prepareLevel()
 //------------------------------------------------------------------------------
 void GameLevel::animateLevel()
 {
-    time += elapsedTime;    // update levels current time
-    
     terrain->animateObjects(elapsedTime, dynamic_cast<Camera*>(camera));
 }
 
 //------------------------------------------------------------------------------
 bool GameLevel::loadLevelLua( string file )
 {   
-    complete = false;
-    time = 0;
+    isComplete_ = false;
     id = 0;
     scriptName = file;
     
@@ -233,25 +222,12 @@ bool GameLevel::loadLevelLua( string file )
     
     if (camera == NULL) {
         cout << "Error: Camera was not allocated in GameLevel class.\n";
-        Sleep(5000);
         exit (1);
     }
     
     lplayer = player;
     lcamera = camera;
     lgameLevel = this;
-    
-    player->setSoundClass(snd);
-    player->keyState = keyState;
-    
-    camera->setSoundClass(snd);
-    camera->keyState = keyState;
-    
-    terrain->setSoundClass(snd);
-    terrain->keyState = keyState;
-    
-    lplayer = player;
-    lcamera = camera;
      
     // Find the update function and call it
     lua_getglobal(L, "on_load");
@@ -271,27 +247,24 @@ bool GameLevel::loadLevelLua( string file )
     terrain->add(player);  
     ////////////////////////////////////////////
              
-      cout << "building quad tree..." << endl;
-      q->buildTree(terrain);
-      //q->traverseTree();  
+    cout << "building quad tree..." << endl;
+    quadTree_->buildTree(terrain);
+    //q->traverseTree();  
        
-      cout << "building display list..." << endl;
-      q->buildDisplayList(l, dynamic_cast<Camera*>(camera));
-      //q->buildLeafList(l);
-      cout << "traverse list..." << endl;
-      l->traverseList();
-      //Sleep(10000);
-      //exit(1);
+    cout << "building display list..." << endl;
+    quadTree_->buildDisplayList(displayList_, dynamic_cast<Camera*>(camera));
+    //q->buildLeafList(l);
+    cout << "traverse list..." << endl;
+    displayList_->traverseList();
+    //Sleep(10000);
+    //exit(1);
                                       
-      cout << "finished building quad tree..." << endl;
+    cout << "finished building quad tree..." << endl;
             
-      terrain->l = l;
+    terrain->l = displayList_;
    
-     cout << "finished..." << endl << endl;
-     //lua_close(L);
-     //L = NULL;
-     
-     return (true);
+    cout << "finished..." << endl << endl;
+    return (true);
 }
 
 //------------------------------------------------------------------------------
@@ -458,9 +431,7 @@ float GameLevel::findDistance ( Object* obj1, Object* obj2 )
 
 //------------------------------------------------------------------------------
 bool GameLevel::checkComplete(void)
-{
-    return complete;
-}
+{ return isComplete_; }
 
 //------------------------------------------------------------------------------
 void GameLevel::unloadLevel()
@@ -476,21 +447,15 @@ void GameLevel::unloadLevel()
 	   
         // Call the function with 1 argument and no return values
         lua_call(L, 1, 0);
-
-        // get the result //
-        //position.z = (float)lua_tonumber(L, -1);
-        //position.y = (float)lua_tonumber(L, -2);
-        //position.x = (float)lua_tonumber(L, -3);
-        //lua_pop(L, 1);
     }
     
     removeObjects();
     
-    if (q != NULL)
-        delete q;
+    if (quadTree_ != NULL)
+        delete quadTree_;
         
-    if (l != NULL)
-        delete l;
+    if (displayList_ != NULL)
+        delete displayList_;
     
     if (L != NULL)
         lua_close(L);
@@ -563,7 +528,7 @@ void GameLevel::updateTerrain(int &x, int &z, float &height, int &type, float &r
         terrain->color[x][z][2] = blue;
         terrain->type[x][z] = type;
         
-        terrain->calcTerrainNorm(&light);
+        terrain->calcTerrainNorm(&lightDirection_);
     }
 }
 
@@ -574,7 +539,7 @@ void GameLevel::updateColor(int &x, int &z, float &red, float &green, float &blu
         terrain->color[x][z][1] = green;
         terrain->color[x][z][2] = blue;
         
-        terrain->calcTerrainNorm(&light);
+        terrain->calcTerrainNorm(&lightDirection_);
     }
 }
 
@@ -591,7 +556,7 @@ void GameLevel::getTerrainInfo(int &x, int &z, float &height, int &type, float &
 
 void GameLevel::saveTerrain(char* filePath)
 {
-    terrain->save(filePath, &light);
+    terrain->save(filePath, &lightDirection_);
 }
 
 void GameLevel::toggleGrid(void) { grid = !grid;}

@@ -9,7 +9,6 @@ class ScriptedObject : public Model
       public:
         
         ScriptedObject();
-        ScriptedObject( string );
         virtual ~ScriptedObject();
         
         void printTypeName(void) 

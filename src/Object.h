@@ -46,11 +46,9 @@ class Object : public ObjectNode
         
         // rate of change //
         Vector velocity;
+        Vector speed; 
         Vector rotationVelocity;
         Vector scaleRate;    
-        
-        float speed;                // speed of object, used in scripting  
-        int speedDir; 
            
         // collision detection //
         Vector collisionBox[2];    // 0 = min points, 1 = max points
@@ -66,29 +64,20 @@ class Object : public ObjectNode
         
         bool isCollisionDetectionEnabled_;
                                    
-        // pointer to sound class //
-        Sound *s;           // pointer to sound library
-                
         // used for interpolation between 2 orientations //
         Quaternion rInterpStart;
         Quaternion rInterpEnd;
         
-        int tieMemVarIndex;
-        float valInterpStart;
-        float valInterpEnd;
-        float* valInterpPtr;
-        bool interp;
+        float valInterpBegin_, valInterpCurrent_, valInterpEnd_;
+        bool isInterpolationEnabled_;
                  
         // Necessary for the Lua implementation
         lua_State* L;
         string scriptName;
         
-        bool suspend;
         float suspendTime;
         
         ParticleSystem *particleSystem;
-        
-        KeyState* keyState;
         
         int typeId;
         
@@ -147,7 +136,6 @@ class Object : public ObjectNode
         void setVelocity( const Vector &v );
         void setRotationVelocity( GLfloat xAngle, GLfloat yAngle, GLfloat zAngle );
         void setRotationVelocity( const Vector &v );
-        void setTimer( float* );
         
         void setScale(GLfloat, GLfloat, GLfloat);
         void setScale(const Vector &v);
@@ -173,9 +161,10 @@ class Object : public ObjectNode
             return value;
         }
         
-        void setSoundClass( Sound * );
-        void setInterpolationVariable(int index);
         void setState(unsigned char);    
+        
+        void setSpeed( GLfloat, GLfloat, GLfloat );
+        void setSpeed( const Vector &v );
         
         void setCollisionDetectionEnabled(bool isCollisionDetectionEnabled)
         {

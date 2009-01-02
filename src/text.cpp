@@ -41,70 +41,148 @@ void displayText(char *text, float x, float y, float z, float scaleX, float scal
 }
 
 //------------------------------------------------------------------------------
-void ScriptTextType::displayText()
+ScriptTextType::ScriptTextType()
+: Object()
 {
-    if ( visible == true ) {
-    glEnable(GL_BLEND);
-        float scale = .005;
-        if ( size == 0 ) {
-            scale = .005;
-            width = 3.0f;
-        }
-        else if ( size == 1 ) {
-            scale = .008;
-            width = 5.0f;
-        }
-        else if ( size == 2 ) {
-            scale = .02;
-            width = 8.0f;
-        }
-    
-        char *p;
-        glPushMatrix();
-            if ( style == 1 ) {
-                glColor4f( 0.0f, 0.0f, 0.0f, color[3] );
-                glTranslatef(position.x, position.y, -20.2f );
+    text = "";
+    color[0] = 0.0f; color[1] = 0.0f; color[2] = 0.0f; color[3] = 1.0f;
+    width = 10.0f;
+    fadeRate = 0.0f;
+}
 
-                glLineWidth(width+8);
-                glScalef (scale, scale, 0.0f);
-                for (p = line; *p; p++)
-                    glutStrokeCharacter(GLUT_STROKE_ROMAN, *p);  
+//------------------------------------------------------------------------------
+void ScriptTextType::draw(Object* camera)
+{
+    if ( isInView ) {
+        glEnable(GL_BLEND);
+        glPushMatrix();  
+            glColor4fv( color );
+            glLineWidth(width);
+            //glTranslatef(position.x, position.y, position.z );
+            glRasterPos3f(position.x, position.y, position.z); 
+            glScalef (scale.x, scale.y, scale.z);
+            for (int i = 0; i < text.length(); i++) {
+                //glutStrokeCharacter(GLUT_STROKE_ROMAN, text[i]);      
+                glutBitmapCharacter(GLUT_BITMAP_8_BY_13, text[i]);
             }
         glPopMatrix();
-        glPushMatrix();  
-            glColor4f( color[0], color[1], color[2], color[3] );
-            glTranslatef(position.x, position.y, -20.0f );
-            glLineWidth(width);
-            glScalef (scale, scale, 0.0f);
-            for (p = line; *p; p++)
-                glutStrokeCharacter(GLUT_STROKE_ROMAN, *p);      
-        glPopMatrix();
-           
-        
         glDisable( GL_BLEND );
     }
 }
 
 //------------------------------------------------------------------------------
-void ScriptTextType::updateText( float timeElapsed )
+void ScriptTextType::animate( float timeElapsed, Object* camera) // Camera*
 {
-    if ( visible == true ) {
-        position.x += velocity.x * timeElapsed;
-        position.y += velocity.y * timeElapsed;
-        position.z += velocity.z * timeElapsed;
+    // exectue the current object's update function
+    animateScript(timeElapsed);
+
+    // calculate new position using speed
+    if (speed.x != 0.0f) {
+        direction.scale(speed.x * timeElapsed);
+        position.x += direction.x;
+        position.y += direction.y;
+        position.z += direction.z;
+        direction.normalize();
+    }
     
+    if (speed.y != 0.0f) {
+        up.scale(speed.y * timeElapsed);
+        position.x += up.x;
+        position.y += up.y;
+        position.z += up.z;
+        direction.normalize();
+    }
     
-        color[3] += timeElapsed * fadeRate;
+    if (speed.z != 0.0f) {
+        Vector rotationAxis;
+            
+        rotationAxis.crossProduct(up, direction);
+        rotationAxis.normalize();
+                        
+        rotationAxis.scale(speed.z * timeElapsed);
+        position.x += rotationAxis.x;
+        position.y += rotationAxis.y;
+        position.z += rotationAxis.z;
+    }
+    
+    // update position using velocity
+    if (velocity.x != 0.0f)
+        position.x += velocity.x * timeElapsed; 
         
-        if ( color[3] > 1.0f ) {
-            color[3] = 1.0f;
-            fadeRate = 0.0f;
-        }
-        else if ( color[3] < 0.0f ) {
-            color[3] = 0.0f;
-            fadeRate = 0.0f;
+    if (velocity.y != 0.0f)  
+        position.y += velocity.y * timeElapsed;   
+        
+    if (velocity.z != 0.0f)
+        position.z += velocity.z * timeElapsed;   
+    
+    // update scale
+    if (scaleRate.x != 0.0f) {     
+        scale.x += scaleRate.x * timeElapsed;
+        scaleChanged = true;
+    }
+    
+    if (scaleRate.y != 0.0f) {     
+        scale.y += scaleRate.y * timeElapsed;
+        scaleChanged = true;
+    }
+    
+    if (scaleRate.z != 0.0f) {     
+        scale.z += scaleRate.z * timeElapsed;
+        scaleChanged = true;
+    }
+                 
+    if (!isInterpolationEnabled_) {
+        if ( rotationVelocity.x != 0.0f ||
+             rotationVelocity.y != 0.0f ||
+             rotationVelocity.z != 0.0f ) {
+                rotationChanged = true;
+             
+                Vector tempV;
+                Quaternion tempQ;
+	
+                tempV.x = rotationVelocity.x * timeElapsed;
+                tempV.y = rotationVelocity.y * timeElapsed;
+                tempV.z = rotationVelocity.z * timeElapsed;
+	             
+                tempQ.buildFromEuler(tempV);	
+                rotation = rotation * tempQ;
         }
     }
+    else {
+        rotationChanged = true;
+        
+        float endVal = valInterpEnd_ - valInterpBegin_;
+        float curVal = valInterpCurrent_ - valInterpBegin_;
+              
+        float t = 0.0f;
+                                              
+        if ( endVal > 0 ) {
+            if ( curVal > endVal )
+                t = 1.0f;
+            else if ( curVal < 0.0f )
+                t = 0.0f;
+            else
+                t = curVal / endVal; 
+        }
+        else if ( endVal < 0 ) {
+            if ( curVal < endVal )
+                t = 1.0f;
+            else if ( curVal > 0.0f )
+                t = 0.0f;
+            else
+                t = curVal / endVal; 
+        }
+                                
+        rotation.slerp(rInterpStart, t, rInterpEnd );
+    }
+    /////////////////////////////////////////////
+    
+    color[3] += timeElapsed * fadeRate;
+        
+    if ( color[3] > 1.0f )
+        color[3] = 1.0f;
+    else if ( color[3] < 0.0f )
+        color[3] = 0.0f;
 }
 
 //------------------------------------------------------------------------------

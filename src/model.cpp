@@ -179,12 +179,6 @@ void Model::handleCollision( Object* temp )
 	     
     // Call the function with 2 argument and no return values
     lua_call(L, 2, 0);
-
-    // get the result //
-    //position.z = (float)lua_tonumber(L, -1);
-    //position.y = (float)lua_tonumber(L, -2);
-    //position.x = (float)lua_tonumber(L, -3);
-    //lua_pop(L, 1);
 }
 
 //------------------------------------------------------------------------------
@@ -344,62 +338,69 @@ void Model::update( Vector* light )
 //------------------------------------------------------------------------------
 void Model::animate( float timeElapsed, Object* c ) 
 {   
+    // determine whether or not the current object is in the camera's view
     int r =  dynamic_cast<Camera*>(c)->frustum.testSphere(boundingSphere);
     isInView = (r != -1);
     
+    // exectue the current object's update function
     animateScript(timeElapsed);
 
-    // calculate new position and orientation //
-    if ( speed == 0 ) {
-        position.x += velocity.x * timeElapsed;   
-        position.y += velocity.y * timeElapsed;   
-        position.z += velocity.z * timeElapsed;   
-    }
-    else {
-        switch (speedDir)
-        {
-            case 0:
-                direction.scale(speed*timeElapsed);
-                position.x += direction.x;
-                position.y += direction.y;
-                position.z += direction.z;
-                direction.normalize();
-                break;
-            case 1:
-            {
-                Vector rotationAxis;
-            
-                rotationAxis.crossProduct(up, direction);
-                rotationAxis.normalize();
-                        
-                rotationAxis.scale(speed*timeElapsed);
-                position.x += rotationAxis.x;
-                position.y += rotationAxis.y;
-                position.z += rotationAxis.z;
-                break;
-            }
-            case 2:
-            {
-                up.scale(speed*timeElapsed);
-                position.x += up.x;
-                position.y += up.y;
-                position.z += up.z;
-                direction.normalize();
-                break;
-            }
-        }
+    // calculate new position using speed
+    if (speed.x != 0.0f) {
+        direction.scale(speed.x * timeElapsed);
+        position.x += direction.x;
+        position.y += direction.y;
+        position.z += direction.z;
+        direction.normalize();
     }
     
-    if (scaleRate.x != 0.0f ||
-        scaleRate.y != 0.0f ||
-        scaleRate.z != 0.0f) {        
+    if (speed.y != 0.0f) {
+        up.scale(speed.y * timeElapsed);
+        position.x += up.x;
+        position.y += up.y;
+        position.z += up.z;
+        direction.normalize();
+    }
+    
+    if (speed.z != 0.0f) {
+        Vector rotationAxis;
+            
+        rotationAxis.crossProduct(up, direction);
+        rotationAxis.normalize();
+                        
+        rotationAxis.scale(speed.z * timeElapsed);
+        position.x += rotationAxis.x;
+        position.y += rotationAxis.y;
+        position.z += rotationAxis.z;
+    }
+    
+    // update position using velocity
+    if (velocity.x != 0.0f)
+        position.x += velocity.x * timeElapsed; 
+        
+    if (velocity.y != 0.0f)  
+        position.y += velocity.y * timeElapsed;   
+        
+    if (velocity.z != 0.0f)
+        position.z += velocity.z * timeElapsed;   
+    
+    // update scale
+    if (scaleRate.x != 0.0f) {     
         scale.x += scaleRate.x * timeElapsed;
+        scaleChanged = true;
+    }
+    
+    if (scaleRate.y != 0.0f) {     
         scale.y += scaleRate.y * timeElapsed;
+        scaleChanged = true;
+    }
+    
+    if (scaleRate.z != 0.0f) {     
         scale.z += scaleRate.z * timeElapsed;
         scaleChanged = true;
     }
-            
-    if (!interp) {
+                 
+    if (!isInterpolationEnabled_) {
         if ( rotationVelocity.x != 0.0f ||
              rotationVelocity.y != 0.0f ||
              rotationVelocity.z != 0.0f ) {
@@ -419,8 +420,8 @@ void Model::animate( float timeElapsed, Object* c )
     else {
         rotationChanged = true;
         
-        float endVal = valInterpEnd - valInterpStart;
-        float curVal = *valInterpPtr - valInterpStart;
+        float endVal = valInterpEnd_ - valInterpBegin_;
+        float curVal = valInterpCurrent_ - valInterpBegin_;
               
         float t = 0.0f;
                                               

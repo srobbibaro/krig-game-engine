@@ -24,6 +24,6 @@ function setShot(this, script)
     setRotationVelocity(obj, this_direction[1] * 8.0, this_direction[2] * 8.0, this_direction[3] * 8.0)
 
     -- logic here needs to be fixed
-    setSpeed(obj, 0, speed)
+    setSpeed(obj, speed, 0.0, 0.0)
     return obj
 end

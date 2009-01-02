@@ -6,20 +6,11 @@
 class Player : public Model
 {
     public:
-    //private:
-                
-   // public:
-        //void handleCollision( Object* );
-        
         Player();
         virtual ~Player();
         
-        bool userControl;
-        
         void printTypeName(void) 
-         {
-            cout << "Player";
-         }
+        { cout << "Player"; }
 };
 
 

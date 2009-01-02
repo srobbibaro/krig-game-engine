@@ -30,6 +30,7 @@ class Camera : public Object
 	   
    // public:	
         Camera();
+        Camera(int tid);
         virtual ~Camera();
         void update(float);
         void setCamera( const Vector&, const Vector&, const Quaternion&, const Vector& );
@@ -52,7 +53,6 @@ class Camera : public Object
         void update( Vector* ) {};
         void prepare( void ) {};
         void animate( float, Object* ) {}; // Camera*
-        void handleDeath() {};
 };
 
 #endif

@@ -16,6 +16,7 @@ Engine::Engine()
     loadModels();
       
     currentLevel = NULL;
+    storedLevel = NULL;
     
     // setup game timer /////////////////////////
     timer = new GameTimer;
@@ -26,8 +27,6 @@ Engine::Engine()
     ///////////////////////////////////////////////
     
     fps = 0.0f;
-    
-    totalTime = 0;
     
     #if DEMO || PLAY_DEMO
         demo.open( "demo.txt" );
@@ -891,14 +890,10 @@ void Engine::loadLevel(const char* levelFile)
     if (mainCamera == NULL) {
         // setup the current level... this really ought to be moved.
         //mainCamera = new Camera();
-        c1 = new Camera();
-        c1->id = 1;
-        c2 = new Camera();
-        c2->id = 2;
-        c3 = new Camera();
-        c3->id = 3;
-        c4 = new Camera();
-        c4->id = 4;
+        c1 = new Camera(1);
+        c2 = new Camera(2);
+        c3 = new Camera(3);
+        c4 = new Camera(4);
     
         mainCamera = c1;
         c2->setPosition(0.0f, 100.0f, 0.0f);
@@ -911,7 +906,6 @@ void Engine::loadLevel(const char* levelFile)
     mainCamera->unloadScript();
     
     currentLevel = new GameLevel(lists);
-    currentLevel->setKeyState(keyState);   
     currentLevel->setSoundClass( sounds ); 
     currentLevel->setCamera( mainCamera );
     
@@ -919,7 +913,7 @@ void Engine::loadLevel(const char* levelFile)
     
     currentLevel->loadLevelLua(levelScript);
     timeElapsed = timer->getElapsedSeconds(1);  
-    light = currentLevel->getLight();
+    light = currentLevel->getLightDirection();
 }
 
 //------------------------------------------------------------------------------
@@ -1046,6 +1040,9 @@ void Engine::shutdown()
     if (currentLevel != NULL)
         delete currentLevel;
         
+    if (storedLevel != NULL)
+        delete storedLevel;
+        
     if (mainCamera != NULL) {
         delete c1;
         delete c2;
@@ -1062,7 +1059,7 @@ void Engine::shutdown()
     if (keyState != NULL)
         delete keyState;
         
-    currentLevel = NULL;
+    currentLevel = storedLevel = NULL;
     c1 = c2 = c3 = c4 = mainCamera = NULL;
     
     exit(0);

@@ -11,22 +11,32 @@
 //////////////////////////////////////////////////////////////////
 #include "constants.h"
 #include "Object.h"
+#include <string>
+
+using namespace std;
 
 #ifndef _TEXT_H_
 #define _TEXT_H_
     class ScriptTextType : public Object
     {
         public:
-        char line[128];
+        string text;
         float color[4];
-        bool visible;
-        int size;
         float width;
-        int style;
         float fadeRate;
        
-        void displayText();
-        void updateText( float );
+        ScriptTextType();
+       
+        void printTypeName(void) 
+        { cout << "text"; }
+        
+        void draw(Object*);  
+        void drawOutline( Object* ) {}; // Camera*
+        void drawShadow ( Vector* ) {}
+        void handleCollision( Object* ) {};
+        void update( Vector* ) {};
+        void prepare( void ) {};
+        void animate( float, Object* ); // Camera*
     };
 
 

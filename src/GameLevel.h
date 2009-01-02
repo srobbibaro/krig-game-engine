@@ -22,7 +22,7 @@ class GameLevel
         Terrain* terrain;    // list of objects starting with terrain
         unsigned int lists;  // display lists used for rendering
 
-        Vector light;
+        Vector lightDirection_;
         
         Player* player;     // player object
         Object* camera;     // camera
@@ -32,9 +32,7 @@ class GameLevel
         // colors for sky box
         float bgcolor[3][3];
         
-        bool complete;
-        
-        float time;             // current time elapsed since level began running
+        bool isComplete_;
 
         float elapsedTime;  
         
@@ -46,16 +44,14 @@ class GameLevel
         int numTextScripts;
         /////////////////////////    
         
-        QuadTree* q;
-        DisplayList *l; 
+        QuadTree* quadTree_;
+        DisplayList *displayList_; 
         
         bool grid;
         bool bboxes;
         bool controlTriangles;     
         
         string musicPath;  
-        
-        KeyState* keyState;
         
         string scriptName;
         
@@ -91,13 +87,13 @@ class GameLevel
         
         string getMusicPath() { return (musicPath); }
         void setMusicPath(string music) { musicPath = music; }
-        Vector* getLight() { return &light; }
+        Vector* getLightDirection() { return &lightDirection_; }
         
         void setSkyBox(float**, int, int);
         void setLightDirection(float x, float y, float z)
         {
-            light.setVector(x, y, z);
-            light.normalize();
+            lightDirection_.setVector(x, y, z);
+            lightDirection_.normalize();
         }
                 
         Sound* getSoundClass() { return snd; }
@@ -105,13 +101,10 @@ class GameLevel
         void setId(int tid) { id = tid; }
         int getId() { return id; }
         
-        void setKeyState(KeyState* ks) { keyState = ks; }
-        KeyState* getKeyState() { return keyState; }
-        
         float getElapsedTime() { return elapsedTime; }
         void setElapsedTime(float tElapsedTime) { elapsedTime = tElapsedTime; }
         
-        void setComplete(bool value) { complete = value; }
+        void setComplete(bool isComplete) { isComplete_ = isComplete; }
         string getScriptName() { return scriptName; }
         
         void postDraw();

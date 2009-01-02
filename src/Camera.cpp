@@ -15,106 +15,118 @@
 //------------------------------------------------------------------------------
 Camera::Camera( void ) : Object()
 {
-      // default camera settings
-      baseDirection.setVector(0.0f, 0.0f, -1.0f);
-      direction.setVector(0.0f, 0.0f, -1.0f);
+    // default camera settings
+    baseDirection.setVector(0.0f, 0.0f, -1.0f);
+    direction.setVector(0.0f, 0.0f, -1.0f);
       
-      glGetFloatv( GL_PROJECTION_MATRIX, projectionMatrix.data );
+    glGetFloatv( GL_PROJECTION_MATRIX, projectionMatrix.data );
+}
+
+Camera::Camera( int tid ) : Object()
+{
+    // default camera settings
+    baseDirection.setVector(0.0f, 0.0f, -1.0f);
+    direction.setVector(0.0f, 0.0f, -1.0f);
+      
+    glGetFloatv( GL_PROJECTION_MATRIX, projectionMatrix.data );
+    
+    id = tid;
 }
 
 //------------------------------------------------------------------------------
 Camera::~Camera( void )
-{
-}
+{}
 
 //------------------------------------------------------------------------------
 void Camera::update( float timeElapsed)
 {   
-      animateScript(timeElapsed);
+    // exectue the current object's update function
+    animateScript(timeElapsed);
 
-         // calculate new position and orientation //
-            if ( speed == 0 ) {
-                position.x += velocity.x * timeElapsed;   
-                position.y += velocity.y * timeElapsed;   
-                position.z += velocity.z * timeElapsed;   
-            }
-            else {
-                switch (speedDir)
-                {
-                    case 0:
-                        direction.scale(speed*timeElapsed);
-                        position.x += direction.x;
-                        position.y += direction.y;
-                        position.z += direction.z;
-                        direction.normalize();
-                        break;
-                    case 1:
-                    {
-                        Vector rotationAxis;
+    // calculate new position using speed
+    if (speed.x != 0.0f) {
+        direction.scale(speed.x * timeElapsed);
+        position.x += direction.x;
+        position.y += direction.y;
+        position.z += direction.z;
+        direction.normalize();
+    }
+    
+    if (speed.y != 0.0f) {
+        up.scale(speed.y * timeElapsed);
+        position.x += up.x;
+        position.y += up.y;
+        position.z += up.z;
+        direction.normalize();
+    }
+    
+    if (speed.z != 0.0f) {
+        Vector rotationAxis;
             
-                        rotationAxis.crossProduct(up, direction);
-                        rotationAxis.normalize();
+        rotationAxis.crossProduct(up, direction);
+        rotationAxis.normalize();
                         
-                        rotationAxis.scale(speed*timeElapsed);
-                        position.x += rotationAxis.x;
-                        position.y += rotationAxis.y;
-                        position.z += rotationAxis.z;
-                        
-                        break;
-                    }
-                    case 2:
-                        up.scale(speed*timeElapsed);
-                        position.x += up.x;
-                        position.y += up.y;
-                        position.z += up.z;
-                        direction.normalize();
-                        break;
-                }
-            }
-            
-        if (!interp) {
-                if ( 
-                    rotationVelocity.x != 0.0f ||
-                    rotationVelocity.y != 0.0f ||
-                    rotationVelocity.z != 0.0f 
-                ) {
-                    Vector tempV;
-                    Quaternion tempQ;
+        rotationAxis.scale(speed.z * timeElapsed);
+        position.x += rotationAxis.x;
+        position.y += rotationAxis.y;
+        position.z += rotationAxis.z;
+    }
+    
+    // update position using velocity
+    if (velocity.x != 0.0f)
+        position.x += velocity.x * timeElapsed; 
+        
+    if (velocity.y != 0.0f)  
+        position.y += velocity.y * timeElapsed;   
+        
+    if (velocity.z != 0.0f)
+        position.z += velocity.z * timeElapsed;   
+                
+    if (!isInterpolationEnabled_) {
+        if ( rotationVelocity.x != 0.0f ||
+             rotationVelocity.y != 0.0f ||
+             rotationVelocity.z != 0.0f ) {
+                rotationChanged = true;
+             
+                Vector tempV;
+                Quaternion tempQ;
 	
-                    tempV.x = rotationVelocity.x * timeElapsed;
-                    tempV.y = rotationVelocity.y * timeElapsed;
-                    tempV.z = rotationVelocity.z * timeElapsed;
+                tempV.x = rotationVelocity.x * timeElapsed;
+                tempV.y = rotationVelocity.y * timeElapsed;
+                tempV.z = rotationVelocity.z * timeElapsed;
 	             
-                    tempQ.buildFromEuler(tempV);	
-                    rotation = rotation * tempQ;
-                }
-            }
-            else {
-                float endVal = valInterpEnd - valInterpStart;
-                float curVal = *valInterpPtr - valInterpStart;
+                tempQ.buildFromEuler(tempV);	
+                rotation = rotation * tempQ;
+        }
+    }
+    else {
+        rotationChanged = true;
+        
+        float endVal = valInterpEnd_ - valInterpBegin_;
+        float curVal = valInterpCurrent_ - valInterpBegin_;
               
-                float t = 0.0f;
+        float t = 0.0f;
                                               
-                if ( endVal > 0 ) {
-                    if ( curVal > endVal )
-                        t = 1.0f;
-                    else if ( curVal < 0.0f )
-                        t = 0.0f;
-                    else
-                        t = curVal / endVal; 
-                }
-                else if ( endVal < 0 ) {
-                    if ( curVal < endVal )
-                        t = 1.0f;
-                    else if ( curVal > 0.0f )
-                        t = 0.0f;
-                    else
-                        t = curVal / endVal; 
-                }
+        if ( endVal > 0 ) {
+            if ( curVal > endVal )
+                t = 1.0f;
+            else if ( curVal < 0.0f )
+                t = 0.0f;
+            else
+                t = curVal / endVal; 
+        }
+        else if ( endVal < 0 ) {
+            if ( curVal < endVal )
+                t = 1.0f;
+            else if ( curVal > 0.0f )
+                t = 0.0f;
+            else
+                t = curVal / endVal; 
+        }
                                 
-                rotation.slerp(rInterpStart, t, rInterpEnd );
-            }
-            /////////////////////////////////////////////
+        rotation.slerp(rInterpStart, t, rInterpEnd );
+    }
+    /////////////////////////////////////////////
         
         
     rotation.buildRotationMatrix( rotationMatrix );
