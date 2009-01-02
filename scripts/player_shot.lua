@@ -25,7 +25,7 @@ end
 function on_collision(this, temp)
     typeId = getTypeId(temp)
 
-    if typeId ~= 0 then
+    if typeId ~= 0 and typeId ~= 10 then
         removeObject(this)
     end
     return 
