@@ -9,7 +9,7 @@
     * Steve/Andy: odds and ends and clean up.
     * Andy: place enemy ships in level 2.
     * Andy: water level (design this whole level)  place objects.
-    * Andy: boss ai (revamped level 1 boss).
+    * Andy: boss ai (revamped level 1 boss) for level 4.
     * Andy: simple script to move into trench.
 
 11/24/08 ~ Steve
@@ -90,10 +90,13 @@
     * Steve: 'G' key should not map to down arrow key.
     * Steve: Fix terrain collision detection (use QuadTree and test spheres).
     * Steve: Implement ability to set variables in a script (opposite of getScriptValue).
-    * Steve: Why are some object in level 1 not placed properly (ie pine tree at 0,0,0).
+    * Steve: Why are some object in level 1 not placed properly (ie pine tree at 0,0,0)?
     * Steve: Implement enemy shooting.
     * Steve: Implement boss shooting.
     * Steve/Andy: Convert snow particle system to lua.
     * Steve/Andy: Convert star field particle system to lua.
     * Steve: Tweak terrain-water animation to make less CPU intensive (and possibly look better).
     * Steve: Fix issue where computer beeps when a number of keys are down at the same time (ie arrow keys and space).
+
+1/2/09 ~ Steve
+    * Steve: Create water level (level 3) terrain.

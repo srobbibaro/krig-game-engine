@@ -435,7 +435,7 @@ void Model::animate( float timeElapsed, Object* c )
         }
         else if ( endVal < 0 ) {
             if ( curVal < endVal )
-                t = 1.0f;
+                t = 1.0f; 
             else if ( curVal > 0.0f )
                 t = 0.0f;
             else

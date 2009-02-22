@@ -4,9 +4,10 @@ levels = {
 	"./levels/menu.lua", 
 	"./levels/level1.lua", 
 	"./levels/level2.lua", 
+	"./levels/level3.lua", 
 	"./levels/level4.lua",
 	"./levels/credits.lua"}
-levelNum = 2
+levelNum = 4
 
 function on_load()
     loadLevel(levels[1])
