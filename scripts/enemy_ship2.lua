@@ -18,9 +18,9 @@ function on_update(this, elapsedTime)
         -- Start moving forward.
         if ( relative_pos < 20 ) then setVelocity(this, 0.0, 0.0, 0.0) end
         -- Angle a bit down.
-        if ( relative_pos < 10 ) then setVelocity(this, 2.0, -5.0, 0.0) end
+        if ( relative_pos < 5 ) then setVelocity(this, 2.0, -5.0, 0.0) end
         -- Go straight down.
-        if ( relative_pos < 5 )  then setVelocity(this, 10.0, -10.0, 0.0) end
+        if ( relative_pos < 0 )  then setVelocity(this, 10.0, -10.0, 0.0) end
         return
     end
 
@@ -30,7 +30,7 @@ function on_update(this, elapsedTime)
         -- Start curving back to the right.
         if this_position[2] < 10 then setVelocity(this, 18.0, -5.0, 0.0) end
         -- Full retreat.
-        if relative_pos > 10     then setVelocity(this, 20.0, 0.0, 0.0) end
+        if relative_pos > 5     then setVelocity(this, 20.0, 0.0, 0.0) end
         -- Remove when we get way off the screen.
         if relative_pos > 20     then removeObject(this) end
     end
