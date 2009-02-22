@@ -7,7 +7,7 @@ levels = {
 	"./levels/level3.lua", 
 	"./levels/level4.lua",
 	"./levels/credits.lua"}
-levelNum = 4
+levelNum = 2
 
 function on_load()
     loadLevel(levels[1])
