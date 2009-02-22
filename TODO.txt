@@ -23,7 +23,7 @@
     x Steve: Convert level1.lvl to level1.lua.
     x Steve: Convert Snow Boss script to lua.
     * Andy: Convert volcano script to lua.
-    * Andy: Convert level 1 sweeping ships to lua.
+    x Andy: Convert level 1 sweeping ships to lua (2/22/08 ~ Andy).
     x Steve/Andy: Convert level1 boss script to lua. (12/22/08 ~ Steve)
     x Implement ability to change script or to end script. (12/22/08 ~ Steve)
 
