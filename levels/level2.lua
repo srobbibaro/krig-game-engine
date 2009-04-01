@@ -1,6 +1,6 @@
 dofile("./levels/level_lib.lua")
 
-x_start_camera = 400.0
+x_start_camera = 110.0
 x_start_player = x_start_camera -- 30.0
 --x_start_boss   = x_start_camera + 10.0
 
