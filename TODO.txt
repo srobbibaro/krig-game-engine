@@ -99,4 +99,7 @@
     * Steve: Fix issue where computer beeps when a number of keys are down at the same time (ie arrow keys and space).
 
 1/2/09 ~ Steve
-    * Steve: Create water level (level 3) terrain.
+    x Steve: Create water level (level 3) terrain. (4/1/09 ~ Steve)
+
+4/1/09 ~ Steve
+    * Steve: Create deseret level (level 4) terrain.
