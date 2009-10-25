@@ -197,3 +197,8 @@ New KRIG Engine lua scripting functions:
     getFps() - returns: value
     displayText(string, x, y) - returns: n/a
     getCameraId() - returns: currently set camera's ID
+
+10/24/09 ~ Steve
+
+Install ATI driver on Ubuntu (9.04+): 
+    http://tan-com.com/posts/technology/fix-ubuntu-904-ati-driver-issue
