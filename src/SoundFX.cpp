@@ -1,3 +1,5 @@
+#include <string.h>
+
 #include "SoundFX.h"
 
 // SoundFX()
@@ -70,15 +72,15 @@ void SoundFX::PlaySFX( string sfx ) {
 // coordinates; X, Y, and Z velocity values; and a boolean representing whether
 // or not the sound should be looped.
 
-void SoundFX::SetSFX( string sfx, 
-                      ALfloat PosX, ALfloat PosY, ALfloat PosZ, 
-                      ALfloat VelX, ALfloat VelY, ALfloat VelZ, 
+void SoundFX::SetSFX( string sfx,
+                      ALfloat PosX, ALfloat PosY, ALfloat PosZ,
+                      ALfloat VelX, ALfloat VelY, ALfloat VelZ,
                       ALboolean repeat ) {
 
     ALfloat SourcePos[3] = { PosX, PosY, PosZ };
     ALfloat SourceVel[3] = { VelX, VelY, VelZ };
     int index = File_Hash[sfx];
-              
+
     alSourcei ( Sources[index], AL_BUFFER,   Buffers[index] );
     alSourcef ( Sources[index], AL_PITCH,    1.0f      );
     alSourcef ( Sources[index], AL_GAIN,     1.0f      );
@@ -93,7 +95,7 @@ void SoundFX::SetSFX( string sfx,
 // first three represent the listener's X, Y, and Z position, and the second
 // three represent the relative X, Y, and Z velocity.
 
-void SoundFX::SetSFXListener( ALfloat PosX, ALfloat PosY, ALfloat PosZ, 
+void SoundFX::SetSFXListener( ALfloat PosX, ALfloat PosY, ALfloat PosZ,
                               ALfloat VelX, ALfloat VelY, ALfloat VelZ ) {
 
     ALfloat ListenerPos[3] = { PosX, PosY, PosZ };

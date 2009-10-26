@@ -1,5 +1,5 @@
-#include "Constants.h"
-#include "Model.h"
+#include "constants.h"
+#include "model.h"
 using namespace std;
 
 map <string, ModelStorage*> modelHash;
@@ -26,23 +26,23 @@ void Model::load( string tModelKey )
 
     GLfloat temp;
     modelKey = tModelKey;
-    
+
     int numVertices = modelHash[modelKey]->numVertices;
-    
+
     updatedVertex = new GLfloat*[ numVertices ];
     lightIntensity = new GLfloat[ numVertices ];
 
     int	r = 0;
-     
+
     updatedVertex[r] = new GLfloat[3];
-            
+
     while ( updatedVertex[ r ] != NULL && r < numVertices-1 ) {
         updatedVertex[++r] = new GLfloat[3];
     }
-            
+
     // load in vertices used for model //////
-    for ( int i = 0; i < numVertices; i++ ) {    
-        for ( int j = 0; j < 3; j++ ) {    
+    for ( int i = 0; i < numVertices; i++ ) {
+        for ( int j = 0; j < 3; j++ ) {
             updatedVertex[i][j] = modelHash[modelKey]->baseVertex[i][j];
         }
     }
@@ -59,14 +59,14 @@ void Model::unload()
         for( int r = 0; r < modelHash[modelKey]->numVertices; r++) {
            delete[] updatedVertex[r];
         }
-    
+
         delete[] updatedVertex;
     }
-    
+
     if ( lightIntensity != NULL )
         delete[] lightIntensity;
 
-        
+
     lightIntensity = NULL;
     updatedVertex = NULL;
 }
@@ -77,7 +77,7 @@ void Model::draw(Object* c)
     // model must be loaded
     if (lightIntensity == NULL || updatedVertex == NULL)
         return;
-    
+
     glPushMatrix();
     glTranslatef(position.x, position.y, position.z);
 
@@ -86,14 +86,14 @@ void Model::draw(Object* c)
         for ( int i = 0; i < m->numTriangles; i++ ) {
             for ( int j = 0; j < 3; j++ ) {
                 glColor3fv( m->triangle[i].colors[j] );
-                glTexCoord1f( lightIntensity[m->triangle[i].vertices[j]] ); 
-                glVertex3fv( updatedVertex[m->triangle[i].vertices[j]] ); 
+                glTexCoord1f( lightIntensity[m->triangle[i].vertices[j]] );
+                glVertex3fv( updatedVertex[m->triangle[i].vertices[j]] );
             }
-        }   
+        }
     glEnd();
-    
+
     glPopMatrix();
-    
+
     if (particleSystem != NULL)
         particleSystem->draw();
 }
@@ -106,16 +106,16 @@ void Model::drawOutline(Object* c)
         return;
 
     ModelStorage *m = modelHash[modelKey];
-    
-    glPushMatrix();  
+
+    glPushMatrix();
     glTranslatef(position.x, position.y, position.z);
 
     glColor3f( 0.0f, 0.0f, 0.0f );
-       
+
     glBegin( GL_TRIANGLES );
-        for ( int i = 0; i < m->numTriangles; i++ ) {	
+        for ( int i = 0; i < m->numTriangles; i++ ) {
             for ( int j = 0; j < 3; j++ ) {
-                glVertex3fv( updatedVertex[m->triangle[i].vertices[j]] );       
+                glVertex3fv( updatedVertex[m->triangle[i].vertices[j]] );
             }
         }
     glEnd();
@@ -127,8 +127,8 @@ void Model::drawShadow (Vector* light)
 {
         int p1, p2;
         Vector v1, v2;
-        
-        for ( int i = 0; i < numSEdge; i++ ) {            
+
+        for ( int i = 0; i < numSEdge; i++ ) {
 					//calculate the length of the vector
 					v1.x = (sEdge[i].p1.x - light->x)*100;
 					v1.y = (sEdge[i].p1.y - light->y)*100;
@@ -136,8 +136,8 @@ void Model::drawShadow (Vector* light)
 
 					v2.x = (sEdge[i].p2.x - light->x)*100;
 					v2.y = (sEdge[i].p2.y - light->y)*100;
-					v2.z = (sEdge[i].p2.z - light->z)*100;    
-                    
+					v2.z = (sEdge[i].p2.z - light->z)*100;
+
                     //draw the polygon
                     /*
                     glBegin( GL_LINES );
@@ -145,7 +145,7 @@ void Model::drawShadow (Vector* light)
                         glVertex3f( sEdge[i].p2.x, sEdge[i].p2.y, sEdge[i].p2.z );
                     glEnd();
                     */
-	
+
                     glBegin(GL_TRIANGLE_STRIP);
 						glVertex3f( sEdge[i].p1.x, sEdge[i].p1.y, sEdge[i].p1.z );
 						glVertex3f( sEdge[i].p1.x + v1.x,
@@ -159,7 +159,7 @@ void Model::drawShadow (Vector* light)
 									sEdge[i].p2.y + v2.y,
 									sEdge[i].p2.z + v2.z);
 					glEnd();
-            }     
+            }
 }
 
 //------------------------------------------------------------------------------
@@ -169,14 +169,14 @@ void Model::handleCollision( Object* temp )
     // initialized with a script
     if (L == NULL)
         return;
-        
+
     // Find the update function and call it
     lua_getglobal(L, "on_collision");
-	    
+
     // Push a pointer to the current object for use within the lua function
     lua_pushlightuserdata(L, (void*)this);
     lua_pushlightuserdata(L, (void*)temp);
-	     
+
     // Call the function with 2 argument and no return values
     lua_call(L, 2, 0);
 }
@@ -187,15 +187,15 @@ void Model::update( Vector* light )
     // model must first be loaded
     if (lightIntensity == NULL || updatedVertex == NULL)
         return;
-        
-    if (scaleChanged == false && rotationChanged == false && 
+
+    if (scaleChanged == false && rotationChanged == false &&
         lastLight.x == light->x &&
-        lastLight.y == light->y && 
+        lastLight.y == light->y &&
         lastLight.z == light->z) {
         boundingSphere.setOriginVector(position);
         return;
     }
-    
+
     lastLight.x = light->x;
     lastLight.y = light->y;
     lastLight.z = light->z;
@@ -205,113 +205,113 @@ void Model::update( Vector* light )
     Vector tempV;
     GLfloat temp;
     Matrix rotationMatrix;
-    Matrix scaleMatrix;    
+    Matrix scaleMatrix;
     Matrix transform;
-    
+
     GLfloat min[] = { 9999.0f, 9999.0f, 9999.0f };
     GLfloat max[] = { -9999.0f, -9999.0f, -9999.0f };
-  
+
     // setup transformation matrices ////////////
-    rotation.buildRotationMatrix( rotationMatrix );   
+    rotation.buildRotationMatrix( rotationMatrix );
     scaleMatrix.setScale( scale.x, scale.y, scale.z );
-    
+
     // setup the transformation matrix //////////
-    transform = rotationMatrix * scaleMatrix;   
+    transform = rotationMatrix * scaleMatrix;
     /////////////////////////////////////////////
-    
+
     ModelStorage *m = modelHash[modelKey];
-    
+
     float radius = 0.0f;
-    
-    for ( int i = 0; i < m->numVertices; i++ ) {   
-        // transform vertex /////////////////////   
-        transform.transformVertex( m->baseVertex[i], updatedVertex[i] );   
-        
+
+    for ( int i = 0; i < m->numVertices; i++ ) {
+        // transform vertex /////////////////////
+        transform.transformVertex( m->baseVertex[i], updatedVertex[i] );
+
         // calculate light intensity ////////////
         tempV.rotateVector( transform, m->normal[i] );
         tempV.normalize();
-            
+
         temp = tempV.dotProduct( *light );
-                   
+
         if ( temp == 1.0f )
             temp = 0.5f;
         else if ( temp < 0.0f )
-            temp = 0.0f;       
+            temp = 0.0f;
 
         lightIntensity[i] = temp;
         /////////////////////////////////////////
-        
+
         // re-calculate collision box ///////////
         for ( int j = 0; j < 3; j++ ) {
             if ( updatedVertex[i][j] > max[j] )
                 max[j] = updatedVertex[i][j];
-                
+
             if ( updatedVertex[i][j] < min[j] )
                   min[j] = updatedVertex[i][j];
         }
         /////////////////////////////////////////
-       
+
         float x = (updatedVertex[i][0]);
         float y = (updatedVertex[i][1]);
         float z = (updatedVertex[i][2]);
-        
+
         float distance = (x * x) + (y * y) +(z * z);
-                         
+
         if (distance > radius)
             radius = distance;
     }
-    
+
     collisionBox[0].setVector( min[0], min[1], min[2] );
     collisionBox[1].setVector( max[0], max[1], max[2] );
-    
-    radius = sqrt(radius);    
+
+    radius = sqrt(radius);
     boundingSphere.setSphere(position.x, position.y, position.z, radius );
-    
+
     controlPoints[0].setVector( max[0], min[1], min[2] );
     controlPoints[1].setVector( max[0], min[1], max[2] );
     controlPoints[2].setVector( min[0], min[1], (min[2]+max[2])/2 );
-    
+
     direction.rotateVector( rotationMatrix, baseDirection );
     direction.normalize();
-    
+
     Vector upV;
     upV.setVector(0.0f, 1.0f, 0.0f);
-    
+
     up.rotateVector( rotationMatrix, upV );
     up.normalize();
-    
+
  /*
         Vector p1, p2, p3;
         Vector tempN;
         Vector lp;
         float tempD[2];
-        
+
         numSEdge = 0;
-        
-        for ( int i = 0; i < numEdges; i++ ) {   
+
+        for ( int i = 0; i < numEdges; i++ ) {
             for ( int u = 0; u < 2; u++ ) {
-                
+
                p1.setVector(   updatedVertex[triangle[edges[i].triangleIndex[u]].vertices[0]][0],
                                 updatedVertex[triangle[edges[i].triangleIndex[u]].vertices[0]][1],
                                 updatedVertex[triangle[edges[i].triangleIndex[u]].vertices[0]][2]
                             );
-                
+
                 p2.setVector(   updatedVertex[triangle[edges[i].triangleIndex[u]].vertices[1]][0],
                                 updatedVertex[triangle[edges[i].triangleIndex[u]].vertices[1]][1],
                                 updatedVertex[triangle[edges[i].triangleIndex[u]].vertices[1]][2]
                             );
-                
+
                 p3.setVector(   updatedVertex[triangle[edges[i].triangleIndex[u]].vertices[2]][0],
                                 updatedVertex[triangle[edges[i].triangleIndex[u]].vertices[2]][1],
                                 updatedVertex[triangle[edges[i].triangleIndex[u]].vertices[2]][2]
                             );
-                
+
                 tempV.rotateVector( transform, tempN );
                 tempV.normalize();
-            
-                tempD[u] = tempV.dotProduct( *light ); 
-            }            
-    
+
+                tempD[u] = tempV.dotProduct( *light );
+            }
+
             if ( tempD[0] >= 0 && tempD[1] <= 0 || tempD[0] <= 0 && tempD[1] >= 0 ) {
                  p1.setVector( updatedVertex[edges[i].vertices[0]][0],
                               updatedVertex[edges[i].vertices[0]][1],
@@ -322,26 +322,26 @@ void Model::update( Vector* light )
                               updatedVertex[edges[i].vertices[1]][2]
                 );
 
-                tempV.transformVector( transform, p1 );     
+                tempV.transformVector( transform, p1 );
                 sEdge[numSEdge].p1 = tempV;
-                
+
                 tempV.transformVector( transform, p2 );
                 sEdge[numSEdge].p2 = tempV;
-                
+
                 numSEdge++;
-            }          
-        } 
+            }
+        }
 
 */
 }
 
 //------------------------------------------------------------------------------
-void Model::animate( float timeElapsed, Object* c ) 
-{   
+void Model::animate( float timeElapsed, Object* c )
+{
     // determine whether or not the current object is in the camera's view
     int r =  dynamic_cast<Camera*>(c)->frustum.testSphere(boundingSphere);
     isInView = (r != -1);
-    
+
     // exectue the current object's update function
     animateScript(timeElapsed);
 
@@ -353,7 +353,7 @@ void Model::animate( float timeElapsed, Object* c )
         position.z += direction.z;
         direction.normalize();
     }
-    
+
     if (speed.y != 0.0f) {
         up.scale(speed.y * timeElapsed);
         position.x += up.x;
@@ -361,91 +361,91 @@ void Model::animate( float timeElapsed, Object* c )
         position.z += up.z;
         direction.normalize();
     }
-    
+
     if (speed.z != 0.0f) {
         Vector rotationAxis;
-            
+
         rotationAxis.crossProduct(up, direction);
         rotationAxis.normalize();
-                        
+
         rotationAxis.scale(speed.z * timeElapsed);
         position.x += rotationAxis.x;
         position.y += rotationAxis.y;
         position.z += rotationAxis.z;
     }
-    
+
     // update position using velocity
     if (velocity.x != 0.0f)
-        position.x += velocity.x * timeElapsed; 
-        
-    if (velocity.y != 0.0f)  
-        position.y += velocity.y * timeElapsed;   
-        
+        position.x += velocity.x * timeElapsed;
+
+    if (velocity.y != 0.0f)
+        position.y += velocity.y * timeElapsed;
+
     if (velocity.z != 0.0f)
-        position.z += velocity.z * timeElapsed;   
-    
+        position.z += velocity.z * timeElapsed;
+
     // update scale
-    if (scaleRate.x != 0.0f) {     
+    if (scaleRate.x != 0.0f) {
         scale.x += scaleRate.x * timeElapsed;
         scaleChanged = true;
     }
-    
-    if (scaleRate.y != 0.0f) {     
+
+    if (scaleRate.y != 0.0f) {
         scale.y += scaleRate.y * timeElapsed;
         scaleChanged = true;
     }
-    
-    if (scaleRate.z != 0.0f) {     
+
+    if (scaleRate.z != 0.0f) {
         scale.z += scaleRate.z * timeElapsed;
         scaleChanged = true;
     }
-                 
+
     if (!isInterpolationEnabled_) {
         if ( rotationVelocity.x != 0.0f ||
              rotationVelocity.y != 0.0f ||
              rotationVelocity.z != 0.0f ) {
                 rotationChanged = true;
-             
+
                 Vector tempV;
                 Quaternion tempQ;
-	
+
                 tempV.x = rotationVelocity.x * timeElapsed;
                 tempV.y = rotationVelocity.y * timeElapsed;
                 tempV.z = rotationVelocity.z * timeElapsed;
-	             
-                tempQ.buildFromEuler(tempV);	
+
+                tempQ.buildFromEuler(tempV);
                 rotation = rotation * tempQ;
         }
     }
     else {
         rotationChanged = true;
-        
+
         float endVal = valInterpEnd_ - valInterpBegin_;
         float curVal = valInterpCurrent_ - valInterpBegin_;
-              
+
         float t = 0.0f;
-                                              
+
         if ( endVal > 0 ) {
             if ( curVal > endVal )
                 t = 1.0f;
             else if ( curVal < 0.0f )
                 t = 0.0f;
             else
-                t = curVal / endVal; 
+                t = curVal / endVal;
         }
         else if ( endVal < 0 ) {
             if ( curVal < endVal )
-                t = 1.0f; 
+                t = 1.0f;
             else if ( curVal > 0.0f )
                 t = 0.0f;
             else
-                t = curVal / endVal; 
+                t = curVal / endVal;
         }
-                                
+
         rotation.slerp(rInterpStart, t, rInterpEnd );
     }
     /////////////////////////////////////////////
-    
+
     // The particle systems might not always live here...
     if (particleSystem != NULL)
         particleSystem->update(timeElapsed);
@@ -455,8 +455,8 @@ void Model::animate( float timeElapsed, Object* c )
 void ModelStorage::load( char fileName[] )
 {
     GLfloat temp;
-   
-    ifstream fin( fileName );    
+
+    ifstream fin( fileName );
         fin >> initalScale;
         fin >> numVertices;
             baseVertex = new GLfloat* [ numVertices ];
@@ -464,32 +464,32 @@ void ModelStorage::load( char fileName[] )
 
             int	r = 0;
             baseVertex[r] = new GLfloat[3];
-            
+
             while ( baseVertex[ r ] != NULL && r < numVertices-1 ) {
 	           baseVertex[++r] = new GLfloat[3];
             }
-            
+
             // load in vertices used for model //////
-            for ( int i = 0; i < numVertices; i++ ) {    
-                for ( int j = 0; j < 3; j++ ) {    
+            for ( int i = 0; i < numVertices; i++ ) {
+                for ( int j = 0; j < 3; j++ ) {
                     fin >> temp;
-                    baseVertex[i][j] = temp;   
+                    baseVertex[i][j] = temp;
                 }
 
                 fin >> normal[i].x;
                 fin >> normal[i].y;
                 fin >> normal[i].z;
-            }      
+            }
             /////////////////////////////////////////
-   
+
             fin >> numTriangles;
             triangle = new Triangle[ numTriangles ];
-        
+
             // load in triangles used for model /////
             for ( int i = 0; i < numTriangles; i++ ) {
                 for ( int j = 0; j < 3; j++ )
                     fin >> triangle[i].vertices[j];
-            
+
                 for ( int j = 0; j < 3; j++ )
                     for ( int k = 0; k < 3; k++ )
                         fin >> triangle[i].colors[j][k];
@@ -500,12 +500,12 @@ void ModelStorage::load( char fileName[] )
 
 //------------------------------------------------------------------------------
 void Model::buildEdges()
-    { 
-        /*  
+    {
+        /*
         // Allocate enough space to hold all edges
         edges = new Edge[numTriangles * 3];
         sEdge = new TransformedEdge[numTriangles * 3 ];
-                
+
         int edgeCount = 0,
             i1, i2, i3;
 
@@ -540,7 +540,7 @@ void Model::buildEdges()
             }
         }
 
-        
+
         // Second pass: match triangles to edges
         for ( int a = 0; a < numTriangles; a++) {
             i1 = triangle[a].vertices[0];
@@ -584,4 +584,4 @@ void Model::buildEdges()
 
         numEdges = edgeCount;
         */
-    } 
+    }
