@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "Terrain.h"
+#include "terrain.h"
 #include "Camera.h"
 #include "ParticleSystem.h"
-#include "Text.h"
+#include "text.h"
