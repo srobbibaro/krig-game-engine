@@ -1,3 +1,5 @@
+#include <string.h>
+
 #include "sound.h"
 
 Sound::Sound()
@@ -5,7 +7,7 @@ Sound::Sound()
     alGenBuffers(2, MusicBuffers);
     alGenSources(1, &MusicSource);
     alSource3f (MusicSource, AL_POSITION, 0.0f, 0.0f, 0.0f);
-    
+
     /////////////// Read in sfx and load them into memory //
 
     // Read in sound file names.
@@ -38,21 +40,21 @@ Sound::Sound()
     for (int i = 0 ; i < numofSFX ; i++)
     {
         sprintf( filename, "./sounds/%s", files[i].c_str() );
-        
+
         alutLoadWAVFile( filename, &format, &data, &size, &freq, &loop );
         alBufferData( SFXBuffers[i], format, data, size, freq );
-                
+
         SetSFX( i, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, AL_FALSE );
 
         sfxHash[ files[i] ] = i; // Create name to index map.
-        
+
         cout << "Loaded sound '" << filename << "' key '" << files[i] << "'\n";
 
         //alutUnloadWAV(format, data, size, freq);
     }
-        
+
     ////////////////////////////////////////////////////////
-    
+
     SetCamera (0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
     playing = false;
 }
@@ -82,50 +84,50 @@ void Sound::PlaySong(const char* filePath, bool rep)
         MusicFormat = AL_FORMAT_MONO16;
     else
         MusicFormat = AL_FORMAT_STEREO16;
-        
+
     // Fill the first music buffer from the file
     size = 0;
     while (size < BUFFER_SIZE)
     {
-        bytes = ov_read( 
-                    &oggFile, 
-                    soundbuffer + size, 
-                    BUFFER_SIZE - size, 
+        bytes = ov_read(
+                    &oggFile,
+                    soundbuffer + size,
+                    BUFFER_SIZE - size,
                     0, 2, 1, &section
                 );
         size += bytes;
     }
     alBufferData(
-        MusicBuffers[0], 
-        MusicFormat, 
-        soundbuffer, 
-        size, 
+        MusicBuffers[0],
+        MusicFormat,
+        soundbuffer,
+        size,
         oggInfo->rate
     );
     size = 0;
-    
+
     // Fill the second music buffer from more of the file data
     while (size < BUFFER_SIZE)
     {
         bytes = ov_read(
-                    &oggFile, 
-                    soundbuffer + size, 
-                    BUFFER_SIZE - size, 
+                    &oggFile,
+                    soundbuffer + size,
+                    BUFFER_SIZE - size,
                     0, 2, 1, &section
                 );
         size += bytes;
-    }  
+    }
     alBufferData(
-        MusicBuffers[1], 
-        MusicFormat, 
-        soundbuffer, 
-        size, 
+        MusicBuffers[1],
+        MusicFormat,
+        soundbuffer,
+        size,
         oggInfo->rate
     );
     size = 0;
-    
+
     alSourceQueueBuffers(MusicSource, 2, MusicBuffers);
-    
+
     alSourcePlay(MusicSource);
     playing = true;
 }
@@ -152,26 +154,26 @@ void Sound::Update()
 {
     if (!playing) //only check and fill buffers if the song is playing
         return;
-        
+
     //if a break in the data stream, the song will start playing again
     alGetSourcei(MusicSource, AL_SOURCE_STATE, &MusicState);
     if (MusicState != AL_PLAYING)
     {
         alSourcePlay(MusicSource);
     }
-    
+
     //Check and fill any empty buffers and queue them up
     alGetSourcei(MusicSource, AL_BUFFERS_PROCESSED, &processed);
     if (processed > 0)
     {
         alSourceUnqueueBuffers(MusicSource, 1, &tempbuffer);
-            
+
         while (size < BUFFER_SIZE)
         {
             bytes = ov_read(
-                        &oggFile, 
-                        soundbuffer + size, 
-                        BUFFER_SIZE - size, 
+                        &oggFile,
+                        soundbuffer + size,
+                        BUFFER_SIZE - size,
                         0, 2, 1, &section
                     );
 /*
@@ -182,19 +184,19 @@ void Sound::Update()
 */
             size += bytes;
         }
-            
-                          
+
+
         alBufferData(
-            tempbuffer, 
-            MusicFormat, 
-            soundbuffer, 
-            size, 
+            tempbuffer,
+            MusicFormat,
+            soundbuffer,
+            size,
             oggInfo->rate
         );
-         
+
         alSourceQueueBuffers(MusicSource, 1, &tempbuffer);
         size = 0;
-        
+
     }
 }
 
@@ -202,7 +204,7 @@ void Sound::SetSFX(int index, ALfloat PosX, ALfloat PosY, ALfloat PosZ, ALfloat 
 {
     ALfloat SourcePos[3] = { PosX, PosY, PosZ };
     ALfloat SourceVel[3] = { VelX, VelY, VelZ };
-              
+
     alSourcei (SFXSources[index], AL_BUFFER, SFXBuffers[index]);
     alSourcef (SFXSources[index], AL_PITCH, 1.0f        );
     alSourcef (SFXSources[index], AL_GAIN,  1.0f        );
