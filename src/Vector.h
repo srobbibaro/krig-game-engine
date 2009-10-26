@@ -10,7 +10,7 @@
 //////////////////////////////////////////////////////////////////
 #include <math.h>
 #include <stdio.h>
-#include "Matrix.h"
+#include "matrix.h"
 
 #ifndef _VECTOR_H_
 #define _VECTOR_H_
@@ -18,7 +18,7 @@
     struct Vector
     {
         float x, y, z;
-        
+
         Vector();
         Vector( float, float, float );
         void setVector( float, float, float );
@@ -43,8 +43,8 @@
         void calcNorm( Vector &, Vector &, Vector & );
         void transformVector( Matrix &, Vector & );
         void average( Vector &, Vector & );
-        bool intersectBox( Vector, Vector[], float, Vector &); 
-        bool intersectBox( Vector, Vector[], float);         
+        bool intersectBox( Vector, Vector[], float, Vector &);
+        bool intersectBox( Vector, Vector[], float);
     };
-    
+
 #endif
