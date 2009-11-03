@@ -44,7 +44,7 @@ extern "C" {
   #endif
 #endif
 
-#include "lua/lualib.h"
+#include "lualib.h"
 #include "GL/gl.h"
 
 LUAGL_API int luaopen_opengl (lua_State *L);
