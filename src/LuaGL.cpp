@@ -16,8 +16,8 @@
 #include <malloc.h>
 
 extern "C" {
-    #include "lua/lauxlib.h"
-    #include "lua/LuaGL.h"
+    #include "lauxlib.h"
+    #include "lua2/LuaGL.h"
 }
 
 /* set field of a lua table with a number */
@@ -285,7 +285,7 @@ static int str2mask(const char *str)
       }
       else if(str[i] == '0')
          j++;
-         
+
    }
    return mask;
 }
@@ -2182,11 +2182,11 @@ static int gl_get_tex_image(lua_State *L)
       case GL_RED:  case GL_GREEN:  case GL_BLUE:
       case GL_ALPHA: case GL_LUMINANCE: n = 1; break;
       case GL_LUMINANCE_ALPHA:          n = 2; break;
-      case GL_RGB:  
-      //case GL_BGR_EXT:    
+      case GL_RGB:
+      //case GL_BGR_EXT:
       n = 3; break;
-      case GL_RGBA: 
-      //case GL_BGRA_EXT:   
+      case GL_RGBA:
+      //case GL_BGRA_EXT:
       n = 4; break;
       default:
          luaL_error(L, "incorrect string argument to function 'gl.GetTexImage'");
@@ -2394,7 +2394,7 @@ static int gl_is_enabled(lua_State *L)
 
 /*IsList (list) -> true/false*/
 static int gl_is_list(lua_State *L)
-{   
+{
    /* test argument type */
    if(!lua_isnumber(L, 1))
       luaL_error(L, "incorrect argument to function 'gl.IsList'");
@@ -2955,7 +2955,7 @@ static int gl_pixel_store(lua_State *L)
 {
    /* get string parameters */
    GLenum e;
-   
+
    /* test argument */
    if(!lua_isstring(L, 1))
       luaL_error(L, "incorrect argument to function 'gl.PixelStore'");
@@ -2985,7 +2985,7 @@ static int gl_pixel_transfer(lua_State *L)
 {
    /* get string parameters */
    GLenum e;
-   
+
    /* test argument */
    if(!lua_isstring(L, 1))
       luaL_error(L, "incorrect argument to function 'gl.PixelTransfer'");
