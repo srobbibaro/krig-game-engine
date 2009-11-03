@@ -8,7 +8,9 @@
 //                                                              //
 // Date        : 12-1-03                                        //
 //////////////////////////////////////////////////////////////////
-#include <windows.h>
+//#include <windows.h>
+
+#define LARGE_INTEGER long
 
 #ifndef _GAME_TIMER_H_
 #define _GAME_TIMER_H_
@@ -19,10 +21,11 @@ class GameTimer
         bool init(void);
         float getElapsedSeconds(unsigned long );
         float getFPS(void);
-    
+
     private:
-        LARGE_INTEGER   m_startTime;
+        long m_startTime;
         LARGE_INTEGER   m_ticksPerSecond;
+        float fps;
 };
 
 #endif
