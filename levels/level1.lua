@@ -291,7 +291,7 @@ function on_load(terrain)
 	setPosition(obj, 995, 5.5, -75.0)
 	setScale(obj, 4.0, 4.0, 4.0)
 
-    --playBgMusic("./music/Wily.ogg", 1)
+    playBgMusic("./music/Wily.ogg", 1)
 
     return
 end
