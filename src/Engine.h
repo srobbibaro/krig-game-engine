@@ -23,6 +23,7 @@ class Engine
         unsigned int lists;         // lists used for rendering
 
         KeyState *keyState;
+        KeyState *specialKeyState;
 
         // cell shading global variables ////////
         GLuint shaderTexture[1];
@@ -90,6 +91,7 @@ class Engine
         float getFps() { return fps; }
 
         KeyState* getKeyState() { return keyState; }
+        KeyState* getSpecialKeyState() { return specialKeyState; }
 
         void loadModels(void);
 

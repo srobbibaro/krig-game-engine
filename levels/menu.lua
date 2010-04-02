@@ -13,11 +13,11 @@ function on_unload()
 end
 
 function on_update(this)
-    if engine_testKeyPressed(101) == 1 then 
+    if engine_testSpecialKeyPressed(101) == 1 then 
         updown = updown + 1 
         playSound(this, "menu.wav")
     end
-    if engine_testKeyPressed(103) == 1 then 
+    if engine_testSpecialKeyPressed(103) == 1 then 
         updown = updown - 1 
         playSound(this, "menu.wav")
     end

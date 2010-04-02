@@ -869,6 +869,31 @@ static int engine_testKeyReleasedLua(lua_State *L)
     return 1;
 }
 
+static int engine_testSpecialKeyPressedLua(lua_State *L)
+{
+    //luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    //Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    //int key = (int)lua_tonumber(L, 2);
+    int key = (int)lua_tonumber(L, 1);
+    //int result = (int)(object->keyState->testKeyPressed(key));
+    int result = (int)(lengine->getSpecialKeyState()->testKeyPressed(key));
+    lua_pushnumber(L, result);
+
+    return 1;
+}
+
+static int engine_testSpecialKeyReleasedLua(lua_State *L)
+{
+    //luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    //Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    //int key = (int)lua_tonumber(L, 2);
+    int key = (int)lua_tonumber(L, 1);
+    //int result = (int)(object->keyState->testKeyReleased(key));
+    int result = (int)(lengine->getSpecialKeyState()->testKeyReleased(key));
+    lua_pushnumber(L, result);
+    return 1;
+}
+
 static int setTypeIdLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
@@ -1237,6 +1262,8 @@ static int registerFunctions(lua_State *L, int level)
     lua_register(L, "vector_getScalar", vector_getScalarLua);
     lua_register(L, "engine_testKeyPressed", engine_testKeyPressedLua);
     lua_register(L, "engine_testKeyReleased", engine_testKeyReleasedLua);
+    lua_register(L, "engine_testSpecialKeyPressed", engine_testSpecialKeyPressedLua);
+    lua_register(L, "engine_testSpecialKeyReleased", engine_testSpecialKeyReleasedLua);
     lua_register(L, "vector_normalize", vector_normalizeLua);
     lua_register(L, "vector_dotProduct", vector_dotProductLua);
     lua_register(L, "vector_crossProduct", vector_crossProductLua);

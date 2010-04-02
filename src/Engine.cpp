@@ -12,7 +12,9 @@ Engine::Engine()
 {
     // initialize resources used by the engine //
     keyState = new KeyState();
+    specialKeyState = new KeyState();
     keyState->initKeyState();
+    specialKeyState->initKeyState();
 
     soundFx_ = new SoundFX();
     loadModels();
@@ -315,8 +317,8 @@ void Engine::initGL()
 //------------------------------------------------------------------------------
 void Engine::processKeyUp(int key)
 {
-    cout << "key up=" << key << endl;
-    keyState->keys[key] = 2;
+    cout << "special key up=" << key << endl;
+    specialKeyState->keys[key] = 2;
 
     #if DEMO
         if ( gameMode == 1 )
@@ -326,8 +328,9 @@ void Engine::processKeyUp(int key)
 //------------------------------------------------------------------------------
 void Engine::processKeyDown( int key )
 {
-    cout << "key down=" << key << endl;
-    keyState->keys[key] = 1;
+    cout << "special key down=" << key << endl;
+    specialKeyState->keys[key] = 1;
+
 
     #if DEMO
         if ( gameMode == 1 )
@@ -339,6 +342,7 @@ void Engine::processKeyDown( int key )
 void Engine::processCommands()
 {
     keyState->initKeyState();
+    specialKeyState->initKeyState();
     /*
     int cmd = control.deQueue();    // get command from queue
 
@@ -1059,6 +1063,9 @@ void Engine::shutdown()
 
     if (keyState != NULL)
         delete keyState;
+
+    if (specialKeyState != NULL)
+        delete specialKeyState;
 
     currentLevel = storedLevel = NULL;
     c1 = c2 = c3 = c4 = mainCamera = NULL;

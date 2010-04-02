@@ -202,3 +202,10 @@ New KRIG Engine lua scripting functions:
 
 Install ATI driver on Ubuntu (9.04+): 
     http://tan-com.com/posts/technology/fix-ubuntu-904-ati-driver-issue
+
+4/1/10 ~ Steve
+
+New KRIG Engine lua scripting functions:
+    engine_testSpecialKeyPressed(object_ref, key_number) - returns: boolean result - for use with GLUT special keys (ie arrow keys)
+    engine_testSpecialKeyReleased(object_ref, key_number) - returns: boolean result - for use with GLUT special keys (ie arrow keys)
+

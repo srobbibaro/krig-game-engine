@@ -96,15 +96,15 @@ function on_update(this, elapsedTime)
         this_velocity[1] = camera_velocity[1]
         this_velocity[2] = camera_velocity[2]
        
-        if engine_testKeyPressed(101) == 1 then upDown = 1 end
-        if engine_testKeyPressed(103) == 1 then downDown = 1 end
-        if engine_testKeyPressed(100) == 1 then leftDown = 1 end
-        if engine_testKeyPressed(102) == 1 then rightDown = 1 end
+        if engine_testSpecialKeyPressed(101) == 1 then upDown = 1 end
+        if engine_testSpecialKeyPressed(103) == 1 then downDown = 1 end
+        if engine_testSpecialKeyPressed(100) == 1 then leftDown = 1 end
+        if engine_testSpecialKeyPressed(102) == 1 then rightDown = 1 end
 
-	    if engine_testKeyReleased(101) == 1 then upDown = 0 end
-        if engine_testKeyReleased(103) == 1 then downDown = 0 end
-        if engine_testKeyReleased(100) == 1 then leftDown = 0 end
-        if engine_testKeyReleased(102) == 1 then rightDown = 0 end
+	    if engine_testSpecialKeyReleased(101) == 1 then upDown = 0 end
+        if engine_testSpecialKeyReleased(103) == 1 then downDown = 0 end
+        if engine_testSpecialKeyReleased(100) == 1 then leftDown = 0 end
+        if engine_testSpecialKeyReleased(102) == 1 then rightDown = 0 end
 
 	    if upDown == 1 then this_velocity[2] = this_velocity[2] + 10 end
         if downDown == 1 then this_velocity[2] = this_velocity[2] - 10 end
