@@ -1,4 +1,4 @@
-#include <windows.h>
+//#include <windows.h>
 #include <math.h>
 
 #include "constants.h"
