@@ -30,6 +30,10 @@ function on_update(this, elapsedTime)
             math.random(0, 3), math.random(0, 3), math.random(0, 3))
     end 
 
+    if this_position[2] < camera_position[2] - 20 then
+        removeObject(this)
+    end
+
     return
 end
 
