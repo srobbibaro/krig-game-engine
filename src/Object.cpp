@@ -82,7 +82,7 @@ void Object::init(void)
     active = true;
     scriptName = "";
     suspendTime = 0.0f;
-    typeId = 0;
+    typeId = -1;
 
     isInView = true;
     isDrawEnabled_ = true;
@@ -291,6 +291,7 @@ void Object::processCollisions( Object* temp )
             (boxA[1].z >= boxB[0].z && boxA[1].z <= boxB[1].z)  ||
             (boxB[0].z >= boxA[0].z && boxB[0].z <= boxA[1].z)  ||
             (boxB[1].z >= boxA[0].z && boxB[1].z <= boxA[1].z)) ) {
+                //cout << "Collision! object 1=" << this->typeId << " object 2=" << temp->typeId << endl;
                 handleCollision( temp );
                 temp->handleCollision(this);
             }

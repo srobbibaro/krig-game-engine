@@ -26,6 +26,8 @@ function on_load(this)
     setRotationVelocity(this, -10.0, 0.0, 0.0)
     suspend(this, 0.25)
 
+    setTypeId(this, 0)
+
     --obj = this
     return
 end
@@ -48,7 +50,7 @@ function on_update(this, elapsedTime)
         if invul <= 0.0 then
             enableDraw(this)
             collisionRecover = 0
-            enableCollisionDetection(this)
+            --enableCollisionDetection(this)
         end
     end
 
@@ -136,15 +138,23 @@ end
 function on_collision(this,temp)
     tempId = getTypeId(temp)
 
-    if tempId == 1 or tempId == 10 or tempId == 4 then
+    if collisionRecover == 0 and (tempId == 1 or tempId == 10 or tempId == 4) then
         life = life - 1
         collisionRecover = 1
-        disableCollisionDetection(this)
+        --disableCollisionDetection(this)
         invul = 2.0
         if life <= 0 then 
             life = 10
             if lives > 0 then lives = lives - 1 end
         end
+    elseif tempId == 5 then
+        life = life + 1
+        if life > 10 then life = 10 end
+    elseif tempId == 6 then
+        life =  10
+    elseif tempId == 7 then
+        lives = lives + 1
+        if lives > 99 then lives = 99 end
     end
     return 
 end

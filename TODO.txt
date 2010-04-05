@@ -4,7 +4,7 @@
     * Steve: use beams to stop the player's progress.
     * Steve/Andy: level 4 - place objects/ai.
     * Steve: fix missile ai.
-    * Steve: change blue power up to be health bonus.
+    * Steve: change blue power up to be health bonus. (4/3/10 ~Steve)
     * Steve: verify weather effects still work.
     * Steve/Andy: odds and ends and clean up.
     * Andy: place enemy ships in level 2.
@@ -50,7 +50,7 @@
 12/8/08 ~ Steve
     x Convert level 4 to new level loading scheme. (12/8/08 ~ Steve)
     x Steve: Fix player shot lua script to mimic existing design. (12/22/08 ~ Steve)
-    * Steve: Game crashes when changing levels. Level 2? 
+    x Steve: Game crashes when changing levels. Level 2? (4/2/10 ~ Steve - cannot reproduce in latest build)
     x Steve: Game sometimes crashes while shooting. (12/8/08 ~ Steve)
     x Why does game seg fault during debug before loading level? (12/8/08 ~ Steve)
     x Make lua function to enable/disable collision detection for each object. (12/22/08 ~ Steve)
@@ -66,7 +66,7 @@
     * Implement lua function to find closest object of a particular type.
     x Implement lua function setScaleRate. (12/10/08 ~ Steve)
     x Implement explosion type in lua. (12/10/08 ~ Steve)
-    * Implement powerup types in lua.
+    * Implement powerup types in lua. (4/3/10 ~ Steve)
     x Investigate passing arguments (such as vectors) in tables. (12/10/08 ~ Steve)
     * Investigate calling functions from lua with OO notation (object.setPosition()).
     x Investigate way to pass lua only values into other lua scripts. (12/10/08 ~ Steve)
