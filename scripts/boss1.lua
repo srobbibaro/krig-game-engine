@@ -2,12 +2,13 @@ dofile('./scripts/base_object.lua')
 dofile('./scripts/base_enemy.lua')
 
 state = 0
-nextShot = 0.5
+nextShot = 3.5
 
 function on_load(this)
     setModel(this, "Boss.mdl")
     setScale(this, 4.0, 4.0, 4.0)
-    setRotation(this, 0.0, -1.57, 0.0)
+--    setRotation(this, 0.0, -1.57079633, 0.0)
+    setRotation(this, 0.0, -1.5708, 0.0)
 
     setVelocity(this, -5.0, 0.0, 0.0)
     life = 40
@@ -45,13 +46,16 @@ function on_update(this, elapsedTime)
 
     if nextShot > 0.0 then nextShot = nextShot - elapsedTime end
 
-    if plr_pos[2] < (this_pos[2] + .5) and 
-       plr_pos[2] > (this_pos[2] - .5) and 
-       nextShot <= 0.0 and
+--    if plr_pos[2] < (this_pos[2] + .5) and 
+--       plr_pos[2] > (this_pos[2] - .5) and 
+      if  nextShot <= 0.0 and
        in_view == 1 then
-        obj = setShot(this, "./scripts/enemy_shot.lua") 
-        nextShot = .85
+        radius = getBoundingSphereRadius(this) - 1.25
+        obj = setShot(this, "./scripts/enemy_shot.lua", radius, radius) 
         setScale(obj, 4.0, 4.0, 4.0)
+        obj = setShot(this, "./scripts/enemy_shot.lua", radius, -radius) 
+        setScale(obj, 4.0, 4.0, 4.0)
+        nextShot = .85
     end
 
     return

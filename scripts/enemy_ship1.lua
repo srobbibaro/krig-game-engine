@@ -23,7 +23,8 @@ function on_update(this, elapsedTime)
        plr_pos[2] > (this_pos[2] - .5) and 
        nextShot <= 0.0 and
        in_view == 1 then
-        setShot(this, "./scripts/enemy_shot.lua") 
+        radius = getBoundingSphereRadius(this)
+        setShot(this, "./scripts/enemy_shot.lua", radius) 
         nextShot = .85
     end
     return

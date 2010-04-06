@@ -91,8 +91,8 @@
     * Steve: Fix terrain collision detection (use QuadTree and test spheres).
     * Steve: Implement ability to set variables in a script (opposite of getScriptValue).
     * Steve: Why are some object in level 1 not placed properly (ie pine tree at 0,0,0)?
-    * Steve: Implement enemy shooting.
-    * Steve: Implement boss shooting.
+    x Steve: Implement enemy shooting (4/5/10 ~ Steve - already done).
+    x Steve: Implement boss shooting (4/6/10 ~ Steve).
     * Steve/Andy: Convert snow particle system to lua.
     * Steve/Andy: Convert star field particle system to lua.
     * Steve: Tweak terrain-water animation to make less CPU intensive (and possibly look better).
@@ -103,3 +103,7 @@
 
 4/1/09 ~ Steve
     * Steve: Create deseret level (level 4) terrain.
+
+4/4/10 ~ Steve
+    * Tally player's score.
+    * Implement lua function to return object's collision box.

@@ -116,7 +116,8 @@ function on_update(this, elapsedTime)
         setVelocityv(this, this_velocity)
 
         if engine_testKeyPressed(32) == 1 and nextShot <= 0.0 then
-            setShot(this, "./scripts/player_shot.lua") 
+            radius = getBoundingSphereRadius(this)
+            setShot(this, "./scripts/player_shot.lua", radius) 
             nextShot = .40
         end      
 
