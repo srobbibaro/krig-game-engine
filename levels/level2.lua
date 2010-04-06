@@ -127,7 +127,30 @@ function on_load(terrain)
     return
 end
 
-function on_update()
+function on_update(terrain, elapsedTime)
+    if bossBattle == 0  then
+        camera = getCamera()
+        cam_pos = getPosition(camera)
+
+        if cam_pos[1] >= 970.0 then
+            bossBattle = 1
+
+            -- Set the camera's velocity
+            setVelocity(camera, 0.0, 0.0, 0.0)
+
+             -- Set the player's velocity
+            player = getPlayer()
+            plr_vel = getVelocity(player)
+            setVelocity(player, (plr_vel[1] - 10.0), plr_vel[2], plr_vel[3])
+    
+            -- Create the boss...
+            obj = addObject(terrain, "./scripts/boss2.lua")
+            setPosition(obj, 995.0, 15.0, 7.5)
+
+             boss = obj
+        end
+    end
+
     return
 end
 
@@ -140,7 +163,13 @@ function on_draw()
 end
 
 function on_draw_screen()
-    display_hud(0,0)
+    if bossBattle == 1 then
+        bossLife = 0
+        if boss ~= nil then bossLife = getScriptValue(boss, "life") end
+        if bossLife == 0 then boss = nil end
+    end
+
+    display_hud(bossBattle, bossLife)
     display_debug()
     return
 end
