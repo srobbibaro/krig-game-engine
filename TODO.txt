@@ -107,3 +107,7 @@
 4/4/10 ~ Steve
     * Tally player's score.
     * Implement lua function to return object's collision box.
+
+4/6/10 ~ Steve
+    * Award health bonus to score upon level complete.
+    * Place snow boss in level 2 (4/6/10 ~ Steve).
