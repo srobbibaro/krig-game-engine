@@ -66,7 +66,7 @@
     * Implement lua function to find closest object of a particular type.
     x Implement lua function setScaleRate. (12/10/08 ~ Steve)
     x Implement explosion type in lua. (12/10/08 ~ Steve)
-    * Implement powerup types in lua. (4/3/10 ~ Steve)
+    x Implement powerup types in lua. (4/3/10 ~ Steve)
     x Investigate passing arguments (such as vectors) in tables. (12/10/08 ~ Steve)
     * Investigate calling functions from lua with OO notation (object.setPosition()).
     x Investigate way to pass lua only values into other lua scripts. (12/10/08 ~ Steve)
