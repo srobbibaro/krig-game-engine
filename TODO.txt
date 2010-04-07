@@ -114,3 +114,4 @@
 
 4/7/10 ~ Steve
     x Implement missile powerup. (4/7/10 ~ Steve).
+    * Possibly implement "texture" object type which will allow a texture to be loaded/manipulated/displayed with all other objects.
