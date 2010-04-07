@@ -111,3 +111,6 @@
 4/6/10 ~ Steve
     * Award health bonus to score upon level complete.
     * Place snow boss in level 2 (4/6/10 ~ Steve).
+
+4/7/10 ~ Steve
+    * Implement missile powerup. (4/7/10 ~ Steve).

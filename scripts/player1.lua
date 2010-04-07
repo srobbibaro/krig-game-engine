@@ -4,6 +4,7 @@ progress = 0
 life = 10
 lives = 3
 nextShot = 0.0
+numMissiles = 0
 nextMissileShot = 0.0
 
 leftDown = 0
@@ -149,10 +150,11 @@ function on_collision(this,temp)
             if lives > 0 then lives = lives - 1 end
         end
     elseif tempId == 5 then
-        life = life + 1
-        if life > 10 then life = 10 end
+        numMissiles = numMissiles + 5
+        if numMissiles > 30 then numMissiles = 30 end
     elseif tempId == 6 then
-        life =  10
+        life = life + 5
+        if life > 10 then life = 10 end
     elseif tempId == 7 then
         lives = lives + 1
         if lives > 99 then lives = 99 end
