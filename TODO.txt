@@ -105,12 +105,12 @@
     * Steve: Create deseret level (level 4) terrain.
 
 4/4/10 ~ Steve
-    * Tally player's score. (4/7/10 ~ Steve)
+    x Tally player's score. (4/7/10 ~ Steve)
     * Implement lua function to return object's collision box.
 
 4/6/10 ~ Steve
     * Award health bonus to score upon level complete.
-    * Place snow boss in level 2 (4/6/10 ~ Steve).
+    x Place snow boss in level 2 (4/6/10 ~ Steve).
 
 4/7/10 ~ Steve
-    * Implement missile powerup. (4/7/10 ~ Steve).
+    x Implement missile powerup. (4/7/10 ~ Steve).
