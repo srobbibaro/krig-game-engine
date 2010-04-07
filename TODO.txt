@@ -89,7 +89,7 @@
     x Andy: Consider creating two seperate classes Music and Sound (or similar) from the existing Sound.h/cpp. (1/2/09 ~ Andy)
     x Steve: 'G' key should not map to down arrow key. (4/1/10 ~ Steve)
     * Steve: Fix terrain collision detection (use QuadTree and test spheres).
-    * Steve: Implement ability to set variables in a script (opposite of getScriptValue).
+    * Steve: Implement ability to set variables in a script (opposite of getScriptValue). (4/7/10 ~ Steve)
     * Steve: Why are some object in level 1 not placed properly (ie pine tree at 0,0,0)?
     x Steve: Implement enemy shooting (4/5/10 ~ Steve - already done).
     x Steve: Implement boss shooting (4/6/10 ~ Steve).
@@ -105,7 +105,7 @@
     * Steve: Create deseret level (level 4) terrain.
 
 4/4/10 ~ Steve
-    * Tally player's score.
+    * Tally player's score. (4/7/10 ~ Steve)
     * Implement lua function to return object's collision box.
 
 4/6/10 ~ Steve

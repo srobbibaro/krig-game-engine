@@ -1,5 +1,7 @@
 life = 1
 
+score = 0
+
 function handle_collision(this, temp)
     typeId = getTypeId(temp)
 
@@ -7,6 +9,9 @@ function handle_collision(this, temp)
         playSound(this, "explosion1.wav")
         life = life - 1
         if life <= 0 then
+            player = getPlayer()
+            player_score = getScriptValue(player, "score") + score
+            setScriptValue(player, "score", player_score)
             create_score_text(this)
             
             math.randomseed( os.time() )
@@ -59,7 +64,7 @@ function create_score_text(this)
     cam_vel = getVelocity(camera)
     this_position = getPosition(this)
 
-    obj = addText(this, "./scripts/camera1.lua", "5000")
+    obj = addText(this, "./scripts/camera1.lua", score)
 
     setPositionv(obj, this_position)
     setScale(obj, 0.75, 0.75, 0.0)

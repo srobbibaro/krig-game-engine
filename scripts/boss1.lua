@@ -3,6 +3,7 @@ dofile('./scripts/base_enemy.lua')
 
 state = 0
 nextShot = 3.5
+score = 2000
 
 function on_load(this)
     setModel(this, "Boss.mdl")

@@ -32,6 +32,7 @@ function display_hud(bossBattle, bossLife)
     player = getPlayer()
 
     ShipEnergy = getScriptValue(player, "life")
+    score      = getScriptValue(player, "score")
     EnemyEnergy = bossLife 
     EnergyBar = -0.99 + (0.068 * ShipEnergy)
     BossEnergy = 0.99 - (0.017 * EnemyEnergy)
@@ -47,7 +48,7 @@ function display_hud(bossBattle, bossLife)
             renderText("Enemy", 0.85, 0.7)
         end 
 
-        renderText("Score: 1000", -.2, 0.7)
+        renderText("Score: " .. score, -.2, 0.7)
         renderText("Missiles: 30", -1.0, .75)
         
         gl.Begin("QUADS")

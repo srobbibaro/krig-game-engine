@@ -1,5 +1,7 @@
 dofile('./scripts/base_enemy.lua')
 
+score = 500
+
 function on_load(this) 
     setModel(this, "Asteroid.mdl")
     setScale(this, 2.0, 2.0, 2.0)

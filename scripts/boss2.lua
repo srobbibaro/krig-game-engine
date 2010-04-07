@@ -6,6 +6,7 @@ y_min = 0.0
 y_max = 0.0
 
 shot_timer = 0.0
+score = 5000
 
 function set_window()
     camera = getCamera()

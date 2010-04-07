@@ -160,6 +160,14 @@ class Object : public ObjectNode
             return value;
         }
 
+        void setScriptValue(const char* s, float value)
+        {
+            if (L != NULL) {
+                lua_pushnumber(L, value);
+                lua_setglobal(L, s);
+            }
+        }
+
         void setState(unsigned char);
 
         void setSpeed( GLfloat, GLfloat, GLfloat );

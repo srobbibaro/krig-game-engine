@@ -954,6 +954,17 @@ static int getScriptValueLua(lua_State *L)
     return 1;
 }
 
+static int setScriptValueLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    const char *s = lua_tostring(L, 2);
+    float value = (int)lua_tonumber(L, 3);
+
+    object->setScriptValue(s, value);
+    return 0;
+}
+
 static int loadLevelLua(lua_State *L)
 {
     const char *s = lua_tostring(L, 1);
@@ -1270,6 +1281,7 @@ static int registerFunctions(lua_State *L, int level)
     lua_register(L, "getTypeId", getTypeIdLua);
     lua_register(L, "setTypeId", setTypeIdLua);
     lua_register(L, "getScriptValue", getScriptValueLua);
+    lua_register(L, "setScriptValue", setScriptValueLua);
     lua_register(L, "getCollisionDetectionEnabled", getCollisionDetectionEnabledLua);
     lua_register(L, "enableCollisionDetection", enableCollisionDetectionLua);
     lua_register(L, "disableCollisionDetection", disableCollisionDetectionLua);
