@@ -209,3 +209,8 @@ New KRIG Engine lua scripting functions:
     engine_testSpecialKeyPressed(object_ref, key_number) - returns: boolean result - for use with GLUT special keys (ie arrow keys)
     engine_testSpecialKeyReleased(object_ref, key_number) - returns: boolean result - for use with GLUT special keys (ie arrow keys)
 
+4/7/10 ~ Steve
+
+New KRIG object lua scripting function:
+    setScriptValue(object_ref, variable_name, value) - sets variable_name to value in script for object_ref 
+
