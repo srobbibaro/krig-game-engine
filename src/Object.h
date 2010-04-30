@@ -32,8 +32,7 @@ class ParticleSystem;
 
 class Object : public ObjectNode
 {
-    public:
-    //protected:
+    protected:
         // orientation //
         Vector position;            // x,y,z position of object
         Quaternion rotation;
@@ -42,6 +41,7 @@ class Object : public ObjectNode
         Vector baseDirection;       // base direction of object
         Vector direction;           // direction facing
         Vector up;
+        Vector orth;
 
         // rate of change //
         Vector velocity;
@@ -73,6 +73,7 @@ class Object : public ObjectNode
         // Necessary for the Lua implementation
         lua_State* L;
         string scriptName;
+        int scriptIndex;
 
         float suspendTime;
 
@@ -85,19 +86,14 @@ class Object : public ObjectNode
         bool scaleChanged;
         bool rotationChanged;
 
-    //public:
+        bool isAlwaysLit_;
+
+    public:
         Object();
         virtual ~Object();
 
-        void drawObjects( Object* ); // Camera*
-        void drawObjectOutlines( Object* ); // Camera*
-        void drawShadows( Vector* );
 
-        void updateObjects( Vector*  );
         void processCollisions( Object* );
-        void prepareObjects();
-        void animateObjects( float, Object* ); // Camera*
-
         Object* getRoot();
 
         // virtual functions ///////////////////////
@@ -115,6 +111,7 @@ class Object : public ObjectNode
         float calcTriangleCenter( void );
 
         void init(void);
+        void initSettings(void);
         void cleanup(void);
 
         void loadScript(string file);
@@ -169,6 +166,7 @@ class Object : public ObjectNode
         }
 
         void setState(unsigned char);
+        void setScript( string name );
 
         void setSpeed( GLfloat, GLfloat, GLfloat );
         void setSpeed( const Vector &v );
@@ -179,6 +177,58 @@ class Object : public ObjectNode
         }
 
         bool getCollisionDetectionEnabled() { return isCollisionDetectionEnabled_; }
+
+        void setActive( bool new_active ) { active = new_active; }
+        bool getActive() { return active; }
+
+        Vector getPosition() { return position; }
+        Vector getVelocity() { return velocity; }
+        Vector getRotationVelocity() { return rotationVelocity; }
+        Vector getScaleRate() { return scaleRate; }
+        Vector getSpeed() { return speed; }
+
+        bool isRotationChanged() { return rotationChanged; }
+        void setRotationChanged( bool rotationChanged_l) { rotationChanged = rotationChanged_l; }
+        Quaternion getRotation() { return rotation; }
+        void setRotation(Quaternion rotation_l) { rotation = rotation_l; rotationChanged = true;}
+        Vector getDirection() { return direction; }
+        Vector getUp() { return up; }
+        Vector getScale() { return scale; }
+
+        Quaternion getRInterpStart() { return rInterpStart; }
+        Quaternion getRInterpEnd() { return rInterpEnd; }
+        void setRInterpStart(Quaternion rInterpStart_l) { rInterpStart = rInterpStart_l;}
+        void setRInterpEnd(Quaternion rInterpEnd_l) { rInterpEnd= rInterpEnd_l;}
+
+        bool isInterpolationEnabled() { return isInterpolationEnabled_; }
+        bool setIsInterpolationEnabled(bool isInterpolationEnabled_l) { isInterpolationEnabled_ = isInterpolationEnabled_l; }
+
+        float getValInterpBegin() { return valInterpBegin_; }
+        float getValInterpCurrent() { return valInterpCurrent_; }
+        float getValInterpEnd() { return valInterpEnd_; }
+
+        void setValInterpBegin(float valInterpBegin) { valInterpBegin_ = valInterpBegin; }
+        void setValInterpCurrent(float valInterpCurrent) { valInterpCurrent_ = valInterpCurrent; }
+        void setValInterpEnd(float valInterpEnd) { valInterpEnd_ = valInterpEnd; }
+
+        void setSuspendTime( float time ) { suspendTime = time; }
+
+        void setState( int state_l ) {state = state_l; }
+        int  getState() { return state; }
+
+        void setScaleChanged( bool scaleChanged_l ) { scaleChanged = scaleChanged_l; }
+
+        void setIsAlwaysLit( bool isAlwaysLit ) { isAlwaysLit_ = isAlwaysLit; }
+
+        void setTypeId (int type_id) { typeId = type_id; }
+        int getTypeId() { return typeId; }
+
+        Sphere getBoundingSphere() { return boundingSphere; }
+
+        string getScriptName() { return scriptName; }
+
+        Vector getOrth() { return orth; }
+
 };
 
 #endif

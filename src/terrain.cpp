@@ -14,10 +14,10 @@
 //------------------------------------------------------------------------------
 Terrain::Terrain() : Object()
 {
-	vertex = NULL;
-    lightIntensity = NULL;
-    color = NULL;
-    type = NULL;
+	vertex_ = NULL;
+    lightIntensity_ = NULL;
+    color_ = NULL;
+    type_ = NULL;
 
     init();
 }
@@ -26,9 +26,9 @@ void Terrain::init()
 {
     unload();
 
-    xSize = 0;
-	zSize = 0;
-	scaleFactor = 1.0f;
+    xSize_ = 0;
+	zSize_ = 0;
+	scaleFactor_ = 1.0f;
 }
 
 //------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ Terrain::~Terrain()
 //------------------------------------------------------------------------------
 void Terrain::draw( Object* c )
 {
-    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL) {
+    if (vertex_ == NULL || lightIntensity_ == NULL || color_ == NULL || type_ == NULL) {
         return;
     }
 
@@ -55,12 +55,12 @@ void Terrain::draw( Object* c )
     xStart = zStart = 0;
 
     glPushMatrix();
-        QuadTreeNode* n = l->head;
+        QuadTreeNode* n = displayList_->head;
 
         while (n != NULL) {
             glBegin(GL_TRIANGLE_STRIP);
-                xStart = n->min[0] / scaleFactor;
-                zStart = n->min[1] /  scaleFactor;
+                xStart = n->min[0] / scaleFactor_;
+                zStart = n->min[1] /  scaleFactor_;
 
                 x1 = (int)xStart;
                 x2 = ((int)xStart) + 1;
@@ -68,77 +68,79 @@ void Terrain::draw( Object* c )
                 z1 = (int)zStart;
                 z2 = ((int)zStart) +1;
 
-                v[0] = vertex[x1][z1][0];
-                v[2] = vertex[x1][z1][2];
+                v[0] = vertex_[x1][z1][0];
+                v[2] = vertex_[x1][z1][2];
 
-                xPer1 = (vertex[x1][z1][0] - c->position.x) * (vertex[x1][z1][0] - c->position.x);
-                xPer2 = (vertex[x2][z1][0] - c->position.x) * (vertex[x2][z1][0] - c->position.x);
-                zPer1 = (vertex[x1][z1][2] - c->position.z)* (vertex[x1][z1][2] - c->position.z);
-                zPer2 = (vertex[x1][z2][2] - c->position.z)* (vertex[x1][z2][2] - c->position.z);
+                Vector cPosition = c->getPosition();
+
+                xPer1 = (vertex_[x1][z1][0] - cPosition.x) * (vertex_[x1][z1][0] - cPosition.x);
+                xPer2 = (vertex_[x2][z1][0] - cPosition.x) * (vertex_[x2][z1][0] - cPosition.x);
+                zPer1 = (vertex_[x1][z1][2] - cPosition.z)* (vertex_[x1][z1][2] - cPosition.z);
+                zPer2 = (vertex_[x1][z2][2] - cPosition.z)* (vertex_[x1][z2][2] - cPosition.z);
 
                 tPer = sqrt(xPer1 + zPer1);
-                float rate = .05f;
+                float rate = .005f;
                 float offset = 200.0f;
 
                 //offset = 1000000;
 
                 if ( tPer > offset ) {
                     tPer = tPer - offset;
-                    v[1] = -(rate * (tPer)) * ( rate * (tPer) )  + vertex[x1][z1][1];
+                    v[1] = -(rate * (tPer)) * ( rate * (tPer) )  + vertex_[x1][z1][1];
                 }
                 else
-                    v[1] = vertex[x1][z1][1];
+                    v[1] = vertex_[x1][z1][1];
 
-                glColor3fv( color[x1][z1] );
-                glTexCoord1f( lightIntensity[x1][z1] );
+                glColor3fv( color_[x1][z1] );
+                glTexCoord1f( lightIntensity_[x1][z1] );
                 glVertex3fv( v );
 
-                v[0] = vertex[x2][z1][0];
-                v[2] = vertex[x2][z1][2];
+                v[0] = vertex_[x2][z1][0];
+                v[2] = vertex_[x2][z1][2];
 
                 tPer = sqrt(xPer2 + zPer1);
 
                 if ( tPer > offset ) {
                     tPer = tPer - offset;
-                    v[1] = -(rate * (tPer)) * ( rate * (tPer) )  + vertex[x2][z1][1];
+                    v[1] = -(rate * (tPer)) * ( rate * (tPer) )  + vertex_[x2][z1][1];
                 }
                 else
-                    v[1] = vertex[x2][z1][1];
+                    v[1] = vertex_[x2][z1][1];
 
-                glColor3fv( color[x2][z1] );
-                glTexCoord1f( lightIntensity[x2][z1] );
+                glColor3fv( color_[x2][z1] );
+                glTexCoord1f( lightIntensity_[x2][z1] );
                 glVertex3fv( v );
 
-                v[0] = vertex[x1][z2][0];
-                v[2] = vertex[x1][z2][2];
+                v[0] = vertex_[x1][z2][0];
+                v[2] = vertex_[x1][z2][2];
 
                 tPer = sqrt(xPer1 + zPer2);
 
                  if ( tPer > offset ) {
                     tPer = tPer - offset;
-                    v[1] = -(rate * (tPer)) * ( rate * (tPer) )  + vertex[x1][z2][1];
+                    v[1] = -(rate * (tPer)) * ( rate * (tPer) )  + vertex_[x1][z2][1];
                 }
                 else
-                    v[1] = vertex[x1][z2][1];
+                    v[1] = vertex_[x1][z2][1];
 
-                glColor3fv( color[x1][z2] );
-                glTexCoord1f( lightIntensity[x1][z2] );
+                glColor3fv( color_[x1][z2] );
+                glTexCoord1f( lightIntensity_[x1][z2] );
                 glVertex3fv( v );
 
                 tPer = sqrt(xPer2 + zPer2);
 
-                v[0] = vertex[x2][z2][0];
-                v[2] = vertex[x2][z2][2];
+                v[0] = vertex_[x2][z2][0];
+                v[2] = vertex_[x2][z2][2];
 
                 if ( tPer > offset ) {
                     tPer = tPer - offset;
-                    v[1] = -(rate * (tPer)) * (rate * (tPer) )  + vertex[x2][z2][1];
+                    v[1] = -(rate * (tPer)) * (rate * (tPer) )  + vertex_[x2][z2][1];
                 }
                 else
-                    v[1] = vertex[x2][z2][1];
+                    v[1] = vertex_[x2][z2][1];
 
-                glColor3fv( color[x2][z2] );
-                glTexCoord1f( lightIntensity[x2][z2] );
+                glColor3fv( color_[x2][z2] );
+                glTexCoord1f( lightIntensity_[x2][z2] );
                 glVertex3fv( v );
             glEnd();
 
@@ -151,7 +153,7 @@ void Terrain::draw( Object* c )
 //------------------------------------------------------------------------------
 void Terrain::drawOutline( Object* c )
 {
-    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL) {
+    if (vertex_ == NULL || lightIntensity_ == NULL || color_ == NULL || type_ == NULL) {
         return;
     }
 
@@ -166,14 +168,14 @@ void Terrain::drawOutline( Object* c )
     xStart = zStart = 0;
 
     glPushMatrix();
-       QuadTreeNode* n = l->head;
+       QuadTreeNode* n = displayList_->head;
 
         glColor3f(0.0f, 0.0f, 0.0f);
 
         while (n != NULL) {
             glBegin(GL_TRIANGLES);
-                xStart = n->min[0] / scaleFactor;
-                zStart = n->min[1] / scaleFactor;
+                xStart = n->min[0] / scaleFactor_;
+                zStart = n->min[1] / scaleFactor_;
 
                 x1 = (int)xStart;
                 x2 = ((int)xStart) + 1;
@@ -181,13 +183,15 @@ void Terrain::drawOutline( Object* c )
                 z1 = (int)zStart;
                 z2 = ((int)zStart) +1;
 
-                v[0] = vertex[x1][z1][0];
-                v[2] = vertex[x1][z1][2];
+                v[0] = vertex_[x1][z1][0];
+                v[2] = vertex_[x1][z1][2];
 
-                xPer1 = (vertex[x1][z1][0] - c->position.x) * (vertex[x1][z1][0] - c->position.x);
-                xPer2 = (vertex[x2][z1][0] - c->position.x) * (vertex[x2][z1][0] - c->position.x);
-                zPer1 = (vertex[x1][z1][2] - c->position.z)* (vertex[x1][z1][2] - c->position.z);
-                zPer2 = (vertex[x1][z2][2] - c->position.z)* (vertex[x1][z2][2] - c->position.z);
+                Vector cPosition = c->getPosition();
+
+                xPer1 = (vertex_[x1][z1][0] - cPosition.x) * (vertex_[x1][z1][0] - cPosition.x);
+                xPer2 = (vertex_[x2][z1][0] - cPosition.x) * (vertex_[x2][z1][0] - cPosition.x);
+                zPer1 = (vertex_[x1][z1][2] - cPosition.z)* (vertex_[x1][z1][2] - cPosition.z);
+                zPer2 = (vertex_[x1][z2][2] - cPosition.z)* (vertex_[x1][z2][2] - cPosition.z);
 
                 tPer = sqrt(xPer1 + zPer1);
                 //float rate = .045f;
@@ -196,53 +200,53 @@ void Terrain::drawOutline( Object* c )
 
                 if ( tPer > offset ) {
                     tPer = tPer - offset;
-                    v[1] = -(rate * (tPer)) * ( rate * (tPer) )  + vertex[x1][z1][1];
+                    v[1] = -(rate * (tPer)) * ( rate * (tPer) )  + vertex_[x1][z1][1];
                 }
                 else
-                    v[1] = vertex[x1][z1][1];
+                    v[1] = vertex_[x1][z1][1];
 
                 glVertex3fv( v );
 
-                v[0] = vertex[x2][z1][0];
-                v[2] = vertex[x2][z1][2];
+                v[0] = vertex_[x2][z1][0];
+                v[2] = vertex_[x2][z1][2];
 
                 tPer = sqrt(xPer2 + zPer1);
 
                 if ( tPer > offset ) {
                     tPer = tPer - offset;
-                    v[1] = -(rate * (tPer)) * ( rate * (tPer) )  + vertex[x2][z1][1];
+                    v[1] = -(rate * (tPer)) * ( rate * (tPer) )  + vertex_[x2][z1][1];
                 }
                 else
-                    v[1] = vertex[x2][z1][1];
+                    v[1] = vertex_[x2][z1][1];
 
                      glVertex3fv( v );
 
-                v[0] = vertex[x1][z2][0];
-                v[2] = vertex[x1][z2][2];
+                v[0] = vertex_[x1][z2][0];
+                v[2] = vertex_[x1][z2][2];
 
                 tPer = sqrt(xPer1 + zPer2);
 
                  if ( tPer > offset ) {
                     tPer = tPer - offset;
 
-                    v[1] = -(rate * (tPer)) * ( rate * (tPer) )  + vertex[x1][z2][1];
+                    v[1] = -(rate * (tPer)) * ( rate * (tPer) )  + vertex_[x1][z2][1];
                 }
                 else
-                    v[1] = vertex[x1][z2][1];
+                    v[1] = vertex_[x1][z2][1];
 
                 glVertex3fv( v );
 
                 tPer = sqrt(xPer2 + zPer2);
 
-                v[0] = vertex[x2][z2][0];
-                v[2] = vertex[x2][z2][2];
+                v[0] = vertex_[x2][z2][0];
+                v[2] = vertex_[x2][z2][2];
 
                 if ( tPer > offset ) {
                     tPer = tPer - offset;
-                    v[1] = -(rate * (tPer)) * (rate * (tPer) )  + vertex[x2][z2][1];
+                    v[1] = -(rate * (tPer)) * (rate * (tPer) )  + vertex_[x2][z2][1];
                 }
                 else
-                    v[1] = vertex[x2][z2][1];
+                    v[1] = vertex_[x2][z2][1];
 
                  glVertex3fv( v );
             glEnd();
@@ -342,14 +346,14 @@ void Terrain::calcTerrainNorm( Vector* light )
                 tempLightIntensity = 0.0f;
 
             x1 = terrainIndex[x];
-            lightIntensity[z*X_SIZE+x1] = tempLightIntensity;
+            lightIntensity_[z*X_SIZE+x1] = tempLightIntensity;
 
             count +=2;
         }
     }
     */
 
-    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL) {
+    if (vertex_ == NULL || lightIntensity_ == NULL || color_ == NULL || type_ == NULL) {
         cout << "Error: Could not save terrain." << endl;
         return;
     }
@@ -369,23 +373,23 @@ void Terrain::calcTerrainNorm( Vector* light )
     int x1, x2;
     int z1, z2;
 
-    vertexNormal = new Vector*[xSize];
-    for (int i = 0; i < xSize; i++) {
-        vertexNormal[i] = new Vector[zSize];
+    vertexNormal = new Vector*[xSize_];
+    for (int i = 0; i < xSize_; i++) {
+        vertexNormal[i] = new Vector[zSize_];
     }
 
     // calculate surface normal
-    for ( int z = 0; z < (zSize-1); z++ ) {
-        for ( int x = 0; x < (xSize-1); x++ )  {
+    for ( int z = 0; z < (zSize_-1); z++ ) {
+        for ( int x = 0; x < (xSize_-1); x++ )  {
             x1 = x;
             x2 = x+1;
             z1 = z;
             z2 = z+1;
 
-            temp[0].setVector( vertex[x1][z1][0], vertex[x1][z1][1], vertex[x1][z1][2] );
-            temp[1].setVector( vertex[x1][z2][0], vertex[x1][z2][1], vertex[x1][z2][2] );
-            temp[2].setVector( vertex[x2][z1][0], vertex[x2][z1][1], vertex[x2][z1][2] );
-            temp[3].setVector( vertex[x2][z2][0], vertex[x2][z2][1], vertex[x2][z2][2] );
+            temp[0].setVector( vertex_[x1][z1][0], vertex_[x1][z1][1], vertex_[x1][z1][2] );
+            temp[1].setVector( vertex_[x1][z2][0], vertex_[x1][z2][1], vertex_[x1][z2][2] );
+            temp[2].setVector( vertex_[x2][z1][0], vertex_[x2][z1][1], vertex_[x2][z1][2] );
+            temp[3].setVector( vertex_[x2][z2][0], vertex_[x2][z2][1], vertex_[x2][z2][2] );
 
             surfaceNormal.calcNorm( temp[0], temp[2], temp[1] );
 
@@ -418,8 +422,8 @@ void Terrain::calcTerrainNorm( Vector* light )
     }
 
     // calculate light intensity at every vertex
-    for ( int z = 0; z < zSize; z++ ) {
-        for ( int x = 0; x < xSize; x++ ) {
+    for ( int z = 0; z < zSize_; z++ ) {
+        for ( int x = 0; x < xSize_; x++ ) {
             vertexNormal[x][z].normalize();
 
             temp2.rotateVector( tempMatrix, vertexNormal[x][z] );
@@ -433,7 +437,7 @@ void Terrain::calcTerrainNorm( Vector* light )
             else if ( tempLightIntensity < 0.0f )
                 tempLightIntensity = 0.0f;
 
-            lightIntensity[x][z] = tempLightIntensity;
+            lightIntensity_[x][z] = tempLightIntensity;
         }
     }
 }
@@ -441,7 +445,7 @@ void Terrain::calcTerrainNorm( Vector* light )
 //------------------------------------------------------------------------------
 void Terrain::update( Vector* light )
 {
-    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL) {
+    if (vertex_ == NULL || lightIntensity_ == NULL || color_ == NULL || type_ == NULL) {
         return;
     }
 
@@ -454,15 +458,15 @@ void Terrain::update( Vector* light )
 //------------------------------------------------------------------------------
 float Terrain::getHeight( float x, float z )
 {
-    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL) {
+    if (vertex_ == NULL || lightIntensity_ == NULL || color_ == NULL || type_ == NULL) {
         return 0.0f;
     }
 
     float terX, terZ;
 
     // x and z value in terms of the terrain
-    terX = x/scaleFactor;
-    terZ = z/scaleFactor;
+    terX = x / scaleFactor_;
+    terZ = z / scaleFactor_;
 
     // calculate cell row and column into array
     int row, col1, col2;
@@ -471,20 +475,20 @@ float Terrain::getHeight( float x, float z )
     col2 = col1 + 1;
 
     // test to make sure still in terrain
-    if ( col2 >= xSize )
-        col2 -= xSize;
+    if ( col2 >= xSize_ )
+        col2 -= xSize_;
 
     // calculate percentage into cell
     float perX, perZ;
-    perX = fmod(terX, xSize) - col1;
+    perX = fmod(terX, xSize_) - col1;
     perZ = float(terZ) - row;
 
     // get height values at all 4 corners
     float height1, height2, height3, height4;
-    height1 = vertex[row][col1][1];
-    height2 = vertex[row][col2][1];
-    height3 = vertex[row+1][col1][1];
-    height4 = vertex[row+1][col2][1];
+    height1 = vertex_[row][col1][1];
+    height2 = vertex_[row][col2][1];
+    height3 = vertex_[row+1][col1][1];
+    height4 = vertex_[row+1][col2][1];
 
     // calculate the final height using bilinear interpolation
     float th1 = ( 1 - perZ )*height1 + (perZ*height3 );
@@ -498,16 +502,16 @@ float Terrain::getHeight( float x, float z )
 //------------------------------------------------------------------------------
 void Terrain::animate( float elapsedTime, Object* c )
 {
-    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL) {
+    if (vertex_ == NULL || lightIntensity_ == NULL || color_ == NULL || type_ == NULL) {
         return;
     }
 
     GLfloat min[] = { 9999.0f, 9999.0f, 9999.0f };
     GLfloat max[] = { -9999.0f, -9999.0f, -9999.0f };
 
-    totalTime += elapsedTime;
+    totalTime_ += elapsedTime;
     /*
-    int terX = int(c->position.x/scaleFactor) - 7;
+    int terX = int(cPosition.x/scaleFactor) - 7;
     if ( terX < 0 )
         terX = 0;
 
@@ -559,11 +563,11 @@ void Terrain::animate( float elapsedTime, Object* c )
 
         xStart = zStart = 0;
 
-        QuadTreeNode* n = l->head;
+        QuadTreeNode* n = displayList_->head;
 
         while (n != NULL) {
-                xStart = n->min[0] / scaleFactor;
-                zStart = n->min[1] / scaleFactor;
+                xStart = n->min[0] / scaleFactor_;
+                zStart = n->min[1] / scaleFactor_;
 
                 x1 = (int)xStart;
                 x2 = ((int)xStart) + 1;
@@ -571,12 +575,12 @@ void Terrain::animate( float elapsedTime, Object* c )
                 z1 = (int)zStart;
                 z2 = ((int)zStart) +1;
 
-                 if ( type[x1][z1] == 1 )
+                 if ( type_[x1][z1] == 1 )
                 {
-                    if ( z1 < zSize -1 && z1 < 3 )
-                        vertex[x1][z1][1] = 2*sin( (totalTime+x1+((z1%3)) )+1 );
-                    else if ( z1 < zSize -1 )
-                        vertex[x1][z1][1] = 2*sin((totalTime+x1+((-z1%3)))+1);
+                    if ( z1 < zSize_ -1 && z1 < 3 )
+                        vertex_[x1][z1][1] = 2*sin( (totalTime_+x1+((z1%3)) )+1 );
+                    else if ( z1 < zSize_ -1 )
+                        vertex_[x1][z1][1] = 2*sin((totalTime_+x1+((-z1%3)))+1);
                 }
 
             n = n->next;
@@ -593,34 +597,34 @@ void Terrain::load( const char* filePath, Vector* light )
 
     ifstream fin;
     fin.open(filePath);
-        fin >> xSize;
-        fin >> zSize;
-        fin >> scaleFactor;
+        fin >> xSize_;
+        fin >> zSize_;
+        fin >> scaleFactor_;
 
-        vertex = new GLfloat**[xSize];
-        lightIntensity = new GLfloat*[xSize];
-        color = new GLfloat**[xSize];
-        type = new GLint*[xSize];
+        vertex_ = new GLfloat**[xSize_];
+        lightIntensity_ = new GLfloat*[xSize_];
+        color_ = new GLfloat**[xSize_];
+        type_ = new GLint*[xSize_];
 
-        for (int i = 0; i < xSize; i++) {
-            vertex[i] = new GLfloat*[zSize];
-            lightIntensity[i] = new GLfloat[zSize];
-            color[i] = new GLfloat*[zSize];
-            type[i] = new GLint[zSize];
+        for (int i = 0; i < xSize_; i++) {
+            vertex_[i] = new GLfloat*[zSize_];
+            lightIntensity_[i] = new GLfloat[zSize_];
+            color_[i] = new GLfloat*[zSize_];
+            type_[i] = new GLint[zSize_];
 
-            for (int j = 0; j < zSize; j++) {
-                vertex[i][j] = new GLfloat[3];
-                color[i][j] = new GLfloat[3];
+            for (int j = 0; j < zSize_; j++) {
+                vertex_[i][j] = new GLfloat[3];
+                color_[i][j] = new GLfloat[3];
             }
         }
 
-        for (int z = 0; z < zSize; z++) {
-            for (int x = 0; x < xSize; x++) {
-                fin >> vertex[x][z][1];
-                       vertex[x][z][0] = x * scaleFactor;
-                       vertex[x][z][2] = -z * scaleFactor;
-                fin >> color[x][z][0] >> color[x][z][1] >> color[x][z][2];
-                fin >> type[x][z];
+        for (int z = 0; z < zSize_; z++) {
+            for (int x = 0; x < xSize_; x++) {
+                fin >> vertex_[x][z][1];
+                       vertex_[x][z][0] = x * scaleFactor_;
+                       vertex_[x][z][2] = -z * scaleFactor_;
+                fin >> color_[x][z][0] >> color_[x][z][1] >> color_[x][z][2];
+                fin >> type_[x][z];
             }
         }
 
@@ -633,29 +637,29 @@ void Terrain::load( const char* filePath, Vector* light )
 
 void Terrain::unload()
 {
-    if (vertex != NULL && lightIntensity != NULL && color != NULL && type != NULL) {
-        for (int i = 0; i < xSize; i++) {
-            for (int j = 0; j < zSize; j++) {
-                delete[] vertex[i][j];
-                delete[] color[i][j];
+    if (vertex_ != NULL && lightIntensity_ != NULL && color_ != NULL && type_ != NULL) {
+        for (int i = 0; i < xSize_; i++) {
+            for (int j = 0; j < zSize_; j++) {
+                delete[] vertex_[i][j];
+                delete[] color_[i][j];
             }
 
-            delete[] vertex[i];
-            delete[] lightIntensity[i];
-            delete[] color[i];
-            delete[] type;
+            delete[] vertex_[i];
+            delete[] lightIntensity_[i];
+            delete[] color_[i];
+            delete[] type_;
         }
 
-        delete[] vertex;
-        delete[] lightIntensity;
-        delete[] color;
-        delete[] type;
+        delete[] vertex_;
+        delete[] lightIntensity_;
+        delete[] color_;
+        delete[] type_;
     }
 
-    vertex = NULL;
-    lightIntensity = NULL;
-    color = NULL;
-    type = NULL;
+    vertex_ = NULL;
+    lightIntensity_ = NULL;
+    color_ = NULL;
+    type_ = NULL;
 }
 
 //------------------------------------------------------------------------------
@@ -666,14 +670,14 @@ void Terrain::drawGrid(void)
     glColor3f(1.0f, 0.0f, 0.0f);
     glBegin(GL_LINES);
 
-    for (int x = 0; x < xSize; x++) {
-        glVertex3f(x*scaleFactor, 10.0f, 0.0f);
-        glVertex3f(x*scaleFactor, 10.0f, -(zSize-1)*scaleFactor);
+    for (int x = 0; x < xSize_; x++) {
+        glVertex3f(x*scaleFactor_, 10.0f, 0.0f);
+        glVertex3f(x*scaleFactor_, 10.0f, -(zSize_-1)*scaleFactor_);
     }
 
-    for (int z = 0; z < zSize; z++ ) {
-        glVertex3f(0.0f, 10.0f, -z*scaleFactor);
-        glVertex3f((xSize-1)*scaleFactor, 10.0f, -z*scaleFactor);
+    for (int z = 0; z < zSize_; z++ ) {
+        glVertex3f(0.0f, 10.0f, -z*scaleFactor_);
+        glVertex3f((xSize_-1)*scaleFactor_, 10.0f, -z*scaleFactor_);
     }
 
     glEnd();
@@ -683,25 +687,97 @@ void Terrain::drawGrid(void)
 //------------------------------------------------------------------------------
 void Terrain::save( char* filePath, Vector* light)
 {
-    if (vertex == NULL || lightIntensity == NULL || color == NULL || type == NULL) {
+    if (vertex_ == NULL || lightIntensity_ == NULL || color_ == NULL || type_ == NULL) {
         cout << "Error: Could not save terrain." << endl;
         return;
     }
 
     ofstream fin;
     fin.open(filePath);
-        fin << xSize << endl;
-        fin << zSize << endl;
-        fin << scaleFactor << endl;
+        fin << xSize_ << endl;
+        fin << zSize_ << endl;
+        fin << scaleFactor_ << endl;
 
-        for (int z = 0; z < zSize; z++) {
-            for (int x = 0; x < xSize; x++) {
-                fin << vertex[x][z][1] << endl;
+        for (int z = 0; z < zSize_; z++) {
+            for (int x = 0; x < xSize_; x++) {
+                fin << vertex_[x][z][1] << endl;
 
-                fin << color[x][z][0] <<  "\t" << color[x][z][1]<< "\t" << color[x][z][2] << endl;
-                fin << type[x][z] << endl;
+                fin << color_[x][z][0] <<  "\t" << color_[x][z][1]<< "\t" << color_[x][z][2] << endl;
+                fin << type_[x][z] << endl;
             }
         }
 
     fin.close();
+}
+
+void Terrain::setVertexHeight(int x, int z, float height)
+{
+    if (vertex_ == NULL)
+        return;
+
+    if ( x >= 0 && x <= xSize_ - 1 && z >= 0 && z <= zSize_ - 1) {
+        vertex_[x][z][1] = height;
+    }
+}
+
+void Terrain::setVertexType(int x, int z, int type)
+{
+    if (type_ == NULL)
+        return;
+
+    if ( x >= 0 && x <= xSize_ - 1 && z >= 0 && z <= zSize_ - 1) {
+        type_[x][z] = type;
+    }
+}
+
+void Terrain::setVertexColor(int x, int z, Vector color)
+{
+    if (color_ == NULL)
+        return;
+
+    if ( x >= 0 && x <= xSize_ - 1 && z >= 0 && z <= zSize_ - 1) {
+        color_[x][z][0] = color.x;
+        color_[x][z][1] = color.y;
+        color_[x][z][2] = color.z;
+    }
+}
+
+float Terrain::getVertexHeight(int x, int z)
+{
+    if (vertex_ == NULL)
+        return 0.0f;
+
+    if ( x >= 0 && x <= xSize_ - 1 && z >= 0 && z <= zSize_ - 1) {
+        return vertex_[x][z][1];
+    }
+
+    return 0.0f;
+}
+
+int Terrain::getVertexType(int x, int z)
+{
+    if (type_ == NULL)
+        return 0;
+
+    if ( x >= 0 && x <= xSize_ - 1 && z >= 0 && z <= zSize_ - 1) {
+        return type_[x][z];
+    }
+
+    return 0;
+}
+
+Vector Terrain::getVertexColor(int x, int z)
+{
+    Vector color;
+    color.setVector(0.0f, 0.0f, 0.0f);
+
+    if (color_ == NULL)
+        return color;
+
+    if ( x >= 0 && x <= xSize_ - 1 && z >= 0 && z <= zSize_ - 1) {
+        color.setVector(color_[x][z][0], color_[x][z][1], color_[x][z][2]);
+        return color;
+    }
+
+    return color;
 }

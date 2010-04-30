@@ -4,7 +4,7 @@
 #include "ScriptedObject.h"
 #include "Scripting.h"
 
-#include "lua2/LuaGL.h"
+#include "lua/LuaGL.h"
 
 Object* lcamera;
 Object* lplayer;
@@ -17,7 +17,7 @@ GameLevel::GameLevel( unsigned int tLists)
     lists = tLists;
     isComplete_ = false;
 
-    terrain = NULL;
+    terrain_ = NULL;
 
     player = NULL;
     camera = NULL;
@@ -28,6 +28,7 @@ GameLevel::GameLevel( unsigned int tLists)
     id = 0;
 
     music_ = new Music();
+    objects_ = new ObjectList();
 
     /////
 #if EDIT
@@ -59,25 +60,25 @@ void GameLevel::drawLevel()
     glCallList( lists );
 
     // draw scene and shade /////////////////////
-    terrain->drawObjects( dynamic_cast<Camera*>(camera) );
+    drawObjects();
 
     // setup to draw outline ////////////////////
     glCallList( lists+1 );
-    terrain->drawObjectOutlines( dynamic_cast<Camera*>(camera) );
+    drawObjectOutlines();
 
     // reset draw mode to "normal"
     glCallList( lists+2 );
 
     if (grid) {
-        terrain->drawGrid();
+        terrain_->drawGrid();
         dynamic_cast<Camera*>(camera)->draw(camera);
     }
 
-    if (bboxes)
-        terrain->showCollisionBox();
+    //-if (bboxes)
+        //-terrain->showCollisionBox();
 
-    if (controlTriangles)
-    terrain->showControlTriangle();
+    //-if (controlTriangles)
+        //-terrain->showControlTriangle();
 
     //terrain->drawShadows( light );
 
@@ -90,7 +91,7 @@ void GameLevel::drawLevel()
     lua_getglobal(L, "on_draw");
 
     // Push a pointer to the current object for use within the lua function
-    lua_pushlightuserdata(L, (void*)terrain);
+    lua_pushlightuserdata(L, (void*)terrain_);
 
 	// Push the time passed since the last iteration of the game loop
     lua_pushnumber(L, elapsedTime);
@@ -111,7 +112,7 @@ void GameLevel::postDraw()
     lua_getglobal(L, "on_draw_screen");
 
     // Push a pointer to the current object for use within the lua function
-    lua_pushlightuserdata(L, (void*)terrain);
+    lua_pushlightuserdata(L, (void*)terrain_);
 
 	// Push the time passed since the last iteration of the game loop
     lua_pushnumber(L, elapsedTime);
@@ -132,7 +133,7 @@ void GameLevel::updateLevel()
     lua_getglobal(L, "on_update");
 
     // Push a pointer to the current object for use within the lua function
-    lua_pushlightuserdata(L, (void*)terrain);
+    lua_pushlightuserdata(L, (void*)terrain_);
 
 	// Push the time passed since the last iteration of the game loop
     lua_pushnumber(L, elapsedTime);
@@ -140,12 +141,12 @@ void GameLevel::updateLevel()
     // Call the function with 2 argument and no return values
     lua_call(L, 2, 0);
 
-    terrain->updateObjects( &lightDirection_ );
+    updateObjects( &lightDirection_ );
 
     displayList_->clearList();
     dynamic_cast<Camera*>(camera)->frustum.extractFromProjectionMatrix(dynamic_cast<Camera*>(camera)->final);
     quadTree_->buildDisplayList(displayList_, dynamic_cast<Camera*>(camera));
-    terrain->l = displayList_;
+    terrain_->setDisplayList(displayList_);
 
     dynamic_cast<Camera*>(camera)->draw(camera);
 }
@@ -153,13 +154,13 @@ void GameLevel::updateLevel()
 //------------------------------------------------------------------------------
 void GameLevel::prepareLevel()
 {
-    terrain->prepareObjects();
+    prepareObjects();
 }
 
 //------------------------------------------------------------------------------
 void GameLevel::animateLevel()
 {
-    terrain->animateObjects(elapsedTime, dynamic_cast<Camera*>(camera));
+    animateObjects(elapsedTime);
 }
 
 //------------------------------------------------------------------------------
@@ -197,8 +198,10 @@ bool GameLevel::loadLevelLua( string file )
 	luaL_dofile(L, file.c_str());
     ////////////////////////////////////////////////////////
 
-    terrain = new Terrain();
+    terrain_ = new Terrain();
     player = new Player();
+
+    objects_->insertFront(terrain_);
 
     if (camera == NULL) {
         cout << "Error: Camera was not allocated in GameLevel class.\n";
@@ -213,7 +216,7 @@ bool GameLevel::loadLevelLua( string file )
     lua_getglobal(L, "on_load");
 
     // Push a pointer to the current object for use within the lua function
-    lua_pushlightuserdata(L, (void*)terrain);
+    lua_pushlightuserdata(L, (void*)terrain_);
 
     // Call the function with 1 argument and no return values
     lua_call(L, 1, 0);
@@ -224,11 +227,11 @@ bool GameLevel::loadLevelLua( string file )
     //position.x = (float)lua_tonumber(L, -3);
     //lua_pop(L, 1);
 
-    terrain->add(player);
+    objects_->insertFront(player);
     ////////////////////////////////////////////
 
     cout << "building quad tree..." << endl;
-    quadTree_->buildTree(terrain);
+    quadTree_->buildTree(terrain_);
     //q->traverseTree();
 
     cout << "building display list..." << endl;
@@ -241,7 +244,7 @@ bool GameLevel::loadLevelLua( string file )
 
     cout << "finished building quad tree..." << endl;
 
-    terrain->l = displayList_;
+    terrain_->setDisplayList(displayList_);
 
     cout << "finished..." << endl << endl;
     return (true);
@@ -249,11 +252,11 @@ bool GameLevel::loadLevelLua( string file )
 
 //------------------------------------------------------------------------------
 void GameLevel::setCamera( Camera* tCamera )
-{ camera = (tCamera); }
+{ camera = (tCamera); lcamera = camera;}
 
 //------------------------------------------------------------------------------
 Terrain* GameLevel::getTerrain( void )
-{ return( (Terrain*)terrain ); }
+{ return( (Terrain*)terrain_ ); }
 
 //------------------------------------------------------------------------------
 Camera* GameLevel::getCamera( void )
@@ -374,35 +377,36 @@ void GameLevel::drawSky()
 }
 
 //------------------------------------------------------------------------------
-Object* GameLevel::findEnemy( void )
+Object* GameLevel::findEnemyOfType( int type )
 {
     float closest = 1000, temp;
-    Object* obj = terrain;
+    Object* obj = static_cast <Object*>(objects_->head);
     Object* retObj = NULL;
 
-    while( obj->next != 0 )
-    {
+    while( obj->next != 0 ) {
         obj = (Object*)obj->next;
         //#if ( obj->checkActiveEnemy() )
-        {
+        if (obj->getTypeId() == type && obj->getInView()) {
             temp = findDistance( (Object*)player, obj );
-            if ( temp < closest )
-            {
+            if ( temp < closest ) {
                 retObj = obj;
                 closest = temp;
             }
         }
     }
 
-    return( retObj );
+    return (retObj);
 }
 
 //------------------------------------------------------------------------------
 float GameLevel::findDistance ( Object* obj1, Object* obj2 )
 {
-    return( sqrtf( ( obj1->position.x - obj2->position.x)*( obj1->position.x - obj2->position.x)+
-          ( obj1->position.y - obj2->position.y)*( obj1->position.y - obj2->position.y)+
-          ( obj1->position.z - obj2->position.z)*( obj1->position.z - obj2->position.z) ) );
+    Vector position1 = obj1->getPosition();
+    Vector position2 = obj2->getPosition();
+
+    return( sqrtf( ( position1.x - position2.x)*( position1.x - position2.x)+
+          ( position1.y - position2.y)*( position1.y - position2.y)+
+          ( position1.z - position2.z)*( position1.z - position2.z) ) );
 }
 
 //------------------------------------------------------------------------------
@@ -419,13 +423,15 @@ void GameLevel::unloadLevel()
         lua_getglobal(L, "on_unload");
 
         // Push a pointer to the current object for use within the lua function
-        lua_pushlightuserdata(L, (void*)terrain);
+        lua_pushlightuserdata(L, (void*)terrain_);
 
         // Call the function with 1 argument and no return values
         lua_call(L, 1, 0);
     }
 
+    cout << "before remove..." << endl;
     removeObjects();
+    cout << "after remove..." << endl;
 
     if (quadTree_ != NULL)
         delete quadTree_;
@@ -439,69 +445,63 @@ void GameLevel::unloadLevel()
     if (music_ != NULL)
         delete music_;
 
-    terrain = NULL;
+    if (objects_ != NULL)
+        delete objects_;
+
+    terrain_ = NULL;
     player = NULL;
     camera = NULL;
     L = NULL;
     music_ = NULL;
+    objects_ = NULL;
 }
 
 //------------------------------------------------------------------------------
 void GameLevel::removeObjects()
 {
-    if (terrain == NULL)
-        return;
-
-    ObjectNode* obj = terrain, *temp;
-
-    while( obj != NULL ) {
-        temp = obj->next;
-        obj->remove();
-        delete obj;
-
-        obj = temp;
+    ObjectNode *objectNode = objects_->head;
+    while (objectNode != NULL) {
+        objects_->remove(objectNode);
+        delete objectNode;
+        objectNode = objects_->head;
     }
 }
 
 //------------------------------------------------------------------------------
 void GameLevel::updateTerrain(int &x, int &z, float &height, int &type, float &red, float &green, float &blue)
 {
-    if ( x >= 0 && x < terrain->xSize && z >= 0 && z <= terrain->zSize ) {
-        terrain->vertex[x][z][1]= height;
-        terrain->color[x][z][0] = red;
-        terrain->color[x][z][1] = green;
-        terrain->color[x][z][2] = blue;
-        terrain->type[x][z] = type;
+    terrain_->setVertexHeight(x, z,height);
+    terrain_->setVertexColor(x, z, Vector(red, green, blue));
+    terrain_->setVertexType(x, z, type);
 
-        terrain->calcTerrainNorm(&lightDirection_);
-    }
+    //- this isn't optimized -- only do this when the height has changed and only
+    // do it for the specified vertex
+    terrain_->calcTerrainNorm(&lightDirection_);
 }
 
 void GameLevel::updateColor(int &x, int &z, float &red, float &green, float &blue)
 {
-    if ( x >= 0 && x < terrain->xSize && z >= 0 && z <= terrain->zSize ) {
-        terrain->color[x][z][0] = red;
-        terrain->color[x][z][1] = green;
-        terrain->color[x][z][2] = blue;
+    terrain_->setVertexColor(x, z, Vector(red, green, blue));
 
-        terrain->calcTerrainNorm(&lightDirection_);
-    }
+    //- this isn't optimized -- only do this when the height has changed and only
+    // do it for the specified vertex
+    terrain_->calcTerrainNorm(&lightDirection_);
 }
 
 void GameLevel::getTerrainInfo(int &x, int &z, float &height, int &type, float &red, float &green, float &blue)
 {
-    if ( x >= 0 && x < terrain->xSize && z >= 0 && z <= terrain->zSize ) {
-        type = terrain->type[x][z];
-        height = terrain->vertex[x][z][1];
-        red = terrain->color[x][z][0];
-        green = terrain->color[x][z][1];
-        blue = terrain->color[x][z][2];
-    }
+    height = terrain_->getVertexHeight(x, z);
+    type = terrain_->getVertexType(x, z);
+    Vector color = terrain_->getVertexColor(x, z);
+
+    red = color.x;
+    green = color.y;
+    blue = color.z;
 }
 
 void GameLevel::saveTerrain(char* filePath)
 {
-    terrain->save(filePath, &lightDirection_);
+    terrain_->save(filePath, &lightDirection_);
 }
 
 void GameLevel::toggleGrid(void) { grid = !grid;}
@@ -516,3 +516,91 @@ void GameLevel::setSkyBox(float** tBgColor, int x, int y)
         }
     }
 }
+//------------------------------------------------------------------------------
+void GameLevel::drawObjects()
+{
+    for(Object *object = static_cast<Object*>(objects_->head);
+        object != NULL;
+        object = static_cast<Object*>(object->next)) {
+        //if ( active == true && state != DEAD && isVisible == true)
+        if (object->getActive() && object->getInView() && object->getDrawEnabled() && object->getState() != DEAD)
+            object->draw( dynamic_cast<Camera*>(camera) );
+    }
+}
+
+//------------------------------------------------------------------------------
+void GameLevel::drawObjectOutlines()
+{
+    for(Object *object = static_cast<Object*>(objects_->head);
+        object != NULL;
+        object = static_cast<Object*>(object->next)) {
+        //if ( active == true && state != DEAD && isVisible == true)
+        if (object->getActive() && object->getInView() && object->getDrawEnabled() && object->getState() != DEAD)
+            object->drawOutline( dynamic_cast<Camera*>(camera) );
+    }
+}
+
+//------------------------------------------------------------------------------
+void GameLevel::drawShadows( Vector* l )
+{
+    for(Object *object = static_cast<Object*>(objects_->head);
+        object != NULL;
+        object = static_cast<Object*>(object->next)) {
+        //if ( active == true && state != DEAD && isVisible == true)
+        if (object->getActive() && object->getInView() && object->getDrawEnabled() && object->getState() != DEAD)
+            object->drawShadow(l);
+    }
+}
+//------------------------------------------------------------------------------
+void GameLevel::updateObjects( Vector* light  )
+{
+    for(Object *object = static_cast<Object*>(objects_->head); object != NULL;) {
+         //if ( active == true && state != DEAD )
+        //if (isInView && state != DEAD)
+        if (object->getActive() && object->getState() != DEAD)
+            object->update(light);
+
+        Object* tempObject = NULL;
+
+        if (object->next != NULL)
+            tempObject = static_cast<Object*>(object->next);
+
+        if (object->getState() == DEAD) {
+            objects_->remove(object);
+
+
+            freeObjects_[object->getScriptName()].insertFront(object);
+
+            cout << "key: " << object->getScriptName() << " size: " << freeObjects_[object->getScriptName()].size << endl;
+
+
+            //delete object;
+        }
+
+        object = tempObject;
+    }
+}
+
+//------------------------------------------------------------------------------
+void GameLevel::prepareObjects()
+{
+    for(Object *object = static_cast<Object*>(objects_->head);
+        object != NULL;
+        object = static_cast<Object*>(object->next)) {
+
+        object->processCollisions( static_cast<Object*>(objects_->head));
+    }
+}
+
+//------------------------------------------------------------------------------
+void GameLevel::animateObjects(float timeElapsed)
+{
+    for(Object *object = static_cast<Object*>(objects_->head);
+        object != NULL;
+        object = static_cast<Object*>(object->next)) {
+
+        if (object->getActive())
+            object->animate(timeElapsed, dynamic_cast<Camera*>(camera));
+    }
+}
+

@@ -38,7 +38,10 @@ void Snow::draw(void)
 
               Vector up, normal;
                 up.setVector( 0.0f, 0.0f, 1.0f );
-                normal.setVector((origin->position.x-particles[i].position.x), 0, (origin->position.z-particles[i].position.z));
+
+                Vector originPosition = origin->getPosition();
+
+                normal.setVector((originPosition.x-particles[i].position.x), 0, (originPosition.z-particles[i].position.z));
                 normal.normalize();
 
                 Vector rotationAxis;
@@ -56,7 +59,7 @@ void Snow::draw(void)
 
 
                 Vector t;
-                t.setVector((origin->position.x-particles[i].position.x), (origin->position.y-particles[i].position.y), (origin->position.z-particles[i].position.z));
+                t.setVector((originPosition.x-particles[i].position.x), (originPosition.y-particles[i].position.y), (originPosition.z-particles[i].position.z));
                 t.normalize();
 
                 rotationAngle = normal.dotProduct(t);
@@ -94,10 +97,12 @@ void Snow::draw(void)
 //------------------------------------------------------------------------------
 void Snow::initParticle(int index)
 {
+    Vector originPosition = origin->getPosition();
+
     particles[index].position.setVector(
-        origin->position.x +  rand() % 80 - 40,
-        origin->position.y +  20.0f + rand() % 10, //rand() %  40 - 20,
-        origin->position.z +  rand() % 40 - 40
+        originPosition.x +  rand() % 80 - 40,
+        originPosition.y +  20.0f + rand() % 10, //rand() %  40 - 20,
+        originPosition.z +  rand() % 40 - 40
     );
 
     particles[index].velocity.setVector(
@@ -110,15 +115,17 @@ void Snow::initParticle(int index)
 //------------------------------------------------------------------------------
 void Snow::update(float elapsedTime)
 {
+    Vector originPosition = origin->getPosition();
+
     for (int i = 0; i < numParticles; i++) {
         particles[i].position.x += particles[i].velocity.x * elapsedTime;
         particles[i].position.y += particles[i].velocity.y * elapsedTime;
         particles[i].position.z += particles[i].velocity.z * elapsedTime;
 
-        if ( particles[i].position.x > origin->position.x + 40.0f ||
-             particles[i].position.x < origin->position.x - 40.0f ||
-             particles[i].position.y > origin->position.y + 30.0f ||
-             particles[i].position.y < origin->position.y - 30.0f
+        if ( particles[i].position.x > originPosition.x + 40.0f ||
+             particles[i].position.x < originPosition.x - 40.0f ||
+             particles[i].position.y > originPosition.y + 30.0f ||
+             particles[i].position.y < originPosition.y - 30.0f
          )
             initParticle(i);
 

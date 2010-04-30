@@ -6,6 +6,7 @@
 #include "text.h"
 #include "QuadTree.h"
 #include "Music.h"
+#include "ObjectList.h"
 
 extern "C" {
     #include "lua.h"
@@ -19,15 +20,18 @@ extern "C" {
 class GameLevel
 {
     private:
-        Terrain* terrain;    // list of objects starting with terrain
         unsigned int lists;  // display lists used for rendering
 
         Vector lightDirection_;
 
         Player* player;     // player object
         Object* camera;     // camera
+        Terrain *terrain_;  // Terrain for this level (if one is loaded)
 
         Music *music_;
+
+        ObjectList *objects_;
+        map <string, ObjectList> freeObjects_;
 
         // colors for sky box
         float bgcolor[3][3];
@@ -35,14 +39,6 @@ class GameLevel
         bool isComplete_;
 
         float elapsedTime;
-
-        // script information //
-        //ScriptTextType *scriptText;
-        //Script* textScript;
-
-        int numTextStrings;
-        int numTextScripts;
-        /////////////////////////
 
         QuadTree* quadTree_;
         DisplayList *displayList_;
@@ -68,39 +64,14 @@ class GameLevel
         void drawLevel( void );
         bool loadLevelLua( string file );
         void loadScript( string file );
-        void setCamera( Camera* tCamera );
-        Terrain* getTerrain( void );
-        Camera* getCamera( void );
-        Player* getPlayer( void );
-        Object* findEnemy( void );
+
+        Object* findEnemyOfType( int type );
         float findDistance( Object*, Object* );
 
         void drawSky( void );
         bool checkComplete( void );
         void unloadLevel(void);
         void removeObjects( void );
-
-        string getMusicPath() { return (musicPath); }
-        void setMusicPath(string music) { musicPath = music; }
-        Vector* getLightDirection() { return &lightDirection_; }
-
-        void setSkyBox(float**, int, int);
-        void setLightDirection(float x, float y, float z)
-        {
-            lightDirection_.setVector(x, y, z);
-            lightDirection_.normalize();
-        }
-
-        Music* getMusic() { return music_; }
-
-        void setId(int tid) { id = tid; }
-        int getId() { return id; }
-
-        float getElapsedTime() { return elapsedTime; }
-        void setElapsedTime(float tElapsedTime) { elapsedTime = tElapsedTime; }
-
-        void setComplete(bool isComplete) { isComplete_ = isComplete; }
-        string getScriptName() { return scriptName; }
 
         void postDraw();
 
@@ -113,6 +84,86 @@ class GameLevel
         void toggleGrid(void);
         void toggleBoundingBoxes(void);
         void toggleControlTriangles(void);
+
+        void drawObjects(); // Camera*
+        void drawObjectOutlines(); // Camera*
+        void drawShadows( Vector* );
+
+        void updateObjects( Vector*  );
+        void prepareObjects();
+        void animateObjects( float ); // Camera*
+
+        ScriptedObject* addObject( string script )
+        {
+            ScriptedObject *temp = static_cast<ScriptedObject*> (freeObjects_[script].head);
+
+            if (temp != NULL) {
+                temp->initSettings();
+                freeObjects_[script].remove(temp);
+                cout << "key: " << script << " size: " << freeObjects_[script].size << endl;
+            }
+            else {
+                temp = new ScriptedObject();
+                temp->setScript( script);
+                cout << "had to create new object of type: " << script << "..." << endl;
+            }
+
+            objects_->insertFront(temp);
+            //temp->unloadScript();
+
+            temp->loadScript(script);
+
+            return temp;
+        }
+
+        ScriptTextType* addScriptTextType( string script )
+        {
+
+            ScriptTextType *temp = static_cast<ScriptTextType*> (freeObjects_[script].head);
+
+            if (temp != NULL) {
+                temp->initSettings();
+                freeObjects_[script].remove(temp);
+                cout << "key: " << script << " size: " << freeObjects_[script].size << endl;
+            }
+            else {
+                temp = new ScriptTextType();
+                temp->setScript( script );
+                 cout << "had to create new object of type: " << script << "..." << endl;
+            }
+
+            objects_->insertFront(temp);
+            //temp->unloadScript();
+            temp->loadScript(script);
+
+            return temp;
+        }
+
+        ObjectList* getObjects() { return objects_; }
+        void setCamera( Camera* tCamera );
+        Terrain* getTerrain( void );
+        Camera* getCamera( void );
+        Player* getPlayer( void );
+        Music* getMusic() { return music_; }
+
+        void setId(int tid) { id = tid; }
+        int getId() { return id; }
+
+        float getElapsedTime() { return elapsedTime; }
+        void setElapsedTime(float tElapsedTime) { elapsedTime = tElapsedTime; }
+
+        void setComplete(bool isComplete) { isComplete_ = isComplete; }
+        string getScriptName() { return scriptName; }
+        string getMusicPath() { return (musicPath); }
+        void setMusicPath(string music) { musicPath = music; }
+        Vector* getLightDirection() { return &lightDirection_; }
+
+        void setSkyBox(float**, int, int);
+        void setLightDirection(float x, float y, float z)
+        {
+            lightDirection_.setVector(x, y, z);
+            lightDirection_.normalize();
+        }
 };
 
 #endif

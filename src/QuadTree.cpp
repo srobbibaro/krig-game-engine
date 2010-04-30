@@ -15,7 +15,7 @@ QuadTree::~QuadTree(void)
 //------------------------------------------------------------------------------
 int QuadTree::buildTree(Terrain* t)
 {
-   buildTree(root, 0.0f, ((t->xSize-1.0f) * t->scaleFactor), 0.0f, ((t->zSize-1.0f) * t->scaleFactor), t->scaleFactor);
+   buildTree(root, 0.0f, ((t->getXSize()-1.0f) * t->getScaleFactor()), 0.0f, ((t->getZSize()-1.0f) * t->getScaleFactor()), t->getScaleFactor());
 }
 //------------------------------------------------------------------------------
 int QuadTree::buildTree(QuadTreeNode* &p, float xMin, float xMax, float zMin, float zMax, float scaleFactor)

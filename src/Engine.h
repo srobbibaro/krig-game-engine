@@ -34,6 +34,8 @@ class Engine
 
         lua_State* L;
 
+        float mouseX_, mouseY_;
+
         bool isPaused;
         float fps;
 
@@ -109,24 +111,6 @@ class Engine
 
         void updateColor(float &red, float &green, float &blue);
 
-        void incTerrainHeight(float inc)
-        {
-            int skip = 0;
-            int xpos, zpos, type;
-            float height, red, green, blue;
-
-            getTerrainInfo(xpos, zpos, height, type, red, green, blue);
-
-            //# hack...
-            if (inc > 999)
-                height = 0.0f;
-            else
-                height += inc;
-
-            updateTerrain(xpos,zpos,height, type, red, green, blue);
-            return;
-        }
-
         void swapLevel()
         {
             GameLevel *temp = currentLevel;
@@ -135,6 +119,13 @@ class Engine
         }
 
         SoundFX* getSoundFxClass() { return soundFx_; }
+
+        void setMouseX( float mouseX ) { mouseX_ = mouseX;  }
+        void setMouseY( float mouseY ) { mouseY_ = mouseY;  }
+        float getMouseX() { return mouseX_; }
+        float getMouseY() { return mouseY_; }
+
+
 };
 
 #endif

@@ -45,12 +45,19 @@ void Object::cleanup(void)
 
     L = NULL;
     particleSystem = NULL;
+
+    scriptIndex = -1;
 }
 
 void Object::init(void)
 {
     cleanup();
 
+    initSettings();
+}
+
+void Object::initSettings()
+{
     velocity.setVector(0.0f, 0.0f, 0.0f);
     speed.setVector(0.0f, 0.0f, 0.0f);
     scaleRate.setVector( 0.0f, 0.0f, 0.0f );
@@ -64,6 +71,7 @@ void Object::init(void)
     baseDirection.setVector( 0.0f, 0.0f, 1.0f );
     direction.setVector( 0.0f, 0.0f, 1.0f );
     up.setVector(0.0f, 1.0f, 0.0f);
+    orth.setVector(1.0f, 0.0f, 0.0f);
 
     // set default orientation and disable interpolation
     rInterpStart.loadMultIdentity();
@@ -90,9 +98,11 @@ void Object::init(void)
     lastLight.setVector(0.0f, 0.0f, 0.0f);
     scaleChanged = true;
     rotationChanged = true;
+
+    isAlwaysLit_ = false;
 }
 
-void Object::loadScript(string name)
+void Object::setScript( string name )
 {
     scriptName = name;
 
@@ -117,8 +127,21 @@ void Object::loadScript(string name)
     // Object.h)
     registerFunctions(L, 2);
 
+
+    luaL_loadfile(L, name.c_str());
+    scriptIndex = luaL_ref( L, LUA_REGISTRYINDEX );
+}
+
+void Object::loadScript(string name)
+{
     // Load this object's animation script
-    luaL_dofile(L, scriptName.c_str());
+    //luaL_dofile(L, scriptName.c_str());
+
+    if (scriptIndex == -1)
+        return;
+
+    lua_rawgeti( L, LUA_REGISTRYINDEX, scriptIndex);
+    lua_call(L, 0, 0);
 
     // Find the update function and call it
     lua_getglobal(L, "on_load");
@@ -197,54 +220,7 @@ void Object::animateScript(float elapsedTime)
     //lua_pop(L, 1);
 }
 
-//------------------------------------------------------------------------------
-void Object::drawObjects( Object* c )
-{
-    //if ( active == true && state != DEAD && isVisible == true )
-    if (isInView && isDrawEnabled_ && state != DEAD)
-        draw(c);
 
-    if ( next != NULL )
-        ((Object*)next)->drawObjects(c);
-}
-
-//------------------------------------------------------------------------------
-void Object::drawObjectOutlines( Object* c )
-{
-    //if ( active == true && state != DEAD && isVisible == true)
-    if (isInView && isDrawEnabled_ && state != DEAD)
-        drawOutline( c );
-
-    if ( next != NULL )
-        ((Object*)next)->drawObjectOutlines(c);
-}
-
-//------------------------------------------------------------------------------
-void Object::drawShadows( Vector* l )
-{
-    //if ( active == true && state != DEAD && isVisible == true )
-    if (isInView && isDrawEnabled_ && state != DEAD)
-        drawShadow( l );
-
-    if ( next != NULL )
-        ((Object*)next)->drawShadows(l);
-}
-//------------------------------------------------------------------------------
-void Object::updateObjects( Vector* light  )
-{
-    //if ( active == true && state != DEAD )
-    //if (isInView && state != DEAD)
-    if (state != DEAD)
-        update( light );
-
-    if ( next != NULL )
-        ((Object*)next)->updateObjects( light );
-
-    if ( state == DEAD ) {
-        remove();
-        delete this;
-    }
-}
 
 //------------------------------------------------------------------------------
 void Object::processCollisions( Object* temp )
@@ -302,23 +278,7 @@ void Object::processCollisions( Object* temp )
         processCollisions(((Object*)temp->next));
 }
 
-//------------------------------------------------------------------------------
-void Object::prepareObjects()
-{
-    if ( next != NULL )
-        ((Object*)next)->prepareObjects();
 
-    processCollisions( getRoot() );
-}
-
-//------------------------------------------------------------------------------
-void Object::animateObjects( float timeElapsed, Object* c )
-{
-    animate( timeElapsed, c );
-
-    if ( next != NULL )
-        ((Object*)next)->animateObjects( timeElapsed, c );
-}
 
 //------------------------------------------------------------------------------
 float Object::calcTriangleCenter( void )

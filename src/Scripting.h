@@ -101,7 +101,9 @@ static int getPositionLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
-    returnVector(L, object->position);
+    Vector position = object->getPosition();
+
+    returnVector(L, position);
 	return 1;
 }
 
@@ -128,7 +130,9 @@ static int getVelocityLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
-	returnVector(L, object->velocity);
+    Vector velocity = object->getVelocity();
+
+	returnVector(L, velocity);
 	return 1;
 }
 
@@ -153,7 +157,9 @@ static int getRotationVelocityLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
-	returnVector(L, object->rotationVelocity);
+    Vector rotationVelocity = object->getRotationVelocity();
+
+	returnVector(L, rotationVelocity);
 	return 1;
 }
 
@@ -180,7 +186,9 @@ static int getSpeedLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
-	returnVector(L, object->speed);
+    Vector speed = object->getSpeed();
+
+	returnVector(L, speed);
 	return 1;
 }
 
@@ -202,7 +210,7 @@ static int setRotationLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 	object->setRotationEuler(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
-	object->rotationChanged = true;
+	object->setRotationChanged(true);
 	return 0;
 }
 
@@ -211,7 +219,7 @@ static int setRotationvLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 	object->setRotationEuler(loadVector(L));
-    object->rotationChanged = true;
+    object->setRotationChanged(true);
 	return 0;
 }
 
@@ -221,7 +229,8 @@ static int getRotationLua(lua_State *L)
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
     Vector tv;
-    object->rotation.getEulerAngles(tv);
+
+    object->getRotation().getEulerAngles(tv);
 
 	returnVector(L, tv);
 	return 1;
@@ -232,7 +241,9 @@ static int getDirectionLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
-	returnVector(L, object->direction);
+    Vector direction = object->getDirection();
+
+	returnVector(L, direction);
 	return 1;
 }
 
@@ -241,7 +252,9 @@ static int getUpLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
-	returnVector(L, object->up);
+    Vector up = object->getUp();
+
+	returnVector(L, up);
 	return 1;
 }
 
@@ -250,12 +263,9 @@ static int getOrthogonalLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
-    Vector rotationAxis;
+    Vector orth = object->getOrth();
 
-    rotationAxis.crossProduct(object->up, object->direction);
-    rotationAxis.normalize();
-
-	returnVector(L, rotationAxis);
+	returnVector(L, orth);
 	return 1;
 }
 
@@ -264,7 +274,12 @@ static int addPositionLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
-	object->position += Vector(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+    Vector position = object->getPosition();
+
+    position += Vector(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+
+    object->setPosition(position);
+
 	return 0;
 }
 
@@ -273,7 +288,11 @@ static int addPositionvLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
-	object->position += Vector(loadVector(L));
+    Vector position = object->getPosition();
+
+	position += Vector(loadVector(L));
+
+	object->setPosition(position);
 	return 0;
 }
 
@@ -284,7 +303,19 @@ static int addRotationLua(lua_State *L)
 
     Quaternion qt;
     qt.buildFromEuler(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
-    object->rotation = object->rotation * qt;
+    object->setRotation(object->getRotation() * qt);
+
+	return 0;
+}
+
+static int camera_addRotationLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Camera *object = static_cast<Camera*>(lua_touserdata(L, 1));
+
+    Quaternion qt;
+    qt.buildFromEuler(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+    object->worldRotation = object->worldRotation * qt;
 
 	return 0;
 }
@@ -296,7 +327,7 @@ static int addRotationvLua(lua_State *L)
 
     Quaternion qt;
     qt.buildFromEuler(loadVector(L));
-    object->rotation = object->rotation * qt;
+    object->setRotation(object->getRotation() * qt);
 
 	return 0;
 }
@@ -305,7 +336,13 @@ static int addVelocityLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-	object->velocity += Vector(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+
+    Vector velocity = object->getVelocity();
+
+	velocity += Vector(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+
+	object->setVelocity(velocity);
+
 	return 0;
 }
 
@@ -313,7 +350,12 @@ static int addVelocityvLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-	object->velocity += Vector(loadVector(L));
+
+    Vector velocity = object->getVelocity();
+
+	velocity += Vector(loadVector(L));
+
+	object->setVelocity(velocity);
 	return 0;
 }
 
@@ -321,7 +363,12 @@ static int addSpeedLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-	object->speed += Vector(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+
+    Vector speed = object->getSpeed();
+
+	speed += Vector(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+
+	object->setSpeed(speed);
 	return 0;
 }
 
@@ -329,7 +376,13 @@ static int addSpeedvLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-	object->speed += Vector(loadVector(L));
+
+    Vector speed = object->getSpeed();
+
+	speed += Vector(loadVector(L));
+
+	object->setSpeed(speed);
+
 	return 0;
 }
 
@@ -337,7 +390,13 @@ static int addRotationVelocityLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-	object->rotationVelocity += Vector(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+
+    Vector rotationVelocity = object->getRotationVelocity();
+
+	rotationVelocity += Vector(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+
+	object->setRotationVelocity(rotationVelocity);
+
 	return 0;
 }
 
@@ -345,7 +404,13 @@ static int addRotationVelocityvLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-	object->rotationVelocity += Vector(loadVector(L));
+
+    Vector rotationVelocity = object->getRotationVelocity();
+
+	rotationVelocity += Vector(loadVector(L));
+
+	object->setRotationVelocity(rotationVelocity);
+
 	return 0;
 }
 
@@ -353,7 +418,13 @@ static int addScaleLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-	object->scale += Vector(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+
+    Vector scale = object->getScale();
+
+	scale += Vector(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+
+	object->setScale(scale);
+
 	return 0;
 }
 
@@ -361,7 +432,13 @@ static int addScalevLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-	object->scale += Vector(loadVector(L));
+
+    Vector scale = object->getScale();
+
+    scale += Vector(loadVector(L));
+
+	object->setScale(scale);
+
 	return 0;
 }
 
@@ -369,15 +446,28 @@ static int addScaleRateLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-	object->scaleRate += Vector(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+
+    Vector scaleRate = object->getScaleRate();
+
+	scaleRate += Vector(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+
+	object->setScaleRate(scaleRate);
+
 	return 0;
 }
 
 static int addScaleRatevLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-	object->scaleRate += Vector(loadVector(L));
+
+    Vector scaleRate = object->getScaleRate();
+
+    scaleRate += Vector(loadVector(L));
+
+	object->setScaleRate(scaleRate);
+
 	return 0;
 }
 
@@ -390,7 +480,12 @@ static int setInterpolationRotationEndAxisLua(lua_State *L)
     tv.setVector(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
     tv.normalize();
 
-    object->rInterpEnd.buildFromAxis(tv, lua_tonumber(L,5));
+    Quaternion rInterpEnd = object->getRInterpEnd();
+
+    rInterpEnd.buildFromAxis(tv, lua_tonumber(L,5));
+
+    object->setRInterpEnd(rInterpEnd);
+
 	return 0;
 }
 
@@ -402,7 +497,12 @@ static int setInterpolationRotationEndAxisvLua(lua_State *L)
     Vector tv = loadVector(L);
     tv.normalize();
 
-    object->rInterpEnd.buildFromAxis(tv, lua_tonumber(L,2));
+    Quaternion rInterpEnd = object->getRInterpEnd();
+
+    rInterpEnd.buildFromAxis(tv, lua_tonumber(L,2));
+
+    object->setRInterpEnd(rInterpEnd);
+
 	return 0;
 }
 
@@ -411,11 +511,16 @@ static int setInterpolationRotationStartAxisLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
+    Quaternion rInterpStart = object->getRInterpStart();
+
     Vector tv;
     tv.setVector(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
     tv.normalize();
 
-    object->rInterpStart.buildFromAxis(tv, lua_tonumber(L,5));
+    rInterpStart.buildFromAxis(tv, lua_tonumber(L,5));
+
+    object->setRInterpStart(rInterpStart);
+
 	return 0;
 }
 
@@ -424,10 +529,15 @@ static int setInterpolationRotationStartAxisvLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
+    Quaternion rInterpStart = object->getRInterpStart();
+
     Vector tv = loadVector(L);
     tv.normalize();
 
-    object->rInterpStart.buildFromAxis(tv, lua_tonumber(L,5));
+    rInterpStart.buildFromAxis(tv, lua_tonumber(L,5));
+
+    object->setRInterpStart(rInterpStart);
+
 	return 0;
 }
 
@@ -436,7 +546,12 @@ static int setInterpolationRotationStartLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
-    object->rInterpStart.buildFromEuler(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+    Quaternion rInterpStart = object->getRInterpStart();
+
+    rInterpStart.buildFromEuler(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+
+    object->setRInterpStart(rInterpStart);
+
 	return 0;
 }
 
@@ -445,7 +560,12 @@ static int setInterpolationRotationStartvLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
-    object->rInterpStart.buildFromEuler(loadVector(L));
+    Quaternion rInterpStart = object->getRInterpStart();
+
+    rInterpStart.buildFromEuler(loadVector(L));
+
+    object->setRInterpStart(rInterpStart);
+
 	return 0;
 }
 
@@ -454,7 +574,12 @@ static int setInterpolationRotationEndLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
-    object->rInterpEnd.buildFromEuler(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+    Quaternion rInterpEnd = object->getRInterpEnd();
+
+    rInterpEnd.buildFromEuler(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+
+    object->setRInterpEnd(rInterpEnd);
+
 	return 0;
 }
 
@@ -463,7 +588,12 @@ static int setInterpolationRotationEndvLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
-    object->rInterpEnd.buildFromEuler(loadVector(L));
+    Quaternion rInterpEnd = object->getRInterpEnd();
+
+    rInterpEnd.buildFromEuler(loadVector(L));
+
+    object->setRInterpEnd(rInterpEnd);
+
 	return 0;
 }
 
@@ -476,9 +606,9 @@ static int setInterpolationEnableLua(lua_State *L)
     int op = (int)lua_tonumber(L,2);
 
     if (op == 0)
-        object->isInterpolationEnabled_ = false;
+        object->setIsInterpolationEnabled(false);
     else
-        object->isInterpolationEnabled_ = true;
+        object->setIsInterpolationEnabled(true);
 
     return (0);
 }
@@ -487,7 +617,7 @@ static int setInterpolationVariableBeginValueLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-    object->valInterpBegin_ = lua_tonumber(L, 2);
+    object->setValInterpBegin(lua_tonumber(L, 2));
 	return 0;
 }
 
@@ -495,7 +625,7 @@ static int setInterpolationVariableEndValueLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-    object->valInterpEnd_ = lua_tonumber(L, 2);
+    object->setValInterpEnd(lua_tonumber(L, 2));
 	return 0;
 }
 
@@ -503,7 +633,7 @@ static int setInterpolationVariableCurrentValueLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-    object->valInterpCurrent_ = lua_tonumber(L, 2);
+    object->setValInterpCurrent(lua_tonumber(L, 2));
 	return 0;
 }
 
@@ -513,9 +643,13 @@ static int setRotationVelocityAxisLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
-    object->rotationVelocity.setVector(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
-    object->rotationVelocity.normalize();
-    object->rotationVelocity.scale(lua_tonumber(L,5));
+    Vector rotationVelocity = object->getRotationVelocity();
+
+    rotationVelocity.setVector(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+    rotationVelocity.normalize();
+    rotationVelocity.scale(lua_tonumber(L,5));
+
+    object->setRotationVelocity(rotationVelocity);
 
 	return 0;
 }
@@ -525,9 +659,13 @@ static int setRotationVelocityAxisvLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
-    object->rotationVelocity = loadVector(L);
-    object->rotationVelocity.normalize();
-    object->rotationVelocity.scale(lua_tonumber(L,2));
+    Vector rotationVelocity = object->getRotationVelocity();
+
+    rotationVelocity = loadVector(L);
+    rotationVelocity.normalize();
+    rotationVelocity.scale(lua_tonumber(L,2));
+
+    object->setRotationVelocity(rotationVelocity);
 
 	return 0;
 }
@@ -541,8 +679,12 @@ static int setRotationAxisLua(lua_State *L)
     tv.setVector(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
     tv.normalize();
 
-    object->rotation.buildFromAxis(tv, lua_tonumber(L,5));
-   	object->rotationChanged = true;
+    Quaternion rotation = object->getRotation();
+
+    rotation.buildFromAxis(tv, lua_tonumber(L,5));
+   	object->setRotationChanged(true);
+
+   	object->setRotation(rotation);
 
 	return 0;
 }
@@ -555,8 +697,12 @@ static int setRotationAxisvLua(lua_State *L)
     Vector tv = loadVector(L);
     tv.normalize();
 
-    object->rotation.buildFromAxis(tv, lua_tonumber(L,2));
-   	object->rotationChanged = true;
+    Quaternion rotation = object->getRotation();
+
+    rotation.buildFromAxis(tv, lua_tonumber(L,2));
+   	object->setRotationChanged(true);
+
+   	object->setRotation(rotation);
 
 	return 0;
 }
@@ -572,7 +718,11 @@ static int addRotationAxisLua(lua_State *L)
     tv.normalize();
     tq.buildFromAxis(tv, lua_tonumber(L,5));
 
-    object->rotation = object->rotation * tq;
+    Quaternion rotation = object->getRotation();
+
+    rotation = rotation * tq;
+
+    object->setRotation(rotation);
 
 	return 0;
 }
@@ -587,7 +737,11 @@ static int addRotationAxisvLua(lua_State *L)
     tv.normalize();
     tq.buildFromAxis(tv, lua_tonumber(L,2));
 
-    object->rotation = object->rotation * tq;
+    Quaternion rotation = object->getRotation();
+
+    rotation = rotation * tq;
+
+    object->setRotation(rotation);
 
 	return 0;
 }
@@ -606,7 +760,7 @@ static int suspendLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-    object->suspendTime = lua_tonumber(L, 2);
+    object->setSuspendTime(lua_tonumber(L, 2));
     return 0;
 }
 
@@ -634,9 +788,7 @@ static int addObjectLua(lua_State *L)
     const char *s = lua_tostring(L, 2);
     string script = string(s);
 
-    Object *temp = new ScriptedObject();
-    temp->loadScript(script);
-    object->add(temp);
+    ScriptedObject * temp = lgameLevel->addObject(script);
 
 	lua_pushlightuserdata(L, (void*)temp);
 	return 1;
@@ -653,10 +805,8 @@ static int addTextLua(lua_State *L)
     const char *t = lua_tostring(L, 3);
     string text = string(t);
 
-    ScriptTextType *temp = new ScriptTextType();
+    ScriptTextType *temp = lgameLevel->addScriptTextType(script);
     temp->text = text;
-    temp->loadScript(script);
-    object->add(temp);
 
 	lua_pushlightuserdata(L, (void*)temp);
 	return 1;
@@ -667,7 +817,7 @@ static int removeObjectLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
-    object->state = DEAD;
+    object->setState(DEAD);
     return 0;
 }
 
@@ -680,7 +830,6 @@ static int setModelLua(lua_State *L)
     const char *s = lua_tostring(L, 2);
     string model = string(s);
 
-    object->unload();
     object->load(model);
 
     /*
@@ -696,8 +845,74 @@ static int setModelLua(lua_State *L)
 	return 0;
 }
 
+static int terrain_getVertexHeightLua(lua_State *L)
+{
+    int x = lua_tonumber(L,1);
+    int z = lua_tonumber(L,2);
 
+    float height = (float)lgameLevel->getTerrain()->getVertexHeight(x, z);
 
+    lua_pushnumber(L, height);
+
+	return 1;
+}
+
+static int terrain_getVertexColorLua(lua_State *L)
+{
+    int x = lua_tonumber(L,1);
+    int z = lua_tonumber(L,2);
+
+    Vector color = lgameLevel->getTerrain()->getVertexColor(x, z);
+
+    returnVector(L, color);
+
+	return 1;
+}
+
+static int terrain_getVertexTypeLua(lua_State *L)
+{
+    int x = lua_tonumber(L,1);
+    int z = lua_tonumber(L,2);
+
+    float type = lgameLevel->getTerrain()->getVertexType(x, z);
+
+    lua_pushnumber(L, type);
+
+	return 1;
+}
+
+static int terrain_setVertexHeightLua(lua_State *L)
+{
+    int x = lua_tonumber(L,1);
+    int z = lua_tonumber(L,2);
+    float height = lua_tonumber(L,3);
+
+    lgameLevel->getTerrain()->setVertexHeight(x, z, height);
+
+	return 0;
+}
+
+static int terrain_setVertexColorLua(lua_State *L)
+{
+    int x = lua_tonumber(L,1);
+    int z = lua_tonumber(L,2);
+    Vector color = loadVector(L);
+
+    lgameLevel->getTerrain()->setVertexColor(x, z, color);
+
+	return 0;
+}
+
+static int terrain_setVertexTypeLua(lua_State *L)
+{
+    int x = lua_tonumber(L,1);
+    int z = lua_tonumber(L,2);
+    int type = lua_tonumber(L,3);
+
+    lgameLevel->getTerrain()->setVertexType(x, z, type);
+
+	return 0;
+}
 
 static int setScaleLua(lua_State *L)
 {
@@ -705,7 +920,7 @@ static int setScaleLua(lua_State *L)
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
 	object->setScale(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
-	object->scaleChanged = true;
+	object->setScaleChanged(true);
 	return 0;
 }
 
@@ -715,7 +930,7 @@ static int setScalevLua(lua_State *L)
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
 	object->setScale(loadVector(L));
-    object->scaleChanged = true;
+    object->setScaleChanged(true);
 	return 0;
 }
 
@@ -728,8 +943,25 @@ static int setScriptLua(lua_State *L)
     string script = string(s);
 
     object->unloadScript();
+    object->setScript(script);
     object->loadScript(script);
 
+    return 0;
+}
+
+static int enableAlwaysLitLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    object->setIsAlwaysLit(true);
+    return 0;
+}
+
+static int disableAlwaysLitLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    object->setIsAlwaysLit(false);
     return 0;
 }
 
@@ -894,11 +1126,42 @@ static int engine_testSpecialKeyReleasedLua(lua_State *L)
     return 1;
 }
 
+static int engine_getMouseCoordinatesLua(lua_State *L)
+{
+    float x = lengine->getMouseX();
+    float y = lengine->getMouseY();
+
+    lua_newtable(L);
+
+    lua_pushnumber(L, 1);
+    lua_pushnumber(L, x);
+    lua_rawset(L, -3);
+
+    lua_pushnumber(L, 2);
+    lua_pushnumber(L, y);
+    lua_rawset(L, -3);
+    return 1;
+}
+
+static int level_findObjectOfTypeLua(lua_State *L)
+{
+    int type = (int)lua_tonumber(L, 1);
+    Object *temp = lgameLevel->findEnemyOfType(type);
+
+    if (temp != NULL)
+        lua_pushlightuserdata(L, (void*)temp);
+    else
+        lua_pushnil(L);
+
+    return 1;
+}
+
+
 static int setTypeIdLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-    object->typeId = (int)lua_tonumber(L, 2);
+    object->setTypeId((int)lua_tonumber(L, 2));
     return 0;
 }
 
@@ -906,7 +1169,7 @@ static int getTypeIdLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-    lua_pushnumber(L, object->typeId);
+    lua_pushnumber(L, object->getTypeId());
     return 1;
 }
 
@@ -914,7 +1177,12 @@ static int setScaleRateLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-    object->scaleRate.setVector(lua_tonumber(L, 2), lua_tonumber(L, 3), lua_tonumber(L, 4));
+
+    Vector scaleRate = object->getScaleRate();
+
+    scaleRate.setVector(lua_tonumber(L, 2), lua_tonumber(L, 3), lua_tonumber(L, 4));
+
+    object->setScaleRate(scaleRate);
     return 0;
 }
 
@@ -922,7 +1190,13 @@ static int setScaleRatevLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-    object->scaleRate = loadVector(L);
+
+    Vector scaleRate = object->getScaleRate();
+
+    scaleRate = loadVector(L);
+
+    object->setScaleRate(scaleRate);
+
     return 0;
 }
 
@@ -931,7 +1205,9 @@ static int getScaleLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
-	returnVector(L, object->scale);
+    Vector scale = object->getScale();
+
+	returnVector(L, scale);
 	return 1;
 }
 
@@ -940,7 +1216,9 @@ static int getScaleRateLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
-	returnVector(L, object->scaleRate);
+    Vector scaleRate = object->getScaleRate();
+
+	returnVector(L, scaleRate);
 	return 1;
 }
 
@@ -1079,6 +1357,30 @@ static int getCollisionDetectionEnabledLua(lua_State *L)
     return 1;
 }
 
+static int setActiveLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    object->setActive(true);
+    return 0;
+}
+
+static int setInactiveLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    object->setActive(false);
+    return 0;
+}
+
+static int getActiveLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+    lua_pushnumber(L, object->getActive());
+    return 1;
+}
+
 static int enableDrawLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
@@ -1107,7 +1409,7 @@ static int getBoundingSphereRadiusLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-    lua_pushnumber(L, object->boundingSphere.getRadius());
+    lua_pushnumber(L, object->getBoundingSphere().getRadius());
     return 1;
 }
 
@@ -1275,6 +1577,8 @@ static int registerFunctions(lua_State *L, int level)
     lua_register(L, "engine_testKeyReleased", engine_testKeyReleasedLua);
     lua_register(L, "engine_testSpecialKeyPressed", engine_testSpecialKeyPressedLua);
     lua_register(L, "engine_testSpecialKeyReleased", engine_testSpecialKeyReleasedLua);
+    lua_register(L, "engine_getMouseCoordinates", engine_getMouseCoordinatesLua);
+    lua_register(L, "level_findObjectOfType", level_findObjectOfTypeLua);
     lua_register(L, "vector_normalize", vector_normalizeLua);
     lua_register(L, "vector_dotProduct", vector_dotProductLua);
     lua_register(L, "vector_crossProduct", vector_crossProductLua);
@@ -1285,12 +1589,24 @@ static int registerFunctions(lua_State *L, int level)
     lua_register(L, "getCollisionDetectionEnabled", getCollisionDetectionEnabledLua);
     lua_register(L, "enableCollisionDetection", enableCollisionDetectionLua);
     lua_register(L, "disableCollisionDetection", disableCollisionDetectionLua);
+    lua_register(L, "getActive", getActiveLua);
+    lua_register(L, "setActive", setActiveLua);
+    lua_register(L, "setInactive", setInactiveLua);
     lua_register(L, "getDrawEnabled", getDrawEnabledLua);
     lua_register(L, "enableDraw", enableDrawLua);
     lua_register(L, "disableDraw", disableDrawLua);
     lua_register(L, "getBoundingSphereRadius", getBoundingSphereRadiusLua);
     lua_register(L, "getInView", getInViewLua);
     lua_register(L, "addText", addTextLua);
+    lua_register(L, "enableAlwaysLit", enableAlwaysLitLua);
+    lua_register(L, "disableAlwaysLit", disableAlwaysLitLua);
+    lua_register(L, "terrain_getVertexHeight", terrain_getVertexHeightLua);
+    lua_register(L, "terrain_getVertexColor", terrain_getVertexColorLua);
+    lua_register(L, "terrain_getVertexType", terrain_getVertexTypeLua);
+    lua_register(L, "terrain_setVertexHeight", terrain_setVertexHeightLua);
+    lua_register(L, "terrain_setVertexColor", terrain_setVertexColorLua);
+    lua_register(L, "terrain_setVertexType", terrain_setVertexTypeLua);
+    lua_register(L, "camera_addRotation", camera_addRotationLua);
 
     // text based functions
     lua_register(L, "setFadeRate", setFadeRateLua);

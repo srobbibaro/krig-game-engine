@@ -9,6 +9,7 @@ Model::Model()
 {
     updatedVertex = NULL;
     lightIntensity = NULL;
+    modelKey = "";
 }
 
 //------------------------------------------------------------------------------
@@ -20,11 +21,23 @@ Model::~Model()
 //------------------------------------------------------------------------------
 void Model::load( string tModelKey )
 {
+    // don't load the model if it's already loaded
+    if (modelKey == tModelKey) {
+        int numVertices = modelHash[modelKey]->numVertices;
+
+        // load in vertices used for model //////
+        for ( int i = 0; i < numVertices; i++ ) {
+            for ( int j = 0; j < 3; j++ ) {
+                updatedVertex[i][j] = modelHash[modelKey]->baseVertex[i][j];
+            }
+        }
+        return;
+    }
+
     // model must have been unloaded first
     if (lightIntensity != NULL || updatedVertex != NULL)
-        return;
+        unload();
 
-    GLfloat temp;
     modelKey = tModelKey;
 
     int numVertices = modelHash[modelKey]->numVertices;
@@ -69,6 +82,8 @@ void Model::unload()
 
     lightIntensity = NULL;
     updatedVertex = NULL;
+
+    modelKey = "";
 }
 
 //------------------------------------------------------------------------------
@@ -228,15 +243,20 @@ void Model::update( Vector* light )
         transform.transformVertex( m->baseVertex[i], updatedVertex[i] );
 
         // calculate light intensity ////////////
-        tempV.rotateVector( transform, m->normal[i] );
-        tempV.normalize();
-
-        temp = tempV.dotProduct( *light );
-
-        if ( temp == 1.0f )
+        if (isAlwaysLit_) {
             temp = 0.5f;
-        else if ( temp < 0.0f )
-            temp = 0.0f;
+        }
+        else {
+            tempV.rotateVector( transform, m->normal[i] );
+            tempV.normalize();
+
+            temp = tempV.dotProduct( *light );
+
+            if ( temp == 1.0f )
+                temp = 0.5f;
+            else if ( temp < 0.0f )
+                temp = 0.0f;
+        }
 
         lightIntensity[i] = temp;
         /////////////////////////////////////////
@@ -279,6 +299,9 @@ void Model::update( Vector* light )
 
     up.rotateVector( rotationMatrix, upV );
     up.normalize();
+
+    orth.crossProduct(up, direction);
+    orth.normalize();
 
  /*
         Vector p1, p2, p3;
