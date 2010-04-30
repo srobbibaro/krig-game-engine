@@ -1,9 +1,8 @@
-dofile('./scripts/base_object.lua')
+dofile('./scripts/base_shooting_object.lua')
 
 progress = 0
 life = 10
 lives = 3
-nextShot = 0.0
 numMissiles = 0
 nextMissileShot = 0.0
 
@@ -29,12 +28,13 @@ function on_load(this)
 
     setTypeId(this, 0)
 
-    --obj = this
+    setupShots(this, "./scripts/player_shot.lua", 0.25)
+
     return
 end
 
 function on_update(this, elapsedTime)
-    if nextShot > 0.0 then nextShot = nextShot - elapsedTime end
+    update_shots(elapsedTime)
     if nextMissileShot > 0.0 then nextMissileShot = nextMissileShot - elapsedTime end
     if invul > 0.0 then invul = invul - elapsedTime end
 
@@ -116,15 +116,13 @@ function on_update(this, elapsedTime)
 
         setVelocityv(this, this_velocity)
 
-        if engine_testKeyPressed(32) == 1 and nextShot <= 0.0 then
-            radius = getBoundingSphereRadius(this)
-            setShot(this, "./scripts/player_shot.lua", radius) 
-            nextShot = .40
-        end      
+        if engine_testKeyPressed(32) == 1 then 
+            attemptShot(this, (getBoundingSphereRadius(this) - 1.0)) 
+        end
 
-	    if engine_testKeyPressed(this, 109) == 1 and nextMissileShot <= 0.0 then
+	    if engine_testKeyPressed(string.byte("m", 1)) == 1 and nextMissileShot <= 0.0 then
             --obj = addObject(this, "./scripts/player_missile.lua")
-            obj = setShot(this, "./scripts/player_shot.lua") 
+            obj = setShot(this, "./scripts/player_missile.lua") 
             nextMissileShot = .75
         end      
 
@@ -142,6 +140,15 @@ function on_collision(this,temp)
 
     if collisionRecover == 0 and (tempId == 1 or tempId == 10 or tempId == 4) then
         life = life - 1
+        collisionRecover = 1
+        --disableCollisionDetection(this)
+        invul = 2.0
+        if life <= 0 then 
+            life = 10
+            if lives > 0 then lives = lives - 1 end
+        end
+    elseif collisionRecover == 0 and tempId == 20 then
+        life = life - 2
         collisionRecover = 1
         --disableCollisionDetection(this)
         invul = 2.0

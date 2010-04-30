@@ -2,10 +2,11 @@ duration = 0.0
 
 function on_load(this)
     setModel(this, "GreenShot.mdl")
-    setTypeId(this, 10)
+    setTypeId(this, 20)
     enableAlwaysLit(this)
 
     playSound(this, "laser.wav")
+    setScale(this, 4.0, 4.0, 4.0)
 
     return
 end
@@ -13,9 +14,10 @@ end
 function on_update(this, elapsedTime)
     duration = duration + elapsedTime
 
-    if duration > 5.0 then
-        removeObject(this)
-        duration = 0
+    if duration > 2.0 then
+        setInactive(this)
+        duration = 0.0
+        --removeObject(this)   
     end
     return
 end
@@ -28,8 +30,9 @@ function on_collision(this, temp)
     typeId = getTypeId(temp)
 
     if typeId ~= 1 and typeId ~= 3 and typeId ~= 2 then
-        removeObject(this)
-        duration = 0
+        setInactive(this)
+        duration = 0.0
+        --removeObject(this)
     end
     return 
 end

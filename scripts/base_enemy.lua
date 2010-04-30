@@ -67,7 +67,7 @@ function create_score_text(this)
     obj = addText(this, "./scripts/camera1.lua", score)
 
     setPositionv(obj, this_position)
-    setScale(obj, 0.75, 0.75, 0.0)
+    setScale(obj, 0.25, 0.25, 0.0)
     setVelocity(obj, cam_vel[1], 2.0, cam_vel[3])
     setFadeRate(obj, -.25)
     setColor(obj, 1.0, 1.0, 1.0)

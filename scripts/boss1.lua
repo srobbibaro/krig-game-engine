@@ -1,5 +1,6 @@
 dofile('./scripts/base_object.lua')
 dofile('./scripts/base_enemy.lua')
+dofile('./scripts/base_shooting_object.lua')
 
 state = 0
 nextShot = 3.5
@@ -15,10 +16,14 @@ function on_load(this)
     life = 40
     setTypeId(this, 3)
     disableCollisionDetection(this)
+
+    setupShots(this, './scripts/boss_shot.lua', 0.85)
     return
 end
 
 function on_update(this, elapsedTime)
+    update_shots(elapsedTime)
+
     camera = getCamera()
     cam_pos = getPosition(camera)
     this_pos = getPosition(this)
@@ -45,18 +50,11 @@ function on_update(this, elapsedTime)
     plr_pos = getPosition(plr)
     in_view = getInView(this)
 
-    if nextShot > 0.0 then nextShot = nextShot - elapsedTime end
-
 --    if plr_pos[2] < (this_pos[2] + .5) and 
 --       plr_pos[2] > (this_pos[2] - .5) and 
-      if  nextShot <= 0.0 and
-       in_view == 1 then
+    if in_view == 1 then
         radius = getBoundingSphereRadius(this) - 1.25
-        obj = setShot(this, "./scripts/enemy_shot.lua", radius, radius) 
-        setScale(obj, 4.0, 4.0, 4.0)
-        obj = setShot(this, "./scripts/enemy_shot.lua", radius, -radius) 
-        setScale(obj, 4.0, 4.0, 4.0)
-        nextShot = .85
+        attemptShots(this, 2, {radius, radius}, {radius, -radius})
     end
 
     return
