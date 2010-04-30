@@ -20,7 +20,12 @@ end
 
 function calc_speed()
     speed = math.random(20)
-    speed = 40.0 - speed
+    speed = 50.0 - speed
+
+    if math.random(2) == 1 then
+        speed = speed * -1
+    end
+
     return speed
 end
 
@@ -52,7 +57,8 @@ function on_update(this, elapsedTime)
     if this_velocity[1] > 0.0 then
         if this_position[1] > x_max then
             speed = calc_speed()
-            setVelocity(this, 0.0, -speed, 0.0)
+            --setVelocity(this, 0.0, -speed, 0.0)
+            setVelocity(this, 0.0, speed, 0.0)
         end
     elseif this_velocity[1] < 0.0 then
         if this_position[1] < x_min then
@@ -67,7 +73,8 @@ function on_update(this, elapsedTime)
     elseif this_velocity[2] < 0.0 then
         if this_position[2] < y_min then
             speed = calc_speed()
-            setVelocity(this, -speed, 0.0, 0.0)
+            --setVelocity(this, -speed, 0.0, 0.0)
+            setVelocity(this, speed, 0.0, 0.0)
             set_window()
         end
     end
