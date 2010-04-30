@@ -102,7 +102,7 @@
     x Steve: Create water level (level 3) terrain. (4/1/09 ~ Steve)
 
 4/1/09 ~ Steve
-    * Steve: Create deseret level (level 4) terrain.
+    x Steve: Create deseret level (level 4) terrain. (4/16/10 ~ Steve - could still be tweaked as required)
 
 4/4/10 ~ Steve
     x Tally player's score. (4/7/10 ~ Steve)
@@ -115,3 +115,24 @@
 4/7/10 ~ Steve
     x Implement missile powerup. (4/7/10 ~ Steve).
     * Possibly implement "texture" object type which will allow a texture to be loaded/manipulated/displayed with all other objects.
+
+4/11/10 ~ Steve
+    x Update mountains in the level1 terrain using mountain function in terrain generation Perl script (4/16/10 ~ Steve).
+    * Create a "free object" map in the engine. This map will store all freed game objects indexed on lua script.
+      When an "addObject" call is made, the engine will first look here before creating a new object. Objects will no
+      longer be deleted until after the level has finished.
+
+4/15/10 ~ Steve
+    * Investigate all game objects sharing 1 lua state rather than each having its own.
+    * Add object property to allow it to always be fully lit (4/16/10 ~ Steve - added enable/disableAlwaysLit script functions).
+    * Investigate removing/tweaking terrain curvature.
+    * Investigate issue with terrain display list not drawing all visible terrain when scale factor is changed from 5.0 (found with 10.0).
+
+4/16/10 ~ Steve
+    * Investigate low performance of level 2 (terrain related)?
+    * Implement new mountains in level 2.
+    * Give terrains a new file extention (something other than 'txt').
+    * Investigate ability to pre-compile lua scripts for final release.
+    * Create high score system.
+    x Cleanup Objech.h/cpp (private vs. public data). (4/29/10 ~ Steve)
+    x Fix bug in engine where camera 2 or 3 will crash the engine if it tries to access coordinates not in the terrain. (4/17/10 ~ Steve)
