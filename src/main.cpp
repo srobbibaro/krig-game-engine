@@ -392,8 +392,9 @@ void glutInit(void)
     glutIdleFunc( idle );
     glutReshapeFunc( reshape );
     glutKeyboardFunc( normalKey );
+    //glutPassiveMotionFunc ( mouseMove );
     glutMotionFunc ( mouseMove );
-    glutIgnoreKeyRepeat(1);
+    glutIgnoreKeyRepeat(0);
 }
 
 //------------------------------------------------------------------------------
