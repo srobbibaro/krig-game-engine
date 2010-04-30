@@ -17,7 +17,7 @@
 
 extern "C" {
     #include "lauxlib.h"
-    #include "lua2/LuaGL.h"
+    #include "lua/LuaGL.h"
 }
 
 /* set field of a lua table with a number */
