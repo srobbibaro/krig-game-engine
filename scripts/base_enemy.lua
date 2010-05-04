@@ -5,7 +5,7 @@ score = 0
 function handle_collision(this, temp)
     typeId = getTypeId(temp)
 
-    if typeId == 2 then
+    if typeId == 2 or typeId == 4 then
         playSound(this, "explosion1.wav")
         life = life - 1
         if life <= 0 then
@@ -17,7 +17,7 @@ function handle_collision(this, temp)
             math.randomseed( os.time() )
             powerup_rand = math.random(100) 
 
-            print ("powerup_rand:".. powerup_rand)
+            --print ("powerup_rand:".. powerup_rand)
 
             if powerup_rand < 10 then
                 create_powerup(this, 1)
