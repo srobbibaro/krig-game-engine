@@ -136,3 +136,7 @@
     * Create high score system.
     x Cleanup Objech.h/cpp (private vs. public data). (4/29/10 ~ Steve)
     x Fix bug in engine where camera 2 or 3 will crash the engine if it tries to access coordinates not in the terrain. (4/17/10 ~ Steve)
+
+5/1/10 ~ Steve
+    * Make terrain curvature configurable properties of a terrain.
+    * Allow terrain to be positioned using object's position attribute.
