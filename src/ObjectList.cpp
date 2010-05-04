@@ -41,8 +41,6 @@ void ObjectList::remove(ObjectNode* objectNode)
     if (objectNode->next != NULL)
         objectNode->next->prev = objectNode->prev;
 
-
-
     objectNode->prev = objectNode->next = NULL;
 
     size--;
