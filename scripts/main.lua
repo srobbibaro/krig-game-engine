@@ -10,7 +10,7 @@ levels = {
 	"./levels/level4.lua",
     "./levels/level5.lua",
 	"./levels/credits.lua"}
-levelNum = 6
+levelNum = 1
 
 function on_load()
     loadLevel(levels[levelNum])
@@ -37,7 +37,7 @@ function on_update(elapsedTime)
     
     if engine_testKeyPressed(string.byte("L", 1)) == 1 then
         levelNum = levelNum + 1
-        if levelNum > 5 then levelNum = 1 end
+        if levelNum > 7 then levelNum = 1 end
         loadLevel(levels[levelNum])
     end
 
