@@ -142,7 +142,7 @@ function on_collision(this,temp)
         life = life - 1
         collisionRecover = 1
         --disableCollisionDetection(this)
-        invul = 2.0
+        invul = 1.0
         if life <= 0 then 
             life = 10
             if lives > 0 then lives = lives - 1 end
@@ -151,7 +151,7 @@ function on_collision(this,temp)
         life = life - 2
         collisionRecover = 1
         --disableCollisionDetection(this)
-        invul = 2.0
+        invul = 1.0
         if life <= 0 then 
             life = 10
             if lives > 0 then lives = lives - 1 end
