@@ -567,12 +567,9 @@ void GameLevel::updateObjects( Vector* light  )
 
         if (object->getState() == DEAD) {
             objects_->remove(object);
-
-
             freeObjects_[object->getScriptName()].insertFront(object);
 
-            cout << "key: " << object->getScriptName() << " size: " << freeObjects_[object->getScriptName()].size << endl;
-
+            //cout << "Object removed: '" << object->getScriptName() << "'. Added to free objects map. size=" << freeObjects_[object->getScriptName()].size << endl;
 
             //delete object;
         }

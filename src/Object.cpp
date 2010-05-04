@@ -23,6 +23,7 @@ Object* object;
 Object::Object()
 : ObjectNode()
 {
+    scriptName = "";
     particleSystem = NULL;
     L = NULL;
 
@@ -88,7 +89,6 @@ void Object::initSettings()
 
     state = NORMAL;
     active = true;
-    scriptName = "";
     suspendTime = 0.0f;
     typeId = -1;
 

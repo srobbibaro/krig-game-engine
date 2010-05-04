@@ -100,7 +100,7 @@ class GameLevel
             if (temp != NULL) {
                 temp->initSettings();
                 freeObjects_[script].remove(temp);
-                cout << "key: " << script << " size: " << freeObjects_[script].size << endl;
+                //cout << "object script key: " << script << " size: " << freeObjects_[script].size << endl;
             }
             else {
                 temp = new ScriptedObject();
@@ -124,12 +124,12 @@ class GameLevel
             if (temp != NULL) {
                 temp->initSettings();
                 freeObjects_[script].remove(temp);
-                cout << "key: " << script << " size: " << freeObjects_[script].size << endl;
+                cout << "text script key: " << script << " size: " << freeObjects_[script].size << endl;
             }
             else {
                 temp = new ScriptTextType();
                 temp->setScript( script );
-                 cout << "had to create new object of type: " << script << "..." << endl;
+                 cout << "had to create new text object of type: " << script << "..." << endl;
             }
 
             objects_->insertFront(temp);
