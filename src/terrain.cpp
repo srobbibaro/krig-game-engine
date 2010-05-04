@@ -29,6 +29,10 @@ void Terrain::init()
     xSize_ = 0;
 	zSize_ = 0;
 	scaleFactor_ = 1.0f;
+
+	isCurveEnabled_ = true;
+	curveDistance_ = 200.0f;
+	curveRate_ = 0.05f;
 }
 
 //------------------------------------------------------------------------------
@@ -79,14 +83,12 @@ void Terrain::draw( Object* c )
                 zPer2 = (vertex_[x1][z2][2] - cPosition.z)* (vertex_[x1][z2][2] - cPosition.z);
 
                 tPer = sqrt(xPer1 + zPer1);
-                float rate = .005f;
-                float offset = 200.0f;
 
                 //offset = 1000000;
 
-                if ( tPer > offset ) {
-                    tPer = tPer - offset;
-                    v[1] = -(rate * (tPer)) * ( rate * (tPer) )  + vertex_[x1][z1][1];
+                if ( isCurveEnabled_ && tPer > curveDistance_ ) {
+                    tPer = tPer - curveDistance_;
+                    v[1] = -(curveRate_ * (tPer)) * ( curveRate_ * (tPer) )  + vertex_[x1][z1][1];
                 }
                 else
                     v[1] = vertex_[x1][z1][1];
@@ -100,9 +102,9 @@ void Terrain::draw( Object* c )
 
                 tPer = sqrt(xPer2 + zPer1);
 
-                if ( tPer > offset ) {
-                    tPer = tPer - offset;
-                    v[1] = -(rate * (tPer)) * ( rate * (tPer) )  + vertex_[x2][z1][1];
+                if ( isCurveEnabled_ && tPer > curveDistance_ ) {
+                    tPer = tPer - curveDistance_;
+                    v[1] = -(curveRate_ * (tPer)) * ( curveRate_ * (tPer) )  + vertex_[x2][z1][1];
                 }
                 else
                     v[1] = vertex_[x2][z1][1];
@@ -116,9 +118,9 @@ void Terrain::draw( Object* c )
 
                 tPer = sqrt(xPer1 + zPer2);
 
-                 if ( tPer > offset ) {
-                    tPer = tPer - offset;
-                    v[1] = -(rate * (tPer)) * ( rate * (tPer) )  + vertex_[x1][z2][1];
+                 if ( isCurveEnabled_ && tPer > curveDistance_ ) {
+                    tPer = tPer - curveDistance_;
+                    v[1] = -(curveRate_ * (tPer)) * ( curveRate_ * (tPer) )  + vertex_[x1][z2][1];
                 }
                 else
                     v[1] = vertex_[x1][z2][1];
@@ -132,9 +134,9 @@ void Terrain::draw( Object* c )
                 v[0] = vertex_[x2][z2][0];
                 v[2] = vertex_[x2][z2][2];
 
-                if ( tPer > offset ) {
-                    tPer = tPer - offset;
-                    v[1] = -(rate * (tPer)) * (rate * (tPer) )  + vertex_[x2][z2][1];
+                if ( isCurveEnabled_ && tPer > curveDistance_ ) {
+                    tPer = tPer - curveDistance_;
+                    v[1] = -(curveRate_ * (tPer)) * (curveRate_ * (tPer) )  + vertex_[x2][z2][1];
                 }
                 else
                     v[1] = vertex_[x2][z2][1];
@@ -168,7 +170,7 @@ void Terrain::drawOutline( Object* c )
     xStart = zStart = 0;
 
     glPushMatrix();
-       QuadTreeNode* n = displayList_->head;
+        QuadTreeNode* n = displayList_->head;
 
         glColor3f(0.0f, 0.0f, 0.0f);
 
@@ -194,13 +196,10 @@ void Terrain::drawOutline( Object* c )
                 zPer2 = (vertex_[x1][z2][2] - cPosition.z)* (vertex_[x1][z2][2] - cPosition.z);
 
                 tPer = sqrt(xPer1 + zPer1);
-                //float rate = .045f;
-                float rate = .05f;
-                float offset = 200.0f;
 
-                if ( tPer > offset ) {
-                    tPer = tPer - offset;
-                    v[1] = -(rate * (tPer)) * ( rate * (tPer) )  + vertex_[x1][z1][1];
+                if ( isCurveEnabled_ && tPer > curveDistance_ ) {
+                    tPer = tPer - curveDistance_;
+                    v[1] = -(curveRate_ * (tPer)) * ( curveRate_ * (tPer) )  + vertex_[x1][z1][1];
                 }
                 else
                     v[1] = vertex_[x1][z1][1];
@@ -212,9 +211,9 @@ void Terrain::drawOutline( Object* c )
 
                 tPer = sqrt(xPer2 + zPer1);
 
-                if ( tPer > offset ) {
-                    tPer = tPer - offset;
-                    v[1] = -(rate * (tPer)) * ( rate * (tPer) )  + vertex_[x2][z1][1];
+                if ( isCurveEnabled_ && tPer > curveDistance_ ) {
+                    tPer = tPer - curveDistance_;
+                    v[1] = -(curveRate_ * (tPer)) * ( curveRate_ * (tPer) )  + vertex_[x2][z1][1];
                 }
                 else
                     v[1] = vertex_[x2][z1][1];
@@ -226,10 +225,10 @@ void Terrain::drawOutline( Object* c )
 
                 tPer = sqrt(xPer1 + zPer2);
 
-                 if ( tPer > offset ) {
-                    tPer = tPer - offset;
+                 if ( isCurveEnabled_ && tPer > curveDistance_ ) {
+                    tPer = tPer - curveDistance_;
 
-                    v[1] = -(rate * (tPer)) * ( rate * (tPer) )  + vertex_[x1][z2][1];
+                    v[1] = -(curveRate_ * (tPer)) * ( curveRate_ * (tPer) )  + vertex_[x1][z2][1];
                 }
                 else
                     v[1] = vertex_[x1][z2][1];
@@ -241,9 +240,9 @@ void Terrain::drawOutline( Object* c )
                 v[0] = vertex_[x2][z2][0];
                 v[2] = vertex_[x2][z2][2];
 
-                if ( tPer > offset ) {
-                    tPer = tPer - offset;
-                    v[1] = -(rate * (tPer)) * (rate * (tPer) )  + vertex_[x2][z2][1];
+                if ( isCurveEnabled_ && tPer > curveDistance_ ) {
+                    tPer = tPer - curveDistance_;
+                    v[1] = -(curveRate_ * (tPer)) * (curveRate_ * (tPer) )  + vertex_[x2][z2][1];
                 }
                 else
                     v[1] = vertex_[x2][z2][1];

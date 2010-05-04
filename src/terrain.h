@@ -61,6 +61,13 @@ class Terrain : public Object
         int getZSize() { return zSize_; }
         int getScaleFactor() { return scaleFactor_; }
 
+        void setCurveDistance( GLfloat curveDistance ) { curveDistance_ = curveDistance; }
+        void setCurveRate( GLfloat curveRate ) { curveRate_ = curveRate; }
+        void setIsCurveEnabled( bool isCurveEnabled ) { isCurveEnabled_ = isCurveEnabled; }
+        GLfloat getCurveDistance() { return curveDistance_; };
+        GLfloat getCurveRate() { return curveRate_; };
+        GLfloat getIsCurveEnabled() { return isCurveEnabled_; }
+
     private:
         DisplayList* displayList_;
 
@@ -71,6 +78,10 @@ class Terrain : public Object
         GLfloat** lightIntensity_;
         GLfloat*** color_;
         GLint** type_;
+
+        GLfloat curveDistance_;
+        GLfloat curveRate_;
+        bool isCurveEnabled_;
 
         float totalTime_;
 };
