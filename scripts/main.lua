@@ -1,3 +1,5 @@
+dofile('./scripts/debug_lib.lua')
+
 totalTime = 0.0
 
 levels = {
@@ -6,17 +8,20 @@ levels = {
 	"./levels/level2.lua", 
 	"./levels/level3.lua", 
 	"./levels/level4.lua",
+    "./levels/level5.lua",
 	"./levels/credits.lua"}
-levelNum = 1
+levelNum = 6
 
 function on_load()
-    loadLevel(levels[1])
-    setLevelId(1)
+    loadLevel(levels[levelNum])
+    setLevelId(levelNum)
     return
 end
 
 function on_update(elapsedTime)
     totalTime = totalTime + elapsedTime
+
+    handle_debug_controls(elapsedTime)
     
     -- handle global user control
     if engine_testKeyPressed(27) == 1 then 
@@ -28,16 +33,11 @@ function on_update(elapsedTime)
         swapLevel()
     end
 
-    if engine_testKeyPressed(string.byte("q", 1)) == 1 or 
-       engine_testKeyPressed(string.byte("Q", 1)) == 1 then 
-       shutdown()
-    end
-
     if engine_testKeyPressed(string.byte("p", 1)) == 1 then pause() end
     
     if engine_testKeyPressed(string.byte("L", 1)) == 1 then
         levelNum = levelNum + 1
-        if levelNum > 6 then levelNum = 1 end
+        if levelNum > 5 then levelNum = 1 end
         loadLevel(levels[levelNum])
     end
 
@@ -58,7 +58,7 @@ function on_update(elapsedTime)
         levelId = getLevelId()
        	  
        levelNum = levelNum + 1
-       if levelNum > 5 then levelNum = 2 end
+       if levelNum > 6 then levelNum = 2 end
 
        loadLevel(levels[levelNum])
     end
