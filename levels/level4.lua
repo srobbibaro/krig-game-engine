@@ -30,6 +30,13 @@ function on_load(terrain)
 end
 
 function on_update(terrain, elapsedTime)
+    camera = getCamera()
+    cam_pos = getPosition(camera)
+
+    if cam_pos[1] >= 500.0 then
+        setComplete(1)
+    end
+
     return
 end
 
