@@ -58,7 +58,7 @@ function on_update(elapsedTime)
         levelId = getLevelId()
        	  
        levelNum = levelNum + 1
-       if levelNum > 6 then levelNum = 2 end
+       if levelNum > 7 then levelNum = 2 end
 
        loadLevel(levels[levelNum])
     end
