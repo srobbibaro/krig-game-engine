@@ -4,8 +4,9 @@ score = 0
 
 function handle_collision(this, temp)
     typeId = getTypeId(temp)
+    thisTypeId = getTypeId(this)
 
-    if typeId == 2 or typeId == 4 then
+    if typeId == 2 or (typeId == 4 and thisTypeId ~= 4) then
         playSound(this, "explosion1.wav")
         life = life - 1
         if life <= 0 then
