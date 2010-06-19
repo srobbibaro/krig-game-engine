@@ -30,22 +30,22 @@ asteroid_wave1 = {
 
 enemy_ship_wave1 = {
     {position = {230.0, 25.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship2.lua"},
-    {position = {225.0, 15.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship7.lua"},
+    {position = {205.0, 15.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship7.lua"},
     {position = {230.0, 5.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship3.lua"},
     {position = {260.0, 22.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship2.lua"},
-    {position = {255.0, 12.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship7.lua"},
+    {position = {235.0, 12.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship7.lua"},
     {position = {260.0, 2.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship3.lua"},
     {position = {290.0, 28.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship2.lua"},
-    {position = {285.0, 18.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship7.lua"},
+    {position = {265.0, 18.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship7.lua"},
     {position = {290.0, 8.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship3.lua"},
     {position = {320.0, 25.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship2.lua"},
-    {position = {315.0, 15.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship7.lua"},
+    {position = {295.0, 15.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship7.lua"},
     {position = {320.0, 5.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship3.lua"},
     {position = {350.0, 22.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship2.lua"},
-    {position = {345.0, 12.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship7.lua"},
+    {position = {325.0, 12.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship7.lua"},
     {position = {350.0, 2.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship3.lua"},
     {position = {380.0, 28.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship2.lua"},
-    {position = {375.0, 18.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship7.lua"},
+    {position = {355.0, 18.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship7.lua"},
     {position = {380.0, 8.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship3.lua"},
     {position = {400.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
     {position = {405.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
@@ -173,7 +173,12 @@ function on_update(terrain, elapsedTime)
             next_background = 4.0 
         end
 --]]
+        bossLife = 0
+        if boss ~= nil then bossLife = getScriptValue(boss, "life") end
+        if bossLife == 0 then boss = nil end
+        update_level(elapsedTime, bossLife)
     end
+
     return
 end
 
@@ -182,6 +187,17 @@ function on_unload()
 end
 
 function on_draw()
+--[[
+    gl.PushMatrix()
+    gl.Color (1.0, 1.0, 1.0)
+    gl.Begin("QUADS")
+    gl.Vertex (10.0, 10.0, 0.0)
+    gl.Vertex (-10.0, 10.0, 0.0)
+    gl.Vertex (-10.0, -10.0, 0.0)
+    gl.Vertex (10.0, -10.0, 0.0)
+    gl.End()
+    gl.PopMatrix()
+--]]
     return
 end
 
@@ -194,6 +210,7 @@ function on_draw_screen()
 
     display_hud(boss_battle, bossLife)
     display_debug()
+
     return
 end
 
