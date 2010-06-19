@@ -1,9 +1,9 @@
 dofile("./levels/level_lib.lua")
 
-x_start_camera = 110.0 -- 110.0
+x_start_camera = 910.0 -- 110.0
 x_start_player = x_start_camera - 20.0
 
-bossBattle = 0
+--bossBattle = 0
 boss = nil
 bossLife = 0
 
@@ -38,9 +38,9 @@ function on_load(terrain)
     camera = getCamera()
     setScript(camera, "./scripts/camera1.lua")
     setPosition(camera, x_start_camera, 15.0, 35.0)
-    
+
     -- setup the enemy ships
-    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+    local obj = addObject(terrain, "./scripts/enemy_ship1.lua")
     setPosition(obj, 160, 15, 7.5)
 
     obj = addObject(terrain, "./scripts/enemy_ship1.lua")
@@ -138,156 +138,156 @@ function on_load(terrain)
 	setPosition(obj1, 910, 12, 37.5)
 	
     -- scenery --
-	obj = addObject(terrain, "./scripts/building.lua"),
+	obj = addObject(terrain, "./scripts/building.lua")
 	setPosition(obj, 160, 20, -100.0)
 	setScale(obj, 10.0, 20.0, 10.0)
 
-	obj = addObject(terrain, "./scripts/building.lua"),
+	obj = addObject(terrain, "./scripts/building.lua")
 	setPosition(obj, 190, 20, -100.0)
 	setScale(obj, 10.0, 30.0, 10.0)
 
-	obj = addObject(terrain, "./scripts/building.lua"),
+	obj = addObject(terrain, "./scripts/building.lua")
 	setPosition(obj, 150, 7, -50.0)
 	setScale(obj, 7.0, 10.0, 7.0)
 
-	obj = addObject(terrain, "./scripts/building.lua"),
+	obj = addObject(terrain, "./scripts/building.lua")
 	setPosition(obj, 175, 7, -50.0)
 	setScale(obj, 7.0, 7.0, 7.0)
 
-	obj = addObject(terrain, "./scripts/building.lua"),
+	obj = addObject(terrain, "./scripts/building.lua")
 	setPosition(obj, 200, 9, -50.0)
 	setScale(obj, 6.0, 9.0, 6.0)
 
-	obj = addObject(terrain, "./scripts/building.lua"),
+	obj = addObject(terrain, "./scripts/building.lua")
 	setPosition(obj, 210, 10, -50.0)
 	setScale(obj, 6.0, 10.0, 6.0)
 
-	obj = addObject(terrain, "./scripts/building.lua"),
+	obj = addObject(terrain, "./scripts/building.lua")
 	setPosition(obj, 230, 8, -50.0)
 	setScale(obj, 6.0, 8.0, 6.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 145, 5, -25.0)
 	setScale(obj, 2.0, 2.0, 2.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 150, 5, -25.0)
 	setScale(obj, 2.0, 2.0, 2.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 185, 4, -20.0)
 	setScale(obj, 2.0, 2.0, 2.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 190, 3, -15.0)
 	setScale(obj, 2.0, 2.0, 2.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 210, 3, -15.0)
 	setScale(obj, 2.0, 2.0, 2.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 213, 2.5, -12.0)
 	setScale(obj, 2.0, 2.0, 2.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 216, 3, -13.0)
 	setScale(obj, 2.0, 2.0, 2.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 255, 3.0, -15.0)
 	setScale(obj, 2.0, 2.0, 2.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 265, 4.5, -20.0)
 	setScale(obj, 2.0, 2.0, 2.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 280, 4.5, -20.0)
 	setScale(obj, 2.0, 2.0, 2.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 285, 3.0, -15.0)
 	setScale(obj, 2.0, 2.0, 2.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 300, 3.0, -15.0)
 	setScale(obj, 2.0, 2.0, 2.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 310, 5.0, -25.0)
 	setScale(obj, 2.0, 2.0, 2.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 313, 6.5, -28.0)
 	setScale(obj, 2.0, 2.0, 2.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 315, 4.5, -24.0)
 	setScale(obj, 2.0, 2.0, 2.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 355, 2.0, -10.0)
 	setScale(obj, 2.0, 2.0, 2.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 365, 3.0, -15.0)
 	setScale(obj, 2.0, 2.0, 2.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 370, 2.0, -10.0)
 	setScale(obj, 2.0, 2.0, 2.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 370, 6.0, -65.0)
 	setScale(obj, 4.0, 4.0, 4.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 375, 6.0, -60.0)
 	setScale(obj, 4.0, 4.0, 4.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 380, 6.0, -55.0)
 	setScale(obj, 4.0, 4.0, 4.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 705, 6.0, -45.0)
 	setScale(obj, 4.0, 4.0, 4.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 708, 6.0, -42.0)
 	setScale(obj, 4.0, 4.0, 4.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 715, 6.0, -45.0)
 	setScale(obj, 4.0, 4.0, 4.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 725, 6.0, -40.0)
 	setScale(obj, 4.0, 4.0, 4.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 735, 6.0, -45.0)
 	setScale(obj, 4.0, 4.0, 4.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 740, 6.0, -42.0)
 	setScale(obj, 4.0, 4.0, 4.0)
 
     ---------------------------------------
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 980, 9.0, -75.0)
 	setScale(obj, 4.0, 4.0, 4.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 985, 6.5, -70.0)
 	setScale(obj, 4.0, 4.0, 4.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+	obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 990, 10.0, -80.0)
 	setScale(obj, 4.0, 4.0, 4.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua"),
+    obj = addObject(terrain, "./scripts/pinetree.lua")
 	setPosition(obj, 995, 5.5, -75.0)
 	setScale(obj, 4.0, 4.0, 4.0)
 
@@ -313,11 +313,14 @@ function on_update(terrain, elapsedTime)
             setVelocity(player, (plr_vel[1] - 10.0), plr_vel[2], plr_vel[3])
            
             -- Create the boss...
-            obj = addObject(terrain, "./scripts/boss1.lua")
-            setPosition(obj, 995.0, 15.0, 7.5)
-
-            boss = obj
+            boss = addObject(terrain, "./scripts/boss1.lua")
+            setPosition(boss, 995.0, 15.0, 7.5)
         end
+    elseif bossBattle == 1 then
+        bossLife = 0
+        if boss ~= nil then bossLife = getScriptValue(boss, "life") end
+        if bossLife == 0 then boss = nil end
+        update_level(elapsedTime, bossLife)
     end
 
     return
