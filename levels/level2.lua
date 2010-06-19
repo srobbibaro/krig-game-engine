@@ -8,6 +8,48 @@ bossBattle = 0
 boss = nil
 bossLife = 0
 
+enemy_ship_wave = {
+    {position = {400.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
+    {position = {405.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
+    {position = {410.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
+    {position = {415.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
+    {position = {420.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
+    {position = {430.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
+    {position = {435.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
+    {position = {445.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
+    {position = {450.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
+    {position = {453.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
+    {position = {456.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
+    {position = {459.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
+    {position = {490.0, 0.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship9.lua"},
+    {position = {495.0, 0.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship9.lua"},
+    {position = {500.0, 0.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship9.lua"},
+    {position = {505.0, 0.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship9.lua"},
+    {position = {510.0, 0.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship9.lua"},
+    {position = {515.0, 0.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship9.lua"},
+    {position = {520.0, 0.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship9.lua"},
+    {position = {570.0, 10.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
+    {position = {575.0, 10.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
+    {position = {580.0, 10.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
+    {position = {630.0, 15.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
+    {position = {635.0, 15.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
+    {position = {640.0, 15.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
+    {position = {690.0, 20.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
+    {position = {695.0, 20.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
+    {position = {700.0, 20.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
+    {position = {750.0, 25.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
+    {position = {755.0, 25.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
+    {position = {760.0, 25.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
+}
+
+
+function buildCircleGroup(terrain, num, x, y, z)
+    for i = 0, num, 1 do
+        obj = addObject(terrain, "./scripts/enemy_ship10.lua")
+        setPosition(obj, x + (i * 5.0), y, z)
+    end
+end
+
 function buildVGroup(terrain, x,y,z)
     -- Leader
     obj = addObject(terrain, "./scripts/enemy_ship1.lua")
@@ -68,6 +110,14 @@ function setupEnemyShips(terrain)
         obj = addObject(terrain, "./scripts/enemy_ship3.lua")
         setPosition(obj, i, 8.0, 7.5)
     end
+
+    buildCircleGroup(terrain, 5, 750.0, 25.0, 7.5)
+    buildCircleGroup(terrain, 5, 825.0, 20.0, 7.5)
+    buildCircleGroup(terrain, 5, 900.0, 15.0, 7.5)
+    buildCircleGroup(terrain, 5, 975.0, 10.0, 7.5)
+    buildCircleGroup(terrain, 5, 1050.0, 15.0, 7.5)
+    buildCircleGroup(terrain, 5, 1125.0, 20.0, 7.5)
+    buildCircleGroup(terrain, 5, 1200.0, 25.0, 7.5)
 end
 
 function setAsteroidWave(terrain, x_start, x_end)
@@ -114,6 +164,15 @@ function on_load(terrain)
     -- gameplay obstacles (ships, asteroids, etc)
     setupEnemyShips(terrain)
     setupAsteroids(terrain)
+
+--[[
+    for i,v in ipairs(enemy_ship_wave) do
+        obj = addObject(terrain, v.script)
+        setPositionv(obj, v.position)
+        --setVelocityv(obj, v.velocity)
+    end
+--]]
+
 
     -- scenery
 
