@@ -109,7 +109,7 @@ function on_load(terrain)
     setScript(camera, "./scripts/camera1.lua")
     setPosition(camera, x_start_camera, 15.0, 35.0)
 
-    addParticleSystem(camera, 2)
+    --addParticleSystem(camera, 2)
 
     -- gameplay obstacles (ships, asteroids, etc)
     setupEnemyShips(terrain)
@@ -132,7 +132,7 @@ function on_update(terrain, elapsedTime)
         camera = getCamera()
         cam_pos = getPosition(camera)
 
-        if cam_pos[1] >= 970.0 then
+        if cam_pos[1] >= 1935.0 then
             bossBattle = 1
 
             -- Set the camera's velocity
@@ -144,11 +144,14 @@ function on_update(terrain, elapsedTime)
             setVelocity(player, (plr_vel[1] - 10.0), plr_vel[2], plr_vel[3])
     
             -- Create the boss...
-            obj = addObject(terrain, "./scripts/boss2.lua")
-            setPosition(obj, 995.0, 15.0, 7.5)
-
-             boss = obj
-        end
+            boss = addObject(terrain, "./scripts/boss2.lua")
+            setPosition(boss, 1960.0, 15.0, 7.5)
+        elseif bossBattle == 1 then
+            bossLife = 0
+            if boss ~= nil then bossLife = getScriptValue(boss, "life") end
+            if bossLife == 0 then boss = nil end
+            update_level(elapsedTime, bossLife)
+        end 
     end
 
     return
