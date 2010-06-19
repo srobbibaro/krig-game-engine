@@ -21,6 +21,8 @@ function on_update(this, elapsedTime)
     plr_pos = getPosition(plr)
     in_view = getInView(this)
 
+    if in_view == 0 then return end
+
     if plr_pos[2] > this_pos[2] then
         setVelocity(this, 2.0, 3.0, 0.0)
     elseif plr_pos[2] < this_pos[2] then
