@@ -1,5 +1,3 @@
-duration = 0.0
-
 function on_load(this)
     setModel(this, "GreenShot.mdl")
     setTypeId(this, 20)
@@ -12,13 +10,11 @@ function on_load(this)
 end
 
 function on_update(this, elapsedTime)
-    duration = duration + elapsedTime
+    in_view = getInView(this)
 
-    if duration > 2.0 then
-        setInactive(this)
-        duration = 0.0
-        --removeObject(this)   
-    end
+    if in_view == 0 then
+        removeObject(this)   
+    end 
     return
 end
 
@@ -30,9 +26,7 @@ function on_collision(this, temp)
     typeId = getTypeId(temp)
 
     if typeId ~= 1 and typeId ~= 3 and typeId ~= 2 then
-        setInactive(this)
-        duration = 0.0
-        --removeObject(this)
+        removeObject(this)
     end
     return 
 end
