@@ -1,6 +1,9 @@
 dofile('./scripts/base_enemy.lua')
 dofile('./scripts/base_shooting_object.lua')
 
+state = 1
+orig_height = 0.0
+
 function on_load(this)
     setModel(this, "Enemy.mdl")
     setScale(this, 2.0, 2.0, 2.0)
@@ -8,7 +11,7 @@ function on_load(this)
     setTypeId(this, 1)   
 
     setupShots(this, "./scripts/enemy_shot.lua", 0.5)
-    
+
     score = 100
     return
 end
@@ -21,14 +24,20 @@ function on_update(this, elapsedTime)
     plr_pos = getPosition(plr)
     in_view = getInView(this)
 
-
-    if plr_pos[1] < (this_pos[1] - 20.0) and 
-       plr_pos[1] > (this_pos[1] - 30.0) and 
-       in_view == 1 then
-        direction = { 0.0, this_pos[1] - plr_pos[1], 0.0, 0.0 }
-        direction = vector_normalize(direction)
-        attemptShotWithDirection(this, direction, getBoundingSphereRadius(this))
+    if state == 1 then
+        if plr_pos[1] > this_pos[1] - 25.0 then
+            setVelocity(this, 0.0, 5.0, 0.0) 
+            orig_height = this_pos[2]
+            state = 2
+        end
+    elseif state == 2 then
+        if this_pos[2] >= orig_height + 3.0 then 
+            setVelocity(this, 0.0, 0.0, 0.0) 
+            setSpeed(this, 40.0, 0.0, 0.0)
+            state = 3
+        end    
     end
+
     return
 end
 
