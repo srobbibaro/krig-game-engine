@@ -1,6 +1,6 @@
 dofile("./levels/level_lib.lua")
 
-x_start_camera = 110.0
+x_start_camera = 610.0
 x_start_player = x_start_camera -- 30.0
 --x_start_boss   = x_start_camera + 10.0
 
@@ -47,6 +47,18 @@ function buildCircleGroup(terrain, num, x, y, z)
     for i = 0, num, 1 do
         obj = addObject(terrain, "./scripts/enemy_ship10.lua")
         setPosition(obj, x + (i * 5.0), y, z)
+    end
+end
+
+function buildDockedGroup(terrain)
+    for i = 645, 890, 25 do
+        obj = addObject(terrain, "./scripts/enemy_ship11.lua")
+        setPosition(obj, i, 30.25, -53.0)
+        setRotation(obj, 0.2, 0.0, 0.0)
+
+        obj = addObject(terrain, "./scripts/enemy_ship11.lua")
+        setPosition(obj, i + 5.0, 30.25, -53.0)
+        setRotation(obj, 0.2, 0.0, 0.0)
     end
 end
 
@@ -118,6 +130,10 @@ function setupEnemyShips(terrain)
     buildCircleGroup(terrain, 5, 1050.0, 15.0, 7.5)
     buildCircleGroup(terrain, 5, 1125.0, 20.0, 7.5)
     buildCircleGroup(terrain, 5, 1200.0, 25.0, 7.5)
+
+    buildDockedGroup(terrain)
+
+
 end
 
 function setAsteroidWave(terrain, x_start, x_end)
