@@ -120,13 +120,13 @@ function on_load(terrain)
 	
     -- last wave - crashing ships --
 	obj6 = addObject(terrain, "./scripts/enemy_ship4.lua")
-	setPosition(obj6, 882, 10, 37.5)
+	setPosition(obj6, 882, 15, 37.5)
 		
 	obj5 = addObject(terrain, "./scripts/enemy_ship5.lua")
-	setPosition(obj5, 880, 5, 37.5)
+	setPosition(obj5, 880, 10, 37.5)
 		
 	obj4 = addObject(terrain, "./scripts/enemy_ship4.lua")
-	setPosition(obj4, 890, 10, 37.5)
+	setPosition(obj4, 890, 15, 37.5)
 	
 	obj3 = addObject(terrain, "./scripts/enemy_ship6.lua")
 	setPosition(obj3, 900, 15, 37.5)
@@ -139,7 +139,7 @@ function on_load(terrain)
 	
     -- scenery --
 	obj = addObject(terrain, "./scripts/building.lua")
-	setPosition(obj, 160, 20, -100.0)
+	setPosition(obj, 160, 20, -75.0)
 	setScale(obj, 10.0, 20.0, 10.0)
 
 	obj = addObject(terrain, "./scripts/building.lua")
@@ -291,7 +291,7 @@ function on_load(terrain)
 	setPosition(obj, 995, 5.5, -75.0)
 	setScale(obj, 4.0, 4.0, 4.0)
 
-    playBgMusic("./music/Wily.ogg", 1)
+--    playBgMusic("./music/Wily.ogg", 1)
 
     return
 end
