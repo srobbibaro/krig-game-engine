@@ -48,7 +48,7 @@ Sound::Sound()
 
         sfxHash[ files[i] ] = i; // Create name to index map.
 
-        cout << "Loaded sound '" << filename << "' key '" << files[i] << "'\n";
+        //cout << "Loaded sound '" << filename << "' key '" << files[i] << "'\n";
 
         //alutUnloadWAV(format, data, size, freq);
     }
