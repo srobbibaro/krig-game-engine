@@ -40,6 +40,7 @@ SoundFX::SoundFX() {
 
         alutLoadWAVFile( filename, &format, &data, &size, &freq, &loop );
         alBufferData( Buffers[i], format, data, size, freq );
+        alutUnloadWAV(format, data, size, freq);
 
         File_Hash[ files[i] ] = i;  // Create name to index map.
         SetSFX( files[i], 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, AL_FALSE );
@@ -55,6 +56,11 @@ SoundFX::SoundFX() {
 SoundFX::~SoundFX() {
     alDeleteBuffers( Num_of_SFX, Buffers );
     alDeleteSources( Num_of_SFX, Sources );
+
+    delete[] Buffers;
+    delete[] Sources;
+
+    printf("[SoundFX] Clean-up complete.\n");
 }
 
 // PlaySFX()
