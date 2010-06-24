@@ -16,21 +16,25 @@
 Camera::Camera( void ) : Object()
 {
     // default camera settings
-    baseDirection.setVector(0.0f, 0.0f, -1.0f);
-    direction.setVector(0.0f, 0.0f, -1.0f);
-      
+    baseDirection_.setVector(0.0f, 0.0f, 1.0f);
+    direction_.setVector(0.0f, 0.0f, 1.0f);
+
     glGetFloatv( GL_PROJECTION_MATRIX, projectionMatrix.data );
+
+    worldRotation.buildFromEuler(0.0f, 0.0f, 0.0f);
 }
 
-Camera::Camera( int tid ) : Object()
+Camera::Camera( int id ) : Object()
 {
     // default camera settings
-    baseDirection.setVector(0.0f, 0.0f, -1.0f);
-    direction.setVector(0.0f, 0.0f, -1.0f);
-      
+    baseDirection_.setVector(0.0f, 0.0f, 1.0f);
+    direction_.setVector(0.0f, 0.0f, 1.0f);
+
     glGetFloatv( GL_PROJECTION_MATRIX, projectionMatrix.data );
-    
-    id = tid;
+
+    worldRotation.buildFromEuler(0.0f, 0.0f, 0.0f);
+
+    id_ = id;
 }
 
 //------------------------------------------------------------------------------
@@ -38,82 +42,82 @@ Camera::~Camera( void )
 {}
 
 //------------------------------------------------------------------------------
-void Camera::update( float timeElapsed)
-{   
+void Camera::update(float timeElapsed)
+{
     // exectue the current object's update function
     animateScript(timeElapsed);
 
-    // calculate new position using speed
-    if (speed.x != 0.0f) {
-        direction.scale(speed.x * timeElapsed);
-        position.x += direction.x;
-        position.y += direction.y;
-        position.z += direction.z;
-        direction.normalize();
+    // calculate new position using speed_
+    if (speed_.x != 0.0f) {
+        direction_.scale(speed_.x * timeElapsed);
+        position_.x += direction_.x;
+        position_.y += direction_.y;
+        position_.z += direction_.z;
+        direction_.normalize();
     }
-    
-    if (speed.y != 0.0f) {
-        up.scale(speed.y * timeElapsed);
-        position.x += up.x;
-        position.y += up.y;
-        position.z += up.z;
-        direction.normalize();
+
+    if (speed_.y != 0.0f) {
+        up_.scale(speed_.y * timeElapsed);
+        position_.x += up_.x;
+        position_.y += up_.y;
+        position_.z += up_.z;
+        direction_.normalize();
     }
-    
-    if (speed.z != 0.0f) {
+
+    if (speed_.z != 0.0f) {
         Vector rotationAxis;
-            
-        rotationAxis.crossProduct(up, direction);
+
+        rotationAxis.crossProduct(up_, direction_);
         rotationAxis.normalize();
-                        
-        rotationAxis.scale(speed.z * timeElapsed);
-        position.x += rotationAxis.x;
-        position.y += rotationAxis.y;
-        position.z += rotationAxis.z;
+
+        rotationAxis.scale(speed_.z * timeElapsed);
+        position_.x += rotationAxis.x;
+        position_.y += rotationAxis.y;
+        position_.z += rotationAxis.z;
     }
-    
+
     // update position using velocity
-    if (velocity.x != 0.0f)
-        position.x += velocity.x * timeElapsed; 
-        
-    if (velocity.y != 0.0f)  
-        position.y += velocity.y * timeElapsed;   
-        
-    if (velocity.z != 0.0f)
-        position.z += velocity.z * timeElapsed;   
-                
+    if (velocity_.x != 0.0f)
+        position_.x += velocity_.x * timeElapsed;
+
+    if (velocity_.y != 0.0f)
+        position_.y += velocity_.y * timeElapsed;
+
+    if (velocity_.z != 0.0f)
+        position_.z += velocity_.z * timeElapsed;
+
     if (!isInterpolationEnabled_) {
-        if ( rotationVelocity.x != 0.0f ||
-             rotationVelocity.y != 0.0f ||
-             rotationVelocity.z != 0.0f ) {
-                rotationChanged = true;
-             
+        if ( rotationVelocity_.x != 0.0f ||
+             rotationVelocity_.y != 0.0f ||
+             rotationVelocity_.z != 0.0f ) {
+                rotationChanged_ = true;
+
                 Vector tempV;
                 Quaternion tempQ;
-	
-                tempV.x = rotationVelocity.x * timeElapsed;
-                tempV.y = rotationVelocity.y * timeElapsed;
-                tempV.z = rotationVelocity.z * timeElapsed;
-	             
-                tempQ.buildFromEuler(tempV);	
-                rotation = rotation * tempQ;
+
+                tempV.x = rotationVelocity_.x * timeElapsed;
+                tempV.y = rotationVelocity_.y * timeElapsed;
+                tempV.z = rotationVelocity_.z * timeElapsed;
+
+                tempQ.buildFromEuler(tempV);
+                rotation_ = rotation_ * tempQ;
         }
     }
     else {
-        rotationChanged = true;
-        
+        rotationChanged_ = true;
+
         float endVal = valInterpEnd_ - valInterpBegin_;
         float curVal = valInterpCurrent_ - valInterpBegin_;
-              
+
         float t = 0.0f;
-                                              
+
         if ( endVal > 0 ) {
             if ( curVal > endVal )
                 t = 1.0f;
             else if ( curVal < 0.0f )
                 t = 0.0f;
             else
-                t = curVal / endVal; 
+                t = curVal / endVal;
         }
         else if ( endVal < 0 ) {
             if ( curVal < endVal )
@@ -121,52 +125,60 @@ void Camera::update( float timeElapsed)
             else if ( curVal > 0.0f )
                 t = 0.0f;
             else
-                t = curVal / endVal; 
+                t = curVal / endVal;
         }
-                                
-        rotation.slerp(rInterpStart, t, rInterpEnd );
+
+        rotation_.slerp(rInterpStart_, t, rInterpEnd_ );
     }
     /////////////////////////////////////////////
-        
-        
-    rotation.buildRotationMatrix( rotationMatrix );
-        
-    direction.rotateVector( rotationMatrix, baseDirection );
-    direction.normalize();
-    
+
+
+    rotation_.buildRotationMatrix( rotationMatrix );
+
+    direction_.rotateVector( rotationMatrix, baseDirection_ );
+    direction_.setVector(direction_.x, direction_.y, -direction_.z);
+    direction_.normalize();
+
     Vector upV;
     upV.setVector(0.0f, 1.0f, 0.0f);
-    
-    up.rotateVector( rotationMatrix, upV );
-    up.normalize();
-    
+
+    up_.rotateVector( rotationMatrix, upV );
+    up_.normalize();
+
+    orth_.crossProduct(up_, direction_);
+    orth_.normalize();
+
     Matrix translationMatrix;
-    translationMatrix.setTranslation(-position.x, -position.y, -position.z);
-    
+    translationMatrix.setTranslation(-position_.x, -position_.y, -position_.z);
+
     modelViewMatrix = rotationMatrix * translationMatrix;
-       
+
     final = projectionMatrix * modelViewMatrix;
-    
-    if (particleSystem != NULL)
-        particleSystem->update(timeElapsed);
+
+    if (particleSystem_)
+        particleSystem_->update(timeElapsed);
 }
 
 //------------------------------------------------------------------------------
-void Camera::setCamera( 
-    const Vector &tPos, const Vector &tVel, 
-    const Quaternion &tRot, const Vector &tRotVel 
+void Camera::setCamera(
+    const Vector &tPos, const Vector &tVel,
+    const Quaternion &tRot, const Vector &tRotVel
 )
 {
-    position = tPos;
-    rotation = tRot;
-    velocity = tVel;
-    rotationVelocity = tRotVel;
+    position_ = tPos;
+    rotation_ = tRot;
+    velocity_ = tVel;
+    rotationVelocity_ = tRotVel;
 }
 
 //------------------------------------------------------------------------------
 void Camera::prepareGLView( void )
 {
-    glMultMatrixf(rotationMatrix.data);
+    Quaternion tempQ = rotation_ * worldRotation;
+    Matrix m;
+    tempQ.buildRotationMatrix(m);
+
+    glMultMatrixf(m.data);
     //glTranslatef(-position.x, -position.y, -position.z);
 }
 
@@ -186,16 +198,16 @@ void Camera::getFrustum(Frustum &f)
 void Camera::draw(Object* hey)
 {
     glColor3f(1.0f, 1.0f, 1.0f);
-    
+
     glPushMatrix();
     glBegin(GL_LINES);
-    glVertex3f(position.x, position.y, position.z);
-    glVertex3f(position.x, position.y-(up.y*12.0f), position.z);
-    
+    glVertex3f(position_.x, position_.y, position_.z);
+    glVertex3f(position_.x, position_.y-(up_.y*12.0f), position_.z);
+
     glEnd();
-            
+
     glPopMatrix();
-    
-    if (particleSystem != NULL)
-        particleSystem->draw();
+
+    if (particleSystem_)
+        particleSystem_->draw();
 }

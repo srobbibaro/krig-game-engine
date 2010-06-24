@@ -18,35 +18,36 @@ class Camera : public Object
 {
     public:
     //private:
-     
+
         Matrix rotationMatrix;     // send to rendering library
         Frustum frustum;
         Matrix projectionMatrix;
         Matrix modelViewMatrix;
-	
-	   Matrix final;
-	   
-	   int id;
-	   
-   // public:	
+
+        Quaternion worldRotation;
+
+        Matrix final;
+        int id_;
+
+   // public:
         Camera();
         Camera(int tid);
         virtual ~Camera();
         void update(float);
         void setCamera( const Vector&, const Vector&, const Quaternion&, const Vector& );
         void prepareGLView( void );
-        
+
         // accessor functions
         void getRotationMatrix( Matrix &m ) const;
-        
+
         void printTypeName(void) {
-            cout << "camera";
+            printf("camera");
         }
-        
+
         void draw(Object*);
-        
+
         void getFrustum(Frustum &f);
-        
+
         void drawOutline( Object* ) {}; // Camera*
         void drawShadow ( Vector* ) {}
         void handleCollision( Object* ) {};
