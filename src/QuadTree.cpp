@@ -20,7 +20,7 @@ int QuadTree::buildTree(Terrain* t)
 //------------------------------------------------------------------------------
 int QuadTree::buildTree(QuadTreeNode* &p, float xMin, float xMax, float zMin, float zMax, float scaleFactor)
 {
-        //cout << "leaf:" << (((xMax-xMin)/2.0f)+xMin) << " "  << (-(((zMax-zMin)/2.0f)+zMin)) << " "  << sqrt(((zMax - zMin) * (zMax - zMin)) + ((xMax - xMin) * (xMax - xMin))) << endl;
+        //printf( "leaf:" << (((xMax-xMin)/2.0f)+xMin) << " "  << (-(((zMax-zMin)/2.0f)+zMin)) << " "  << sqrt(((zMax - zMin) * (zMax - zMin)) + ((xMax - xMin) * (xMax - xMin))) << endl;
 
         p = new QuadTreeNode();
 
@@ -53,8 +53,8 @@ int QuadTree::buildTree(QuadTreeNode* &p, float xMin, float xMax, float zMin, fl
         buildTree(p->child[3], ((xMax+xMin)/2.0f), xMax, ((zMax+zMin)/2.0f), zMax , scaleFactor);
     }
     else {
-        //cout << "leaf: " << xMin << " " << xMax << " " << zMin << " " << zMax << endl;
-        //cout << "leaf:" << (((xMax-xMin)/2.0f)+xMin) << " "  << (-(((zMax-zMin)/2.0f)+zMin)) << " "  << sqrt(((zMax - zMin) * (zMax - zMin)) + ((xMax - xMin) * (xMax - xMin))) << endl;
+        //printf( "leaf: " << xMin << " " << xMax << " " << zMin << " " << zMax << endl;
+        //printf( "leaf:" << (((xMax-xMin)/2.0f)+xMin) << " "  << (-(((zMax-zMin)/2.0f)+zMin)) << " "  << sqrt(((zMax - zMin) * (zMax - zMin)) + ((xMax - xMin) * (xMax - xMin))) << endl;
     }
 
     return (1);
@@ -70,19 +70,19 @@ void QuadTree::traverseTree(void)
 void QuadTree::traverseTree(QuadTreeNode* n)
 {
     if (n != NULL) {
-        cout << "---------------------------" << endl;
-        cout << "min x: " << n->min[0] << " max x: " << n->max[0] << endl;
-        cout << "min z: " << n->min[1] << " max z: " << n->max[1] << endl;
-        cout << "---------------------------" << endl;
+        printf("---------------------------\n");
+        printf("min x: %d, max x: %d\n", n->min[0], n->max[0]);
+        printf("min z: %d max z: %d\n", n->min[1],  n->max[1]);
+        printf("---------------------------\n");
 
         for (int i = 0; i < 4; i++) {
             traverseTree(n->child[i]);
         }
     }
     else {
-        cout << "------------------" << endl;
-        cout << "leaf node" << endl;
-        cout << "------------------" << endl;
+        printf("------------------\n");
+        printf("leaf node\n");
+        printf("------------------\n");
     }
 }
 
@@ -107,7 +107,7 @@ int QuadTree::buildDisplayList(QuadTreeNode* n, DisplayList* l, Camera* c)
 {
     if (n != NULL) {
         int r =  c->frustum.testSphere(n->boundingSphere);
-        //cout << "res: " << r << endl;
+        //printf( "res: " << r << endl;
 		switch(r)
         {
 			case -1:
