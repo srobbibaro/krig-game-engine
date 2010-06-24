@@ -9,7 +9,7 @@ Model::Model()
 {
     updatedVertex = NULL;
     lightIntensity = NULL;
-    modelKey = "";
+    modelKey_ = "";
 }
 
 //------------------------------------------------------------------------------
@@ -19,26 +19,26 @@ Model::~Model()
 }
 
 //------------------------------------------------------------------------------
-void Model::load( string tModelKey )
+void Model::load( string modelKey )
 {
     // don't load the model if it's already loaded
-    if (modelKey == tModelKey) {
-        int numVertices = modelHash[modelKey]->numVertices;
+    if (modelKey_ == modelKey) {
+        int numVertices = modelHash[modelKey_]->numVertices;
 
         // load in vertices used for model //////
         for ( int i = 0; i < numVertices; i++ ) {
             for ( int j = 0; j < 3; j++ ) {
-                updatedVertex[i][j] = modelHash[modelKey]->baseVertex[i][j];
+                updatedVertex[i][j] = modelHash[modelKey_]->baseVertex[i][j];
             }
         }
         return;
     }
 
     // model must have been unloaded first
-    if (lightIntensity != NULL || updatedVertex != NULL)
+    if (lightIntensity || updatedVertex)
         unload();
 
-    modelKey = tModelKey;
+    modelKey_ = modelKey;
 
     int numVertices = modelHash[modelKey]->numVertices;
 
@@ -49,7 +49,7 @@ void Model::load( string tModelKey )
 
     updatedVertex[r] = new GLfloat[3];
 
-    while ( updatedVertex[ r ] != NULL && r < numVertices-1 ) {
+    while ( updatedVertex[r] && r < numVertices-1 ) {
         updatedVertex[++r] = new GLfloat[3];
     }
 
@@ -68,35 +68,35 @@ void Model::load( string tModelKey )
 void Model::unload()
 {
     // delete old transforemed data /////////////
-    if ( updatedVertex != NULL ) {
-        for( int r = 0; r < modelHash[modelKey]->numVertices; r++) {
+    if ( updatedVertex ) {
+        for( int r = 0; r < modelHash[modelKey_]->numVertices; r++) {
            delete[] updatedVertex[r];
         }
 
         delete[] updatedVertex;
     }
 
-    if ( lightIntensity != NULL )
+    if ( lightIntensity )
         delete[] lightIntensity;
 
 
     lightIntensity = NULL;
     updatedVertex = NULL;
 
-    modelKey = "";
+    modelKey_ = "";
 }
 
 //------------------------------------------------------------------------------
 void Model::draw(Object* c)
 {
     // model must be loaded
-    if (lightIntensity == NULL || updatedVertex == NULL)
+    if (!lightIntensity || !updatedVertex)
         return;
 
     glPushMatrix();
-    glTranslatef(position.x, position.y, position.z);
+    glTranslatef(position_.x, position_.y, position_.z);
 
-    ModelStorage *m = modelHash[modelKey];
+    ModelStorage *m = modelHash[modelKey_];
     glBegin( GL_TRIANGLES );
         for ( int i = 0; i < m->numTriangles; i++ ) {
             for ( int j = 0; j < 3; j++ ) {
@@ -109,21 +109,21 @@ void Model::draw(Object* c)
 
     glPopMatrix();
 
-    if (particleSystem != NULL)
-        particleSystem->draw();
+    if (particleSystem_ != NULL)
+        particleSystem_->draw();
 }
 
 //------------------------------------------------------------------------------
 void Model::drawOutline(Object* c)
 {
     // model must first be loaded
-    if (lightIntensity == NULL || updatedVertex == NULL)
+    if (!lightIntensity || !updatedVertex)
         return;
 
-    ModelStorage *m = modelHash[modelKey];
+    ModelStorage *m = modelHash[modelKey_];
 
     glPushMatrix();
-    glTranslatef(position.x, position.y, position.z);
+    glTranslatef(position_.x, position_.y, position_.z);
 
     glColor3f( 0.0f, 0.0f, 0.0f );
 
@@ -182,40 +182,40 @@ void Model::handleCollision( Object* temp )
 {
     // Attempt to execute the script only if the lua state has already been
     // initialized with a script
-    if (L == NULL)
+    if (!L_)
         return;
 
     // Find the update function and call it
-    lua_getglobal(L, "on_collision");
+    lua_getglobal(L_, "on_collision");
 
     // Push a pointer to the current object for use within the lua function
-    lua_pushlightuserdata(L, (void*)this);
-    lua_pushlightuserdata(L, (void*)temp);
+    lua_pushlightuserdata(L_, (void*)this);
+    lua_pushlightuserdata(L_, (void*)temp);
 
     // Call the function with 2 argument and no return values
-    lua_call(L, 2, 0);
+    lua_call(L_, 2, 0);
 }
 
 //------------------------------------------------------------------------------
 void Model::update( Vector* light )
 {
     // model must first be loaded
-    if (lightIntensity == NULL || updatedVertex == NULL)
+    if (!lightIntensity || !updatedVertex)
         return;
 
-    if (scaleChanged == false && rotationChanged == false &&
-        lastLight.x == light->x &&
-        lastLight.y == light->y &&
-        lastLight.z == light->z) {
-        boundingSphere.setOriginVector(position);
+    if (!scaleChanged_ && !rotationChanged_ &&
+        lastLight_.x == light->x &&
+        lastLight_.y == light->y &&
+        lastLight_.z == light->z) {
+        boundingSphere_.setOriginVector(position_);
         return;
     }
 
-    lastLight.x = light->x;
-    lastLight.y = light->y;
-    lastLight.z = light->z;
-    scaleChanged = false;
-    rotationChanged = false;
+    lastLight_.x = light->x;
+    lastLight_.y = light->y;
+    lastLight_.z = light->z;
+    scaleChanged_ = false;
+    rotationChanged_ = false;
 
     Vector tempV;
     GLfloat temp;
@@ -227,14 +227,14 @@ void Model::update( Vector* light )
     GLfloat max[] = { -9999.0f, -9999.0f, -9999.0f };
 
     // setup transformation matrices ////////////
-    rotation.buildRotationMatrix( rotationMatrix );
-    scaleMatrix.setScale( scale.x, scale.y, scale.z );
+    rotation_.buildRotationMatrix( rotationMatrix );
+    scaleMatrix.setScale( scale_.x, scale_.y, scale_.z );
 
     // setup the transformation matrix //////////
     transform = rotationMatrix * scaleMatrix;
     /////////////////////////////////////////////
 
-    ModelStorage *m = modelHash[modelKey];
+    ModelStorage *m = modelHash[modelKey_];
 
     float radius = 0.0f;
 
@@ -281,27 +281,27 @@ void Model::update( Vector* light )
             radius = distance;
     }
 
-    collisionBox[0].setVector( min[0], min[1], min[2] );
-    collisionBox[1].setVector( max[0], max[1], max[2] );
+    collisionBox_[0].setVector( min[0], min[1], min[2] );
+    collisionBox_[1].setVector( max[0], max[1], max[2] );
 
     radius = sqrt(radius);
-    boundingSphere.setSphere(position.x, position.y, position.z, radius );
+    boundingSphere_.setSphere(position_.x, position_.y, position_.z, radius );
 
-    controlPoints[0].setVector( max[0], min[1], min[2] );
-    controlPoints[1].setVector( max[0], min[1], max[2] );
-    controlPoints[2].setVector( min[0], min[1], (min[2]+max[2])/2 );
+    controlPoints_[0].setVector( max[0], min[1], min[2] );
+    controlPoints_[1].setVector( max[0], min[1], max[2] );
+    controlPoints_[2].setVector( min[0], min[1], (min[2]+max[2])/2 );
 
-    direction.rotateVector( rotationMatrix, baseDirection );
-    direction.normalize();
+    direction_.rotateVector( rotationMatrix, baseDirection_ );
+    direction_.normalize();
 
     Vector upV;
     upV.setVector(0.0f, 1.0f, 0.0f);
 
-    up.rotateVector( rotationMatrix, upV );
-    up.normalize();
+    up_.rotateVector( rotationMatrix, upV );
+    up_.normalize();
 
-    orth.crossProduct(up, direction);
-    orth.normalize();
+    orth_.crossProduct(up_, direction_);
+    orth_.normalize();
 
  /*
         Vector p1, p2, p3;
@@ -362,86 +362,86 @@ void Model::update( Vector* light )
 void Model::animate( float timeElapsed, Object* c )
 {
     // determine whether or not the current object is in the camera's view
-    int r =  dynamic_cast<Camera*>(c)->frustum.testSphere(boundingSphere);
-    isInView = (r != -1);
+    int r =  dynamic_cast<Camera*>(c)->frustum.testSphere(boundingSphere_);
+    isInView_ = (r != -1);
 
     // exectue the current object's update function
     animateScript(timeElapsed);
 
     // calculate new position using speed
-    if (speed.x != 0.0f) {
-        direction.scale(speed.x * timeElapsed);
-        position.x += direction.x;
-        position.y += direction.y;
-        position.z += direction.z;
-        direction.normalize();
+    if (speed_.x != 0.0f) {
+        direction_.scale(speed_.x * timeElapsed);
+        position_.x += direction_.x;
+        position_.y += direction_.y;
+        position_.z += direction_.z;
+        direction_.normalize();
     }
 
-    if (speed.y != 0.0f) {
-        up.scale(speed.y * timeElapsed);
-        position.x += up.x;
-        position.y += up.y;
-        position.z += up.z;
-        direction.normalize();
+    if (speed_.y != 0.0f) {
+        up_.scale(speed_.y * timeElapsed);
+        position_.x += up_.x;
+        position_.y += up_.y;
+        position_.z += up_.z;
+        direction_.normalize();
     }
 
-    if (speed.z != 0.0f) {
+    if (speed_.z != 0.0f) {
         Vector rotationAxis;
 
-        rotationAxis.crossProduct(up, direction);
+        rotationAxis.crossProduct(up_, direction_);
         rotationAxis.normalize();
 
-        rotationAxis.scale(speed.z * timeElapsed);
-        position.x += rotationAxis.x;
-        position.y += rotationAxis.y;
-        position.z += rotationAxis.z;
+        rotationAxis.scale(speed_.z * timeElapsed);
+        position_.x += rotationAxis.x;
+        position_.y += rotationAxis.y;
+        position_.z += rotationAxis.z;
     }
 
     // update position using velocity
-    if (velocity.x != 0.0f)
-        position.x += velocity.x * timeElapsed;
+    if (velocity_.x != 0.0f)
+        position_.x += velocity_.x * timeElapsed;
 
-    if (velocity.y != 0.0f)
-        position.y += velocity.y * timeElapsed;
+    if (velocity_.y != 0.0f)
+        position_.y += velocity_.y * timeElapsed;
 
-    if (velocity.z != 0.0f)
-        position.z += velocity.z * timeElapsed;
+    if (velocity_.z != 0.0f)
+        position_.z += velocity_.z * timeElapsed;
 
     // update scale
-    if (scaleRate.x != 0.0f) {
-        scale.x += scaleRate.x * timeElapsed;
-        scaleChanged = true;
+    if (scaleRate_.x != 0.0f) {
+        scale_.x += scaleRate_.x * timeElapsed;
+        scaleChanged_ = true;
     }
 
-    if (scaleRate.y != 0.0f) {
-        scale.y += scaleRate.y * timeElapsed;
-        scaleChanged = true;
+    if (scaleRate_.y != 0.0f) {
+        scale_.y += scaleRate_.y * timeElapsed;
+        scaleChanged_ = true;
     }
 
-    if (scaleRate.z != 0.0f) {
-        scale.z += scaleRate.z * timeElapsed;
-        scaleChanged = true;
+    if (scaleRate_.z != 0.0f) {
+        scale_.z += scaleRate_.z * timeElapsed;
+        scaleChanged_ = true;
     }
 
     if (!isInterpolationEnabled_) {
-        if ( rotationVelocity.x != 0.0f ||
-             rotationVelocity.y != 0.0f ||
-             rotationVelocity.z != 0.0f ) {
-                rotationChanged = true;
+        if ( rotationVelocity_.x != 0.0f ||
+             rotationVelocity_.y != 0.0f ||
+             rotationVelocity_.z != 0.0f ) {
+                rotationChanged_ = true;
 
                 Vector tempV;
                 Quaternion tempQ;
 
-                tempV.x = rotationVelocity.x * timeElapsed;
-                tempV.y = rotationVelocity.y * timeElapsed;
-                tempV.z = rotationVelocity.z * timeElapsed;
+                tempV.x = rotationVelocity_.x * timeElapsed;
+                tempV.y = rotationVelocity_.y * timeElapsed;
+                tempV.z = rotationVelocity_.z * timeElapsed;
 
                 tempQ.buildFromEuler(tempV);
-                rotation = rotation * tempQ;
+                rotation_ = rotation_ * tempQ;
         }
     }
     else {
-        rotationChanged = true;
+        rotationChanged_ = true;
 
         float endVal = valInterpEnd_ - valInterpBegin_;
         float curVal = valInterpCurrent_ - valInterpBegin_;
@@ -465,13 +465,13 @@ void Model::animate( float timeElapsed, Object* c )
                 t = curVal / endVal;
         }
 
-        rotation.slerp(rInterpStart, t, rInterpEnd );
+        rotation_.slerp(rInterpStart_, t, rInterpEnd_ );
     }
     /////////////////////////////////////////////
 
     // The particle systems might not always live here...
-    if (particleSystem != NULL)
-        particleSystem->update(timeElapsed);
+    if (particleSystem_ != NULL)
+        particleSystem_->update(timeElapsed);
 }
 
 //------------------------------------------------------------------------------
