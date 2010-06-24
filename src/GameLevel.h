@@ -20,40 +20,40 @@ extern "C" {
 class GameLevel
 {
     private:
-        unsigned int lists;  // display lists used for rendering
+        unsigned int lists_;  // display lists used for rendering
 
         Vector lightDirection_;
 
-        Player* player;     // player object
-        Object* camera;     // camera
+        Player* player_;     // player object
+        Object* camera_;     // camera
         Terrain *terrain_;  // Terrain for this level (if one is loaded)
 
-        Music *music_;
+        Music music_;
 
-        ObjectList *objects_;
+        ObjectList objects_;
         map <string, ObjectList> freeObjects_;
 
         // colors for sky box
-        float bgcolor[3][3];
+        float bgcolor_[3][3];
 
         bool isComplete_;
 
-        float elapsedTime;
+        float elapsedTime_;
 
-        QuadTree* quadTree_;
-        DisplayList *displayList_;
+        QuadTree quadTree_;
+        DisplayList displayList_;
 
-        bool grid;
-        bool bboxes;
-        bool controlTriangles;
+        bool grid_;
+        bool bboxes_;
+        bool controlTriangles_;
 
-        string musicPath;
+        string musicPath_;
 
-        string scriptName;
+        string scriptName_;
 
-        int id;
+        int id_;
 
-        lua_State* L;
+        lua_State* luaState_;
 
     public:
         GameLevel( unsigned int);
@@ -105,10 +105,10 @@ class GameLevel
             else {
                 temp = new ScriptedObject();
                 temp->setScript( script);
-                cout << "had to create new object of type: " << script << "..." << endl;
+                printf("[GameLevel] Allocated a new object of type '%s'.\n", script.c_str());
             }
 
-            objects_->insertFront(temp);
+            objects_.insertFront(temp);
             //temp->unloadScript();
 
             temp->loadScript(script);
@@ -124,38 +124,38 @@ class GameLevel
             if (temp != NULL) {
                 temp->initSettings();
                 freeObjects_[script].remove(temp);
-                cout << "text script key: " << script << " size: " << freeObjects_[script].size << endl;
+                printf("[GameLevel] Pulled object of type '%s' from FOM. (FOM size=%d).\n", script.c_str(), freeObjects_[script].size);
             }
             else {
                 temp = new ScriptTextType();
                 temp->setScript( script );
-                 cout << "had to create new text object of type: " << script << "..." << endl;
+                printf("[GameLevel] Allocated a new object of type '%s'.\n", script.c_str());
             }
 
-            objects_->insertFront(temp);
+            objects_.insertFront(temp);
             //temp->unloadScript();
             temp->loadScript(script);
 
             return temp;
         }
 
-        ObjectList* getObjects() { return objects_; }
+        ObjectList* getObjects() { return &objects_; }
         void setCamera( Camera* tCamera );
         Terrain* getTerrain( void );
         Camera* getCamera( void );
         Player* getPlayer( void );
-        Music* getMusic() { return music_; }
+        Music* getMusic() { return &music_; }
 
-        void setId(int tid) { id = tid; }
-        int getId() { return id; }
+        void setId(int id) { id_ = id; }
+        int getId() { return id_; }
 
-        float getElapsedTime() { return elapsedTime; }
-        void setElapsedTime(float tElapsedTime) { elapsedTime = tElapsedTime; }
+        float getElapsedTime() { return elapsedTime_; }
+        void setElapsedTime(float elapsedTime) { elapsedTime_ = elapsedTime; }
 
         void setComplete(bool isComplete) { isComplete_ = isComplete; }
-        string getScriptName() { return scriptName; }
-        string getMusicPath() { return (musicPath); }
-        void setMusicPath(string music) { musicPath = music; }
+        string getScriptName() { return scriptName_; }
+        string getMusicPath() { return musicPath_; }
+        void setMusicPath(string musicPath) { musicPath_ = musicPath; }
         Vector* getLightDirection() { return &lightDirection_; }
 
         void setSkyBox(float**, int, int);
