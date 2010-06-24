@@ -7,16 +7,16 @@
 class ScriptedObject : public Model
 {
       public:
-        
+
         ScriptedObject();
         virtual ~ScriptedObject();
-        
-        void printTypeName(void) 
+
+        void printTypeName(void)
          {
-            cout << "ScriptedObject";
+            printf("ScriptedObject");
          }
 };
 
-       
+
 #endif
 
