@@ -150,4 +150,4 @@
 
 6/23/10 ~ Steve
     * Replace primary color on enemy ship and other models to produce a greater variety of models; apply different colored models to           different object scripts.
-    * Fix memory leak in terrain class.
+    x Fix memory leak in terrain class. (6/24/10 ~Steve)
