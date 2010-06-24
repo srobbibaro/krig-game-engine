@@ -27,7 +27,7 @@ function on_load(terrain)
 	          0.4, 0.4, 1.0,
 	          0.8, 0.8, 1.0)
 
-    setLightDirection(0.0, 0.15, 0.85)
+    setLightDirection(0.7723, 0.1792, 0.6094)
 
     setTerrain(terrain, "./terrains/level1.txt")
 
