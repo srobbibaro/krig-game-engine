@@ -10,6 +10,8 @@
 //////////////////////////////////////////////////////////////////
 #include "terrain.h"
 
+#include <cstdlib>
+
 
 //------------------------------------------------------------------------------
 Terrain::Terrain() : Object()
@@ -44,7 +46,7 @@ Terrain::~Terrain()
 //------------------------------------------------------------------------------
 void Terrain::draw( Object* c )
 {
-    if (vertex_ == NULL || lightIntensity_ == NULL || color_ == NULL || type_ == NULL) {
+    if (!vertex_ || !lightIntensity_ || !color_ || !type_) {
         return;
     }
 
@@ -155,7 +157,7 @@ void Terrain::draw( Object* c )
 //------------------------------------------------------------------------------
 void Terrain::drawOutline( Object* c )
 {
-    if (vertex_ == NULL || lightIntensity_ == NULL || color_ == NULL || type_ == NULL) {
+    if (!vertex_ || !lightIntensity_ || !color_ || !type_) {
         return;
     }
 
@@ -174,7 +176,7 @@ void Terrain::drawOutline( Object* c )
 
         glColor3f(0.0f, 0.0f, 0.0f);
 
-        while (n != NULL) {
+        while (n) {
             glBegin(GL_TRIANGLES);
                 xStart = n->min[0] / scaleFactor_;
                 zStart = n->min[1] / scaleFactor_;
@@ -266,6 +268,117 @@ void Terrain::generate( void )
 }
 
 //------------------------------------------------------------------------------
+void Terrain::calcViewableTerrainNorm()
+{
+    if (!vertex_ || !lightIntensity_ || !color_ || !type_) {
+        return;
+    }
+
+    int x1, x2;
+    int z1, z2;
+
+    float xStart, zStart;
+
+    xStart = zStart = 0;
+
+    Vector surfaceNormal;
+    Vector **vertexNormal;
+    Vector temp1;
+    Vector temp2;
+    GLfloat tempLightIntensity;
+
+    Vector temp[5];
+    int count = 0;
+
+    Matrix tempMatrix;
+    tempMatrix.loadIdentity();
+
+    vertexNormal = new Vector*[xSize_];
+    for (int i = 0; i < xSize_; i++) {
+        vertexNormal[i] = new Vector[zSize_];
+    }
+
+    QuadTreeNode* n = displayList_->head;
+
+    while (n != NULL) {
+        xStart = n->min[0] / scaleFactor_;
+        zStart = n->min[1] /  scaleFactor_;
+
+        x1 = (int)xStart;
+        x2 = ((int)xStart) + 1;
+
+        z1 = (int)zStart;
+        z2 = ((int)zStart) +1;
+
+        temp[0].setVector( vertex_[x1][z1][0], vertex_[x1][z1][1], vertex_[x1][z1][2] );
+        temp[1].setVector( vertex_[x1][z2][0], vertex_[x1][z2][1], vertex_[x1][z2][2] );
+        temp[2].setVector( vertex_[x2][z1][0], vertex_[x2][z1][1], vertex_[x2][z1][2] );
+        temp[3].setVector( vertex_[x2][z2][0], vertex_[x2][z2][1], vertex_[x2][z2][2] );
+
+        surfaceNormal.calcNorm( temp[0], temp[2], temp[1] );
+
+        vertexNormal[x1][z1].x += surfaceNormal.x;
+        vertexNormal[x1][z1].y += surfaceNormal.y;
+        vertexNormal[x1][z1].z += surfaceNormal.z;
+
+        vertexNormal[x1][z2].x += surfaceNormal.x;
+        vertexNormal[x1][z2].y += surfaceNormal.y;
+        vertexNormal[x1][z2].z += surfaceNormal.z;
+
+        vertexNormal[x2][z1].x += surfaceNormal.x;
+        vertexNormal[x2][z1].y += surfaceNormal.y;
+        vertexNormal[x2][z1].z += surfaceNormal.z;
+
+        surfaceNormal.calcNorm( temp[2], temp[3], temp[1] );
+
+        vertexNormal[x2][z1].x += surfaceNormal.x;
+        vertexNormal[x2][z1].y += surfaceNormal.y;
+        vertexNormal[x2][z1].z += surfaceNormal.z;
+
+        vertexNormal[x1][z2].x += surfaceNormal.x;
+        vertexNormal[x1][z2].y += surfaceNormal.y;
+        vertexNormal[x1][z2].z += surfaceNormal.z;
+
+        vertexNormal[x2][z2].x += surfaceNormal.x;
+        vertexNormal[x2][z2].y += surfaceNormal.y;
+        vertexNormal[x2][z2].z += surfaceNormal.z;
+
+        n = n->next;
+    }
+
+    // calculate light intensity at every vertex
+    n = displayList_->head;
+
+    while (n != NULL) {
+        xStart = n->min[0] / scaleFactor_;
+        zStart = n->min[1] /  scaleFactor_;
+
+        x1 = (int)xStart;
+        x2 = ((int)xStart) + 1;
+
+        z1 = (int)zStart;
+        z2 = ((int)zStart) +1;
+
+        vertexNormal[x1][z1].normalize();
+
+        temp2.rotateVector( tempMatrix, vertexNormal[x1][z1] );
+        temp2.normalize();
+
+        tempLightIntensity = temp2.dotProduct( *light_ );
+
+        // light correction //
+        if ( tempLightIntensity == 1.0f )
+            tempLightIntensity = 0.5f;
+        else if ( tempLightIntensity < 0.0f )
+            tempLightIntensity = 0.0f;
+
+        lightIntensity_[x1][z1] = tempLightIntensity;
+
+        n = n->next;
+    }
+}
+
+//------------------------------------------------------------------------------
 void Terrain::calcTerrainNorm( Vector* light )
 {
     /*
@@ -352,8 +465,8 @@ void Terrain::calcTerrainNorm( Vector* light )
     }
     */
 
-    if (vertex_ == NULL || lightIntensity_ == NULL || color_ == NULL || type_ == NULL) {
-        cout << "Error: Could not save terrain." << endl;
+    if (!vertex_ || !lightIntensity_ || !color_ || !type_) {
+        printf("Error: Could not save terrain.\n");
         return;
     }
 
@@ -448,9 +561,9 @@ void Terrain::update( Vector* light )
         return;
     }
 
-    if (lastLight.x != light->x || lastLight.y != light->y || lastLight.z != light->z) {
+    if (lastLight_.x != light->x || lastLight_.y != light->y || lastLight_.z != light->z) {
         calcTerrainNorm( light );
-        lastLight.setVector(light->x, light->y, light->z);
+        lastLight_.setVector(light->x, light->y, light->z);
     }
 }
 
@@ -564,35 +677,76 @@ void Terrain::animate( float elapsedTime, Object* c )
 
         QuadTreeNode* n = displayList_->head;
 
+        //printf("--------------\n");
+
         while (n != NULL) {
-                xStart = n->min[0] / scaleFactor_;
-                zStart = n->min[1] / scaleFactor_;
+            xStart = n->min[0] / scaleFactor_;
+            zStart = n->min[1] / scaleFactor_;
 
-                x1 = (int)xStart;
-                x2 = ((int)xStart) + 1;
+            x1 = (int)xStart;
+            x2 = ((int)xStart) + 1;
 
-                z1 = (int)zStart;
-                z2 = ((int)zStart) +1;
+            z1 = (int)zStart;
+            z2 = ((int)zStart) +1;
 
-                 if ( type_[x1][z1] == 1 )
-                {
-                    if ( z1 < zSize_ -1 && z1 < 3 )
-                        vertex_[x1][z1][1] = 2*sin( (totalTime_+x1+((z1%3)) )+1 );
-                    else if ( z1 < zSize_ -1 )
-                        vertex_[x1][z1][1] = 2*sin((totalTime_+x1+((-z1%3)))+1);
-                }
+            /*
+            if ( type_[x1][z1] == 1 ) {
+                if ( z1 < zSize_ -1 && z1 < 3 )
+                    vertex_[x1][z1][1] = 2*sin( (totalTime_+x1+((z1%3)) )+1 );
+                else if ( z1 < zSize_ -1 )
+                    vertex_[x1][z1][1] = 2*sin((totalTime_+x1+((-z1%3)))+1);
+            }
+            */
+
+            //printf("x1=%d, z1=%d\n", x1, z1);
+
+
+
+                //if (z1 < zSize_ - 1 && z1 > 3) {
+                    if (type_[x1][z1] == 1) {
+                        if (totalTime_ > 0.5f) {
+                            if (rand() % 100 < 20)
+                              type_[x1][z1] = 2;
+                        }
+                    }
+                    else if (type_[x1][z1] == 2) {
+                        vertex_[x1][z1][1] += (elapsedTime);
+
+                        if (vertex_[x1][z1][1] > 2.0f) {
+                            vertex_[x1][z1][1] = 2.0f;
+                            type_[x1][z1] = 3;
+                        }
+                    }
+                    else if (type_[x1][z1] == 3) {
+                        vertex_[x1][z1][1] -= (elapsedTime);
+
+                        if (vertex_[x1][z1][1] < 0.0f) {
+                            vertex_[x1][z1][1] =  0.0f;
+                            type_[x1][z1] = 1;
+                        }
+                    }
+                //}
 
             n = n->next;
         }
 
-    collisionBox[0].setVector( min[0], min[1], min[2] );
-    collisionBox[1].setVector( max[0], max[1], max[2] );
+
+        if (totalTime_ > 0.5f)
+            totalTime_ = 0.0f;
+
+    calcViewableTerrainNorm();
+
+
+    collisionBox_[0].setVector( min[0], min[1], min[2] );
+    collisionBox_[1].setVector( max[0], max[1], max[2] );
 }
 
 //------------------------------------------------------------------------------
 void Terrain::load( const char* filePath, Vector* light )
 {
     init();
+
+    light_ = light;
 
     ifstream fin;
     fin.open(filePath);
@@ -624,6 +778,17 @@ void Terrain::load( const char* filePath, Vector* light )
                        vertex_[x][z][2] = -z * scaleFactor_;
                 fin >> color_[x][z][0] >> color_[x][z][1] >> color_[x][z][2];
                 fin >> type_[x][z];
+
+                if (type_[x][z] == 1) {
+                    vertex_[x][z][1] = (rand() % 100 / 100.0f) * 2.0f;
+                    int t = rand() % 100;
+                    if (t < 20) {
+                        type_[x][z] = 2;
+                    }
+                    else if (t < 40) {
+                        type_[x][z] = 3;
+                    }
+                }
             }
         }
 
@@ -687,7 +852,7 @@ void Terrain::drawGrid(void)
 void Terrain::save( char* filePath, Vector* light)
 {
     if (vertex_ == NULL || lightIntensity_ == NULL || color_ == NULL || type_ == NULL) {
-        cout << "Error: Could not save terrain." << endl;
+        printf("Error: Could not save terrain.\n");
         return;
     }
 
@@ -702,7 +867,8 @@ void Terrain::save( char* filePath, Vector* light)
                 fin << vertex_[x][z][1] << endl;
 
                 fin << color_[x][z][0] <<  "\t" << color_[x][z][1]<< "\t" << color_[x][z][2] << endl;
-                fin << type_[x][z] << endl;
+                int type = type_[x][z] == 0 ? 0 : 1;
+                fin << type << endl;
             }
         }
 
@@ -711,7 +877,7 @@ void Terrain::save( char* filePath, Vector* light)
 
 void Terrain::setVertexHeight(int x, int z, float height)
 {
-    if (vertex_ == NULL)
+    if (!vertex_)
         return;
 
     if ( x >= 0 && x <= xSize_ - 1 && z >= 0 && z <= zSize_ - 1) {
@@ -721,7 +887,7 @@ void Terrain::setVertexHeight(int x, int z, float height)
 
 void Terrain::setVertexType(int x, int z, int type)
 {
-    if (type_ == NULL)
+    if (!type_)
         return;
 
     if ( x >= 0 && x <= xSize_ - 1 && z >= 0 && z <= zSize_ - 1) {
@@ -731,7 +897,7 @@ void Terrain::setVertexType(int x, int z, int type)
 
 void Terrain::setVertexColor(int x, int z, Vector color)
 {
-    if (color_ == NULL)
+    if (!color_)
         return;
 
     if ( x >= 0 && x <= xSize_ - 1 && z >= 0 && z <= zSize_ - 1) {
@@ -743,7 +909,7 @@ void Terrain::setVertexColor(int x, int z, Vector color)
 
 float Terrain::getVertexHeight(int x, int z)
 {
-    if (vertex_ == NULL)
+    if (!vertex_)
         return 0.0f;
 
     if ( x >= 0 && x <= xSize_ - 1 && z >= 0 && z <= zSize_ - 1) {
@@ -755,7 +921,7 @@ float Terrain::getVertexHeight(int x, int z)
 
 int Terrain::getVertexType(int x, int z)
 {
-    if (type_ == NULL)
+    if (!type_)
         return 0;
 
     if ( x >= 0 && x <= xSize_ - 1 && z >= 0 && z <= zSize_ - 1) {
@@ -770,7 +936,7 @@ Vector Terrain::getVertexColor(int x, int z)
     Vector color;
     color.setVector(0.0f, 0.0f, 0.0f);
 
-    if (color_ == NULL)
+    if (!color_)
         return color;
 
     if ( x >= 0 && x <= xSize_ - 1 && z >= 0 && z <= zSize_ - 1) {

@@ -33,6 +33,7 @@ class Terrain : public Object
         void generate( void );
 
 	    void calcTerrainNorm( Vector* );
+	    void calcViewableTerrainNorm();
         void update( Vector* );
 
         void init();
@@ -43,7 +44,7 @@ class Terrain : public Object
         float getHeight( float, float );
 
         // remove from final version //
-        void printTypeName(void) { cout << "Terrain"; }
+        void printTypeName(void) { printf("Terrain"); }
  		void drawGrid(void);
 
 
@@ -77,13 +78,15 @@ class Terrain : public Object
         GLfloat*** vertex_;
         GLfloat** lightIntensity_;
         GLfloat*** color_;
-        GLint** type_;
+        int** type_;
 
         GLfloat curveDistance_;
         GLfloat curveRate_;
         bool isCurveEnabled_;
 
         float totalTime_;
+
+        Vector *light_;
 };
 
 
