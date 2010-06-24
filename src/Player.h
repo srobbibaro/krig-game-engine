@@ -8,9 +8,9 @@ class Player : public Model
     public:
         Player();
         virtual ~Player();
-        
-        void printTypeName(void) 
-        { cout << "Player"; }
+
+        void printTypeName(void)
+        { printf("Player"); }
 };
 
 
