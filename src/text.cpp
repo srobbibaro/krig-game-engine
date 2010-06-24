@@ -11,7 +11,6 @@
 //////////////////////////////////////////////////////////////////
 //#include <windows.h>
 #include <GL/glut.h>
-#include <iostream>
 #include "text.h"
 #include "constants.h"
 
@@ -53,14 +52,14 @@ ScriptTextType::ScriptTextType()
 //------------------------------------------------------------------------------
 void ScriptTextType::draw(Object* camera)
 {
-    if ( isInView ) {
+    if ( isInView_ ) {
         glEnable(GL_BLEND);
         glPushMatrix();
             glColor4fv( color );
             glLineWidth(width);
             //glTranslatef(position.x, position.y, position.z );
-            glRasterPos3f(position.x, position.y, position.z);
-            glScalef (scale.x, scale.y, scale.z);
+            glRasterPos3f(position_.x, position_.y, position_.z);
+            glScalef (scale_.x, scale_.y, scale_.z);
             for (int i = 0; i < text.length(); i++) {
                 //glutStrokeCharacter(GLUT_STROKE_ROMAN, text[i]);
                 glutBitmapCharacter(GLUT_BITMAP_8_BY_13, text[i]);
@@ -77,79 +76,79 @@ void ScriptTextType::animate( float timeElapsed, Object* camera) // Camera*
     animateScript(timeElapsed);
 
     // calculate new position using speed
-    if (speed.x != 0.0f) {
-        direction.scale(speed.x * timeElapsed);
-        position.x += direction.x;
-        position.y += direction.y;
-        position.z += direction.z;
-        direction.normalize();
+    if (speed_.x != 0.0f) {
+        direction_.scale(speed_.x * timeElapsed);
+        position_.x += direction_.x;
+        position_.y += direction_.y;
+        position_.z += direction_.z;
+        direction_.normalize();
     }
 
-    if (speed.y != 0.0f) {
-        up.scale(speed.y * timeElapsed);
-        position.x += up.x;
-        position.y += up.y;
-        position.z += up.z;
-        direction.normalize();
+    if (speed_.y != 0.0f) {
+        up_.scale(speed_.y * timeElapsed);
+        position_.x += up_.x;
+        position_.y += up_.y;
+        position_.z += up_.z;
+        direction_.normalize();
     }
 
-    if (speed.z != 0.0f) {
+    if (speed_.z != 0.0f) {
         Vector rotationAxis;
 
-        rotationAxis.crossProduct(up, direction);
+        rotationAxis.crossProduct(up_, direction_);
         rotationAxis.normalize();
 
-        rotationAxis.scale(speed.z * timeElapsed);
-        position.x += rotationAxis.x;
-        position.y += rotationAxis.y;
-        position.z += rotationAxis.z;
+        rotationAxis.scale(speed_.z * timeElapsed);
+        position_.x += rotationAxis.x;
+        position_.y += rotationAxis.y;
+        position_.z += rotationAxis.z;
     }
 
     // update position using velocity
-    if (velocity.x != 0.0f)
-        position.x += velocity.x * timeElapsed;
+    if (velocity_.x != 0.0f)
+        position_.x += velocity_.x * timeElapsed;
 
-    if (velocity.y != 0.0f)
-        position.y += velocity.y * timeElapsed;
+    if (velocity_.y != 0.0f)
+        position_.y += velocity_.y * timeElapsed;
 
-    if (velocity.z != 0.0f)
-        position.z += velocity.z * timeElapsed;
+    if (velocity_.z != 0.0f)
+        position_.z += velocity_.z * timeElapsed;
 
     // update scale
-    if (scaleRate.x != 0.0f) {
-        scale.x += scaleRate.x * timeElapsed;
-        scaleChanged = true;
+    if (scaleRate_.x != 0.0f) {
+        scale_.x += scaleRate_.x * timeElapsed;
+        scaleChanged_ = true;
     }
 
-    if (scaleRate.y != 0.0f) {
-        scale.y += scaleRate.y * timeElapsed;
-        scaleChanged = true;
+    if (scaleRate_.y != 0.0f) {
+        scale_.y += scaleRate_.y * timeElapsed;
+        scaleChanged_ = true;
     }
 
-    if (scaleRate.z != 0.0f) {
-        scale.z += scaleRate.z * timeElapsed;
-        scaleChanged = true;
+    if (scaleRate_.z != 0.0f) {
+        scale_.z += scaleRate_.z * timeElapsed;
+        scaleChanged_ = true;
     }
 
     if (!isInterpolationEnabled_) {
-        if ( rotationVelocity.x != 0.0f ||
-             rotationVelocity.y != 0.0f ||
-             rotationVelocity.z != 0.0f ) {
-                rotationChanged = true;
+        if ( rotationVelocity_.x != 0.0f ||
+             rotationVelocity_.y != 0.0f ||
+             rotationVelocity_.z != 0.0f ) {
+                rotationChanged_ = true;
 
                 Vector tempV;
                 Quaternion tempQ;
 
-                tempV.x = rotationVelocity.x * timeElapsed;
-                tempV.y = rotationVelocity.y * timeElapsed;
-                tempV.z = rotationVelocity.z * timeElapsed;
+                tempV.x = rotationVelocity_.x * timeElapsed;
+                tempV.y = rotationVelocity_.y * timeElapsed;
+                tempV.z = rotationVelocity_.z * timeElapsed;
 
                 tempQ.buildFromEuler(tempV);
-                rotation = rotation * tempQ;
+                rotation_ = rotation_ * tempQ;
         }
     }
     else {
-        rotationChanged = true;
+        rotationChanged_ = true;
 
         float endVal = valInterpEnd_ - valInterpBegin_;
         float curVal = valInterpCurrent_ - valInterpBegin_;
@@ -173,7 +172,7 @@ void ScriptTextType::animate( float timeElapsed, Object* camera) // Camera*
                 t = curVal / endVal;
         }
 
-        rotation.slerp(rInterpStart, t, rInterpEnd );
+        rotation_.slerp(rInterpStart_, t, rInterpEnd_ );
     }
     /////////////////////////////////////////////
 

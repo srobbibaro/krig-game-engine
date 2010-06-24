@@ -24,13 +24,13 @@ using namespace std;
         float color[4];
         float width;
         float fadeRate;
-       
+
         ScriptTextType();
-       
-        void printTypeName(void) 
-        { cout << "text"; }
-        
-        void draw(Object*);  
+
+        void printTypeName(void)
+        { printf("text"); }
+
+        void draw(Object*);
         void drawOutline( Object* ) {}; // Camera*
         void drawShadow ( Vector* ) {}
         void handleCollision( Object* ) {};
@@ -42,5 +42,5 @@ using namespace std;
 
     void render_string(void* font, const char* string);
     void displayText(char *text, float x, float y, float z, float, float );
-    
+
 #endif
