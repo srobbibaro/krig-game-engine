@@ -34,57 +34,57 @@ class Object : public ObjectNode
 {
     protected:
         // orientation //
-        Vector position;            // x,y,z position of object
-        Quaternion rotation;
-        Vector scale;               // x,y,z scale values
+        Vector position_;            // x,y,z position of object
+        Quaternion rotation_;
+        Vector scale_;               // x,y,z scale values
 
-        Vector baseDirection;       // base direction of object
-        Vector direction;           // direction facing
-        Vector up;
-        Vector orth;
+        Vector baseDirection_;       // base direction of object
+        Vector direction_;           // direction facing
+        Vector up_;
+        Vector orth_;
 
         // rate of change //
-        Vector velocity;
-        Vector speed;
-        Vector rotationVelocity;
-        Vector scaleRate;
+        Vector velocity_;
+        Vector speed_;
+        Vector rotationVelocity_;
+        Vector scaleRate_;
 
         // collision detection //
-        Vector collisionBox[2];    // 0 = min points, 1 = max points
-        Vector controlPoints[3];   // used for orienting objects on surfaces
-        Sphere boundingSphere;
+        Vector collisionBox_[2];    // 0 = min points, 1 = max points
+        Vector controlPoints_[3];   // used for orienting objects on surfaces
+        Sphere boundingSphere_;
 
         // state attributes //
-        unsigned char state;    // objects current state
-        bool active;            // is object active?
+        unsigned char state_;    // objects current state
+        bool active_;            // is object active?
         bool isDrawEnabled_;
 
-        bool isInView;          // is the object within the camera's view
+        bool isInView_;          // is the object within the camera's view
 
         bool isCollisionDetectionEnabled_;
 
         // used for interpolation between 2 orientations //
-        Quaternion rInterpStart;
-        Quaternion rInterpEnd;
+        Quaternion rInterpStart_;
+        Quaternion rInterpEnd_;
 
         float valInterpBegin_, valInterpCurrent_, valInterpEnd_;
         bool isInterpolationEnabled_;
 
         // Necessary for the Lua implementation
-        lua_State* L;
-        string scriptName;
-        int scriptIndex;
+        lua_State* L_;
+        string scriptName_;
+        int scriptIndex_;
 
-        float suspendTime;
+        float suspendTime_;
 
-        ParticleSystem *particleSystem;
+        ParticleSystem *particleSystem_;
 
-        int typeId;
+        int typeId_;
 
 
-        Vector lastLight;
-        bool scaleChanged;
-        bool rotationChanged;
+        Vector lastLight_;
+        bool scaleChanged_;
+        bool rotationChanged_;
 
         bool isAlwaysLit_;
 
@@ -121,11 +121,11 @@ class Object : public ObjectNode
         // virtual functions
         virtual void printTypeName(void) = 0;
 
-        void setPosition( GLfloat, GLfloat, GLfloat );
-        void setPosition( Vector );
-        void setRotationAxis( GLfloat vx, GLfloat vy, GLfloat vz, GLfloat vw );
+        void setPosition( const GLfloat&, const GLfloat&, const GLfloat& );
+        void setPosition( const Vector& );
+        void setRotationAxis( const GLfloat &vx, const GLfloat &vy, const GLfloat &vz, const GLfloat &vw );
         void setRotationAxis( const Vector &v, GLfloat a );
-        void setRotationEuler( GLfloat, GLfloat, GLfloat );
+        void setRotationEuler( const GLfloat&, const GLfloat&, const GLfloat& );
         void setRotationEuler( const Vector &v );
         void setRotationQuaternion( const Quaternion &q );
         void setVelocity( GLfloat, GLfloat, GLfloat );
@@ -141,17 +141,17 @@ class Object : public ObjectNode
         void setDrawEnabled(bool isDrawEnabled) { isDrawEnabled_ = isDrawEnabled; }
         bool getDrawEnabled() { return isDrawEnabled_; }
 
-        bool getInView() { return isInView; }
+        bool getInView() { return isInView_; }
         void setParticleSystem(int particleSystemNumber);
 
         float getScriptValue(const char* s)
         {
             float value = 0.0f;
 
-            if (L != NULL) {
-                lua_getglobal(L, s);
-                value = (float)lua_tonumber(L, -1);
-                lua_pop(L, 1);
+            if (L_ != NULL) {
+                lua_getglobal(L_, s);
+                value = (float)lua_tonumber(L_, -1);
+                lua_pop(L_, 1);
             }
 
             return value;
@@ -159,9 +159,9 @@ class Object : public ObjectNode
 
         void setScriptValue(const char* s, float value)
         {
-            if (L != NULL) {
-                lua_pushnumber(L, value);
-                lua_setglobal(L, s);
+            if (L_ != NULL) {
+                lua_pushnumber(L_, value);
+                lua_setglobal(L_, s);
             }
         }
 
@@ -178,27 +178,27 @@ class Object : public ObjectNode
 
         bool getCollisionDetectionEnabled() { return isCollisionDetectionEnabled_; }
 
-        void setActive( bool new_active ) { active = new_active; }
-        bool getActive() { return active; }
+        void setActive( bool new_active ) { active_ = new_active; }
+        bool getActive() { return active_; }
 
-        Vector getPosition() { return position; }
-        Vector getVelocity() { return velocity; }
-        Vector getRotationVelocity() { return rotationVelocity; }
-        Vector getScaleRate() { return scaleRate; }
-        Vector getSpeed() { return speed; }
+        Vector getPosition() { return position_; }
+        Vector getVelocity() { return velocity_; }
+        Vector getRotationVelocity() { return rotationVelocity_; }
+        Vector getScaleRate() { return scaleRate_; }
+        Vector getSpeed() { return speed_; }
 
-        bool isRotationChanged() { return rotationChanged; }
-        void setRotationChanged( bool rotationChanged_l) { rotationChanged = rotationChanged_l; }
-        Quaternion getRotation() { return rotation; }
-        void setRotation(Quaternion rotation_l) { rotation = rotation_l; rotationChanged = true;}
-        Vector getDirection() { return direction; }
-        Vector getUp() { return up; }
-        Vector getScale() { return scale; }
+        bool isRotationChanged() { return rotationChanged_; }
+        void setRotationChanged( bool rotationChanged_l) { rotationChanged_ = rotationChanged_l; }
+        Quaternion getRotation() { return rotation_; }
+        void setRotation(Quaternion rotation) { rotation_ = rotation; rotationChanged_ = true;}
+        Vector getDirection() { return direction_; }
+        Vector getUp() { return up_; }
+        Vector getScale() { return scale_; }
 
-        Quaternion getRInterpStart() { return rInterpStart; }
-        Quaternion getRInterpEnd() { return rInterpEnd; }
-        void setRInterpStart(Quaternion rInterpStart_l) { rInterpStart = rInterpStart_l;}
-        void setRInterpEnd(Quaternion rInterpEnd_l) { rInterpEnd= rInterpEnd_l;}
+        Quaternion getRInterpStart() { return rInterpStart_; }
+        Quaternion getRInterpEnd() { return rInterpEnd_; }
+        void setRInterpStart(Quaternion rInterpStart_l) { rInterpStart_ = rInterpStart_l;}
+        void setRInterpEnd(Quaternion rInterpEnd_l) { rInterpEnd_= rInterpEnd_l;}
 
         bool isInterpolationEnabled() { return isInterpolationEnabled_; }
         bool setIsInterpolationEnabled(bool isInterpolationEnabled_l) { isInterpolationEnabled_ = isInterpolationEnabled_l; }
@@ -211,23 +211,23 @@ class Object : public ObjectNode
         void setValInterpCurrent(float valInterpCurrent) { valInterpCurrent_ = valInterpCurrent; }
         void setValInterpEnd(float valInterpEnd) { valInterpEnd_ = valInterpEnd; }
 
-        void setSuspendTime( float time ) { suspendTime = time; }
+        void setSuspendTime( float time ) { suspendTime_ = time; }
 
-        void setState( int state_l ) {state = state_l; }
-        int  getState() { return state; }
+        void setState( int state_l ) {state_ = state_l; }
+        int  getState() { return state_; }
 
-        void setScaleChanged( bool scaleChanged_l ) { scaleChanged = scaleChanged_l; }
+        void setScaleChanged( bool scaleChanged_l ) { scaleChanged_ = scaleChanged_l; }
 
         void setIsAlwaysLit( bool isAlwaysLit ) { isAlwaysLit_ = isAlwaysLit; }
 
-        void setTypeId (int type_id) { typeId = type_id; }
-        int getTypeId() { return typeId; }
+        void setTypeId (int type_id) { typeId_ = type_id; }
+        int getTypeId() { return typeId_; }
 
-        Sphere getBoundingSphere() { return boundingSphere; }
+        Sphere getBoundingSphere() { return boundingSphere_; }
 
-        string getScriptName() { return scriptName; }
+        string getScriptName() { return scriptName_; }
 
-        Vector getOrth() { return orth; }
+        Vector getOrth() { return orth_; }
 
 };
 
