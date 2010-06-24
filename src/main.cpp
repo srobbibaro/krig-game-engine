@@ -15,17 +15,15 @@
 #include <GL/glut.h>
 #include <AL/al.h>
 #include <AL/alut.h>
-#include <stdio.h>
+
+#include <cstdio>
 #include <ctype.h>
 #include <fstream>
-#include <math.h>
+#include <cmath>
 #include <ctime>
 #include "Engine.h"
 #include "constants.h"
-#include <iostream>
-#include <stdlib.h>
-
-using namespace std;
+#include <cstdlib>
 
 // global variables /////////////////////////////
 Engine* KRIG;
@@ -323,6 +321,14 @@ void display()
 #if EDIT
     glutSetWindow( mainWin );
 #endif
+    if (!KRIG->getIsRunning()) {
+        printf("[main] Shutting down...\n");
+        delete KRIG;
+        alutExit();
+        printf("[main] Finished shutting down.\n");
+        exit(0);
+    }
+
     KRIG->gameCycle();
 
 #if EDIT
@@ -448,7 +454,7 @@ int main( int argc, char *argv[] )
 		//glutSetCursor(GLUT_CURSOR_NONE);
     }
 	else {
-		printf ( "Unable to change screen resolution and setup game mode." );
+		printf ( "[main] Error: Unable to change screen resolution and setup game mode.\n" );
 		exit(1);
 	}
 
