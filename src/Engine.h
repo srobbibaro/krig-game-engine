@@ -15,29 +15,31 @@ using namespace std;
 class Engine
 {
     private:
-        GameLevel *currentLevel, *storedLevel;
-        GameTimer* timer;           // game's timer
-        Camera *mainCamera, *c1, *c2, *c3, *c4;
+        GameLevel *currentLevel_, *storedLevel_;
+        GameTimer timer_;           // game's timer
+        Camera *mainCamera_, *c1_, *c2_, *c3_, *c4_;
 
-        float timeElapsed;          // time elapsed in game
-        unsigned int lists;         // lists used for rendering
+        float timeElapsed_;          // time elapsed in game
+        unsigned int lists_;         // lists used for rendering
 
-        KeyState *keyState;
-        KeyState *specialKeyState;
+        KeyState keyState_;
+        KeyState specialKeyState_;
 
         // cell shading global variables ////////
-        GLuint shaderTexture[1];
+        GLuint shaderTexture_[1];
 
-        SoundFX *soundFx_;
+        SoundFX soundFx_;
 
-        string levelScript;
+        string levelScript_;
 
-        lua_State* L;
+        lua_State* luaState_;
 
         float mouseX_, mouseY_;
 
-        bool isPaused;
-        float fps;
+        bool isPaused_;
+        float fps_;
+
+        bool isRunning_;
 
         #if DEMO
         ofstream demo;
@@ -65,10 +67,10 @@ class Engine
         float last_height, last_red, last_green, last_blue;
         bool paint;
         bool paintColor;
-        Vector* light;
 
     public:
         Engine();                   // initialize game
+        ~Engine();
         void gameCycle(void);           // physics, animation, collision, draw
         void prepare(void);
         void initGL(void);
@@ -78,9 +80,9 @@ class Engine
         void processNormalKey( unsigned char );
         void loadLevel(const char*);
 
-        void setLevelScript(string level)
+        void setLevelScript(string levelScript)
         {
-            levelScript = level;
+            levelScript_ = levelScript;
         }
 
         bool loadGame(string);
@@ -90,10 +92,10 @@ class Engine
         void shutdown();
         void pause();
 
-        float getFps() { return fps; }
+        float getFps() { return fps_; }
 
-        KeyState* getKeyState() { return keyState; }
-        KeyState* getSpecialKeyState() { return specialKeyState; }
+        KeyState* getKeyState() { return &keyState_; }
+        KeyState* getSpecialKeyState() { return &specialKeyState_; }
 
         void loadModels(void);
 
@@ -113,19 +115,19 @@ class Engine
 
         void swapLevel()
         {
-            GameLevel *temp = currentLevel;
-            currentLevel = storedLevel;
-            storedLevel = temp;
+            GameLevel *temp = currentLevel_;
+            currentLevel_ = storedLevel_;
+            storedLevel_ = temp;
         }
 
-        SoundFX* getSoundFxClass() { return soundFx_; }
+        SoundFX* getSoundFxClass() { return &soundFx_; }
 
         void setMouseX( float mouseX ) { mouseX_ = mouseX;  }
         void setMouseY( float mouseY ) { mouseY_ = mouseY;  }
         float getMouseX() { return mouseX_; }
         float getMouseY() { return mouseY_; }
 
-
+        bool getIsRunning() {return isRunning_;}
 };
 
 #endif

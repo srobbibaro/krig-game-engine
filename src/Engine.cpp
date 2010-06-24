@@ -1,4 +1,4 @@
-#include <stdlib.h>
+#include <cstdlib>
 #include <string.h>
 #include <dirent.h>
 
@@ -11,26 +11,22 @@ GameLevel *lgameLevel;
 Engine::Engine()
 {
     // initialize resources used by the engine //
-    keyState = new KeyState();
-    specialKeyState = new KeyState();
-    keyState->initKeyState();
-    specialKeyState->initKeyState();
+    keyState_.initKeyState();
+    specialKeyState_.initKeyState();
 
-    soundFx_ = new SoundFX();
     loadModels();
 
-    currentLevel = NULL;
-    storedLevel = NULL;
+    currentLevel_ = NULL;
+    storedLevel_ = NULL;
 
     // setup game timer /////////////////////////
-    timer = new GameTimer;
-    if( !timer->init() ) {
+    if( !timer_.init() ) {
         printf ( "Timer initialization failed." );
         exit (1);
     }
     ///////////////////////////////////////////////
 
-    fps = 0.0f;
+    fps_ = 0.0f;
 
     #if DEMO || PLAY_DEMO
         demo.open( "demo.txt" );
@@ -62,13 +58,15 @@ Engine::Engine()
     last_type = 0;
     ////////////////////////////
 
-    L = NULL;
-    mainCamera = c1 = c2 = c3 = c4 = NULL;
+    luaState_ = NULL;
+    mainCamera_ = c1_ = c2_ = c3_ = c4_ = NULL;
 
-    isPaused = false;
+    isPaused_ = false;
 
     mouseX_ = 0.0f;
     mouseY_ = 0.0f;
+
+    isRunning_ = true;
 }
 
 //------------------------------------------------------------------------------
@@ -78,34 +76,34 @@ bool Engine::loadGame( string file )
 
     // If the lua state has not been initialized for this object, attempt to
     // initialize it.
-    if (file == "" || L != NULL)
+    if (file == "" || luaState_ != NULL)
         return false;
 
-    L = lua_open();
+    luaState_ = lua_open();
 
     // If the lua state still could not be initialized, then exit the game.
     // ... we can do something smarter with this in the finished product.
-    if (L == NULL) {
+    if (!luaState_) {
         printf("Error creating Lua state.\n");
 	    exit(-1);
     }
 
 	// load Lua base libraries
-	luaL_openlibs(L);
+	luaL_openlibs(luaState_);
 
     // Register our functions for use in lua (currently defined in
     // Object.h)
-    registerFunctions(L, 0);
+    registerFunctions(luaState_, 0);
 
     // load the script
-    cout << "Loading Lua script (game file): --" << file << "--\n";
-	luaL_dofile(L, file.c_str());
+    printf("[Engine] Loading Lua game script '%s'...\n", file.c_str());
+	luaL_dofile(luaState_, file.c_str());
 
 	// Find the update function and call it
-    lua_getglobal(L, "on_load");
+    lua_getglobal(luaState_, "on_load");
 
     // Call the function with 1 argument and no return values
-    lua_call(L, 0, 0);
+    lua_call(luaState_, 0, 0);
 
     return (true);
 }
@@ -115,23 +113,23 @@ void Engine::updateGame(float elapsedTime)
 {
     // Attempt to execute the script only if the lua state has already been
     // initialized with a script
-    if (L == NULL)
+    if (!luaState_)
         return;
 
     // Find the update function and call it
-    lua_getglobal(L, "on_update");
+    lua_getglobal(luaState_, "on_update");
 
     // Push the time passed since the last iteration of the game loop
-    lua_pushnumber(L, elapsedTime);
+    lua_pushnumber(luaState_, elapsedTime);
 
     // Call the function with 2 argument and no return values
-    lua_call(L, 1, 0);
+    lua_call(luaState_, 1, 0);
 
     // get the result //
-    //position.z = (float)lua_tonumber(L, -1);
-    //position.y = (float)lua_tonumber(L, -2);
-    //position.x = (float)lua_tonumber(L, -3);
-    //lua_pop(L, 1);
+    //position.z = (float)lua_tonumber(luaState_, -1);
+    //position.y = (float)lua_tonumber(luaState_, -2);
+    //position.x = (float)lua_tonumber(luaState_, -3);
+    //lua_pop(luaState_, 1);
 }
 
 //------------------------------------------------------------------------------
@@ -139,34 +137,34 @@ void Engine::unloadGame()
 {
     // Attempt to execute the on_unload function only if the lua state has
     // already been initialized with a script
-    if (L == NULL)
+    if (!luaState_)
         return;
 
     // Find the update function and call it
-    lua_getglobal(L, "on_unload");
+    lua_getglobal(luaState_, "on_unload");
 
     // Call the function with 1 argument and no return values
-    lua_call(L, 0, 0);
+    lua_call(luaState_, 0, 0);
 
     // get the result //
-    //position.z = (float)lua_tonumber(L, -1);
-    //position.y = (float)lua_tonumber(L, -2);
-    //position.x = (float)lua_tonumber(L, -3);
-    //lua_pop(L, 1);
+    //position.z = (float)lua_tonumber(luaState_, -1);
+    //position.y = (float)lua_tonumber(luaState_, -2);
+    //position.x = (float)lua_tonumber(luaState_, -3);
+    //lua_pop(luaState_, 1);
 
-    lua_close(L);
-    L = NULL;
+    lua_close(luaState_);
+    luaState_ = NULL;
 }
 
 //------------------------------------------------------------------------------
 void Engine::gameCycle()
 {
-    timeElapsed = timer->getElapsedSeconds(1);
-    updateGame(timeElapsed);
-    fps = timer->getFPS();
+    timeElapsed_ = timer_.getElapsedSeconds(1);
+    updateGame(timeElapsed_);
+    fps_ = timer_.getFPS();
 
-    if (currentLevel != NULL && !isPaused)
-        currentLevel->setElapsedTime(timeElapsed);
+    if (currentLevel_ != NULL && !isPaused_)
+        currentLevel_->setElapsedTime(timeElapsed_);
 
     #if PLAY_DEMO
         totalTime += timeElapsed;
@@ -188,34 +186,34 @@ void Engine::gameCycle()
         }
     #endif
 
-    if (currentLevel != NULL) {
-        if ( currentLevel->checkComplete() ) {}
+    if (currentLevel_ != NULL) {
+        if ( currentLevel_->checkComplete() ) {}
         else {
-            if (!isPaused) {
-                mainCamera->update(currentLevel->getElapsedTime());
+            if (!isPaused_) {
+                mainCamera_->update(currentLevel_->getElapsedTime());
 
-                currentLevel->animateLevel();
+                currentLevel_->animateLevel();
 
                 //processCommands();
 
 
 
-                currentLevel->updateLevel();
+                currentLevel_->updateLevel();
 
-                currentLevel->prepareLevel();   // collision detection
+                currentLevel_->prepareLevel();   // collision detection
 
-                //currentLevel->updateLevel();
+                //currentLevel_->updateLevel();
 
                 prepare();
 
                 //Matrix m;
-                //mainCamera->worldRotation.buildRotationMatrix(m);
+                //mainCamera_->worldRotation.buildRotationMatrix(m);
 
                 //glMultMatrixf(m.data);
-                currentLevel->drawLevel();
+                currentLevel_->drawLevel();
 
 
-                currentLevel->getMusic()->Update();
+                currentLevel_->getMusic()->Update();
 
                 glClear( GL_DEPTH_BUFFER_BIT );
                 glLoadIdentity();
@@ -224,7 +222,7 @@ void Engine::gameCycle()
 
 
                 glDepthFunc(GL_ALWAYS);
-                currentLevel->postDraw();
+                currentLevel_->postDraw();
                 glDepthFunc(GL_LESS);
 
                 glutSwapBuffers();
@@ -241,19 +239,19 @@ void Engine::prepare()
     glClear( GL_DEPTH_BUFFER_BIT );
     glLoadIdentity();
 
-    mainCamera->prepareGLView();
+    mainCamera_->prepareGLView();
 
     glDepthMask(GL_FALSE);
-        currentLevel->drawSky();
+        currentLevel_->drawSky();
     glDepthMask(GL_TRUE);
 
     //glDepthFunc(GL_ALWAYS);
-    //    currentLevel->postDraw();
+    //    currentLevel_->postDraw();
    // glDepthFunc(GL_LESS);
 
     Matrix translationMatrix;
 
-    Vector position = mainCamera->getPosition();
+    Vector position = mainCamera_->getPosition();
 
     translationMatrix.setTranslation(-position.x, -position.y, -position.z);
 
@@ -275,9 +273,9 @@ void Engine::initGL()
     glEnable( GL_DEPTH_TEST );                  // remove hidden surfaces
 
     // create 1D bitmap for lighting ////////////
-    glGenTextures( 1, &shaderTexture[0] );
+    glGenTextures( 1, &shaderTexture_[0] );
 
-    glBindTexture( GL_TEXTURE_1D, shaderTexture[0] );
+    glBindTexture( GL_TEXTURE_1D, shaderTexture_[0] );
     glTexParameteri( GL_TEXTURE_1D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
     glTexParameteri( GL_TEXTURE_1D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
 
@@ -298,16 +296,16 @@ void Engine::initGL()
 
     glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST );
     glDisable( GL_LIGHTING );
-    glBindTexture( GL_TEXTURE_1D, shaderTexture[0] );
+    glBindTexture( GL_TEXTURE_1D, shaderTexture_[0] );
     glLineWidth( 1.0f );
 
     glDepthFunc( GL_LESS );
 
     // setup display lists //////////////////////
-    lists = glGenLists( 3 );
+    lists_ = glGenLists( 3 );
 
     // list to setup cel shading ////////////////
-    glNewList( lists, GL_COMPILE );
+    glNewList( lists_, GL_COMPILE );
         glDisable( GL_BLEND );
         //glEnable (GL_DEPTH_TEST);
         glDepthFunc( GL_LEQUAL );
@@ -317,7 +315,7 @@ void Engine::initGL()
     glEndList();
 
     // list to setup to draw outline ////////////
-    glNewList( lists+1, GL_COMPILE );
+    glNewList( lists_+1, GL_COMPILE );
         glDisable( GL_TEXTURE_1D );
         glEnable( GL_BLEND );
         glDepthFunc( GL_LESS );
@@ -327,7 +325,7 @@ void Engine::initGL()
    glEndList();
 
    // list to reset display settings
-   glNewList( lists+2, GL_COMPILE );
+   glNewList( lists_+2, GL_COMPILE );
         glPolygonMode( GL_BACK, GL_FILL );
         glDepthFunc( GL_LESS );
         glCullFace( GL_BACK );
@@ -342,7 +340,7 @@ void Engine::initGL()
 void Engine::processKeyUp(int key)
 {
     //cout << "special key up=" << key << endl;
-    specialKeyState->keys[key] = 2;
+    specialKeyState_.keys[key] = 2;
 
     #if DEMO
         if ( gameMode == 1 )
@@ -353,7 +351,7 @@ void Engine::processKeyUp(int key)
 void Engine::processKeyDown( int key )
 {
     //cout << "special key down=" << key << endl;
-    specialKeyState->keys[key] = 1;
+    specialKeyState_.keys[key] = 1;
 
 
     #if DEMO
@@ -365,8 +363,8 @@ void Engine::processKeyDown( int key )
 //------------------------------------------------------------------------------
 void Engine::processCommands()
 {
-    keyState->initKeyState();
-    specialKeyState->initKeyState();
+    keyState_.initKeyState();
+    specialKeyState_.initKeyState();
     /*
     int cmd = control.deQueue();    // get command from queue
 
@@ -377,7 +375,7 @@ void Engine::processCommands()
             case VEL_UP_KEY_DOWN:
             {
                  vMove += 1;
-                 player->velocity.y = mainCamera->velocity.y+10.0f;
+                 player->velocity_.y = mainCamera_->velocity_.y+10.0f;
 
                   Vector rotationAxis;
 
@@ -397,13 +395,13 @@ void Engine::processCommands()
                     vMove = 0;
 
                 if ( vMove == 2 )
-                    player->velocity.y = mainCamera->velocity.y-10.0f;
+                    player->velocity_.y = mainCamera_->velocity_.y-10.0f;
                 else {
 
 
-                    player->velocity.y = mainCamera->velocity.y;
+                    player->velocity_.y = mainCamera_->velocity_.y;
 
-                   player->velocity.y = mainCamera->velocity.y;
+                   player->velocity_.y = mainCamera_->velocity_.y;
 
 
                     Quaternion t;
@@ -415,7 +413,7 @@ void Engine::processCommands()
             case VEL_DOWN_KEY_DOWN:
             {
                 vMove += 2;
-                player->velocity.y = mainCamera->velocity.y-10.0f;
+                player->velocity_.y = mainCamera_->velocity_.y-10.0f;
 
 
                  Vector rotationAxis;
@@ -435,9 +433,9 @@ void Engine::processCommands()
                     vMove = 0;
 
                 if ( vMove == 1 )
-                    player->velocity.y = mainCamera->velocity.y+10.0f;
+                    player->velocity_.y = mainCamera_->velocity_.y+10.0f;
                 else {
-                    player->velocity.y = mainCamera->velocity.y;
+                    player->velocity_.y = mainCamera_->velocity_.y;
 
                     Quaternion t;
 
@@ -450,16 +448,16 @@ void Engine::processCommands()
 
            case SHOOT_DOWN:
             {
-                //(player)->fireShot(mainCamera->velocity.x);        // gameSpeed
+                //(player)->fireShot(mainCamera_->velocity_.x);        // gameSpeed
                 (player)->temp = new ScriptedObject("./scripts/player_shot.lua");
                 (player)->temp->player = player;
-                (player)->temp->camera = mainCamera;
+                (player)->temp->camera = mainCamera_;
                 (player)->temp->s = sounds;
                 (player)->temp->loadScript("./scripts/player_shot.lua");
                 (player)->add((player)->temp);
 
                  Vector tv;
-                 bool hit = (player)->direction.intersectBox( (player)->position, (player)->collisionBox, 1.0f, tv );
+                 bool hit = (player)->direction.intersectBox( (player)->position, (player)->collisionBox_, 1.0f, tv );
 
                 if ( hit ) {
                     (player)->temp->setPosition( tv );
@@ -471,7 +469,7 @@ void Engine::processCommands()
                 break;
             }
             case MISSILE_DOWN:
-                obj = currentLevel->findEnemy();
+                obj = currentLevel_->findEnemy();
                 (player)->fireMissle( obj );
 
                 break;
@@ -501,7 +499,7 @@ void Engine::processCommands()
                 }
 
                 hMove = vMove = 0;
-                player->setVelocity( mainCamera->velocity.x, mainCamera->velocity.y, mainCamera->velocity.z );
+                player->setVelocity( mainCamera_->velocity_.x, mainCamera_->velocity_.y, mainCamera_->velocity_.z );
                 break;
 
             case SELECT_OPTION:
@@ -511,8 +509,8 @@ void Engine::processCommands()
 
                 if ( menuCursor ) {
                     gameMode = 1;
-                    if (currentLevel->getMusicPath() != "") {
-                        sounds->PlaySong(currentLevel->getMusicPath().c_str(), true);
+                    if (currentLevel_->getMusicPath() != "") {
+                        sounds->PlaySong(currentLevel_->getMusicPath().c_str(), true);
                     }
                 }
                 else if ( !menuCursor )
@@ -524,7 +522,7 @@ void Engine::processCommands()
             #if DEMO
                 demo.close();
             #endif
-                //delete currentLevel;
+                //delete currentLevel_;
                 exit(0);
                 break;
         }
@@ -536,7 +534,7 @@ void Engine::processNormalKey(unsigned char key)
 {
     //key = toupper(key);
 
-    keyState->keys[key] = 1;
+    keyState_.keys[key] = 1;
 
     //cout << "key=" << key << endl;
 #if EDIT
@@ -548,52 +546,52 @@ void Engine::processNormalKey(unsigned char key)
             //    control.enQueue(SHOOT_DOWN);
 
             #if DEMO
-            if ( gameMode == 1 && player->state != DEAD )
+            if ( gameMode == 1 && player->state_ != DEAD )
                 demo << 2 << " " << int(key) << " " << totalTime << endl;
             #endif
             break;
         case 'M':
         case 'm':
-            //if ((player)->userControl && gameMode == 1 && (player)->state != DEAD)
+            //if ((player)->userControl && gameMode == 1 && (player)->state_ != DEAD)
             //    control.enQueue(MISSILE_DOWN);
             break;
 
         // Select current camera
         case '1':
-            mainCamera = c1;
-            currentLevel->setCamera(mainCamera);
+            mainCamera_ = c1_;
+            currentLevel_->setCamera(mainCamera_);
             break;
         case '2':
-            mainCamera = c2;
-            currentLevel->setCamera(mainCamera);
+            mainCamera_ = c2_;
+            currentLevel_->setCamera(mainCamera_);
             break;
         case '3':
-            mainCamera = c3;
-            currentLevel->setCamera(mainCamera);
+            mainCamera_ = c3_;
+            currentLevel_->setCamera(mainCamera_);
             break;
         case '4':
-            mainCamera = c4;
-            currentLevel->setCamera(mainCamera);
+            mainCamera_ = c4_;
+            currentLevel_->setCamera(mainCamera_);
             break;
 
         // Save terrain
         case 'O':
         case 'o':
-            currentLevel->saveTerrain("terrains/new_terrain.txt" );
+            currentLevel_->saveTerrain("terrains/new_terrain.txt");
             break;
 
         // Toggle settings
         case 'G':
         case 'g':
-            currentLevel->toggleGrid();
+            currentLevel_->toggleGrid();
             break;
         case 'B':
         case 'b':
-            currentLevel->toggleBoundingBoxes();
+            currentLevel_->toggleBoundingBoxes();
             break;
         case 'C':
         case 'c':
-            currentLevel->toggleControlTriangles();
+            currentLevel_->toggleControlTriangles();
             break;
 
         case '.':
@@ -607,37 +605,36 @@ void Engine::processNormalKey(unsigned char key)
 //------------------------------------------------------------------------------
 void Engine::loadLevel(const char* levelFile)
 {
-    levelScript = levelFile;
+    levelScript_ = levelFile;
 
-    if (currentLevel != NULL)
-        delete currentLevel;
+    if (currentLevel_)
+        delete currentLevel_;
 
-    if (mainCamera == NULL) {
+    if (!mainCamera_) {
         // setup the current level... this really ought to be moved.
-        //mainCamera = new Camera();
-        c1 = new Camera(1);
-        c2 = new Camera(2);
-        c3 = new Camera(3);
-        c4 = new Camera(4);
+        //mainCamera_ = new Camera();
+        c1_ = new Camera(1);
+        c2_ = new Camera(2);
+        c3_ = new Camera(3);
+        c4_ = new Camera(4);
 
-        mainCamera = c1;
-        c2->setPosition(0.0f, 100.0f, 0.0f);
-        c2->setRotationEuler(1.57, 0.0f, 0.0f);
-        c3->setPosition(0.0f, 0.0f, 0.0f);
-        c4->setPosition(0.0f, 0.0f, 0.0f);
+        mainCamera_ = c1_;
+        c2_->setPosition(0.0f, 100.0f, 0.0f);
+        c2_->setRotationEuler(1.57, 0.0f, 0.0f);
+        c3_->setPosition(0.0f, 0.0f, 0.0f);
+        c4_->setPosition(0.0f, 0.0f, 0.0f);
     }
 
-    mainCamera->init();
-    mainCamera->unloadScript();
+    mainCamera_->init();
+    mainCamera_->unloadScript();
 
-    currentLevel = new GameLevel(lists);
-    currentLevel->setCamera( mainCamera );
+    currentLevel_ = new GameLevel(lists_);
+    currentLevel_->setCamera( mainCamera_ );
 
-    lgameLevel = currentLevel;
+    lgameLevel = currentLevel_;
 
-    currentLevel->loadLevelLua(levelScript);
-    timeElapsed = timer->getElapsedSeconds(1);
-    light = currentLevel->getLightDirection();
+    currentLevel_->loadLevelLua(levelScript_);
+    timeElapsed_ = timer_.getElapsedSeconds(1);
 }
 
 //------------------------------------------------------------------------------
@@ -659,6 +656,8 @@ void Engine::loadModels()
             strcat(filePath, de->d_name);
 
             // load model file into model storage //
+            printf("[Engine] Loading model file '%s'...", filePath);
+
             model = new ModelStorage();
             model->load(filePath);
             //#model->.buildEdges(); - used for shadows "converted from old code"
@@ -666,8 +665,7 @@ void Engine::loadModels()
             // insert model file into model hash //
             hashKey = string(de->d_name);
             modelHash[hashKey] = model;
-
-            cout << "Loaded model file '" << filePath << "'" << endl;
+            printf("done.\n");
         }
     }
 
@@ -682,26 +680,26 @@ void Engine::processMouseMove(int x, int y)
 
 void Engine::getTerrainInfo(int &x, int &z, float &height, int &type, float &red, float &green, float &blue)
 {
-    if (mainCamera == NULL)
+    if (mainCamera_ == NULL)
         return;
 
-    Vector position = c2->getPosition();
+    Vector position = c2_->getPosition();
 
     x = (int)(position.x /5.0f);
     z = -(int)(position.z /5.0f);
-    currentLevel->getTerrainInfo(x,z,height,type,red,green,blue);
+    currentLevel_->getTerrainInfo(x,z,height,type,red,green,blue);
 }
 
 void Engine::updateTerrain(int &x, int &z, float &height, int &type, float &red, float &green, float &blue)
 {
-    if (mainCamera == NULL)
+    if (!mainCamera_)
         return;
 
-    if (mainCamera->id == 2 || mainCamera->id == 3) {
-        Vector position = c2->getPosition();
+    if (mainCamera_->id_ == 2 || mainCamera_->id_ == 3) {
+        Vector position = c2_->getPosition();
         x = (int)(position.x /5.0f);
         z = -(int)(position.z /5.0f);
-        currentLevel->updateTerrain(x,z,height,type,red,green,blue);
+        currentLevel_->updateTerrain(x,z,height,type,red,green,blue);
 
         last_x = x;
         last_z = z;
@@ -715,15 +713,15 @@ void Engine::updateTerrain(int &x, int &z, float &height, int &type, float &red,
 
 void Engine::updateColor(float &red, float &green, float &blue)
 {
-    if (mainCamera == NULL)
+    if (!mainCamera_)
         return;
 
-    if (mainCamera->id == 2 || mainCamera->id == 3) {
-        Vector position = c2->getPosition();
+    if (mainCamera_->id_ == 2 || mainCamera_->id_ == 3) {
+        Vector position = c2_->getPosition();
 
         int x = (int)(position.x /5.0f);
         int z = -(int)(position.z /5.0f);
-        currentLevel->updateColor(x, z, red,green,blue);
+        currentLevel_->updateColor(x, z, red,green,blue);
 
         last_red = red;
         last_green = green;
@@ -733,41 +731,32 @@ void Engine::updateColor(float &red, float &green, float &blue)
 
 void Engine::shutdown()
 {
-    //unloadGame();
+    isRunning_ = false;
+}
 
-    if (currentLevel != NULL)
-        delete currentLevel;
+Engine::~Engine()
+{
+    unloadGame();
 
-    if (storedLevel != NULL)
-        delete storedLevel;
+    if (currentLevel_)
+        delete currentLevel_;
 
-    if (mainCamera != NULL) {
-        delete c1;
-        delete c2;
-        delete c3;
-        delete c4;
+    if (storedLevel_)
+        delete storedLevel_;
+
+    if (mainCamera_) {
+        delete c1_;
+        delete c2_;
+        delete c3_;
+        delete c4_;
     }
 
-    if (soundFx_ != NULL)
-        delete soundFx_;
-
-    if (timer != NULL)
-        delete timer;
-
-    if (keyState != NULL)
-        delete keyState;
-
-    if (specialKeyState != NULL)
-        delete specialKeyState;
-
-    currentLevel = storedLevel = NULL;
-    c1 = c2 = c3 = c4 = mainCamera = NULL;
-
-    exit(0);
+    currentLevel_ = storedLevel_ = NULL;
+    c1_ = c2_ = c3_ = c4_ = mainCamera_ = NULL;
 }
 
 void Engine::pause()
 {
-    isPaused = !isPaused;
+    isPaused_ = !isPaused_;
 }
 
