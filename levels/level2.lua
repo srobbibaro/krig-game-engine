@@ -1,6 +1,6 @@
 dofile("./levels/level_lib.lua")
 
-x_start_camera = 610.0
+x_start_camera = 110.0
 x_start_player = x_start_camera -- 30.0
 --x_start_boss   = x_start_camera + 10.0
 
@@ -123,13 +123,13 @@ function setupEnemyShips(terrain)
         setPosition(obj, i, 8.0, 7.5)
     end
 
-    buildCircleGroup(terrain, 5, 750.0, 25.0, 7.5)
-    buildCircleGroup(terrain, 5, 825.0, 20.0, 7.5)
-    buildCircleGroup(terrain, 5, 900.0, 15.0, 7.5)
-    buildCircleGroup(terrain, 5, 975.0, 10.0, 7.5)
+    buildCircleGroup(terrain, 5, 900.0, 25.0, 7.5)
+    buildCircleGroup(terrain, 5, 975.0, 20.0, 7.5)
     buildCircleGroup(terrain, 5, 1050.0, 15.0, 7.5)
-    buildCircleGroup(terrain, 5, 1125.0, 20.0, 7.5)
-    buildCircleGroup(terrain, 5, 1200.0, 25.0, 7.5)
+    buildCircleGroup(terrain, 5, 1125.0, 10.0, 7.5)
+    buildCircleGroup(terrain, 5, 1200.0, 15.0, 7.5)
+    buildCircleGroup(terrain, 5, 1275.0, 20.0, 7.5)
+    buildCircleGroup(terrain, 5, 1350.0, 25.0, 7.5)
 
     buildDockedGroup(terrain)
 
