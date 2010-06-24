@@ -3,7 +3,6 @@
 
 #include <string>
 #include <fstream>
-#include <iostream>
 #include <stdio.h>
 
 #include "matrix.h"
