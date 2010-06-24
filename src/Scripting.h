@@ -84,6 +84,7 @@ static int setPositionLua(lua_State *L)
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
 	object->setPosition(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+    //cout << object->getPosition().x << " " << object->getPosition().y << " " << object->getPosition().z << endl;
 	return 0;
 }
 
@@ -677,9 +678,9 @@ static int setRotationAxisLua(lua_State *L)
 
     Vector tv;
     tv.setVector(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
-    tv.normalize();
+    //tv.normalize();
 
-    Quaternion rotation = object->getRotation();
+    Quaternion rotation;
 
     rotation.buildFromAxis(tv, lua_tonumber(L,5));
    	object->setRotationChanged(true);
@@ -695,11 +696,17 @@ static int setRotationAxisvLua(lua_State *L)
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
     Vector tv = loadVector(L);
-    tv.normalize();
+    //tv.normalize();
 
-    Quaternion rotation = object->getRotation();
+    Quaternion rotation;
 
     rotation.buildFromAxis(tv, lua_tonumber(L,2));
+
+    Vector v;
+    rotation.getEulerAngles(v);
+
+    printf("rotation x=%f y=%f z=%f\n", v.x, v.y, v.z);
+
    	object->setRotationChanged(true);
 
    	object->setRotation(rotation);
@@ -715,7 +722,7 @@ static int addRotationAxisLua(lua_State *L)
     Quaternion tq;
     Vector tv;
     tv.setVector(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
-    tv.normalize();
+    //tv.normalize();
     tq.buildFromAxis(tv, lua_tonumber(L,5));
 
     Quaternion rotation = object->getRotation();
@@ -1299,7 +1306,7 @@ static int getFpsLua(lua_State *L)
 
 static int getCameraIdLua(lua_State *L)
 {
-    lua_pushnumber(L, lgameLevel->getCamera()->id);
+    lua_pushnumber(L, lgameLevel->getCamera()->id_);
     return 1;
 }
 
