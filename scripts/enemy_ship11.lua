@@ -3,6 +3,7 @@ dofile('./scripts/base_shooting_object.lua')
 
 state = 1
 orig_height = 0.0
+totalTime = 1.0
 
 function on_load(this)
     setModel(this, "Enemy.mdl")
@@ -36,6 +37,24 @@ function on_update(this, elapsedTime)
             setSpeed(this, 40.0, 0.0, 0.0)
             state = 3
         end    
+    elseif state == 3 then
+        totalTime = totalTime + elapsedTime
+
+        if totalTime > 2.0 then
+            state = 4    
+        end
+            this_dir = getDirection(this)
+            this_dir = {0.0, 0.0, 1.0}
+            dir_to_player = {this_pos[1] - plr_pos[1] - 2.0, this_pos[2] - plr_pos[2], this_pos[3] - plr_pos[3]} 
+            dir_to_player = vector_normalize(dir_to_player)
+
+            rot_axis = vector_crossProduct(this_dir, dir_to_player)
+            rot_angle = -vector_dotProduct(this_dir, dir_to_player)
+            --rot_angle = 0.3
+            --rot_axis = {0.0, 1.0, 0.0}
+            --rot_angle = -1.57
+
+            setRotationAxis(this, rot_axis[1], rot_axis[2], rot_axis[3], rot_angle)
     end
 
     return
