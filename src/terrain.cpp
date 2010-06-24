@@ -20,6 +20,7 @@ Terrain::Terrain() : Object()
     lightIntensity_ = NULL;
     color_ = NULL;
     type_ = NULL;
+    vertexNormal_ = NULL;
 
     init();
 }
@@ -282,7 +283,6 @@ void Terrain::calcViewableTerrainNorm()
     xStart = zStart = 0;
 
     Vector surfaceNormal;
-    Vector **vertexNormal;
     Vector temp1;
     Vector temp2;
     GLfloat tempLightIntensity;
@@ -293,10 +293,7 @@ void Terrain::calcViewableTerrainNorm()
     Matrix tempMatrix;
     tempMatrix.loadIdentity();
 
-    vertexNormal = new Vector*[xSize_];
-    for (int i = 0; i < xSize_; i++) {
-        vertexNormal[i] = new Vector[zSize_];
-    }
+
 
     QuadTreeNode* n = displayList_->head;
 
@@ -317,31 +314,31 @@ void Terrain::calcViewableTerrainNorm()
 
         surfaceNormal.calcNorm( temp[0], temp[2], temp[1] );
 
-        vertexNormal[x1][z1].x += surfaceNormal.x;
-        vertexNormal[x1][z1].y += surfaceNormal.y;
-        vertexNormal[x1][z1].z += surfaceNormal.z;
+        vertexNormal_[x1][z1].x += surfaceNormal.x;
+        vertexNormal_[x1][z1].y += surfaceNormal.y;
+        vertexNormal_[x1][z1].z += surfaceNormal.z;
 
-        vertexNormal[x1][z2].x += surfaceNormal.x;
-        vertexNormal[x1][z2].y += surfaceNormal.y;
-        vertexNormal[x1][z2].z += surfaceNormal.z;
+        vertexNormal_[x1][z2].x += surfaceNormal.x;
+        vertexNormal_[x1][z2].y += surfaceNormal.y;
+        vertexNormal_[x1][z2].z += surfaceNormal.z;
 
-        vertexNormal[x2][z1].x += surfaceNormal.x;
-        vertexNormal[x2][z1].y += surfaceNormal.y;
-        vertexNormal[x2][z1].z += surfaceNormal.z;
+        vertexNormal_[x2][z1].x += surfaceNormal.x;
+        vertexNormal_[x2][z1].y += surfaceNormal.y;
+        vertexNormal_[x2][z1].z += surfaceNormal.z;
 
         surfaceNormal.calcNorm( temp[2], temp[3], temp[1] );
 
-        vertexNormal[x2][z1].x += surfaceNormal.x;
-        vertexNormal[x2][z1].y += surfaceNormal.y;
-        vertexNormal[x2][z1].z += surfaceNormal.z;
+        vertexNormal_[x2][z1].x += surfaceNormal.x;
+        vertexNormal_[x2][z1].y += surfaceNormal.y;
+        vertexNormal_[x2][z1].z += surfaceNormal.z;
 
-        vertexNormal[x1][z2].x += surfaceNormal.x;
-        vertexNormal[x1][z2].y += surfaceNormal.y;
-        vertexNormal[x1][z2].z += surfaceNormal.z;
+        vertexNormal_[x1][z2].x += surfaceNormal.x;
+        vertexNormal_[x1][z2].y += surfaceNormal.y;
+        vertexNormal_[x1][z2].z += surfaceNormal.z;
 
-        vertexNormal[x2][z2].x += surfaceNormal.x;
-        vertexNormal[x2][z2].y += surfaceNormal.y;
-        vertexNormal[x2][z2].z += surfaceNormal.z;
+        vertexNormal_[x2][z2].x += surfaceNormal.x;
+        vertexNormal_[x2][z2].y += surfaceNormal.y;
+        vertexNormal_[x2][z2].z += surfaceNormal.z;
 
         n = n->next;
     }
@@ -359,9 +356,9 @@ void Terrain::calcViewableTerrainNorm()
         z1 = (int)zStart;
         z2 = ((int)zStart) +1;
 
-        vertexNormal[x1][z1].normalize();
+        vertexNormal_[x1][z1].normalize();
 
-        temp2.rotateVector( tempMatrix, vertexNormal[x1][z1] );
+        temp2.rotateVector( tempMatrix, vertexNormal_[x1][z1] );
         temp2.normalize();
 
         tempLightIntensity = temp2.dotProduct( *light_ );
@@ -471,7 +468,6 @@ void Terrain::calcTerrainNorm( Vector* light )
     }
 
     Vector surfaceNormal;
-    Vector **vertexNormal;
     Vector temp1;
     Vector temp2;
     GLfloat tempLightIntensity;
@@ -484,11 +480,6 @@ void Terrain::calcTerrainNorm( Vector* light )
 
     int x1, x2;
     int z1, z2;
-
-    vertexNormal = new Vector*[xSize_];
-    for (int i = 0; i < xSize_; i++) {
-        vertexNormal[i] = new Vector[zSize_];
-    }
 
     // calculate surface normal
     for ( int z = 0; z < (zSize_-1); z++ ) {
@@ -505,40 +496,40 @@ void Terrain::calcTerrainNorm( Vector* light )
 
             surfaceNormal.calcNorm( temp[0], temp[2], temp[1] );
 
-            vertexNormal[x1][z1].x += surfaceNormal.x;
-            vertexNormal[x1][z1].y += surfaceNormal.y;
-            vertexNormal[x1][z1].z += surfaceNormal.z;
+            vertexNormal_[x1][z1].x += surfaceNormal.x;
+            vertexNormal_[x1][z1].y += surfaceNormal.y;
+            vertexNormal_[x1][z1].z += surfaceNormal.z;
 
-            vertexNormal[x1][z2].x += surfaceNormal.x;
-            vertexNormal[x1][z2].y += surfaceNormal.y;
-            vertexNormal[x1][z2].z += surfaceNormal.z;
+            vertexNormal_[x1][z2].x += surfaceNormal.x;
+            vertexNormal_[x1][z2].y += surfaceNormal.y;
+            vertexNormal_[x1][z2].z += surfaceNormal.z;
 
-            vertexNormal[x2][z1].x += surfaceNormal.x;
-            vertexNormal[x2][z1].y += surfaceNormal.y;
-            vertexNormal[x2][z1].z += surfaceNormal.z;
+            vertexNormal_[x2][z1].x += surfaceNormal.x;
+            vertexNormal_[x2][z1].y += surfaceNormal.y;
+            vertexNormal_[x2][z1].z += surfaceNormal.z;
 
             surfaceNormal.calcNorm( temp[2], temp[3], temp[1] );
 
-            vertexNormal[x2][z1].x += surfaceNormal.x;
-            vertexNormal[x2][z1].y += surfaceNormal.y;
-            vertexNormal[x2][z1].z += surfaceNormal.z;
+            vertexNormal_[x2][z1].x += surfaceNormal.x;
+            vertexNormal_[x2][z1].y += surfaceNormal.y;
+            vertexNormal_[x2][z1].z += surfaceNormal.z;
 
-            vertexNormal[x1][z2].x += surfaceNormal.x;
-            vertexNormal[x1][z2].y += surfaceNormal.y;
-            vertexNormal[x1][z2].z += surfaceNormal.z;
+            vertexNormal_[x1][z2].x += surfaceNormal.x;
+            vertexNormal_[x1][z2].y += surfaceNormal.y;
+            vertexNormal_[x1][z2].z += surfaceNormal.z;
 
-            vertexNormal[x2][z2].x += surfaceNormal.x;
-            vertexNormal[x2][z2].y += surfaceNormal.y;
-            vertexNormal[x2][z2].z += surfaceNormal.z;
+            vertexNormal_[x2][z2].x += surfaceNormal.x;
+            vertexNormal_[x2][z2].y += surfaceNormal.y;
+            vertexNormal_[x2][z2].z += surfaceNormal.z;
         }
     }
 
     // calculate light intensity at every vertex
     for ( int z = 0; z < zSize_; z++ ) {
         for ( int x = 0; x < xSize_; x++ ) {
-            vertexNormal[x][z].normalize();
+            vertexNormal_[x][z].normalize();
 
-            temp2.rotateVector( tempMatrix, vertexNormal[x][z] );
+            temp2.rotateVector( tempMatrix, vertexNormal_[x][z] );
             temp2.normalize();
 
             tempLightIntensity = temp2.dotProduct( *light );
@@ -794,6 +785,11 @@ void Terrain::load( const char* filePath, Vector* light )
 
     fin.close();
 
+    vertexNormal_ = new Vector*[xSize_];
+    for (int i = 0; i < xSize_; i++) {
+        vertexNormal_[i] = new Vector[zSize_];
+    }
+
     // calculate normals in code for now, later add static calculation to be
     // loaded in... only water will be dynamic
     calcTerrainNorm(light);
@@ -801,7 +797,7 @@ void Terrain::load( const char* filePath, Vector* light )
 
 void Terrain::unload()
 {
-    if (vertex_ != NULL && lightIntensity_ != NULL && color_ != NULL && type_ != NULL) {
+    if (vertex_ != NULL && lightIntensity_ != NULL && color_ != NULL && type_ != NULL && vertexNormal_ != NULL) {
         for (int i = 0; i < xSize_; i++) {
             for (int j = 0; j < zSize_; j++) {
                 delete[] vertex_[i][j];
@@ -811,18 +807,21 @@ void Terrain::unload()
             delete[] vertex_[i];
             delete[] lightIntensity_[i];
             delete[] color_[i];
-            delete[] type_;
+            delete[] vertexNormal_[i];
+            delete[] type_[i];
         }
 
         delete[] vertex_;
         delete[] lightIntensity_;
         delete[] color_;
+        delete[] vertexNormal_;
         delete[] type_;
     }
 
     vertex_ = NULL;
     lightIntensity_ = NULL;
     color_ = NULL;
+    vertexNormal_ = NULL;
     type_ = NULL;
 }
 

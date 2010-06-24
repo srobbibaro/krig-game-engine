@@ -78,6 +78,7 @@ class Terrain : public Object
         GLfloat*** vertex_;
         GLfloat** lightIntensity_;
         GLfloat*** color_;
+        Vector **vertexNormal_;
         int** type_;
 
         GLfloat curveDistance_;
