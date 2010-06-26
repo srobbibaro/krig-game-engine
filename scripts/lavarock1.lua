@@ -39,7 +39,7 @@ function on_update(this, elapsedTime)
     end
 
     angle_height = 40  -- Change upward direction when we get here.
-    fall_height  = 70  -- Move the rock over to the player when we get here
+    fall_height  = 90  -- Move the rock over to the player when we get here
 
     x_vel = 0.0
     if this_position[2] >= angle_height then
