@@ -54,30 +54,6 @@ function buildDockedGroup(terrain)
     end
 end
 
-function buildVGroup(terrain, x,y,z)
-    -- Leader
-    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
-    setPosition(obj, x, y, z)
-
-    -- First two
-    obj1 = addObject(terrain, "./scripts/enemy_ship1.lua")
-    obj2 = addObject(terrain, "./scripts/enemy_ship1.lua")
-    x = x + 2
-    y1 = y + 2
-    y2 = y - 2
-    setPosition(obj1, x, y1, z)
-    setPosition(obj2, x, y2, z)
-
-    -- Back two
-    obj1 = addObject(terrain, "./scripts/enemy_ship1.lua")
-    obj2 = addObject(terrain, "./scripts/enemy_ship1.lua")
-    x = x + 2
-    y1 = y1 + 2
-    y2 = y2 - 2
-    setPosition(obj1, x, y1, z)
-    setPosition(obj2, x, y2, z)
-end
-
 function setupEnemyShips(terrain)
 
     -- Intro ships
