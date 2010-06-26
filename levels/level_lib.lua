@@ -128,3 +128,41 @@ function buildCircleGroup(terrain, num, x, y, z)
     end
 end
 
+function buildVGroup(terrain, x,y,z)
+    -- Leader
+    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+    setPosition(obj, x, y, z)
+
+    -- First two
+    obj1 = addObject(terrain, "./scripts/enemy_ship1.lua")
+    obj2 = addObject(terrain, "./scripts/enemy_ship1.lua")
+    x = x + 2
+    y1 = y + 2
+    y2 = y - 2
+    setPosition(obj1, x, y1, z)
+    setPosition(obj2, x, y2, z)
+
+    -- Back two
+    obj1 = addObject(terrain, "./scripts/enemy_ship1.lua")
+    obj2 = addObject(terrain, "./scripts/enemy_ship1.lua")
+    x = x + 2
+    y1 = y1 + 2
+    y2 = y2 - 2
+    setPosition(obj1, x, y1, z)
+    setPosition(obj2, x, y2, z)
+end
+
+function setup_volcano(terrain, xpos, zpos)
+    local obj = addObject(terrain, "./scripts/volcano.lua")
+    setPosition(obj, xpos, 20.0, zpos) 
+
+    for i = -15.0, 25.0, 10 do
+        obj = addObject( terrain, "./scripts/lavarock1.lua" )
+        setPosition( obj, xpos, i, zpos )
+    end 
+
+    for i = -20.0, 20.0, 10 do
+        obj = addObject( terrain, "./scripts/lavarock2.lua" )
+        setPosition( obj, xpos, i, zpos )
+    end
+end
