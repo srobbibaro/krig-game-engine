@@ -42,14 +42,6 @@ enemy_ship_wave = {
     {position = {760.0, 25.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
 }
 
-
-function buildCircleGroup(terrain, num, x, y, z)
-    for i = 0, num, 1 do
-        obj = addObject(terrain, "./scripts/enemy_ship10.lua")
-        setPosition(obj, x + (i * 5.0), y, z)
-    end
-end
-
 function buildDockedGroup(terrain)
     for i = 645, 890, 25 do
         obj = addObject(terrain, "./scripts/enemy_ship11.lua")

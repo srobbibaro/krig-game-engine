@@ -120,3 +120,11 @@ function update_level(timeElapsed, bossLife)
         end
     end
 end
+
+function buildCircleGroup(terrain, num, x, y, z)
+    for i = 0, num, 1 do
+        obj = addObject(terrain, "./scripts/enemy_ship10.lua")
+        setPosition(obj, x + (i * 5.0), y, z)
+    end
+end
+
