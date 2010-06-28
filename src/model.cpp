@@ -1,5 +1,6 @@
 #include "constants.h"
 #include "model.h"
+#include "terrain.h"
 using namespace std;
 
 map <string, ModelStorage*> modelHash;
@@ -607,4 +608,72 @@ void Model::buildEdges()
 
         numEdges = edgeCount;
         */
+    }
+
+    void Model::orientOnTerrain(Terrain *temp)
+    {
+        if (temp == NULL)
+            return;
+
+                Vector p1, p2, p3;
+
+                p1.setVector(controlPoints_[0].x + position_.x, 0.0f, controlPoints_[0].z + position_.z);
+                p2.setVector(controlPoints_[1].x + position_.x, 0.0f, controlPoints_[1].z + position_.z);
+                p3.setVector(controlPoints_[2].x + position_.x, 0.0f, controlPoints_[2].z + position_.z);
+
+                p1.y = temp->getHeight(p1.x, p1.z);
+                p2.y = temp->getHeight(p2.x, p2.z);
+                p3.y = temp->getHeight(p3.x, p3.z);
+
+                //printf("p1.x=%f, p1.y=%f, p1.z=%f, p2.y=%f, p3.y=%f\n", p1.x, p1.y, p1.z, p2.y, p3.y);
+
+                float height = calcTriangleCenter(p1.y, p2.y, p3.y);
+
+                //printf("height =%f\n", height);
+
+                //float position_height = ((Terrain*)temp)->getHeight( position_.x, position_.z );
+
+                //if ( position_.y < ((Terrain*)temp)->getHeight( position_.x, position_.z ) )  {
+                    Vector normal, up;
+                    normal.calcNorm( p1, p2, p3);
+
+                    //printf("normal x=%f, normal y=%f, normal z=%f\n", normal.x, normal.y, normal.z);
+
+                    up.setVector( 0.0f, 1.0f, 0.0f );
+                    Vector rotationAxis; rotationAxis.crossProduct( up, normal );
+
+                    float rotationAngle = normal.dotProduct( up );
+                    setRotationAxis(rotationAxis,rotationAngle);
+                    position_.y = height;
+                    rotationChanged_ = true;
+                //}
+    }
+
+
+    void Model::setHeightFromTerrain(Terrain *temp, float offset)
+    {
+        if (temp == NULL)
+            return;
+
+                Vector p1, p2, p3;
+
+                p1.setVector(controlPoints_[0].x + position_.x, 0.0f, controlPoints_[0].z + position_.z);
+                p2.setVector(controlPoints_[1].x + position_.x, 0.0f, controlPoints_[1].z + position_.z);
+                p3.setVector(controlPoints_[2].x + position_.x, 0.0f, controlPoints_[2].z + position_.z);
+
+                p1.y = temp->getHeight(p1.x, p1.z);
+                p2.y = temp->getHeight(p2.x, p2.z);
+                p3.y = temp->getHeight(p3.x, p3.z);
+
+                //printf("p1.x=%f, p1.y=%f, p1.z=%f, p2.y=%f, p3.y=%f\n", p1.x, p1.y, p1.z, p2.y, p3.y);
+
+                float height = calcTriangleCenter(p1.y, p2.y, p3.y);
+
+                //printf("height =%f\n", height);
+
+                //float position_height = ((Terrain*)temp)->getHeight( position_.x, position_.z );
+
+                position_.y = height + offset;
+
+                //}
     }

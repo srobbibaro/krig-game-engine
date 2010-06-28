@@ -795,7 +795,18 @@ static int addObjectLua(lua_State *L)
     const char *s = lua_tostring(L, 2);
     string script = string(s);
 
-    ScriptedObject * temp = lgameLevel->addObject(script);
+    int n = lua_gettop(L);
+    n = n - 2;
+
+    if (n > 8) n = 8;
+
+    float args[8];
+
+    for (int i = 0; i < n; i++) {
+        args[i] = lua_tonumber(L, i+3);
+    }
+
+    ScriptedObject * temp = lgameLevel->addObject(script, args, n);
 
 	lua_pushlightuserdata(L, (void*)temp);
 	return 1;
@@ -812,7 +823,18 @@ static int addTextLua(lua_State *L)
     const char *t = lua_tostring(L, 3);
     string text = string(t);
 
-    ScriptTextType *temp = lgameLevel->addScriptTextType(script);
+    int n = lua_gettop(L);
+    n = n - 3;
+
+    if (n > 8) n = 8;
+
+    float args[8];
+
+    for (int i = 0; i < n; i++) {
+        args[i] = lua_tonumber(L, i+4);
+    }
+
+    ScriptTextType *temp = lgameLevel->addScriptTextType(script, args, n);
     temp->text = text;
 
 	lua_pushlightuserdata(L, (void*)temp);
@@ -928,6 +950,7 @@ static int setScaleLua(lua_State *L)
 
 	object->setScale(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
 	object->setScaleChanged(true);
+	//object->update(lgameLevel->getLightDirection());
 	return 0;
 }
 
@@ -949,9 +972,11 @@ static int setScriptLua(lua_State *L)
     const char *s = lua_tostring(L, 2);
     string script = string(s);
 
+    float args[8];
+
     object->unloadScript();
     object->setScript(script);
-    object->loadScript(script);
+    object->loadScript(script, args, 0);
 
     return 0;
 }
@@ -1006,20 +1031,16 @@ static int pauseBgMusicLua(lua_State *L)
 
 static int setSkyBoxLua(lua_State *L)
 {
-    int x = 3, y = 3;
     int num = 1;
-    float **skyColors;
 
-    skyColors = new float*[y];
-
-    for (int i = 0; i < y; i++) {
-        skyColors[i] = new float[x];
-        for (int j = 0; j < x; j++) {
+    float skyColors[3][3];
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
             skyColors[i][j] = lua_tonumber(L, num++);
         }
     }
 
-    lgameLevel->setSkyBox(skyColors, x, y);
+    lgameLevel->setSkyBox(skyColors, 3, 3);
     return 0;
 }
 
@@ -1512,6 +1533,28 @@ static int getWidthLua(lua_State *L)
     return 1;
 }
 
+static int orientOnTerrainLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Model *object = static_cast<Model*>(lua_touserdata(L, 1));
+
+    object->orientOnTerrain(lgameLevel->getTerrain());
+
+    return 0;
+}
+
+static int setHeightFromTerrainLua(lua_State *L)
+{
+    luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+    Model *object = static_cast<Model*>(lua_touserdata(L, 1));
+
+    float offset = lua_tonumber(L, 2);
+
+    object->setHeightFromTerrain(lgameLevel->getTerrain(), offset);
+
+    return 0;
+}
+
 static int registerFunctions(lua_State *L, int level)
 {
     lua_register(L, "setPosition", setPositionLua);
@@ -1607,6 +1650,8 @@ static int registerFunctions(lua_State *L, int level)
     lua_register(L, "addText", addTextLua);
     lua_register(L, "enableAlwaysLit", enableAlwaysLitLua);
     lua_register(L, "disableAlwaysLit", disableAlwaysLitLua);
+    lua_register(L, "orientOnTerrain", orientOnTerrainLua);
+    lua_register(L, "setHeightFromTerrain", setHeightFromTerrainLua);
     lua_register(L, "terrain_getVertexHeight", terrain_getVertexHeightLua);
     lua_register(L, "terrain_getVertexColor", terrain_getVertexColorLua);
     lua_register(L, "terrain_getVertexType", terrain_getVertexTypeLua);

@@ -69,10 +69,10 @@ void GameLevel::drawLevel()
     }
 
     //-if (bboxes_)
-        //-terrain->showCollisionBox();
+        //((Object*)objects_.head)->showCollisionBox();
 
-    //-if (controlTriangles_)
-        //-terrain->showControlTriangle();
+    //if (controlTriangles_)
+        ((Object*)objects_.head)->showControlTriangle();
 
     //terrain->drawShadows( light );
 
@@ -496,7 +496,7 @@ void GameLevel::toggleGrid(void) { grid_ = !grid_;}
 void GameLevel::toggleBoundingBoxes(void) { bboxes_ = !bboxes_; }
 void GameLevel::toggleControlTriangles(void) { controlTriangles_ = !controlTriangles_; }
 
-void GameLevel::setSkyBox(float** bgcolor, int x, int y)
+void GameLevel::setSkyBox(float bgcolor[][3], int x, int y)
 {
     for (int i = 0; i < y; i++) {
         for (int j = 0; j < x; j++) {

@@ -93,7 +93,7 @@ class GameLevel
         void prepareObjects();
         void animateObjects( float ); // Camera*
 
-        ScriptedObject* addObject( string script )
+        ScriptedObject* addObject( string script, float args[], int n )
         {
             ScriptedObject *temp = static_cast<ScriptedObject*> (freeObjects_[script].head);
 
@@ -111,12 +111,12 @@ class GameLevel
             objects_.insertFront(temp);
             //temp->unloadScript();
 
-            temp->loadScript(script);
+            temp->loadScript(script, args, n);
 
             return temp;
         }
 
-        ScriptTextType* addScriptTextType( string script )
+        ScriptTextType* addScriptTextType( string script, float args[], int n )
         {
 
             ScriptTextType *temp = static_cast<ScriptTextType*> (freeObjects_[script].head);
@@ -134,7 +134,7 @@ class GameLevel
 
             objects_.insertFront(temp);
             //temp->unloadScript();
-            temp->loadScript(script);
+            temp->loadScript(script, args, n);
 
             return temp;
         }
@@ -158,7 +158,7 @@ class GameLevel
         void setMusicPath(string musicPath) { musicPath_ = musicPath; }
         Vector* getLightDirection() { return &lightDirection_; }
 
-        void setSkyBox(float**, int, int);
+        void setSkyBox(float[][3], int, int);
         void setLightDirection(float x, float y, float z)
         {
             lightDirection_.setVector(x, y, z);

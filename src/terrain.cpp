@@ -23,6 +23,8 @@ Terrain::Terrain() : Object()
     vertexNormal_ = NULL;
 
     init();
+
+    typeId_ = 100;
 }
 
 void Terrain::init()
@@ -36,6 +38,8 @@ void Terrain::init()
 	isCurveEnabled_ = true;
 	curveDistance_ = 200.0f;
 	curveRate_ = 0.05f;
+
+	enableSphereTest_ = false;
 }
 
 //------------------------------------------------------------------------------
@@ -293,8 +297,6 @@ void Terrain::calcViewableTerrainNorm()
     Matrix tempMatrix;
     tempMatrix.loadIdentity();
 
-
-
     QuadTreeNode* n = displayList_->head;
 
     while (n != NULL) {
@@ -306,6 +308,44 @@ void Terrain::calcViewableTerrainNorm()
 
         z1 = (int)zStart;
         z2 = ((int)zStart) +1;
+
+        //printf("x1=%d, z1=%d, x2=%d, z2=%d\n", x1, z1, x2, z2);
+
+        vertexNormal_[x1][z1].x = 0.0f;
+        vertexNormal_[x1][z1].y = 0.0f;
+        vertexNormal_[x1][z1].z = 0.0f;
+
+        vertexNormal_[x1+1][z1].x = 0.0f;
+        vertexNormal_[x1+1][z1].y = 0.0f;
+        vertexNormal_[x1+1][z1].z = 0.0f;
+
+        vertexNormal_[x1][z1+1].x = 0.0f;
+        vertexNormal_[x1][z1+1].y = 0.0f;
+        vertexNormal_[x1][z1+1].z = 0.0f;
+
+        vertexNormal_[x1+1][z1+1].x = 0.0f;
+        vertexNormal_[x1+1][z1+1].y = 0.0f;
+        vertexNormal_[x1+1][z1+1].z = 0.0f;
+
+        n = n->next;
+    }
+
+    n = displayList_->head;
+
+    while (n != NULL) {
+        xStart = n->min[0] / scaleFactor_;
+        zStart = n->min[1] /  scaleFactor_;
+
+        x1 = (int)xStart;
+        x2 = ((int)xStart) + 1;
+
+        z1 = (int)zStart;
+        z2 = ((int)zStart) +1;
+
+        if (x2 >= xSize_ || z2 >= zSize_) {
+            printf("here!\n");
+            continue;
+        }
 
         temp[0].setVector( vertex_[x1][z1][0], vertex_[x1][z1][1], vertex_[x1][z1][2] );
         temp[1].setVector( vertex_[x1][z2][0], vertex_[x1][z2][1], vertex_[x1][z2][2] );
@@ -567,6 +607,8 @@ float Terrain::getHeight( float x, float z )
 
     float terX, terZ;
 
+    z = -z;
+
     // x and z value in terms of the terrain
     terX = x / scaleFactor_;
     terZ = z / scaleFactor_;
@@ -577,9 +619,17 @@ float Terrain::getHeight( float x, float z )
     row = (int)(terZ);
     col2 = col1 + 1;
 
+    if (col1 < 0 || col2 < 0 || row < 0) {
+        printf("error: x=%f, z=%f, row=%d, col1=%d, col2=%d\n", x, z,row, col1,col2);
+        return 0.0f;
+    }
+
     // test to make sure still in terrain
-    if ( col2 >= xSize_ )
-        col2 -= xSize_;
+    if ( col1 >= xSize_ || col2 >= xSize_ || row >= zSize_) {
+        //#col2 -= xSize_;
+        printf("a problem?\n");
+        return 0.0f;
+    }
 
     // calculate percentage into cell
     float perX, perZ;
@@ -588,10 +638,10 @@ float Terrain::getHeight( float x, float z )
 
     // get height values at all 4 corners
     float height1, height2, height3, height4;
-    height1 = vertex_[row][col1][1];
-    height2 = vertex_[row][col2][1];
-    height3 = vertex_[row+1][col1][1];
-    height4 = vertex_[row+1][col2][1];
+    height1 = vertex_[col1][row][1];
+    height2 = vertex_[col2][row][1];
+    height3 = vertex_[col1][row+1][1];
+    height4 = vertex_[col2][row+1][1];
 
     // calculate the final height using bilinear interpolation
     float th1 = ( 1 - perZ )*height1 + (perZ*height3 );

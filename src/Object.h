@@ -29,6 +29,7 @@ extern "C" {
 #define _OBJECT_H_
 
 class ParticleSystem;
+class Terrain;
 
 class Object : public ObjectNode
 {
@@ -88,6 +89,8 @@ class Object : public ObjectNode
 
         bool isAlwaysLit_;
 
+        bool enableSphereTest_;
+
     public:
         Object();
         virtual ~Object();
@@ -108,13 +111,13 @@ class Object : public ObjectNode
         void showCollisionBox();
         void showControlTriangle();
 
-        float calcTriangleCenter( void );
+        float calcTriangleCenter( float, float, float );
 
         void init(void);
         void initSettings(void);
         void cleanup(void);
 
-        void loadScript(string file);
+        void loadScript(string file, float args[], int n);
         void animateScript( float elapsedTime );
         void unloadScript();
 
@@ -228,6 +231,15 @@ class Object : public ObjectNode
         string getScriptName() { return scriptName_; }
 
         Vector getOrth() { return orth_; }
+
+        bool getEnableSphereTest() { return enableSphereTest_; }
+
+        virtual void orientOnTerrain(Terrain *temp)
+        {
+
+        }
+
+        virtual void setHeightFromTerrain(Terrain *temp, float offset){}
 
 };
 

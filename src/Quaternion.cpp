@@ -90,14 +90,14 @@ void Quaternion::buildFromEuler( float angleX, float angleY, float angleZ )
 void Quaternion::buildFromAxis( const Vector &v, float angle )
 {
     // this function currently assumes a valid unit vector is passed in Vector v
-	float scale	= sin( angle );
+	float scale	= sin( angle / 2.0f );
 
-    w = cos( angle );
+    w = cos( angle / 2.0f);
 	x = v.x * scale;
 	y = v.y * scale;
 	z = v.z * scale;
 
-	normalize();
+	//normalize();
 }
 
 //------------------------------------------------------------------------------

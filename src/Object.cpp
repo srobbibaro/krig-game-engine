@@ -68,7 +68,7 @@ void Object::initSettings()
     position_.setVector(0.0f, 0.0f, 0.0f);
     scale_.setVector( 1.0f, 1.0f, 1.0f );
 
-    rotation_.loadMultIdentity();
+    //rotation_.loadMultIdentity();
     baseDirection_.setVector( 0.0f, 0.0f, 1.0f );
     direction_.setVector( 0.0f, 0.0f, 1.0f );
     up_.setVector(0.0f, 1.0f, 0.0f);
@@ -100,6 +100,8 @@ void Object::initSettings()
     rotationChanged_ = true;
 
     isAlwaysLit_ = false;
+
+    enableSphereTest_ = true;
 }
 
 void Object::setScript( string name )
@@ -132,7 +134,7 @@ void Object::setScript( string name )
     scriptIndex_ = luaL_ref( L_, LUA_REGISTRYINDEX );
 }
 
-void Object::loadScript(string name)
+void Object::loadScript(string name, float args[], int n)
 {
     // Load this object's animation script
     //luaL_dofile(L_, scriptName_.c_str());
@@ -149,8 +151,12 @@ void Object::loadScript(string name)
     // Push a pointer to the current object for use within the lua function
     lua_pushlightuserdata(L_, (void*)this);
 
+    for (int i = 0; i < n; i++) {
+        lua_pushnumber(L_, args[i]);
+    }
+
     // Call the function with 1 argument and no return values
-    lua_call(L_, 1, 0);
+    lua_call(L_, 1 + n, 0);
 
     // get the result //
     //position.z = (float)lua_tonumber(L_, -1);
@@ -245,7 +251,10 @@ void Object::processCollisions( Object* temp )
             (position_.y - temp->position_.y)*( position_.y - temp->position_.y)+
             (position_.z - temp->position_.z)*( position_.z - temp->position_.z);
 
-            if (radius_sum >= distance) {
+            if (!enableSphereTest_ || !temp->getEnableSphereTest() || radius_sum >= distance) {
+
+                //if (typeId_ == 100 || temp->getTypeId() == 100)
+                    //printf("Collision: id 1=%d, id 2=%d\n", typeId_, temp->getTypeId());
 
              Vector boxA[2];
     Vector boxB[2];
@@ -281,10 +290,10 @@ void Object::processCollisions( Object* temp )
 
 
 //------------------------------------------------------------------------------
-float Object::calcTriangleCenter( void )
+float Object::calcTriangleCenter( float p1, float p2, float p3 )
 {
-    float th1 = ( .5 )*controlPoints_[0].y + (.5*controlPoints_[1].y );
-    float finalHeight = ( .5 )*th1 + ( .5 * controlPoints_[2].y );
+    float th1 = ( .5 )*p1 + (.5*p2 );
+    float finalHeight = ( .5 )*th1 + ( .5 * p3 );
 
     return( finalHeight );
 }

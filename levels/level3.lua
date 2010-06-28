@@ -24,6 +24,9 @@ function on_load(terrain)
     setScript(camera, "./scripts/camera1.lua")
     setPosition(camera, x_start_camera, 15.0, 35.0)
 
+    obj = addObject(terrain, "./scripts/sail_boat.lua")
+    setPosition(obj, 110.0, 0.0, -40.0)
+
     buildWaterStructure( terrain, 220.0, -75.0 )
     buildWaterStructure( terrain, 280.0, -100.0 )
     buildWaterStructure( terrain, 500.0, 0.0 )

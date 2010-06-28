@@ -166,130 +166,38 @@ function on_load(terrain)
 	setPosition(obj, 230, 8, -50.0)
 	setScale(obj, 6.0, 8.0, 6.0)
 
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 145, 5, -25.0)
-	setScale(obj, 2.0, 2.0, 2.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 150, 5, -25.0)
-	setScale(obj, 2.0, 2.0, 2.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 185, 4, -20.0)
-	setScale(obj, 2.0, 2.0, 2.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 190, 3, -15.0)
-	setScale(obj, 2.0, 2.0, 2.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 210, 3, -15.0)
-	setScale(obj, 2.0, 2.0, 2.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 213, 2.5, -12.0)
-	setScale(obj, 2.0, 2.0, 2.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 216, 3, -13.0)
-	setScale(obj, 2.0, 2.0, 2.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 255, 3.0, -15.0)
-	setScale(obj, 2.0, 2.0, 2.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 265, 4.5, -20.0)
-	setScale(obj, 2.0, 2.0, 2.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 280, 4.5, -20.0)
-	setScale(obj, 2.0, 2.0, 2.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 285, 3.0, -15.0)
-	setScale(obj, 2.0, 2.0, 2.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 300, 3.0, -15.0)
-	setScale(obj, 2.0, 2.0, 2.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 310, 5.0, -25.0)
-	setScale(obj, 2.0, 2.0, 2.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 313, 6.5, -28.0)
-	setScale(obj, 2.0, 2.0, 2.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 315, 4.5, -24.0)
-	setScale(obj, 2.0, 2.0, 2.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 355, 2.0, -10.0)
-	setScale(obj, 2.0, 2.0, 2.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 365, 3.0, -15.0)
-	setScale(obj, 2.0, 2.0, 2.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 370, 2.0, -10.0)
-	setScale(obj, 2.0, 2.0, 2.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 370, 6.0, -65.0)
-	setScale(obj, 4.0, 4.0, 4.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 375, 6.0, -60.0)
-	setScale(obj, 4.0, 4.0, 4.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 380, 6.0, -55.0)
-	setScale(obj, 4.0, 4.0, 4.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 705, 6.0, -45.0)
-	setScale(obj, 4.0, 4.0, 4.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 708, 6.0, -42.0)
-	setScale(obj, 4.0, 4.0, 4.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 715, 6.0, -45.0)
-	setScale(obj, 4.0, 4.0, 4.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 725, 6.0, -40.0)
-	setScale(obj, 4.0, 4.0, 4.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 735, 6.0, -45.0)
-	setScale(obj, 4.0, 4.0, 4.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 740, 6.0, -42.0)
-	setScale(obj, 4.0, 4.0, 4.0)
-
-    ---------------------------------------
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 980, 9.0, -75.0)
-	setScale(obj, 4.0, 4.0, 4.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 985, 6.5, -70.0)
-	setScale(obj, 4.0, 4.0, 4.0)
-
-	obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 990, 10.0, -80.0)
-	setScale(obj, 4.0, 4.0, 4.0)
-
-    obj = addObject(terrain, "./scripts/pinetree.lua")
-	setPosition(obj, 995, 5.5, -75.0)
-	setScale(obj, 4.0, 4.0, 4.0)
+    -- place pine trees
+	obj = addObject(terrain, "./scripts/pinetree.lua", 145.0, -25.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 150.0, -25.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 185.0, -20.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 190.0, -15.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 210.0, -15.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 213.0, -12.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 216.0, -13.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 255.0, -15.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 265.0, -20.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 280.0, -20.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 285.0, -15.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 300.0, -15.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 310.0, -25.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 313.0, -28.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 315.0, -24.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 355.0, -10.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 365.0, -15.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 370.0, -20.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 370.0, -65.0, 4.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 375.0, -60.0, 4.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 380.0, -55.0, 4.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 705.0, -45.0, 4.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 708.0, -42.0, 4.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 715.0, -45.0, 4.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 725.0, -40.0, 4.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 735.0, -45.0, 4.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 740.0, -42.0, 4.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 980.0, -75.0, 4.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 985.0, -70.0, 4.0)
+	obj = addObject(terrain, "./scripts/pinetree.lua", 990.0, -80.0, 4.0)
+    obj = addObject(terrain, "./scripts/pinetree.lua", 995.0, -75.0, 4.0)
 
 --    playBgMusic("./music/Wily.ogg", 1)
 

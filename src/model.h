@@ -8,6 +8,8 @@ using namespace std;
 #ifndef _MODEL_H_
 #define _MODEL_H_
 
+class Terrain;
+
     struct Triangle
     {
 	    GLuint vertices[3];         // index into model's vertex array
@@ -71,6 +73,9 @@ using namespace std;
             void buildEdges();
 
             void printTypeName() {}
+
+            void orientOnTerrain(Terrain *temp);
+            void setHeightFromTerrain(Terrain *temp, float offset);
 	};
 
 #endif
