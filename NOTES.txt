@@ -220,3 +220,30 @@ New KRIG object lua scripting function:
 New KRIG object lua scripting functions:
     enableAlwaysLit(object_ref) - object is always fully lit regardless of orientation or light position.
     disableAlwaysLit(object_ref) - shading depends on object's orientation and light position.
+
+6/28/10 ~ Steve
+
+New KRIG object lua scripting functions:
+    orientOnTerrain(object_ref) - set object's height to terrain's height at object's position; orient object so that it is "setting" on                                   the terrain.
+    setHeightFromTerrain(object_ref, offset) - set the object's height to terrain's height at object's position + offset.
+
+New scrpiting functionality:
+    Numeric values placed after the script path in calls to "addObject" will be passed to that object's on_load call after the "this" argument.
+
+    Example:
+        Level file; 
+            addObject(terrain, "./scripts/object1.lua", 1, 2.0, 3)
+
+        ./scripts/object1.lua:
+            function on_load(this, val1, val2, val3)
+                if val1 ~= nil and val2 ~= nil and val3 ~= nil then
+                    print ("val1="..val1.." val2="..val2.." val3="..val3.."\n")
+                end
+
+                -- do object init
+            end
+
+        Output: val1=1 val2=2.0 val3=3
+
+    Note: Only 8 values can be sent into the on_load function. These values must be numeric. You currently cannot use strings or tables.
+    Note: Lua does not enforce that all parameters in the parameter list are defined, so you have to do it.
