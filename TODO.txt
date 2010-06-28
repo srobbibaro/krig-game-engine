@@ -1,13 +1,13 @@
 3/11/07 ~ Steve
     x Steve: level 2 boss ai.
-    * Steve: water level boss ai... (considerably toned down).
+    * Andy: water level boss ai... (considerably toned down).
     * Steve: use beams to stop the player's progress.
     * Steve/Andy: level 4 - place objects/ai.
     * Steve: fix missile ai.
-    * Steve: change blue power up to be health bonus. (4/3/10 ~Steve)
+    x Steve: change blue power up to be health bonus. (4/3/10 ~Steve)
     * Steve: verify weather effects still work.
     * Steve/Andy: odds and ends and clean up.
-    * Andy: place enemy ships in level 2.
+    * Steve/Andy: place enemy ships in level 2.
     * Andy: water level (design this whole level)  place objects.
     * Andy: boss ai (revamped level 1 boss) for level 4.
     * Andy: simple script to move into trench.
@@ -129,7 +129,7 @@
     * Investigate issue with terrain display list not drawing all visible terrain when scale factor is changed from 5.0 (found with 10.0).
 
 4/16/10 ~ Steve
-    * Investigate low performance of level 2 (terrain related)?
+    x Investigate low performance of level 2 (terrain related)? (6/28/10 ~ Steve - performance seems fine on this level)
     x Implement new mountains in level 2. (6/18/10 ~Steve)
     * Give terrains a new file extention (something other than 'txt').
     * Investigate ability to pre-compile lua scripts for final release.
