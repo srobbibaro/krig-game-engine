@@ -234,7 +234,7 @@ class Object : public ObjectNode
 
         bool getEnableSphereTest() { return enableSphereTest_; }
 
-        virtual void orientOnTerrain(Terrain *temp)
+        virtual void orientOnTerrain(Terrain *temp, Quaternion baseRotation)
         {
 
         }

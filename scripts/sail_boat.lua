@@ -8,7 +8,7 @@ function on_load(this)
 end
 
 function on_update(this, elapsedTime)
-    orientOnTerrain(this)
+    orientOnTerrain(this, 0.0, 3.14, 0.0)
     return
 end
 

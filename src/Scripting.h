@@ -1538,7 +1538,10 @@ static int orientOnTerrainLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Model *object = static_cast<Model*>(lua_touserdata(L, 1));
 
-    object->orientOnTerrain(lgameLevel->getTerrain());
+    Quaternion rotation;
+    rotation.buildFromEuler(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+
+    object->orientOnTerrain(lgameLevel->getTerrain(), rotation);
 
     return 0;
 }

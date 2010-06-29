@@ -610,7 +610,7 @@ void Model::buildEdges()
         */
     }
 
-    void Model::orientOnTerrain(Terrain *temp)
+    void Model::orientOnTerrain(Terrain *temp, Quaternion baseRotation)
     {
         if (temp == NULL)
             return;
@@ -641,9 +641,12 @@ void Model::buildEdges()
 
                     up.setVector( 0.0f, 1.0f, 0.0f );
                     Vector rotationAxis; rotationAxis.crossProduct( up, normal );
-
                     float rotationAngle = normal.dotProduct( up );
-                    setRotationAxis(rotationAxis,rotationAngle);
+
+                    Quaternion orientRotation; orientRotation.buildFromAxis(rotationAxis, rotationAngle);
+                    rotation_ = baseRotation * orientRotation;
+
+                    //setRotationAxis(rotationAxis,rotationAngle);
                     position_.y = height;
                     rotationChanged_ = true;
                 //}

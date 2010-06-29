@@ -74,7 +74,7 @@ class Terrain;
 
             void printTypeName() {}
 
-            void orientOnTerrain(Terrain *temp);
+            void orientOnTerrain(Terrain *temp, Quaternion baseRotation);
             void setHeightFromTerrain(Terrain *temp, float offset);
 	};
 
