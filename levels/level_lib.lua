@@ -166,3 +166,44 @@ function setup_volcano(terrain, xpos, zpos)
         setPosition( obj, xpos, i, zpos )
     end
 end
+
+function setAsteroidWave(terrain, x_start, x_end)
+    for i = x_start, x_end, 15 do
+        obj = addObject(terrain, "./scripts/asteroid.lua")
+        setPosition(obj, i, 30.0, 7.5)
+
+        obj = addObject(terrain, "./scripts/asteroid.lua")
+        setPosition(obj, (i + 5.0), 30.0, 7.5)
+
+        obj = addObject(terrain, "./scripts/asteroid.lua")
+        setPosition(obj, (i + 10.0), 30.0, 7.5)
+    end 
+
+    return
+end
+
+function setSweepingFromAboveEnemyShips(terrain, x_start, x_end, x_step, y, z)
+    for i = x_start, x_end, x_step do
+        obj = addObject(terrain, "./scripts/enemy_ship2.lua")
+        setPosition(obj, i, y, z)
+    end
+end
+          
+function setSweepingFromBelowEnemyShips(terrain, x_start, x_end, x_step, y, z)
+    for i = x_start, x_end, x_step do
+        obj = addObject(terrain, "./scripts/enemy_ship3.lua")
+        setPosition(obj, i, y, z)
+    end 
+end
+
+function buildDockedGroup(terrain, x_start, x_end, x_step, y, z)
+    for i = x_start, x_end, x_step do
+        obj = addObject(terrain, "./scripts/enemy_ship11.lua")
+        setPosition(obj, i, y, z)
+        setRotation(obj, 0.2, 0.0, 0.0)
+
+        obj = addObject(terrain, "./scripts/enemy_ship11.lua")
+        setPosition(obj, i + 5.0, y, z)
+        setRotation(obj, 0.2, 0.0, 0.0)
+    end 
+end

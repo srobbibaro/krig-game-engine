@@ -4,58 +4,10 @@ x_start_camera = 110.0
 x_start_player = x_start_camera -- 30.0
 --x_start_boss   = x_start_camera + 10.0
 
-bossBattle = 0
 boss = nil
 bossLife = 0
 
-enemy_ship_wave = {
-    {position = {400.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
-    {position = {405.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
-    {position = {410.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
-    {position = {415.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
-    {position = {420.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
-    {position = {430.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
-    {position = {435.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
-    {position = {445.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
-    {position = {450.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
-    {position = {453.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
-    {position = {456.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
-    {position = {459.0, 30.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship8.lua"},
-    {position = {490.0, 0.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship9.lua"},
-    {position = {495.0, 0.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship9.lua"},
-    {position = {500.0, 0.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship9.lua"},
-    {position = {505.0, 0.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship9.lua"},
-    {position = {510.0, 0.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship9.lua"},
-    {position = {515.0, 0.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship9.lua"},
-    {position = {520.0, 0.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship9.lua"},
-    {position = {570.0, 10.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
-    {position = {575.0, 10.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
-    {position = {580.0, 10.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
-    {position = {630.0, 15.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
-    {position = {635.0, 15.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
-    {position = {640.0, 15.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
-    {position = {690.0, 20.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
-    {position = {695.0, 20.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
-    {position = {700.0, 20.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
-    {position = {750.0, 25.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
-    {position = {755.0, 25.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
-    {position = {760.0, 25.0, 0.0}, velocity = {0.0, 0.0, 0.0}, script = "./scripts/enemy_ship10.lua"},
-}
-
-function buildDockedGroup(terrain)
-    for i = 645, 890, 25 do
-        obj = addObject(terrain, "./scripts/enemy_ship11.lua")
-        setPosition(obj, i, 30.25, -53.0)
-        setRotation(obj, 0.2, 0.0, 0.0)
-
-        obj = addObject(terrain, "./scripts/enemy_ship11.lua")
-        setPosition(obj, i + 5.0, 30.25, -53.0)
-        setRotation(obj, 0.2, 0.0, 0.0)
-    end
-end
-
 function setupEnemyShips(terrain)
-
     -- Intro ships
     obj = addObject(terrain, "./scripts/enemy_ship1.lua")
     setPosition(obj, 160, 15, 7.5)
@@ -81,15 +33,8 @@ function setupEnemyShips(terrain)
     buildVGroup(terrain, 350, 17, 7.5)
 
     -- Interlacing swoops
-    for i = 500, 570, 10 do
-        obj = addObject(terrain, "./scripts/enemy_ship2.lua")
-        setPosition(obj, i, 22.0, 7.5)
-    end
-
-    for i = 505, 575, 10 do
-        obj = addObject(terrain, "./scripts/enemy_ship3.lua")
-        setPosition(obj, i, 8.0, 7.5)
-    end
+    setSweepingFromBelowEnemyShips(terrain, 500, 570, 10, 22.0, 7.5)
+    setSweepingFromBelowEnemyShips(terrain, 505, 575, 10, 8.0, 7.5)
 
     buildCircleGroup(terrain, 5, 900.0, 25.0, 7.5)
     buildCircleGroup(terrain, 5, 975.0, 20.0, 7.5)
@@ -99,24 +44,7 @@ function setupEnemyShips(terrain)
     buildCircleGroup(terrain, 5, 1275.0, 20.0, 7.5)
     buildCircleGroup(terrain, 5, 1350.0, 25.0, 7.5)
 
-    buildDockedGroup(terrain)
-
-
-end
-
-function setAsteroidWave(terrain, x_start, x_end)
-    for i = x_start, x_end, 15 do
-        obj = addObject(terrain, "./scripts/asteroid.lua")
-	    setPosition(obj, i, 30.0, 7.5)
-
-        obj = addObject(terrain, "./scripts/asteroid.lua")
-	    setPosition(obj, (i + 5.0), 30.0, 7.5)
-
-        obj = addObject(terrain, "./scripts/asteroid.lua")
-	    setPosition(obj, (i + 10.0), 30.0, 7.5)
-    end
-
-    return
+    buildDockedGroup(terrain, 645, 890, 25, 30.25, -53.0)
 end
 
 function setupAsteroids(terrain)
@@ -149,21 +77,7 @@ function on_load(terrain)
     setupEnemyShips(terrain)
     setupAsteroids(terrain)
 
---[[
-    for i,v in ipairs(enemy_ship_wave) do
-        obj = addObject(terrain, v.script)
-        setPositionv(obj, v.position)
-        --setVelocityv(obj, v.velocity)
-    end
---]]
-
-
     -- scenery
-
-
-
-    --obj = addObject(terrain, "./scripts/boss2.lua")
-    --setPosition(obj, x_start_boss, 15.0, 7.5)
 
     --playBgMusic("./music/Woodman.ogg", 1)
     

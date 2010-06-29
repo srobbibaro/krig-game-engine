@@ -3,24 +3,8 @@ dofile("./levels/level_lib.lua")
 x_start_camera = 110.0 -- 110.0
 x_start_player = x_start_camera - 20.0
 
---bossBattle = 0
 boss = nil
 bossLife = 0
-
-function setAsteroidWave(terrain, x_start, x_end)
-    for i = x_start, x_end, 15 do
-        obj = addObject(terrain, "./scripts/asteroid.lua")
-	    setPosition(obj, i, 30.0, 7.5)
-
-        obj = addObject(terrain, "./scripts/asteroid.lua")
-	    setPosition(obj, (i + 5.0), 30.0, 7.5)
-
-        obj = addObject(terrain, "./scripts/asteroid.lua")
-	    setPosition(obj, (i + 10.0), 30.0, 7.5)
-    end
-
-    return
-end
 
 function on_load(terrain)
     setSkyBox(0.0, 0.0, 0.3,
@@ -103,17 +87,9 @@ function on_load(terrain)
     --  setup the asteroids --   
     setAsteroidWave(terrain, 410.0, 560.0)
 
-    --  sweeping enemy ships - sweeping from above --
-    for i = 610, 635, 5 do
-	    obj = addObject(terrain, "./scripts/enemy_ship2.lua")
-	    setPosition(obj, i, 22.0, 7.5)
-    end
-	      
-	-- sweeping from below --
-    for i = 675, 700, 5 do
-	    obj = addObject(terrain, "./scripts/enemy_ship3.lua")
-	    setPosition(obj, i, 8.0, 7.5)
-    end
+    --  sweeping enemy ships 
+    setSweepingFromAboveEnemyShips(terrain, 610, 635, 5, 22.0, 7.5)
+    setSweepingFromBelowEnemyShips(terrain, 675, 700, 5, 8.0, 7.5)
 	
     -- 2nd wave of asteroids --
     setAsteroidWave(terrain, 730.0, 810.0)
