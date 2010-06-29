@@ -355,7 +355,7 @@ void reshape( GLint width, GLint height )
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
 
-    gluPerspective( 45.0f, (GLfloat)width/(GLfloat)height, 0.001f, 300.0f );
+    gluPerspective( 45.0f, (GLfloat)800/(GLfloat)600, 0.001f, 300.0f );
 
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
