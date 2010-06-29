@@ -149,5 +149,11 @@
     * Investigate AL Lib errors on shutdown.
 
 6/23/10 ~ Steve
-    * Replace primary color on enemy ship and other models to produce a greater variety of models; apply different colored models to           different object scripts.
-    x Fix memory leak in terrain class. (6/24/10 ~Steve)
+    * Replace primary color on enemy ship and other models to produce a greater variety of models; apply different colored models to           different object scripts. Should this be a feature of the scripting engine? 
+    x Fix memory leak in terrain class. (6/24/10 ~ Steve)
+
+6/28/10 ~ Steve
+    * Investigate use of SDL in engine.
+    * Look into what's required for shadows again?
+    * Implement smoke particle system for use on the player/enemies when they are hit or in critical condition.
+    * Investigate sound stuttering issue when game is not run in full screen.
