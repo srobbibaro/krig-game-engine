@@ -943,6 +943,18 @@ static int terrain_setVertexTypeLua(lua_State *L)
 	return 0;
 }
 
+static int terrain_getHeightLua(lua_State *L)
+{
+    float x = lua_tonumber(L,1);
+    float z = lua_tonumber(L,2);
+
+    float height = (float)lgameLevel->getTerrain()->getHeight(x, z);
+
+    lua_pushnumber(L, height);
+
+	return 1;
+}
+
 static int setScaleLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
@@ -1661,6 +1673,7 @@ static int registerFunctions(lua_State *L, int level)
     lua_register(L, "terrain_setVertexHeight", terrain_setVertexHeightLua);
     lua_register(L, "terrain_setVertexColor", terrain_setVertexColorLua);
     lua_register(L, "terrain_setVertexType", terrain_setVertexTypeLua);
+    lua_register(L, "terrain_getHeight", terrain_getHeightLua);
     lua_register(L, "camera_addRotation", camera_addRotationLua);
 
     // text based functions

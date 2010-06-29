@@ -231,16 +231,11 @@ void Object::animateScript(float elapsedTime)
 //------------------------------------------------------------------------------
 void Object::processCollisions( Object* temp )
 {
-       if ( this != temp &&
-         active_ && temp->active_ &&
-         state_ == NORMAL && temp->state_ == NORMAL &&
-         isCollisionDetectionEnabled_ && temp->isCollisionDetectionEnabled_ &&
-         this != NULL && temp != NULL ) {
- /*
+    if ( this != temp && active_ && temp->active_ && state_ == NORMAL &&
+         temp->state_ == NORMAL && isCollisionDetectionEnabled_ &&
+         temp->isCollisionDetectionEnabled_ && this != NULL && temp != NULL ) {
 
- */
-    //# try a sphere-based collision
-
+        //# try a sphere-based collision
         float radius1 = boundingSphere_.getRadius();
         float radius2 = boundingSphere_.getRadius();
         float radius_sum = radius1 + radius2;
@@ -251,31 +246,31 @@ void Object::processCollisions( Object* temp )
             (position_.y - temp->position_.y)*( position_.y - temp->position_.y)+
             (position_.z - temp->position_.z)*( position_.z - temp->position_.z);
 
-            if (!enableSphereTest_ || !temp->getEnableSphereTest() || radius_sum >= distance) {
+        if (!enableSphereTest_ || !temp->getEnableSphereTest() || radius_sum >= distance) {
+            Vector boxA[2];
+            Vector boxB[2];
 
-                //if (typeId_ == 100 || temp->getTypeId() == 100)
-                    //printf("Collision: id 1=%d, id 2=%d\n", typeId_, temp->getTypeId());
-
-             Vector boxA[2];
-    Vector boxB[2];
-
-    boxA[0].setVector(collisionBox_[0].x + position_.x, collisionBox_[0].y + position_.y, collisionBox_[0].z + position_.z);
-    boxA[1].setVector(collisionBox_[1].x + position_.x, collisionBox_[1].y + position_.y, collisionBox_[1].z + position_.z);
-    boxB[0].setVector(temp->collisionBox_[0].x + temp->position_.x, temp->collisionBox_[0].y + temp->position_.y, temp->collisionBox_[0].z + temp->position_.z);
-    boxB[1].setVector(temp->collisionBox_[1].x + temp->position_.x, temp->collisionBox_[1].y + temp->position_.y, temp->collisionBox_[1].z + temp->position_.z);
+            boxA[0].setVector(collisionBox_[0].x + position_.x, collisionBox_[0].y + position_.y, collisionBox_[0].z + position_.z);
+            boxA[1].setVector(collisionBox_[1].x + position_.x, collisionBox_[1].y + position_.y, collisionBox_[1].z + position_.z);
+            boxB[0].setVector(temp->collisionBox_[0].x + temp->position_.x, temp->collisionBox_[0].y + temp->position_.y, temp->collisionBox_[0].z + temp->position_.z);
+            boxB[1].setVector(temp->collisionBox_[1].x + temp->position_.x, temp->collisionBox_[1].y + temp->position_.y, temp->collisionBox_[1].z + temp->position_.z);
 
              if( ((boxA[0].x >= boxB[0].x && boxA[0].x <= boxB[1].x) ||
-            (boxA[1].x >= boxB[0].x && boxA[1].x <= boxB[1].x)  ||
-            (boxB[0].x >= boxA[0].x && boxB[0].x <= boxA[1].x)  ||
-            (boxB[1].x >= boxA[0].x && boxB[1].x <= boxA[1].x)) &&
-            ((boxA[0].y >= boxB[0].y && boxA[0].y <= boxB[1].y) ||
-            (boxA[1].y >= boxB[0].y && boxA[1].y <= boxB[1].y)  ||
-            (boxB[0].y >= boxA[0].y && boxB[0].y <= boxA[1].y)  ||
-            (boxB[1].y >= boxA[0].y && boxB[1].y <= boxA[1].y)) &&
-            ((boxA[0].z >= boxB[0].z && boxA[0].z <= boxB[1].z) ||
-            (boxA[1].z >= boxB[0].z && boxA[1].z <= boxB[1].z)  ||
-            (boxB[0].z >= boxA[0].z && boxB[0].z <= boxA[1].z)  ||
-            (boxB[1].z >= boxA[0].z && boxB[1].z <= boxA[1].z)) ) {
+                 (boxA[1].x >= boxB[0].x && boxA[1].x <= boxB[1].x)  ||
+                 (boxB[0].x >= boxA[0].x && boxB[0].x <= boxA[1].x)  ||
+                 (boxB[1].x >= boxA[0].x && boxB[1].x <= boxA[1].x)) &&
+                 ((boxA[0].y >= boxB[0].y && boxA[0].y <= boxB[1].y) ||
+                 (boxA[1].y >= boxB[0].y && boxA[1].y <= boxB[1].y)  ||
+                 (boxB[0].y >= boxA[0].y && boxB[0].y <= boxA[1].y)  ||
+                 (boxB[1].y >= boxA[0].y && boxB[1].y <= boxA[1].y)) &&
+                 ((boxA[0].z >= boxB[0].z && boxA[0].z <= boxB[1].z) ||
+                 (boxA[1].z >= boxB[0].z && boxA[1].z <= boxB[1].z)  ||
+                 (boxB[0].z >= boxA[0].z && boxB[0].z <= boxA[1].z)  ||
+                 (boxB[1].z >= boxA[0].z && boxB[1].z <= boxA[1].z)) ) {
+
+                //if (typeId_ == 100 || temp->getTypeId() == 100)
+                   // printf("Collision: id 1=%d, id 2=%d\n", typeId_, temp->getTypeId());
+
                 //cout << "Collision! object 1=" << this->typeId_ << " object 2=" << temp->typeId_ << endl;
                 handleCollision( temp );
                 temp->handleCollision(this);

@@ -31,6 +31,25 @@ function on_unload(this)
 end
 
 function on_collision(this, temp)
-    handle_collision(this, temp)
+    this_id = getTypeId(this)
+    temp_id = getTypeId(temp)
+
+    if temp_id == 100 then
+        this_pos = getPosition(this)
+        this_radius = getBoundingSphereRadius(this)
+        terrain_height = terrain_getHeight(this_pos[1], this_pos[3])
+
+--        print("this_radius="..this_radius.." this_pos[1]="..this_pos[1].." this_pos[2]="..this_pos[2].." this_pos[3]="..this_pos[3].." height="..terrain_height.."\n")
+
+        if (this_pos[2] - this_radius) <= terrain_height then
+            playSound(this, "explosion.wav")
+
+            create_explosion(this)
+            removeObject(this)
+        end
+    else
+        handle_collision(this, temp)
+    end
+
     return
 end

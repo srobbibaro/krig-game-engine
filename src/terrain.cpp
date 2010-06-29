@@ -593,7 +593,7 @@ void Terrain::update( Vector* light )
     }
 
     if (lastLight_.x != light->x || lastLight_.y != light->y || lastLight_.z != light->z) {
-        calcTerrainNorm( light );
+        calcViewableTerrainNorm();
         lastLight_.setVector(light->x, light->y, light->z);
     }
 }
@@ -648,6 +648,8 @@ float Terrain::getHeight( float x, float z )
     float th2 = ( 1 - perZ )*height2 + (perZ*height4 );
 
     float finalHeight = ( 1 - perX )*th1 + ( perX * th2 );
+
+    //printf("returning height=%f\n", finalHeight);
 
     return ( finalHeight );
 }
@@ -778,14 +780,17 @@ void Terrain::animate( float elapsedTime, Object* c )
     calcViewableTerrainNorm();
 
 
-    collisionBox_[0].setVector( min[0], min[1], min[2] );
-    collisionBox_[1].setVector( max[0], max[1], max[2] );
+    //collisionBox_[0].setVector( min[0], min[1], min[2] );
+    //collisionBox_[1].setVector( max[0], max[1], max[2] );
 }
 
 //------------------------------------------------------------------------------
 void Terrain::load( const char* filePath, Vector* light )
 {
     init();
+
+    GLfloat min[] = { 9999.0f, 9999.0f, 9999.0f };
+    GLfloat max[] = { -9999.0f, -9999.0f, -9999.0f };
 
     light_ = light;
 
@@ -830,6 +835,14 @@ void Terrain::load( const char* filePath, Vector* light )
                         type_[x][z] = 3;
                     }
                 }
+
+                for (int i = 0; i < 3; i++) {
+                    if (vertex_[x][z][i] < min[i])
+                        min[i] = vertex_[x][z][i];
+
+                    if (vertex_[x][z][i] > max[i])
+                        max[i] = vertex_[x][z][i];
+                }
             }
         }
 
@@ -843,7 +856,14 @@ void Terrain::load( const char* filePath, Vector* light )
     // calculate normals in code for now, later add static calculation to be
     // loaded in... only water will be dynamic
     calcTerrainNorm(light);
+
+    collisionBox_[0].setVector( min[0], min[1], min[2] );
+    collisionBox_[1].setVector( max[0], max[1], max[2] );
+
+    printf("Terrain Collisoin Box min x=%f, y=%f, z=%f\n", collisionBox_[0].x, collisionBox_[0].y, collisionBox_[0].z);
+    printf("Terrain Collisoin Box max x=%f, y=%f, z=%f\n", collisionBox_[1].x, collisionBox_[1].y, collisionBox_[1].z);
 }
+
 
 void Terrain::unload()
 {

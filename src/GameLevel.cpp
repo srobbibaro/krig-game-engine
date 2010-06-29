@@ -68,10 +68,10 @@ void GameLevel::drawLevel()
         dynamic_cast<Camera*>(camera_)->draw(camera_);
     }
 
-    //-if (bboxes_)
-        //((Object*)objects_.head)->showCollisionBox();
+    if (bboxes_)
+        ((Object*)objects_.head)->showCollisionBox();
 
-    //if (controlTriangles_)
+    if (controlTriangles_)
         ((Object*)objects_.head)->showControlTriangle();
 
     //terrain->drawShadows( light );
