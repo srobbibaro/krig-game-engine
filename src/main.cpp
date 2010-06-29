@@ -18,7 +18,6 @@
 
 #include <cstdio>
 #include <ctype.h>
-#include <fstream>
 #include <cmath>
 #include <ctime>
 #include "Engine.h"
