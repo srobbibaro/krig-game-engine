@@ -157,3 +157,5 @@
     * Look into what's required for shadows again?
     * Implement smoke particle system for use on the player/enemies when they are hit or in critical condition.
     * Investigate sound stuttering issue when game is not run in full screen.
+    * Investigate if there is any value in replacing GLUT with native OS windowing.
+    * Investigate building engine in Windows version of Code::Blocks.
