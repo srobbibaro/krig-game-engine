@@ -224,7 +224,9 @@ New KRIG object lua scripting functions:
 6/28/10 ~ Steve
 
 New KRIG object lua scripting functions:
-    orientOnTerrain(object_ref) - set object's height to terrain's height at object's position; orient object so that it is "setting" on                                   the terrain.
+    orientOnTerrain(object_ref, x_rot, y_rot, z_rot) - set object's height to terrain's height at object's position; orient object so                                                           that it is "setting" on the terrain. x/y/z_rot are used to specify a base rotation
+                                                       for the object. The base rotation is applied before the object is placed on the
+                                                       terrain.
     setHeightFromTerrain(object_ref, offset) - set the object's height to terrain's height at object's position + offset.
 
 New scrpiting functionality:
