@@ -159,3 +159,8 @@
     * Investigate sound stuttering issue when game is not run in full screen.
     * Investigate if there is any value in replacing GLUT with native OS windowing.
     * Investigate building engine in Windows version of Code::Blocks.
+
+6/28/10 ~ Steve
+    * Investigate use of cut-scenes between levels; could be a simple screen which says "Level 1" or simply a text overlay.
+    * Investigate new ideas for the title screen.
+    * Investigate new ideas for the credits.
