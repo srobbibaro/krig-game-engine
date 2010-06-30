@@ -1,6 +1,6 @@
 dofile("./levels/level_lib.lua")
 
-x_start_camera = 110.0 -- 110.0
+x_start_camera = 770.0 -- 110.0
 x_start_player = x_start_camera - 20.0
 
 boss = nil
@@ -98,11 +98,11 @@ function on_load(terrain)
 	obj6 = addObject(terrain, "./scripts/enemy_ship4.lua")
 	setPosition(obj6, 882, 15, 37.5)
 		
-	obj5 = addObject(terrain, "./scripts/enemy_ship5.lua")
+	obj5 = addObject(terrain, "./scripts/enemy_ship4.lua")
 	setPosition(obj5, 880, 10, 37.5)
 		
 	obj4 = addObject(terrain, "./scripts/enemy_ship4.lua")
-	setPosition(obj4, 890, 15, 37.5)
+	setPosition(obj4, 890, 12, 37.5)
 	
 	obj3 = addObject(terrain, "./scripts/enemy_ship6.lua")
 	setPosition(obj3, 900, 15, 37.5)
