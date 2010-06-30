@@ -164,3 +164,4 @@
     * Investigate use of cut-scenes between levels; could be a simple screen which says "Level 1" or simply a text overlay.
     * Investigate new ideas for the title screen.
     * Investigate new ideas for the credits.
+    * Think about appropriate way to place/drop power-ups.
