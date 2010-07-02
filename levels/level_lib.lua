@@ -207,3 +207,18 @@ function buildDockedGroup(terrain, x_start, x_end, x_step, y, z)
         setRotation(obj, 0.2, 0.0, 0.0)
     end 
 end
+
+function buildFlyingCircleUpGroup(terrain, num, space, x_start, y, z)
+    for i = 0, num, 1 do
+        obj = addObject(terrain, "./scripts/enemy_ship12.lua")
+        setPosition(obj, x_start + (i * space), y, z)
+    end 
+end
+
+function buildFlyingCircleDownGroup(terrain, num, space, x_start, y, z)
+    for i = 0, num, 1 do
+        obj = addObject(terrain, "./scripts/enemy_ship13.lua")
+        setPosition(obj, x_start + (i * space), y, z)
+    end 
+end
+

@@ -1,8 +1,7 @@
 dofile("./levels/level_lib.lua")
 
 x_start_camera = 110.0
-x_start_player = x_start_camera -- 30.0
---x_start_boss   = x_start_camera + 10.0
+x_start_player = x_start_camera - 30.0
 
 boss = nil
 bossLife = 0
@@ -45,6 +44,37 @@ function setupEnemyShips(terrain)
     buildCircleGroup(terrain, 5, 1350.0, 25.0, 7.5)
 
     buildDockedGroup(terrain, 645, 890, 25, 30.25, -53.0)
+
+    setupFlyingCircleEnemyShips(terrain)
+end
+
+function setupFlyingCircleEnemyShips(terrain)
+    obj = addObject(terrain, "./scripts/enemy_ship12.lua")
+    setPosition(obj, 1410.0, 5.0, 7.5)
+    obj = addObject(terrain, "./scripts/enemy_ship12.lua")
+    setPosition(obj, 1420.0, 8.0, 7.5)
+    obj = addObject(terrain, "./scripts/enemy_ship12.lua")
+    setPosition(obj, 1430.0, 11.0, 7.5)
+    obj = addObject(terrain, "./scripts/enemy_ship12.lua")
+    setPosition(obj, 1440.0, 13.0, 7.5)
+    obj = addObject(terrain, "./scripts/enemy_ship12.lua")
+    setPosition(obj, 1450.0, 13.0, 7.5)
+    obj = addObject(terrain, "./scripts/enemy_ship12.lua")
+    setPosition(obj, 1460.0, 11.0, 7.5)
+    obj = addObject(terrain, "./scripts/enemy_ship12.lua")
+    setPosition(obj, 1470.0, 8.0, 7.5)
+    obj = addObject(terrain, "./scripts/enemy_ship12.lua")
+    setPosition(obj, 1480.0, 5.0, 7.5)
+
+    buildFlyingCircleUpGroup(terrain, 4, 5, 1510.0, 11.0, 7.5)
+    buildFlyingCircleUpGroup(terrain, 4, 5, 1555.0, 8.0, 7.5)
+    buildFlyingCircleUpGroup(terrain, 4, 5, 1600.0, 5.0, 7.5)
+
+    buildFlyingCircleUpGroup(terrain, 4, 5, 1645.0, 15.0, 7.5)
+    buildFlyingCircleDownGroup(terrain, 4, 5, 1645.0, 13.0, 7.5)
+
+    buildFlyingCircleDownGroup(terrain, 7, 20, 1690.0, 20.0, 7.5)
+    buildFlyingCircleUpGroup(terrain, 7, 20, 1700.0, 8.0, 7.5)
 end
 
 function setupAsteroids(terrain)
