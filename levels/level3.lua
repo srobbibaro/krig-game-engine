@@ -1,6 +1,6 @@
 dofile("./levels/level_lib.lua")
 
-x_start_camera = 110.0 -- 110.0
+x_start_camera = 750.0 -- 110.0
 x_start_player = x_start_camera - 20.0
 
 boss = nil
@@ -23,8 +23,8 @@ function on_load(terrain)
     setScript(camera, "./scripts/camera1.lua")
     setPosition(camera, x_start_camera, 15.0, 35.0)
 
-    obj = addObject(terrain, "./scripts/sail_boat.lua")
-    setPosition(obj, 110.0, 0.0, -40.0)
+    setupSailboats( terrain )
+    setupCannonboats( terrain )
 
     buildWaterStructure( terrain, 220.0, -75.0 )
     buildWaterStructure( terrain, 280.0, -100.0 )
@@ -107,4 +107,31 @@ function buildWaterStructure( terrain, xpos, zpos )
     setScale(obj, 5.0, 3.0, 5.0)
     setPosition(obj, xpos+5.0, 5.0, zpos+15)
     setRotation(obj, 0.0, 0.0, -2.0)
+end
+
+function setupSailboats( terrain )
+    local obj = addObject( terrain, "./scripts/sail_boat.lua" )
+    setPosition(obj, 270.0, 0.0, -65.0 )
+
+    obj = addObject( terrain, "./scripts/sail_boat.lua" )
+    setPosition(obj, 350.0, 0.0, -100.0 )
+
+    obj = addObject( terrain, "./scripts/sail_boat.lua" )
+    setPosition(obj, 550.0, 0.0, -80.0 )
+end
+
+function setupCannonboats( terrain )
+    local obj = addObject( terrain, "./scripts/cannon_boat.lua" )
+    --setPosition(obj, 800.0, 0.0, -75.0 )
+    setPosition(obj, 800.0, 0.0, -40.0 )
+    obj = addObject( terrain, "./scripts/cannonball.lua" )
+    --setPosition(obj, 800.0, 5.0, -73.5 )
+    setPosition(obj, 800.0, 5.0, -38.5 )
+
+    obj = addObject( terrain, "./scripts/cannon_boat.lua" )
+    --setPosition(obj, 840.0, 0.0, -80.0 )
+    setPosition(obj, 840.0, 0.0, -35.0 )
+    obj = addObject( terrain, "./scripts/cannonball.lua" )
+    --setPosition(obj, 840.0, 5.0, -78.5 )
+    setPosition(obj, 840.0, 5.0, -33.5 )
 end
