@@ -3,7 +3,6 @@ function on_load(this)
     setRotation(this, 0.0, -1.57, 0.0)     
     disableCollisionDetection(this)
     setScale(this, 7.0, 7.0, 7.0)
-    setVelocity(this, 10.0, 0.0, 0.0)
     return
 end
 
@@ -19,10 +18,10 @@ end
 function on_collision(this, temp)
     temp_id = getTypeId(temp)
 
-    print("tempid="..temp_id.."\n")
+--    print("tempid="..temp_id.."\n")
 
     if temp_id == 100 then
-        print "here\n"
+--        print "here\n"
         orientOnTerrain(this)
     end
     return
