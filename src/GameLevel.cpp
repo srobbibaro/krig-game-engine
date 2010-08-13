@@ -188,18 +188,24 @@ bool GameLevel::loadLevelLua( string file )
     registerFunctions(luaState_, 1);
 
     // load the script
+#if DEBUG
     printf("[GameLevel] Loading Lua level script '%s'...\n", file.c_str());
+#endif
 	luaL_dofile(luaState_, file.c_str());
     ////////////////////////////////////////////////////////
 
     terrain_ = new Terrain();
     player_ = new Player();
 
+#if DEBUG
     printf("[GameLevel] Terrain and Player allocated.\n");
+#endif
 
     objects_.insertFront(terrain_);
 
+#if DEBUG
     printf("[GameLevel] Terrain stored in objects list.\n");
+#endif
 
     if (camera_ == NULL) {
         printf("Error: Camera was not allocated in GameLevel class.\n");
@@ -211,7 +217,9 @@ bool GameLevel::loadLevelLua( string file )
     lgameLevel = this;
 
     // Find the update function and call it
+#if DEBUG
     printf("[GameLevel] Calling Lua level script 'on_load' function...\n");
+#endif
     lua_getglobal(luaState_, "on_load");
 
     // Push a pointer to the current object for use within the lua function
@@ -220,7 +228,9 @@ bool GameLevel::loadLevelLua( string file )
     // Call the function with 1 argument and no return values
     lua_call(luaState_, 1, 0);
 
+#if DEBUG
     printf("[GameLevel] Lua level script 'on_load' function complete.\n");
+#endif
 
     // get the result //
     //position.z = (float)lua_tonumber(luaState_, -1);
@@ -231,24 +241,34 @@ bool GameLevel::loadLevelLua( string file )
     objects_.insertFront(player_);
     ////////////////////////////////////////////
 
+#if DEBUG
     printf("[GameLevel] Building quad tree...\n");
+#endif
 
     quadTree_.buildTree(terrain_);
     //q->traverseTree();
 
+#if DEBUG
     printf("[GameLevel] Building display list...\n");
+#endif
     quadTree_.buildDisplayList(&displayList_, dynamic_cast<Camera*>(camera_));
     //q->buildLeafList(luaState_);
+
+#if DEBUG
     printf("[GameLevel] Traversing list...\n");
+#endif
     displayList_.traverseList();
     //sleep(10000);
     //exit(1);
 
+#if DEBUG
     printf("[GameLevel] Finished building quad tree.\n");
-
+#endif
     terrain_->setDisplayList(&displayList_);
 
+#if DEBUG
     printf("[GameLevel] Finished loading level.\n\n");
+#endif
     return (true);
 }
 
@@ -431,9 +451,13 @@ void GameLevel::unloadLevel()
         lua_call(luaState_, 1, 0);
     }
 
+#if DEBUG
     printf("[GameLevel] Removing objects...");
+#endif
     removeObjects();
+#if DEBUG
     printf("done.\n");
+#endif
 
     if (luaState_ != NULL)
         lua_close(luaState_);
