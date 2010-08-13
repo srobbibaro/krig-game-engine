@@ -249,3 +249,10 @@ New scrpiting functionality:
 
     Note: Only 8 values can be sent into the on_load function. These values must be numeric. You currently cannot use strings or tables.
     Note: Lua does not enforce that all parameters in the parameter list are defined, so you have to do it.
+
+8/12/10 ~ Steve
+
+New KRIG object lua scripting function:
+    camera_getFrutumPlane(n) - return the definition of the specified plane (list containing a, b, c and d where Ax + By + Cz + D = 0). 
+                               n must be an integer in [0-6). n specifies the plan number (in relation to the camera) to return: 
+                               0 - left, 1 - right, 2 - down, 3 - up, 4 - far, 5 - near. 
