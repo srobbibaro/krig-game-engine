@@ -12,9 +12,11 @@ class ScriptedObject : public Model
         virtual ~ScriptedObject();
 
         void printTypeName(void)
-         {
+        {
+#if DEBUG
             printf("ScriptedObject");
-         }
+#endif
+        }
 };
 
 

@@ -10,7 +10,11 @@ class Player : public Model
         virtual ~Player();
 
         void printTypeName(void)
-        { printf("Player"); }
+        {
+#if DEBUG
+            printf("Player");
+#endif
+        }
 };
 
 

@@ -321,10 +321,14 @@ void display()
     glutSetWindow( mainWin );
 #endif
     if (!KRIG->getIsRunning()) {
+#if DEBUG
         printf("[main] Shutting down...\n");
+#endif
         delete KRIG;
         alutExit();
+#if DEBUG
         printf("[main] Finished shutting down.\n");
+#endif
         exit(0);
     }
 
@@ -400,6 +404,7 @@ void glutInit(void)
     //glutPassiveMotionFunc ( mouseMove );
     glutMotionFunc ( mouseMove );
     glutIgnoreKeyRepeat(0);
+    //glutIgnoreKeyRepeat(1);
 }
 
 //------------------------------------------------------------------------------

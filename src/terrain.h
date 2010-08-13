@@ -44,7 +44,12 @@ class Terrain : public Object
         float getHeight( float, float );
 
         // remove from final version //
-        void printTypeName(void) { printf("Terrain"); }
+        void printTypeName(void)
+        {
+#if DEBUG
+            printf("Terrain");
+#endif
+        }
  		void drawGrid(void);
 
 
