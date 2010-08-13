@@ -1,30 +1,29 @@
-3/11/07 ~ Steve
-    x Steve: level 2 boss ai.
-    * Andy: water level boss ai... (considerably toned down).
-    * Steve: use beams to stop the player's progress.
-    * Steve/Andy: level 4 - place objects/ai.
-    * Steve: fix missile ai.
-    x Steve: change blue power up to be health bonus. (4/3/10 ~Steve)
-    * Steve: verify weather effects still work.
-    * Steve/Andy: odds and ends and clean up.
-    * Steve/Andy: place enemy ships in level 2.
-    * Andy: water level (design this whole level)  place objects.
-    * Andy: boss ai (revamped level 1 boss) for level 4.
-    * Andy: simple script to move into trench.
+3/11/07 ~ Steve 
+    x Steve: level 2 boss ai.  
+    * Andy: water level boss ai... (considerably toned down).  
+    * Steve: use beams to stop the player's progress.  
+    * Steve/Andy: level 4 - place objects/ai.  
+    * Steve: fix missile ai.  
+    x Steve: change blue power up to be health bonus. (4/3/10 ~Steve) 
+    * Steve: verify weather effects still work.  
+    * Steve/Andy: odds and ends and clean up.  
+    * Steve/Andy: place enemy ships in level 2.  
+    * Andy: water level (design this whole level)  place objects.  
+    * Andy: boss ai (revamped level 1 boss) for level 4.  
+    * Andy: simple script to move into trench.  
 
-11/24/08 ~ Steve
-    x implement "setTestZoneEnable" lua function. (12/22/08 ~ Steve: no longer applies)
-    x determine whether it would be beneficial to over-ride "on_update" so that engine calls a different specified function. (12/22/08 ~ Steve: added ability to change script which should be sufficient).
-    x determine whether or not ScriptedObject::animCurrTime is necessary especially in regards to interpolation... would elaped time/ duration suffice? (1/2/09 ~ Steve)
+11/24/08 ~ Steve 
+    x implement "setTestZoneEnable" lua function. (12/22/08 ~ Steve: no longer applies) 
+    x determine whether it would be beneficial to over-ride "on_update" so that engine calls a different specified function. (12/22/08 ~ Steve: added ability to change script which should be sufficient).  
+    x determine whether or not ScriptedObject::animCurrTime is necessary especially in regards to interpolation... would elaped time/ duration suffice? (1/2/09 ~ Steve) 
 
-11/26/08 ~ Steve
-    x Commit newest snow boss script to both krig branches.
-    x Commit newest level 4 terrain to both krig branches.
-    x Steve: Convert level1.lvl to level1.lua.
-    x Steve: Convert Snow Boss script to lua.
-    x Andy: Convert volcano script to lua. (6/18/10 ~ Andy)
-    x Andy: Convert level 1 sweeping ships to lua (2/22/08 ~ Andy).
-    x Steve/Andy: Convert level1 boss script to lua. (12/22/08 ~ Steve)
+11/26/08 ~ Steve 
+    x Commit newest snow boss script to both krig branches.  
+    x Commit newest level 4 terrain to both krig branches.  
+    x Steve: Convert level1.lvl to level1.lua.  x Steve: Convert Snow Boss script to lua.  
+    x Andy: Convert volcano script to lua. (6/18/10 ~ Andy) 
+    x Andy: Convert level 1 sweeping ships to lua (2/22/08 ~ Andy).  
+    x Steve/Andy: Convert level1 boss script to lua. (12/22/08 ~ Steve) 
     x Implement ability to change script or to end script. (12/22/08 ~ Steve)
 
 11/27/08 ~ Steve
@@ -165,3 +164,9 @@
     * Investigate new ideas for the title screen.
     * Investigate new ideas for the credits.
     * Think about appropriate way to place/drop power-ups.
+
+8/11/10 ~ Steve
+    x Only output console debug when DEBUG is set (use preprocessor). (8/11/10 ~ Steve)
+    * Consider changing shoot from 'space' to a key which can be checked for pressed/released states.
+    * Investigate allowing users to map keys.
+    * Investigate why non-special keys do not properly indicate when key is pressed or released.
