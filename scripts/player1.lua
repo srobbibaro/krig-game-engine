@@ -114,7 +114,48 @@ function on_update(this, elapsedTime)
         if leftDown == 1 then this_velocity[1] = this_velocity[1] - 10 end
 	    if rightDown == 1 then this_velocity[1] = this_velocity[1] + 10 end
 
+
+        this_pos = getPosition(this)
+        plane = camera_getFrustumPlane(1)
+        x = -(((plane[3] * this_pos[3]) + plane[4]) / plane[1])
+        --Ax + By + Cz + D = 0
+
+        if this_pos[1] > x - getBoundingSphereRadius(this) then
+            --setPosition(this, x - getBoundingSphereRadius(this), this_pos[2], this_pos[3])
+            this_pos[1] = x - getBoundingSphereRadius(this)
+            --this_velocity[1] = 0.0
+        end
+
+        plane = camera_getFrustumPlane(0)
+        x = -(((plane[3] * this_pos[3]) + plane[4]) / plane[1])
+        --Ax + By + Cz + D = 0
+
+        if this_pos[1] < x + getBoundingSphereRadius(this) then
+            --setPosition(this, x + getBoundingSphereRadius(this), this_pos[2], this_pos[3])
+            this_pos[1] = x + getBoundingSphereRadius(this)
+            --this_velocity[1] = 0.0
+        end
+
+        plane = camera_getFrustumPlane(2)
+        y = -(((plane[3] * this_pos[3]) + plane[4]) / plane[2])
+        --Ax + By + Cz + D = 0
+
+        if this_pos[2] < y + getBoundingSphereRadius(this) then
+            --setPosition(this, this_pos[1], y + getBoundingSphereRadius(this), this_pos[3])
+            this_pos[2] = y + getBoundingSphereRadius(this)
+        end
+
+        plane = camera_getFrustumPlane(3)
+        y = -(((plane[3] * this_pos[3]) + plane[4]) / plane[2])
+        --Ax + By + Cz + D = 0
+
+        if this_pos[2] > y - getBoundingSphereRadius(this) then
+            --setPosition(this, this_pos[1], y - getBoundingSphereRadius(this), this_pos[3])
+            this_pos[2] = y - getBoundingSphereRadius(this)
+        end
+
         setVelocityv(this, this_velocity)
+        setPositionv(this, this_pos)
 
         if engine_testKeyPressed(32) == 1 then 
             attemptShot(this, (getBoundingSphereRadius(this) - 1.0)) 
