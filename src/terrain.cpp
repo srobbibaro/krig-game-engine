@@ -343,7 +343,9 @@ void Terrain::calcViewableTerrainNorm()
         z2 = ((int)zStart) +1;
 
         if (x2 >= xSize_ || z2 >= zSize_) {
+#if DEBUG
             printf("here!\n");
+#endif
             continue;
         }
 
@@ -620,14 +622,18 @@ float Terrain::getHeight( float x, float z )
     col2 = col1 + 1;
 
     if (col1 < 0 || col2 < 0 || row < 0) {
+#if DEBUG
         printf("error: x=%f, z=%f, row=%d, col1=%d, col2=%d\n", x, z,row, col1,col2);
+#endif
         return 0.0f;
     }
 
     // test to make sure still in terrain
     if ( col1 >= xSize_ || col2 >= xSize_ || row >= zSize_) {
         //#col2 -= xSize_;
+#if DEBUG
         printf("a problem?\n");
+#endif
         return 0.0f;
     }
 
@@ -859,9 +865,10 @@ void Terrain::load( const char* filePath, Vector* light )
 
     collisionBox_[0].setVector( min[0], min[1], min[2] );
     collisionBox_[1].setVector( max[0], max[1], max[2] );
-
+#if DEBUG
     printf("Terrain Collisoin Box min x=%f, y=%f, z=%f\n", collisionBox_[0].x, collisionBox_[0].y, collisionBox_[0].z);
     printf("Terrain Collisoin Box max x=%f, y=%f, z=%f\n", collisionBox_[1].x, collisionBox_[1].y, collisionBox_[1].z);
+#endif
 }
 
 
