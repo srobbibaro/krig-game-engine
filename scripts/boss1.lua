@@ -34,6 +34,7 @@ function on_update(this, elapsedTime)
             setVelocity(this, 0.0, -10.0, 0.0)
             enableCollisionDetection(this)
         end
+        return
     elseif state == 1 then
         if this_pos[2] < (cam_pos[2] - 5.0) then
             state = 2
