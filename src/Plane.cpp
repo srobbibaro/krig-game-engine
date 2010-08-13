@@ -3,10 +3,10 @@
 //------------------------------------------------------------------------------
 Plane::Plane(void)
 {
-    a = 1.0f;
-    b = 0.0f;
-    c = 0.0f;
-    d = 0.0f;
+    a_ = 1.0f;
+    b_ = 0.0f;
+    c_ = 0.0f;
+    d_ = 0.0f;
 }
 
 //------------------------------------------------------------------------------
@@ -15,41 +15,41 @@ Plane::~Plane(void)
 }
 
 //------------------------------------------------------------------------------
-void Plane::setPlane(float tA, float tB, float tC, float tD)
+void Plane::setPlane(float a, float b, float c, float d)
 {
-    a = tA;
-    b = tB;
-    c = tC;
-    d = tD;
+    a_ = a;
+    b_ = b;
+    c_ = c;
+    d_ = d;
 }
 
 //------------------------------------------------------------------------------
 void Plane::normalize(void)
 {
-    float len = sqrt((a * a) + (b * b) + (c * c));
-    
+    float len = sqrt((a_ * a_) + (b_ * b_) + (c_ * c_));
+
     if (len != 0.0f) {
-        a = (a / len);
-        b = (b / len);
-        c = (c / len);
-        d = (d / len);
+        a_ = (a_ / len);
+        b_ = (b_ / len);
+        c_ = (c_ / len);
+        d_ = (d_ / len);
     }
 }
 
 //------------------------------------------------------------------------------
 float Plane::distanceToPoint(const float &x, const float &y, const float &z)
 {
-    return ((a * x) + (b * y) + (c * z) + d);
+    return ((a_ * x) + (b_ * y) + (c_ * z) + d_);
 }
 
 //------------------------------------------------------------------------------
 int Plane::classifyPoint(const float &x, const float &y, const float &z)
 {
-    float len = (a * x) + (b * y) + (c * z) + d;
-    
-    if (len < 0) 
+    float len = (a_ * x) + (b_ * y) + (c_ * z) + d_;
+
+    if (len < 0)
         return (-1);
-    else if (len > 0) 
+    else if (len > 0)
         return (1);
     else
         return (0);
@@ -58,7 +58,13 @@ int Plane::classifyPoint(const float &x, const float &y, const float &z)
 //------------------------------------------------------------------------------
 void Plane::getNormalVector(Vector &v)
 {
-    v.setVector(a, b, c);
+    v.setVector(a_, b_, c_);
+}
+
+//------------------------------------------------------------------------------
+void Plane::getDefinition(float &a, float &b, float &c, float &d)
+{
+    a = a_; b = b_; c = c_; d = d_;
 }
 
 

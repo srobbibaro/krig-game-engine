@@ -321,6 +321,36 @@ static int camera_addRotationLua(lua_State *L)
 	return 0;
 }
 
+static int camera_getFrustumPlaneLua(lua_State *L)
+{
+    int plane_num = lua_tonumber(L,1);
+    float a, b, c, d;
+
+    static_cast<Camera*>(lcamera)->getFrustum()->getPlaneDefinition(plane_num, a, b, c, d);
+
+    //printf("%f %f %f %f\n", a, b, c, d);
+
+    lua_newtable(L);
+
+    lua_pushnumber(L, 1);
+    lua_pushnumber(L, a);
+    lua_rawset(L, -3);
+
+    lua_pushnumber(L, 2);
+    lua_pushnumber(L, b);
+    lua_rawset(L, -3);
+
+    lua_pushnumber(L, 3);
+    lua_pushnumber(L, c);
+    lua_rawset(L, -3);
+
+    lua_pushnumber(L, 4);
+    lua_pushnumber(L, d);
+    lua_rawset(L, -3);
+
+	return 1;
+}
+
 static int addRotationvLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
@@ -705,7 +735,7 @@ static int setRotationAxisvLua(lua_State *L)
     Vector v;
     rotation.getEulerAngles(v);
 
-    printf("rotation x=%f y=%f z=%f\n", v.x, v.y, v.z);
+    //printf("rotation x=%f y=%f z=%f\n", v.x, v.y, v.z);
 
    	object->setRotationChanged(true);
 
@@ -1675,6 +1705,7 @@ static int registerFunctions(lua_State *L, int level)
     lua_register(L, "terrain_setVertexType", terrain_setVertexTypeLua);
     lua_register(L, "terrain_getHeight", terrain_getHeightLua);
     lua_register(L, "camera_addRotation", camera_addRotationLua);
+    lua_register(L, "camera_getFrustumPlane", camera_getFrustumPlaneLua);
 
     // text based functions
     lua_register(L, "setFadeRate", setFadeRateLua);

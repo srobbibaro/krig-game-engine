@@ -41,12 +41,14 @@ class Camera : public Object
         void getRotationMatrix( Matrix &m ) const;
 
         void printTypeName(void) {
+#if DEBUG
             printf("camera");
+#endif
         }
 
         void draw(Object*);
 
-        void getFrustum(Frustum &f);
+        Frustum *getFrustum();
 
         void drawOutline( Object* ) {}; // Camera*
         void drawShadow ( Vector* ) {}

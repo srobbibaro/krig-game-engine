@@ -189,9 +189,9 @@ void Camera::getRotationMatrix( Matrix &m ) const
 }
 
 //------------------------------------------------------------------------------
-void Camera::getFrustum(Frustum &f)
+Frustum *Camera::getFrustum()
 {
-    //f.setFrustum(
+    return &frustum;
 }
 
 //------------------------------------------------------------------------------
