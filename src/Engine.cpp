@@ -96,7 +96,9 @@ bool Engine::loadGame( string file )
     registerFunctions(luaState_, 0);
 
     // load the script
+#if DEBUG
     printf("[Engine] Loading Lua game script '%s'...\n", file.c_str());
+#endif
 	luaL_dofile(luaState_, file.c_str());
 
 	// Find the update function and call it
@@ -656,7 +658,9 @@ void Engine::loadModels()
             strcat(filePath, de->d_name);
 
             // load model file into model storage //
+#if DEBUG
             printf("[Engine] Loading model file '%s'...", filePath);
+#endif
 
             model = new ModelStorage();
             model->load(filePath);
@@ -665,7 +669,9 @@ void Engine::loadModels()
             // insert model file into model hash //
             hashKey = string(de->d_name);
             modelHash[hashKey] = model;
+#if DEBUG
             printf("done.\n");
+#endif
         }
     }
 

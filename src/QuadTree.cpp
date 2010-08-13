@@ -70,19 +70,23 @@ void QuadTree::traverseTree(void)
 void QuadTree::traverseTree(QuadTreeNode* n)
 {
     if (n != NULL) {
+#if DEBUG
         printf("---------------------------\n");
         printf("min x: %d, max x: %d\n", n->min[0], n->max[0]);
         printf("min z: %d max z: %d\n", n->min[1],  n->max[1]);
         printf("---------------------------\n");
+#endif
 
         for (int i = 0; i < 4; i++) {
             traverseTree(n->child[i]);
         }
     }
     else {
+#if DEBUG
         printf("------------------\n");
         printf("leaf node\n");
         printf("------------------\n");
+#endif
     }
 }
 

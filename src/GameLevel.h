@@ -105,7 +105,9 @@ class GameLevel
             else {
                 temp = new ScriptedObject();
                 temp->setScript( script);
+#if DEBUG
                 printf("[GameLevel] Allocated a new object of type '%s'.\n", script.c_str());
+#endif
             }
 
             objects_.insertFront(temp);
@@ -124,12 +126,16 @@ class GameLevel
             if (temp != NULL) {
                 temp->initSettings();
                 freeObjects_[script].remove(temp);
+#if DEBUG
                 printf("[GameLevel] Pulled object of type '%s' from FOM. (FOM size=%d).\n", script.c_str(), freeObjects_[script].size);
+#endif
             }
             else {
                 temp = new ScriptTextType();
                 temp->setScript( script );
+#if DEBUG
                 printf("[GameLevel] Allocated a new object of type '%s'.\n", script.c_str());
+#endif
             }
 
             objects_.insertFront(temp);

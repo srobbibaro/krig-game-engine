@@ -28,7 +28,11 @@ using namespace std;
         ScriptTextType();
 
         void printTypeName(void)
-        { printf("text"); }
+        {
+#if DEBUG
+            printf("text");
+#endif
+        }
 
         void draw(Object*);
         void drawOutline( Object* ) {}; // Camera*
