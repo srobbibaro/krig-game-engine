@@ -170,3 +170,6 @@
     * Consider changing shoot from 'space' to a key which can be checked for pressed/released states.
     * Investigate allowing users to map keys.
     * Investigate why non-special keys do not properly indicate when key is pressed or released.
+
+12/5/10 ~ Steve
+    * Consider changing enemy ship scale.y value from 2.0 to 3.0 (makes it easier for player to hit them with shot and makes them look more "cartoony").
