@@ -16,7 +16,7 @@
 #include <malloc.h>
 
 extern "C" {
-    #include "lauxlib.h"
+    #include "lua/lauxlib.h"
     #include "lua/LuaGL.h"
 }
 
@@ -25,6 +25,7 @@ static void set_field(lua_State *L, unsigned int index, lua_Number value)
 {
    lua_pushnumber(L, index);
    lua_pushnumber(L, value);
+
    lua_settable(L, -3);
 }
 

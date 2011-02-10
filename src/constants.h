@@ -19,7 +19,7 @@ using namespace std;
 #define DEMO        0
 #define PLAY_DEMO   0
 
-#define EDIT        1
+#define EDIT        0
 #define DEBUG       0
 
 // sound library constants //

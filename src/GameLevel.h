@@ -9,9 +9,9 @@
 #include "ObjectList.h"
 
 extern "C" {
-    #include "lua.h"
-    #include "lualib.h"
-    #include "lauxlib.h"
+    #include "lua/lua.h"
+    #include "lua/lualib.h"
+    #include "lua/lauxlib.h"
 }
 
 #ifndef _GAME_LEVEL_H_
@@ -63,6 +63,7 @@ class GameLevel
         void prepareLevel( void);
         void drawLevel( void );
         bool loadLevelLua( string file );
+        bool loadLevelFromBufferLua(const char* buffer);
         void loadScript( string file );
 
         Object* findEnemyOfType( int type );

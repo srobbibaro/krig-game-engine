@@ -94,6 +94,7 @@
 		<Unit filename="src/Sphere.h" />
 		<Unit filename="src/Vector.cpp" />
 		<Unit filename="src/Vector.h" />
+		<Unit filename="src/buffer.h" />
 		<Unit filename="src/constants.h" />
 		<Unit filename="src/gametimer.cpp" />
 		<Unit filename="src/gametimer.h" />

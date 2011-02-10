@@ -20,9 +20,9 @@
 #include "Camera.h"
 
 extern "C" {
-    #include "lua.h"
-    #include "lualib.h"
-    #include "lauxlib.h"
+    #include "lua/lua.h"
+    #include "lua/lualib.h"
+    #include "lua/lauxlib.h"
 }
 
 #ifndef _OBJECT_H_

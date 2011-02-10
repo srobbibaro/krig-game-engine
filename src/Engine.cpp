@@ -4,8 +4,14 @@
 
 #include "Engine.h"
 #include "Scripting.h"
+#include "buffer.h"
+
+extern char* intro_script_buffer;
 
 GameLevel *lgameLevel;
+
+const char* buffer1 = "function on_load()\nreturn\nend\nfunction on_update(elapsedTime)\nreturn\nend\nfunction on_unload()\nreturn\nend\n";
+const char* buffer2 = "function on_load()\nprint \"test!!!!\"\nreturn\nend\nfunction on_update(elapsedTime)\nreturn\nend\nfunction on_unload()\nreturn\nend\nfunction on_draw(elapsedTime)\nreturn\nend\nfunction on_draw_screen(elapsedTime)\ngl.Translate (0.0, 0.0, -2.0)\ngl.Color(1.0, 1.0, 1.0)\ndisplayText(\"KRIG\", -0.69, 0.5, -0.01, 0.005, 0.003)return\nend\n";
 
 //------------------------------------------------------------------------------
 Engine::Engine()
@@ -22,6 +28,7 @@ Engine::Engine()
     // setup game timer /////////////////////////
     if( !timer_.init() ) {
         printf ( "Timer initialization failed." );
+
         exit (1);
     }
     ///////////////////////////////////////////////
@@ -67,6 +74,7 @@ Engine::Engine()
     mouseY_ = 0.0f;
 
     isRunning_ = true;
+    isIntroRunning_ = false;
 }
 
 //------------------------------------------------------------------------------
@@ -109,6 +117,98 @@ bool Engine::loadGame( string file )
 
     return (true);
 }
+
+//------------------------------------------------------------------------------
+bool Engine::loadGameFromBuffer( char* buffer )
+{
+    lengine = this;
+
+    // If the lua state has not been initialized for this object, attempt to
+    // initialize it.
+    if (buffer == "" || luaState_ != NULL)
+        return false;
+
+    luaState_ = lua_open();
+
+    // If the lua state still could not be initialized, then exit the game.
+    // ... we can do something smarter with this in the finished product.
+    if (!luaState_) {
+        printf("Error creating Lua state.\n");
+	    exit(-1);
+    }
+
+	// load Lua base libraries
+	luaL_openlibs(luaState_);
+
+    // Register our functions for use in lua (currently defined in
+    // Object.h)
+    registerFunctions(luaState_, 0);
+
+    // load the script
+#if DEBUG
+    printf("[Engine] Loading Lua game script '%s'...\n", file.c_str());
+#endif
+	//luaL_dofile(luaState_, file.c_str());
+	luaL_loadbuffer(luaState_, buffer, strlen(buffer), "line") || lua_pcall(luaState_, 0, 0, 0);
+
+    printf("here");
+
+	// Find the update function and call it
+    lua_getglobal(luaState_, "on_load");
+
+    // Call the function with 1 argument and no return values
+    lua_call(luaState_, 0, 0);
+
+    return (true);
+}
+
+bool Engine::loadIntroCredits()
+{
+    lengine = this;
+
+    // If the lua state has not been initialized for this object, attempt to
+    // initialize it.
+    if (luaState_ != NULL)
+        return false;
+
+    luaState_ = lua_open();
+
+    // If the lua state still could not be initialized, then exit the game.
+    // ... we can do something smarter with this in the finished product.
+    if (!luaState_) {
+        printf("Error creating Lua state.\n");
+	    exit(-1);
+    }
+
+	// load Lua base libraries
+	luaL_openlibs(luaState_);
+
+    // Register our functions for use in lua (currently defined in
+    // Object.h)
+    registerFunctions(luaState_, 0);
+
+    // load the script
+#if DEBUG
+    printf("[Engine] Loading Lua game script '%s'...\n", file.c_str());
+#endif
+	//luaL_dofile(luaState_, file.c_str());
+
+	luaL_loadbuffer(luaState_, buffer1, strlen(buffer1), "line") || lua_pcall(luaState_, 0, 0, 0);
+
+	// Find the update function and call it
+    //lua_getglobal(luaState_, "on_load");
+
+    // Call the function with 1 argument and no return values
+    //lua_call(luaState_, 0, 0);
+
+    loadLevelFromBuffer(intro_script_buffer);
+        //loadLevel("./levels/intro.lua");
+
+    isIntroRunning_ = true;
+
+    return (true);
+}
+
 
 //------------------------------------------------------------------------------
 void Engine::updateGame(float elapsedTime)
@@ -189,7 +289,13 @@ void Engine::gameCycle()
     #endif
 
     if (currentLevel_ != NULL) {
-        if ( currentLevel_->checkComplete() ) {}
+        if ( currentLevel_->checkComplete() ) {
+            if (isIntroRunning_) {
+                unloadGame();
+                loadGame("./scripts/main.lua");
+                isIntroRunning_ = false;
+            }
+        }
         else {
             if (!isPaused_) {
                 mainCamera_->update(currentLevel_->getElapsedTime());
@@ -637,6 +743,41 @@ void Engine::loadLevel(const char* levelFile)
 
     currentLevel_->loadLevelLua(levelScript_);
     timeElapsed_ = timer_.getElapsedSeconds(1);
+}
+
+void Engine::loadLevelFromBuffer(const char* buffer)
+{
+    //levelScript_ = levelFile;
+
+    if (currentLevel_)
+        delete currentLevel_;
+
+    if (!mainCamera_) {
+        // setup the current level... this really ought to be moved.
+        //mainCamera_ = new Camera();
+        c1_ = new Camera(1);
+        c2_ = new Camera(2);
+        c3_ = new Camera(3);
+        c4_ = new Camera(4);
+
+        mainCamera_ = c1_;
+        c2_->setPosition(0.0f, 100.0f, 0.0f);
+        c2_->setRotationEuler(1.57, 0.0f, 0.0f);
+        c3_->setPosition(0.0f, 0.0f, 0.0f);
+        c4_->setPosition(0.0f, 0.0f, 0.0f);
+    }
+
+    mainCamera_->init();
+    mainCamera_->unloadScript();
+
+    currentLevel_ = new GameLevel(lists_);
+    currentLevel_->setCamera( mainCamera_ );
+
+    lgameLevel = currentLevel_;
+
+    currentLevel_->loadLevelFromBufferLua(buffer);
+    timeElapsed_ = timer_.getElapsedSeconds(1);
+
 }
 
 //------------------------------------------------------------------------------

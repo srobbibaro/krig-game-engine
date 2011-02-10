@@ -2,9 +2,9 @@
 #include "GameLevel.h"
 
 extern "C" {
-    #include "lua.h"
-    #include "lualib.h"
-    #include "lauxlib.h"
+    #include "lua/lua.h"
+    #include "lua/lualib.h"
+    #include "lua/lauxlib.h"
 }
 
 using namespace std;
@@ -40,6 +40,8 @@ class Engine
         float fps_;
 
         bool isRunning_;
+
+        bool isIntroRunning_;
 
         #if DEMO
         ofstream demo;
@@ -79,6 +81,7 @@ class Engine
         void processCommands();
         void processNormalKey( unsigned char );
         void loadLevel(const char*);
+        void loadLevelFromBuffer(const char*);
 
         void setLevelScript(string levelScript)
         {
@@ -86,6 +89,8 @@ class Engine
         }
 
         bool loadGame(string);
+        bool loadGameFromBuffer( char* buffer );
+        bool loadIntroCredits();
         void updateGame(float);
         void unloadGame();
 

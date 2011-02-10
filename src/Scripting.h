@@ -2,9 +2,9 @@
 #define _SCRIPTING_H_
 
 extern "C" {
-    #include "lua.h"
-    #include "lualib.h"
-    #include "lauxlib.h"
+    #include "lua/lua.h"
+    #include "lua/lualib.h"
+    #include "lua/lauxlib.h"
 }
 
 #include "Object.h"
@@ -1321,6 +1321,14 @@ static int loadLevelLua(lua_State *L)
     return 0;
 }
 
+static int loadLevelFromBufferLua(lua_State *L)
+{
+    const char *s = lua_tostring(L, 1);
+    lengine->loadLevel(s);
+
+    return 0;
+}
+
 static int shutdownLua(lua_State *L)
 {
     lengine->shutdown();
@@ -1737,6 +1745,7 @@ static int registerFunctions(lua_State *L, int level)
 
     if (level == 0) {
         lua_register(L, "loadLevel", loadLevelLua);
+        lua_register(L, "loadLevelFromBuffer", loadLevelFromBufferLua);
         lua_register(L, "shutdown", shutdownLua);
         lua_register(L, "pause", pauseLua);
         lua_register(L, "testLevelComplete", testLevelCompleteLua);
