@@ -139,7 +139,7 @@ New KRIG Engine lua scripting functions:
     vector_crossProduct(vector, vector) - returns: vector
 
 12/12/08 ~ Steve
-Engine level script is used for loading levels and handeling global user control. The engine level script controls the game's flow.
+Engine level script is used for loading levels and handling global user control. The engine level script controls the game's flow.
 
 Added "vector" version of all existing set/add KRIG engine lua functions:
 
@@ -229,7 +229,7 @@ New KRIG object lua scripting functions:
                                                        terrain.
     setHeightFromTerrain(object_ref, offset) - set the object's height to terrain's height at object's position + offset.
 
-New scrpiting functionality:
+New scripting functionality:
     Numeric values placed after the script path in calls to "addObject" will be passed to that object's on_load call after the "this" argument.
 
     Example:

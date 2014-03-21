@@ -15,7 +15,7 @@
 11/24/08 ~ Steve 
     x implement "setTestZoneEnable" lua function. (12/22/08 ~ Steve: no longer applies) 
     x determine whether it would be beneficial to over-ride "on_update" so that engine calls a different specified function. (12/22/08 ~ Steve: added ability to change script which should be sufficient).  
-    x determine whether or not ScriptedObject::animCurrTime is necessary especially in regards to interpolation... would elaped time/ duration suffice? (1/2/09 ~ Steve) 
+    x determine whether or not ScriptedObject::animCurrTime is necessary especially in regards to interpolation... would elapsed time/ duration suffice? (1/2/09 ~ Steve) 
 
 11/26/08 ~ Steve 
     x Commit newest snow boss script to both krig branches.  
@@ -85,7 +85,7 @@
     x Implement getLightDirection lua scripting function. (12/16/08 ~ Steve)
 
 12/22/08 ~ Steve
-    x Andy: Consider creating two seperate classes Music and Sound (or similar) from the existing Sound.h/cpp. (1/2/09 ~ Andy)
+    x Andy: Consider creating two separate classes Music and Sound (or similar) from the existing Sound.h/cpp. (1/2/09 ~ Andy)
     x Steve: 'G' key should not map to down arrow key. (4/1/10 ~ Steve)
     * Steve: Fix terrain collision detection (use QuadTree and test spheres).
     x Steve: Implement ability to set variables in a script (opposite of getScriptValue). (4/7/10 ~ Steve)
@@ -101,7 +101,7 @@
     x Steve: Create water level (level 3) terrain. (4/1/09 ~ Steve)
 
 4/1/09 ~ Steve
-    x Steve: Create deseret level (level 4) terrain. (4/16/10 ~ Steve - could still be tweaked as required)
+    x Steve: Create desert level (level 4) terrain. (4/16/10 ~ Steve - could still be tweaked as required)
 
 4/4/10 ~ Steve
     x Tally player's score. (4/7/10 ~ Steve)
@@ -130,7 +130,7 @@
 4/16/10 ~ Steve
     x Investigate low performance of level 2 (terrain related)? (6/28/10 ~ Steve - performance seems fine on this level)
     x Implement new mountains in level 2. (6/18/10 ~Steve)
-    * Give terrains a new file extention (something other than 'txt').
+    * Give terrains a new file extension (something other than 'txt').
     * Investigate ability to pre-compile lua scripts for final release.
     * Create high score system.
     x Cleanup Objech.h/cpp (private vs. public data). (4/29/10 ~ Steve)
@@ -141,7 +141,7 @@
     * Allow terrain to be positioned using object's position attribute.
 
 5/6/10 ~ Steve
-    * Implement starfield for background of level 4 and level 5.
+    * Implement star field for background of level 4 and level 5.
 
 6/17/10 ~ Steve
     * Fix bug in Engine::shutdown function, so that it can be used.
