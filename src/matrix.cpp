@@ -1,13 +1,6 @@
 //////////////////////////////////////////////////////////////////
-// Authors     : Steve Robbibaro     sar2                       //
-//             : Andrew Yochum       amyst14                    //
-//                                                              //
-// Filename    : matrix.cpp                                     //
-//                                                              //
 // Description : Functions to handle matrix multiplication for  //
 //               object transformations.                        //
-//                                                              //
-// Date        : 12-1-03                                        //
 //////////////////////////////////////////////////////////////////
 #include "matrix.h"
 

@@ -1,12 +1,5 @@
 //////////////////////////////////////////////////////////////////
-// Authors     : Steve Robbibaro     sar2                       //
-//             : Andrew Yochum       amyst14                    //
-//                                                              //
-// Filename    : matrix.h                                       //
-//                                                              //
 // Description : Class for handling matrix math.                //
-//                                                              //
-// Date        : 12-1-03                                        //
 //////////////////////////////////////////////////////////////////
 #include <math.h>
 #include <stdio.h>

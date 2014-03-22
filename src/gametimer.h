@@ -1,12 +1,5 @@
 //////////////////////////////////////////////////////////////////
-// Authors     : Steve Robbibaro     sar2                       //
-//             : Andrew Yochum       amyst14                    //
-//                                                              //
-// Filename    : gametimer.h                                    //
-//                                                              //
 // Description : Class for handling game timing and delay       //
-//                                                              //
-// Date        : 12-1-03                                        //
 //////////////////////////////////////////////////////////////////
 //#include <windows.h>
 

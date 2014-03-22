@@ -1,12 +1,5 @@
 //////////////////////////////////////////////////////////////////
-// Authors     : Steve Robbibaro     sar2                       //
-//             : Andrew Yochum       amyst14                    //
-//                                                              //
-// Filename    : gametimer.cpp                                  //
-//                                                              //
 // Description : Handles timing and delay during gameplay       //
-//                                                              //
-// Date        : 12-1-03                                        //
 //////////////////////////////////////////////////////////////////
 //#include <windows.h>
 

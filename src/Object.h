@@ -1,15 +1,5 @@
-// objects.h
-// 11/12/2003
-
 //////////////////////////////////////////////////////////////////
-// Authors     : Steve Robbibaro     sar2                       //
-//             : Andrew Yochum       amyst14                    //
-//                                                              //
-// Filename    : objects.h                                      //
-//                                                              //
 // Description : Class for managing model data.                 //
-//                                                              //
-// Date        : 05-8-04                                        //
 //////////////////////////////////////////////////////////////////
 
 #include "ObjectNode.h"

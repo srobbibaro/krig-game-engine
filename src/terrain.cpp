@@ -1,12 +1,5 @@
 //////////////////////////////////////////////////////////////////
-// Authors     : Steve Robbibaro     sar2                       //
-//             : Andrew Yochum       amyst14                    //
-//                                                              //
-// Filename    : terrain.cpp                                    //
-//                                                              //
 // Description : Functions for terrain generation and display.  //
-//                                                              //
-// Date        : 05-8-04                                        //
 //////////////////////////////////////////////////////////////////
 #include "terrain.h"
 

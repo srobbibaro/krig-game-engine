@@ -1,13 +1,6 @@
 //////////////////////////////////////////////////////////////////
-// Authors     : Steve Robbibaro     sar2                       //
-//             : Andrew Yochum       amyst14                    //
-//                                                              //
-// Filename    : objects.cpp                                    //
-//                                                              //
-// Description : Functions displaying models and storing their  //
-//               transformation data                            //
-//                                                              //
-// Date        : 12-1-03                                        //
+// Description : Functions for displaying models and storing    //
+//               their transformation data                      //
 //////////////////////////////////////////////////////////////////
 
 #include <stdlib.h>

@@ -1,13 +1,6 @@
 //////////////////////////////////////////////////////////////////
-// Authors     : Steve Robbibaro     sar2                       //
-//             : Andrew Yochum       amyst14                    //
-//                                                              //
-// Filename    : text.cpp                                       //
-//                                                              //
 // Description : Functions for displaying stroke fonts and      //
 //               bitmap fonts.                                  //
-//                                                              //
-// Date        : 12-1-03                                        //
 //////////////////////////////////////////////////////////////////
 //#include <windows.h>
 #include <GL/glut.h>

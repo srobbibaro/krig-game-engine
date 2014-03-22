@@ -1,12 +1,5 @@
 //////////////////////////////////////////////////////////////////
-// Authors     : Steve Robbibaro     sar2                       //
-//             : Andrew Yochum       amyst14                    //
-//                                                              //
-// Filename    : main.cpp                                       //
-//                                                              //
 // Description : Handles basic game logic and windowing.        //
-//                                                              //
-// Date        : 05-8-04                                        //
 //////////////////////////////////////////////////////////////////
 
 // included files ///////////////////////////////

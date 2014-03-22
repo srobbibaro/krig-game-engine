@@ -1,13 +1,6 @@
 //////////////////////////////////////////////////////////////////
-// Authors     : Steve Robbibaro     sar2                       //
-//             : Andrew Yochum       amyst14                    //
-//                                                              //
-// Filename    : terrain.h                                      //
-//                                                              //
 // Description : Class for handling terrain display and         //
 //               generation.                                    //
-//                                                              //
-// Date        : 05-8-04                                        //
 //////////////////////////////////////////////////////////////////
 
 using namespace std;
