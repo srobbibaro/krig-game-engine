@@ -13,14 +13,17 @@ SoundFX::SoundFX() {
     string files[256];
 
     SFXDir = opendir( "./sounds/" );
-    Num_of_SFX = 0;
-    while ( de = readdir( SFXDir ) ) {
-        if ( strstr( de->d_name, ".wav" ) ) {
-            files[Num_of_SFX] = string( de->d_name );
-            Num_of_SFX++;
+
+    if (SFXDir != NULL) {
+        Num_of_SFX = 0;
+        while ( de = readdir( SFXDir ) ) {
+            if ( strstr( de->d_name, ".wav" ) ) {
+                files[Num_of_SFX] = string( de->d_name );
+                Num_of_SFX++;
+            }
         }
+        closedir( SFXDir );
     }
-    closedir( SFXDir );
 
     // Init buffers and sources.
     Buffers = new ALuint[Num_of_SFX];

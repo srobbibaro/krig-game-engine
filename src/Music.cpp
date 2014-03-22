@@ -23,16 +23,20 @@ Music::~Music() {
     alDeleteSources( 1, &Source );
 }
 
-// PlaySong() 
+// PlaySong()
 //
 // Plays a specified song file.  Accepts a file path to the song and
 // a boolean representing whether or not the song should be looped.
 
 void Music::PlaySong( const char* file_path, bool rep ) {
-    Repeat = rep;
-
     // Open binary file and set up the ov_open function for reading.
     Music_File = fopen( file_path, "rb" );
+
+    if (Music_File == NULL)
+        return;
+
+    Repeat = rep;
+
     ov_open( Music_File, &Ogg_File, NULL, 0 );
 
     // Get format infomation from the info struct.
@@ -69,7 +73,7 @@ void Music::PlaySong( const char* file_path, bool rep ) {
 // currently allocated song buffers.  Takes no parameters.
 
 void Music::StopSong() {
-    if ( !Playing ) 
+    if ( !Playing )
         return;
 
     alSourceStop( Source );  // Stops OpenAL.
@@ -90,6 +94,9 @@ void Music::StopSong() {
 // already paused.  Takes no parameters.
 
 void Music::PauseSong() {
+    if (!Playing)
+        return;
+
     alSourcePause( Source );
     Playing = !Playing;
 }
@@ -141,7 +148,7 @@ void Music::Update() {
 // first three represent the listener's X, Y, and Z position, and the second
 // three represent the relative X, Y, and Z velocity.
 
-void Music::SetMusicListener( ALfloat PosX, ALfloat PosY, ALfloat PosZ, 
+void Music::SetMusicListener( ALfloat PosX, ALfloat PosY, ALfloat PosZ,
                          ALfloat VelX, ALfloat VelY, ALfloat VelZ ) {
 
     ALfloat ListenerPos[3] = { PosX, PosY, PosZ };
