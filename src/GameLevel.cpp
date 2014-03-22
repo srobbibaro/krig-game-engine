@@ -305,7 +305,7 @@ bool GameLevel::loadLevelFromBufferLua( const char* buffer )
 
     // load the script
 #if DEBUG
-    printf("[GameLevel] Loading Lua level script '%s'...\n", file.c_str());
+    printf("[GameLevel] Loading Lua level script from buffer...\n");
 #endif
 	//uaL_dofile(luaState_, file.c_str());
 	luaL_loadbuffer(luaState_, buffer, strlen(buffer), "line") ||

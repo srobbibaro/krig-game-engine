@@ -146,7 +146,7 @@ bool Engine::loadGameFromBuffer( char* buffer )
 
     // load the script
 #if DEBUG
-    printf("[Engine] Loading Lua game script '%s'...\n", file.c_str());
+    printf("[Engine] Loading Lua game script from buffer...\n");
 #endif
 	//luaL_dofile(luaState_, file.c_str());
 	luaL_loadbuffer(luaState_, buffer, strlen(buffer), "line") || lua_pcall(luaState_, 0, 0, 0);
@@ -189,7 +189,7 @@ bool Engine::loadIntroCredits()
 
     // load the script
 #if DEBUG
-    printf("[Engine] Loading Lua game script '%s'...\n", file.c_str());
+    printf("[Engine] Loading Lua game script 'intro credits'...\n");
 #endif
 	//luaL_dofile(luaState_, file.c_str());
 
