@@ -151,8 +151,6 @@ bool Engine::loadGameFromBuffer( char* buffer )
 	//luaL_dofile(luaState_, file.c_str());
 	luaL_loadbuffer(luaState_, buffer, strlen(buffer), "line") || lua_pcall(luaState_, 0, 0, 0);
 
-    printf("here");
-
 	// Find the update function and call it
     lua_getglobal(luaState_, "on_load");
 

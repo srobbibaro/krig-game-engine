@@ -21,7 +21,6 @@ function on_collision(this, temp)
 --    print("tempid="..temp_id.."\n")
 
     if temp_id == 100 then
---        print "here\n"
         orientOnTerrain(this)
     end
     return

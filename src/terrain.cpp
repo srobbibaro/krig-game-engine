@@ -336,9 +336,6 @@ void Terrain::calcViewableTerrainNorm()
         z2 = ((int)zStart) +1;
 
         if (x2 >= xSize_ || z2 >= zSize_) {
-#if DEBUG
-            printf("here!\n");
-#endif
             continue;
         }
 
