@@ -1,0 +1,11 @@
+# main executable
+krig
+
+# build files
+*.o
+*.so
+*.a
+
+# project files
+krig.depend
+krig.layout
