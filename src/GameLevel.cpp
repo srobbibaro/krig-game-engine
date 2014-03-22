@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <cstring>
 
 #include "GameLevel.h"
 #include "ScriptedObject.h"

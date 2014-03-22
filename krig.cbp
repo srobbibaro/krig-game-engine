@@ -28,26 +28,16 @@
 			<Add directory="./src/" />
 		</Compiler>
 		<Linker>
-			<Add option="lib/liblua5.1.a" />
-			<Add option="lib/libvorbisfile.a" />
-			<Add option="lib/libvorbisenc.a" />
-			<Add option="lib/libvorbis.a" />
-			<Add option="lib/libogg.a" />
-			<Add option="lib/libalut.a" />
-			<Add option="lib/libopenal32.a" />
-			<Add option="lib/libglut32.a" />
-			<Add option="lib/libopengl32.a" />
-			<Add option="lib/libglu32.a" />
-			<Add library="/usr/lib/liblua5.1.a" />
-			<Add library="/usr/lib/libvorbisfile.so.3.2.0" />
-			<Add library="/usr/lib/libvorbisenc.so.2.0.3" />
-			<Add library="/usr/lib/libvorbis.so.0.4.0" />
-			<Add library="/usr/lib/libalut.a" />
-			<Add library="/usr/lib/libogg.so.0.5.3" />
-			<Add library="/usr/lib/libopenal.a" />
-			<Add library="/usr/lib/libglut.a" />
-			<Add library="/usr/lib/libGL.so" />
-			<Add library="/usr/lib/libGLU.a" />
+			<Add library="liblua5.1.a" />
+			<Add library="libvorbisfile" />
+			<Add library="libvorbisenc" />
+			<Add library="libvorbis" />
+			<Add library="libalut.a" />
+			<Add library="libogg" />
+			<Add library="libopenal.a" />
+			<Add library="libglut.a" />
+			<Add library="libGL" />
+			<Add library="libGLU.a" />
 		</Linker>
 		<Unit filename="src/Camera.cpp" />
 		<Unit filename="src/Camera.h" />
