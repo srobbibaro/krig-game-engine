@@ -2,9 +2,9 @@
 #define _SCRIPTING_H_
 
 extern "C" {
-    #include "lua/lua.h"
-    #include "lua/lualib.h"
-    #include "lua/lauxlib.h"
+    #include "lua5.1/lua.h"
+    #include "lua5.1/lualib.h"
+    #include "lua5.1/lauxlib.h"
 }
 
 #include "Object.h"

@@ -16,8 +16,8 @@
 #include <malloc.h>
 
 extern "C" {
-    #include "lua/lauxlib.h"
-    #include "lua/LuaGL.h"
+    #include "lua5.1/lauxlib.h"
+    #include "LuaGL.h"
 }
 
 /* set field of a lua table with a number */

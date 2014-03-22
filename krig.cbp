@@ -24,7 +24,7 @@
 			<Add option="-O2" />
 			<Add option="-O1" />
 			<Add option="-O" />
-			<Add directory="./include/" />
+			<Add option="-fpermissive" />
 			<Add directory="./src/" />
 		</Compiler>
 		<Linker>
@@ -52,6 +52,7 @@
 		<Unit filename="src/KeyState.cpp" />
 		<Unit filename="src/KeyState.h" />
 		<Unit filename="src/LuaGL.cpp" />
+		<Unit filename="src/LuaGL.h" />
 		<Unit filename="src/Music.cpp" />
 		<Unit filename="src/Music.h" />
 		<Unit filename="src/Object.cpp" />

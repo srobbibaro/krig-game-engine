@@ -5,7 +5,7 @@
 #include "ScriptedObject.h"
 #include "Scripting.h"
 
-#include "lua/LuaGL.h"
+#include "LuaGL.h"
 
 Object* lcamera;
 Object* lplayer;

@@ -9,9 +9,9 @@
 #include "ObjectList.h"
 
 extern "C" {
-    #include "lua/lua.h"
-    #include "lua/lualib.h"
-    #include "lua/lauxlib.h"
+    #include "lua5.1/lua.h"
+    #include "lua5.1/lualib.h"
+    #include "lua5.1/lauxlib.h"
 }
 
 #ifndef _GAME_LEVEL_H_
