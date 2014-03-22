@@ -1,4 +1,32 @@
 #ifndef _BUFFER_H_
 #define _BUFFER_H_
-char *intro_script_buffer = "local alpha = 0.0\n\nfunction on_load()\n    return\nend\n\nfunction on_unload()\n    return\nend\n\nfunction on_update(this)\n    return\nend\n\nfunction on_draw()\n    return\nend\n\nfunction on_draw_screen(this, elapsedTime)\n    alpha = alpha + (elapsedTime / 2.0)\n\n    if alpha >= 2.0 then\n        setComplete(1)\n    end\n\n    gl.Translate (0.0, 0.0, -2.0)\n\n--[[\n    gl.Enable(\"BLEND\")\n    \n    gl.LineWidth(15.0)\n    gl.Color(0.6, 0.6, 0.6)\n    displayText(\"KRIG\", -0.69, 0.1, -0.01, 0.003, 0.001) \n\n    gl.LineWidth(3.0)\n    gl.Color(0.0, 0.0, 1.0)\n    displayText(\"KRIG\", -0.69, 0.1, -0.01, 0.003, 0.001)\n--]]\n\n   -- gl.Disable(\"BLEND\")\n   \n    gl.PushMatrix()     --Displays raster text for the game instructions\n    	gl.LineWidth(3.0)\n        --gl.Translate(0.0, -0.4, 0.0)\n\n        gl.Color(0.8, 0.8, 0.8, alpha)\n    	displayText(\"Krig Game Engine\", -0.6, 0.1, -0.01, 0.001, 0.001) \n    	displayText(\"Copyright 2011 Steve Robbibaro and Andrew Yochum\", -0.9, -0.1, -0.01, 0.0005, 0.001) \n        --renderText(\"Krig Game Engine\", -0.2, 0.35)\n        --renderText(\"Copyright 2011 Steve Robbibaro and Andrew Yochum\", -0.6, 0.25)\n    gl.PopMatrix()\n\n    gl.LineWidth(3.0)\n    \n    return\nend\n\n";
+char *intro_script_buffer =
+"local alpha = 0.0 \
+function on_load() \
+return \
+end \
+function on_unload() \
+return \
+end \
+function on_update(this) \
+return \
+end \
+function on_draw() \
+return \
+end \
+function on_draw_screen(this, elapsedTime) \
+alpha = alpha + (elapsedTime / 2.0) \
+if alpha >= 2.0 then \
+setComplete(1) \
+end \
+gl.Translate (0.0, 0.0, -2.0) \
+gl.PushMatrix() \
+gl.LineWidth(3.0) \
+gl.Color(0.8, 0.8, 0.8, alpha) \
+displayText(\"Krig Game Engine\", -0.6, 0.1, -0.01, 0.001, 0.001) \
+displayText(\"2008-2014\", -0.2, -0.1, -0.01, 0.0005, 0.001)  \
+gl.PopMatrix() \
+gl.LineWidth(3.0) \
+return \
+end";
 #endif
