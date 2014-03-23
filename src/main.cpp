@@ -3,8 +3,6 @@
 //////////////////////////////////////////////////////////////////
 
 // included files ///////////////////////////////
-//#include <windows.h>
-//#include <wingdi.h>
 #include <GL/glut.h>
 #include <AL/al.h>
 #include <AL/alut.h>
@@ -18,9 +16,7 @@
 #include <cstdlib>
 
 // global variables /////////////////////////////
-Engine* KRIG;
-
-Engine *lengine;    // used for scripting
+Engine *KRIG, *lengine;
 
 #if EDIT
 // to remove before final build

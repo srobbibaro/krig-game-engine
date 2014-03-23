@@ -10,21 +10,21 @@ class EnemyShip : public Model
     private:
         Object* obj;
         Player* player;             // pointer to player
-                
+
     public:
         void handleCollision( Object* );
         void prepare() {}
-        
+
         EnemyShip();
         EnemyShip( string, string, float*, Player* );
         virtual ~EnemyShip() {}
-        
+
         void processAI( Camera*, float elapsedTime );
         void fireShot();
-        
-        void printTypeName(void) 
+
+        void printTypeName(void)
          {
-            cout << "EnemyShip";
+            PRINT_DEBUG("EnemyShip");
          }
 };
 

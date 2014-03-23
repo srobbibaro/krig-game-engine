@@ -1,77 +1,73 @@
 //////////////////////////////////////////////////////////////////
 // Description : Handles timing and delay during gameplay       //
 //////////////////////////////////////////////////////////////////
-//#include <windows.h>
+#ifdef _WIN32
+    #include <windows.h>
+#endif
 
 #include <sys/time.h>
 #include "gametimer.h"
 
-using namespace std;
-
 //------------------------------------------------------------------------------
 bool GameTimer::init(void)
 {
-    /*
-  if (!QueryPerformanceFrequency(&m_ticksPerSecond))
+#ifdef _WIN32
+    if (!QueryPerformanceFrequency(&m_ticksPerSecond)) {
+        // system doesn't support high-res timer
+        return false;
+    }
 
-    return false;  // system doesn't support high-res timer
-
-  else
-  {
     QueryPerformanceCounter(&m_startTime);
+#else
+    timeval tv;
+    gettimeofday(&tv, 0);
+    //m_startTime = ((double)tv.tv_usec / 1000.0 + (double)tv.tv_sec * 1000.0);
+    m_startTime = tv.tv_usec / 1000 + tv.tv_sec * 1000;
+
+    fps = 0.0f;
+#endif
+
     return true;
-  }
-  */
-  timeval tv;
-  gettimeofday(&tv, 0);
-  //m_startTime = ((double)tv.tv_usec / 1000.0 + (double)tv.tv_sec * 1000.0);
-  m_startTime = tv.tv_usec / 1000 + tv.tv_sec * 1000;
-
-  fps = 0.0f;
-
-  return true;
-
 }
 
 //------------------------------------------------------------------------------
 float GameTimer::getElapsedSeconds( unsigned long )
 {
-    /*
-  static LARGE_INTEGER s_lastTime = m_startTime;
-  LARGE_INTEGER currentTime;
+#ifdef _WIN32
+    static LARGE_INTEGER s_lastTime = m_startTime;
+    LARGE_INTEGER currentTime;
 
-  QueryPerformanceCounter(&currentTime);
+    QueryPerformanceCounter(&currentTime);
 
-  float seconds =  ((float)currentTime.QuadPart - (float)s_lastTime.QuadPart) / (float)m_ticksPerSecond.QuadPart;
+    float seconds = ((float)currentTime.QuadPart - (float)s_lastTime.QuadPart) /
+        (float)m_ticksPerSecond.QuadPart;
 
-  // reset the timer
-  s_lastTime = currentTime;
+    // reset the timer
+    s_lastTime = currentTime;
+#else
+    float seconds = 0.0f;
+    int tries = 0;
 
-  return seconds;
-  */
+    fps = MAX_FPS;
 
-  fps = 100.0f;
-  float seconds = 0.0f;
+    while (fps >= MAX_FPS || ++tries > 100) {
+        timeval tv;
+        gettimeofday(&tv, 0);
 
-  int tries = 0;
+        //double currentTime = ((double)tv.tv_usec / 1000.0 + (double)tv.tv_sec * 1000.0);
+        //double seconds = (currentTime - m_startTime) / 1000.0;
 
-  while (fps >= 60.0f || ++tries > 100) {
-    timeval tv;
-    gettimeofday(&tv, 0);
-    //double currentTime = ((double)tv.tv_usec / 1000.0 + (double)tv.tv_sec * 1000.0);
+        long currentTime = (tv.tv_usec / 1000 + tv.tv_sec * 1000);
+        seconds += float(currentTime - m_startTime) / 1000.0f;
 
-    //double seconds = (currentTime - m_startTime) / 1000.0;
+        fps = 1.0f / seconds;
 
-    long currentTime = (tv.tv_usec / 1000 + tv.tv_sec * 1000);
+        PRINT_DEBUG_LVL(3, "Start time: %ld, current time: %ld\n", m_startTime, currentTime);
+        PRINT_DEBUG_LVL(3, "Seconds: %f\n", seconds);
 
-    seconds += float(currentTime - m_startTime) / 1000.0f;
-
-    fps = 1.0f / seconds;
-    PRINT_DEBUG_LVL(3, "Start time: %ld, current time: %ld\n", m_startTime, currentTime);
-    PRINT_DEBUG_LVL(3, "Seconds: %f\n", seconds);
-
-    m_startTime = currentTime;
-  }
+        m_startTime = currentTime;
+    }
+#endif
 
   return seconds;
 }
@@ -79,24 +75,21 @@ float GameTimer::getElapsedSeconds( unsigned long )
 //------------------------------------------------------------------------------
 float GameTimer::getFPS(void)
 {
-    /*
-  unsigned long elapsedFrames = 1;
-  static LARGE_INTEGER s_lastTime = m_startTime;
-  LARGE_INTEGER currentTime;
+#ifdef _WIN32
+    unsigned long elapsedFrames = 1;
+    static LARGE_INTEGER s_lastTime = m_startTime;
+    LARGE_INTEGER currentTime;
 
-  QueryPerformanceCounter(&currentTime);
+    QueryPerformanceCounter(&currentTime);
 
-  float fps = (float)elapsedFrames * (float)m_ticksPerSecond.QuadPart / ((float)currentTime.QuadPart - (float)s_lastTime.QuadPart);
+    float fps = (float)elapsedFrames * (float)m_ticksPerSecond.QuadPart /
+        ((float)currentTime.QuadPart - (float)s_lastTime.QuadPart);
 
-  // reset the timer
+    // reset the timer
+    s_lastTime = currentTime;
 
-  s_lastTime = currentTime;
-
-  return fps;
-  */
-
+#endif
   /*
-
   long m_lastTime = m_startTime;
 
   timeval tv;
@@ -107,5 +100,5 @@ float GameTimer::getFPS(void)
   */
 
   return fps;
-} // end GetFPS
+}
 

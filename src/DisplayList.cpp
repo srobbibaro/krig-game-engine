@@ -1,4 +1,3 @@
-//#include "windows.h"
 #include "DisplayList.h"
 
 using namespace std;

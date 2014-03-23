@@ -2,7 +2,6 @@
 // Description : Functions for displaying stroke fonts and      //
 //               bitmap fonts.                                  //
 //////////////////////////////////////////////////////////////////
-//#include <windows.h>
 #include <GL/glut.h>
 #include "text.h"
 #include "constants.h"
@@ -13,7 +12,6 @@ using namespace std;
 void render_string(void* font, const char* string)
 {
     //Renders a bitmap font string
-
 	char* p = (char*) string;
 	while (*p != '\0') glutBitmapCharacter(font, *p++);
 }
@@ -22,7 +20,6 @@ void render_string(void* font, const char* string)
 void displayText(char *text, float x, float y, float z, float scaleX, float scaleY)
 {
     //Renders a stroke font string
-
     char *p;
     glPushMatrix();
         glTranslatef (x, y, z);
