@@ -438,7 +438,7 @@ int main( int argc, char *argv[] )
 
     glutSetWindow( mainWin );
 #else
-    //glutCreateWindow( "KRIG" );	// window title
+#if 0
     char mode_string[24];
     sprintf(mode_string, "%dx%d:32@30", glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT));
     glutGameModeString(mode_string);
@@ -453,6 +453,9 @@ int main( int argc, char *argv[] )
 		PRINT_ERROR("Unable to change screen resolution and setup game mode.\n");
 		exit(1);
 	}
+#else
+    glutCreateWindow( "KRIG" );	// window title
+#endif
 
 	KRIG->initGL();
     glutInit();
