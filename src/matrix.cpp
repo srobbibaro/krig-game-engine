@@ -13,7 +13,7 @@ Matrix::Matrix()
 //------------------------------------------------------------------------------
 Matrix::Matrix( const Matrix &t )
 {
-    for ( int i = 0; i < 16; i++ )
+    for ( int i = 0; i < NUM_CELLS; i++ )
         data[i] = t.data[i];
 }
 
@@ -33,7 +33,7 @@ Matrix::Matrix ( float c11, float c21, float c31, float c41,
 //------------------------------------------------------------------------------
 void Matrix::loadIdentity(void)
 {
-    for ( int i = 0; i < 16; i++ )
+    for ( int i = 0; i < NUM_CELLS; i++ )
         data[i] = 0;
 
     data[0] = 1;
@@ -45,14 +45,14 @@ void Matrix::loadIdentity(void)
 //------------------------------------------------------------------------------
 void Matrix::loadZero(void)
 {
-    for ( int i = 0; i < 16; i++ )
+    for ( int i = 0; i < NUM_CELLS; i++ )
         data[i] = 0;
 }
 
 //------------------------------------------------------------------------------
 void Matrix::operator =( Matrix t )
 {
-    for ( int i = 0; i < 16; i++ )
+    for ( int i = 0; i < NUM_CELLS; i++ )
         data[i] = t.data[i];
 }
 
@@ -61,7 +61,7 @@ Matrix Matrix::operator *( Matrix p )
 {
     Matrix t; int c, r;
 
-    for ( int i = 0; i < 16; i++ )
+    for ( int i = 0; i < NUM_CELLS; i++ )
     {
         t.data[i] = 0.0f;
 
@@ -203,7 +203,7 @@ void Matrix::display( void )
 {
 #if DEBUG
     PRINT_DEBUG("Matrix dump:\n");
-    for ( int i = 0; i < 16; i++ )
+    for ( int i = 0; i < NUM_CELLS; i++ )
     {
         PRINT_DEBUG("%.3f\t",data[i] );
         if ( (i+1) % 4 == 0 )

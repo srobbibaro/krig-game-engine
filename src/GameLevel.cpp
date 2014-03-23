@@ -235,7 +235,6 @@ bool GameLevel::loadLevelLua( string file )
     ////////////////////////////////////////////
 
     PRINT_DEBUG("Building quad tree...\n");
-
     quadTree_.buildTree(terrain_);
     //q->traverseTree();
 
@@ -245,10 +244,7 @@ bool GameLevel::loadLevelLua( string file )
     //q->buildLeafList(luaState_);
 
     PRINT_DEBUG("Traversing list...\n");
-
     displayList_.traverseList();
-    //sleep(10000);
-    //exit(1);
 
     PRINT_DEBUG("Finished building quad tree.\n");
     terrain_->setDisplayList(&displayList_);
@@ -360,7 +356,6 @@ bool GameLevel::loadLevelFromBufferLua( const char* buffer )
 
     return (true);
 }
-
 
 //------------------------------------------------------------------------------
 void GameLevel::setCamera( Camera* camera )

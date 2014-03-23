@@ -772,7 +772,6 @@ void Engine::loadLevelFromBuffer(const char* buffer)
 
     currentLevel_->loadLevelFromBufferLua(buffer);
     timeElapsed_ = timer_.getElapsedSeconds(1);
-
 }
 
 //------------------------------------------------------------------------------

@@ -57,7 +57,7 @@ void Frustum::extractFromProjectionMatrix(const Matrix &m)
         (m.data[15] + m.data[14])
     );
 
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < NUM_PLANES; i++) {
         planes[i].normalize();
     }
 }
@@ -69,7 +69,7 @@ int Frustum::testSphere(Sphere sphere)
     Vector origin;
 
     // calculate distance between sphere and each plane //
-	for(int i = 0; i < 6; i++) {
+	for(int i = 0; i < NUM_PLANES; i++) {
         sphere.getOriginVector(origin);
 
         distance = planes[i].distanceToPoint(origin.x, origin.y, origin.z);
@@ -93,7 +93,7 @@ int Frustum::testBoundingBox(void) {}
 //------------------------------------------------------------------------------
 void Frustum::getPlaneDefinition(int num, float &a, float &b, float &c, float &d)
 {
-    if (num >= 0 && num < 6) {
+    if (num >= 0 && num < NUM_PLANES) {
         planes[num].getDefinition(a, b, c, d);
     }
 }

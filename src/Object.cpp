@@ -218,8 +218,6 @@ void Object::animateScript(float elapsedTime)
     //lua_pop(L_, 1);
 }
 
-
-
 //------------------------------------------------------------------------------
 void Object::processCollisions( Object* temp )
 {
@@ -270,8 +268,6 @@ void Object::processCollisions( Object* temp )
     if ( temp->next != NULL )
         processCollisions(((Object*)temp->next));
 }
-
-
 
 //------------------------------------------------------------------------------
 float Object::calcTriangleCenter( float p1, float p2, float p3 )

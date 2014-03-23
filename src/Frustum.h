@@ -6,6 +6,8 @@
 
 using namespace std;
 
+#define NUM_PLANES  6
+
 class Frustum
 {
     public:
@@ -20,7 +22,7 @@ class Frustum
 
     private:
         // 0 - left, 1 - right, 2 - down, 3 - up, 4 - far, 5 - near
-        Plane planes[6];
+        Plane planes[NUM_PLANES];
 };
 
 #endif

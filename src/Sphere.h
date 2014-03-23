@@ -21,6 +21,5 @@ class Sphere
         float radius;
 };
 
-
 #endif
 
