@@ -48,4 +48,3 @@ void DisplayList::clearList(void)
     head = NULL;
     tail = NULL;
 }
-

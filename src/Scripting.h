@@ -650,7 +650,6 @@ static int setInterpolationVariableCurrentValueLua(lua_State *L)
 	return 0;
 }
 
-
 static int setRotationVelocityAxisLua(lua_State *L)
 {
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);

@@ -703,4 +703,3 @@ void GameLevel::animateObjects(float timeElapsed)
             object->animate(timeElapsed, dynamic_cast<Camera*>(camera_));
     }
 }
-
