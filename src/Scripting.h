@@ -14,10 +14,10 @@ extern "C" {
 #include "matrix.h"
 #include "Engine.h"
 
-extern Object* lplayer;
-extern Object* lcamera;
-extern GameLevel* lgameLevel;
-extern Engine* lengine;
+extern Object* g_script_player;
+extern Object* g_script_camera;
+extern GameLevel* g_script_game_level;
+extern Engine* g_script_engine;
 
 // helpers
 static Vector loadVector(lua_State *L)
@@ -180,13 +180,13 @@ static int getSpeedLua(lua_State *L)
 
 static int getPlayerLua(lua_State *L)
 {
-	lua_pushlightuserdata(L, (void*)lplayer);
+	lua_pushlightuserdata(L, (void*)g_script_player);
 	return 1;
 }
 
 static int getCameraLua(lua_State *L)
 {
-	lua_pushlightuserdata(L, (void*)lcamera);
+	lua_pushlightuserdata(L, (void*)g_script_camera);
 	return 1;
 }
 
@@ -310,7 +310,7 @@ static int camera_getFrustumPlaneLua(lua_State *L)
     int plane_num = lua_tonumber(L,1);
     float a, b, c, d;
 
-    static_cast<Camera*>(lcamera)->getFrustum()->getPlaneDefinition(plane_num, a, b, c, d);
+    static_cast<Camera*>(g_script_camera)->getFrustum()->getPlaneDefinition(plane_num, a, b, c, d);
 
     lua_newtable(L);
 
@@ -789,7 +789,7 @@ static int playSoundLua(lua_State *L)
     const char *s = lua_tostring(L, 2);
     string sound = string(s);
 
-    SoundFX *soundFx = lengine->getSoundFxClass();
+    SoundFX *soundFx = g_script_engine->getSoundFxClass();
 
     if (soundFx != NULL)
         soundFx->PlaySFX(sound);
@@ -816,7 +816,7 @@ static int addObjectLua(lua_State *L)
         args[i] = lua_tonumber(L, i+3);
     }
 
-    ScriptedObject * temp = lgameLevel->addObject(script, args, n);
+    ScriptedObject * temp = g_script_game_level->addObject(script, args, n);
 
 	lua_pushlightuserdata(L, (void*)temp);
 	return 1;
@@ -844,7 +844,7 @@ static int addTextLua(lua_State *L)
         args[i] = lua_tonumber(L, i+4);
     }
 
-    ScriptTextType *temp = lgameLevel->addScriptTextType(script, args, n);
+    ScriptTextType *temp = g_script_game_level->addScriptTextType(script, args, n);
     temp->text = text;
 
 	lua_pushlightuserdata(L, (void*)temp);
@@ -889,7 +889,7 @@ static int terrain_getVertexHeightLua(lua_State *L)
     int x = lua_tonumber(L,1);
     int z = lua_tonumber(L,2);
 
-    float height = (float)lgameLevel->getTerrain()->getVertexHeight(x, z);
+    float height = (float)g_script_game_level->getTerrain()->getVertexHeight(x, z);
 
     lua_pushnumber(L, height);
 
@@ -901,7 +901,7 @@ static int terrain_getVertexColorLua(lua_State *L)
     int x = lua_tonumber(L,1);
     int z = lua_tonumber(L,2);
 
-    Vector color = lgameLevel->getTerrain()->getVertexColor(x, z);
+    Vector color = g_script_game_level->getTerrain()->getVertexColor(x, z);
 
     returnVector(L, color);
 
@@ -913,7 +913,7 @@ static int terrain_getVertexTypeLua(lua_State *L)
     int x = lua_tonumber(L,1);
     int z = lua_tonumber(L,2);
 
-    float type = lgameLevel->getTerrain()->getVertexType(x, z);
+    float type = g_script_game_level->getTerrain()->getVertexType(x, z);
 
     lua_pushnumber(L, type);
 
@@ -926,7 +926,7 @@ static int terrain_setVertexHeightLua(lua_State *L)
     int z = lua_tonumber(L,2);
     float height = lua_tonumber(L,3);
 
-    lgameLevel->getTerrain()->setVertexHeight(x, z, height);
+    g_script_game_level->getTerrain()->setVertexHeight(x, z, height);
 
 	return 0;
 }
@@ -937,7 +937,7 @@ static int terrain_setVertexColorLua(lua_State *L)
     int z = lua_tonumber(L,2);
     Vector color = loadVector(L);
 
-    lgameLevel->getTerrain()->setVertexColor(x, z, color);
+    g_script_game_level->getTerrain()->setVertexColor(x, z, color);
 
 	return 0;
 }
@@ -948,7 +948,7 @@ static int terrain_setVertexTypeLua(lua_State *L)
     int z = lua_tonumber(L,2);
     int type = lua_tonumber(L,3);
 
-    lgameLevel->getTerrain()->setVertexType(x, z, type);
+    g_script_game_level->getTerrain()->setVertexType(x, z, type);
 
 	return 0;
 }
@@ -958,7 +958,7 @@ static int terrain_getHeightLua(lua_State *L)
     float x = lua_tonumber(L,1);
     float z = lua_tonumber(L,2);
 
-    float height = (float)lgameLevel->getTerrain()->getHeight(x, z);
+    float height = (float)g_script_game_level->getTerrain()->getHeight(x, z);
 
     lua_pushnumber(L, height);
 
@@ -1033,21 +1033,21 @@ static int playBgMusicLua(lua_State *L)
 {
     const char *s = lua_tostring(L, 1);
     int repeat = (int)lua_tonumber(L, 2);
-    lgameLevel->setMusicPath(string(s));
-    lgameLevel->getMusic()->StopSong();
-    lgameLevel->getMusic()->PlaySong(s, repeat);
+    g_script_game_level->setMusicPath(string(s));
+    g_script_game_level->getMusic()->StopSong();
+    g_script_game_level->getMusic()->PlaySong(s, repeat);
     return 0;
 }
 
 static int stopBgMusicLua(lua_State *L)
 {
-    lgameLevel->getMusic()->StopSong();
+    g_script_game_level->getMusic()->StopSong();
     return 0;
 }
 
 static int pauseBgMusicLua(lua_State *L)
 {
-    lgameLevel->getMusic()->PauseSong();
+    g_script_game_level->getMusic()->PauseSong();
     return 0;
 }
 
@@ -1062,20 +1062,20 @@ static int setSkyBoxLua(lua_State *L)
         }
     }
 
-    lgameLevel->setSkyBox(skyColors, 3, 3);
+    g_script_game_level->setSkyBox(skyColors, 3, 3);
     return 0;
 }
 
 static int setLightDirectionLua(lua_State *L)
 {
-    lgameLevel->setLightDirection(lua_tonumber(L, 1), lua_tonumber(L, 2), lua_tonumber(L, 3));
+    g_script_game_level->setLightDirection(lua_tonumber(L, 1), lua_tonumber(L, 2), lua_tonumber(L, 3));
     return 0;
 }
 
 static int setLightDirectionvLua(lua_State *L)
 {
     Vector t = loadVector(L);
-    lgameLevel->setLightDirection(t.x, t.y, t.z);
+    g_script_game_level->setLightDirection(t.x, t.y, t.z);
     return 0;
 }
 
@@ -1086,7 +1086,7 @@ static int setTerrainLua(lua_State *L)
 
     const char *s = lua_tostring(L, 2);
 
-    Vector *lightDirection = lgameLevel->getLightDirection();
+    Vector *lightDirection = g_script_game_level->getLightDirection();
     terrain->load(s, lightDirection);
     return 0;
 }
@@ -1133,7 +1133,7 @@ static int engine_testKeyPressedLua(lua_State *L)
     //int key = (int)lua_tonumber(L, 2);
     int key = (int)lua_tonumber(L, 1);
     //int result = (int)(object->keyState->testKeyPressed(key));
-    int result = (int)(lengine->getKeyState()->testKeyPressed(key));
+    int result = (int)(g_script_engine->getKeyState()->testKeyPressed(key));
     lua_pushnumber(L, result);
 
     return 1;
@@ -1146,7 +1146,7 @@ static int engine_testKeyReleasedLua(lua_State *L)
     //int key = (int)lua_tonumber(L, 2);
     int key = (int)lua_tonumber(L, 1);
     //int result = (int)(object->keyState->testKeyReleased(key));
-    int result = (int)(lengine->getKeyState()->testKeyReleased(key));
+    int result = (int)(g_script_engine->getKeyState()->testKeyReleased(key));
     lua_pushnumber(L, result);
     return 1;
 }
@@ -1158,7 +1158,7 @@ static int engine_testSpecialKeyPressedLua(lua_State *L)
     //int key = (int)lua_tonumber(L, 2);
     int key = (int)lua_tonumber(L, 1);
     //int result = (int)(object->keyState->testKeyPressed(key));
-    int result = (int)(lengine->getSpecialKeyState()->testKeyPressed(key));
+    int result = (int)(g_script_engine->getSpecialKeyState()->testKeyPressed(key));
     lua_pushnumber(L, result);
 
     return 1;
@@ -1171,15 +1171,15 @@ static int engine_testSpecialKeyReleasedLua(lua_State *L)
     //int key = (int)lua_tonumber(L, 2);
     int key = (int)lua_tonumber(L, 1);
     //int result = (int)(object->keyState->testKeyReleased(key));
-    int result = (int)(lengine->getSpecialKeyState()->testKeyReleased(key));
+    int result = (int)(g_script_engine->getSpecialKeyState()->testKeyReleased(key));
     lua_pushnumber(L, result);
     return 1;
 }
 
 static int engine_getMouseCoordinatesLua(lua_State *L)
 {
-    float x = lengine->getMouseX();
-    float y = lengine->getMouseY();
+    float x = g_script_engine->getMouseX();
+    float y = g_script_engine->getMouseY();
 
     lua_newtable(L);
 
@@ -1196,7 +1196,7 @@ static int engine_getMouseCoordinatesLua(lua_State *L)
 static int level_findObjectOfTypeLua(lua_State *L)
 {
     int type = (int)lua_tonumber(L, 1);
-    Object *temp = lgameLevel->findEnemyOfType(type);
+    Object *temp = g_script_game_level->findEnemyOfType(type);
 
     if (temp != NULL)
         lua_pushlightuserdata(L, (void*)temp);
@@ -1296,7 +1296,7 @@ static int setScriptValueLua(lua_State *L)
 static int loadLevelLua(lua_State *L)
 {
     const char *s = lua_tostring(L, 1);
-    lengine->loadLevel(s);
+    g_script_engine->loadLevel(s);
 
     return 0;
 }
@@ -1304,21 +1304,21 @@ static int loadLevelLua(lua_State *L)
 static int loadLevelFromBufferLua(lua_State *L)
 {
     const char *s = lua_tostring(L, 1);
-    lengine->loadLevel(s);
+    g_script_engine->loadLevel(s);
 
     return 0;
 }
 
 static int shutdownLua(lua_State *L)
 {
-    lengine->shutdown();
+    g_script_engine->shutdown();
 
     return 0;
 }
 
 static int pauseLua(lua_State *L)
 {
-    lengine->pause();
+    g_script_engine->pause();
 
     return 0;
 }
@@ -1329,7 +1329,7 @@ static int renderTextLua(lua_State *L)
     float x = lua_tonumber(L, 2);
     float y = lua_tonumber(L, 3);
 
-    lengine->renderText(s, x, y);
+    g_script_engine->renderText(s, x, y);
 
     return 0;
 }
@@ -1351,43 +1351,43 @@ static int displayTextLua(lua_State *L)
 
 static int getFpsLua(lua_State *L)
 {
-    lua_pushnumber(L, lengine->getFps());
+    lua_pushnumber(L, g_script_engine->getFps());
     return 1;
 }
 
 static int getCameraIdLua(lua_State *L)
 {
-    lua_pushnumber(L, lgameLevel->getCamera()->id_);
+    lua_pushnumber(L, g_script_game_level->getCamera()->id_);
     return 1;
 }
 
 static int getLightDirectionLua(lua_State *L)
 {
-    returnVector(L, *lgameLevel->getLightDirection());
+    returnVector(L, *g_script_game_level->getLightDirection());
     return 1;
 }
 
 static int setCompleteLua(lua_State *L)
 {
-    lgameLevel->setComplete(lua_tonumber(L, 1));
+    g_script_game_level->setComplete(lua_tonumber(L, 1));
     return 0;
 }
 
 static int testLevelCompleteLua(lua_State *L)
 {
-    lua_pushnumber(L, lgameLevel->checkComplete());
+    lua_pushnumber(L, g_script_game_level->checkComplete());
     return 1;
 }
 
 static int getLevelIdLua(lua_State *L)
 {
-    lua_pushnumber(L, lgameLevel->getId());
+    lua_pushnumber(L, g_script_game_level->getId());
     return 1;
 }
 
 static int setLevelIdLua(lua_State *L)
 {
-    lgameLevel->setId((int)lua_tonumber(L, 1));
+    g_script_game_level->setId((int)lua_tonumber(L, 1));
     return 0;
 }
 
@@ -1481,7 +1481,7 @@ static int getInViewLua(lua_State *L)
 
 static int swapLevelLua(lua_State *L)
 {
-    lengine->swapLevel();
+    g_script_engine->swapLevel();
     return 0;
 }
 
@@ -1571,7 +1571,7 @@ static int orientOnTerrainLua(lua_State *L)
     Quaternion rotation;
     rotation.buildFromEuler(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
 
-    object->orientOnTerrain(lgameLevel->getTerrain(), rotation);
+    object->orientOnTerrain(g_script_game_level->getTerrain(), rotation);
 
     return 0;
 }
@@ -1583,7 +1583,7 @@ static int setHeightFromTerrainLua(lua_State *L)
 
     float offset = lua_tonumber(L, 2);
 
-    object->setHeightFromTerrain(lgameLevel->getTerrain(), offset);
+    object->setHeightFromTerrain(g_script_game_level->getTerrain(), offset);
 
     return 0;
 }

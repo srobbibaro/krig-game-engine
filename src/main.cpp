@@ -16,7 +16,7 @@
 #include <cstdlib>
 
 // global variables /////////////////////////////
-Engine *KRIG, *lengine;
+Engine *KRIG, *g_script_engine;
 
 #if EDIT
 // to remove before final build
@@ -405,7 +405,7 @@ int main( int argc, char *argv[] )
     glutInitDisplayMode( GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH );
 
     KRIG = new Engine();
-    lengine = KRIG;
+    g_script_engine = KRIG;
 
     // setup window /////////////////////////////
     glutInitWindowSize( 800, 600 );	    // window size

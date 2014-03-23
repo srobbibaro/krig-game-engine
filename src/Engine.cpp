@@ -8,7 +8,7 @@
 
 extern const char* intro_script_buffer;
 
-GameLevel *lgameLevel;
+GameLevel *g_script_game_level;
 
 const char* buffer1 = "function on_load()\nreturn\nend\nfunction on_update(elapsedTime)\nreturn\nend\nfunction on_unload()\nreturn\nend\n";
 
@@ -81,7 +81,7 @@ Engine::Engine()
 //------------------------------------------------------------------------------
 bool Engine::loadGame( string file )
 {
-    lengine = this;
+    g_script_engine = this;
 
     // If the lua state has not been initialized for this object, attempt to
     // initialize it.
@@ -120,7 +120,7 @@ bool Engine::loadGame( string file )
 //------------------------------------------------------------------------------
 bool Engine::loadGameFromBuffer( char* buffer )
 {
-    lengine = this;
+    g_script_engine = this;
 
     // If the lua state has not been initialized for this object, attempt to
     // initialize it.
@@ -160,7 +160,7 @@ bool Engine::loadGameFromBuffer( char* buffer )
 
 bool Engine::loadIntroCredits()
 {
-    lengine = this;
+    g_script_engine = this;
 
     // If the lua state has not been initialized for this object, attempt to
     // initialize it.
@@ -734,7 +734,7 @@ void Engine::loadLevel(const char* levelFile)
     currentLevel_ = new GameLevel(lists_);
     currentLevel_->setCamera( mainCamera_ );
 
-    lgameLevel = currentLevel_;
+    g_script_game_level = currentLevel_;
 
     currentLevel_->loadLevelLua(levelScript_);
     timeElapsed_ = timer_.getElapsedSeconds(1);
@@ -768,7 +768,7 @@ void Engine::loadLevelFromBuffer(const char* buffer)
     currentLevel_ = new GameLevel(lists_);
     currentLevel_->setCamera( mainCamera_ );
 
-    lgameLevel = currentLevel_;
+    g_script_game_level = currentLevel_;
 
     currentLevel_->loadLevelFromBufferLua(buffer);
     timeElapsed_ = timer_.getElapsedSeconds(1);
