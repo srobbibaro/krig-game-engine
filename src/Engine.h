@@ -59,6 +59,7 @@ class Engine
         int currentDemoCommand;
         #endif
 
+#if EDIT
         // Temporary values used for game tools (remove from final build)...
         // mouse control values
         float lastX;
@@ -69,7 +70,7 @@ class Engine
         float last_height, last_red, last_green, last_blue;
         bool paint;
         bool paintColor;
-
+#endif
     public:
         Engine();                   // initialize game
         ~Engine();
@@ -110,13 +111,12 @@ class Engine
             render_string(GLUT_BITMAP_HELVETICA_18, s);
         }
 
-        // Temporary functions used for tools (remove from final build)...
+        float getMouseX() { return mouseX_; }
+        float getMouseY() { return mouseY_; }
+        SoundFX* getSoundFxClass() { return &soundFx_; }
+        bool getIsRunning() {return isRunning_;}
+
         void processMouseMove( int x, int y);
-
-        void getTerrainInfo(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
-        void updateTerrain(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
-
-        void updateColor(float &red, float &green, float &blue);
 
         void swapLevel()
         {
@@ -125,14 +125,17 @@ class Engine
             storedLevel_ = temp;
         }
 
-        SoundFX* getSoundFxClass() { return &soundFx_; }
+#if EDIT
+        // Temporary functions used for tools (remove from final build)...
+        void getTerrainInfo(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
+        void updateTerrain(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
+
+        void updateColor(float &red, float &green, float &blue);
 
         void setMouseX( float mouseX ) { mouseX_ = mouseX;  }
         void setMouseY( float mouseY ) { mouseY_ = mouseY;  }
-        float getMouseX() { return mouseX_; }
-        float getMouseY() { return mouseY_; }
 
-        bool getIsRunning() {return isRunning_;}
+#endif
 };
 
 #endif

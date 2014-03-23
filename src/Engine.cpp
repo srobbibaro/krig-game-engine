@@ -49,6 +49,7 @@ Engine::Engine()
     }
     #endif
 
+#if EDIT
     // terrain editing values //
     paint = false;
     paintColor = false;
@@ -64,6 +65,7 @@ Engine::Engine()
     last_height = 0.0f;
     last_type = 0;
     ////////////////////////////
+#endif
 
     luaState_ = NULL;
     mainCamera_ = c1_ = c2_ = c3_ = c4_ = NULL;
@@ -816,6 +818,7 @@ void Engine::processMouseMove(int x, int y)
     mouseY_ = y;
 }
 
+#if EDIT
 void Engine::getTerrainInfo(int &x, int &z, float &height, int &type, float &red, float &green, float &blue)
 {
     if (mainCamera_ == NULL)
@@ -866,6 +869,7 @@ void Engine::updateColor(float &red, float &green, float &blue)
         last_blue = blue;
     }
 }
+#endif
 
 void Engine::shutdown()
 {
