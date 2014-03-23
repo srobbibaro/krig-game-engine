@@ -4,17 +4,16 @@
 Player::Player()
 : Model()
 {
-    //#shotDelay = .75f;
-    //#numShots = 3;
-    //#numMissiles = 300;
+    // TODO: Investigate whether this class is still used
+    //shotDelay = .75f;
+    //numShots = 3;
+    //numMissiles = 300;
 
     //score = 0;
 }
 
 //------------------------------------------------------------------------------
-Player::~Player()
-{
-}
+Player::~Player() {}
 
 //------------------------------------------------------------------------------
 //void Player::handleCollision( Object* temp )
@@ -86,7 +85,7 @@ void Player::processAI( Object* c, float elapsedTime)
    // to be a little smarter depending on where the camera is located...
    // as it is now, it is hardcored for a specific distance
 
-    //#if (testActiveZoneEnable) {
+    //if (testActiveZoneEnable) {
     {
         if (position.x < c->position.x-13.0f)
             position.x = c->position.x-13.0f;
@@ -100,7 +99,6 @@ void Player::processAI( Object* c, float elapsedTime)
     }
  */
     /*
-    //#
     if ( numShots < 1 ) {
         if ( *animCurrTime > shotTime + shotDelay )
             numShots = 3;
@@ -120,7 +118,6 @@ void Player::processAI( Object* c, float elapsedTime)
 //------------------------------------------------------------------------------
 void Player::fireMissle( Object* tobj )
 {
-//#
     if ( numMissiles > 0 )
     {
         numMissiles--;

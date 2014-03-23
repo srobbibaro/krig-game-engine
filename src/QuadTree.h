@@ -18,13 +18,12 @@ class QuadTree
 
         void traverseTree(void);
 
-         QuadTreeNode* root;
+        QuadTreeNode* root;
 //    private:
         int buildTree(QuadTreeNode* &p, float xMin, float xMax, float zMin, float zMax, float scaleFactor);
         void traverseTree(QuadTreeNode* n);
         int buildDisplayList(QuadTreeNode* n, DisplayList* l, Camera* c);
         int buildLeafList(QuadTreeNode* n, DisplayList* l);
-
 };
 
 #endif

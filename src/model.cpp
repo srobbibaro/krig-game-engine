@@ -141,41 +141,41 @@ void Model::drawOutline(Object* c)
 //------------------------------------------------------------------------------
 void Model::drawShadow (Vector* light)
 {
-        int p1, p2;
-        Vector v1, v2;
+    int p1, p2;
+    Vector v1, v2;
 
-        for ( int i = 0; i < numSEdge; i++ ) {
-					//calculate the length of the vector
-					v1.x = (sEdge[i].p1.x - light->x)*100;
-					v1.y = (sEdge[i].p1.y - light->y)*100;
-					v1.z = (sEdge[i].p1.z - light->z)*100;
+    for ( int i = 0; i < numSEdge; i++ ) {
+        //calculate the length of the vector
+        v1.x = (sEdge[i].p1.x - light->x)*100;
+        v1.y = (sEdge[i].p1.y - light->y)*100;
+        v1.z = (sEdge[i].p1.z - light->z)*100;
 
-					v2.x = (sEdge[i].p2.x - light->x)*100;
-					v2.y = (sEdge[i].p2.y - light->y)*100;
-					v2.z = (sEdge[i].p2.z - light->z)*100;
+        v2.x = (sEdge[i].p2.x - light->x)*100;
+        v2.y = (sEdge[i].p2.y - light->y)*100;
+        v2.z = (sEdge[i].p2.z - light->z)*100;
 
-                    //draw the polygon
-                    /*
-                    glBegin( GL_LINES );
-                        glVertex3f( sEdge[i].p1.x, sEdge[i].p1.y, sEdge[i].p1.z );
-                        glVertex3f( sEdge[i].p2.x, sEdge[i].p2.y, sEdge[i].p2.z );
-                    glEnd();
-                    */
+        //draw the polygon
+        /*
+        glBegin( GL_LINES );
+            glVertex3f( sEdge[i].p1.x, sEdge[i].p1.y, sEdge[i].p1.z );
+            glVertex3f( sEdge[i].p2.x, sEdge[i].p2.y, sEdge[i].p2.z );
+        glEnd();
+        */
 
-                    glBegin(GL_TRIANGLE_STRIP);
-						glVertex3f( sEdge[i].p1.x, sEdge[i].p1.y, sEdge[i].p1.z );
-						glVertex3f( sEdge[i].p1.x + v1.x,
-									sEdge[i].p1.y + v1.y,
-									sEdge[i].p1.z + v1.z);
+        glBegin(GL_TRIANGLE_STRIP);
+            glVertex3f( sEdge[i].p1.x, sEdge[i].p1.y, sEdge[i].p1.z );
+            glVertex3f( sEdge[i].p1.x + v1.x,
+                        sEdge[i].p1.y + v1.y,
+                        sEdge[i].p1.z + v1.z);
 
-						glVertex3f(sEdge[i].p2.x,
-									sEdge[i].p2.y,
-									sEdge[i].p2.z );
-						glVertex3f(sEdge[i].p2.x + v2.x,
-									sEdge[i].p2.y + v2.y,
-									sEdge[i].p2.z + v2.z);
-					glEnd();
-            }
+            glVertex3f(sEdge[i].p2.x,
+                        sEdge[i].p2.y,
+                        sEdge[i].p2.z );
+            glVertex3f(sEdge[i].p2.x + v2.x,
+                        sEdge[i].p2.y + v2.y,
+                        sEdge[i].p2.z + v2.z);
+        glEnd();
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -523,7 +523,7 @@ void ModelStorage::load( char fileName[] )
 }
 
 //------------------------------------------------------------------------------
-void Model::buildEdges()
+    void Model::buildEdges()
     {
         /*
         // Allocate enough space to hold all edges
@@ -615,68 +615,66 @@ void Model::buildEdges()
         if (temp == NULL)
             return;
 
-                Vector p1, p2, p3;
+            Vector p1, p2, p3;
 
-                p1.setVector(controlPoints_[0].x + position_.x, 0.0f, controlPoints_[0].z + position_.z);
-                p2.setVector(controlPoints_[1].x + position_.x, 0.0f, controlPoints_[1].z + position_.z);
-                p3.setVector(controlPoints_[2].x + position_.x, 0.0f, controlPoints_[2].z + position_.z);
+            p1.setVector(controlPoints_[0].x + position_.x, 0.0f, controlPoints_[0].z + position_.z);
+            p2.setVector(controlPoints_[1].x + position_.x, 0.0f, controlPoints_[1].z + position_.z);
+            p3.setVector(controlPoints_[2].x + position_.x, 0.0f, controlPoints_[2].z + position_.z);
 
-                p1.y = temp->getHeight(p1.x, p1.z);
-                p2.y = temp->getHeight(p2.x, p2.z);
-                p3.y = temp->getHeight(p3.x, p3.z);
+            p1.y = temp->getHeight(p1.x, p1.z);
+            p2.y = temp->getHeight(p2.x, p2.z);
+            p3.y = temp->getHeight(p3.x, p3.z);
 
-                PRINT_DEBUG_LVL(5, "p1.x=%f, p1.y=%f, p1.z=%f, p2.y=%f, p3.y=%f\n", p1.x, p1.y, p1.z, p2.y, p3.y);
+            PRINT_DEBUG_LVL(5, "p1.x=%f, p1.y=%f, p1.z=%f, p2.y=%f, p3.y=%f\n", p1.x, p1.y, p1.z, p2.y, p3.y);
 
-                float height = calcTriangleCenter(p1.y, p2.y, p3.y);
+            float height = calcTriangleCenter(p1.y, p2.y, p3.y);
 
-                PRINT_DEBUG_LVL(5, "height =%f\n", height);
+            PRINT_DEBUG_LVL(5, "height =%f\n", height);
 
-                //float position_height = ((Terrain*)temp)->getHeight( position_.x, position_.z );
+            //float position_height = ((Terrain*)temp)->getHeight( position_.x, position_.z );
 
-                //if ( position_.y < ((Terrain*)temp)->getHeight( position_.x, position_.z ) )  {
-                    Vector normal, up;
-                    normal.calcNorm( p1, p2, p3);
+            //if ( position_.y < ((Terrain*)temp)->getHeight( position_.x, position_.z ) )  {
+                Vector normal, up;
+                normal.calcNorm( p1, p2, p3);
 
-                    PRINT_DEBUG_LVL(5, "normal x=%f, normal y=%f, normal z=%f\n", normal.x, normal.y, normal.z);
+                PRINT_DEBUG_LVL(5, "normal x=%f, normal y=%f, normal z=%f\n", normal.x, normal.y, normal.z);
 
-                    up.setVector( 0.0f, 1.0f, 0.0f );
-                    Vector rotationAxis; rotationAxis.crossProduct( up, normal );
-                    float rotationAngle = normal.dotProduct( up );
+                up.setVector( 0.0f, 1.0f, 0.0f );
+                Vector rotationAxis; rotationAxis.crossProduct( up, normal );
+                float rotationAngle = normal.dotProduct( up );
 
-                    Quaternion orientRotation; orientRotation.buildFromAxis(rotationAxis, rotationAngle);
-                    rotation_ = baseRotation * orientRotation;
+                Quaternion orientRotation; orientRotation.buildFromAxis(rotationAxis, rotationAngle);
+                rotation_ = baseRotation * orientRotation;
 
-                    //setRotationAxis(rotationAxis,rotationAngle);
-                    position_.y = height;
-                    rotationChanged_ = true;
-                //}
+                //setRotationAxis(rotationAxis,rotationAngle);
+                position_.y = height;
+                rotationChanged_ = true;
+            //}
     }
-
 
     void Model::setHeightFromTerrain(Terrain *temp, float offset)
     {
         if (temp == NULL)
             return;
 
-                Vector p1, p2, p3;
+            Vector p1, p2, p3;
 
-                p1.setVector(controlPoints_[0].x + position_.x, 0.0f, controlPoints_[0].z + position_.z);
-                p2.setVector(controlPoints_[1].x + position_.x, 0.0f, controlPoints_[1].z + position_.z);
-                p3.setVector(controlPoints_[2].x + position_.x, 0.0f, controlPoints_[2].z + position_.z);
+            p1.setVector(controlPoints_[0].x + position_.x, 0.0f, controlPoints_[0].z + position_.z);
+            p2.setVector(controlPoints_[1].x + position_.x, 0.0f, controlPoints_[1].z + position_.z);
+            p3.setVector(controlPoints_[2].x + position_.x, 0.0f, controlPoints_[2].z + position_.z);
 
-                p1.y = temp->getHeight(p1.x, p1.z);
-                p2.y = temp->getHeight(p2.x, p2.z);
-                p3.y = temp->getHeight(p3.x, p3.z);
+            p1.y = temp->getHeight(p1.x, p1.z);
+            p2.y = temp->getHeight(p2.x, p2.z);
+            p3.y = temp->getHeight(p3.x, p3.z);
 
-                PRINT_DEBUG_LVL(5, "p1.x=%f, p1.y=%f, p1.z=%f, p2.y=%f, p3.y=%f\n", p1.x, p1.y, p1.z, p2.y, p3.y);
+            PRINT_DEBUG_LVL(5, "p1.x=%f, p1.y=%f, p1.z=%f, p2.y=%f, p3.y=%f\n", p1.x, p1.y, p1.z, p2.y, p3.y);
 
-                float height = calcTriangleCenter(p1.y, p2.y, p3.y);
+            float height = calcTriangleCenter(p1.y, p2.y, p3.y);
 
-                PRINT_DEBUG_LVL(5, "height =%f\n", height);
+            PRINT_DEBUG_LVL(5, "height =%f\n", height);
 
-                //float position_height = ((Terrain*)temp)->getHeight( position_.x, position_.z );
+            //float position_height = ((Terrain*)temp)->getHeight( position_.x, position_.z );
 
-                position_.y = height + offset;
-
-                //}
+            position_.y = height + offset;
+        //}
     }

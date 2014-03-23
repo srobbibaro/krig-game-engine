@@ -198,8 +198,7 @@ void Quaternion::buildRotationMatrix( Matrix &m )
 //------------------------------------------------------------------------------
 void Quaternion::rotate( float angle )
 {
-    // work in progress
-
+    // TODO: work in progress
     // dQ/ dt + 0.5 * quat(angle) * Q;
 }
 

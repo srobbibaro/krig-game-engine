@@ -13,6 +13,4 @@ QuadTreeNode::QuadTreeNode(void)
 }
 
 //------------------------------------------------------------------------------
-QuadTreeNode::~QuadTreeNode(void)
-{
-}
+QuadTreeNode::~QuadTreeNode(void) {}

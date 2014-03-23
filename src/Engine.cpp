@@ -11,7 +11,6 @@ extern const char* intro_script_buffer;
 GameLevel *lgameLevel;
 
 const char* buffer1 = "function on_load()\nreturn\nend\nfunction on_update(elapsedTime)\nreturn\nend\nfunction on_unload()\nreturn\nend\n";
-const char* buffer2 = "function on_load()\nprint \"test!!!!\"\nreturn\nend\nfunction on_update(elapsedTime)\nreturn\nend\nfunction on_unload()\nreturn\nend\nfunction on_draw(elapsedTime)\nreturn\nend\nfunction on_draw_screen(elapsedTime)\ngl.Translate (0.0, 0.0, -2.0)\ngl.Color(1.0, 1.0, 1.0)\ndisplayText(\"KRIG\", -0.69, 0.5, -0.01, 0.005, 0.003)return\nend\n";
 
 //------------------------------------------------------------------------------
 Engine::Engine()
@@ -799,7 +798,9 @@ void Engine::loadModels()
 
             model = new ModelStorage();
             model->load(filePath);
-            //#model->.buildEdges(); - used for shadows "converted from old code"
+
+            // TODO: Investigate progress on "shadows" feature
+            //model->buildEdges();
 
             // insert model file into model hash //
             hashKey = string(de->d_name);
@@ -901,4 +902,3 @@ void Engine::pause()
 {
     isPaused_ = !isPaused_;
 }
-

@@ -3,6 +3,7 @@
 
 #include <AL/al.h>
 #include <vorbis/vorbisfile.h>
+
 #include "constants.h"
 
 class Music
@@ -35,7 +36,7 @@ class Music
         void Update();
         void StopSong();
         void PauseSong();
-        void SetMusicListener( ALfloat, ALfloat, ALfloat, 
+        void SetMusicListener( ALfloat, ALfloat, ALfloat,
                                ALfloat, ALfloat, ALfloat );
 };
 

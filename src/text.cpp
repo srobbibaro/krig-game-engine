@@ -6,8 +6,6 @@
 #include "text.h"
 #include "constants.h"
 
-using namespace std;
-
 //------------------------------------------------------------------------------
 void render_string(void* font, const char* string)
 {

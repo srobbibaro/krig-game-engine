@@ -497,7 +497,8 @@ Object* GameLevel::findEnemyOfType( int type )
 
     while( obj->next != 0 ) {
         obj = (Object*)obj->next;
-        //#if ( obj->checkActiveEnemy() )
+        // TODO: Does the enemy need to be active?
+        //if ( obj->checkActiveEnemy() )
         if (obj->getTypeId() == type && obj->getInView()) {
             temp = findDistance( (Object*)player_, obj );
             if ( temp < closest ) {

@@ -5,7 +5,6 @@
 
 #include <cstdlib>
 
-
 //------------------------------------------------------------------------------
 Terrain::Terrain() : Object()
 {
@@ -38,7 +37,7 @@ void Terrain::init()
 //------------------------------------------------------------------------------
 Terrain::~Terrain()
 {
-    //# linux -- fix this -- unload();
+    // TODO: On linux there is an issue on unload
 }
 
 //------------------------------------------------------------------------------
@@ -149,7 +148,7 @@ void Terrain::draw( Object* c )
             n = n->next;
         }
 
-        glPopMatrix();
+    glPopMatrix();
 }
 
 //------------------------------------------------------------------------------
@@ -253,14 +252,11 @@ void Terrain::drawOutline( Object* c )
             n = n->next;
         }
 
-        glPopMatrix();
+    glPopMatrix();
 }
 
 //------------------------------------------------------------------------------
-void Terrain::generate( void )
-{
-
-}
+void Terrain::generate( void ) {}
 
 //------------------------------------------------------------------------------
 void Terrain::calcViewableTerrainNorm()
@@ -615,7 +611,8 @@ float Terrain::getHeight( float x, float z )
 
     // test to make sure still in terrain
     if ( col1 >= xSize_ || col2 >= xSize_ || row >= zSize_) {
-        //#col2 -= xSize_;
+        // TODO: Does subtracting the xSize from col2 provide any benefit?
+        //col2 -= xSize_;
         PRINT_DEBUG("Calculated coordinates outside of the terrain...\n");
         return 0.0f;
     }
@@ -732,8 +729,6 @@ void Terrain::animate( float elapsedTime, Object* c )
 
             PRINT_DEBUG_LVL(5, "x1=%d, z1=%d\n", x1, z1);
 
-
-
                 //if (z1 < zSize_ - 1 && z1 > 3) {
                     if (type_[x1][z1] == 1) {
                         if (totalTime_ > 0.5f) {
@@ -762,12 +757,10 @@ void Terrain::animate( float elapsedTime, Object* c )
             n = n->next;
         }
 
-
         if (totalTime_ > 0.5f)
             totalTime_ = 0.0f;
 
     calcViewableTerrainNorm();
-
 
     //collisionBox_[0].setVector( min[0], min[1], min[2] );
     //collisionBox_[1].setVector( max[0], max[1], max[2] );

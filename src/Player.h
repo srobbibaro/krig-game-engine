@@ -15,5 +15,4 @@ class Player : public Model
         }
 };
 
-
 #endif

@@ -46,7 +46,6 @@ void Object::cleanup(void)
 void Object::init(void)
 {
     cleanup();
-
     initSettings();
 }
 
@@ -228,7 +227,7 @@ void Object::processCollisions( Object* temp )
          temp->state_ == NORMAL && isCollisionDetectionEnabled_ &&
          temp->isCollisionDetectionEnabled_ && this != NULL && temp != NULL ) {
 
-        //# try a sphere-based collision
+        // First perform a sphere-based collision
         float radius1 = boundingSphere_.getRadius();
         float radius2 = boundingSphere_.getRadius();
         float radius_sum = radius1 + radius2;
@@ -483,5 +482,3 @@ Object* Object::getRoot()
 
     return temp;
 }
-
-

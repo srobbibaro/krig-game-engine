@@ -7,9 +7,7 @@ Sphere::Sphere(void)
 }
 
 //------------------------------------------------------------------------------
-Sphere::~Sphere(void)
-{
-}
+Sphere::~Sphere(void) {}
 
 //------------------------------------------------------------------------------
 void Sphere::setSphere(float tX, float tY, float tZ, float tRadius)
@@ -17,7 +15,7 @@ void Sphere::setSphere(float tX, float tY, float tZ, float tRadius)
     x = tX;
     y = tY;
     z = tZ;
-    
+
     radius = tRadius;
 }
 

@@ -34,7 +34,6 @@ using namespace std;
         void animate( float, Object* ); // Camera*
     };
 
-
     void render_string(void* font, const char* string);
     void displayText(char *text, float x, float y, float z, float, float );
 

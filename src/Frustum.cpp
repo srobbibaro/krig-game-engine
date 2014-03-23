@@ -1,14 +1,10 @@
 #include "Frustum.h"
 
 //------------------------------------------------------------------------------
-Frustum::Frustum(void)
-{
-}
+Frustum::Frustum(void) {}
 
 //------------------------------------------------------------------------------
-Frustum::~Frustum(void)
-{
-}
+Frustum::~Frustum(void) {}
 
 //------------------------------------------------------------------------------
 void Frustum::extractFromProjectionMatrix(const Matrix &m)
@@ -92,9 +88,7 @@ int Frustum::testSphere(Sphere sphere)
 }
 
 //------------------------------------------------------------------------------
-int Frustum::testBoundingBox(void)
-{
-}
+int Frustum::testBoundingBox(void) {}
 
 //------------------------------------------------------------------------------
 void Frustum::getPlaneDefinition(int num, float &a, float &b, float &c, float &d)

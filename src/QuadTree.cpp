@@ -2,14 +2,10 @@
 
 //------------------------------------------------------------------------------
 QuadTree::QuadTree(void)
-{
-    root = NULL;
-}
+{ root = NULL; }
 
 //------------------------------------------------------------------------------
-QuadTree::~QuadTree(void)
-{
-}
+QuadTree::~QuadTree(void) {}
 
 //------------------------------------------------------------------------------
 int QuadTree::buildTree(Terrain* t)
@@ -19,25 +15,24 @@ int QuadTree::buildTree(Terrain* t)
 //------------------------------------------------------------------------------
 int QuadTree::buildTree(QuadTreeNode* &p, float xMin, float xMax, float zMin, float zMax, float scaleFactor)
 {
-        PRINT_DEBUG_LVL(5, "Leaf:\n");
-        PRINT_DEBUG_LVL(5, "x=%f\n", (((xMax-xMin)/2.0f)+xMin));
-        PRINT_DEBUG_LVL(5, "z=%f\n", (-(((zMax-zMin)/2.0f)+zMin)));
-        PRINT_DEBUG_LVL(5, "sqrt=%f\n", sqrt(((zMax - zMin) * (zMax - zMin)) + ((xMax - xMin) * (xMax - xMin))));
+    PRINT_DEBUG_LVL(5, "Leaf:\n");
+    PRINT_DEBUG_LVL(5, "x=%f\n", (((xMax-xMin)/2.0f)+xMin));
+    PRINT_DEBUG_LVL(5, "z=%f\n", (-(((zMax-zMin)/2.0f)+zMin)));
+    PRINT_DEBUG_LVL(5, "sqrt=%f\n", sqrt(((zMax - zMin) * (zMax - zMin)) + ((xMax - xMin) * (xMax - xMin))));
 
-        p = new QuadTreeNode();
+    p = new QuadTreeNode();
 
-        p->min[0] = xMin;
-        p->min[1] = zMin;
-        p->max[0] = xMax;
-        p->max[1] = zMax;
+    p->min[0] = xMin;
+    p->min[1] = zMin;
+    p->max[0] = xMax;
+    p->max[1] = zMax;
 
-        p->boundingSphere.setSphere(
-            (((xMax-xMin)/2.0f)+xMin),
-            0.0f,
-            (-(((zMax-zMin)/2.0f)+zMin)),
-            sqrt(((zMax - zMin) * (zMax - zMin)) + ((xMax - xMin) * (xMax - xMin)))
-        );
-
+    p->boundingSphere.setSphere(
+        (((xMax-xMin)/2.0f)+xMin),
+        0.0f,
+        (-(((zMax-zMin)/2.0f)+zMin)),
+        sqrt(((zMax - zMin) * (zMax - zMin)) + ((xMax - xMin) * (xMax - xMin)))
+    );
 
     if (((xMax - xMin) > scaleFactor) && ((zMax - zMin) <= scaleFactor)) {
         buildTree(p->child[0], ((xMax+xMin)/2.0f), xMax, zMin, zMax, scaleFactor);
@@ -98,7 +93,6 @@ void QuadTree::traverseTree(QuadTreeNode* n)
 int QuadTree::buildDisplayList(DisplayList* l, Camera* c)
 {
     buildDisplayList(root, l, c);
-
     return (0);
 }
 
@@ -106,7 +100,6 @@ int QuadTree::buildDisplayList(DisplayList* l, Camera* c)
 int QuadTree::buildLeafList(DisplayList* l)
 {
     buildLeafList(root, l);
-
     return (0);
 }
 
@@ -147,7 +140,6 @@ int QuadTree::buildDisplayList(QuadTreeNode* n, DisplayList* l, Camera* c)
     return (0);
 }
 
-
 //------------------------------------------------------------------------------
 int QuadTree::buildLeafList(QuadTreeNode* n, DisplayList* l)
 {
@@ -163,5 +155,3 @@ int QuadTree::buildLeafList(QuadTreeNode* n, DisplayList* l)
 
     return (0);
 }
-
-

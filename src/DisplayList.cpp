@@ -10,9 +10,7 @@ DisplayList::DisplayList(void)
 }
 
 //------------------------------------------------------------------------------
-DisplayList::~DisplayList(void)
-{
-}
+DisplayList::~DisplayList(void) {}
 
 //------------------------------------------------------------------------------
 void DisplayList::traverseList(void)

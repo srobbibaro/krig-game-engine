@@ -6,8 +6,7 @@
 
 class ScriptedObject : public Model
 {
-      public:
-
+    public:
         ScriptedObject();
         virtual ~ScriptedObject();
 

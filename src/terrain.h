@@ -43,7 +43,6 @@ class Terrain : public Object
         }
  		void drawGrid(void);
 
-
  		void setVertexHeight(int x, int z, float height);
         void setVertexType(int x, int z, int type);
         void setVertexColor(int x, int z, Vector color);

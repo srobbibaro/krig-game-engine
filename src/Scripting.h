@@ -14,18 +14,6 @@ extern "C" {
 #include "matrix.h"
 #include "Engine.h"
 
-/*
-class Scripting
-{
-    public:
-        Scripting() {}
-        ~Scripting( void ) {}
-
-    private:
-        lua_State* lua_;
-};
-*/
-
 extern Object* lplayer;
 extern Object* lcamera;
 extern GameLevel* lgameLevel;
@@ -189,7 +177,6 @@ static int getSpeedLua(lua_State *L)
 	returnVector(L, speed);
 	return 1;
 }
-
 
 static int getPlayerLua(lua_State *L)
 {
@@ -628,7 +615,7 @@ static int setInterpolationEnableLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
-    //# there's probably a better wy to do this...
+    // TODO: there's probably a better wy to do this...
     int op = (int)lua_tonumber(L,2);
 
     if (op == 0)
@@ -781,7 +768,7 @@ static int getTimerLua(lua_State *L)
     luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
-    //#
+    // TODO: Is this logic working properly?
     lua_pushnumber(L, 0);
     return 1;
 }
@@ -1816,6 +1803,4 @@ void GameLevel::loadObject(lua_State* L, int number)
     lua_pop(L, 1);
 }
 */
-
-
 #endif

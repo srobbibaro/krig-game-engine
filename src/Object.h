@@ -72,7 +72,6 @@ class Object : public ObjectNode
 
         int typeId_;
 
-
         Vector lastLight_;
         bool scaleChanged_;
         bool rotationChanged_;
@@ -84,7 +83,6 @@ class Object : public ObjectNode
     public:
         Object();
         virtual ~Object();
-
 
         void processCollisions( Object* );
         Object* getRoot();
@@ -224,13 +222,8 @@ class Object : public ObjectNode
 
         bool getEnableSphereTest() { return enableSphereTest_; }
 
-        virtual void orientOnTerrain(Terrain *temp, Quaternion baseRotation)
-        {
-
-        }
-
+        virtual void orientOnTerrain(Terrain *temp, Quaternion baseRotation) {}
         virtual void setHeightFromTerrain(Terrain *temp, float offset){}
-
 };
 
 #endif

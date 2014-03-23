@@ -35,42 +35,37 @@ void Snow::draw(void)
     glColor3f( 1.0f, 1.0f, 1.0f );
 
     for (int i = 0; i < numParticles; i++) {
+        Vector up, normal;
+        up.setVector( 0.0f, 0.0f, 1.0f );
 
-              Vector up, normal;
-                up.setVector( 0.0f, 0.0f, 1.0f );
+        Vector originPosition = origin->getPosition();
 
-                Vector originPosition = origin->getPosition();
+        normal.setVector((originPosition.x-particles[i].position.x), 0, (originPosition.z-particles[i].position.z));
+        normal.normalize();
 
-                normal.setVector((originPosition.x-particles[i].position.x), 0, (originPosition.z-particles[i].position.z));
-                normal.normalize();
+        Vector rotationAxis;
+        rotationAxis.crossProduct( up, normal );
+        rotationAxis.normalize();
+        float rotationAngle = up.dotProduct( normal );
 
-                Vector rotationAxis;
-                rotationAxis.crossProduct( up, normal );
-                rotationAxis.normalize();
-                float rotationAngle = up.dotProduct( normal );
+        glPushMatrix();
 
-                glPushMatrix();
+        rotationAngle = acos(rotationAngle);
+        rotationAngle = ((rotationAngle*180)/3.14);
 
-                rotationAngle = acos(rotationAngle);
-                rotationAngle = ((rotationAngle*180)/3.14);
+        glTranslatef(particles[i].position.x, particles[i].position.y, particles[i].position.z);
+        glRotatef(rotationAngle, rotationAxis.x, rotationAxis.y, rotationAxis.z);
 
-                glTranslatef(particles[i].position.x, particles[i].position.y, particles[i].position.z);
-                glRotatef(rotationAngle, rotationAxis.x, rotationAxis.y, rotationAxis.z);
+        Vector t;
+        t.setVector((originPosition.x-particles[i].position.x), (originPosition.y-particles[i].position.y), (originPosition.z-particles[i].position.z));
+        t.normalize();
 
+        rotationAngle = normal.dotProduct(t);
 
-                Vector t;
-                t.setVector((originPosition.x-particles[i].position.x), (originPosition.y-particles[i].position.y), (originPosition.z-particles[i].position.z));
-                t.normalize();
-
-                rotationAngle = normal.dotProduct(t);
-
-                if (t.y < 0)
-			         glRotatef(acos(rotationAngle)*180/3.14,1,0,0);
-                else
-			         glRotatef(acos(rotationAngle)*180/3.14,-1,0,0);
-
-
-
+        if (t.y < 0)
+             glRotatef(acos(rotationAngle)*180/3.14,1,0,0);
+        else
+             glRotatef(acos(rotationAngle)*180/3.14,-1,0,0);
 
         glBegin( GL_TRIANGLES );
             glVertex3f(-0.1, -0.1, 0.0);
@@ -125,10 +120,8 @@ void Snow::update(float elapsedTime)
         if ( particles[i].position.x > originPosition.x + 40.0f ||
              particles[i].position.x < originPosition.x - 40.0f ||
              particles[i].position.y > originPosition.y + 30.0f ||
-             particles[i].position.y < originPosition.y - 30.0f
-         )
+             particles[i].position.y < originPosition.y - 30.0f ) {
             initParticle(i);
-
-
+        }
     }
 }
