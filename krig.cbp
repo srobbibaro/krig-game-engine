@@ -94,8 +94,6 @@
 		<Unit filename="src/matrix.h" />
 		<Unit filename="src/model.cpp" />
 		<Unit filename="src/model.h" />
-		<Unit filename="src/sound.cpp" />
-		<Unit filename="src/sound.h" />
 		<Unit filename="src/terrain.cpp" />
 		<Unit filename="src/terrain.h" />
 		<Unit filename="src/text.cpp" />
