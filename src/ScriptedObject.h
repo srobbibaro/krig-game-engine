@@ -13,9 +13,7 @@ class ScriptedObject : public Model
 
         void printTypeName(void)
         {
-#if DEBUG
-            printf("ScriptedObject");
-#endif
+            PRINT_DEBUG("ScriptedObject");
         }
 };
 

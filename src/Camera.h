@@ -34,9 +34,7 @@ class Camera : public Object
         void getRotationMatrix( Matrix &m ) const;
 
         void printTypeName(void) {
-#if DEBUG
-            printf("camera");
-#endif
+            PRINT_DEBUG("Camera");
         }
 
         void draw(Object*);

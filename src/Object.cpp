@@ -111,7 +111,7 @@ void Object::setScript( string name )
     // If the lua state still could not be initialized, then exit the game.
     // ... we can do something smarter with this in the finished product.
     if (!L_) {
-        printf("Error creating Lua state.\n");
+        PRINT_ERROR("Could not create Lua state.\n");
 	    exit(-1);
     }
 
@@ -261,10 +261,7 @@ void Object::processCollisions( Object* temp )
                  (boxB[0].z >= boxA[0].z && boxB[0].z <= boxA[1].z)  ||
                  (boxB[1].z >= boxA[0].z && boxB[1].z <= boxA[1].z)) ) {
 
-                //if (typeId_ == 100 || temp->getTypeId() == 100)
-                   // printf("Collision: id 1=%d, id 2=%d\n", typeId_, temp->getTypeId());
-
-                //cout << "Collision! object 1=" << this->typeId_ << " object 2=" << temp->typeId_ << endl;
+                PRINT_DEBUG_LVL(3, "Collision! object 1=(%d), object 2=(%d).\n", this->typeId_, temp->typeId_);
                 handleCollision( temp );
                 temp->handleCollision(this);
             }

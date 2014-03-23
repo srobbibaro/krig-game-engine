@@ -7,18 +7,18 @@ class Powerup : public Model
 {
     public:
         int type;
-        
+
         void handleCollision( Object* );
         void prepare() {}
         void handleDeath( void ) {}
-        
+
         Powerup();
         Powerup( int, float* );
         void processAI( Camera*, float elapsedTime ) {}
-        
-        void printTypeName(void) 
+
+        void printTypeName(void)
          {
-            cout << "Powerup";
+            PRINT_DEBUG("Powerup");
          }
 };
 #endif

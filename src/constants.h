@@ -2,6 +2,7 @@
 #include <GL/glut.h>
 
 #include <string>
+#include <cstring>
 #include <fstream>
 #include <stdio.h>
 
@@ -21,6 +22,7 @@ using namespace std;
 
 #define EDIT        1
 #define DEBUG       0
+#define MSG_LVL     0
 
 // sound library constants //
 #define BUFFER_SIZE 65536
@@ -43,5 +45,20 @@ using namespace std;
 #define TEXT_SCRIPT_SET_VISIBLE     96
 #define TEXT_SCRIPT_SET_TYPE        98
 /////////////////////////////////////////
+
+#define PRINT_DEBUG(format, ...) \
+    PRINT_DEBUG_LVL(0, format, ##__VA_ARGS__)
+
+#define PRINT_DEBUG_LVL(level, format, ...) \
+    if (DEBUG) PRINT_MESSAGE(level, format, "DEBUG", ##__VA_ARGS__)
+
+#define PRINT_ERROR(format, ...) \
+    PRINT_MESSAGE(0, format, "ERROR", ##__VA_ARGS__)
+
+#define PRINT_MESSAGE(level, format, type, ...) \
+    if (level <= MSG_LVL) \
+        printf("[%s|%s:%s] " format, type, \
+                strrchr(__FILE__, '/') + 1, \
+                __FUNCTION__, ##__VA_ARGS__);
 
 #endif

@@ -101,14 +101,18 @@ class GameLevel
             if (temp != NULL) {
                 temp->initSettings();
                 freeObjects_[script].remove(temp);
-                //cout << "object script key: " << script << " size: " << freeObjects_[script].size << endl;
+                PRINT_DEBUG_LVL(
+                    2,
+                    "Object removed: script='%s'. Added to free objects map (size=%d).\n",
+                    script.c_str(),
+                    freeObjects_[script].size
+                );
             }
             else {
                 temp = new ScriptedObject();
                 temp->setScript( script);
-#if DEBUG
-                printf("[GameLevel] Allocated a new object of type '%s'.\n", script.c_str());
-#endif
+
+                PRINT_DEBUG_LVL(2, "Allocated a new object of type '%s'.\n", script.c_str());
             }
 
             objects_.insertFront(temp);
@@ -127,16 +131,14 @@ class GameLevel
             if (temp != NULL) {
                 temp->initSettings();
                 freeObjects_[script].remove(temp);
-#if DEBUG
-                printf("[GameLevel] Pulled object of type '%s' from FOM. (FOM size=%d).\n", script.c_str(), freeObjects_[script].size);
-#endif
+
+                PRINT_DEBUG_LVL(2, "Pulled object of type '%s' from FOM. (FOM size=%d).\n", script.c_str(), freeObjects_[script].size);
             }
             else {
                 temp = new ScriptTextType();
                 temp->setScript( script );
-#if DEBUG
-                printf("[GameLevel] Allocated a new object of type '%s'.\n", script.c_str());
-#endif
+
+                PRINT_DEBUG_LVL(2, "Allocated a new object of type '%s'.\n", script.c_str());
             }
 
             objects_.insertFront(temp);

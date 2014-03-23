@@ -39,9 +39,7 @@ class Terrain : public Object
         // remove from final version //
         void printTypeName(void)
         {
-#if DEBUG
-            printf("Terrain");
-#endif
+            PRINT_DEBUG("Terrain");
         }
  		void drawGrid(void);
 

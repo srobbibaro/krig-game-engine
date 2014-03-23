@@ -181,7 +181,7 @@ void ScriptTextType::animate( float timeElapsed, Object* camera) // Camera*
 /*
 int ScriptTextType::processExtendedCommand( const ScriptCommand &t )
 {
-    cout << t.routine;
+    PRINT_DEBUG("Routine=%d\n", t.routine);
 
     switch ( t.routine )
     {
@@ -211,7 +211,7 @@ int ScriptTextType::processExtendedCommand( const ScriptCommand &t )
             else
                 size = (int)t.p1;
 
-            cout << "size" <<(int)t.p1;
+            PRINT_DEBUG("Size=%d\n", (int)t.p1);
 
             break;
 

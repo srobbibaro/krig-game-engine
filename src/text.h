@@ -22,9 +22,7 @@ using namespace std;
 
         void printTypeName(void)
         {
-#if DEBUG
-            printf("text");
-#endif
+            PRINT_DEBUG("text");
         }
 
         void draw(Object*);

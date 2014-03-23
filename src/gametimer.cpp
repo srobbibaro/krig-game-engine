@@ -6,7 +6,6 @@
 #include <sys/time.h>
 #include "gametimer.h"
 
-
 using namespace std;
 
 //------------------------------------------------------------------------------
@@ -67,10 +66,9 @@ float GameTimer::getElapsedSeconds( unsigned long )
 
     seconds += float(currentTime - m_startTime) / 1000.0f;
 
-
     fps = 1.0f / seconds;
-    //  cout << "s: " << m_startTime << " c: " << currentTime << endl;
-    //cout << "seconds: " << seconds << endl;
+    PRINT_DEBUG_LVL(3, "Start time: %d, current time: %d\n", m_startTime, currentTime);
+    PRINT_DEBUG_LVL(3, "Seconds: %f\n", seconds);
 
     m_startTime = currentTime;
   }

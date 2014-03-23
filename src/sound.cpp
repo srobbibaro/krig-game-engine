@@ -48,7 +48,7 @@ Sound::Sound()
 
         sfxHash[ files[i] ] = i; // Create name to index map.
 
-        //cout << "Loaded sound '" << filename << "' key '" << files[i] << "'\n";
+        PRINT_DEBUG("Loaded sound name='%s', key='%s'\n", filename, files[i].c_str());
 
         //alutUnloadWAV(format, data, size, freq);
     }

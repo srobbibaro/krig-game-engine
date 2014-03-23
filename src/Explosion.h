@@ -9,15 +9,15 @@ class Explosion : public Model
         void handleCollision( Object* ) {}
         void prepare() {}
         void handleDeath( void ) {}
-        
+
         Explosion();
         Explosion( float, float* );
         void processAI( Camera*, float elapsedTime ) {}
         void animate ( float, Camera * );
-        
-        void printTypeName(void) 
+
+        void printTypeName(void)
          {
-            cout << "Explosion";
+            PRINT_DEBUG("Explosion");
          }
 };
 #endif

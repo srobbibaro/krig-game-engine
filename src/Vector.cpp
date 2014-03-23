@@ -377,12 +377,12 @@ void Matrix::setShadow( float lightPos[4], float plane[4] )
 void Matrix::display( void )
 {
 #if DEBUG
-    printf("\n");
+    PRINT_DEBUG("Matrix dump:\n");
     for ( int i = 0; i < 16; i++ )
     {
-        printf("%.3f\t",data[i] );
+        PRINT_DEBUG("%.3f\t",data[i] );
         if ( (i+1) % 4 == 0 )
-            printf( "\n" );
+            PRINT_DEBUG( "\n" );
     }
 #endif
 }

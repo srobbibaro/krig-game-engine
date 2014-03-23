@@ -56,8 +56,6 @@ static Vector loadVector(lua_State *L)
 
     lua_pop(L, 1);
 
-    //cout << "Loaded vector: x=" << t.x << " y=" << t.y << " z=" << t.z << endl;
-
     return t;
 }
 
@@ -84,7 +82,6 @@ static int setPositionLua(lua_State *L)
     Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
 	object->setPosition(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
-    //cout << object->getPosition().x << " " << object->getPosition().y << " " << object->getPosition().z << endl;
 	return 0;
 }
 
@@ -327,8 +324,6 @@ static int camera_getFrustumPlaneLua(lua_State *L)
     float a, b, c, d;
 
     static_cast<Camera*>(lcamera)->getFrustum()->getPlaneDefinition(plane_num, a, b, c, d);
-
-    //printf("%f %f %f %f\n", a, b, c, d);
 
     lua_newtable(L);
 
@@ -734,8 +729,6 @@ static int setRotationAxisvLua(lua_State *L)
 
     Vector v;
     rotation.getEulerAngles(v);
-
-    //printf("rotation x=%f y=%f z=%f\n", v.x, v.y, v.z);
 
    	object->setRotationChanged(true);
 
@@ -1758,22 +1751,18 @@ static int registerFunctions(lua_State *L, int level)
 /*
 void GameLevel::loadObject(lua_State* L, int number)
 {
-    cout << "number: " << number << endl;
-
     lua_pushnumber(L, number);
     lua_gettable(L, -2);
 
     lua_pushstring(L, "type");
     lua_gettable(L, -2);
     int objectType = (int)lua_tonumber(L, -1);
-    cout << "type: " << objectType << endl;
     lua_pop(L, 1);
 
     lua_pushstring(L, "script");
     lua_gettable(L, -2);
     const char *t = lua_tostring(L, -1);
     string script = "./scripts/" + string(t);
-    cout << "Script: " << script << endl;
     lua_pop(L, 1);
 
     Vector position, rotation, scale;
@@ -1781,7 +1770,6 @@ void GameLevel::loadObject(lua_State* L, int number)
     lua_pushstring(L, "position");
     lua_gettable(L, -2);
     loadVector(L, &position);
-    cout << "Position: " << position.x << " " << position.y << " " << position.z << endl;
     lua_pop(L, 1);
 
     if ( number == 1 ) {
@@ -1791,7 +1779,7 @@ void GameLevel::loadObject(lua_State* L, int number)
 
     // The player will always be created before a level is loaded
     if (player == NULL) {
-        printf("The player object was not initialized prior to loading the level.\n");
+        PRINT_ERROR("The player object was not initialized prior to loading the level.\n");
         exit(1);
     }
 

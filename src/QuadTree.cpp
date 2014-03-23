@@ -20,7 +20,10 @@ int QuadTree::buildTree(Terrain* t)
 //------------------------------------------------------------------------------
 int QuadTree::buildTree(QuadTreeNode* &p, float xMin, float xMax, float zMin, float zMax, float scaleFactor)
 {
-        //printf( "leaf:" << (((xMax-xMin)/2.0f)+xMin) << " "  << (-(((zMax-zMin)/2.0f)+zMin)) << " "  << sqrt(((zMax - zMin) * (zMax - zMin)) + ((xMax - xMin) * (xMax - xMin))) << endl;
+        PRINT_DEBUG_LVL(5, "Leaf:\n");
+        PRINT_DEBUG_LVL(5, "x=%f\n", (((xMax-xMin)/2.0f)+xMin));
+        PRINT_DEBUG_LVL(5, "z=%f\n", (-(((zMax-zMin)/2.0f)+zMin)));
+        PRINT_DEBUG_LVL(5, "sqrt=%f\n", sqrt(((zMax - zMin) * (zMax - zMin)) + ((xMax - xMin) * (xMax - xMin))));
 
         p = new QuadTreeNode();
 
@@ -53,8 +56,14 @@ int QuadTree::buildTree(QuadTreeNode* &p, float xMin, float xMax, float zMin, fl
         buildTree(p->child[3], ((xMax+xMin)/2.0f), xMax, ((zMax+zMin)/2.0f), zMax , scaleFactor);
     }
     else {
-        //printf( "leaf: " << xMin << " " << xMax << " " << zMin << " " << zMax << endl;
-        //printf( "leaf:" << (((xMax-xMin)/2.0f)+xMin) << " "  << (-(((zMax-zMin)/2.0f)+zMin)) << " "  << sqrt(((zMax - zMin) * (zMax - zMin)) + ((xMax - xMin) * (xMax - xMin))) << endl;
+        PRINT_DEBUG_LVL(5, "Leaf:\n");
+        PRINT_DEBUG_LVL(5, "x=%f,%f\n", xMin, xMax);
+        PRINT_DEBUG_LVL(5, "z=%f,%f\n", zMin, zMax);
+
+        PRINT_DEBUG_LVL(5, "Leaf:\n");
+        PRINT_DEBUG_LVL(5, "x=%f\n", (((xMax-xMin)/2.0f)+xMin));
+        PRINT_DEBUG_LVL(5, "z=%f\n", (-(((zMax-zMin)/2.0f)+zMin)));
+        PRINT_DEBUG_LVL(5, "sqrt=%f\n", sqrt(((zMax - zMin) * (zMax - zMin)) + ((xMax - xMin) * (xMax - xMin))));
     }
 
     return (1);
@@ -70,23 +79,19 @@ void QuadTree::traverseTree(void)
 void QuadTree::traverseTree(QuadTreeNode* n)
 {
     if (n != NULL) {
-#if DEBUG
-        printf("---------------------------\n");
-        printf("min x: %d, max x: %d\n", n->min[0], n->max[0]);
-        printf("min z: %d max z: %d\n", n->min[1],  n->max[1]);
-        printf("---------------------------\n");
-#endif
+        PRINT_DEBUG("---------------------------\n");
+        PRINT_DEBUG("min x: %d, max x: %d\n", (int)n->min[0], (int)n->max[0]);
+        PRINT_DEBUG("min z: %d max z: %d\n", (int)n->min[1],  (int)n->max[1]);
+        PRINT_DEBUG("---------------------------\n");
 
         for (int i = 0; i < 4; i++) {
             traverseTree(n->child[i]);
         }
     }
     else {
-#if DEBUG
-        printf("------------------\n");
-        printf("leaf node\n");
-        printf("------------------\n");
-#endif
+        PRINT_DEBUG("------------------\n");
+        PRINT_DEBUG("leaf node\n");
+        PRINT_DEBUG("------------------\n");
     }
 }
 
@@ -111,7 +116,6 @@ int QuadTree::buildDisplayList(QuadTreeNode* n, DisplayList* l, Camera* c)
 {
     if (n != NULL) {
         int r =  c->frustum.testSphere(n->boundingSphere);
-        //printf( "res: " << r << endl;
 		switch(r)
         {
 			case -1:

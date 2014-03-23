@@ -21,7 +21,9 @@ void DisplayList::traverseList(void)
     QuadTreeNode *n = head;
 
     while (n != NULL) {
-        //cout << n->min[0] << " " << n->max[0] << " " << n->min[1] << " " << n->max[1] << endl;
+        PRINT_DEBUG_LVL(2, "Node:\n");
+        PRINT_DEBUG_LVL(2, "0=%f,%f\n", n->min[0], n->max[0]);
+        PRINT_DEBUG_LVL(2, "1=%f,%f\n", n->min[1], n->max[1]);
         n = n->next;
     }
 }

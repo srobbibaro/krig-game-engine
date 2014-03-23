@@ -253,9 +253,6 @@ void Terrain::drawOutline( Object* c )
             n = n->next;
         }
 
-        //cout << "draw count: " << num << "\n";
-
-
         glPopMatrix();
 }
 
@@ -302,7 +299,7 @@ void Terrain::calcViewableTerrainNorm()
         z1 = (int)zStart;
         z2 = ((int)zStart) +1;
 
-        //printf("x1=%d, z1=%d, x2=%d, z2=%d\n", x1, z1, x2, z2);
+        PRINT_DEBUG_LVL(5, "x1=%d, z1=%d, x2=%d, z2=%d\n", x1, z1, x2, z2);
 
         vertexNormal_[x1][z1].x = 0.0f;
         vertexNormal_[x1][z1].y = 0.0f;
@@ -495,7 +492,7 @@ void Terrain::calcTerrainNorm( Vector* light )
     */
 
     if (!vertex_ || !lightIntensity_ || !color_ || !type_) {
-        printf("Error: Could not save terrain.\n");
+        PRINT_ERROR("Could not save terrain.\n");
         return;
     }
 
@@ -612,18 +609,14 @@ float Terrain::getHeight( float x, float z )
     col2 = col1 + 1;
 
     if (col1 < 0 || col2 < 0 || row < 0) {
-#if DEBUG
-        printf("error: x=%f, z=%f, row=%d, col1=%d, col2=%d\n", x, z,row, col1,col2);
-#endif
+        PRINT_DEBUG("Error: x=%f, z=%f, row=%d, col1=%d, col2=%d\n", x, z,row, col1,col2);
         return 0.0f;
     }
 
     // test to make sure still in terrain
     if ( col1 >= xSize_ || col2 >= xSize_ || row >= zSize_) {
         //#col2 -= xSize_;
-#if DEBUG
-        printf("a problem?\n");
-#endif
+        PRINT_DEBUG("Calculated coordinates outside of the terrain...\n");
         return 0.0f;
     }
 
@@ -645,7 +638,7 @@ float Terrain::getHeight( float x, float z )
 
     float finalHeight = ( 1 - perX )*th1 + ( perX * th2 );
 
-    //printf("returning height=%f\n", finalHeight);
+    PRINT_DEBUG_LVL(5, "returning height=%f\n", finalHeight);
 
     return ( finalHeight );
 }
@@ -716,7 +709,7 @@ void Terrain::animate( float elapsedTime, Object* c )
 
         QuadTreeNode* n = displayList_->head;
 
-        //printf("--------------\n");
+        PRINT_DEBUG_LVL(5, "--------------\n");
 
         while (n != NULL) {
             xStart = n->min[0] / scaleFactor_;
@@ -737,7 +730,7 @@ void Terrain::animate( float elapsedTime, Object* c )
             }
             */
 
-            //printf("x1=%d, z1=%d\n", x1, z1);
+            PRINT_DEBUG_LVL(5, "x1=%d, z1=%d\n", x1, z1);
 
 
 
@@ -855,10 +848,9 @@ void Terrain::load( const char* filePath, Vector* light )
 
     collisionBox_[0].setVector( min[0], min[1], min[2] );
     collisionBox_[1].setVector( max[0], max[1], max[2] );
-#if DEBUG
-    printf("Terrain Collisoin Box min x=%f, y=%f, z=%f\n", collisionBox_[0].x, collisionBox_[0].y, collisionBox_[0].z);
-    printf("Terrain Collisoin Box max x=%f, y=%f, z=%f\n", collisionBox_[1].x, collisionBox_[1].y, collisionBox_[1].z);
-#endif
+
+    PRINT_DEBUG("Terrain Collisoin Box min x=%f, y=%f, z=%f\n", collisionBox_[0].x, collisionBox_[0].y, collisionBox_[0].z);
+    PRINT_DEBUG("Terrain Collisoin Box max x=%f, y=%f, z=%f\n", collisionBox_[1].x, collisionBox_[1].y, collisionBox_[1].z);
 }
 
 
@@ -918,7 +910,7 @@ void Terrain::drawGrid(void)
 void Terrain::save( char* filePath, Vector* light)
 {
     if (vertex_ == NULL || lightIntensity_ == NULL || color_ == NULL || type_ == NULL) {
-        printf("Error: Could not save terrain.\n");
+        PRINT_ERROR("Could not save terrain.\n");
         return;
     }
 

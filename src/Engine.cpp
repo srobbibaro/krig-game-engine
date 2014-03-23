@@ -6,7 +6,7 @@
 #include "Scripting.h"
 #include "buffer.h"
 
-extern char* intro_script_buffer;
+extern const char* intro_script_buffer;
 
 GameLevel *lgameLevel;
 
@@ -27,7 +27,7 @@ Engine::Engine()
 
     // setup game timer /////////////////////////
     if( !timer_.init() ) {
-        printf ( "Timer initialization failed." );
+        PRINT_ERROR("Timer initialization failed.");
 
         exit (1);
     }
@@ -92,7 +92,7 @@ bool Engine::loadGame( string file )
     // If the lua state still could not be initialized, then exit the game.
     // ... we can do something smarter with this in the finished product.
     if (!luaState_) {
-        printf("Error creating Lua state.\n");
+        PRINT_ERROR("Could not create Lua state.\n");
 	    exit(-1);
     }
 
@@ -104,9 +104,7 @@ bool Engine::loadGame( string file )
     registerFunctions(luaState_, 0);
 
     // load the script
-#if DEBUG
-    printf("[Engine] Loading Lua game script '%s'...\n", file.c_str());
-#endif
+    PRINT_DEBUG("Loading Lua game script '%s'...\n", file.c_str());
 	luaL_dofile(luaState_, file.c_str());
 
 	// Find the update function and call it
@@ -133,7 +131,7 @@ bool Engine::loadGameFromBuffer( char* buffer )
     // If the lua state still could not be initialized, then exit the game.
     // ... we can do something smarter with this in the finished product.
     if (!luaState_) {
-        printf("Error creating Lua state.\n");
+        PRINT_ERROR("Could not create Lua state.\n");
 	    exit(-1);
     }
 
@@ -145,9 +143,8 @@ bool Engine::loadGameFromBuffer( char* buffer )
     registerFunctions(luaState_, 0);
 
     // load the script
-#if DEBUG
-    printf("[Engine] Loading Lua game script from buffer...\n");
-#endif
+    PRINT_DEBUG("Loading Lua game script from buffer...\n");
+
 	//luaL_dofile(luaState_, file.c_str());
 	luaL_loadbuffer(luaState_, buffer, strlen(buffer), "line") || lua_pcall(luaState_, 0, 0, 0);
 
@@ -174,7 +171,7 @@ bool Engine::loadIntroCredits()
     // If the lua state still could not be initialized, then exit the game.
     // ... we can do something smarter with this in the finished product.
     if (!luaState_) {
-        printf("Error creating Lua state.\n");
+        PRINT_ERROR("Could not create Lua state.\n");
 	    exit(-1);
     }
 
@@ -186,9 +183,8 @@ bool Engine::loadIntroCredits()
     registerFunctions(luaState_, 0);
 
     // load the script
-#if DEBUG
-    printf("[Engine] Loading Lua game script 'intro credits'...\n");
-#endif
+    PRINT_DEBUG("Loading Lua game script 'intro credits'...\n");
+
 	//luaL_dofile(luaState_, file.c_str());
 
 	luaL_loadbuffer(luaState_, buffer1, strlen(buffer1), "line") || lua_pcall(luaState_, 0, 0, 0);
@@ -445,7 +441,7 @@ void Engine::initGL()
 //------------------------------------------------------------------------------
 void Engine::processKeyUp(int key)
 {
-    //cout << "special key up=" << key << endl;
+    PRINT_DEBUG_LVL(1, "special key up (%d)\n", key);
     specialKeyState_.keys[key] = 2;
 
     #if DEMO
@@ -456,7 +452,7 @@ void Engine::processKeyUp(int key)
 //------------------------------------------------------------------------------
 void Engine::processKeyDown( int key )
 {
-    //cout << "special key down=" << key << endl;
+    PRINT_DEBUG_LVL(1, "special key down (%d)\n", key);
     specialKeyState_.keys[key] = 1;
 
 
@@ -642,7 +638,7 @@ void Engine::processNormalKey(unsigned char key)
 
     keyState_.keys[key] = 1;
 
-    //cout << "key=" << key << endl;
+    PRINT_DEBUG_LVL(1, "key (%d)\n", key);
 #if EDIT
     switch (key)
     {
@@ -797,9 +793,7 @@ void Engine::loadModels()
             strcat(filePath, de->d_name);
 
             // load model file into model storage //
-#if DEBUG
-            printf("[Engine] Loading model file '%s'...", filePath);
-#endif
+            PRINT_DEBUG("Loading model file '%s'...\n", filePath);
 
             model = new ModelStorage();
             model->load(filePath);
@@ -808,9 +802,8 @@ void Engine::loadModels()
             // insert model file into model hash //
             hashKey = string(de->d_name);
             modelHash[hashKey] = model;
-#if DEBUG
-            printf("done.\n");
-#endif
+
+            PRINT_DEBUG("done.\n");
         }
     }
 

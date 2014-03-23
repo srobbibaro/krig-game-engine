@@ -625,11 +625,11 @@ void Model::buildEdges()
                 p2.y = temp->getHeight(p2.x, p2.z);
                 p3.y = temp->getHeight(p3.x, p3.z);
 
-                //printf("p1.x=%f, p1.y=%f, p1.z=%f, p2.y=%f, p3.y=%f\n", p1.x, p1.y, p1.z, p2.y, p3.y);
+                PRINT_DEBUG_LVL(5, "p1.x=%f, p1.y=%f, p1.z=%f, p2.y=%f, p3.y=%f\n", p1.x, p1.y, p1.z, p2.y, p3.y);
 
                 float height = calcTriangleCenter(p1.y, p2.y, p3.y);
 
-                //printf("height =%f\n", height);
+                PRINT_DEBUG_LVL(5, "height =%f\n", height);
 
                 //float position_height = ((Terrain*)temp)->getHeight( position_.x, position_.z );
 
@@ -637,7 +637,7 @@ void Model::buildEdges()
                     Vector normal, up;
                     normal.calcNorm( p1, p2, p3);
 
-                    //printf("normal x=%f, normal y=%f, normal z=%f\n", normal.x, normal.y, normal.z);
+                    PRINT_DEBUG_LVL(5, "normal x=%f, normal y=%f, normal z=%f\n", normal.x, normal.y, normal.z);
 
                     up.setVector( 0.0f, 1.0f, 0.0f );
                     Vector rotationAxis; rotationAxis.crossProduct( up, normal );
@@ -668,11 +668,11 @@ void Model::buildEdges()
                 p2.y = temp->getHeight(p2.x, p2.z);
                 p3.y = temp->getHeight(p3.x, p3.z);
 
-                //printf("p1.x=%f, p1.y=%f, p1.z=%f, p2.y=%f, p3.y=%f\n", p1.x, p1.y, p1.z, p2.y, p3.y);
+                PRINT_DEBUG_LVL(5, "p1.x=%f, p1.y=%f, p1.z=%f, p2.y=%f, p3.y=%f\n", p1.x, p1.y, p1.z, p2.y, p3.y);
 
                 float height = calcTriangleCenter(p1.y, p2.y, p3.y);
 
-                //printf("height =%f\n", height);
+                PRINT_DEBUG_LVL(5, "height =%f\n", height);
 
                 //float position_height = ((Terrain*)temp)->getHeight( position_.x, position_.z );
 

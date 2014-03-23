@@ -11,9 +11,7 @@ class Player : public Model
 
         void printTypeName(void)
         {
-#if DEBUG
-            printf("Player");
-#endif
+            PRINT_DEBUG("Player");
         }
 };
 

@@ -314,14 +314,13 @@ void display()
     glutSetWindow( mainWin );
 #endif
     if (!KRIG->getIsRunning()) {
-#if DEBUG
-        printf("[main] Shutting down...\n");
-#endif
+        PRINT_DEBUG("Shutting down...\n");
+
         delete KRIG;
         alutExit();
-#if DEBUG
-        printf("[main] Finished shutting down.\n");
-#endif
+
+        PRINT_DEBUG("Finished shutting down.\n");
+
         exit(0);
     }
 
@@ -451,7 +450,7 @@ int main( int argc, char *argv[] )
 		//glutSetCursor(GLUT_CURSOR_NONE);
     }
 	else {
-		printf ( "[main] Error: Unable to change screen resolution and setup game mode.\n" );
+		PRINT_ERROR("Unable to change screen resolution and setup game mode.\n");
 		exit(1);
 	}
 

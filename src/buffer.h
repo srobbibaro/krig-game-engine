@@ -1,6 +1,6 @@
 #ifndef _BUFFER_H_
 #define _BUFFER_H_
-char *intro_script_buffer =
+const char *intro_script_buffer =
 "local alpha = 0.0 \
 function on_load() \
 return \

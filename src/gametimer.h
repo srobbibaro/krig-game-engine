@@ -8,6 +8,8 @@
 #ifndef _GAME_TIMER_H_
 #define _GAME_TIMER_H_
 
+#include "constants.h"
+
 class GameTimer
 {
     public:

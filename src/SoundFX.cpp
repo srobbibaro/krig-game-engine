@@ -62,9 +62,8 @@ SoundFX::~SoundFX() {
 
     delete[] Buffers;
     delete[] Sources;
-#if DEBUG
-    printf("[SoundFX] Clean-up complete.\n");
-#endif
+
+    PRINT_DEBUG("Clean-up complete.\n");
 }
 
 // PlaySFX()

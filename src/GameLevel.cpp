@@ -175,7 +175,7 @@ bool GameLevel::loadLevelLua( string file )
     // If the lua state still could not be initialized, then exit the game.
     // ... we can do something smarter with this in the finished product.
     if (luaState_ == NULL) {
-        printf("Error creating Lua state.\n");
+        PRINT_ERROR("Could not create Lua state.\n");
 	    exit(-1);
     }
 
@@ -189,27 +189,22 @@ bool GameLevel::loadLevelLua( string file )
     registerFunctions(luaState_, 1);
 
     // load the script
-#if DEBUG
-    printf("[GameLevel] Loading Lua level script '%s'...\n", file.c_str());
-#endif
+    PRINT_DEBUG("Loading Lua level script '%s'...\n", file.c_str());
+
 	luaL_dofile(luaState_, file.c_str());
     ////////////////////////////////////////////////////////
 
     terrain_ = new Terrain();
     player_ = new Player();
 
-#if DEBUG
-    printf("[GameLevel] Terrain and Player allocated.\n");
-#endif
+    PRINT_DEBUG("Terrain and Player allocated.\n");
 
     objects_.insertFront(terrain_);
 
-#if DEBUG
-    printf("[GameLevel] Terrain stored in objects list.\n");
-#endif
+    PRINT_DEBUG("Terrain stored in objects list.\n");
 
     if (camera_ == NULL) {
-        printf("Error: Camera was not allocated in GameLevel class.\n");
+        PRINT_ERROR("Camera was not allocated in GameLevel class.\n");
         exit (1);
     }
 
@@ -218,9 +213,8 @@ bool GameLevel::loadLevelLua( string file )
     lgameLevel = this;
 
     // Find the update function and call it
-#if DEBUG
-    printf("[GameLevel] Calling Lua level script 'on_load' function...\n");
-#endif
+    PRINT_DEBUG("Calling Lua level script 'on_load' function...\n");
+
     lua_getglobal(luaState_, "on_load");
 
     // Push a pointer to the current object for use within the lua function
@@ -229,9 +223,7 @@ bool GameLevel::loadLevelLua( string file )
     // Call the function with 1 argument and no return values
     lua_call(luaState_, 1, 0);
 
-#if DEBUG
-    printf("[GameLevel] Lua level script 'on_load' function complete.\n");
-#endif
+    PRINT_DEBUG("Lua level script 'on_load' function complete.\n");
 
     // get the result //
     //position.z = (float)lua_tonumber(luaState_, -1);
@@ -242,34 +234,26 @@ bool GameLevel::loadLevelLua( string file )
     objects_.insertFront(player_);
     ////////////////////////////////////////////
 
-#if DEBUG
-    printf("[GameLevel] Building quad tree...\n");
-#endif
+    PRINT_DEBUG("Building quad tree...\n");
 
     quadTree_.buildTree(terrain_);
     //q->traverseTree();
 
-#if DEBUG
-    printf("[GameLevel] Building display list...\n");
-#endif
+    PRINT_DEBUG("Building display list...\n");
+
     quadTree_.buildDisplayList(&displayList_, dynamic_cast<Camera*>(camera_));
     //q->buildLeafList(luaState_);
 
-#if DEBUG
-    printf("[GameLevel] Traversing list...\n");
-#endif
+    PRINT_DEBUG("Traversing list...\n");
+
     displayList_.traverseList();
     //sleep(10000);
     //exit(1);
 
-#if DEBUG
-    printf("[GameLevel] Finished building quad tree.\n");
-#endif
+    PRINT_DEBUG("Finished building quad tree.\n");
     terrain_->setDisplayList(&displayList_);
+    PRINT_DEBUG("Finished loading level.\n\n");
 
-#if DEBUG
-    printf("[GameLevel] Finished loading level.\n\n");
-#endif
     return (true);
 }
 
@@ -290,7 +274,7 @@ bool GameLevel::loadLevelFromBufferLua( const char* buffer )
     // If the lua state still could not be initialized, then exit the game.
     // ... we can do something smarter with this in the finished product.
     if (luaState_ == NULL) {
-        printf("Error creating Lua state.\n");
+        PRINT_ERROR("Could not create Lua state.\n");
 	    exit(-1);
     }
 
@@ -304,9 +288,8 @@ bool GameLevel::loadLevelFromBufferLua( const char* buffer )
     registerFunctions(luaState_, 1);
 
     // load the script
-#if DEBUG
-    printf("[GameLevel] Loading Lua level script from buffer...\n");
-#endif
+    PRINT_DEBUG("Loading Lua level script from buffer...\n");
+
 	//uaL_dofile(luaState_, file.c_str());
 	luaL_loadbuffer(luaState_, buffer, strlen(buffer), "line") ||
                 lua_pcall(luaState_, 0, 0, 0);
@@ -316,18 +299,14 @@ bool GameLevel::loadLevelFromBufferLua( const char* buffer )
     terrain_ = new Terrain();
     player_ = new Player();
 
-#if DEBUG
-    printf("[GameLevel] Terrain and Player allocated.\n");
-#endif
+    PRINT_DEBUG("Terrain and Player allocated.\n");
 
     objects_.insertFront(terrain_);
 
-#if DEBUG
-    printf("[GameLevel] Terrain stored in objects list.\n");
-#endif
+    PRINT_DEBUG("Terrain stored in objects list.\n");
 
     if (camera_ == NULL) {
-        printf("Error: Camera was not allocated in GameLevel class.\n");
+        PRINT_ERROR("Camera was not allocated in GameLevel class.\n");
         exit (1);
     }
 
@@ -336,9 +315,8 @@ bool GameLevel::loadLevelFromBufferLua( const char* buffer )
     lgameLevel = this;
 
     // Find the update function and call it
-#if DEBUG
-    printf("[GameLevel] Calling Lua level script 'on_load' function...\n");
-#endif
+    PRINT_DEBUG("Calling Lua level script 'on_load' function...\n");
+
     lua_getglobal(luaState_, "on_load");
 
     // Push a pointer to the current object for use within the lua function
@@ -347,9 +325,7 @@ bool GameLevel::loadLevelFromBufferLua( const char* buffer )
     // Call the function with 1 argument and no return values
     lua_call(luaState_, 1, 0);
 
-#if DEBUG
-    printf("[GameLevel] Lua level script 'on_load' function complete.\n");
-#endif
+    PRINT_DEBUG("Lua level script 'on_load' function complete.\n");
 
     // get the result //
     //position.z = (float)lua_tonumber(luaState_, -1);
@@ -360,34 +336,28 @@ bool GameLevel::loadLevelFromBufferLua( const char* buffer )
     objects_.insertFront(player_);
     ////////////////////////////////////////////
 
-#if DEBUG
-    printf("[GameLevel] Building quad tree...\n");
-#endif
+    PRINT_DEBUG("Building quad tree...\n");
 
     quadTree_.buildTree(terrain_);
     //q->traverseTree();
 
-#if DEBUG
-    printf("[GameLevel] Building display list...\n");
-#endif
+    PRINT_DEBUG("Building display list...\n");
+
     quadTree_.buildDisplayList(&displayList_, dynamic_cast<Camera*>(camera_));
     //q->buildLeafList(luaState_);
 
-#if DEBUG
-    printf("[GameLevel] Traversing list...\n");
-#endif
+    PRINT_DEBUG("Traversing list...\n");
+
     displayList_.traverseList();
     //sleep(10000);
     //exit(1);
 
-#if DEBUG
-    printf("[GameLevel] Finished building quad tree.\n");
-#endif
+    PRINT_DEBUG("Finished building quad tree.\n");
+
     terrain_->setDisplayList(&displayList_);
 
-#if DEBUG
-    printf("[GameLevel] Finished loading level.\n\n");
-#endif
+    PRINT_DEBUG("Finished loading level.\n\n");
+
     return (true);
 }
 
@@ -571,13 +541,9 @@ void GameLevel::unloadLevel()
         lua_call(luaState_, 1, 0);
     }
 
-#if DEBUG
-    printf("[GameLevel] Removing objects...");
-#endif
+    PRINT_DEBUG("Removing objects...\n");
     removeObjects();
-#if DEBUG
-    printf("done.\n");
-#endif
+    PRINT_DEBUG("done.\n");
 
     if (luaState_ != NULL)
         lua_close(luaState_);
@@ -701,8 +667,12 @@ void GameLevel::updateObjects( Vector* light  )
             objects_.remove(object);
             freeObjects_[object->getScriptName()].insertFront(object);
 
-            //cout << "Object removed: '" << object->getScriptName() << "'. Added to free objects map. size=" << freeObjects_[object->getScriptName()].size << endl;
-
+            PRINT_DEBUG_LVL(
+                2,
+                "Object removed: script='%s'. Added to free objects map (size=%d).\n",
+                object->getScriptName().c_str(),
+                freeObjects_[object->getScriptName()].size
+            );
             //delete object;
         }
 
