@@ -67,7 +67,7 @@ float GameTimer::getElapsedSeconds( unsigned long )
     seconds += float(currentTime - m_startTime) / 1000.0f;
 
     fps = 1.0f / seconds;
-    PRINT_DEBUG_LVL(3, "Start time: %d, current time: %d\n", m_startTime, currentTime);
+    PRINT_DEBUG_LVL(3, "Start time: %ld, current time: %ld\n", m_startTime, currentTime);
     PRINT_DEBUG_LVL(3, "Seconds: %f\n", seconds);
 
     m_startTime = currentTime;

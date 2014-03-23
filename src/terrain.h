@@ -31,7 +31,7 @@ class Terrain : public Object
 
         void init();
         void load( const char*, Vector* );
-        void save( char*, Vector* );
+        void save( const char*, Vector* );
         void unload();
 
         float getHeight( float, float );

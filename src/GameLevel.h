@@ -81,7 +81,7 @@ class GameLevel
         void updateColor(int &x, int &z, float &red, float &green, float &blue);
 
         void getTerrainInfo(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
-        void saveTerrain(char*);
+        void saveTerrain(const char*);
         void toggleGrid(void);
         void toggleBoundingBoxes(void);
         void toggleControlTriangles(void);

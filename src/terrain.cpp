@@ -907,7 +907,7 @@ void Terrain::drawGrid(void)
 }
 
 //------------------------------------------------------------------------------
-void Terrain::save( char* filePath, Vector* light)
+void Terrain::save( const char* filePath, Vector* light)
 {
     if (vertex_ == NULL || lightIntensity_ == NULL || color_ == NULL || type_ == NULL) {
         PRINT_ERROR("Could not save terrain.\n");

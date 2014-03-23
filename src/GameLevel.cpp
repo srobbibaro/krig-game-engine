@@ -597,7 +597,7 @@ void GameLevel::getTerrainInfo(int &x, int &z, float &height, int &type, float &
     blue = color.z;
 }
 
-void GameLevel::saveTerrain(char* filePath)
+void GameLevel::saveTerrain(const char* filePath)
 {
     terrain_->save(filePath, &lightDirection_);
 }
