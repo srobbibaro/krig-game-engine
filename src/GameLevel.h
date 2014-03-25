@@ -26,7 +26,7 @@ class GameLevel
 
         Player* player_;     // player object
         Object* camera_;     // camera
-        Terrain *terrain_;  // Terrain for this level (if one is loaded)
+        Terrain *terrain_;   // Terrain for this level (if one is loaded)
 
         Music music_;
 
