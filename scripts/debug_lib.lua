@@ -49,7 +49,6 @@ function handle_debug_controls(elapsedTime)
 
     cam_orth = getOrthogonal(camera)
 
-
     if engine_testKeyPressed(string.byte("*", 1)) == 1 then
         swapLevel()
     end
