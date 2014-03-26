@@ -42,7 +42,7 @@ function on_update(this)
         if cursor == 0.0 then
             setComplete(1)
         else
-            -- shutdown 
+            shutdown()
         end
     end
     
