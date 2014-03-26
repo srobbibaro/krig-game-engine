@@ -3,7 +3,7 @@ dofile("./levels/level_lib.lua")
 x_start_camera = 110.0
 x_start_player = x_start_camera - 30.0
 
-boss = nil
+boss     = nil
 bossLife = 0
 
 function setupEnemyShips(terrain)
@@ -109,7 +109,7 @@ function on_load(terrain)
 
     -- scenery
 
-    --playBgMusic("./music/Woodman.ogg", 1)
+    playBgMusic("./music/level2.ogg", 1)
     
     return
 end

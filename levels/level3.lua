@@ -1,9 +1,9 @@
 dofile("./levels/level_lib.lua")
 
-x_start_camera = 750.0 -- 110.0
+x_start_camera = 175.0 --110.0
 x_start_player = x_start_camera - 20.0
 
-boss = nil
+boss     = nil
 bossLife = 0
 
 function on_load(terrain)
@@ -43,7 +43,7 @@ function on_load(terrain)
     setup_volcano( terrain, 1620.0, -65.0 )
     setup_volcano( terrain, 2195.0, -105.0 )
 
---    playBgMusic("./music/Woodman.ogg", 1)
+    playBgMusic("./music/level3.ogg", 1)
 
     return
 end

@@ -3,7 +3,7 @@ dofile("./levels/level_lib.lua")
 x_start_camera = 180.0 -- 110.0
 x_start_player = x_start_camera - 20.0
 
-boss = nil
+boss     = nil
 bossLife = 0
 
 function on_load(terrain)
@@ -23,7 +23,7 @@ function on_load(terrain)
     setScript(camera, "./scripts/camera1.lua")
     setPosition(camera, x_start_camera, 15.0, 105.0)
     
-    --playBgMusic("./music/Sparkman.ogg", 1)
+    playBgMusic("./music/level4.ogg", 1)
 
     return
 end

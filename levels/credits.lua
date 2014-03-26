@@ -1,7 +1,7 @@
 dofile("./levels/level_lib.lua")
 
 creditsPos = 0.0
-credTrans = 0.0
+credTrans  = 0.0
 
 creds = { "Head Programmer", "Steven Robbibaro",
           "Assistant Programmer", "Andrew Yochum",
@@ -122,7 +122,7 @@ function on_load(terrain)
     setRotation(obj, 0.0, 0.0, 0.0)
     setModel(obj, "Boss.mdl")
 
-    playBgMusic("./music/Ending.ogg", 0)
+    playBgMusic("./music/credits.ogg", 0)
 
     return
 end

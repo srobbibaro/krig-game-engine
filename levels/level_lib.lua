@@ -1,15 +1,15 @@
-bossBattle = 0
+bossBattle   = 0
 bossDefeated = 0
-endTimer = 10.0
+endTimer     = 10.0
 
 function display_debug()
-    player = getPlayer()
-    camera = getCamera()
-    plr_pos = getPosition(player)
-    cam_pos = getPosition(camera)
-    cam_dir = getDirection(camera)
-    cam_up = getUp(camera)
-    cam_rot = getRotation(camera)
+    player    = getPlayer()
+    camera    = getCamera()
+    plr_pos   = getPosition(player)
+    cam_pos   = getPosition(camera)
+    cam_dir   = getDirection(camera)
+    cam_up    = getUp(camera)
+    cam_rot   = getRotation(camera)
     light_dir = getLightDirection()
 
     gl.PushMatrix()
@@ -39,8 +39,8 @@ function display_hud(bossBattle, bossLife)
     score       = getScriptValue(player, "score")
     numMissiles = getScriptValue(player, "numMissiles")
     EnemyEnergy = bossLife 
-    EnergyBar = -0.31 - (0.068 * (10.0 - ShipEnergy))
-    BossEnergy = 0.31 + (0.017 * (40.0 - EnemyEnergy))
+    EnergyBar   = -0.31 - (0.068 * (10.0 - ShipEnergy))
+    BossEnergy  = 0.31 + (0.017 * (40.0 - EnemyEnergy))
 
     plr_pos = getPosition(player)
     

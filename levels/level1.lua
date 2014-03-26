@@ -1,15 +1,15 @@
 dofile("./levels/level_lib.lua")
 
-x_start_camera = 110.0 -- 110.0
+x_start_camera = 110.0
 x_start_player = x_start_camera - 20.0
 
-boss = nil
+boss     = nil
 bossLife = 0
 
 function on_load(terrain)
     setSkyBox(0.0, 0.0, 0.3,
-	          0.4, 0.4, 1.0,
-	          0.8, 0.8, 1.0)
+              0.4, 0.4, 1.0,
+              0.8, 0.8, 1.0)
 
     setLightDirection(0.7723, 0.1792, 0.6094)
 
@@ -95,27 +95,27 @@ function on_load(terrain)
     setAsteroidWave(terrain, 730.0, 810.0)
 	
     -- last wave - crashing ships --
-	obj6 = addObject(terrain, "./scripts/enemy_ship4.lua")
-	setPosition(obj6, 882, 15, 37.5)
-		
-	obj5 = addObject(terrain, "./scripts/enemy_ship4.lua")
-	setPosition(obj5, 880, 10, 37.5)
-		
-	obj4 = addObject(terrain, "./scripts/enemy_ship4.lua")
-	setPosition(obj4, 890, 12, 37.5)
+    obj6 = addObject(terrain, "./scripts/enemy_ship4.lua")
+    setPosition(obj6, 882, 15, 37.5)
 	
-	obj3 = addObject(terrain, "./scripts/enemy_ship6.lua")
-	setPosition(obj3, 900, 15, 37.5)
+    obj5 = addObject(terrain, "./scripts/enemy_ship4.lua")
+    setPosition(obj5, 880, 10, 37.5)
 	
-	obj2 = addObject(terrain, "./scripts/enemy_ship6.lua")
-	setPosition(obj2, 905, 10, 37.5)
-		
-	obj1 = addObject(terrain, "./scripts/enemy_ship6.lua")
-	setPosition(obj1, 910, 12, 37.5)
+    obj4 = addObject(terrain, "./scripts/enemy_ship4.lua")
+    setPosition(obj4, 890, 12, 37.5)
+
+    obj3 = addObject(terrain, "./scripts/enemy_ship6.lua")
+    setPosition(obj3, 900, 15, 37.5)
+
+    obj2 = addObject(terrain, "./scripts/enemy_ship6.lua")
+    setPosition(obj2, 905, 10, 37.5)
+	
+    obj1 = addObject(terrain, "./scripts/enemy_ship6.lua")
+    setPosition(obj1, 910, 12, 37.5)
 	
     -- scenery --
-	obj = addObject(terrain, "./scripts/building.lua")
-	setPosition(obj, 160, 20, -75.0)
+    obj = addObject(terrain, "./scripts/building.lua")
+    setPosition(obj, 160, 20, -75.0)
 	setScale(obj, 10.0, 20.0, 10.0)
 
 	obj = addObject(terrain, "./scripts/building.lua")
@@ -175,7 +175,7 @@ function on_load(terrain)
 	obj = addObject(terrain, "./scripts/pinetree.lua", 990.0, -80.0, 4.0)
     obj = addObject(terrain, "./scripts/pinetree.lua", 995.0, -75.0, 4.0)
 
---    playBgMusic("./music/Wily.ogg", 1)
+    playBgMusic("./music/level1.ogg", 1)
 
     return
 end

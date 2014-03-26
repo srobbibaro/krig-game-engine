@@ -1,10 +1,10 @@
-cursor = -0.2
-alph = 0.1
+cursor      = -0.2
+alph        = 0.1
 alphaChange = 0.01
-updown = 0
+updown      = 0
 
 function on_load()
-    playBgMusic("./music/Intro.ogg", 0)
+    playBgMusic("./music/menu.ogg", 0)
     return
 end
 
@@ -202,4 +202,3 @@ function on_draw_screen(elapsedTime)
     
     return
 end
-

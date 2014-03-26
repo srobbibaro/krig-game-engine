@@ -3,10 +3,10 @@ dofile("./levels/level_lib.lua")
 x_start_camera = 0.0 -- 110.0
 x_start_player = x_start_camera - 20.0
 
-boss_battle = 0
-boss = nil
-bossLife = 0
-next_asteroid = 0.0
+boss_battle     = 0
+boss            = nil
+bossLife        = 0
+next_asteroid   = 0.0
 next_background = 0.0
 
 asteroid_wave1 = {
@@ -135,7 +135,7 @@ function on_load(terrain)
     setRotation(obj, 1.57, 1.57, 1.57)
     setScale(obj, 15.0, 15.0, 15.0)
 
-    --playBgMusic("./music/Sparkman.ogg", 1)
+    playBgMusic("./music/level5.ogg", 1)
 
     return
 end
