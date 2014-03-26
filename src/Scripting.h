@@ -1720,12 +1720,12 @@ static int registerFunctions(lua_State *L, int level)
         lua_register(L, "getCameraId", getCameraIdLua);
         lua_register(L, "getLightDirection", getLightDirectionLua);
         lua_register(L, "setComplete", setCompleteLua);
+        lua_register(L, "shutdown", shutdownLua);
     }
 
     if (level == 0) {
         lua_register(L, "loadLevel", loadLevelLua);
         lua_register(L, "loadLevelFromBuffer", loadLevelFromBufferLua);
-        lua_register(L, "shutdown", shutdownLua);
         lua_register(L, "pause", pauseLua);
         lua_register(L, "testLevelComplete", testLevelCompleteLua);
         lua_register(L, "getLevelId", getLevelIdLua);
