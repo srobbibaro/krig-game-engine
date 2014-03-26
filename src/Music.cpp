@@ -18,9 +18,11 @@ Music::Music() {
 // Cleans up OpenAL buffer information.
 
 Music::~Music() {
+    PRINT_DEBUG("Cleaning up...\n");
     StopSong();
     alDeleteBuffers( 2, Buffers );
     alDeleteSources( 1, &Source );
+    PRINT_DEBUG("Done!");
 }
 
 // PlaySong()
