@@ -1372,6 +1372,12 @@ static int setCompleteLua(lua_State *L)
     return 0;
 }
 
+static int setSnowEffectLua(lua_State *L)
+{
+    g_script_game_level->initSnow();
+    return 0;
+}
+
 static int testLevelCompleteLua(lua_State *L)
 {
     lua_pushnumber(L, g_script_game_level->checkComplete());
@@ -1721,6 +1727,7 @@ static int registerFunctions(lua_State *L, int level)
         lua_register(L, "getLightDirection", getLightDirectionLua);
         lua_register(L, "setComplete", setCompleteLua);
         lua_register(L, "shutdown", shutdownLua);
+        lua_register(L, "setSnowEffect", setSnowEffectLua);
     }
 
     if (level == 0) {

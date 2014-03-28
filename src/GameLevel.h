@@ -7,6 +7,7 @@
 #include "QuadTree.h"
 #include "Music.h"
 #include "ObjectList.h"
+#include "Snow.h"
 
 extern "C" {
     #include "lua5.1/lua.h"
@@ -27,6 +28,7 @@ class GameLevel
         Player* player_;     // player object
         Object* camera_;     // camera
         Terrain *terrain_;   // Terrain for this level (if one is loaded)
+        Snow *snow_;
 
         Music music_;
 
@@ -172,6 +174,11 @@ class GameLevel
         {
             lightDirection_.setVector(x, y, z);
             lightDirection_.normalize();
+        }
+
+        void initSnow() {
+            if (snow_ == NULL)
+                snow_ = new Snow(camera_);
         }
 };
 

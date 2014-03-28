@@ -23,6 +23,8 @@ GameLevel::GameLevel( unsigned int lists)
     player_ = NULL;
     camera_ = NULL;
 
+    snow_ = NULL;
+
     musicPath_ = "";
     scriptName_ = "";
 
@@ -544,10 +546,14 @@ void GameLevel::unloadLevel()
     if (luaState_ != NULL)
         lua_close(luaState_);
 
+    if (snow_ != NULL)
+        delete snow_;
+
     terrain_ = NULL;
     player_ = NULL;
     camera_ = NULL;
     luaState_ = NULL;
+    snow_ = NULL;
 }
 
 //------------------------------------------------------------------------------
@@ -620,6 +626,9 @@ void GameLevel::drawObjects()
         if (object->getActive() && object->getInView() && object->getDrawEnabled() && object->getState() != DEAD)
             object->draw( dynamic_cast<Camera*>(camera_) );
     }
+
+    if (snow_ != NULL)
+        snow_->draw();
 }
 
 //------------------------------------------------------------------------------
@@ -690,6 +699,9 @@ void GameLevel::prepareObjects()
 //------------------------------------------------------------------------------
 void GameLevel::animateObjects(float timeElapsed)
 {
+    if (snow_ != NULL)
+        snow_->update(timeElapsed);
+
     for(Object *object = static_cast<Object*>(objects_.head);
         object != NULL;
         object = static_cast<Object*>(object->next)) {
