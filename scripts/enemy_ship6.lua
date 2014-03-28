@@ -1,4 +1,3 @@
-dofile('./scripts/base_object.lua')
 dofile('./scripts/base_enemy.lua')
 
 state = 0

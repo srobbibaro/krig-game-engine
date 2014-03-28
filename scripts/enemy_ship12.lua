@@ -1,9 +1,9 @@
 dofile('./scripts/base_enemy.lua')
 dofile('./scripts/base_shooting_object.lua')
 
-state = 0
+state      = 0
 interpTime = 0.0
-score = 100
+score      = 100
 
 function on_load(this)
     setModel(this, "Enemy.mdl")

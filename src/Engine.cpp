@@ -299,10 +299,7 @@ void Engine::gameCycle()
 
                 //processCommands();
 
-
-
                 currentLevel_->updateLevel();
-
                 currentLevel_->prepareLevel();   // collision detection
 
                 //currentLevel_->updateLevel();
@@ -315,14 +312,10 @@ void Engine::gameCycle()
                 //glMultMatrixf(m.data);
                 currentLevel_->drawLevel();
 
-
                 currentLevel_->getMusic()->Update();
 
                 glClear( GL_DEPTH_BUFFER_BIT );
                 glLoadIdentity();
-
-
-
 
                 glDepthFunc(GL_ALWAYS);
                 currentLevel_->postDraw();
@@ -350,7 +343,7 @@ void Engine::prepare()
 
     //glDepthFunc(GL_ALWAYS);
     //    currentLevel_->postDraw();
-   // glDepthFunc(GL_LESS);
+    // glDepthFunc(GL_LESS);
 
     Matrix translationMatrix;
 
@@ -455,7 +448,6 @@ void Engine::processKeyDown( int key )
 {
     PRINT_DEBUG_LVL(1, "special key down (%d)\n", key);
     specialKeyState_.keys[key] = 1;
-
 
     #if DEMO
         if ( gameMode == 1 )

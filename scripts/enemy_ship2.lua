@@ -9,6 +9,7 @@ function on_load(this)
     setTypeId(this, 1)     
     return
 end
+
 function on_update(this, elapsedTime)
     this_position = getPosition(this)
     camera_pos    = getPosition( getCamera() )
@@ -38,6 +39,7 @@ function on_update(this, elapsedTime)
     end
     return
 end
+
 function on_unload(this)
     return
 end
@@ -46,4 +48,3 @@ function on_collision(this, temp)
     handle_collision(this, temp)
     return
 end
-

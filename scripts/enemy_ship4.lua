@@ -1,9 +1,8 @@
-dofile('./scripts/base_object.lua')
 dofile('./scripts/base_enemy.lua')
 
 score = 100
-
 state = 0
+
 function on_load(this)
     setModel(this, "Enemy.mdl")
     setScale(this, 2.0, 2.0, 2.0)

@@ -1,9 +1,9 @@
 dofile('./scripts/base_enemy.lua')
 dofile('./scripts/base_shooting_object.lua')
 
-state = 1
+state       = 1
 orig_height = 0.0
-totalTime = 1.0
+totalTime   = 1.0
 
 function on_load(this)
     setModel(this, "Enemy.mdl")

@@ -21,7 +21,6 @@ function on_update(this, elapsedTime)
     plr_pos = getPosition(plr)
     in_view = getInView(this)
 
-
     if plr_pos[2] < (this_pos[2] + .5) and 
        plr_pos[2] > (this_pos[2] - .5) and 
        in_view == 1 then

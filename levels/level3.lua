@@ -1,6 +1,6 @@
 dofile("./levels/level_lib.lua")
 
-x_start_camera = 175.0 --110.0
+x_start_camera = 110.0
 x_start_player = x_start_camera - 20.0
 
 boss     = nil
@@ -64,9 +64,7 @@ function on_update(terrain, elapsedTime)
             plr_vel = getVelocity(player)
             setVelocity(player, (plr_vel[1] - 10.0), plr_vel[2], plr_vel[3])
            
-            -- Create the boss...
-            --boss = addObject(terrain, "./scripts/base_object.lua")
-            --setPosition(boss, 2350.0, 15.0, 7.5)
+            -- TODO: Create the boss...
         end
     elseif bossBattle == 1 then
         bossLife = 0

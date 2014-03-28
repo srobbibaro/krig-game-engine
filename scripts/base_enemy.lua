@@ -1,5 +1,4 @@
-life = 1
-
+life  = 1
 score = 0
 
 function handle_collision(this, temp)

@@ -1,8 +1,6 @@
-dofile('./scripts/base_object.lua')
-
-next_shot_time = 1.0
+next_shot_time         = 1.0
 initial_next_shot_time = 1.0
-script = nil
+script                 = nil
 
 function setupShots(this, objectScript, initialNextShotTime)
     script =  objectScript
