@@ -23,8 +23,6 @@ function on_load(terrain)
     setScript(camera, "./scripts/camera1.lua")
     setPosition(camera, x_start_camera, 15.0, 35.0)
 
-    setSnowEffect();
-
     -- setup the enemy ships
     local obj = addObject(terrain, "./scripts/enemy_ship1.lua")
     setPosition(obj, 160, 15, 7.5)

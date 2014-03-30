@@ -101,7 +101,7 @@ function on_load(terrain)
     setScript(camera, "./scripts/camera1.lua")
     setPosition(camera, x_start_camera, 15.0, 35.0)
 
-    --addParticleSystem(camera, 2)
+    addParticleSystem(camera, 2)
 
     -- gameplay obstacles (ships, asteroids, etc)
     setupEnemyShips(terrain)

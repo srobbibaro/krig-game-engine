@@ -186,19 +186,8 @@ Frustum *Camera::getFrustum()
 }
 
 //------------------------------------------------------------------------------
-void Camera::draw(Object* hey)
+void Camera::draw(Object* object)
 {
-    glColor3f(1.0f, 1.0f, 1.0f);
-
-    glPushMatrix();
-    glBegin(GL_LINES);
-    glVertex3f(position_.x, position_.y, position_.z);
-    glVertex3f(position_.x, position_.y-(up_.y*12.0f), position_.z);
-
-    glEnd();
-
-    glPopMatrix();
-
     if (particleSystem_)
         particleSystem_->draw();
 }
