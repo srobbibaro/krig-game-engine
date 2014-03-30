@@ -22,6 +22,8 @@ function on_load(terrain)
     camera = getCamera()
     setScript(camera, "./scripts/camera1.lua")
     setPosition(camera, x_start_camera, 15.0, 105.0)
+
+    addParticleSystem(camera, 1)
     
     playBgMusic("./music/level4.ogg", 1)
 

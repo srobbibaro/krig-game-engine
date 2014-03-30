@@ -1,15 +1,15 @@
-#ifndef _SNOW_H_
-#define _SNOW_H_
+#ifndef _STAR_FIELD_H_
+#define _STAR_FIELD_H_
 
-#define MAX_SNOW_PARTICLES 500
+#define MAX_STAR_PARTICLES 300 
 
 #include "ParticleSystem.h"
 
-class Snow : public ParticleSystem
+class StarField: public ParticleSystem
 {
     public:
-        Snow(Object* tOrigin);
-        ~Snow(void);
+        StarField(Object* tOrigin);
+        ~StarField(void);
 
         void update(float elapsedTime);
         void draw(void);

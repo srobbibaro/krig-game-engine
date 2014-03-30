@@ -83,6 +83,8 @@
 		<Unit filename="src/SoundFX.h" />
 		<Unit filename="src/Sphere.cpp" />
 		<Unit filename="src/Sphere.h" />
+		<Unit filename="src/StarField.cpp" />
+		<Unit filename="src/StarField.h" />
 		<Unit filename="src/Vector.cpp" />
 		<Unit filename="src/Vector.h" />
 		<Unit filename="src/buffer.h" />

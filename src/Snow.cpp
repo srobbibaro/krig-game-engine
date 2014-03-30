@@ -13,6 +13,10 @@ Snow::Snow(Object* tOrigin)
     particles = new Particle[maxParticles];
 
     init();
+
+    // We force an update here so that the snow will already be in the scene
+    // once it is loaded
+    update(3.0f);
 }
 
 //------------------------------------------------------------------------------

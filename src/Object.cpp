@@ -8,6 +8,7 @@
 #include "Object.h"
 #include "Scripting.h"
 #include "Snow.h"
+#include "StarField.h"
 
 GLint numObjects;
 Object* object;
@@ -441,9 +442,23 @@ void Object::setSpeed( const Vector &v )
 
 void Object::setParticleSystem(int particleSystemNumber)
 {
-    if (particleSystemNumber > 0 && !particleSystem_) {
-        particleSystem_ = new Snow(this);
-        particleSystem_->update(4.0f);
+    if (particleSystem_) {
+        // We won't allow updating a particle system for now
+        return;
+    }
+
+    PRINT_DEBUG_LVL(1, "Attempting to load particle system %d\n", particleSystemNumber);
+
+    switch (particleSystemNumber) {
+        case 1:
+            particleSystem_ = new StarField(this);
+            break;
+        case 2:
+            particleSystem_ = new Snow(this);
+            break;
+        default:
+            PRINT_DEBUG_LVL(1, "Specified particle system was not defined!\n");
+            break;
     }
 }
 

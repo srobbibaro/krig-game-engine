@@ -95,6 +95,8 @@ function on_load(terrain)
     setScript(camera, "./scripts/camera1.lua")
     setPosition(camera, x_start_camera, 15.0, 27.5)
 
+    addParticleSystem(camera, 1)
+
     for i,v in ipairs(asteroid_wave1) do
         obj = addObject(terrain, "./scripts/asteroid_space.lua")
         setPositionv(obj, v.position)
@@ -187,17 +189,6 @@ function on_unload()
 end
 
 function on_draw()
---[[
-    gl.PushMatrix()
-    gl.Color (1.0, 1.0, 1.0)
-    gl.Begin("QUADS")
-    gl.Vertex (10.0, 10.0, 0.0)
-    gl.Vertex (-10.0, 10.0, 0.0)
-    gl.Vertex (-10.0, -10.0, 0.0)
-    gl.Vertex (10.0, -10.0, 0.0)
-    gl.End()
-    gl.PopMatrix()
---]]
     return
 end
 
