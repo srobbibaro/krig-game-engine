@@ -399,6 +399,8 @@ void glutInit(void)
 //------------------------------------------------------------------------------
 int main( int argc, char *argv[] )
 {
+    srand(time(NULL));
+
     glutInit( &argc, argv );
     alutInit( &argc, argv );
 

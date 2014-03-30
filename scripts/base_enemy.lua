@@ -14,7 +14,6 @@ function handle_collision(this, temp)
             setScriptValue(player, "score", player_score)
             create_score_text(this)
             
-            math.randomseed( os.time() )
             powerup_rand = math.random(100) 
 
             --print ("powerup_rand:".. powerup_rand)

@@ -64,9 +64,10 @@ void GameLevel::drawLevel()
     // reset draw mode to "normal"
     glCallList( lists_+2 );
 
+    dynamic_cast<Camera*>(camera_)->draw(camera_);
+
     if (grid_) {
         terrain_->drawGrid();
-        dynamic_cast<Camera*>(camera_)->draw(camera_);
     }
 
     if (bboxes_)
