@@ -1175,6 +1175,12 @@ static int engine_testSpecialKeyReleasedLua(lua_State *L)
     return 1;
 }
 
+static int engine_testDebugEnabledLua(lua_State *L)
+{
+    lua_pushnumber(L, DEBUG);
+    return 1;
+}
+
 static int engine_getMouseCoordinatesLua(lua_State *L)
 {
     float x = g_script_engine->getMouseX();
@@ -1659,6 +1665,7 @@ static int registerFunctions(lua_State *L, int level)
     lua_register(L, "engine_testKeyReleased", engine_testKeyReleasedLua);
     lua_register(L, "engine_testSpecialKeyPressed", engine_testSpecialKeyPressedLua);
     lua_register(L, "engine_testSpecialKeyReleased", engine_testSpecialKeyReleasedLua);
+    lua_register(L, "engine_testDebugEnabled", engine_testDebugEnabledLua);
     lua_register(L, "engine_getMouseCoordinates", engine_getMouseCoordinatesLua);
     lua_register(L, "level_findObjectOfType", level_findObjectOfTypeLua);
     lua_register(L, "vector_normalize", vector_normalizeLua);

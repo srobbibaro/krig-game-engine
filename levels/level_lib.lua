@@ -1,34 +1,40 @@
 bossBattle   = 0
 bossDefeated = 0
 endTimer     = 10.0
+debugEnabled = nil
 
 function display_debug()
-    player    = getPlayer()
-    camera    = getCamera()
-    plr_pos   = getPosition(player)
-    cam_pos   = getPosition(camera)
-    cam_dir   = getDirection(camera)
-    cam_up    = getUp(camera)
-    cam_rot   = getRotation(camera)
-    light_dir = getLightDirection()
+    if (debugEnabled == nil) then
+        debugEnabled = engine_testDebugEnabled()
+    end
 
-    gl.PushMatrix()
-        gl.Translate (0.0, 0.0, -2.0)
-        gl.Color (1.0, 1.0, 1.0)
+    if (debugEnabled == 1) then
+        player    = getPlayer()
+        camera    = getCamera()
+        plr_pos   = getPosition(player)
+        cam_pos   = getPosition(camera)
+        cam_dir   = getDirection(camera)
+        cam_up    = getUp(camera)
+        cam_rot   = getRotation(camera)
+        light_dir = getLightDirection()
 
-        renderText(string.format("plr pos: %.04f %.04f %.04f", plr_pos[1], plr_pos[2], plr_pos[3]), -1.0, 0.55)
-        renderText(string.format("cam pos: %.04f %.04f %.04f", cam_pos[1], cam_pos[2], cam_pos[3]), -1.0, 0.48)
-        renderText(string.format("cam dir: %.04f %.04f %.04f", cam_dir[1], cam_dir[2], cam_dir[3]), -1.0, 0.40)
-        renderText(string.format("cam up: %.04f %.04f %.04f", cam_up[1], cam_up[2], cam_up[3]), -1.0, 0.33)
-        renderText(string.format("cam rot: %.04f %.04f %.04f", cam_rot[1], cam_rot[2], cam_rot[3]), -1.0, 0.26)
-        renderText(string.format("fps: %.04f", getFps()), -1.0, 0.18)
-        renderText(string.format("cam id: %d", getCameraId()), -1.0, 0.10)
-        
-        renderText(string.format("light dir: %.04f %.04f %.04f", light_dir[1], light_dir[2], light_dir[3]), -1.0, 0.0)
-        gl.End()
-        
-    gl.PopMatrix()
+        gl.PushMatrix()
+            gl.Translate (0.0, 0.0, -2.0)
+            gl.Color (1.0, 1.0, 1.0)
 
+            renderText(string.format("plr pos: %.04f %.04f %.04f", plr_pos[1], plr_pos[2], plr_pos[3]), -1.0, 0.55)
+            renderText(string.format("cam pos: %.04f %.04f %.04f", cam_pos[1], cam_pos[2], cam_pos[3]), -1.0, 0.48)
+            renderText(string.format("cam dir: %.04f %.04f %.04f", cam_dir[1], cam_dir[2], cam_dir[3]), -1.0, 0.40)
+            renderText(string.format("cam up: %.04f %.04f %.04f", cam_up[1], cam_up[2], cam_up[3]), -1.0, 0.33)
+            renderText(string.format("cam rot: %.04f %.04f %.04f", cam_rot[1], cam_rot[2], cam_rot[3]), -1.0, 0.26)
+            renderText(string.format("fps: %.04f", getFps()), -1.0, 0.18)
+            renderText(string.format("cam id: %d", getCameraId()), -1.0, 0.10)
+            
+            renderText(string.format("light dir: %.04f %.04f %.04f", light_dir[1], light_dir[2], light_dir[3]), -1.0, 0.0)
+            gl.End()
+            
+        gl.PopMatrix()
+    end
     return
 end
 

@@ -1,7 +1,5 @@
 dofile('./scripts/debug_lib.lua')
 
-totalTime = 0.0
-
 levels = {
 	"./levels/menu.lua", 
 	"./levels/level1.lua", 
@@ -9,19 +7,27 @@ levels = {
 	"./levels/level3.lua", 
 	"./levels/level4.lua",
     "./levels/level5.lua",
-	"./levels/credits.lua"}
-levelNum = 1
+	"./levels/credits.lua"
+}
+
+levelNum     = 1
+totalTime    = 0.0
+debugEnabled = false
 
 function on_load()
     loadLevel(levels[levelNum])
     setLevelId(levelNum)
+
+    debugEnabled = engine_testDebugEnabled()
     return
 end
 
 function on_update(elapsedTime)
     totalTime = totalTime + elapsedTime
 
-    handle_debug_controls(elapsedTime)
+    if debugEnabled == 1 then
+        handle_debug_controls(elapsedTime)
+    end
     
     -- handle global user control
     if engine_testKeyPressed(27) == 1 then 
