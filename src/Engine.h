@@ -25,9 +25,6 @@ class Engine
         KeyState keyState_;
         KeyState specialKeyState_;
 
-        // cell shading global variables ////////
-        GLuint shaderTexture_[1];
-
         SoundFX soundFx_;
 
         string levelScript_;
@@ -42,6 +39,9 @@ class Engine
         bool isRunning_;
 
         bool isIntroRunning_;
+
+        // cell shading global variables ////////
+        GLuint shaderTexture_[1];
 
         #if DEMO
         ofstream demo;
@@ -72,7 +72,7 @@ class Engine
         bool paintColor;
 #endif
     public:
-        Engine();                   // initialize game
+        Engine();                       // initialize game
         ~Engine();
         void gameCycle(void);           // physics, animation, collision, draw
         void prepare(void);
@@ -132,8 +132,8 @@ class Engine
 
         void updateColor(float &red, float &green, float &blue);
 
-        void setMouseX( float mouseX ) { mouseX_ = mouseX;  }
-        void setMouseY( float mouseY ) { mouseY_ = mouseY;  }
+        void setMouseX( float mouseX ) { mouseX_ = mouseX; }
+        void setMouseY( float mouseY ) { mouseY_ = mouseY; }
 
 #endif
 };
