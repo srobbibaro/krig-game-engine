@@ -326,7 +326,7 @@ void Terrain::calcViewableTerrainNorm()
         x2 = ((int)xStart) + 1;
 
         z1 = (int)zStart;
-        z2 = ((int)zStart) +1;
+        z2 = ((int)zStart) + 1;
 
         if (x2 >= xSize_ || z2 >= zSize_) {
             continue;

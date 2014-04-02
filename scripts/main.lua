@@ -11,6 +11,10 @@ levels = {
 }
 
 levelNum     = 1
+level1       = 2
+prevLevelNum = level1
+numLevels    = table.getn(levels)
+
 totalTime    = 0.0
 debugEnabled = false
 
@@ -32,7 +36,9 @@ function on_update(elapsedTime)
     -- handle global user control
     if engine_testKeyPressed(27) == 1 then 
         loadLevel(levels[1]) 
-        setLevelId(1)
+        setLevelId(levelNum)
+        prevLevelNum = levelNum
+        levelNum = 1
     end
    
     if engine_testKeyPressed(string.byte("*", 1)) == 1 then
@@ -42,14 +48,12 @@ function on_update(elapsedTime)
     if engine_testKeyPressed(string.byte("p", 1)) == 1 then pause() end
     
     if engine_testKeyPressed(string.byte("L", 1)) == 1 then
-        levelNum = levelNum + 1
-        if levelNum > 7 then levelNum = 1 end
+        inc_level(1)
         loadLevel(levels[levelNum])
     end
 
     if engine_testKeyPressed(string.byte("l", l)) == 1 then
-        levelNum = levelNum - 1
-        if levelNum < 1 then levelNum = 5 end
+        inc_level(-1)
         loadLevel(levels[levelNum])
     end
 
@@ -58,15 +62,16 @@ function on_update(elapsedTime)
         loadLevel(levels[levelNum])
     end
 
-    levelComplete = testLevelComplete()
-	
-    if levelComplete == 1 then
+    if testLevelComplete() == 1 then
         levelId = getLevelId()
-       	  
-       levelNum = levelNum + 1
-       if levelNum > 7 then levelNum = 2 end
 
-       loadLevel(levels[levelNum])
+        if levelNum == 1 then
+            levelNum = prevLevelNum
+        else
+            inc_level(1)
+        end
+
+        loadLevel(levels[levelNum])
     end
 
     return
@@ -76,3 +81,14 @@ function on_unload()
     return
 end
 
+function inc_level(inc)
+    levelNum = levelNum + inc
+
+    if levelNum > numLevels then
+        levelNum = 1
+        prevLevelNum = level1
+    elseif levelNum < 1 then
+        levelNum = numLevels
+        prevLevelNum = level1
+    end
+end

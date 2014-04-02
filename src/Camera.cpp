@@ -123,7 +123,6 @@ void Camera::update(float timeElapsed)
     }
     /////////////////////////////////////////////
 
-
     rotation_.buildRotationMatrix( rotationMatrix );
 
     direction_.rotateVector( rotationMatrix, baseDirection_ );
