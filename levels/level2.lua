@@ -133,13 +133,13 @@ function on_update(terrain, elapsedTime)
             -- Create the boss...
             boss = addObject(terrain, "./scripts/boss2.lua")
             setPosition(boss, 1960.0, 15.0, 7.5)
-        elseif bossBattle == 1 then
-            bossLife = 0
-            if boss ~= nil then bossLife = getScriptValue(boss, "life") end
-            if bossLife == 0 then boss = nil end
-            update_level(elapsedTime, bossLife)
-        end 
-    end
+        end
+    elseif bossBattle == 1 then
+        bossLife = 0
+        if boss ~= nil then bossLife = getScriptValue(boss, "life") end
+        if bossLife == 0 then boss = nil end
+        update_level(elapsedTime, bossLife)
+    end 
 
     return
 end

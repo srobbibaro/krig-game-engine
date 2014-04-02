@@ -4,7 +4,7 @@ x_start_camera = 110.0
 x_start_player = x_start_camera - 20.0
 
 boss     = nil
-bossLife = 0
+bossLife = 40
 
 function on_load(terrain)
     setSkyBox(0.8, 0.2, 0.5,
@@ -43,6 +43,8 @@ function on_load(terrain)
     setup_volcano( terrain, 1620.0, -65.0 )
     setup_volcano( terrain, 2195.0, -105.0 )
 
+    buildBossScenery(terrain)
+
     playBgMusic("./music/level3.ogg", 1)
 
     return
@@ -53,7 +55,7 @@ function on_update(terrain, elapsedTime)
         camera = getCamera()
         cam_pos = getPosition(camera)
 
-        if cam_pos[1] >= 2300.0 then 
+        if cam_pos[1] >= 2300.0 then
             bossBattle = 1
 
             -- Set the camera's velocity
@@ -63,15 +65,17 @@ function on_update(terrain, elapsedTime)
             player = getPlayer()
             plr_vel = getVelocity(player)
             setVelocity(player, (plr_vel[1] - 10.0), plr_vel[2], plr_vel[3])
-           
-            -- TODO: Create the boss...
+    
+            -- Create the boss...
+            boss = addObject(terrain, "./scripts/boss3.lua")
+            setPosition(boss, 2340.0, -20.0, 7.5)
         end
     elseif bossBattle == 1 then
         bossLife = 0
         if boss ~= nil then bossLife = getScriptValue(boss, "life") end
         if bossLife == 0 then boss = nil end
         update_level(elapsedTime, bossLife)
-    end
+    end 
 
     return
 end
@@ -85,6 +89,12 @@ function on_draw()
 end
 
 function on_draw_screen()
+    if bossBattle == 1 then
+        bossLife = 0
+        if boss ~= nil then bossLife = getScriptValue(boss, "life") end
+        if bossLife == 0 then boss = nil end
+    end
+
     display_hud(bossBattle, bossLife)
     display_debug()
     return
@@ -105,6 +115,23 @@ function buildWaterStructure( terrain, xpos, zpos )
     setScale(obj, 5.0, 3.0, 5.0)
     setPosition(obj, xpos+5.0, 5.0, zpos+15)
     setRotation(obj, 0.0, 0.0, -2.0)
+end
+
+function buildBossScenery(terrain)
+    local obj = addObject( terrain, "./scripts/boss3_scenery.lua" )
+    setPosition(obj, 200.0, -15.0, -180.0 )
+
+    obj = addObject( terrain, "./scripts/boss3_scenery.lua" )
+    setPosition(obj, 400.0, -15.0, -150.0 )
+
+    obj = addObject( terrain, "./scripts/boss3_scenery.lua" )
+    setPosition(obj, 800.0, -15.0, -100.0 )
+
+    obj = addObject( terrain, "./scripts/boss3_scenery.lua" )
+    setPosition(obj, 1100.0, -15.0, -60.0 )
+
+    obj = addObject( terrain, "./scripts/boss3_scenery.lua" )
+    setPosition(obj, 1400.0, -15.0, -20.0 )
 end
 
 function setupSailboats( terrain )
