@@ -32,12 +32,20 @@ $ apt-get install codeblocks lua5.1 lua5.1-dev libalut-dev libvorbis-dev libglu1
 
 ### Compile
 
-Ater the required packages have been installed, launch Code::Blocks and load the krig.cbp 
-project file to load the project. At this point, Krig should build in Code::Blocks.
+Ater the required packages have been installed, launch Code::Blocks and load the _krig.cbp_ 
+project file. Krig should now build with Code::Blocks.
+
+Krig can also be compiled (using Code::Blocks) from the command line.
+
+For example: 
+
+```bash
+$ codeblocks --build krig.cbp
+```
 
 ### Run
 
-Krig will run from either Code::Blocks or command line. The Krig executable is created in the base project directory and is named 'krig'.
+Krig will run from either Code::Blocks or command line. The Krig executable is created in the base project directory and is named _krig_.
 
 ```bash
 $ ./krig
