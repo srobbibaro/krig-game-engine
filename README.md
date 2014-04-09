@@ -10,7 +10,7 @@ created to run on the Linux operating system.
 
 At this time, Krig is known to build and run on 32-bit Debian-based Linux 
 distributions running GNOME. Other distributions and configurations should work,
-but have not been verified. We also use Code::Blocks to build the project.
+but have not been verified. Code::Blocks to build the project.
 
 #### Setup
 
