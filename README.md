@@ -21,6 +21,7 @@ Install the following packages:
 * libalut-dev
 * libvorbis-dev 
 * libglu1-mesa-dev
+* freeglut3
 * freeglut3-dev
 * g++
 
