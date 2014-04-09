@@ -53,3 +53,36 @@ For example:
 ```bash
 $ ./krig
 ```
+
+#### Enable Debug Mode
+
+The DEBUG flag is located in _src/constants.h_ and is disabled by default (set to 0).
+To enable debug mode, set this value to 1. Debug mode will output debug messages to
+stdout in the console. Additionally, some information about the current level
+will be output directly to the play screen (for example: player position, camera position, 
+and FPS).
+
+```c
+#define DEBUG 0
+```
+
+The stdout debug message level is controlled by the MSG_LVL setting found in _constants.h_. 
+By default, this value is set to 0 which will output minimal debug. This number 
+can be set higher to see an increasingly larger number of messages.
+Be careful - higher numbers will output a lot of information!
+
+```c
+#define MSG_LVL 0
+```
+
+#### Enable Edit Mode
+
+The EDIT flag is located in _src/constants.h_ and is disabled by default (set to 0).
+When the EDIT flag is enabled (set to 1), Krig will launch in edit mode. This mode is
+designed to aid in level creation. Edit mode gives users the ability to move around
+the level freely, manipulate the terrain, and experiment with certain level-specific
+variables which can be tweaked on the fly.
+
+```c
+#define EDIT 0
+```
