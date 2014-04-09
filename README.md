@@ -1,7 +1,6 @@
 Krig Game Engine
 ================
 
-# Overview
 Krig is an open source game engine and accompanying demo game (by the same name) 
 created to run on the Linux operating system.
 
