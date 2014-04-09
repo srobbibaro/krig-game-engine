@@ -6,8 +6,6 @@ created to run on the Linux operating system.
 
 ## Getting Started
 
-### Build
-
 At this time, Krig is known to build and run on 32-bit Debian-based Linux 
 distributions running GNOME. Other distributions and configurations should work,
 but have not been verified. Code::Blocks is used to build the Krig executable.
