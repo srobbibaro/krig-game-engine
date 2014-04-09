@@ -43,17 +43,6 @@ For example:
 ```bash
 $ codeblocks --build krig.cbp
 ```
-
-### Run
-
-Krig will run from either Code::Blocks or command line. The Krig executable is created in the base project directory and is named _krig_.
-
-For example:
-
-```bash
-$ ./krig
-```
-
 #### Enable Debug Mode
 
 The DEBUG flag is located in _src/constants.h_ and is disabled by default (set to 0).
@@ -66,7 +55,7 @@ and FPS).
 #define DEBUG 0
 ```
 
-The stdout debug message level is controlled by the MSG_LVL setting found in _constants.h_. 
+The stdout debug message level is controlled by the MSG_LVL setting found in _src/constants.h_. 
 By default, this value is set to 0 which will output minimal debug. This number 
 can be set higher to see an increasingly larger number of messages.
 Be careful - higher numbers will output a lot of information!
@@ -85,4 +74,14 @@ variables which can be tweaked on the fly.
 
 ```c
 #define EDIT 0
+```
+
+### Run
+
+Krig will run from either Code::Blocks or command line. The Krig executable is created in the base project directory and is named _krig_.
+
+For example:
+
+```bash
+$ ./krig
 ```
