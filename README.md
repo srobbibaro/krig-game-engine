@@ -25,7 +25,7 @@ Install the following packages:
 * freeglut3-dev
 * g++
 
-For example, run this command: 
+For example: 
 
 ```bash
 $ apt-get install codeblocks lua5.1 lua5.1-dev libalut-dev libvorbis-dev libglu1-mesa-dev freeglut3 freeglut3-dev g++
@@ -33,7 +33,7 @@ $ apt-get install codeblocks lua5.1 lua5.1-dev libalut-dev libvorbis-dev libglu1
 
 ### Compile
 
-Ater the required packages have been installed, launch Code::Blocks and load the _krig.cbp_ 
+After the required packages have been installed, launch Code::Blocks and load the _krig.cbp_ 
 project file. Krig should now build with Code::Blocks.
 
 Krig can also be compiled (using Code::Blocks) from the command line.
@@ -47,6 +47,8 @@ $ codeblocks --build krig.cbp
 ### Run
 
 Krig will run from either Code::Blocks or command line. The Krig executable is created in the base project directory and is named _krig_.
+
+For example:
 
 ```bash
 $ ./krig
