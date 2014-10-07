@@ -12,6 +12,12 @@ but have not been verified. Code::Blocks is used to build the Krig executable.
 
 ### Setup
 
+#### Vagrant
+
+The Krig Game Engine has a Vagrant project which helps automate setup of the development environment. For information, see: https://github.com/srobbibaro/krig-game-engine-vagrant
+
+#### Manual
+
 Install the following packages:
 * codeblocks
 * lua5.1
