@@ -6,38 +6,40 @@
 
 #include "constants.h"
 
-class Music
-{
-    private:
-        ALuint Source;
-        ALenum Format;
-        ALint  State;
-        ALuint Buffers[2];
-        ALuint Temp_Buffer;
+class Music {
+  public:
+    Music();
+    ~Music();
 
-        // Flags for setting states.
-        bool Playing;
-        bool Repeat;
+    void SetMusicListener(
+      ALfloat, ALfloat, ALfloat,
+      ALfloat, ALfloat, ALfloat
+    );
 
-        // File decoding variables.
-        FILE *Music_File;
-        vorbis_info *Ogg_Info;
-        OggVorbis_File Ogg_File;
+    void PlaySong(const char*, bool);
+    void Update();
+    void StopSong();
+    void PauseSong();
 
-        // variables for loop streaming.
-        int Processed, Size, Section, Bytes;
-        char Sound_Buffer[BUFFER_SIZE];
+  private:
+    ALuint Source;
+    ALenum Format;
+    ALint  State;
+    ALuint Buffers[2];
+    ALuint Temp_Buffer;
 
-    public:
-        Music();
-        ~Music();
+    // Flags for setting states.
+    bool Playing;
+    bool Repeat;
 
-        void PlaySong(const char*, bool);
-        void Update();
-        void StopSong();
-        void PauseSong();
-        void SetMusicListener( ALfloat, ALfloat, ALfloat,
-                               ALfloat, ALfloat, ALfloat );
+    // File decoding variables.
+    FILE *Music_File;
+    vorbis_info *Ogg_Info;
+    OggVorbis_File Ogg_File;
+
+    // variables for loop streaming.
+    int Processed, Size, Section, Bytes;
+    char Sound_Buffer[BUFFER_SIZE];
 };
 
 #endif

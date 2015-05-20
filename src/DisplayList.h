@@ -4,18 +4,18 @@
 #include "QuadTreeNode.h"
 #include "constants.h"
 
-class DisplayList
-{
-    public:
+class DisplayList {
+  public:
     DisplayList(void);
     ~DisplayList(void);
 
-    QuadTreeNode* head;
-    QuadTreeNode* tail;
     void traverseList(void);
 
     void insertLast(QuadTreeNode* n);
     void clearList(void);
+
+    QuadTreeNode* head;
+    QuadTreeNode* tail;
 };
 
 

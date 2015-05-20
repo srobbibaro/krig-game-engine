@@ -5,18 +5,17 @@
 
 #include "ParticleSystem.h"
 
-class StarField: public ParticleSystem
-{
-    public:
-        StarField(Object* tOrigin);
-        ~StarField(void);
+class StarField: public ParticleSystem {
+  public:
+    StarField(Object* tOrigin);
+    ~StarField(void);
 
-        void update(float elapsedTime);
-        void draw(void);
-        void init(void);
+    void update(float elapsedTime);
+    void draw(void);
+    void init(void);
 
-    private:
-        void initParticle(int index);
+  private:
+    void initParticle(int index);
 };
 
 #endif

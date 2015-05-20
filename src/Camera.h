@@ -7,46 +7,42 @@
 #include "Object.h"
 #include "Frustum.h"
 
-class Camera : public Object
-{
-    public:
-    //private:
+class Camera : public Object {
+  public:
+    Camera();
+    Camera(int tid);
+    virtual ~Camera();
 
-        Matrix rotationMatrix;     // send to rendering library
-        Frustum frustum;
-        Matrix projectionMatrix;
-        Matrix modelViewMatrix;
+    void update(float);
+    void setCamera(const Vector&, const Vector&, const Quaternion&, const Vector&);
+    void prepareGLView( void );
 
-        Quaternion worldRotation;
+    // accessor functions
+    void getRotationMatrix(Matrix &m) const;
 
-        Matrix final;
-        int id_;
+    void printTypeName(void) { PRINT_DEBUG("Camera"); }
 
-   // public:
-        Camera();
-        Camera(int tid);
-        virtual ~Camera();
-        void update(float);
-        void setCamera( const Vector&, const Vector&, const Quaternion&, const Vector& );
-        void prepareGLView( void );
+    void draw(Object*);
 
-        // accessor functions
-        void getRotationMatrix( Matrix &m ) const;
+    Frustum *getFrustum();
 
-        void printTypeName(void) {
-            PRINT_DEBUG("Camera");
-        }
+    void drawOutline(Object*) {}; // Camera*
+    void drawShadow (Vector*) {}
 
-        void draw(Object*);
+    void handleCollision(Object*) {};
+    void update(Vector*) {};
+    void prepare(void) {};
+    void animate(float, Object*) {}; // Camera*
 
-        Frustum *getFrustum();
+    Matrix rotationMatrix; // send to rendering library
+    Frustum frustum;
+    Matrix projectionMatrix;
+    Matrix modelViewMatrix;
 
-        void drawOutline( Object* ) {}; // Camera*
-        void drawShadow ( Vector* ) {}
-        void handleCollision( Object* ) {};
-        void update( Vector* ) {};
-        void prepare( void ) {};
-        void animate( float, Object* ) {}; // Camera*
+    Quaternion worldRotation;
+
+    Matrix final;
+    int id_;
 };
 
 #endif

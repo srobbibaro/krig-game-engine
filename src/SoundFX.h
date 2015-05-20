@@ -7,29 +7,30 @@
 #include <dirent.h>
 #include "constants.h"
 
-class SoundFX
-{
-    private:
-        ALuint *Sources;     //Data for loading in the sound effects
-        ALuint *Buffers;
-        int Num_of_SFX;
-        map <string, int> File_Hash;
+class SoundFX {
+  public:
+    SoundFX();
+    ~SoundFX();
 
-    public:
-        SoundFX();
-        ~SoundFX();
+    void PlaySFX(string);
+    void SetSFX(
+      string,
+      ALfloat, ALfloat, ALfloat,
+      ALfloat, ALfloat, ALfloat,
+      ALboolean
+    );
 
-        void PlaySFX( string );
-        void SetSFX( string, 
-                ALfloat, ALfloat, ALfloat, 
-                ALfloat, ALfloat, ALfloat, 
-                ALboolean 
-        );
+    void SetSFXListener(
+      ALfloat, ALfloat, ALfloat,
+      ALfloat, ALfloat, ALfloat
+    );
 
-        void SetSFXListener( 
-                ALfloat, ALfloat, ALfloat, 
-                ALfloat, ALfloat, ALfloat 
-        );
+  private:
+    ALuint *Sources; // Data for loading in the sound effects
+    ALuint *Buffers;
+
+    int Num_of_SFX;
+    map <string, int> File_Hash;
 };
 
 #endif

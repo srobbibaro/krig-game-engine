@@ -2,19 +2,18 @@
 #define _OBJECT_LIST_H_
 
 #include "ObjectNode.h"
-#include <constants.h>
+#include "constants.h"
 
-class ObjectList
-{
-    public:
-        ObjectList();
-        ~ObjectList();
+class ObjectList {
+  public:
+    ObjectList();
+    ~ObjectList();
 
-        void insertFront(ObjectNode*);
-        void remove(ObjectNode*);
+    void insertFront(ObjectNode*);
+    void remove(ObjectNode*);
 
-        ObjectNode* head;
-        int size;
+    ObjectNode* head;
+    int size;
 };
 
 #endif

@@ -5,16 +5,15 @@
 // a linked list. This class should be upgraded in the future to allow derived
 // class storage as a tree and not just a linked list.
 
-class ObjectNode
-{
-    public:
-        ObjectNode* next;
-        ObjectNode* prev;
+class ObjectNode {
+  public:
+    ObjectNode(void);
+    virtual ~ObjectNode();
 
-        ObjectNode( void );
-        virtual ~ObjectNode();
+    virtual void printTypeName(void) = 0;
 
-        virtual void printTypeName(void) = 0;
+    ObjectNode* next;
+    ObjectNode* prev;
 };
 
 #endif

@@ -3,18 +3,17 @@
 
 #include "Sphere.h"
 
-class QuadTreeNode
-{
-    public:
-        QuadTreeNode(void);
-        ~QuadTreeNode(void);
-    //protected:
-        QuadTreeNode* child[4];
-        
-        float min[2], max[2];
-        Sphere boundingSphere;
-        
-        QuadTreeNode* next;
+class QuadTreeNode {
+  public:
+    QuadTreeNode(void);
+    ~QuadTreeNode(void);
+
+    QuadTreeNode* child[4];
+
+    float min[2], max[2];
+    Sphere boundingSphere;
+
+    QuadTreeNode* next;
 };
 
 #endif

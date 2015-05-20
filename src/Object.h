@@ -10,9 +10,9 @@
 #include "Camera.h"
 
 extern "C" {
-    #include "lua5.1/lua.h"
-    #include "lua5.1/lualib.h"
-    #include "lua5.1/lauxlib.h"
+  #include "lua5.1/lua.h"
+  #include "lua5.1/lualib.h"
+  #include "lua5.1/lauxlib.h"
 }
 
 #ifndef _OBJECT_H_
@@ -21,209 +21,205 @@ extern "C" {
 class ParticleSystem;
 class Terrain;
 
-class Object : public ObjectNode
-{
-    protected:
-        // orientation //
-        Vector position_;            // x,y,z position of object
-        Quaternion rotation_;
-        Vector scale_;               // x,y,z scale values
+class Object : public ObjectNode {
+  public:
+    Object();
+    virtual ~Object();
 
-        Vector baseDirection_;       // base direction of object
-        Vector direction_;           // direction facing
-        Vector up_;
-        Vector orth_;
+    void processCollisions(Object*);
+    Object* getRoot();
 
-        // rate of change //
-        Vector velocity_;
-        Vector speed_;
-        Vector rotationVelocity_;
-        Vector scaleRate_;
+    // virtual functions ///////////////////////
+    virtual void draw(Object*) = 0; // Camera*
+    virtual void drawOutline(Object*) = 0; // Camera*
+    virtual void drawShadow (Vector*) {}
+    virtual void handleCollision(Object*) = 0;
+    virtual void update(Vector*) = 0;
+    virtual void animate(float, Object*) = 0; // Camera*
+    ////////////////////////////////////////////
 
-        // collision detection //
-        Vector collisionBox_[2];    // 0 = min points, 1 = max points
-        Vector controlPoints_[3];   // used for orienting objects on surfaces
-        Sphere boundingSphere_;
+    void showCollisionBox();
+    void showControlTriangle();
 
-        // state attributes //
-        unsigned char state_;    // objects current state
-        bool active_;            // is object active?
-        bool isDrawEnabled_;
+    float calcTriangleCenter(float, float, float);
 
-        bool isInView_;          // is the object within the camera's view
+    void init(void);
+    void initSettings(void);
+    void cleanup(void);
 
-        bool isCollisionDetectionEnabled_;
+    void loadScript(string file, float args[], int n);
+    void animateScript(float elapsedTime);
+    void unloadScript();
 
-        // used for interpolation between 2 orientations //
-        Quaternion rInterpStart_;
-        Quaternion rInterpEnd_;
+    // virtual functions
+    virtual void printTypeName(void) = 0;
 
-        float valInterpBegin_, valInterpCurrent_, valInterpEnd_;
-        bool isInterpolationEnabled_;
+    void setPosition(const GLfloat&, const GLfloat&, const GLfloat&);
+    void setPosition(const Vector&);
+    void setRotationAxis(const GLfloat &vx, const GLfloat &vy, const GLfloat &vz, const GLfloat &vw);
+    void setRotationAxis(const Vector &v, GLfloat a);
+    void setRotationEuler(const GLfloat&, const GLfloat&, const GLfloat&);
+    void setRotationEuler(const Vector &v);
+    void setRotationQuaternion(const Quaternion &q);
+    void setVelocity(GLfloat, GLfloat, GLfloat);
+    void setVelocity(const Vector &v);
+    void setRotationVelocity(GLfloat xAngle, GLfloat yAngle, GLfloat zAngle);
+    void setRotationVelocity(const Vector &v);
 
-        // Necessary for the Lua implementation
-        lua_State* L_;
-        string scriptName_;
-        int scriptIndex_;
+    void setScale(GLfloat, GLfloat, GLfloat);
+    void setScale(const Vector &v);
+    void setScaleRate(GLfloat, GLfloat, GLfloat);
+    void setScaleRate(const Vector &v);
 
-        float suspendTime_;
+    void setDrawEnabled(bool isDrawEnabled) { isDrawEnabled_ = isDrawEnabled; }
+    bool getDrawEnabled() { return isDrawEnabled_; }
 
-        ParticleSystem *particleSystem_;
+    bool getInView() { return isInView_; }
+    void setParticleSystem(int particleSystemNumber);
 
-        int typeId_;
+    float getScriptValue(const char* s) {
+      float value = 0.0f;
 
-        Vector lastLight_;
-        bool scaleChanged_;
-        bool rotationChanged_;
+      if (L_ != NULL) {
+        lua_getglobal(L_, s);
+        value = (float)lua_tonumber(L_, -1);
+        lua_pop(L_, 1);
+      }
 
-        bool isAlwaysLit_;
+      return value;
+    }
 
-        bool enableSphereTest_;
+    void setScriptValue(const char* s, float value) {
+      if (L_ != NULL) {
+        lua_pushnumber(L_, value);
+        lua_setglobal(L_, s);
+      }
+    }
 
-    public:
-        Object();
-        virtual ~Object();
+    void setState(unsigned char);
+    void setScript(string name);
 
-        void processCollisions( Object* );
-        Object* getRoot();
+    void setSpeed(GLfloat, GLfloat, GLfloat);
+    void setSpeed(const Vector &v);
 
-        // virtual functions ///////////////////////
-        virtual void draw( Object* ) = 0; // Camera*
-        virtual void drawOutline( Object* ) = 0; // Camera*
-        virtual void drawShadow ( Vector* ) {}
-        virtual void handleCollision( Object* ) = 0;
-        virtual void update( Vector* ) = 0;
-        virtual void animate( float, Object* ) = 0; // Camera*
-        ////////////////////////////////////////////
+    void setCollisionDetectionEnabled(bool isCollisionDetectionEnabled) {
+      isCollisionDetectionEnabled_ = isCollisionDetectionEnabled;
+    }
 
-        void showCollisionBox();
-        void showControlTriangle();
+    bool getCollisionDetectionEnabled() { return isCollisionDetectionEnabled_; }
 
-        float calcTriangleCenter( float, float, float );
+    void setActive(bool new_active) { active_ = new_active; }
+    bool getActive() { return active_; }
 
-        void init(void);
-        void initSettings(void);
-        void cleanup(void);
+    Vector getPosition() { return position_; }
+    Vector getVelocity() { return velocity_; }
+    Vector getRotationVelocity() { return rotationVelocity_; }
+    Vector getScaleRate() { return scaleRate_; }
+    Vector getSpeed() { return speed_; }
 
-        void loadScript(string file, float args[], int n);
-        void animateScript( float elapsedTime );
-        void unloadScript();
+    bool isRotationChanged() { return rotationChanged_; }
+    void setRotationChanged(bool rotationChanged_l) { rotationChanged_ = rotationChanged_l; }
+    Quaternion getRotation() { return rotation_; }
+    void setRotation(Quaternion rotation) { rotation_ = rotation; rotationChanged_ = true;}
+    Vector getDirection() { return direction_; }
+    Vector getUp() { return up_; }
+    Vector getScale() { return scale_; }
 
-        // virtual functions
-        virtual void printTypeName(void) = 0;
+    Quaternion getRInterpStart() { return rInterpStart_; }
+    Quaternion getRInterpEnd() { return rInterpEnd_; }
+    void setRInterpStart(Quaternion rInterpStart_l) { rInterpStart_ = rInterpStart_l;}
+    void setRInterpEnd(Quaternion rInterpEnd_l) { rInterpEnd_= rInterpEnd_l;}
 
-        void setPosition( const GLfloat&, const GLfloat&, const GLfloat& );
-        void setPosition( const Vector& );
-        void setRotationAxis( const GLfloat &vx, const GLfloat &vy, const GLfloat &vz, const GLfloat &vw );
-        void setRotationAxis( const Vector &v, GLfloat a );
-        void setRotationEuler( const GLfloat&, const GLfloat&, const GLfloat& );
-        void setRotationEuler( const Vector &v );
-        void setRotationQuaternion( const Quaternion &q );
-        void setVelocity( GLfloat, GLfloat, GLfloat );
-        void setVelocity( const Vector &v );
-        void setRotationVelocity( GLfloat xAngle, GLfloat yAngle, GLfloat zAngle );
-        void setRotationVelocity( const Vector &v );
+    bool isInterpolationEnabled() { return isInterpolationEnabled_; }
+    bool setIsInterpolationEnabled(bool isInterpolationEnabled_l) { isInterpolationEnabled_ = isInterpolationEnabled_l; }
 
-        void setScale(GLfloat, GLfloat, GLfloat);
-        void setScale(const Vector &v);
-        void setScaleRate(GLfloat, GLfloat, GLfloat);
-        void setScaleRate(const Vector &v);
+    float getValInterpBegin() { return valInterpBegin_; }
+    float getValInterpCurrent() { return valInterpCurrent_; }
+    float getValInterpEnd() { return valInterpEnd_; }
 
-        void setDrawEnabled(bool isDrawEnabled) { isDrawEnabled_ = isDrawEnabled; }
-        bool getDrawEnabled() { return isDrawEnabled_; }
+    void setValInterpBegin(float valInterpBegin) { valInterpBegin_ = valInterpBegin; }
+    void setValInterpCurrent(float valInterpCurrent) { valInterpCurrent_ = valInterpCurrent; }
+    void setValInterpEnd(float valInterpEnd) { valInterpEnd_ = valInterpEnd; }
 
-        bool getInView() { return isInView_; }
-        void setParticleSystem(int particleSystemNumber);
+    void setSuspendTime(float time) { suspendTime_ = time; }
 
-        float getScriptValue(const char* s)
-        {
-            float value = 0.0f;
+    void setState(int state_l) {state_ = state_l; }
+    int  getState() { return state_; }
 
-            if (L_ != NULL) {
-                lua_getglobal(L_, s);
-                value = (float)lua_tonumber(L_, -1);
-                lua_pop(L_, 1);
-            }
+    void setScaleChanged(bool scaleChanged_l) { scaleChanged_ = scaleChanged_l; }
 
-            return value;
-        }
+    void setIsAlwaysLit(bool isAlwaysLit) { isAlwaysLit_ = isAlwaysLit; }
 
-        void setScriptValue(const char* s, float value)
-        {
-            if (L_ != NULL) {
-                lua_pushnumber(L_, value);
-                lua_setglobal(L_, s);
-            }
-        }
+    void setTypeId (int type_id) { typeId_ = type_id; }
+    int getTypeId() { return typeId_; }
 
-        void setState(unsigned char);
-        void setScript( string name );
+    Sphere getBoundingSphere() { return boundingSphere_; }
 
-        void setSpeed( GLfloat, GLfloat, GLfloat );
-        void setSpeed( const Vector &v );
+    string getScriptName() { return scriptName_; }
 
-        void setCollisionDetectionEnabled(bool isCollisionDetectionEnabled)
-        {
-            isCollisionDetectionEnabled_ = isCollisionDetectionEnabled;
-        }
+    Vector getOrth() { return orth_; }
 
-        bool getCollisionDetectionEnabled() { return isCollisionDetectionEnabled_; }
+    bool getEnableSphereTest() { return enableSphereTest_; }
 
-        void setActive( bool new_active ) { active_ = new_active; }
-        bool getActive() { return active_; }
+    virtual void orientOnTerrain(Terrain *temp, Quaternion baseRotation) {}
+    virtual void setHeightFromTerrain(Terrain *temp, float offset){}
 
-        Vector getPosition() { return position_; }
-        Vector getVelocity() { return velocity_; }
-        Vector getRotationVelocity() { return rotationVelocity_; }
-        Vector getScaleRate() { return scaleRate_; }
-        Vector getSpeed() { return speed_; }
+  protected:
+    // orientation //
+    Vector position_;      // x,y,z position of object
+    Quaternion rotation_;
+    Vector scale_;         // x,y,z scale values
 
-        bool isRotationChanged() { return rotationChanged_; }
-        void setRotationChanged( bool rotationChanged_l) { rotationChanged_ = rotationChanged_l; }
-        Quaternion getRotation() { return rotation_; }
-        void setRotation(Quaternion rotation) { rotation_ = rotation; rotationChanged_ = true;}
-        Vector getDirection() { return direction_; }
-        Vector getUp() { return up_; }
-        Vector getScale() { return scale_; }
+    Vector baseDirection_; // base direction of object
+    Vector direction_;     // direction facing
+    Vector up_;
+    Vector orth_;
 
-        Quaternion getRInterpStart() { return rInterpStart_; }
-        Quaternion getRInterpEnd() { return rInterpEnd_; }
-        void setRInterpStart(Quaternion rInterpStart_l) { rInterpStart_ = rInterpStart_l;}
-        void setRInterpEnd(Quaternion rInterpEnd_l) { rInterpEnd_= rInterpEnd_l;}
+    // rate of change //
+    Vector velocity_;
+    Vector speed_;
+    Vector rotationVelocity_;
+    Vector scaleRate_;
 
-        bool isInterpolationEnabled() { return isInterpolationEnabled_; }
-        bool setIsInterpolationEnabled(bool isInterpolationEnabled_l) { isInterpolationEnabled_ = isInterpolationEnabled_l; }
+    // collision detection //
+    Vector collisionBox_[2];    // 0 = min points, 1 = max points
+    Vector controlPoints_[3];   // used for orienting objects on surfaces
+    Sphere boundingSphere_;
 
-        float getValInterpBegin() { return valInterpBegin_; }
-        float getValInterpCurrent() { return valInterpCurrent_; }
-        float getValInterpEnd() { return valInterpEnd_; }
+    // state attributes //
+    unsigned char state_; // objects current state
+    bool active_;         // is object active?
+    bool isDrawEnabled_;
 
-        void setValInterpBegin(float valInterpBegin) { valInterpBegin_ = valInterpBegin; }
-        void setValInterpCurrent(float valInterpCurrent) { valInterpCurrent_ = valInterpCurrent; }
-        void setValInterpEnd(float valInterpEnd) { valInterpEnd_ = valInterpEnd; }
+    bool isInView_;       // is the object within the camera's view
 
-        void setSuspendTime( float time ) { suspendTime_ = time; }
+    bool isCollisionDetectionEnabled_;
 
-        void setState( int state_l ) {state_ = state_l; }
-        int  getState() { return state_; }
+    // used for interpolation between 2 orientations //
+    Quaternion rInterpStart_;
+    Quaternion rInterpEnd_;
 
-        void setScaleChanged( bool scaleChanged_l ) { scaleChanged_ = scaleChanged_l; }
+    float valInterpBegin_, valInterpCurrent_, valInterpEnd_;
+    bool isInterpolationEnabled_;
 
-        void setIsAlwaysLit( bool isAlwaysLit ) { isAlwaysLit_ = isAlwaysLit; }
+    // Necessary for the Lua implementation
+    lua_State* L_;
+    string scriptName_;
+    int scriptIndex_;
 
-        void setTypeId (int type_id) { typeId_ = type_id; }
-        int getTypeId() { return typeId_; }
+    float suspendTime_;
 
-        Sphere getBoundingSphere() { return boundingSphere_; }
+    ParticleSystem *particleSystem_;
 
-        string getScriptName() { return scriptName_; }
+    int typeId_;
 
-        Vector getOrth() { return orth_; }
+    Vector lastLight_;
+    bool scaleChanged_;
+    bool rotationChanged_;
 
-        bool getEnableSphereTest() { return enableSphereTest_; }
+    bool isAlwaysLit_;
 
-        virtual void orientOnTerrain(Terrain *temp, Quaternion baseRotation) {}
-        virtual void setHeightFromTerrain(Terrain *temp, float offset){}
+    bool enableSphereTest_;
 };
 
 #endif

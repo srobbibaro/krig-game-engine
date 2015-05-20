@@ -7,23 +7,22 @@
 #include "constants.h"
 
 #ifdef _WIN32
-    #include <windows.h>
+  #include <windows.h>
 #endif
 
 #define LARGE_INTEGER long
 #define MAX_FPS       60.0f
 
-class GameTimer
-{
-    public:
-        bool init(void);
-        float getElapsedSeconds(unsigned long);
-        float getFPS(void);
+class GameTimer {
+  public:
+    bool init(void);
+    float getElapsedSeconds(unsigned long);
+    float getFPS(void);
 
-    private:
-        long m_startTime;
-        LARGE_INTEGER m_ticksPerSecond;
-        float fps;
+  private:
+    long m_startTime;
+    LARGE_INTEGER m_ticksPerSecond;
+    float fps;
 };
 
 #endif

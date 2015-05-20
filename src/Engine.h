@@ -2,9 +2,9 @@
 #include "GameLevel.h"
 
 extern "C" {
-    #include "lua5.1/lua.h"
-    #include "lua5.1/lualib.h"
-    #include "lua5.1/lauxlib.h"
+  #include "lua5.1/lua.h"
+  #include "lua5.1/lualib.h"
+  #include "lua5.1/lauxlib.h"
 }
 
 using namespace std;
@@ -12,129 +12,128 @@ using namespace std;
 #ifndef _ENGINE_H_
 #define _ENGINE_H_
 
-class Engine
-{
-    private:
-        GameLevel *currentLevel_, *storedLevel_;
-        GameTimer timer_;           // game's timer
-        Camera *mainCamera_, *c1_, *c2_, *c3_, *c4_;
+class Engine {
+  public:
+    Engine();             // initialize game
+    ~Engine();
 
-        float timeElapsed_;          // time elapsed in game
-        unsigned int lists_;         // lists used for rendering
+    void gameCycle(void); // physics, animation, collision, draw
+    void prepare(void);
+    void initGL(void);
+    void processKeyUp(int);
+    void processKeyDown(int);
+    void processCommands();
+    void processNormalKey(unsigned char);
+    void loadLevel(const char*);
+    void loadLevelFromBuffer(const char*);
 
-        KeyState keyState_;
-        KeyState specialKeyState_;
+    void setLevelScript(string levelScript) {
+      levelScript_ = levelScript;
+    }
 
-        SoundFX soundFx_;
+    bool loadGame(string);
+    bool loadGameFromBuffer(char* buffer);
+    bool loadIntroCredits();
 
-        string levelScript_;
+    void updateGame(float);
+    void unloadGame();
 
-        lua_State* luaState_;
+    void shutdown();
+    void pause();
 
-        float mouseX_, mouseY_;
+    float getFps() { return fps_; }
 
-        bool isPaused_;
-        float fps_;
+    KeyState* getKeyState() { return &keyState_; }
+    KeyState* getSpecialKeyState() { return &specialKeyState_; }
 
-        bool isRunning_;
+    void loadModels(void);
 
-        bool isIntroRunning_;
+    void renderText(const char* s, float x, float y) {
+      glRasterPos2f (x, y);
+      render_string(GLUT_BITMAP_HELVETICA_18, s);
+    }
 
-        // cell shading global variables ////////
-        GLuint shaderTexture_[1];
+    float getMouseX() { return mouseX_; }
+    float getMouseY() { return mouseY_; }
+    SoundFX* getSoundFxClass() { return &soundFx_; }
+    bool getIsRunning() {return isRunning_;}
 
-        #if DEMO
-        ofstream demo;
-        #endif
+    void processMouseMove(int x, int y);
 
-        #if PLAY_DEMO
-        ifstream demo;
-
-        struct DemoCommand {
-            int routine;
-            int key;
-            float time;
-        } demoCommands[512];
-
-        int currentDemoCommand;
-        #endif
+    void swapLevel() {
+      GameLevel *temp = currentLevel_;
+      currentLevel_ = storedLevel_;
+      storedLevel_ = temp;
+    }
 
 #if EDIT
-        // Temporary values used for game tools (remove from final build)...
-        // mouse control values
-        float lastX;
-        float lastY;
+    // Temporary functions used for tools (remove from final build)...
+    void getTerrainInfo(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
+    void updateTerrain(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
 
-        // Terrain editing values
-        int last_x, last_z, last_type;
-        float last_height, last_red, last_green, last_blue;
-        bool paint;
-        bool paintColor;
+    void updateColor(float &red, float &green, float &blue);
+
+    void setMouseX(float mouseX) { mouseX_ = mouseX; }
+    void setMouseY(float mouseY) { mouseY_ = mouseY; }
+
 #endif
-    public:
-        Engine();                       // initialize game
-        ~Engine();
-        void gameCycle(void);           // physics, animation, collision, draw
-        void prepare(void);
-        void initGL(void);
-        void processKeyUp( int );
-        void processKeyDown( int );
-        void processCommands();
-        void processNormalKey( unsigned char );
-        void loadLevel(const char*);
-        void loadLevelFromBuffer(const char*);
 
-        void setLevelScript(string levelScript)
-        {
-            levelScript_ = levelScript;
-        }
+  private:
+    GameLevel *currentLevel_, *storedLevel_;
+    GameTimer timer_;           // game's timer
+    Camera *mainCamera_, *c1_, *c2_, *c3_, *c4_;
 
-        bool loadGame(string);
-        bool loadGameFromBuffer( char* buffer );
-        bool loadIntroCredits();
-        void updateGame(float);
-        void unloadGame();
+    float timeElapsed_;         // time elapsed in game
+    unsigned int lists_;        // lists used for rendering
 
-        void shutdown();
-        void pause();
+    KeyState keyState_;
+    KeyState specialKeyState_;
 
-        float getFps() { return fps_; }
+    SoundFX soundFx_;
 
-        KeyState* getKeyState() { return &keyState_; }
-        KeyState* getSpecialKeyState() { return &specialKeyState_; }
+    string levelScript_;
 
-        void loadModels(void);
+    lua_State* luaState_;
 
-        void renderText(const char* s, float x, float y)
-        {
-            glRasterPos2f (x, y);
-            render_string(GLUT_BITMAP_HELVETICA_18, s);
-        }
+    float mouseX_, mouseY_;
 
-        float getMouseX() { return mouseX_; }
-        float getMouseY() { return mouseY_; }
-        SoundFX* getSoundFxClass() { return &soundFx_; }
-        bool getIsRunning() {return isRunning_;}
+    bool isPaused_;
+    float fps_;
 
-        void processMouseMove( int x, int y);
+    bool isRunning_;
 
-        void swapLevel()
-        {
-            GameLevel *temp = currentLevel_;
-            currentLevel_ = storedLevel_;
-            storedLevel_ = temp;
-        }
+    bool isIntroRunning_;
+
+    // cell shading global variables ////////
+    GLuint shaderTexture_[1];
+
+#if DEMO
+    ofstream demo;
+#endif
+
+#if PLAY_DEMO
+    ifstream demo;
+
+    struct DemoCommand {
+      int routine;
+      int key;
+      float time;
+    } demoCommands[512];
+
+    int currentDemoCommand;
+#endif
 
 #if EDIT
-        // Temporary functions used for tools (remove from final build)...
-        void getTerrainInfo(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
-        void updateTerrain(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
+    // Temporary values used for game tools (remove from final build)...
+    // mouse control values
+    float lastX;
+    float lastY;
 
-        void updateColor(float &red, float &green, float &blue);
-
-        void setMouseX( float mouseX ) { mouseX_ = mouseX; }
-        void setMouseY( float mouseY ) { mouseY_ = mouseY; }
-
+    // Terrain editing values
+    int last_x, last_z, last_type;
+    float last_height, last_red, last_green, last_blue;
+    bool paint;
+    bool paintColor;
 #endif
 };
 
