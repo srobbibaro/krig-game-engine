@@ -3,13 +3,11 @@
 #include "constants.h"
 
 //------------------------------------------------------------------------------
-ObjectNode::ObjectNode( void )
-{
-    next = prev = NULL;
+ObjectNode::ObjectNode(void) {
+  next = prev = NULL;
 }
 
 //------------------------------------------------------------------------------
-ObjectNode::~ObjectNode()
-{
-    next = prev = NULL;
+ObjectNode::~ObjectNode() {
+  next = prev = NULL;
 }

@@ -2,19 +2,17 @@
 #include "ScriptedObject.h"
 
 //------------------------------------------------------------------------------
-ScriptedObject::ScriptedObject()
-: Model()
-{
-    // TODO: Verify that these properties are no longer being used
-    // and remove.
-    //animCurrTime = NULL;
+ScriptedObject::ScriptedObject() : Model() {
+  // TODO: Verify that these properties are no longer being used
+  // and remove.
+  //animCurrTime = NULL;
 
-    //life = 40;
+  //life = 40;
 
-    //isEnemy = true;
+  //isEnemy = true;
 
-    //shotDelay = 0.5f;
-    //numShots = 1;
+  //shotDelay = 0.5f;
+  //numShots = 1;
 }
 
 //------------------------------------------------------------------------------
