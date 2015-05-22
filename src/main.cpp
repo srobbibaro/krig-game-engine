@@ -197,7 +197,6 @@ int main(int argc, char *argv[]) {
 #endif
 
   KRIG->loadIntroCredits();
-  //KRIG->loadGame("./scripts/main.lua");
 
   glutMainLoop();
   return 0;
