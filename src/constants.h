@@ -31,17 +31,6 @@ using namespace std;
 #define DEAD        0
 #define NORMAL      1
 
-// Object Extended Scripting Language /////////////////////////////////////////
-// TODO: These values may no longer be used--verify and remove.
-#define SCRIPT_SET_STATE_VAL            137
-#define SCRIPT_STORE_STATE_IN_MEM       138
-
-// Text Extended Scripting Language ///////////////////////////////////////////
-// TODO: These values may no longer be used--verify and remove.
-#define TEXT_SCRIPT_CLEAR_ALL       90
-#define TEXT_SCRIPT_SET_VISIBLE     96
-#define TEXT_SCRIPT_SET_TYPE        98
-
 // Logging Macros /////////////////////////////////////////////////////////////
 #define PRINT_DEBUG(format, ...) \
     PRINT_DEBUG_LVL(0, format, ##__VA_ARGS__)
