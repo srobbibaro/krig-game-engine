@@ -85,6 +85,8 @@
 		<Unit filename="src/Sphere.h" />
 		<Unit filename="src/StarField.cpp" />
 		<Unit filename="src/StarField.h" />
+		<Unit filename="src/TerrainEditor.cpp" />
+		<Unit filename="src/TerrainEditor.h" />
 		<Unit filename="src/Vector.cpp" />
 		<Unit filename="src/Vector.h" />
 		<Unit filename="src/buffer.h" />
