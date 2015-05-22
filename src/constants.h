@@ -17,6 +17,7 @@ using namespace std;
 #define _CONSTANTS_H_
 
 // Switches ///////////////////////////////////////////////////////////////////
+#define FULL_SCREEN 0
 #define EDIT        0
 #define DEBUG       0
 #define MSG_LVL     0

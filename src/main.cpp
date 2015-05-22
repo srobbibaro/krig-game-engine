@@ -172,7 +172,7 @@ int main(int argc, char *argv[]) {
 
   glutSetWindow(mainWin);
 #else
-#if 0
+#if FULL_SCREEN
   char mode_string[24];
   sprintf(mode_string, "%dx%d:32@30", glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT));
   glutGameModeString(mode_string);
