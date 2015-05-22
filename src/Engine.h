@@ -107,22 +107,6 @@ class Engine {
     // cell shading global variables ////////
     GLuint shaderTexture_[1];
 
-#if DEMO
-    ofstream demo;
-#endif
-
-#if PLAY_DEMO
-    ifstream demo;
-
-    struct DemoCommand {
-      int routine;
-      int key;
-      float time;
-    } demoCommands[512];
-
-    int currentDemoCommand;
-#endif
-
 #if EDIT
     // Temporary values used for game tools (remove from final build)...
     // mouse control values

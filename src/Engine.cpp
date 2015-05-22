@@ -34,20 +34,6 @@ Engine::Engine() {
 
   fps_ = 0.0f;
 
-#if DEMO || PLAY_DEMO
-  demo.open("demo.txt");
-#endif
-
-#if PLAY_DEMO
-  int i = 0;
-  currentDemoCommand = 0;
-
-  while (!demo.eof() && i < 512) {
-    demo >> demoCommands[i].routine >> demoCommands[i].key >> demoCommands[i].time;
-    i++;
-  }
-#endif
-
 #if EDIT
   // terrain editing values //
   paint      = false;
@@ -244,25 +230,6 @@ void Engine::gameCycle() {
   if (currentLevel_ != NULL && !isPaused_)
     currentLevel_->setElapsedTime(timeElapsed_);
 
-#if PLAY_DEMO
-  totalTime += timeElapsed;
-
-  while (demoCommands[currentDemoCommand].time <= totalTime && currentDemoCommand < 512) {
-    switch (demoCommands[currentDemoCommand].routine) {
-      case 1:
-        processKeyDown(demoCommands[currentDemoCommand].key);
-        break;
-      case 2:
-        processNormalKey((unsigned char)(demoCommands[currentDemoCommand].key));
-        break;
-      case 3:
-        processKeyUp(demoCommands[currentDemoCommand].key);
-        break;
-    }
-    currentDemoCommand++;
-  }
-#endif
-
   if (currentLevel_ != NULL) {
     if (currentLevel_->checkComplete()) {
       if (isIntroRunning_) {
@@ -414,22 +381,12 @@ void Engine::initGL() {
 void Engine::processKeyUp(int key) {
   PRINT_DEBUG_LVL(1, "special key up (%d)\n", key);
   specialKeyState_.keys[key] = 2;
-
-#if DEMO
-  if (gameMode == 1)
-    demo << 3 << " " << key << " " << totalTime << endl;
-#endif
 }
 
 //------------------------------------------------------------------------------
 void Engine::processKeyDown(int key) {
   PRINT_DEBUG_LVL(1, "special key down (%d)\n", key);
   specialKeyState_.keys[key] = 1;
-
-#if DEMO
-  if (gameMode == 1)
-    demo << 1 << " " << key << " " << totalTime << endl;
-#endif
 }
 
 //------------------------------------------------------------------------------
@@ -451,11 +408,6 @@ void Engine::processNormalKey(unsigned char key) {
     case 32:
       //if ((player)->userControl && gameMode == 1 && (player)->state != DEAD)
       //    control.enQueue(SHOOT_DOWN);
-
-#if DEMO
-      if (gameMode == 1 && player->state_ != DEAD)
-        demo << 2 << " " << int(key) << " " << totalTime << endl;
-#endif
       break;
     case 'M':
     case 'm':
