@@ -153,7 +153,7 @@ int main(int argc, char *argv[]) {
 #if EDIT
   terrainEditor = new TerrainEditor();
 
-  mainWin = glutCreateWindow("KRIG");	// window title
+  mainWin = glutCreateWindow("KRIG Game Engine - Editor Mode");
   glutSetWindow(mainWin);
 
   KRIG->initGL();
@@ -193,7 +193,7 @@ int main(int argc, char *argv[]) {
     exit(1);
   }
 #else
-  glutCreateWindow("KRIG");	// window title
+  glutCreateWindow("KRIG Game Engine");
 #endif
 
   KRIG->initGL();
