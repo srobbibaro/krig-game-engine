@@ -382,13 +382,13 @@ void Engine::initGL() {
 //------------------------------------------------------------------------------
 void Engine::processKeyUp(int key) {
   PRINT_DEBUG_LVL(1, "special key up (%d)\n", key);
-  specialKeyState_.keys[key] = 2;
+  specialKeyState_.keys[key] = KEY_STATE_RELEASED;
 }
 
 //------------------------------------------------------------------------------
 void Engine::processKeyDown(int key) {
   PRINT_DEBUG_LVL(1, "special key down (%d)\n", key);
-  specialKeyState_.keys[key] = 1;
+  specialKeyState_.keys[key] = KEY_STATE_PRESSED;
 }
 
 //------------------------------------------------------------------------------
@@ -398,12 +398,17 @@ void Engine::processCommands() {
 }
 
 //------------------------------------------------------------------------------
-void Engine::processNormalKey(unsigned char key) {
-  //key = toupper(key);
+void Engine::processNormalKeyUp(unsigned char key) {
+  PRINT_DEBUG_LVL(1, "normal key up (%d)\n", key);
 
-  keyState_.keys[key] = 1;
+  keyState_.keys[key] = KEY_STATE_RELEASED;
+}
 
-  PRINT_DEBUG_LVL(1, "key (%d)\n", key);
+//------------------------------------------------------------------------------
+void Engine::processNormalKeyDown(unsigned char key) {
+  PRINT_DEBUG_LVL(1, "normal key down (%d)\n", key);
+
+  keyState_.keys[key] = KEY_STATE_PRESSED;
 #if EDIT
   switch (key) {
     // Game controls...

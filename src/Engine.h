@@ -23,7 +23,8 @@ class Engine {
     void processKeyUp(int);
     void processKeyDown(int);
     void processCommands();
-    void processNormalKey(unsigned char);
+    void processNormalKeyUp(unsigned char);
+    void processNormalKeyDown(unsigned char);
     void loadLevel(const char*);
     void loadLevelFromBuffer(const char*);
 

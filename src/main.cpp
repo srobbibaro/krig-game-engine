@@ -98,8 +98,13 @@ void mouseMove(int x, int y) {
 }
 
 //------------------------------------------------------------------------------
-void normalKey(unsigned char key, GLint mouse_x, GLint mouse_y) {
-  KRIG->processNormalKey(key);
+void pressNormalKey(unsigned char key, GLint mouse_x, GLint mouse_y) {
+  KRIG->processNormalKeyDown(key);
+}
+
+//------------------------------------------------------------------------------
+void releaseNormalKey(unsigned char key, GLint mouse_x, GLint mouse_y) {
+  KRIG->processNormalKeyUp(key);
 }
 
 //------------------------------------------------------------------------------
@@ -117,18 +122,17 @@ void glutInit(void) {
 #if EDIT == 0
   // TODO: On linux the following command isn't working properly
   //ShowCursor(false);              // hide mouse pointer
-  glutIgnoreKeyRepeat(1);
 #endif
+  glutIgnoreKeyRepeat(1);
   glutSpecialFunc(pressKey);
   glutSpecialUpFunc(releaseKey);
   glutDisplayFunc(display);
   glutIdleFunc(idle);
   glutReshapeFunc(reshape);
-  glutKeyboardFunc(normalKey);
+  glutKeyboardFunc(pressNormalKey);
+  glutKeyboardUpFunc(releaseNormalKey);
   //glutPassiveMotionFunc (mouseMove);
   glutMotionFunc (mouseMove);
-  glutIgnoreKeyRepeat(0);
-  //glutIgnoreKeyRepeat(1);
 }
 
 //------------------------------------------------------------------------------
