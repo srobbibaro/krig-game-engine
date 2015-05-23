@@ -15,6 +15,7 @@
 #include "TerrainEditor.h"
 #include "constants.h"
 #include <cstdlib>
+#include <unistd.h>
 
 // global variables /////////////////////////////
 Engine *KRIG, *g_script_engine;
@@ -136,6 +137,8 @@ int main(int argc, char *argv[]) {
     PRINT_ERROR("Must specify game as argument");
     exit(1);
   }
+
+  chdir(argv[1]);
 
   srand(time(NULL));
 
