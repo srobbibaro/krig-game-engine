@@ -96,10 +96,14 @@ bool Engine::loadGame(string file) {
   luaL_dofile(luaState_, file.c_str());
 
   // Find the update function and call it
-  lua_getglobal(luaState_, "on_load");
+  lua_getglobal(luaState_, SCRIPT_CALLBACK_ON_LOAD);
 
-  // Call the function with 1 argument and no return values
-  lua_call(luaState_, 0, 0);
+  if (lua_isfunction(luaState_, -1)) {
+    lua_call(luaState_, 0, 0);
+  }
+  else {
+    PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_LOAD);
+  }
 
   return (true);
 }
@@ -136,10 +140,14 @@ bool Engine::loadGameFromBuffer(char* buffer) {
   luaL_loadbuffer(luaState_, buffer, strlen(buffer), "line") || lua_pcall(luaState_, 0, 0, 0);
 
   // Find the update function and call it
-  lua_getglobal(luaState_, "on_load");
+  lua_getglobal(luaState_, SCRIPT_CALLBACK_ON_LOAD);
 
-  // Call the function with 1 argument and no return values
-  lua_call(luaState_, 0, 0);
+  if (lua_isfunction(luaState_, -1)) {
+    lua_call(luaState_, 0, 0);
+  }
+  else {
+    PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_LOAD);
+  }
 
   return (true);
 }
@@ -197,13 +205,15 @@ void Engine::updateGame(float elapsedTime) {
     return;
 
   // Find the update function and call it
-  lua_getglobal(luaState_, "on_update");
+  lua_getglobal(luaState_, SCRIPT_CALLBACK_ON_UPDATE);
 
-  // Push the time passed since the last iteration of the game loop
-  lua_pushnumber(luaState_, elapsedTime);
-
-  // Call the function with 2 argument and no return values
-  lua_call(luaState_, 1, 0);
+  if (lua_isfunction(luaState_, -1)) {
+    lua_pushnumber(luaState_, elapsedTime);
+    lua_call(luaState_, 1, 0);
+  }
+  else {
+    PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_UPDATE);
+  }
 }
 
 //------------------------------------------------------------------------------
@@ -214,10 +224,14 @@ void Engine::unloadGame() {
     return;
 
   // Find the update function and call it
-  lua_getglobal(luaState_, "on_unload");
+  lua_getglobal(luaState_, SCRIPT_CALLBACK_ON_UNLOAD);
 
-  // Call the function with 1 argument and no return values
-  lua_call(luaState_, 0, 0);
+  if (lua_isfunction(luaState_, -1)) {
+    lua_call(luaState_, 0, 0);
+  }
+  else {
+    PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_UNLOAD);
+  }
 
   lua_close(luaState_);
   luaState_ = NULL;

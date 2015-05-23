@@ -1,6 +1,7 @@
 #include "constants.h"
 #include "model.h"
 #include "terrain.h"
+#include "Scripting.h"
 using namespace std;
 
 map <string, ModelStorage*> modelHash;
@@ -178,14 +179,18 @@ void Model::handleCollision(Object* temp) {
     return;
 
   // Find the update function and call it
-  lua_getglobal(L_, "on_collision");
+  lua_getglobal(L_, SCRIPT_CALLBACK_ON_COLLISION);
 
-  // Push a pointer to the current object for use within the lua function
-  lua_pushlightuserdata(L_, (void*)this);
-  lua_pushlightuserdata(L_, (void*)temp);
+  if (lua_isfunction(L_, -1)) {
+    // Push a pointer to the current object for use within the lua function
+    lua_pushlightuserdata(L_, (void*)this);
+    lua_pushlightuserdata(L_, (void*)temp);
 
-  // Call the function with 2 argument and no return values
-  lua_call(L_, 2, 0);
+    lua_call(L_, 2, 0);
+  }
+  else {
+    PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_COLLISION);
+  }
 }
 
 //------------------------------------------------------------------------------

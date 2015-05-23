@@ -7,6 +7,13 @@ extern "C" {
   #include "lua5.1/lauxlib.h"
 }
 
+#define SCRIPT_CALLBACK_ON_LOAD        "on_load"
+#define SCRIPT_CALLBACK_ON_UPDATE      "on_update"
+#define SCRIPT_CALLBACK_ON_DRAW        "on_draw"
+#define SCRIPT_CALLBACK_ON_DRAW_SCREEN "on_draw_screen"
+#define SCRIPT_CALLBACK_ON_COLLISION   "on_collision"
+#define SCRIPT_CALLBACK_ON_UNLOAD      "on_unload"
+
 #include "Object.h"
 #include "text.h"
 #include "ScriptedObject.h"

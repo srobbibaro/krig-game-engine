@@ -81,16 +81,20 @@ void GameLevel::drawLevel() {
     return;
 
   // Find the update function and call it
-  lua_getglobal(luaState_, "on_draw");
+  lua_getglobal(luaState_, SCRIPT_CALLBACK_ON_DRAW);
 
-  // Push a pointer to the current object for use within the lua function
-  lua_pushlightuserdata(luaState_, (void*)terrain_);
+  if (lua_isfunction(luaState_, -1)) {
+    // Push a pointer to the current object for use within the lua function
+    lua_pushlightuserdata(luaState_, (void*)terrain_);
 
-  // Push the time passed since the last iteration of the game loop
-  lua_pushnumber(luaState_, elapsedTime_);
+    // Push the time passed since the last iteration of the game loop
+    lua_pushnumber(luaState_, elapsedTime_);
 
-  // Call the function with 2 argument and no return values
-  lua_call(luaState_, 2, 0);
+    lua_call(luaState_, 2, 0);
+  }
+  else {
+    PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_DRAW);
+  }
 }
 
 //------------------------------------------------------------------------------
@@ -101,16 +105,20 @@ void GameLevel::postDraw() {
     return;
 
   // Find the update function and call it
-  lua_getglobal(luaState_, "on_draw_screen");
+  lua_getglobal(luaState_, SCRIPT_CALLBACK_ON_DRAW_SCREEN);
 
-  // Push a pointer to the current object for use within the lua function
-  lua_pushlightuserdata(luaState_, (void*)terrain_);
+  if (lua_isfunction(luaState_, -1)) {
+    // Push a pointer to the current object for use within the lua function
+    lua_pushlightuserdata(luaState_, (void*)terrain_);
 
-  // Push the time passed since the last iteration of the game loop
-  lua_pushnumber(luaState_, elapsedTime_);
+    // Push the time passed since the last iteration of the game loop
+    lua_pushnumber(luaState_, elapsedTime_);
 
-  // Call the function with 2 argument and no return values
-  lua_call(luaState_, 2, 0);
+    lua_call(luaState_, 2, 0);
+  }
+  else {
+    PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_DRAW_SCREEN);
+  }
 }
 
 //------------------------------------------------------------------------------
@@ -121,16 +129,20 @@ void GameLevel::updateLevel() {
     return;
 
   // Find the update function and call it
-  lua_getglobal(luaState_, "on_update");
+  lua_getglobal(luaState_, SCRIPT_CALLBACK_ON_UPDATE);
 
-  // Push a pointer to the current object for use within the lua function
-  lua_pushlightuserdata(luaState_, (void*)terrain_);
+  if (lua_isfunction(luaState_, -1)) {
+    // Push a pointer to the current object for use within the lua function
+    lua_pushlightuserdata(luaState_, (void*)terrain_);
 
-  // Push the time passed since the last iteration of the game loop
-  lua_pushnumber(luaState_, elapsedTime_);
+    // Push the time passed since the last iteration of the game loop
+    lua_pushnumber(luaState_, elapsedTime_);
 
-  // Call the function with 2 argument and no return values
-  lua_call(luaState_, 2, 0);
+    lua_call(luaState_, 2, 0);
+  }
+  else {
+    PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_UPDATE);
+  }
 
   updateObjects(&lightDirection_);
 
@@ -208,21 +220,19 @@ bool GameLevel::loadLevelLua(string file) {
   // Find the update function and call it
   PRINT_DEBUG("Calling Lua level script 'on_load' function...\n");
 
-  lua_getglobal(luaState_, "on_load");
+  lua_getglobal(luaState_, SCRIPT_CALLBACK_ON_LOAD);
 
-  // Push a pointer to the current object for use within the lua function
-  lua_pushlightuserdata(luaState_, (void*)terrain_);
+  if (lua_isfunction(luaState_, -1)) {
+    // Push a pointer to the current object for use within the lua function
+    lua_pushlightuserdata(luaState_, (void*)terrain_);
 
-  // Call the function with 1 argument and no return values
-  lua_call(luaState_, 1, 0);
+    lua_call(luaState_, 1, 0);
+  }
+  else {
+    PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_LOAD);
+  }
 
   PRINT_DEBUG("Lua level script 'on_load' function complete.\n");
-
-  // get the result //
-  //position.z = (float)lua_tonumber(luaState_, -1);
-  //position.y = (float)lua_tonumber(luaState_, -2);
-  //position.x = (float)lua_tonumber(luaState_, -3);
-  //lua_pop(luaState_, 1);
 
   objects_.insertFront(player_);
   ////////////////////////////////////////////
@@ -305,21 +315,19 @@ bool GameLevel::loadLevelFromBufferLua(const char* buffer) {
   // Find the update function and call it
   PRINT_DEBUG("Calling Lua level script 'on_load' function...\n");
 
-  lua_getglobal(luaState_, "on_load");
+  lua_getglobal(luaState_, SCRIPT_CALLBACK_ON_LOAD);
 
-  // Push a pointer to the current object for use within the lua function
-  lua_pushlightuserdata(luaState_, (void*)terrain_);
+  if (lua_isfunction(luaState_, -1)) {
+    // Push a pointer to the current object for use within the lua function
+    lua_pushlightuserdata(luaState_, (void*)terrain_);
 
-  // Call the function with 1 argument and no return values
-  lua_call(luaState_, 1, 0);
+    lua_call(luaState_, 1, 0);
+  }
+  else {
+    PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_LOAD);
+  }
 
   PRINT_DEBUG("Lua level script 'on_load' function complete.\n");
-
-  // get the result //
-  //position.z = (float)lua_tonumber(luaState_, -1);
-  //position.y = (float)lua_tonumber(luaState_, -2);
-  //position.x = (float)lua_tonumber(luaState_, -3);
-  //lua_pop(luaState_, 1);
 
   objects_.insertFront(player_);
   ////////////////////////////////////////////
@@ -516,13 +524,17 @@ void GameLevel::unloadLevel() {
   // already been initialized with a script
   if (luaState_ != NULL) {
     // Find the update function and call it
-    lua_getglobal(luaState_, "on_unload");
+    lua_getglobal(luaState_, SCRIPT_CALLBACK_ON_UNLOAD);
 
-    // Push a pointer to the current object for use within the lua function
-    lua_pushlightuserdata(luaState_, (void*)terrain_);
+    if (lua_isfunction(luaState_, -1)) {
+      // Push a pointer to the current object for use within the lua function
+      lua_pushlightuserdata(luaState_, (void*)terrain_);
 
-    // Call the function with 1 argument and no return values
-    lua_call(luaState_, 1, 0);
+      lua_call(luaState_, 1, 0);
+    }
+    else {
+      PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_UNLOAD);
+    }
   }
 
   PRINT_DEBUG("Removing objects...\n");

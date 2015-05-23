@@ -134,17 +134,22 @@ void Object::loadScript(string name, float args[], int n) {
   lua_call(L_, 0, 0);
 
   // Find the update function and call it
-  lua_getglobal(L_, "on_load");
+  lua_getglobal(L_, SCRIPT_CALLBACK_ON_LOAD);
 
-  // Push a pointer to the current object for use within the lua function
-  lua_pushlightuserdata(L_, (void*)this);
+  if (lua_isfunction (L_, -1)) {
+    // Push a pointer to the current object for use within the lua function
+    lua_pushlightuserdata(L_, (void*)this);
 
-  for (int i = 0; i < n; i++) {
-    lua_pushnumber(L_, args[i]);
+    for (int i = 0; i < n; i++) {
+      lua_pushnumber(L_, args[i]);
+    }
+
+    // Call the function with variable arguments and no return values
+    lua_call(L_, 1 + n, 0);
   }
-
-  // Call the function with variable arguments and no return values
-  lua_call(L_, 1 + n, 0);
+  else {
+    PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_LOAD);
+  }
 }
 
 //------------------------------------------------------------------------------
@@ -155,13 +160,16 @@ void Object::unloadScript() {
     return;
 
   // Find the update function and call it
-  lua_getglobal(L_, "on_unload");
+  lua_getglobal(L_, SCRIPT_CALLBACK_ON_UNLOAD);
 
   // Push a pointer to the current object for use within the lua function
-  lua_pushlightuserdata(L_, (void*)this);
-
-  // Call the function with 1 argument and no return values
-  lua_call(L_, 1, 0);
+  if (lua_isfunction(L_, -1)) {
+    lua_pushlightuserdata(L_, (void*)this);
+    lua_call(L_, 1, 0);
+  }
+  else {
+    PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_UNLOAD);
+  }
 
   lua_close(L_);
   L_ = NULL;
@@ -183,16 +191,20 @@ void Object::animateScript(float elapsedTime) {
   }
 
   // Find the update function and call it
-  lua_getglobal(L_, "on_update");
+  lua_getglobal(L_, SCRIPT_CALLBACK_ON_UPDATE);
 
-  // Push a pointer to the current object for use within the lua function
-  lua_pushlightuserdata(L_, (void*)this);
+  if (lua_isfunction(L_, -1)) {
+    // Push a pointer to the current object for use within the lua function
+    lua_pushlightuserdata(L_, (void*)this);
 
-  // Push the time passed since the last iteration of the game loop
-  lua_pushnumber(L_, elapsedTime);
+    // Push the time passed since the last iteration of the game loop
+    lua_pushnumber(L_, elapsedTime);
 
-  // Call the function with 2 arguments and no return values
-  lua_call(L_, 2, 0);
+    lua_call(L_, 2, 0);
+  }
+  else {
+    PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_UPDATE);
+  }
 }
 
 //------------------------------------------------------------------------------
