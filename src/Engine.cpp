@@ -411,18 +411,7 @@ void Engine::processNormalKeyDown(unsigned char key) {
   keyState_.keys[key] = KEY_STATE_PRESSED;
 #if EDIT
   switch (key) {
-    // Game controls...
-    case 32:
-      //if ((player)->userControl && gameMode == 1 && (player)->state != DEAD)
-      //    control.enQueue(SHOOT_DOWN);
-      break;
-    case 'M':
-    case 'm':
-      //if ((player)->userControl && gameMode == 1 && (player)->state_ != DEAD)
-      //    control.enQueue(MISSILE_DOWN);
-      break;
-
-      // Select current camera
+    // Select current camera
     case '1':
       mainCamera_ = c1_;
       currentLevel_->setCamera(mainCamera_);
