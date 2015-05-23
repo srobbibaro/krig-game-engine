@@ -535,6 +535,11 @@ void Engine::loadModels() {
 
   dir = opendir("./models/");
 
+  if (dir == NULL) {
+    PRINT_DEBUG_LVL(2, "'models' directory not present; no models will be loaded.\n");
+    return;
+  }
+
   while ((de = readdir(dir)) != NULL) {
     // only consider model files with the .mdl extension //
     if (strstr(de->d_name, ".mdl") != NULL) {
