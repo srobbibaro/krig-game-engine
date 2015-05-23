@@ -29,7 +29,7 @@ Engine::Engine(char* game) {
 
   // setup game timer /////////////////////////
   if(!timer_.init()) {
-    PRINT_ERROR("Timer initialization failed.");
+    PRINT_ERROR("Timer initialization failed.\n");
     exit (1);
   }
   ///////////////////////////////////////////////

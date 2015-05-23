@@ -137,14 +137,14 @@ void glutInit(void) {
 //------------------------------------------------------------------------------
 int main(int argc, char *argv[]) {
   if (argc < 2) {
-    PRINT_ERROR("Must specify game as argument");
+    PRINT_ERROR("Must specify game directory as argument.\n");
     exit(1);
   }
 
   char* gameDir = argv[1];
 
   if (chdir(gameDir) != 0) {
-    PRINT_ERROR("Could not find specified game");
+    PRINT_ERROR("Could not find specified game directory.\n");
     exit(1);
   }
 
