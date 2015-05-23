@@ -120,8 +120,7 @@ void releaseKey(int key, GLint mouse_x, GLint mouse_y) {
 //------------------------------------------------------------------------------
 void glutInit(void) {
 #if !(EDIT)
-  // TODO: On linux the following command isn't working properly
-  //ShowCursor(false);              // hide mouse pointer
+  glutSetCursor(GLUT_CURSOR_NONE);
 #endif
   glutIgnoreKeyRepeat(1);
   glutSpecialFunc(pressKey);
