@@ -132,6 +132,11 @@ void glutInit(void) {
 
 //------------------------------------------------------------------------------
 int main(int argc, char *argv[]) {
+  if (argc < 2) {
+    PRINT_ERROR("Must specify game as argument");
+    exit(1);
+  }
+
   srand(time(NULL));
 
   glutInit(&argc, argv);
@@ -139,7 +144,7 @@ int main(int argc, char *argv[]) {
 
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 
-  KRIG = new Engine();
+  KRIG = new Engine(argv[1]);
   g_script_engine = KRIG;
 
   // setup window /////////////////////////////

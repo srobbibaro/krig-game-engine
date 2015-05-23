@@ -15,7 +15,9 @@ const char* buffer1 = "function on_load()\nreturn\nend\nfunction "
                       "on_unload()\nreturn\nend\n";
 
 //------------------------------------------------------------------------------
-Engine::Engine() {
+Engine::Engine(char* game) {
+  game_ = std::string(game);
+
   // initialize resources used by the engine //
   keyState_.initKeyState();
   specialKeyState_.initKeyState();

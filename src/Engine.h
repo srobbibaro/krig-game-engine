@@ -14,7 +14,7 @@ using namespace std;
 
 class Engine {
   public:
-    Engine();             // initialize game
+    Engine(char* game);   // initialize game
     ~Engine();
 
     void gameCycle(void); // physics, animation, collision, draw
@@ -106,6 +106,8 @@ class Engine {
 
     // cell shading global variables ////////
     GLuint shaderTexture_[1];
+
+    std::string game_;
 
 #if EDIT
     // Temporary values used for game tools (remove from final build)...
