@@ -1,12 +1,12 @@
 Krig Game Engine
 ================
 
-Krig is an open source game engine and accompanying demo game (by the same name) 
+Krig is an open source game engine and accompanying demo game (by the same name)
 created to run on the Linux operating system.
 
 ## Getting Started
 
-At this time, Krig is known to build and run on 32-bit Debian-based Linux 
+At this time, Krig is known to build and run on 32-bit Debian-based Linux
 distributions running GNOME. Other distributions and configurations should work,
 but have not been verified. Code::Blocks is used to build the Krig executable.
 
@@ -14,7 +14,9 @@ but have not been verified. Code::Blocks is used to build the Krig executable.
 
 #### Vagrant
 
-The Krig Game Engine has a Vagrant project which helps automate setup of the development environment. For information, see: https://github.com/srobbibaro/krig-game-engine-vagrant
+The Krig Game Engine has a Vagrant project which helps automate setup of the
+development environment. For information,
+see: https://github.com/srobbibaro/krig-game-engine-vagrant
 
 #### Manual
 
@@ -23,13 +25,13 @@ Install the following packages:
 * lua5.1
 * lua5.1-dev
 * libalut-dev
-* libvorbis-dev 
+* libvorbis-dev
 * libglu1-mesa-dev
 * freeglut3
 * freeglut3-dev
 * g++
 
-For example: 
+For example:
 
 ```bash
 $ apt-get install codeblocks lua5.1 lua5.1-dev libalut-dev libvorbis-dev libglu1-mesa-dev freeglut3 freeglut3-dev g++
@@ -37,12 +39,12 @@ $ apt-get install codeblocks lua5.1 lua5.1-dev libalut-dev libvorbis-dev libglu1
 
 ### Compile
 
-After the required packages have been installed, launch Code::Blocks and load the _krig.cbp_ 
+After the required packages have been installed, launch Code::Blocks and load the _krig.cbp_
 project file. Krig should now build with Code::Blocks.
 
 Krig can also be compiled (using Code::Blocks) from the command line.
 
-For example: 
+For example:
 
 ```bash
 $ codeblocks --build krig.cbp
@@ -52,15 +54,16 @@ $ codeblocks --build krig.cbp
 The DEBUG flag is located in _src/constants.h_ and is disabled by default (set to 0).
 To enable debug mode, set this value to 1. Debug mode will output debug messages to
 stdout in the console. Additionally, some information about the current level
-will be output directly to the play screen (for example: player position, camera position, 
-and FPS).
+will be output directly to the play screen (for example: player position, camera position,
+and FPS). Additionally, the state of debug flag can be queried from game scripts
+to provide debug-specific behavior.
 
 ```c
 #define DEBUG 0
 ```
 
-The stdout debug message level is controlled by the MSG_LVL setting found in _src/constants.h_. 
-By default, this value is set to 0 which will output minimal debug. This number 
+The stdout debug message level is controlled by the MSG_LVL setting found in _src/constants.h_.
+By default, this value is set to 0 which will output minimal debug. This number
 can be set higher to see an increasingly larger number of messages.
 Be careful - higher numbers will output a lot of information!
 
@@ -80,12 +83,26 @@ variables which can be tweaked on the fly.
 #define EDIT 0
 ```
 
+#### Enable Full Screen Rendering
+
+The FULL_SCREEN flag is located in _src/constants.h_ and is disabled by default (set to 0).
+When the this flag is enabled (set to 1), Krig will launch in full screen rendering.
+Full screen rendering is not compatible with with EDIT flag and will be ignored when
+EDIT is also enabled.
+
+```c
+#define FULL_SCREEN 0
+```
+
 ### Run
 
-Krig will run from either Code::Blocks or command line. The Krig executable is created in the base project directory and is named _krig_.
+Krig will run from either Code::Blocks or command line.
+The Krig executable is created in the base project directory and is named _krig_.
+You must supply the path to the game to run as the first argument. The Krig
+Game Engine comes with a demo game in the root directory, `krig3`.
 
 For example:
 
 ```bash
-$ ./krig
+$ ./krig krig3
 ```
