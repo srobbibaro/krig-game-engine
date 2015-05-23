@@ -465,14 +465,14 @@ void Engine::loadLevel(const char* levelFile) {
     delete currentLevel_;
 
   if (!mainCamera_) {
-    // setup the current level... this really ought to be moved.
-    //mainCamera_ = new Camera();
+    // setup camera(s) for the current level
     c1_ = new Camera(1);
+    mainCamera_ = c1_;
+
     c2_ = new Camera(2);
     c3_ = new Camera(3);
     c4_ = new Camera(4);
 
-    mainCamera_ = c1_;
     c2_->setPosition(0.0f, 100.0f, 0.0f);
     c2_->setRotationEuler(1.57, 0.0f, 0.0f);
     c3_->setPosition(0.0f, 0.0f, 0.0f);
@@ -499,14 +499,14 @@ void Engine::loadLevelFromBuffer(const char* buffer) {
     delete currentLevel_;
 
   if (!mainCamera_) {
-    // setup the current level... this really ought to be moved.
-    //mainCamera_ = new Camera();
+    // setup camera(s) for the current level
     c1_ = new Camera(1);
+    mainCamera_ = c1_;
+
     c2_ = new Camera(2);
     c3_ = new Camera(3);
     c4_ = new Camera(4);
 
-    mainCamera_ = c1_;
     c2_->setPosition(0.0f, 100.0f, 0.0f);
     c2_->setRotationEuler(1.57, 0.0f, 0.0f);
     c3_->setPosition(0.0f, 0.0f, 0.0f);
