@@ -141,7 +141,12 @@ int main(int argc, char *argv[]) {
     exit(1);
   }
 
-  chdir(argv[1]);
+  char* gameDir = argv[1];
+
+  if (chdir(gameDir) != 0) {
+    PRINT_ERROR("Could not find specified game");
+    exit(1);
+  }
 
   srand(time(NULL));
 
@@ -150,7 +155,7 @@ int main(int argc, char *argv[]) {
 
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 
-  KRIG = new Engine(argv[1]);
+  KRIG = new Engine(gameDir);
   g_script_engine = KRIG;
 
   // setup window /////////////////////////////
