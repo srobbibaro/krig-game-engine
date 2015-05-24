@@ -43,6 +43,7 @@ void mousePalette(int btn, int state, int x, int y) {
 }
 #endif
 
+//------------------------------------------------------------------------------
 void display() {
 #if EDIT
   glutSetWindow(mainWin);
@@ -159,7 +160,7 @@ int main(int argc, char *argv[]) {
   g_script_engine = KRIG;
 
   // setup window /////////////////////////////
-  glutInitWindowSize(800, 600);	    // window size
+  glutInitWindowSize(800, 600);
 
 #if EDIT
   terrainEditor = new TerrainEditor();
@@ -170,16 +171,15 @@ int main(int argc, char *argv[]) {
   KRIG->initGL();
   glutInit();
 
-  // delete this window in final build of game ////
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 
   // setup window /////////////////////////////
-  glutInitWindowSize(260, 350);	    // window size
+  glutInitWindowSize(260, 350);
 
-  colorWin = glutCreateWindow("edit_terrain");	// window title
+  colorWin = glutCreateWindow("edit_terrain");
 
   glutPositionWindow(812, 10);
-  glutDisplayFunc(display);		// display callback invoked when window opened
+  glutDisplayFunc(display); // display callback invoked when window opened
   glutMouseFunc(mousePalette);
   glutReshapeFunc(reshapePalette);
   glutIdleFunc(idle);
@@ -192,12 +192,9 @@ int main(int argc, char *argv[]) {
   char mode_string[24];
   sprintf(mode_string, "%dx%d:32@30", glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT));
   glutGameModeString(mode_string);
-  //   glutGameModeString("800x600:32");
 
   if (glutGameModeGet(GLUT_GAME_MODE_POSSIBLE)) {
     glutEnterGameMode();
-    //glutDestroyWindow(0);
-    //glutSetCursor(GLUT_CURSOR_NONE);
   }
   else {
     PRINT_ERROR("Unable to change screen resolution and setup game mode.\n");
@@ -209,7 +206,6 @@ int main(int argc, char *argv[]) {
 
   KRIG->initGL();
   glutInit();
-  /////////////////////////////////////////////
 #endif
 
   KRIG->loadIntroCredits();
