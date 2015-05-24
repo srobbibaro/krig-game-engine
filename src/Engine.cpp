@@ -87,8 +87,7 @@ bool Engine::loadGame(string file) {
   // load Lua base libraries
   luaL_openlibs(luaState_);
 
-  // Register our functions for use in lua (currently defined in
-  // Object.h)
+  // Register our functions for use in lua
   registerFunctions(luaState_, 0);
 
   // load the script
@@ -129,8 +128,7 @@ bool Engine::loadGameFromBuffer(char* buffer) {
   // load Lua base libraries
   luaL_openlibs(luaState_);
 
-  // Register our functions for use in lua (currently defined in
-  // Object.h)
+  // Register our functions for use in lua
   registerFunctions(luaState_, 0);
 
   // load the script
@@ -172,25 +170,13 @@ bool Engine::loadIntroCredits() {
   // load Lua base libraries
   luaL_openlibs(luaState_);
 
-  // Register our functions for use in lua (currently defined in
-  // Object.h)
+  // Register our functions for use in lua
   registerFunctions(luaState_, 0);
 
-  // load the script
+  // load the intro script from the buffer
   PRINT_DEBUG("Loading Lua game script 'intro credits'...\n");
-
-  //luaL_dofile(luaState_, file.c_str());
-
   luaL_loadbuffer(luaState_, buffer1, strlen(buffer1), "line") || lua_pcall(luaState_, 0, 0, 0);
-
-  // Find the update function and call it
-  //lua_getglobal(luaState_, "on_load");
-
-  // Call the function with 1 argument and no return values
-  //lua_call(luaState_, 0, 0);
-
   loadLevelFromBuffer(intro_script_buffer);
-  //loadLevel("./levels/intro.lua");
 
   isIntroRunning_ = true;
 
@@ -507,8 +493,6 @@ void Engine::loadLevel(const char* levelFile) {
 
 //------------------------------------------------------------------------------
 void Engine::loadLevelFromBuffer(const char* buffer) {
-  //levelScript_ = levelFile;
-
   if (currentLevel_)
     delete currentLevel_;
 
