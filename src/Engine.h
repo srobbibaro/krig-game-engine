@@ -14,23 +14,29 @@ using namespace std;
 
 class Engine {
   public:
-    Engine(char* game);   // initialize game
+    Engine(char* game);
     ~Engine();
 
     void gameCycle(void); // physics, animation, collision, draw
     void prepare(void);
     void initGL(void);
+
     void processKeyUp(int);
     void processKeyDown(int);
     void processCommands();
     void processNormalKeyUp(unsigned char);
     void processNormalKeyDown(unsigned char);
+    KeyState* getKeyState() { return &keyState_; }
+    KeyState* getSpecialKeyState() { return &specialKeyState_; }
+
+    void processMouseMove(int x, int y);
+    float getMouseX() { return mouseX_; }
+    float getMouseY() { return mouseY_; }
+
     void loadLevel(const char*);
     void loadLevelFromBuffer(const char*);
 
-    void setLevelScript(string levelScript) {
-      levelScript_ = levelScript;
-    }
+    void setLevelScript(string levelScript) { levelScript_ = levelScript; }
 
     bool loadGame(string);
     bool loadGameFromBuffer(char* buffer);
@@ -44,9 +50,6 @@ class Engine {
 
     float getFps() { return fps_; }
 
-    KeyState* getKeyState() { return &keyState_; }
-    KeyState* getSpecialKeyState() { return &specialKeyState_; }
-
     void loadModels(void);
 
     void renderText(const char* s, float x, float y) {
@@ -54,12 +57,8 @@ class Engine {
       render_string(GLUT_BITMAP_HELVETICA_18, s);
     }
 
-    float getMouseX() { return mouseX_; }
-    float getMouseY() { return mouseY_; }
     SoundFX* getSoundFxClass() { return &soundFx_; }
-    bool getIsRunning() {return isRunning_;}
-
-    void processMouseMove(int x, int y);
+    bool getIsRunning() { return isRunning_; }
 
     void swapLevel() {
       GameLevel *temp = currentLevel_;
@@ -68,7 +67,6 @@ class Engine {
     }
 
 #if EDIT
-    // Temporary functions used for tools (remove from final build)...
     void getTerrainInfo(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
     void updateTerrain(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
 
@@ -76,51 +74,39 @@ class Engine {
 
     void setMouseX(float mouseX) { mouseX_ = mouseX; }
     void setMouseY(float mouseY) { mouseY_ = mouseY; }
-
 #endif
 
   private:
     GameLevel *currentLevel_, *storedLevel_;
-    GameTimer timer_;           // game's timer
     Camera *mainCamera_, *c1_, *c2_, *c3_, *c4_;
-
-    float timeElapsed_;         // time elapsed in game
-    unsigned int lists_;        // lists used for rendering
-
-    KeyState keyState_;
-    KeyState specialKeyState_;
-
+    KeyState keyState_, specialKeyState_;
     SoundFX soundFx_;
 
-    string levelScript_;
+    GameTimer timer_;   // game's timer
+    float timeElapsed_; // time elapsed in game
+    float fps_;
 
+    string levelScript_;
+    std::string game_;
     lua_State* luaState_;
+
+    bool isRunning_, isIntroRunning_, isPaused_;
 
     float mouseX_, mouseY_;
 
-    bool isPaused_;
-    float fps_;
-
-    bool isRunning_;
-
-    bool isIntroRunning_;
-
-    // cell shading global variables ////////
+    // Used through game for cel shading
     GLuint shaderTexture_[1];
-
-    std::string game_;
+    unsigned int lists_; // lists used for rendering
 
 #if EDIT
-    // Temporary values used for game tools (remove from final build)...
-    // mouse control values
-    float lastX;
-    float lastY;
+    // Mouse control values
+    float lastX, lastY;
 
     // Terrain editing values
     int last_x, last_z, last_type;
-    float last_height, last_red, last_green, last_blue;
-    bool paint;
-    bool paintColor;
+    float last_height;
+    float last_red, last_green, last_blue;
+    bool paint, paintColor;
 #endif
 };
 
