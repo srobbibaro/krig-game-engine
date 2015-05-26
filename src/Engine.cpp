@@ -6,13 +6,10 @@
 #include "Scripting.h"
 #include "buffer.h"
 
-extern const char* intro_script_buffer;
+extern const char* intro_level_script_buffer;
+extern const char* intro_game_script_buffer;
 
 GameLevel *g_script_game_level;
-
-const char* buffer1 = "function on_load()\nreturn\nend\nfunction "
-                      "on_update(elapsedTime)\nreturn\nend\nfunction "
-                      "on_unload()\nreturn\nend\n";
 
 //------------------------------------------------------------------------------
 Engine::Engine(char* game) {
@@ -175,8 +172,13 @@ bool Engine::loadIntroCredits() {
 
   // load the intro script from the buffer
   PRINT_DEBUG("Loading Lua game script 'intro credits'...\n");
-  luaL_loadbuffer(luaState_, buffer1, strlen(buffer1), "line") || lua_pcall(luaState_, 0, 0, 0);
-  loadLevelFromBuffer(intro_script_buffer);
+  luaL_loadbuffer(
+    luaState_,
+    intro_game_script_buffer,
+    strlen(intro_game_script_buffer),
+    "line"
+  ) || lua_pcall(luaState_, 0, 0, 0);
+  loadLevelFromBuffer(intro_level_script_buffer);
 
   isIntroRunning_ = true;
 

@@ -1,6 +1,6 @@
 #ifndef _BUFFER_H_
 #define _BUFFER_H_
-const char *intro_script_buffer =
+const char *intro_level_script_buffer =
   "local alpha = 0.0\n"
 
   "function on_load()\n"
@@ -35,6 +35,19 @@ const char *intro_script_buffer =
 
     "gl.PopMatrix()\n"
     "gl.LineWidth(3.0)\n"
+    "return\n"
+  "end\n";
+
+const char* intro_game_script_buffer =
+  "function on_load()\n"
+    "return\n"
+  "end\n"
+
+  "function on_update(elapsedTime)\n"
+    "return\n"
+  "end\n"
+
+  "function on_unload()\n"
     "return\n"
   "end\n";
 #endif
