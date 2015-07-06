@@ -1,5 +1,10 @@
 #include "Music.h"
 
+/* TODO: Last I remember, there was some kind of runtime error in this code
+ * that would cause the whole game to crash.  Might be worth looking into newer
+ * versions of vorbis and OpenAL to see if I can track down issue.
+ */
+
 // Music()
 //
 // Class constructor.  Sets up OpenAL and initialized state flags.

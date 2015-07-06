@@ -13,6 +13,10 @@ SoundFX::SoundFX() {
 
   SFXDir = opendir( "./sounds/" );
 
+  /* TODO: Instead of holding all of the sound effects in memory in wav format,
+   * it would be great to switch to compressed audio files.  It would
+   * drastically decrease the overall memory footprint.
+   */
   if (SFXDir != NULL) {
     Num_of_SFX = 0;
     while ( de = readdir( SFXDir ) ) {
