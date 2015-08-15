@@ -44,7 +44,12 @@ SoundFX::SoundFX() {
   for ( int i = 0; i < Num_of_SFX; i++ ) {
     sprintf( filename, "./sounds/%s", files[i].c_str() );
 
+#if defined(__APPLE__)
+    alutLoadWAVFile( filename, &format, &data, &size, &freq);
+#else
     alutLoadWAVFile( filename, &format, &data, &size, &freq, &loop );
+#endif
+
     alBufferData( Buffers[i], format, data, size, freq );
     alutUnloadWAV(format, data, size, freq);
 

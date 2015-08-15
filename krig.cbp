@@ -26,6 +26,8 @@
 			<Add option="-O" />
 			<Add option="-fpermissive" />
 			<Add directory="./src/" />
+			<Add directory="/usr/include/" />
+			<Add directory="/usr/include/malloc" />
 		</Compiler>
 		<Linker>
 			<Add library="liblua5.1.a" />
