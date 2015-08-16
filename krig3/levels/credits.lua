@@ -79,46 +79,20 @@ end
 
 function on_load(terrain)
   setSkyBox(
-    0.2, 0.5, 0.8,
-    0.7, 0.2, 0.5,
-    0.6, 0.4, 0.7
+    0.0, 0.0, 0.0,
+    0.0, 0.0, 0.3,
+    1.0, 0.0, 0.5
   )
 
-  setLightDirection(0.25, 0.25, 0.5)
+  setLightDirection(0.96, 0.07, 0.13)
 
-  setTerrain(terrain, "./terrains/level5.txt")
-
-  player = getPlayer()
-  setScript(player, "./scripts/player3.lua")
-  setModel(player, "Arwing.mdl")
-  setPosition(player, x_start_player, 20.0, -20.0)
+  setTerrain(terrain, "./terrains/level4.txt")
 
   camera = getCamera()
-  setScript(camera, "./scripts/camera3.lua")
-  setPosition(camera, x_start_camera, 20.0, -0.0)
+  setScript(camera, "./scripts/camera_free.lua")
+  setPosition(camera, x_start_camera, 55.0, 105.0)
 
-  for i=1,25 do
-    obj = addObject(terrain, "./scripts/building.lua")
-    setPosition(obj, 130.0, 0.0, -(i * 70) - 250.0)
-    setScale(obj, 5.0, 20.0, 5.0)
-
-    obj = addObject(terrain, "./scripts/building.lua")
-    setPosition(obj, 190.0, 0.0, -(i * 70) - 250.0)
-    setScale(obj, 5.0, 15.0, 5.0)
-  end
-
-  for i=1,40 do
-    obj = addObject(terrain, "./scripts/enemy_ship1.lua")
-    setPosition(obj, (math.random(20) + 150), (15 + math.random(10.0)), -(math.random(200) * 10) - 200.0)
-    setScale(obj, 4.0, 4.0, 4.0)
-    setRotation(obj, 0.0,  0.0, 0.0)
-  end
-
-  obj = addObject(terrain, "./scripts/boss2.lua")
-  setScale(obj, 32, 4.0, 4.0)
-  setPosition(obj, 160.0, 20.0, -2450.0)
-  setRotation(obj, 0.0, 0.0, 0.0)
-  setModel(obj, "Boss.mdl")
+  addParticleSystem(camera, 1)
 
   playBgMusic("./music/credits.ogg", 0)
 end
