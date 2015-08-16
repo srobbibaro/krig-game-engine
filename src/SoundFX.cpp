@@ -35,23 +35,12 @@ SoundFX::SoundFX() {
   alGenSources( Num_of_SFX, Sources );
 
   // Load sound files.
-  ALbyte filename[80];
-  ALenum format;
-  ALvoid *data;
-  ALboolean loop;
-  ALsizei size, freq;
+  char filename[80];
 
   for ( int i = 0; i < Num_of_SFX; i++ ) {
     sprintf( filename, "./sounds/%s", files[i].c_str() );
 
-#if defined(__APPLE__)
-    alutLoadWAVFile( filename, &format, &data, &size, &freq);
-#else
-    alutLoadWAVFile( filename, &format, &data, &size, &freq, &loop );
-#endif
-
-    alBufferData( Buffers[i], format, data, size, freq );
-    alutUnloadWAV(format, data, size, freq);
+    Buffers[i] = alutCreateBufferFromFile(filename);
 
     File_Hash[ files[i] ] = i;  // Create name to index map.
     SetSFX( files[i], 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, AL_FALSE );
