@@ -50,9 +50,9 @@ $ apt-get install codeblocks lua5.1 lua5.1-dev libalut-dev libvorbis-dev libglu1
 
 Install XQuartz
 
-See instructions, here: [http://xquartz.macosforge.org/landing/]
+See instructions, here: http://xquartz.macosforge.org/landing/
 
-Use [http://brew.sh/](Homebrew) to help with package installation.
+Use [Homebrew](http://brew.sh/) to help with package installation.
 
 Install the following packages:
 * freeglut
@@ -73,7 +73,7 @@ $ brew tap homebrew/versions
 $ brew install gcc46
 ```
 
-Use [http://caskroom.io/](Homebrew Cask) to help with CodeBlocks installation.
+Use [Homebrew Cask](http://caskroom.io/) to help with CodeBlocks installation.
 
 For example:
 
