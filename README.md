@@ -169,9 +169,9 @@ $ ./krig krig3
 
 ## Game Scripting
 
-The `lua` programming language is used to script games for the Krig Game Engine. The 
+The `lua` programming language is used to script games for the Krig Game Engine. The
 engine provides an API designed to handle common game writing tasks. For example,
-there are functions which  add objects to a level, provide these objects properties, 
+there are functions which add objects to a level, provide these objects properties,
 and notify the script of important events, such as object collisions.
 
 ### API
