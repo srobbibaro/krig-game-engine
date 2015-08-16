@@ -25,7 +25,7 @@ Music::~Music() {
   StopSong();
   alDeleteBuffers( 2, Buffers );
   alDeleteSources( 1, &Source );
-  PRINT_DEBUG("Done!");
+  PRINT_DEBUG("Done!\n");
 }
 
 // PlaySong()
