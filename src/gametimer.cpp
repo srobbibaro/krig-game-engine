@@ -60,8 +60,8 @@ float GameTimer::getElapsedSeconds(unsigned long) {
 
     fps = 1.0f / seconds;
 
-    PRINT_DEBUG_LVL(3, "Start time: %ld, current time: %ld\n", m_startTime, currentTime);
-    PRINT_DEBUG_LVL(3, "Seconds: %f\n", seconds);
+    PRINT_DEBUG_LVL(5, "Start time: %ld, current time: %ld\n", m_startTime, currentTime);
+    PRINT_DEBUG_LVL(5, "Seconds: %f\n", seconds);
 
     m_startTime = currentTime;
   }
