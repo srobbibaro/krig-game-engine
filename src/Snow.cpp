@@ -112,8 +112,8 @@ void Snow::initParticle(int index)
         - rand() % 5
     );
 
-    PRINT_DEBUG_LVL(1, "New particle coords=%f,%f,%f\n", particles[index].position.x, particles[index].position.y, particles[index].position.z);
-    PRINT_DEBUG_LVL(1, "New particle velocity=%f,%f,%f\n", particles[index].velocity.x, particles[index].velocity.y, particles[index].velocity.z);
+    PRINT_DEBUG_LVL(3, "New particle coords=%f,%f,%f\n", particles[index].position.x, particles[index].position.y, particles[index].position.z);
+    PRINT_DEBUG_LVL(3, "New particle velocity=%f,%f,%f\n", particles[index].velocity.x, particles[index].velocity.y, particles[index].velocity.z);
 }
 
 //------------------------------------------------------------------------------
@@ -126,9 +126,8 @@ void Snow::update(float elapsedTime)
         particles[i].position.y += particles[i].velocity.y * elapsedTime;
         particles[i].position.z += particles[i].velocity.z * elapsedTime;
 
-        if ( particles[i].position.y <= 0.0f ) {
-
-            PRINT_DEBUG_LVL(1, "Create a new particle...\n");
+        if (particles[i].position.y <= 0.0f) {
+            PRINT_DEBUG_LVL(3, "Create a new particle...\n");
             initParticle(i);
         }
     }
