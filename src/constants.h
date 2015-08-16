@@ -17,20 +17,20 @@ using namespace std;
 #define _CONSTANTS_H_
 
 // Switches ///////////////////////////////////////////////////////////////////
-#define FULL_SCREEN 0
-#define EDIT        0
-#define DEBUG       0
-#define MSG_LVL     0
+#define FULL_SCREEN   0
+#define EDIT          0
+#define DEBUG         0
+#define MSG_LVL       0
 
 // Sound Library Constants ////////////////////////////////////////////////////
-#define BUFFER_SIZE 65536
+#define BUFFER_SIZE   65536
 
 // General Constants //////////////////////////////////////////////////////////
-#define MAX_PATH_LEN    128
+#define MAX_PATH_LEN  128
 
 // Object States //////////////////////////////////////////////////////////////
-#define DEAD        0
-#define NORMAL      1
+#define DEAD          0
+#define NORMAL        1
 
 // Logging Macros /////////////////////////////////////////////////////////////
 #define PRINT_DEBUG(format, ...) \
