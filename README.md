@@ -1,14 +1,21 @@
 Krig Game Engine
 ================
 
-Krig is an open source game engine and accompanying demo game (by the same name)
-created to run on the Linux operating system.
+Krig is a cross-platform, open source game engine with accompanying demo game
+(by the same name).
 
 ## Getting Started
 
-At this time, Krig is known to build and run on 32-bit Debian-based Linux
-distributions running GNOME. Other distributions and configurations should work,
-but have not been verified. Code::Blocks is used to build the Krig executable.
+At this time, Krig is known to build and run on a number of *nix operating systems.
+
+The following configurations are known to work:
+* 32/64-bit Debian-based Linux distributions with GNOME or XFCE (native)
+* 32-bit Debian-based Linux distributions with GNOME or XFCE (VM with hardware acceleration)
+* 64-bit Debian-based Linux distributions with GNOME or XFCE (VM without hardware acceleration)
+* Mac OSX Yosemite
+
+Other distributions and configurations should work, but have not been verified.
+Code::Blocks is used to build the Krig executable.
 
 ### Setup
 
@@ -19,6 +26,8 @@ development environment. For information,
 see: https://github.com/srobbibaro/krig-game-engine-vagrant
 
 #### Manual
+
+##### Linux
 
 Install the following packages:
 * codeblocks
@@ -35,6 +44,57 @@ For example:
 
 ```bash
 $ apt-get install codeblocks lua5.1 lua5.1-dev libalut-dev libvorbis-dev libglu1-mesa-dev freeglut3 freeglut3-dev g++
+```
+
+##### Mac OSX
+
+Install XQuartz
+
+See instructions, here: [http://xquartz.macosforge.org/landing/]
+
+Use [http://brew.sh/](Homebrew) to help with package installation.
+
+Install the following packages:
+* freeglut
+* freealut
+* libvorbis
+* lua51
+
+For example:
+
+```bash
+$ brew install freeglut freealut libvorbis lua51
+```
+
+Install GCC:
+
+```bash
+$ brew tap homebrew/versions
+$ brew install gcc46
+```
+
+Use [http://caskroom.io/](Homebrew Cask) to help with CodeBlocks installation.
+
+For example:
+
+```bash
+$ brew install caskroom/cask/brew-cask
+$ brew cask install codeblocks
+```
+
+Create links to required header files:
+
+```bash
+$ ln -s /System/Library/Frameworks/OpenAL.framework/Headers/ src/AL
+$ ln -s /System/Library/Frameworks/OpenGL.framework/Headers/ src/GL
+```
+
+Create links to required library files:
+
+```bash
+$ sudo ln -s /System/Library/Frameworks/OpenAL.framework/OpenAL /usr/lib/libopenal.a
+$ sudo ln -s /System/Library/Frameworks/OpenGL.framework/OpenGL /usr/lib/libGL.a
+$ sudo ln -s /System/Library/Frameworks/OpenGL.framework/Libraries/libGLU.dylib /usr/lib/libGLU.a
 ```
 
 ### Compile
