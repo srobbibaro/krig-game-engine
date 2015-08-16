@@ -87,31 +87,31 @@ function on_update(this)
     -- TODO: Title screen/menu should restart game rather than returning to
     --       the credits.
   end
-end
 
-function on_draw()
-  player = getPlayer()
-  plr_pos = getPosition(player)
+  light = getLightDirection()
 
-  for i=1,4 do
-    gl.PushMatrix()
-    gl.Translate(plr_pos[1], plr_pos[2], plr_pos[3] - (25.0 * i))
-    gl.Color(0.0, 0.4, 0.7)
-    gl.Begin("LINES")
-    gl.Vertex(-1.0, -1.0, -1.0)
-    gl.Vertex(1.0, -1.0, -1.0)
-
-    gl.Vertex(-1.0, 1.0, -1.0)
-    gl.Vertex(1.0, 1.0, -1.0)
-
-    gl.Vertex(-1.0, -1.0, -1.0)
-    gl.Vertex(-1.0, 1.0, -1.0)
-
-    gl.Vertex(1.0, -1.0, -1.0)
-    gl.Vertex(1.0, 1.0, -1.0)
-    gl.End()
-    gl.PopMatrix()
+  if engine_testKeyPressed(string.byte("[", 1)) == 1 then
+    light[1] = light[1] + .1
+    light = vector_normalize(light)
+  elseif engine_testKeyPressed(string.byte("]", 1)) == 1 then
+    light[2] = light[2] + .1
+    light = vector_normalize(light)
+  elseif engine_testKeyPressed(string.byte("\\", 1)) == 1 then
+    light[3] = light[3] + .1
+    light = vector_normalize(light)
+  elseif engine_testKeyPressed(string.byte("{", 1)) == 1 then
+    light[1] = light[1] - .1
+    light = vector_normalize(light)
+  elseif engine_testKeyPressed(string.byte("}", 1)) == 1 then
+    light[2] = light[2] - .1
+    light = vector_normalize(light)
+  elseif engine_testKeyPressed(string.byte("|", 1)) == 1 then
+    light[3] = light[3] - .1
+    light = vector_normalize(light)
   end
+
+  setLightDirectionv(light)
 end
 
+function on_draw() end
 function on_unload() end
