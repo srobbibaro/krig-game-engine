@@ -45,7 +45,6 @@ credCoord = { { -0.2   , 0.0  }, { -0.22, -0.1 },
 function on_draw_screen(terrain, elapsedTime)
   display_debug()
 
-  highScore = 1024545 --score
   delay = elapsedTime
 
   if creditsPos >= 7.0 then
@@ -67,15 +66,12 @@ function on_draw_screen(terrain, elapsedTime)
 
       gl.Color (1.0, 1.0, 1.0)
       renderText(str, credCoord[i][1], credCoord[i][2])
-      --render_string(GLUT_BITMAP_9_BY_15, str)
     elseif i == 38 or i == 39 then
       gl.Color (1.0, 1.0, 1.0)
       renderText(str, credCoord[i][1], credCoord[i][2])
-      --render_string(GLUT_BITMAP_TIMES_ROMAN_24, str)
     else
       gl.Color (1.0, 0.0, 0.0)
       renderText(str, credCoord[i][1], credCoord[i][2])
-      --render_string(GLUT_BITMAP_HELVETICA_18, str)
     end
   end
   gl.PopMatrix()
@@ -130,7 +126,8 @@ end
 function on_update(this)
   if engine_testKeyPressed(27) == 1 then
     playSound(this, "pause.wav")
-    --load title screen/menu
+    -- TODO: Title screen/menu should restart game rather than returning to
+    --       the credits.
   end
 end
 
