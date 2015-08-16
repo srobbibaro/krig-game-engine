@@ -697,8 +697,8 @@ void Terrain::load(const char* filePath, Vector* light) {
   collisionBox_[0].setVector( min[0], min[1], min[2] );
   collisionBox_[1].setVector( max[0], max[1], max[2] );
 
-  PRINT_DEBUG("Terrain Collisoin Box min x=%f, y=%f, z=%f\n", collisionBox_[0].x, collisionBox_[0].y, collisionBox_[0].z);
-  PRINT_DEBUG("Terrain Collisoin Box max x=%f, y=%f, z=%f\n", collisionBox_[1].x, collisionBox_[1].y, collisionBox_[1].z);
+  PRINT_DEBUG("Terrain Collision Box min x=%f, y=%f, z=%f\n", collisionBox_[0].x, collisionBox_[0].y, collisionBox_[0].z);
+  PRINT_DEBUG("Terrain Collision Box max x=%f, y=%f, z=%f\n", collisionBox_[1].x, collisionBox_[1].y, collisionBox_[1].z);
 }
 
 //------------------------------------------------------------------------------
