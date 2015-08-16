@@ -111,7 +111,7 @@ $ codeblocks --build krig.cbp
 ```
 #### Enable Debug Mode
 
-The DEBUG flag is located in _src/constants.h_ and is disabled by default (set to 0).
+The `DEBUG` flag is located in _src/constants.h_ and is disabled by default (set to 0).
 To enable debug mode, set this value to 1. Debug mode will output debug messages to
 stdout in the console. Additionally, some information about the current level
 will be output directly to the play screen (for example: player position, camera position,
@@ -122,9 +122,10 @@ to provide debug-specific behavior.
 #define DEBUG 0
 ```
 
-The stdout debug message level is controlled by the MSG_LVL setting found in _src/constants.h_.
-By default, this value is set to 0 which will output minimal debug. This number
-can be set higher to see an increasingly larger number of messages.
+The `MSG_LVL` setting found in _src/constants.h_ is used with the `DEBUG` flag and controls
+the volume of debug information output to stdout. By default, this value is set
+to 0 which will output minimal debug. This number can be set higher to see an
+increasingly larger number of messages.
 Be careful - higher numbers will output a lot of information!
 
 ```c
@@ -133,8 +134,8 @@ Be careful - higher numbers will output a lot of information!
 
 #### Enable Edit Mode
 
-The EDIT flag is located in _src/constants.h_ and is disabled by default (set to 0).
-When the EDIT flag is enabled (set to 1), Krig will launch in edit mode. This mode is
+The `EDIT` flag is located in _src/constants.h_ and is disabled by default (set to 0).
+When the `EDIT` flag is enabled (set to 1), Krig will launch in edit mode. This mode is
 designed to aid in level creation. Edit mode gives users the ability to move around
 the level freely, manipulate the terrain, and experiment with certain level-specific
 variables which can be tweaked on the fly.
@@ -145,10 +146,10 @@ variables which can be tweaked on the fly.
 
 #### Enable Full Screen Rendering
 
-The FULL_SCREEN flag is located in _src/constants.h_ and is disabled by default (set to 0).
+The `FULL_SCREEN` flag is located in _src/constants.h_ and is disabled by default (set to 0).
 When the this flag is enabled (set to 1), Krig will launch in full screen rendering.
-Full screen rendering is not compatible with with EDIT flag and will be ignored when
-EDIT is also enabled.
+Full screen rendering is not compatible with the `EDIT` flag and will be ignored when
+`EDIT` is also enabled.
 
 ```c
 #define FULL_SCREEN 0
