@@ -5,7 +5,6 @@ levels = {
   "./levels/level1.lua",
   "./levels/level2.lua",
   "./levels/level3.lua",
-  "./levels/level4.lua",
   "./levels/level5.lua",
   "./levels/credits.lua"
 }
