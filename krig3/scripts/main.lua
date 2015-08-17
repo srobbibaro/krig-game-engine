@@ -1,5 +1,6 @@
 dofile('./scripts/debug_lib.lua')
 
+-- Configuration
 levels = {
   "./levels/menu.lua",
   "./levels/level1.lua",
@@ -17,12 +18,12 @@ numLevels    = table.getn(levels)
 totalTime    = 0.0
 debugEnabled = false
 
+-- Overridden Engine Callbacks
 function on_load()
   loadLevel(levels[levelNum])
   setLevelId(levelNum)
 
   debugEnabled = engine_testDebugEnabled()
-  return
 end
 
 function on_update(elapsedTime)
@@ -72,12 +73,6 @@ function on_update(elapsedTime)
 
     loadLevel(levels[levelNum])
   end
-
-  return
-end
-
-function on_unload()
-  return
 end
 
 function inc_level(inc)
@@ -91,3 +86,5 @@ function inc_level(inc)
     prevLevelNum = level1
   end
 end
+
+function on_unload() end
