@@ -148,9 +148,12 @@ function on_update(this, elapsedTime)
       attemptShot(this, (getBoundingSphereRadius(this) - 1.0))
     end
 
-    if engine_testKeyPressed(string.byte("m", 1)) == 1 and nextMissileShot <= 0.0 then
+    if engine_testKeyPressed(string.byte("m", 1)) == 1 and
+       nextMissileShot <= 0.0 and
+       numMissiles > 0 then
       obj = setShot(this, "./scripts/player_missile.lua")
       nextMissileShot = .75
+      numMissiles = numMissiles - 1
     end
   end
 end

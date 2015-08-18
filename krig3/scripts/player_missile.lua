@@ -11,7 +11,7 @@ function on_load(this)
 
   playSound(this, "laser.wav")
 
-  obj = level_findObjectOfType(3)
+  obj = level_findObjectOfType(1)
   setRotationVelocity(this, 0.0, 0.0, 0.0)
 end
 
@@ -66,7 +66,7 @@ end
 function on_collision(this, temp)
   typeId = getTypeId(temp)
 
-  if typeId == 3 then
+  if typeId ~= 0 then
     removeObject(this)
     duration = 0.0
   end

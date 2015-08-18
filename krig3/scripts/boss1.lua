@@ -14,7 +14,7 @@ function on_load(this)
 
   setVelocity(this, -5.0, 0.0, 0.0)
   life = 40
-  setTypeId(this, 3)
+  setTypeId(this, 1)
   disableCollisionDetection(this)
 
   setupShots(this, './scripts/boss_shot.lua', 0.85)
