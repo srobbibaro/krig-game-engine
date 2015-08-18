@@ -150,7 +150,7 @@ function on_draw_screen(elapsedTime)
   gl.PopMatrix()
   gl.PopMatrix()
   gl.Disable("BLEND")
- 
+
   -- Displays text for the game instructions
   gl.PushMatrix()
   gl.Translate(0.0, -0.4, 0.0)
@@ -158,11 +158,17 @@ function on_draw_screen(elapsedTime)
   renderText("Controls:", 0.0, 0.2)
 
   gl.Color(0.0, 0.0, 0.0)
-  renderText("Arrow Keys      : Move Ship/Menu", 0.1, 0.15)
-  renderText("Enter           : Choose Option", 0.1, 0.1)
-  renderText("Spacebar        : Fire Weapon", 0.1, 0.05)
-  renderText("Escape          : Pause Menu", 0.1, 0.0)
-  renderText("F1, F2, F3      : Lower Detail Level", 0.1, -0.05)
+  renderText("Arrow Keys", 0.1, 0.15)
+  renderText("Enter", 0.1, 0.1)
+  renderText("Spacebar", 0.1, 0.05)
+  renderText("m", 0.1, 0.0)
+  renderText("Escape", 0.1, -0.05)
+
+  renderText(": Move Ship/Menu", 0.4, 0.15)
+  renderText(": Choose Option", 0.4, 0.1)
+  renderText(": Fire Weapon", 0.4, 0.05)
+  renderText(": Fire Missile", 0.4, 0.0)
+  renderText(": Pause Menu", 0.4, -0.05)
 
   gl.Color(1.0, 0.0, 0.0)
   renderText("Game Description:", 0.0, -0.1)
@@ -176,6 +182,7 @@ function on_draw_screen(elapsedTime)
 
   renderText("v 3.0", 0.6, .87)
 
+  -- TODO: Use a real highscore
   gl.Color(1.0, 0.0, 0.0)
   renderText("HighScore: 1000250", -0.25, .8)
 
