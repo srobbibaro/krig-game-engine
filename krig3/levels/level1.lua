@@ -1,6 +1,7 @@
 dofile("./levels/level_lib.lua")
 
 -- Configuration
+X_START_BOSS   = 995.0
 X_START_CAMERA = 110.0
 X_START_PLAYER = X_START_CAMERA - 20.0
 
@@ -187,7 +188,7 @@ function on_update(terrain, elapsedTime)
     camera = getCamera()
     cam_pos = getPosition(camera)
 
-    if cam_pos[1] >= 970.0 then
+    if cam_pos[1] >= (X_START_BOSS - 25.0) then
       bossBattle = 1
 
       -- Set the camera's velocity
@@ -200,7 +201,7 @@ function on_update(terrain, elapsedTime)
 
       -- Create the boss...
       boss = addObject(terrain, "./scripts/boss1.lua")
-      setPosition(boss, 995.0, 15.0, 7.5)
+      setPosition(boss, X_START_BOSS, 15.0, 7.5)
     end
   elseif bossBattle == 1 then
     bossLife = 0
