@@ -442,14 +442,3 @@ void Object::setScaleRate(GLfloat x, GLfloat y, GLfloat z)
 //------------------------------------------------------------------------------
 void Object::setScaleRate(const Vector &v)
 { scaleRate_ = v; }
-
-//------------------------------------------------------------------------------
-Object* Object::getRoot() {
-  Object* temp = this;
-
-  while (temp->prev) {
-    temp = (Object*)temp->prev;
-  }
-
-  return temp;
-}

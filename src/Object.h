@@ -27,7 +27,6 @@ class Object : public ObjectNode {
     virtual ~Object();
 
     void processCollisions(Object*);
-    Object* getRoot();
 
     // virtual functions ///////////////////////
     virtual void draw(Object*) = 0;
