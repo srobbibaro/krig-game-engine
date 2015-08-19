@@ -13,4 +13,3 @@ class ScriptedObject : public Model {
 };
 
 #endif
-
