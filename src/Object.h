@@ -30,12 +30,13 @@ class Object : public ObjectNode {
     Object* getRoot();
 
     // virtual functions ///////////////////////
-    virtual void draw(Object*) = 0; // Camera*
-    virtual void drawOutline(Object*) = 0; // Camera*
-    virtual void drawShadow (Vector*) {}
+    virtual void draw(Object*) = 0;
+    virtual void drawOutline(Object*) = 0;
     virtual void handleCollision(Object*) = 0;
     virtual void update(Vector*) = 0;
-    virtual void animate(float, Object*) = 0; // Camera*
+    virtual void animate(float, Object*) = 0;
+    virtual void printTypeName(void) = 0;
+    virtual void drawShadow (Vector*) {}
     ////////////////////////////////////////////
 
     void showCollisionBox();
@@ -50,9 +51,6 @@ class Object : public ObjectNode {
     void loadScript(string file, float args[], int n);
     void animateScript(float elapsedTime);
     void unloadScript();
-
-    // virtual functions
-    virtual void printTypeName(void) = 0;
 
     void setPosition(const GLfloat&, const GLfloat&, const GLfloat&);
     void setPosition(const Vector&);
