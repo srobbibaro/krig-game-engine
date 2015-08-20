@@ -85,7 +85,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">Scripting.h File Reference</div>  </div>
@@ -94,16 +93,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p>Krig Game <a class="el" href="classEngine.html">Engine</a> Lua Scripting API.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;lua5.1/lua.h&quot;</code><br />
-<code>#include &quot;lua5.1/lualib.h&quot;</code><br />
-<code>#include &quot;lua5.1/lauxlib.h&quot;</code><br />
-<code>#include &quot;Object.h&quot;</code><br />
-<code>#include &quot;text.h&quot;</code><br />
-<code>#include &quot;ScriptedObject.h&quot;</code><br />
-<code>#include &quot;GameLevel.h&quot;</code><br />
-<code>#include &quot;matrix.h&quot;</code><br />
-<code>#include &quot;Engine.h&quot;</code><br />
-</div>
+
 <p><a href="Scripting_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -129,431 +119,26 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ade7976a488fd59fe564c506b8eb2b0ef"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ade7976a488fd59fe564c506b8eb2b0ef"></a>
-static <a class="el" href="structVector.html">Vector</a>&#160;</td><td class="memItemRight" valign="bottom"><b>loadVector</b> (lua_State *L)</td></tr>
-<tr class="separator:ade7976a488fd59fe564c506b8eb2b0ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84f051663fd88fd8c2e94937f5a60ab7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a84f051663fd88fd8c2e94937f5a60ab7"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>returnVector</b> (lua_State *L, <a class="el" href="structVector.html">Vector</a> &amp;t)</td></tr>
-<tr class="separator:a84f051663fd88fd8c2e94937f5a60ab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c2682ed7cc3a39f17d02de7863d726d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8c2682ed7cc3a39f17d02de7863d726d"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setPositionLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a8c2682ed7cc3a39f17d02de7863d726d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91f8f5e4b14208d7bcf4786403b0bc53"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a91f8f5e4b14208d7bcf4786403b0bc53"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setPositionvLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a91f8f5e4b14208d7bcf4786403b0bc53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a262a8273a9e47f69fea4fb1568fd27b9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a262a8273a9e47f69fea4fb1568fd27b9"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getPositionLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a262a8273a9e47f69fea4fb1568fd27b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af633ee96cd53fdd148b7dc8fd9248f98"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af633ee96cd53fdd148b7dc8fd9248f98"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setVelocityLua</b> (lua_State *L)</td></tr>
-<tr class="separator:af633ee96cd53fdd148b7dc8fd9248f98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afaf8713f1ed37861bd312f45090ceb02"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afaf8713f1ed37861bd312f45090ceb02"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setVelocityvLua</b> (lua_State *L)</td></tr>
-<tr class="separator:afaf8713f1ed37861bd312f45090ceb02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad462b7457e174ff10aa415becc65115a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad462b7457e174ff10aa415becc65115a"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getVelocityLua</b> (lua_State *L)</td></tr>
-<tr class="separator:ad462b7457e174ff10aa415becc65115a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a100814544ccf651220aba3317c4d70e4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a100814544ccf651220aba3317c4d70e4"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setRotationVelocityLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a100814544ccf651220aba3317c4d70e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91e8a833bf889f966f52db5d12c1655d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a91e8a833bf889f966f52db5d12c1655d"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setRotationVelocityvLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a91e8a833bf889f966f52db5d12c1655d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a133789f5a6cf488411d7f9fabbfc1079"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a133789f5a6cf488411d7f9fabbfc1079"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getRotationVelocityLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a133789f5a6cf488411d7f9fabbfc1079"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9991e1bb8d6ba8f09ac1ddc5b32f31b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae9991e1bb8d6ba8f09ac1ddc5b32f31b"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setSpeedLua</b> (lua_State *L)</td></tr>
-<tr class="separator:ae9991e1bb8d6ba8f09ac1ddc5b32f31b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98b304320afed260cee0cdf07263ed28"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a98b304320afed260cee0cdf07263ed28"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setSpeedvLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a98b304320afed260cee0cdf07263ed28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbb34784fa55e48d66dd385688b92bca"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afbb34784fa55e48d66dd385688b92bca"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getSpeedLua</b> (lua_State *L)</td></tr>
-<tr class="separator:afbb34784fa55e48d66dd385688b92bca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bf237b66d3bc8ff744d67ca4ae8c963"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8bf237b66d3bc8ff744d67ca4ae8c963"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getPlayerLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a8bf237b66d3bc8ff744d67ca4ae8c963"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ab69becb4925fc660846d648daee85b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2ab69becb4925fc660846d648daee85b"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getCameraLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a2ab69becb4925fc660846d648daee85b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcc2ea862684dc6efea58f8d9f0dc484"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afcc2ea862684dc6efea58f8d9f0dc484"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setRotationLua</b> (lua_State *L)</td></tr>
-<tr class="separator:afcc2ea862684dc6efea58f8d9f0dc484"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae193891b297904fd261a85189dac588d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae193891b297904fd261a85189dac588d"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setRotationvLua</b> (lua_State *L)</td></tr>
-<tr class="separator:ae193891b297904fd261a85189dac588d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed03feb364025560414c5d5e7045cef8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aed03feb364025560414c5d5e7045cef8"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getRotationLua</b> (lua_State *L)</td></tr>
-<tr class="separator:aed03feb364025560414c5d5e7045cef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8608c926b670dcd78222f07ddd90a219"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8608c926b670dcd78222f07ddd90a219"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getDirectionLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a8608c926b670dcd78222f07ddd90a219"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50f8c1724f28fb9ef4fbeef3bac88491"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a50f8c1724f28fb9ef4fbeef3bac88491"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getUpLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a50f8c1724f28fb9ef4fbeef3bac88491"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3c547805c740626947d92f5e102c726"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad3c547805c740626947d92f5e102c726"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getOrthogonalLua</b> (lua_State *L)</td></tr>
-<tr class="separator:ad3c547805c740626947d92f5e102c726"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72b239ee2f05f417a4ae828f0d4b7571"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a72b239ee2f05f417a4ae828f0d4b7571"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>addPositionLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a72b239ee2f05f417a4ae828f0d4b7571"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a259570035919f66c07c3ee20be66e1f9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a259570035919f66c07c3ee20be66e1f9"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>addPositionvLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a259570035919f66c07c3ee20be66e1f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34c96d625c46dea1b1fc4c3fa91e631d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a34c96d625c46dea1b1fc4c3fa91e631d"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>addRotationLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a34c96d625c46dea1b1fc4c3fa91e631d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6195b49b9a55b1395a09199394a148b4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6195b49b9a55b1395a09199394a148b4"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>camera_addRotationLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a6195b49b9a55b1395a09199394a148b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcf83857cdf6203e09bf6c4eea242772"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afcf83857cdf6203e09bf6c4eea242772"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>camera_getFrustumPlaneLua</b> (lua_State *L)</td></tr>
-<tr class="separator:afcf83857cdf6203e09bf6c4eea242772"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60b1075135eb0c3cc6f5f346f2bb8840"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a60b1075135eb0c3cc6f5f346f2bb8840"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>addRotationvLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a60b1075135eb0c3cc6f5f346f2bb8840"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a907d7c0b0a41f94fabc9b46e22a54e94"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a907d7c0b0a41f94fabc9b46e22a54e94"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>addVelocityLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a907d7c0b0a41f94fabc9b46e22a54e94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a758310101fda3f884d2773e73a2c918b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a758310101fda3f884d2773e73a2c918b"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>addVelocityvLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a758310101fda3f884d2773e73a2c918b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04706c6d20ec9bccbf072061b0c0ebc8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a04706c6d20ec9bccbf072061b0c0ebc8"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>addSpeedLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a04706c6d20ec9bccbf072061b0c0ebc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7bae262e3e2ac9f7c507c0b5f7a46cd9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7bae262e3e2ac9f7c507c0b5f7a46cd9"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>addSpeedvLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a7bae262e3e2ac9f7c507c0b5f7a46cd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb69bd8eb7889646136564c625bedd6b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afb69bd8eb7889646136564c625bedd6b"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>addRotationVelocityLua</b> (lua_State *L)</td></tr>
-<tr class="separator:afb69bd8eb7889646136564c625bedd6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fbccccd270f16535652ef883c3e30b1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9fbccccd270f16535652ef883c3e30b1"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>addRotationVelocityvLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a9fbccccd270f16535652ef883c3e30b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a258a76bd1437ecf010fa21747c5beabb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a258a76bd1437ecf010fa21747c5beabb"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>addScaleLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a258a76bd1437ecf010fa21747c5beabb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a14e81e79a3bd6160edf116c03399af22"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a14e81e79a3bd6160edf116c03399af22"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>addScalevLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a14e81e79a3bd6160edf116c03399af22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f647a57f730876a2134a05d8c0fbde0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8f647a57f730876a2134a05d8c0fbde0"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>addScaleRateLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a8f647a57f730876a2134a05d8c0fbde0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1aaa9dcffcd391e4320cb1a131bb6730"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1aaa9dcffcd391e4320cb1a131bb6730"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>addScaleRatevLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a1aaa9dcffcd391e4320cb1a131bb6730"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04a757015be9e3f428d99487cb1bc49d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a04a757015be9e3f428d99487cb1bc49d"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setInterpolationRotationEndAxisLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a04a757015be9e3f428d99487cb1bc49d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a115c414e2dcfea0c2ae88f0d649149ed"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a115c414e2dcfea0c2ae88f0d649149ed"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setInterpolationRotationEndAxisvLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a115c414e2dcfea0c2ae88f0d649149ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75d4cb002a7a5a5c2456f7eede9c8d2c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a75d4cb002a7a5a5c2456f7eede9c8d2c"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setInterpolationRotationStartAxisLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a75d4cb002a7a5a5c2456f7eede9c8d2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae514105ecb30691059e7a8aa08efd69b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae514105ecb30691059e7a8aa08efd69b"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setInterpolationRotationStartAxisvLua</b> (lua_State *L)</td></tr>
-<tr class="separator:ae514105ecb30691059e7a8aa08efd69b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18e966dfdba4f3883c52e8155fca1021"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a18e966dfdba4f3883c52e8155fca1021"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setInterpolationRotationStartLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a18e966dfdba4f3883c52e8155fca1021"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a455d2dcfbd7f6e271dd5f3086e9779a3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a455d2dcfbd7f6e271dd5f3086e9779a3"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setInterpolationRotationStartvLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a455d2dcfbd7f6e271dd5f3086e9779a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0401888cdef49f9746d7ced808e91eb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad0401888cdef49f9746d7ced808e91eb"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setInterpolationRotationEndLua</b> (lua_State *L)</td></tr>
-<tr class="separator:ad0401888cdef49f9746d7ced808e91eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a151f985ccb0f8dc3027693f14b1170b7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a151f985ccb0f8dc3027693f14b1170b7"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setInterpolationRotationEndvLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a151f985ccb0f8dc3027693f14b1170b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee1f972d3ed71d9a9a12bad534c87582"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aee1f972d3ed71d9a9a12bad534c87582"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setInterpolationEnableLua</b> (lua_State *L)</td></tr>
-<tr class="separator:aee1f972d3ed71d9a9a12bad534c87582"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:addda6800dc6629585a8c2ef99ed1071a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="addda6800dc6629585a8c2ef99ed1071a"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setInterpolationVariableBeginValueLua</b> (lua_State *L)</td></tr>
-<tr class="separator:addda6800dc6629585a8c2ef99ed1071a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30342089c383b0eac63b72898ddf923d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a30342089c383b0eac63b72898ddf923d"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setInterpolationVariableEndValueLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a30342089c383b0eac63b72898ddf923d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afad9acad470983bfbe6f4e97094bcf70"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afad9acad470983bfbe6f4e97094bcf70"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setInterpolationVariableCurrentValueLua</b> (lua_State *L)</td></tr>
-<tr class="separator:afad9acad470983bfbe6f4e97094bcf70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02f5ef9ae729f363d10f9bf4e02b3bb3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a02f5ef9ae729f363d10f9bf4e02b3bb3"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setRotationVelocityAxisLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a02f5ef9ae729f363d10f9bf4e02b3bb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7a8d546acd04a660a68e99e0427b90e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa7a8d546acd04a660a68e99e0427b90e"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setRotationVelocityAxisvLua</b> (lua_State *L)</td></tr>
-<tr class="separator:aa7a8d546acd04a660a68e99e0427b90e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60f727d641b87c4b5ea71b1769238ca3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a60f727d641b87c4b5ea71b1769238ca3"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setRotationAxisLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a60f727d641b87c4b5ea71b1769238ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75c3718d4dbe59c4e9a1cb202bc19374"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a75c3718d4dbe59c4e9a1cb202bc19374"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setRotationAxisvLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a75c3718d4dbe59c4e9a1cb202bc19374"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1c45c9a1ebcf468f0d5c0dc980189c2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad1c45c9a1ebcf468f0d5c0dc980189c2"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>addRotationAxisLua</b> (lua_State *L)</td></tr>
-<tr class="separator:ad1c45c9a1ebcf468f0d5c0dc980189c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a160b939eff4af2265d5abc3bde0a1629"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a160b939eff4af2265d5abc3bde0a1629"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>addRotationAxisvLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a160b939eff4af2265d5abc3bde0a1629"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1bb490e851dbab141d8965b3ca753721"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1bb490e851dbab141d8965b3ca753721"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getTimerLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a1bb490e851dbab141d8965b3ca753721"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7964945d66ed8cb8e9176646eeaf1ccd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7964945d66ed8cb8e9176646eeaf1ccd"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>suspendLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a7964945d66ed8cb8e9176646eeaf1ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af10eafbb83f18684a5316a75002a084d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af10eafbb83f18684a5316a75002a084d"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>playSoundLua</b> (lua_State *L)</td></tr>
-<tr class="separator:af10eafbb83f18684a5316a75002a084d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a862ca84ccff96fbecc5a8380c0af1d9d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a862ca84ccff96fbecc5a8380c0af1d9d"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>addObjectLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a862ca84ccff96fbecc5a8380c0af1d9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63d1870c313f9b01548f29745faaf885"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a63d1870c313f9b01548f29745faaf885"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>addTextLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a63d1870c313f9b01548f29745faaf885"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa799d73451e14b40d7d6dcc7fad0fa13"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa799d73451e14b40d7d6dcc7fad0fa13"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>removeObjectLua</b> (lua_State *L)</td></tr>
-<tr class="separator:aa799d73451e14b40d7d6dcc7fad0fa13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b0a37941f3df94d0818bcdb03abf479"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1b0a37941f3df94d0818bcdb03abf479"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setModelLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a1b0a37941f3df94d0818bcdb03abf479"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ef24b322bdba502b0037eb4da822e6e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6ef24b322bdba502b0037eb4da822e6e"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>terrain_getVertexHeightLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a6ef24b322bdba502b0037eb4da822e6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a637ec22fcfc62dc29dde83185c40a4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6a637ec22fcfc62dc29dde83185c40a4"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>terrain_getVertexColorLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a6a637ec22fcfc62dc29dde83185c40a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bcb426e628e6aa522039915f6126ee8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2bcb426e628e6aa522039915f6126ee8"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>terrain_getVertexTypeLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a2bcb426e628e6aa522039915f6126ee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29cf07703868a3c748aac364d4b87712"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a29cf07703868a3c748aac364d4b87712"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>terrain_setVertexHeightLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a29cf07703868a3c748aac364d4b87712"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac44a73e8b382e438063fb5a25163ad90"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac44a73e8b382e438063fb5a25163ad90"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>terrain_setVertexColorLua</b> (lua_State *L)</td></tr>
-<tr class="separator:ac44a73e8b382e438063fb5a25163ad90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac13a1b1781ac9e5d5c3dffd5e65bff85"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac13a1b1781ac9e5d5c3dffd5e65bff85"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>terrain_setVertexTypeLua</b> (lua_State *L)</td></tr>
-<tr class="separator:ac13a1b1781ac9e5d5c3dffd5e65bff85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae96830f4d851676f49ddb91f85460d6c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae96830f4d851676f49ddb91f85460d6c"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>terrain_getHeightLua</b> (lua_State *L)</td></tr>
-<tr class="separator:ae96830f4d851676f49ddb91f85460d6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26af50a4df7321c4cc8fe50fba37cfe1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a26af50a4df7321c4cc8fe50fba37cfe1"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setScaleLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a26af50a4df7321c4cc8fe50fba37cfe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9af2600f8adb7ffd2b972a181e5e041"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae9af2600f8adb7ffd2b972a181e5e041"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setScalevLua</b> (lua_State *L)</td></tr>
-<tr class="separator:ae9af2600f8adb7ffd2b972a181e5e041"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a397758954aaa490473fa4cc716dfac76"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a397758954aaa490473fa4cc716dfac76"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setScriptLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a397758954aaa490473fa4cc716dfac76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57b526b8a149a78663fcf89fc2ea07ca"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a57b526b8a149a78663fcf89fc2ea07ca"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>enableAlwaysLitLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a57b526b8a149a78663fcf89fc2ea07ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaafef17c744a0cb5216ce7ba2fd7fbb5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaafef17c744a0cb5216ce7ba2fd7fbb5"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>disableAlwaysLitLua</b> (lua_State *L)</td></tr>
-<tr class="separator:aaafef17c744a0cb5216ce7ba2fd7fbb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68deffcf7693cc169a9df2d57e3ad8b0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a68deffcf7693cc169a9df2d57e3ad8b0"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>addParticleSystemLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a68deffcf7693cc169a9df2d57e3ad8b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78ebde14c81b58c515f14fb807b7326c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a78ebde14c81b58c515f14fb807b7326c"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>playBgMusicLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a78ebde14c81b58c515f14fb807b7326c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadbcf4072f7559a19f6fba9dfec8aff2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aadbcf4072f7559a19f6fba9dfec8aff2"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>stopBgMusicLua</b> (lua_State *L)</td></tr>
-<tr class="separator:aadbcf4072f7559a19f6fba9dfec8aff2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1847cd923aeede8e418bc135bddfb99"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa1847cd923aeede8e418bc135bddfb99"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>pauseBgMusicLua</b> (lua_State *L)</td></tr>
-<tr class="separator:aa1847cd923aeede8e418bc135bddfb99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a301599e4577432eff1ccaa3f5b9c2b1c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a301599e4577432eff1ccaa3f5b9c2b1c"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setSkyBoxLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a301599e4577432eff1ccaa3f5b9c2b1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9202bf3cb7efd8cfd0709db402d702d6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9202bf3cb7efd8cfd0709db402d702d6"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setLightDirectionLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a9202bf3cb7efd8cfd0709db402d702d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae39abbcb935838341bab2d22dd72efe5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae39abbcb935838341bab2d22dd72efe5"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setLightDirectionvLua</b> (lua_State *L)</td></tr>
-<tr class="separator:ae39abbcb935838341bab2d22dd72efe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f7080aac68a0c94d680d227c9d48858"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8f7080aac68a0c94d680d227c9d48858"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setTerrainLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a8f7080aac68a0c94d680d227c9d48858"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5651a96fe6b19e4bac40fae0a25a452d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5651a96fe6b19e4bac40fae0a25a452d"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>vector_getScalarLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a5651a96fe6b19e4bac40fae0a25a452d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55b0c0c45c60b911e4d3601c21ea85bc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a55b0c0c45c60b911e4d3601c21ea85bc"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>vector_normalizeLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a55b0c0c45c60b911e4d3601c21ea85bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d7249c56fe38f4e8f20f2af11497588"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1d7249c56fe38f4e8f20f2af11497588"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>vector_dotProductLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a1d7249c56fe38f4e8f20f2af11497588"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada47022660e55876e6d0243ca9913ebb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ada47022660e55876e6d0243ca9913ebb"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>vector_crossProductLua</b> (lua_State *L)</td></tr>
-<tr class="separator:ada47022660e55876e6d0243ca9913ebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63438b0996fe1a5ae22e4b8528d04763"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a63438b0996fe1a5ae22e4b8528d04763"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>engine_testKeyPressedLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a63438b0996fe1a5ae22e4b8528d04763"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4c289fa89716f6487339d466076b818"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad4c289fa89716f6487339d466076b818"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>engine_testKeyReleasedLua</b> (lua_State *L)</td></tr>
-<tr class="separator:ad4c289fa89716f6487339d466076b818"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94886ef95090f8c64ee28b680cac8d37"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a94886ef95090f8c64ee28b680cac8d37"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>engine_testSpecialKeyPressedLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a94886ef95090f8c64ee28b680cac8d37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0df92cff7295e9167828cb6d16cb545"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa0df92cff7295e9167828cb6d16cb545"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>engine_testSpecialKeyReleasedLua</b> (lua_State *L)</td></tr>
-<tr class="separator:aa0df92cff7295e9167828cb6d16cb545"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2bf9dcd08b3f4f9f4af4e50d8e4e1e5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac2bf9dcd08b3f4f9f4af4e50d8e4e1e5"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>engine_testDebugEnabledLua</b> (lua_State *L)</td></tr>
-<tr class="separator:ac2bf9dcd08b3f4f9f4af4e50d8e4e1e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acac6b0016b1f9d14fd2b258b8faff1c6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acac6b0016b1f9d14fd2b258b8faff1c6"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>engine_getMouseCoordinatesLua</b> (lua_State *L)</td></tr>
-<tr class="separator:acac6b0016b1f9d14fd2b258b8faff1c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25c6aec000226493b11612e77650ce8c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a25c6aec000226493b11612e77650ce8c"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>level_findObjectOfTypeLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a25c6aec000226493b11612e77650ce8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7b8105232d89bc88145f3b44bdf5b9e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac7b8105232d89bc88145f3b44bdf5b9e"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setTypeIdLua</b> (lua_State *L)</td></tr>
-<tr class="separator:ac7b8105232d89bc88145f3b44bdf5b9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71ef492513947652c0a9eed654c08833"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a71ef492513947652c0a9eed654c08833"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getTypeIdLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a71ef492513947652c0a9eed654c08833"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70622d5fed58cb4e52950b745f825eea"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a70622d5fed58cb4e52950b745f825eea"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setScaleRateLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a70622d5fed58cb4e52950b745f825eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f9092c5fa9dc054338d1cbb680ab35c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8f9092c5fa9dc054338d1cbb680ab35c"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setScaleRatevLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a8f9092c5fa9dc054338d1cbb680ab35c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97bbaa8af1c6e0ebe606804ec1bdcfe0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a97bbaa8af1c6e0ebe606804ec1bdcfe0"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getScaleLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a97bbaa8af1c6e0ebe606804ec1bdcfe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ef34d2e6ff1b4e19ee7f5a479218fe1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8ef34d2e6ff1b4e19ee7f5a479218fe1"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getScaleRateLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a8ef34d2e6ff1b4e19ee7f5a479218fe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66e610a23c5ee86efc0f852f09f80bd4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a66e610a23c5ee86efc0f852f09f80bd4"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getScriptValueLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a66e610a23c5ee86efc0f852f09f80bd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc6beb019e5f1398f554dc6aa3bce4ca"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abc6beb019e5f1398f554dc6aa3bce4ca"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setScriptValueLua</b> (lua_State *L)</td></tr>
-<tr class="separator:abc6beb019e5f1398f554dc6aa3bce4ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f3ecdb2de950a648090b59ddb40c51a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2f3ecdb2de950a648090b59ddb40c51a"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>loadLevelLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a2f3ecdb2de950a648090b59ddb40c51a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a147fd5ce7a47d68fd630c1ee034a6d50"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a147fd5ce7a47d68fd630c1ee034a6d50"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>loadLevelFromBufferLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a147fd5ce7a47d68fd630c1ee034a6d50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca537428d54d1066b6c3f4938424c4c8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aca537428d54d1066b6c3f4938424c4c8"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>shutdownLua</b> (lua_State *L)</td></tr>
-<tr class="separator:aca537428d54d1066b6c3f4938424c4c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d25bc5929f907f3fc3020c9dd6fbad0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6d25bc5929f907f3fc3020c9dd6fbad0"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>pauseLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a6d25bc5929f907f3fc3020c9dd6fbad0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:affb3d9d08a849420334721d8b3c3a97d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="affb3d9d08a849420334721d8b3c3a97d"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>renderTextLua</b> (lua_State *L)</td></tr>
-<tr class="separator:affb3d9d08a849420334721d8b3c3a97d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a237913b28959877152518e6e82b6eec1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a237913b28959877152518e6e82b6eec1"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>displayTextLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a237913b28959877152518e6e82b6eec1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Game</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Game functions are only available in game scripts. </p>
+</div></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Game Level</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Game level functions are only available in game level scripts. </p>
+</div></td></tr>
 <tr class="memitem:a82105fa6928dd6f6d05d5a47a1def7f6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a82105fa6928dd6f6d05d5a47a1def7f6">getFps</a> ()</td></tr>
 <tr class="separator:a82105fa6928dd6f6d05d5a47a1def7f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76bc71fe22afef65f5a9e80c644e3bb7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a76bc71fe22afef65f5a9e80c644e3bb7"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getFpsLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a76bc71fe22afef65f5a9e80c644e3bb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0ee38979125c70683da5a9a967da757"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab0ee38979125c70683da5a9a967da757"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getCameraIdLua</b> (lua_State *L)</td></tr>
-<tr class="separator:ab0ee38979125c70683da5a9a967da757"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a218410455d968c39801df12860c24aa0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a218410455d968c39801df12860c24aa0"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getLightDirectionLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a218410455d968c39801df12860c24aa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35f31be67318649e3fd6fd9107a21418"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a35f31be67318649e3fd6fd9107a21418"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setCompleteLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a35f31be67318649e3fd6fd9107a21418"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b915bb03ae64c8fa4b53475143a67a1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2b915bb03ae64c8fa4b53475143a67a1"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>testLevelCompleteLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a2b915bb03ae64c8fa4b53475143a67a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a461e9a8330890d5b1cda8971d7d2f807"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a461e9a8330890d5b1cda8971d7d2f807"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getLevelIdLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a461e9a8330890d5b1cda8971d7d2f807"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acaa45d861b6ee1cb07fc1500f4e3295e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acaa45d861b6ee1cb07fc1500f4e3295e"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setLevelIdLua</b> (lua_State *L)</td></tr>
-<tr class="separator:acaa45d861b6ee1cb07fc1500f4e3295e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0239891f90420c5e0c33f3a69fba8c2a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0239891f90420c5e0c33f3a69fba8c2a"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>enableCollisionDetectionLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a0239891f90420c5e0c33f3a69fba8c2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27373336246194ae9a00137ab086848b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a27373336246194ae9a00137ab086848b"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>disableCollisionDetectionLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a27373336246194ae9a00137ab086848b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4e5306b15d460c0cd8639eb534b7eb8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af4e5306b15d460c0cd8639eb534b7eb8"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getCollisionDetectionEnabledLua</b> (lua_State *L)</td></tr>
-<tr class="separator:af4e5306b15d460c0cd8639eb534b7eb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Text</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Text functions are only available for text scripts. </p>
+</div></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Game Object</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Game object functions are only available in game object scripts. </p>
+</div></td></tr>
 <tr class="memitem:a60cd7d671fbd73749761f696f971c5c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a60cd7d671fbd73749761f696f971c5c7">setActive</a> (GameObjectReference)</td></tr>
 <tr class="separator:a60cd7d671fbd73749761f696f971c5c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31094342dc3965dad2f717b1ed0c29d1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a31094342dc3965dad2f717b1ed0c29d1"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setActiveLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a31094342dc3965dad2f717b1ed0c29d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:affa4d944e628eadd634b644ab3c7e8c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#affa4d944e628eadd634b644ab3c7e8c5">setInactive</a> (GameObjectReference)</td></tr>
 <tr class="separator:affa4d944e628eadd634b644ab3c7e8c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3845f53951a8986ebd6f0de471c4159"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad3845f53951a8986ebd6f0de471c4159"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setInactiveLua</b> (lua_State *L)</td></tr>
-<tr class="separator:ad3845f53951a8986ebd6f0de471c4159"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb1a31b7a8c0bab7963726dff88a3aa8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#afb1a31b7a8c0bab7963726dff88a3aa8">getActive</a> (GameObjectReference)</td></tr>
 <tr class="separator:afb1a31b7a8c0bab7963726dff88a3aa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19c3ef04a08afb5f03b5fe7928f82b76"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a19c3ef04a08afb5f03b5fe7928f82b76"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getActiveLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a19c3ef04a08afb5f03b5fe7928f82b76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af014ef27d081e70a793ce32bc0fe2acf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af014ef27d081e70a793ce32bc0fe2acf"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>enableDrawLua</b> (lua_State *L)</td></tr>
-<tr class="separator:af014ef27d081e70a793ce32bc0fe2acf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65538a81e083ea6eb6e14f7ebc5e2566"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a65538a81e083ea6eb6e14f7ebc5e2566"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>disableDrawLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a65538a81e083ea6eb6e14f7ebc5e2566"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c78b9f8262f2a253132722ab2cbc734"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7c78b9f8262f2a253132722ab2cbc734"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getDrawEnabledLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a7c78b9f8262f2a253132722ab2cbc734"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2e7c8c386009b55c1410a717fe118c2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa2e7c8c386009b55c1410a717fe118c2"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getBoundingSphereRadiusLua</b> (lua_State *L)</td></tr>
-<tr class="separator:aa2e7c8c386009b55c1410a717fe118c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ba757339948ecc978853c29afd4fe0c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4ba757339948ecc978853c29afd4fe0c"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getInViewLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a4ba757339948ecc978853c29afd4fe0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb3dc45ce7cefbcaa49688a6554770d7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abb3dc45ce7cefbcaa49688a6554770d7"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>swapLevelLua</b> (lua_State *L)</td></tr>
-<tr class="separator:abb3dc45ce7cefbcaa49688a6554770d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab13945f3c419e0a2d6c499f400ef7653"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab13945f3c419e0a2d6c499f400ef7653"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setFadeRateLua</b> (lua_State *L)</td></tr>
-<tr class="separator:ab13945f3c419e0a2d6c499f400ef7653"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ebb0a9e236d53a6f192e54895df01e7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7ebb0a9e236d53a6f192e54895df01e7"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getFadeRateLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a7ebb0a9e236d53a6f192e54895df01e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5380284a16ab091793ff1c2efbd65396"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5380284a16ab091793ff1c2efbd65396"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setAlphaLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a5380284a16ab091793ff1c2efbd65396"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef7660c1bb02a73c302afbf9dabcfb91"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aef7660c1bb02a73c302afbf9dabcfb91"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getAlphaLua</b> (lua_State *L)</td></tr>
-<tr class="separator:aef7660c1bb02a73c302afbf9dabcfb91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7832ff7db0630ce327e66f670226407a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7832ff7db0630ce327e66f670226407a"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setColorLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a7832ff7db0630ce327e66f670226407a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc858e6abf9c6c41fff3452d213b8e9a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abc858e6abf9c6c41fff3452d213b8e9a"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setColorvLua</b> (lua_State *L)</td></tr>
-<tr class="separator:abc858e6abf9c6c41fff3452d213b8e9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ca299dd8d17273aaee637ef65af281a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8ca299dd8d17273aaee637ef65af281a"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getColorLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a8ca299dd8d17273aaee637ef65af281a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6b584830eb1c070829afda5a0fe2b7e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad6b584830eb1c070829afda5a0fe2b7e"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setWidthLua</b> (lua_State *L)</td></tr>
-<tr class="separator:ad6b584830eb1c070829afda5a0fe2b7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3841ae9af52428e2d1f22b2d61433e22"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3841ae9af52428e2d1f22b2d61433e22"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>getWidthLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a3841ae9af52428e2d1f22b2d61433e22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7eac55f5784a5bf308547cbdcde6635"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab7eac55f5784a5bf308547cbdcde6635"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>orientOnTerrainLua</b> (lua_State *L)</td></tr>
-<tr class="separator:ab7eac55f5784a5bf308547cbdcde6635"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09718198b4d94c6a9b93ff9df230a094"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a09718198b4d94c6a9b93ff9df230a094"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>setHeightFromTerrainLua</b> (lua_State *L)</td></tr>
-<tr class="separator:a09718198b4d94c6a9b93ff9df230a094"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d040681db730c887aeed8cc9c108d1c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7d040681db730c887aeed8cc9c108d1c"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>registerFunctions</b> (lua_State *L, int level)</td></tr>
-<tr class="separator:a7d040681db730c887aeed8cc9c108d1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -572,7 +157,7 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Krig Game <a class="el" href="classEngine.html">Engine</a> Lua Scripting API. </p>
-<p>API calls are split into four classes of functions. The classes are defined by the type of script where they are available for use. For example, the playBgMusic function is supported for a game level script and would not be available to use for an object. The four classes of functions are: Object, Text, Game Level, and Game. </p>
+<p>API calls are split into four classes of functions. The classes are defined by the type of script where they are available for use. For example, the playBgMusic function is supported for a game level script and would not be available to use for an object. The four classes of functions are: Game Object, Text, Game Level, and Game (<a class="el" href="classEngine.html">Engine</a>). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="afb1a31b7a8c0bab7963726dff88a3aa8"></a>
 <div class="memitem">
@@ -662,7 +247,7 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 20 2015 02:55:47 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 20 2015 12:07:01 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>
