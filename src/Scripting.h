@@ -18,13 +18,6 @@ extern "C" {
   #include "lua5.1/lauxlib.h"
 }
 
-#define SCRIPT_CALLBACK_ON_LOAD        "on_load"
-#define SCRIPT_CALLBACK_ON_UPDATE      "on_update"
-#define SCRIPT_CALLBACK_ON_DRAW        "on_draw"
-#define SCRIPT_CALLBACK_ON_DRAW_SCREEN "on_draw_screen"
-#define SCRIPT_CALLBACK_ON_COLLISION   "on_collision"
-#define SCRIPT_CALLBACK_ON_UNLOAD      "on_unload"
-
 #include "Object.h"
 #include "text.h"
 #include "ScriptedObject.h"
@@ -32,54 +25,21 @@ extern "C" {
 #include "matrix.h"
 #include "Engine.h"
 
+// Macros /////////////////////////////////////////////////////////////////////
+#define SCRIPT_CALLBACK_ON_LOAD        "on_load"
+#define SCRIPT_CALLBACK_ON_UPDATE      "on_update"
+#define SCRIPT_CALLBACK_ON_DRAW        "on_draw"
+#define SCRIPT_CALLBACK_ON_DRAW_SCREEN "on_draw_screen"
+#define SCRIPT_CALLBACK_ON_COLLISION   "on_collision"
+#define SCRIPT_CALLBACK_ON_UNLOAD      "on_unload"
+
+// Global variables ///////////////////////////////////////////////////////////
 extern Object* g_script_player;
 extern Object* g_script_camera;
 extern GameLevel* g_script_game_level;
 extern Engine* g_script_engine;
 
-// helpers
-static Vector loadVector(lua_State *L) {
-  Vector t;
-
-  // x
-  lua_pushnumber(L, 1);
-  lua_gettable(L, -2);
-  t.x = (float)lua_tonumber(L, -1);
-  lua_pop(L, 1);
-
-  // y
-  lua_pushnumber(L, 2);
-  lua_gettable(L, -2);
-  t.y = (float)lua_tonumber(L, -1);
-  lua_pop(L, 1);
-
-  // z
-  lua_pushnumber(L, 3);
-  lua_gettable(L, -2);
-  t.z = (float)lua_tonumber(L, -1);
-  lua_pop(L, 1);
-
-  lua_pop(L, 1);
-
-  return t;
-}
-
-static void returnVector(lua_State *L, Vector &t) {
-  lua_newtable(L);
-
-  lua_pushnumber(L, 1);
-  lua_pushnumber(L, t.x);
-  lua_rawset(L, -3);
-
-  lua_pushnumber(L, 2);
-  lua_pushnumber(L, t.y);
-  lua_rawset(L, -3);
-
-  lua_pushnumber(L, 3);
-  lua_pushnumber(L, t.z);
-  lua_rawset(L, -3);
-}
-
+// Lua API ////////////////////////////////////////////////////////////////////
 static int setPositionLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1137,7 +1097,6 @@ static int level_findObjectOfTypeLua(lua_State *L) {
   return 1;
 }
 
-
 static int setTypeIdLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1266,6 +1225,10 @@ static int displayTextLua(lua_State *L) {
   return 0;
 }
 
+/** @name Game Level
+ * Game level functions are only available in game level scripts.
+ */
+///@{
 #if DOXYGEN_ONLY
 /**
  * Query the engine for the last calculated value of frames per second (FPS).
@@ -1283,7 +1246,7 @@ static int getCameraIdLua(lua_State *L) {
   lua_pushnumber(L, g_script_game_level->getCamera()->id_);
   return 1;
 }
-
+///@}
 static int getLightDirectionLua(lua_State *L) {
   returnVector(L, *g_script_game_level->getLightDirection());
   return 1;
@@ -1330,6 +1293,10 @@ static int getCollisionDetectionEnabledLua(lua_State *L) {
   return 1;
 }
 
+/** @name Game Object
+ * Game object functions are only available in game object scripts.
+ */
+///@{
 #if DOXYGEN_ONLY
 /**
  * Set the active state of the specified object to true (active).
@@ -1377,6 +1344,7 @@ static int getActiveLua(lua_State *L) {
   lua_pushnumber(L, object->getActive());
   return 1;
 }
+///@}
 
 static int enableDrawLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
@@ -1508,6 +1476,49 @@ static int setHeightFromTerrainLua(lua_State *L) {
   object->setHeightFromTerrain(g_script_game_level->getTerrain(), offset);
 
   return 0;
+}
+
+// helpers ////////////////////////////////////////////////////////////////////
+static Vector loadVector(lua_State *L) {
+  Vector t;
+
+  // x
+  lua_pushnumber(L, 1);
+  lua_gettable(L, -2);
+  t.x = (float)lua_tonumber(L, -1);
+  lua_pop(L, 1);
+
+  // y
+  lua_pushnumber(L, 2);
+  lua_gettable(L, -2);
+  t.y = (float)lua_tonumber(L, -1);
+  lua_pop(L, 1);
+
+  // z
+  lua_pushnumber(L, 3);
+  lua_gettable(L, -2);
+  t.z = (float)lua_tonumber(L, -1);
+  lua_pop(L, 1);
+
+  lua_pop(L, 1);
+
+  return t;
+}
+
+static void returnVector(lua_State *L, Vector &t) {
+  lua_newtable(L);
+
+  lua_pushnumber(L, 1);
+  lua_pushnumber(L, t.x);
+  lua_rawset(L, -3);
+
+  lua_pushnumber(L, 2);
+  lua_pushnumber(L, t.y);
+  lua_rawset(L, -3);
+
+  lua_pushnumber(L, 3);
+  lua_pushnumber(L, t.z);
+  lua_rawset(L, -3);
 }
 
 static int registerFunctions(lua_State *L, int level) {
