@@ -157,9 +157,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> setScaleRate(<span class="keyword">const</span> <a class="code" href="structVector.html">Vector</a> &amp;v);</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> setDrawEnabled(<span class="keywordtype">bool</span> isDrawEnabled) { isDrawEnabled_ = isDrawEnabled; }</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">bool</span> getDrawEnabled() { <span class="keywordflow">return</span> isDrawEnabled_; }</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="Scripting_8h.html#a23df08bcaede93109347a54ecd0cead7">getDrawEnabled</a>() { <span class="keywordflow">return</span> isDrawEnabled_; }</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">bool</span> getInView() { <span class="keywordflow">return</span> isInView_; }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="Scripting_8h.html#ad671b114ff3aa2035be937abb7b29cad">getInView</a>() { <span class="keywordflow">return</span> isInView_; }</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">void</span> setParticleSystem(<span class="keywordtype">int</span> particleSystemNumber);</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">float</span> getScriptValue(<span class="keyword">const</span> <span class="keywordtype">char</span>* s) {</div>
@@ -248,8 +248,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keywordtype">bool</span> isDrawable(<span class="keywordtype">void</span>) {</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="Scripting_8h.html#afb1a31b7a8c0bab7963726dff88a3aa8">getActive</a>() &amp;&amp;</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;             getInView() &amp;&amp;</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;             getDrawEnabled() &amp;&amp;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;             <a class="code" href="Scripting_8h.html#ad671b114ff3aa2035be937abb7b29cad">getInView</a>() &amp;&amp;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;             <a class="code" href="Scripting_8h.html#a23df08bcaede93109347a54ecd0cead7">getDrawEnabled</a>() &amp;&amp;</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;             getState() != DEAD;</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    }</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;</div>
@@ -316,6 +316,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="classParticleSystem_html"><div class="ttname"><a href="classParticleSystem.html">ParticleSystem</a></div><div class="ttdef"><b>Definition:</b> ParticleSystem.h:14</div></div>
 <div class="ttc" id="structVector_html"><div class="ttname"><a href="structVector.html">Vector</a></div><div class="ttdef"><b>Definition:</b> Vector.h:12</div></div>
 <div class="ttc" id="classTerrain_html"><div class="ttname"><a href="classTerrain.html">Terrain</a></div><div class="ttdef"><b>Definition:</b> terrain.h:12</div></div>
+<div class="ttc" id="Scripting_8h_html_a23df08bcaede93109347a54ecd0cead7"><div class="ttname"><a href="Scripting_8h.html#a23df08bcaede93109347a54ecd0cead7">getDrawEnabled</a></div><div class="ttdeci">void getDrawEnabled(GameObjectReference)</div></div>
+<div class="ttc" id="Scripting_8h_html_ad671b114ff3aa2035be937abb7b29cad"><div class="ttname"><a href="Scripting_8h.html#ad671b114ff3aa2035be937abb7b29cad">getInView</a></div><div class="ttdeci">float getInView(GameObjectReference)</div></div>
 <div class="ttc" id="classObjectNode_html"><div class="ttname"><a href="classObjectNode.html">ObjectNode</a></div><div class="ttdef"><b>Definition:</b> ObjectNode.h:8</div></div>
 <div class="ttc" id="classSphere_html"><div class="ttname"><a href="classSphere.html">Sphere</a></div><div class="ttdef"><b>Definition:</b> Sphere.h:7</div></div>
 <div class="ttc" id="Scripting_8h_html_afb1a31b7a8c0bab7963726dff88a3aa8"><div class="ttname"><a href="Scripting_8h.html#afb1a31b7a8c0bab7963726dff88a3aa8">getActive</a></div><div class="ttdeci">bool getActive(GameObjectReference)</div></div>
@@ -323,7 +325,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 20 2015 12:58:33 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 20 2015 18:47:26 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>
