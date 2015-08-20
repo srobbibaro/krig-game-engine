@@ -137,6 +137,14 @@ Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Game Level</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Game level functions are only available in game level scripts. </p>
 </div></td></tr>
+<tr class="memitem:a5ed74f360d932fbc83c79bf0c0ceb27f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a5ed74f360d932fbc83c79bf0c0ceb27f">playBgMusic</a> ()</td></tr>
+<tr class="separator:a5ed74f360d932fbc83c79bf0c0ceb27f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f0b17ae2736029daa6a1ee5133dfacb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a6f0b17ae2736029daa6a1ee5133dfacb">stopBgMusic</a> ()</td></tr>
+<tr class="separator:a6f0b17ae2736029daa6a1ee5133dfacb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf1218aa53e3b7b3cab85aa6f071af01"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#abf1218aa53e3b7b3cab85aa6f071af01">pauseBgMusic</a> ()</td></tr>
+<tr class="separator:abf1218aa53e3b7b3cab85aa6f071af01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65c61b07398f559791a1c8d02b393bc2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a65c61b07398f559791a1c8d02b393bc2">setSkyBox</a> (float, float, float, float, float, float, float, float, float)</td></tr>
+<tr class="separator:a65c61b07398f559791a1c8d02b393bc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82105fa6928dd6f6d05d5a47a1def7f6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a82105fa6928dd6f6d05d5a47a1def7f6">getFps</a> ()</td></tr>
 <tr class="separator:a82105fa6928dd6f6d05d5a47a1def7f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Text</div></td></tr>
@@ -295,6 +303,45 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 
 </div>
 </div>
+<a class="anchor" id="abf1218aa53e3b7b3cab85aa6f071af01"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int pauseBgMusic </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Pause song (if playing). Song will resume where it was paused when played. </p><dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a5ed74f360d932fbc83c79bf0c0ceb27f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int playBgMusic </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Playing song specified. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>name of file containing the song to play. </td></tr>
+    <tr><td class="paramname">int</td><td>repeat control (0 - do not repeat, 1 - repeat). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a60cd7d671fbd73749761f696f971c5c7"></a>
 <div class="memitem">
 <div class="memproto">
@@ -341,6 +388,105 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 
 </div>
 </div>
+<a class="anchor" id="a65c61b07398f559791a1c8d02b393bc2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int setSkyBox </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Render a sky box around the level using the three colors supplied. Color 1 is the top color; Color two is in the middle; Color 3 is the bottom color. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">float</td><td>first color, red attribute (0.0 - 1.0) </td></tr>
+    <tr><td class="paramname">float</td><td>first color, green attribute (0.0 - 1.0) </td></tr>
+    <tr><td class="paramname">float</td><td>first color, blue attribute (0.0 - 1.0) </td></tr>
+    <tr><td class="paramname">float</td><td>second color, red attribute (0.0 - 1.0) </td></tr>
+    <tr><td class="paramname">float</td><td>second color, green attribute (0.0 - 1.0) </td></tr>
+    <tr><td class="paramname">float</td><td>second color, blue attribute (0.0 - 1.0) </td></tr>
+    <tr><td class="paramname">float</td><td>third color, red attribute (0.0 - 1.0) </td></tr>
+    <tr><td class="paramname">float</td><td>third color, green attribute (0.0 - 1.0) </td></tr>
+    <tr><td class="paramname">float</td><td>third color, blue attribute (0.0 - 1.0) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6f0b17ae2736029daa6a1ee5133dfacb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int stopBgMusic </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Stop playing song (if playing). Song will restart when played. </p><dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ac087088e51edc8dae4637b34cfba7df3"></a>
 <div class="memitem">
 <div class="memproto">
@@ -376,7 +522,7 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 20 2015 12:24:28 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 20 2015 12:39:41 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>
