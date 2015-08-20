@@ -148,7 +148,7 @@ static int setLevelIdLua(lua_State *L) {
  * @param int repeat control (0 - do not repeat, 1 - repeat).
  * @return n/a
  */
-int playBgMusic();
+int playBgMusic(string, int);
 #endif
 static int playBgMusicLua(lua_State *L) {
   const char *s = lua_tostring(L, 1);
@@ -326,6 +326,17 @@ static int getAlphaLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the text's color.
+ * @param TextObjectReference.
+ * @param float red component (0.0 - 1.0).
+ * @param float green component (0.0 - 1.0).
+ * @param float blue component (0.0 - 1.0).
+ * @return n/a
+ */
+void setColor(TextObjectReference, float, float, float);
+#endif
 static int setColorLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
@@ -335,6 +346,15 @@ static int setColorLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the text's color.
+ * @param TextObjectReference.
+ * @param Vector array containing red, green, and blue components (0.0 - 1.0).
+ * @return n/a
+ */
+void setColorv(TextObjectReference, Vector);
+#endif
 static int setColorvLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
@@ -345,6 +365,14 @@ static int setColorvLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Get the text's color.
+ * @param TextObjectReference.
+ * @return Vector array containing red, green, and blue components (0.0 - 1.0).
+ */
+Vector getColor(TextObjectReference);
+#endif
 static int getColorLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
@@ -353,6 +381,15 @@ static int getColorLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set text's width.
+ * @param TextObjectReference.
+ * @param float width of text.
+ * @return n/a
+ */
+void setWidth(TextObjectReference, float);
+#endif
 static int setWidthLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
@@ -360,6 +397,14 @@ static int setWidthLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Get text's width.
+ * @param TextObjectReference.
+ * @return float width of text
+ */
+float get(TextObjectReference);
+#endif
 static int getWidthLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
