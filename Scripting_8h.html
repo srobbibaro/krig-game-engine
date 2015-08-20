@@ -122,6 +122,18 @@ Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Game</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Game functions are only available in game scripts. </p>
 </div></td></tr>
+<tr class="memitem:a2c84ea8912b69b34f72eedd7c05c4e7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a2c84ea8912b69b34f72eedd7c05c4e7f">loadLevel</a> (string)</td></tr>
+<tr class="separator:a2c84ea8912b69b34f72eedd7c05c4e7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea556ebfa604fa42fbed1df2a5c80fdb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#aea556ebfa604fa42fbed1df2a5c80fdb">loadLevelFromBuffer</a> (string)</td></tr>
+<tr class="separator:aea556ebfa604fa42fbed1df2a5c80fdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7167f5c196fc5e167bfabde1a730e81d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a7167f5c196fc5e167bfabde1a730e81d">pause</a> ()</td></tr>
+<tr class="separator:a7167f5c196fc5e167bfabde1a730e81d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac087088e51edc8dae4637b34cfba7df3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ac087088e51edc8dae4637b34cfba7df3">swapLevel</a> ()</td></tr>
+<tr class="separator:ac087088e51edc8dae4637b34cfba7df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaea6bd01fd511625f1f1d2d942378af1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#aaea6bd01fd511625f1f1d2d942378af1">testLevelComplete</a> ()</td></tr>
+<tr class="separator:aaea6bd01fd511625f1f1d2d942378af1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83fb7614725094e1a4111e58c34c0ed9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a83fb7614725094e1a4111e58c34c0ed9">getLevelId</a> ()</td></tr>
+<tr class="separator:a83fb7614725094e1a4111e58c34c0ed9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Game Level</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Game level functions are only available in game level scripts. </p>
 </div></td></tr>
@@ -198,6 +210,91 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 
 </div>
 </div>
+<a class="anchor" id="a83fb7614725094e1a4111e58c34c0ed9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int getLevelId </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Query the engine to determine the ID of the present level. </p><dl class="section return"><dt>Returns</dt><dd>int the ID associated with the present game level.</dd></dl>
+<p>Set the ID associated with the present level. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">level_id</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a2c84ea8912b69b34f72eedd7c05c4e7f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void loadLevel </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Load the game level Lua script from the file specified. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>name of the game level Lua script to load. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aea556ebfa604fa42fbed1df2a5c80fdb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void loadLevelFromBuffer </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Load the game level Lua script from the supplied string buffer. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>buffer containing a game level Lua script to load. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7167f5c196fc5e167bfabde1a730e81d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pause </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Pause execution of the game </p><dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a60cd7d671fbd73749761f696f971c5c7"></a>
 <div class="memitem">
 <div class="memproto">
@@ -244,10 +341,42 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 
 </div>
 </div>
+<a class="anchor" id="ac087088e51edc8dae4637b34cfba7df3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void swapLevel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>TODO: Undefined </p><dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aaea6bd01fd511625f1f1d2d942378af1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void testLevelComplete </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Query the engine to determine if the present level has been marked complete. </p><dl class="section return"><dt>Returns</dt><dd>bool true if the level has been marked complete, false otherwise </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 20 2015 12:07:01 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 20 2015 12:24:28 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>
