@@ -158,8 +158,12 @@ class Object : public ObjectNode {
 
     bool getEnableSphereTest() { return enableSphereTest_; }
 
-    virtual void orientOnTerrain(Terrain *temp, Quaternion baseRotation) {}
-    virtual void setHeightFromTerrain(Terrain *temp, float offset){}
+    bool isDrawable(void) {
+      return getActive() &&
+             getInView() &&
+             getDrawEnabled() &&
+             getState() != DEAD;
+    }
 
   protected:
     // orientation //

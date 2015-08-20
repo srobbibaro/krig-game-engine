@@ -613,10 +613,7 @@ void GameLevel::drawObjects() {
   for (Object *object = static_cast<Object*>(objects_.head);
        object != NULL;
        object = static_cast<Object*>(object->next)) {
-    if (object->getActive() &&
-        object->getInView() &&
-        object->getDrawEnabled() &&
-        object->getState() != DEAD) {
+    if (object->isDrawable()) {
       object->draw(dynamic_cast<Camera*>(camera_));
     }
   }
@@ -627,10 +624,7 @@ void GameLevel::drawObjectOutlines() {
   for (Object *object = static_cast<Object*>(objects_.head);
        object != NULL;
        object = static_cast<Object*>(object->next)) {
-    if (object->getActive() &&
-        object->getInView() &&
-        object->getDrawEnabled() &&
-        object->getState() != DEAD) {
+    if (object->isDrawable()) {
       object->drawOutline(dynamic_cast<Camera*>(camera_));
     }
   }
@@ -641,10 +635,7 @@ void GameLevel::drawShadows(Vector* l) {
   for (Object *object = static_cast<Object*>(objects_.head);
        object != NULL;
        object = static_cast<Object*>(object->next)) {
-    if (object->getActive() &&
-        object->getInView() &&
-        object->getDrawEnabled() &&
-        object->getState() != DEAD) {
+    if (object->isDrawable()) {
       object->drawShadow(l);
     }
   }
