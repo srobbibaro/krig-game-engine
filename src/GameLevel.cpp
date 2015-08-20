@@ -17,34 +17,31 @@ GameLevel::GameLevel(unsigned int lists) {
   lists_      = lists;
   isComplete_ = false;
 
-  terrain_ = NULL;
+  terrain_    = NULL;
 
-  player_ = NULL;
-  camera_ = NULL;
+  player_     = NULL;
+  camera_     = NULL;
 
   musicPath_  = "";
   scriptName_ = "";
 
-  id_ = 0;
+  id_         = 0;
 
-  /////
 #if EDIT
   grid_ = true;
 #else
   grid_ = false;
 #endif
-  bboxes_ = false;
+  bboxes_           = false;
   controlTriangles_ = false;
 
-  luaState_ = NULL;
+  luaState_         = NULL;
 
-  elapsedTime_ = 0.0f;
+  elapsedTime_      = 0.0f;
 }
 
 //------------------------------------------------------------------------------
-GameLevel::~GameLevel() {
-  unloadLevel();
-}
+GameLevel::~GameLevel() { unloadLevel(); }
 
 //------------------------------------------------------------------------------
 void GameLevel::drawLevel() {
@@ -155,19 +152,15 @@ void GameLevel::updateLevel() {
 }
 
 //------------------------------------------------------------------------------
-void GameLevel::prepareLevel() {
-  prepareObjects();
-}
+void GameLevel::prepareLevel() { prepareObjects(); }
 
 //------------------------------------------------------------------------------
-void GameLevel::animateLevel() {
-  animateObjects(elapsedTime_);
-}
+void GameLevel::animateLevel() { animateObjects(elapsedTime_); }
 
 //------------------------------------------------------------------------------
 bool GameLevel::loadLevelLua(string file) {
   isComplete_ = false;
-  id_ = 0;
+  id_         = 0;
   scriptName_ = file;
 
   // If the lua state has not been initialized for this object, attempt to
@@ -189,8 +182,7 @@ bool GameLevel::loadLevelLua(string file) {
 
   luaopen_opengl(luaState_);
 
-  // Register our functions for use in lua (currently defined in
-  // Object.h)
+  // Register our functions for use in lua (currently defined in Object.h)
   registerFunctions(luaState_, 1);
 
   // load the script
@@ -213,8 +205,8 @@ bool GameLevel::loadLevelLua(string file) {
     exit (1);
   }
 
-  g_script_player = player_;
-  g_script_camera = camera_;
+  g_script_player     = player_;
+  g_script_camera     = camera_;
   g_script_game_level = this;
 
   // Find the update function and call it
@@ -259,12 +251,11 @@ bool GameLevel::loadLevelLua(string file) {
 //------------------------------------------------------------------------------
 bool GameLevel::loadLevelFromBufferLua(const char* buffer) {
   isComplete_ = false;
-  id_ = 0;
-  //scriptName_ = file;
+  id_         = 0;
 
   // If the lua state has not been initialized for this object, attempt to
   // initialize it.
-  if (buffer == "" || luaState_ != NULL)
+  if (strcmp(buffer, "") == 0 || luaState_ != NULL)
     return false;
 
   luaState_ = lua_open();
@@ -281,21 +272,19 @@ bool GameLevel::loadLevelFromBufferLua(const char* buffer) {
 
   luaopen_opengl(luaState_);
 
-  // Register our functions for use in lua (currently defined in
-  // Object.h)
+  // Register our functions for use in lua (currently defined in Object.h)
   registerFunctions(luaState_, 1);
 
   // load the script
   PRINT_DEBUG("Loading Lua level script from buffer...\n");
 
-  //uaL_dofile(luaState_, file.c_str());
   luaL_loadbuffer(luaState_, buffer, strlen(buffer), "line") ||
     lua_pcall(luaState_, 0, 0, 0);
 
   ////////////////////////////////////////////////////////
 
   terrain_ = new Terrain();
-  player_ = new Player();
+  player_  = new Player();
 
   PRINT_DEBUG("Terrain and Player allocated.\n");
 
@@ -308,8 +297,8 @@ bool GameLevel::loadLevelFromBufferLua(const char* buffer) {
     exit (1);
   }
 
-  g_script_player = player_;
-  g_script_camera = camera_;
+  g_script_player     = player_;
+  g_script_camera     = camera_;
   g_script_game_level = this;
 
   // Find the update function and call it
@@ -359,7 +348,7 @@ bool GameLevel::loadLevelFromBufferLua(const char* buffer) {
 
 //------------------------------------------------------------------------------
 void GameLevel::setCamera(Camera* camera)
-{ camera_ = camera; g_script_camera = camera_;}
+{ camera_ = camera; g_script_camera = camera_; }
 
 //------------------------------------------------------------------------------
 Terrain* GameLevel::getTerrain(void)
@@ -375,8 +364,7 @@ Player* GameLevel::getPlayer(void)
 
 //------------------------------------------------------------------------------
 void GameLevel::drawSky() {
-  //glPushMatrix();
-  // -front sky //
+  // front sky
   glBegin(GL_TRIANGLE_STRIP);
   glColor3fv (bgcolor_[0]);
   glVertex3f (-1.0f, 1.0f, -1.0f);
@@ -387,6 +375,7 @@ void GameLevel::drawSky() {
   glColor3fv (bgcolor_[1]);
   glVertex3f (1.0f, 0.0f, -1.0f);
   glEnd();
+
   glBegin(GL_TRIANGLE_STRIP);
   glVertex3f (-1.0f, 0.0f, -1.0f);
   glColor3fv (bgcolor_[2]);
@@ -397,7 +386,7 @@ void GameLevel::drawSky() {
   glVertex3f (1.0f, -1.0f, -1.0f);
   glEnd();
 
-  // left sky //
+  // left sky
   glBegin(GL_TRIANGLE_STRIP);
   glColor3fv (bgcolor_[0]);
   glVertex3f (-1.0f, 1.0f, 1.0f);
@@ -408,6 +397,7 @@ void GameLevel::drawSky() {
   glColor3fv (bgcolor_[1]);
   glVertex3f (-1.0f, 0.0f, -1.0f);
   glEnd();
+
   glBegin(GL_TRIANGLE_STRIP);
   glVertex3f (-1.0f, 0.0f, 1.0f);
   glColor3fv (bgcolor_[2]);
@@ -418,7 +408,7 @@ void GameLevel::drawSky() {
   glVertex3f (-1.0f, -1.0f, -1.0f);
   glEnd();
 
-  // right sky //
+  // right sky
   glBegin(GL_TRIANGLE_STRIP);
   glColor3fv (bgcolor_[0]);
   glVertex3f (1.0f, 1.0f, -1.0f);
@@ -429,6 +419,7 @@ void GameLevel::drawSky() {
   glColor3fv (bgcolor_[1]);
   glVertex3f (1.0f, 0.0f, 1.0f);
   glEnd();
+
   glBegin(GL_TRIANGLE_STRIP);
   glVertex3f (1.0f, 0.0f, -1.0f);
   glColor3fv (bgcolor_[2]);
@@ -439,7 +430,7 @@ void GameLevel::drawSky() {
   glVertex3f (1.0f, -1.0f, 1.0f);
   glEnd();
 
-  // -back sky //
+  // back sky
   glBegin(GL_TRIANGLE_STRIP);
   glColor3fv (bgcolor_[0]);
   glVertex3f (1.0f, 1.0f, 1.0f);
@@ -449,8 +440,8 @@ void GameLevel::drawSky() {
   glVertex3f (-1.0f, 1.0f, 1.0f);
   glColor3fv (bgcolor_[1]);
   glVertex3f (-1.0f, 0.0f, 1.0f);
-
   glEnd();
+
   glBegin(GL_TRIANGLE_STRIP);
   glVertex3f (1.0f, 0.0f, 1.0f);
   glColor3fv (bgcolor_[2]);
@@ -461,8 +452,7 @@ void GameLevel::drawSky() {
   glVertex3f (-1.0f, -1.0f, 1.0f);
   glEnd();
 
-
-  // top sky //
+  // top sky
   glBegin(GL_TRIANGLE_STRIP);
   glColor3fv (bgcolor_[0]);
   glVertex3f (-1.0f, 1.0f, -1.0f);
@@ -471,7 +461,7 @@ void GameLevel::drawSky() {
   glVertex3f (1.0f, 1.0f, 1.0f);
   glEnd();
 
-  // bottom sky //
+  // bottom sky
   glBegin(GL_TRIANGLE_STRIP);
   glColor3fv (bgcolor_[2]);
   glVertex3f (1.0f, -1.0f, -1.0f);
@@ -479,23 +469,20 @@ void GameLevel::drawSky() {
   glVertex3f (1.0f, -1.0f, 1.0f);
   glVertex3f (-1.0f, -1.0f, 1.0f);
   glEnd();
-  //glPopMatrix();
 }
 
 //------------------------------------------------------------------------------
 Object* GameLevel::findEnemyOfType(int type) {
-  float closest = 1000, temp;
-  Object* obj = static_cast <Object*>(objects_.head);
+  float closest  = 1000, temp;
+  Object* obj    = static_cast <Object*>(objects_.head);
   Object* retObj = NULL;
 
   while (obj->next != 0) {
     obj = (Object*)obj->next;
-    // TODO: Does the enemy need to be active?
-    //if (obj->checkActiveEnemy())
     if (obj->getTypeId() == type && obj->getInView()) {
       temp = findDistance((Object*)player_, obj);
       if (temp < closest) {
-        retObj = obj;
+        retObj  = obj;
         closest = temp;
       }
     }
@@ -509,9 +496,11 @@ float GameLevel::findDistance (Object* obj1, Object* obj2) {
   Vector position1 = obj1->getPosition();
   Vector position2 = obj2->getPosition();
 
-  return (sqrtf((position1.x - position2.x) * (position1.x - position2.x) +
-         (position1.y - position2.y) * (position1.y - position2.y) +
-         (position1.z - position2.z) * (position1.z - position2.z)));
+  return sqrtf(
+    (position1.x - position2.x) * (position1.x - position2.x) +
+    (position1.y - position2.y) * (position1.y - position2.y) +
+    (position1.z - position2.z) * (position1.z - position2.z)
+  );
 }
 
 //------------------------------------------------------------------------------
@@ -566,8 +555,9 @@ void GameLevel::updateTerrain(int &x, int &z, float &height, int &type, float &r
   terrain_->setVertexColor(x, z, Vector(red, green, blue));
   terrain_->setVertexType(x, z, type);
 
-  //- this isn't optimized -- only do this when the height has changed and only
-  // do it for the specified vertex
+  // TODO: Because calculating normals is an expensive operation, this call
+  // should be optimized to only calculate the normal for the specified vertex
+  // when its height has changed.
   terrain_->calcViewableTerrainNorm();
 }
 
@@ -575,20 +565,24 @@ void GameLevel::updateTerrain(int &x, int &z, float &height, int &type, float &r
 void GameLevel::updateColor(int &x, int &z, float &red, float &green, float &blue) {
   terrain_->setVertexColor(x, z, Vector(red, green, blue));
 
-  //- this isn't optimized -- only do this when the height has changed and only
-  // do it for the specified vertex
+  // TODO: Because calculating normals is an expensive operation, this call
+  // should be optimized to only calculate the normal for the specified vertex
+  // when its height has changed.
+  // TODO: This command has been commented out. Since we're only changing color
+  // here, investigate if this call is even necessary.
   //terrain_->calcTerrainNorm(&lightDirection_);
 }
 
 //------------------------------------------------------------------------------
 void GameLevel::getTerrainInfo(int &x, int &z, float &height, int &type, float &red, float &green, float &blue) {
   height = terrain_->getVertexHeight(x, z);
-  type = terrain_->getVertexType(x, z);
+  type   = terrain_->getVertexType(x, z);
+
   Vector color = terrain_->getVertexColor(x, z);
 
-  red = color.x;
+  red   = color.x;
   green = color.y;
-  blue = color.z;
+  blue  = color.z;
 }
 
 //------------------------------------------------------------------------------
@@ -597,7 +591,7 @@ void GameLevel::saveTerrain(const char* filePath) {
 }
 
 //------------------------------------------------------------------------------
-void GameLevel::toggleGrid(void) { grid_ = !grid_;}
+void GameLevel::toggleGrid(void) { grid_ = !grid_; }
 
 //------------------------------------------------------------------------------
 void GameLevel::toggleBoundingBoxes(void) { bboxes_ = !bboxes_; }
@@ -607,8 +601,8 @@ void GameLevel::toggleControlTriangles(void) { controlTriangles_ = !controlTrian
 
 //------------------------------------------------------------------------------
 void GameLevel::setSkyBox(float bgcolor[][3], int x, int y) {
-  for (int i = 0; i < y; i++) {
-    for (int j = 0; j < x; j++) {
+  for (int i = 0; i < y; ++i) {
+    for (int j = 0; j < x; ++j) {
       bgcolor_[i][j] = bgcolor[i][j];
     }
   }
@@ -617,33 +611,42 @@ void GameLevel::setSkyBox(float bgcolor[][3], int x, int y) {
 //------------------------------------------------------------------------------
 void GameLevel::drawObjects() {
   for (Object *object = static_cast<Object*>(objects_.head);
-      object != NULL;
-      object = static_cast<Object*>(object->next)) {
-    //if (active_ == true && state_ != DEAD && isVisible == true)
-    if (object->getActive() && object->getInView() && object->getDrawEnabled() && object->getState() != DEAD)
+       object != NULL;
+       object = static_cast<Object*>(object->next)) {
+    if (object->getActive() &&
+        object->getInView() &&
+        object->getDrawEnabled() &&
+        object->getState() != DEAD) {
       object->draw(dynamic_cast<Camera*>(camera_));
+    }
   }
 }
 
 //------------------------------------------------------------------------------
 void GameLevel::drawObjectOutlines() {
   for (Object *object = static_cast<Object*>(objects_.head);
-      object != NULL;
-      object = static_cast<Object*>(object->next)) {
-    //if (active_ == true && state_ != DEAD && isVisible == true)
-    if (object->getActive() && object->getInView() && object->getDrawEnabled() && object->getState() != DEAD)
+       object != NULL;
+       object = static_cast<Object*>(object->next)) {
+    if (object->getActive() &&
+        object->getInView() &&
+        object->getDrawEnabled() &&
+        object->getState() != DEAD) {
       object->drawOutline(dynamic_cast<Camera*>(camera_));
+    }
   }
 }
 
 //------------------------------------------------------------------------------
 void GameLevel::drawShadows(Vector* l) {
   for (Object *object = static_cast<Object*>(objects_.head);
-      object != NULL;
-      object = static_cast<Object*>(object->next)) {
-    //if (active_ == true && state_ != DEAD && isVisible == true)
-    if (object->getActive() && object->getInView() && object->getDrawEnabled() && object->getState() != DEAD)
+       object != NULL;
+       object = static_cast<Object*>(object->next)) {
+    if (object->getActive() &&
+        object->getInView() &&
+        object->getDrawEnabled() &&
+        object->getState() != DEAD) {
       object->drawShadow(l);
+    }
   }
 }
 

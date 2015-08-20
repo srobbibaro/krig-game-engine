@@ -50,13 +50,13 @@ class GameLevel {
     void toggleBoundingBoxes(void);
     void toggleControlTriangles(void);
 
-    void drawObjects();        // Camera*
-    void drawObjectOutlines(); // Camera*
+    void drawObjects();
+    void drawObjectOutlines();
     void drawShadows(Vector*);
 
     void updateObjects(Vector*);
     void prepareObjects();
-    void animateObjects(float); // Camera*
+    void animateObjects(float);
 
     ScriptedObject* addObject(string script, float args[], int n) {
       ScriptedObject *temp = static_cast<ScriptedObject*> (freeObjects_[script].head);
@@ -65,10 +65,10 @@ class GameLevel {
         temp->initSettings();
         freeObjects_[script].remove(temp);
         PRINT_DEBUG_LVL(
-            2,
-            "Object removed: script='%s'. Added to free objects map (size=%d).\n",
-            script.c_str(),
-            freeObjects_[script].size
+          2,
+          "Object removed: script='%s'. Added to free objects map (size=%d).\n",
+          script.c_str(),
+          freeObjects_[script].size
         );
       }
       else {
@@ -93,11 +93,16 @@ class GameLevel {
         temp->initSettings();
         freeObjects_[script].remove(temp);
 
-        PRINT_DEBUG_LVL(2, "Pulled object of type '%s' from FOM. (FOM size=%d).\n", script.c_str(), freeObjects_[script].size);
+        PRINT_DEBUG_LVL(
+          2,
+          "Pulled object of type '%s' from FOM. (FOM size=%d).\n",
+          script.c_str(),
+          freeObjects_[script].size
+        );
       }
       else {
         temp = new ScriptTextType();
-        temp->setScript( script );
+        temp->setScript(script);
 
         PRINT_DEBUG_LVL(2, "Allocated a new object of type '%s'.\n", script.c_str());
       }
@@ -111,9 +116,9 @@ class GameLevel {
 
     ObjectList* getObjects() { return &objects_; }
     void setCamera( Camera* tCamera );
-    Terrain* getTerrain( void );
-    Camera* getCamera( void );
-    Player* getPlayer( void );
+    Terrain* getTerrain(void);
+    Camera* getCamera(void);
+    Player* getPlayer(void);
     Music* getMusic() { return &music_; }
 
     void setId(int id) { id_ = id; }
