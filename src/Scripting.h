@@ -5,8 +5,8 @@
  * API calls are split into four classes of functions. The classes are defined
  * by the type of script where they are available for use. For example, the
  * playBgMusic function is supported for a game level script and would not be
- * available to use for an object. The four classes of functions are: Object,
- * Text, Game Level, and Game.
+ * available to use for an object. The four classes of functions are: Game Object,
+ * Text, Game Level, and Game (Engine).
  */
 
 #ifndef _SCRIPTING_H_
@@ -40,6 +40,246 @@ extern GameLevel* g_script_game_level;
 extern Engine* g_script_engine;
 
 // Lua API ////////////////////////////////////////////////////////////////////
+/** @name Game
+ *  Game functions are only available in game scripts.
+ */
+///@{
+static int loadLevelLua(lua_State *L) {
+  const char *s = lua_tostring(L, 1);
+  g_script_engine->loadLevel(s);
+
+  return 0;
+}
+
+static int loadLevelFromBufferLua(lua_State *L) {
+  const char *s = lua_tostring(L, 1);
+  g_script_engine->loadLevel(s);
+
+  return 0;
+}
+
+static int pauseLua(lua_State *L) {
+  g_script_engine->pause();
+
+  return 0;
+}
+
+static int swapLevelLua(lua_State *L) {
+  g_script_engine->swapLevel();
+  return 0;
+}
+
+static int testLevelCompleteLua(lua_State *L) {
+  lua_pushnumber(L, g_script_game_level->checkComplete());
+  return 1;
+}
+
+static int getLevelIdLua(lua_State *L) {
+  lua_pushnumber(L, g_script_game_level->getId());
+  return 1;
+}
+
+static int setLevelIdLua(lua_State *L) {
+  g_script_game_level->setId((int)lua_tonumber(L, 1));
+  return 0;
+}
+///@}
+
+/** @name Game Level
+ *  Game level functions are only available in game level scripts.
+ */
+///@{
+static int playBgMusicLua(lua_State *L) {
+  const char *s = lua_tostring(L, 1);
+  int repeat = (int)lua_tonumber(L, 2);
+  g_script_game_level->setMusicPath(string(s));
+  g_script_game_level->getMusic()->StopSong();
+  g_script_game_level->getMusic()->PlaySong(s, repeat);
+  return 0;
+}
+
+static int stopBgMusicLua(lua_State *L) {
+  g_script_game_level->getMusic()->StopSong();
+  return 0;
+}
+
+static int pauseBgMusicLua(lua_State *L) {
+  g_script_game_level->getMusic()->PauseSong();
+  return 0;
+}
+
+static int setSkyBoxLua(lua_State *L) {
+  int num = 1;
+
+  float skyColors[3][3];
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      skyColors[i][j] = lua_tonumber(L, num++);
+    }
+  }
+
+  g_script_game_level->setSkyBox(skyColors, 3, 3);
+  return 0;
+}
+
+static int setLightDirectionLua(lua_State *L) {
+  g_script_game_level->setLightDirection(lua_tonumber(L, 1), lua_tonumber(L, 2), lua_tonumber(L, 3));
+  return 0;
+}
+
+static int setLightDirectionvLua(lua_State *L) {
+  Vector t = loadVector(L);
+  g_script_game_level->setLightDirection(t.x, t.y, t.z);
+  return 0;
+}
+
+static int setTerrainLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Terrain *terrain = static_cast<Terrain*>(lua_touserdata(L, 1));
+
+  const char *s = lua_tostring(L, 2);
+
+  Vector *lightDirection = g_script_game_level->getLightDirection();
+  terrain->load(s, lightDirection);
+  return 0;
+}
+
+static int displayTextLua(lua_State *L) {
+  const char *s = lua_tostring(L, 1);
+  char * t = (char*)s;
+  float x = lua_tonumber(L, 2);
+  float y = lua_tonumber(L, 3);
+  float z = lua_tonumber(L, 4);
+  float sx = lua_tonumber(L, 5);
+  float sy = lua_tonumber(L, 6);
+
+  displayText(t, x, y, z, sx, sy);
+
+  return 0;
+}
+
+static int renderTextLua(lua_State *L) {
+  const char *s = lua_tostring(L, 1);
+  float x = lua_tonumber(L, 2);
+  float y = lua_tonumber(L, 3);
+
+  g_script_engine->renderText(s, x, y);
+
+  return 0;
+}
+
+#if DOXYGEN_ONLY
+/**
+ * Query the engine for the last calculated value of frames per second (FPS).
+ * Frames per second is calculated each iteration of the game loop.
+ * @return @c float
+ */
+float getFps();
+#endif
+static int getFpsLua(lua_State *L) {
+  lua_pushnumber(L, g_script_engine->getFps());
+  return 1;
+}
+
+static int getCameraIdLua(lua_State *L) {
+  lua_pushnumber(L, g_script_game_level->getCamera()->id_);
+  return 1;
+}
+static int getLightDirectionLua(lua_State *L) {
+  returnVector(L, *g_script_game_level->getLightDirection());
+  return 1;
+}
+
+static int setCompleteLua(lua_State *L) {
+  g_script_game_level->setComplete(lua_tonumber(L, 1));
+  return 0;
+}
+
+static int shutdownLua(lua_State *L) {
+  g_script_engine->shutdown();
+
+  return 0;
+}
+///@}
+
+/** @name Text
+ *  Text functions are only available for text scripts.
+ */
+///@{
+static int setFadeRateLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
+  object->fadeRate = lua_tonumber(L, 2);
+  return 0;
+}
+
+static int getFadeRateLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
+  lua_pushnumber(L, object->fadeRate);
+  return 1;
+}
+
+static int setAlphaLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
+  object->color[3] = lua_tonumber(L, 2);
+  return 0;
+}
+
+static int getAlphaLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
+  lua_pushnumber(L, object->color[3]);
+  return 1;
+}
+
+static int setColorLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
+  object->color[0] = lua_tonumber(L, 2);
+  object->color[1] = lua_tonumber(L, 3);
+  object->color[2] = lua_tonumber(L, 4);
+  return 0;
+}
+
+static int setColorvLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
+  Vector t = loadVector(L);
+  object->color[0] = t.x;
+  object->color[1] = t.y;
+  object->color[2] = t.z;
+  return 0;
+}
+
+static int getColorLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
+  Vector t; t.setVector(object->color[0], object->color[1], object->color[2]);
+  returnVector(L, t);
+  return 1;
+}
+
+static int setWidthLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
+  object->width = lua_tonumber(L, 2);
+  return 0;
+}
+
+static int getWidthLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
+  lua_pushnumber(L, object->width);
+  return 1;
+}
+///@}
+
+/** @name Game Object
+ * Game object functions are only available in game object scripts.
+ */
+///@{
 static int setPositionLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -245,44 +485,6 @@ static int addRotationLua(lua_State *L) {
   object->setRotation(object->getRotation() * qt);
 
   return 0;
-}
-
-static int camera_addRotationLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Camera *object = static_cast<Camera*>(lua_touserdata(L, 1));
-
-  Quaternion qt;
-  qt.buildFromEuler(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
-  object->worldRotation = object->worldRotation * qt;
-
-  return 0;
-}
-
-static int camera_getFrustumPlaneLua(lua_State *L) {
-  int plane_num = lua_tonumber(L,1);
-  float a, b, c, d;
-
-  static_cast<Camera*>(g_script_camera)->getFrustum()->getPlaneDefinition(plane_num, a, b, c, d);
-
-  lua_newtable(L);
-
-  lua_pushnumber(L, 1);
-  lua_pushnumber(L, a);
-  lua_rawset(L, -3);
-
-  lua_pushnumber(L, 2);
-  lua_pushnumber(L, b);
-  lua_rawset(L, -3);
-
-  lua_pushnumber(L, 3);
-  lua_pushnumber(L, c);
-  lua_rawset(L, -3);
-
-  lua_pushnumber(L, 4);
-  lua_pushnumber(L, d);
-  lua_rawset(L, -3);
-
-  return 1;
 }
 
 static int addRotationvLua(lua_State *L) {
@@ -799,80 +1001,6 @@ static int setModelLua(lua_State *L) {
   return 0;
 }
 
-static int terrain_getVertexHeightLua(lua_State *L) {
-  int x = lua_tonumber(L,1);
-  int z = lua_tonumber(L,2);
-
-  float height = (float)g_script_game_level->getTerrain()->getVertexHeight(x, z);
-
-  lua_pushnumber(L, height);
-
-  return 1;
-}
-
-static int terrain_getVertexColorLua(lua_State *L) {
-  int x = lua_tonumber(L,1);
-  int z = lua_tonumber(L,2);
-
-  Vector color = g_script_game_level->getTerrain()->getVertexColor(x, z);
-
-  returnVector(L, color);
-
-  return 1;
-}
-
-static int terrain_getVertexTypeLua(lua_State *L) {
-  int x = lua_tonumber(L,1);
-  int z = lua_tonumber(L,2);
-
-  float type = g_script_game_level->getTerrain()->getVertexType(x, z);
-
-  lua_pushnumber(L, type);
-
-  return 1;
-}
-
-static int terrain_setVertexHeightLua(lua_State *L) {
-  int x = lua_tonumber(L,1);
-  int z = lua_tonumber(L,2);
-  float height = lua_tonumber(L,3);
-
-  g_script_game_level->getTerrain()->setVertexHeight(x, z, height);
-
-  return 0;
-}
-
-static int terrain_setVertexColorLua(lua_State *L) {
-  int x = lua_tonumber(L,1);
-  int z = lua_tonumber(L,2);
-  Vector color = loadVector(L);
-
-  g_script_game_level->getTerrain()->setVertexColor(x, z, color);
-
-  return 0;
-}
-
-static int terrain_setVertexTypeLua(lua_State *L) {
-  int x = lua_tonumber(L,1);
-  int z = lua_tonumber(L,2);
-  int type = lua_tonumber(L,3);
-
-  g_script_game_level->getTerrain()->setVertexType(x, z, type);
-
-  return 0;
-}
-
-static int terrain_getHeightLua(lua_State *L) {
-  float x = lua_tonumber(L,1);
-  float z = lua_tonumber(L,2);
-
-  float height = (float)g_script_game_level->getTerrain()->getHeight(x, z);
-
-  lua_pushnumber(L, height);
-
-  return 1;
-}
-
 static int setScaleLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -931,90 +1059,209 @@ static int addParticleSystemLua(lua_State *L) {
   return 0;
 }
 
-static int playBgMusicLua(lua_State *L) {
-  const char *s = lua_tostring(L, 1);
-  int repeat = (int)lua_tonumber(L, 2);
-  g_script_game_level->setMusicPath(string(s));
-  g_script_game_level->getMusic()->StopSong();
-  g_script_game_level->getMusic()->PlaySong(s, repeat);
-  return 0;
-}
-
-static int stopBgMusicLua(lua_State *L) {
-  g_script_game_level->getMusic()->StopSong();
-  return 0;
-}
-
-static int pauseBgMusicLua(lua_State *L) {
-  g_script_game_level->getMusic()->PauseSong();
-  return 0;
-}
-
-static int setSkyBoxLua(lua_State *L) {
-  int num = 1;
-
-  float skyColors[3][3];
-  for (int i = 0; i < 3; i++) {
-    for (int j = 0; j < 3; j++) {
-      skyColors[i][j] = lua_tonumber(L, num++);
-    }
-  }
-
-  g_script_game_level->setSkyBox(skyColors, 3, 3);
-  return 0;
-}
-
-static int setLightDirectionLua(lua_State *L) {
-  g_script_game_level->setLightDirection(lua_tonumber(L, 1), lua_tonumber(L, 2), lua_tonumber(L, 3));
-  return 0;
-}
-
-static int setLightDirectionvLua(lua_State *L) {
-  Vector t = loadVector(L);
-  g_script_game_level->setLightDirection(t.x, t.y, t.z);
-  return 0;
-}
-
-static int setTerrainLua(lua_State *L) {
+static int setTypeIdLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Terrain *terrain = static_cast<Terrain*>(lua_touserdata(L, 1));
+  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  object->setTypeId((int)lua_tonumber(L, 2));
+  return 0;
+}
 
+static int getTypeIdLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  lua_pushnumber(L, object->getTypeId());
+  return 1;
+}
+
+static int setScaleRateLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+
+  Vector scaleRate = object->getScaleRate();
+
+  scaleRate.setVector(lua_tonumber(L, 2), lua_tonumber(L, 3), lua_tonumber(L, 4));
+
+  object->setScaleRate(scaleRate);
+  return 0;
+}
+
+static int setScaleRatevLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+
+  Vector scaleRate = object->getScaleRate();
+
+  scaleRate = loadVector(L);
+
+  object->setScaleRate(scaleRate);
+
+  return 0;
+}
+
+static int getScaleLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+
+  Vector scale = object->getScale();
+
+  returnVector(L, scale);
+  return 1;
+}
+
+static int getScaleRateLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+
+  Vector scaleRate = object->getScaleRate();
+
+  returnVector(L, scaleRate);
+  return 1;
+}
+
+static int getScriptValueLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
   const char *s = lua_tostring(L, 2);
 
-  Vector *lightDirection = g_script_game_level->getLightDirection();
-  terrain->load(s, lightDirection);
+  lua_pushnumber(L, object->getScriptValue(s));
+  return 1;
+}
+
+static int setScriptValueLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  const char *s = lua_tostring(L, 2);
+  float value = (int)lua_tonumber(L, 3);
+
+  object->setScriptValue(s, value);
   return 0;
 }
 
-static int vector_getScalarLua(lua_State *L) {
-  Vector t = loadVector(L);
-  Vector u = loadVector(L);
-  lua_pushnumber(L, t.getScaler(u));
+static int enableCollisionDetectionLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  object->setCollisionDetectionEnabled(true);
+  return 0;
+}
+
+static int disableCollisionDetectionLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  object->setCollisionDetectionEnabled(false);
+  return 0;
+}
+
+static int getCollisionDetectionEnabledLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  lua_pushnumber(L, object->getCollisionDetectionEnabled());
   return 1;
 }
 
-static int vector_normalizeLua(lua_State *L) {
-  Vector t = loadVector(L);
-  t.normalize();
-  returnVector(L, t);
+#if DOXYGEN_ONLY
+/**
+ * Set the active state of the specified object to true (active).
+ * @param GameObjectReference game object reference obtained from the engine
+ *        through another API call.
+ * @return n/a
+ */
+void setActive(GameObjectReference);
+#endif
+static int setActiveLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  object->setActive(true);
+  return 0;
+}
+
+#if DOXYGEN_ONLY
+/**
+ * Set the active state of the specified object to false (inactive).
+ * @param GameObjectReference game object reference obtained from the engine
+ *        through another API call.
+ * @return n/a
+ */
+void setInactive(GameObjectReference);
+#endif
+static int setInactiveLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  object->setActive(false);
+  return 0;
+}
+
+#if DOXYGEN_ONLY
+/**
+ * Obtain the active/inactive state of the specified object.
+ * @param GameObjectReference game object reference obtained from the engine
+ *        through another API call.
+ * @return bool true = active, false = inactive
+ */
+bool getActive(GameObjectReference);
+#endif
+static int getActiveLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  lua_pushnumber(L, object->getActive());
   return 1;
 }
 
-static int vector_dotProductLua(lua_State *L) {
-  Vector t = loadVector(L);
-  Vector u = loadVector(L);
-  float angle = t.dotProduct(u);
-  lua_pushnumber(L, angle);
+static int enableDrawLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  object->setDrawEnabled(true);
+  return 0;
+}
+
+static int disableDrawLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  object->setDrawEnabled(false);
+  return 0;
+}
+
+static int getDrawEnabledLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  lua_pushnumber(L, object->getDrawEnabled());
   return 1;
 }
 
-static int vector_crossProductLua(lua_State *L) {
-  Vector t = loadVector(L);
-  Vector u = loadVector(L);
-  Vector result;
-  result.crossProduct(t, u);
-  returnVector(L, result);
+static int getBoundingSphereRadiusLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  lua_pushnumber(L, object->getBoundingSphere().getRadius());
   return 1;
+}
+
+static int getInViewLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  lua_pushnumber(L, object->getInView());
+  return 1;
+}
+
+static int orientOnTerrainLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Model *object = static_cast<Model*>(lua_touserdata(L, 1));
+
+  Quaternion rotation;
+  rotation.buildFromEuler(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+
+  object->orientOnTerrain(g_script_game_level->getTerrain(), rotation);
+
+  return 0;
+}
+
+static int setHeightFromTerrainLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Model *object = static_cast<Model*>(lua_touserdata(L, 1));
+
+  float offset = lua_tonumber(L, 2);
+
+  object->setHeightFromTerrain(g_script_game_level->getTerrain(), offset);
+
+  return 0;
 }
 
 static int engine_testKeyPressedLua(lua_State *L) {
@@ -1097,386 +1344,149 @@ static int level_findObjectOfTypeLua(lua_State *L) {
   return 1;
 }
 
-static int setTypeIdLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-  object->setTypeId((int)lua_tonumber(L, 2));
-  return 0;
-}
-
-static int getTypeIdLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-  lua_pushnumber(L, object->getTypeId());
-  return 1;
-}
-
-static int setScaleRateLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-
-  Vector scaleRate = object->getScaleRate();
-
-  scaleRate.setVector(lua_tonumber(L, 2), lua_tonumber(L, 3), lua_tonumber(L, 4));
-
-  object->setScaleRate(scaleRate);
-  return 0;
-}
-
-static int setScaleRatevLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-
-  Vector scaleRate = object->getScaleRate();
-
-  scaleRate = loadVector(L);
-
-  object->setScaleRate(scaleRate);
-
-  return 0;
-}
-
-static int getScaleLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-
-  Vector scale = object->getScale();
-
-  returnVector(L, scale);
-  return 1;
-}
-
-static int getScaleRateLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-
-  Vector scaleRate = object->getScaleRate();
-
-  returnVector(L, scaleRate);
-  return 1;
-}
-
-static int getScriptValueLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-  const char *s = lua_tostring(L, 2);
-
-  lua_pushnumber(L, object->getScriptValue(s));
-  return 1;
-}
-
-static int setScriptValueLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-  const char *s = lua_tostring(L, 2);
-  float value = (int)lua_tonumber(L, 3);
-
-  object->setScriptValue(s, value);
-  return 0;
-}
-
-static int loadLevelLua(lua_State *L) {
-  const char *s = lua_tostring(L, 1);
-  g_script_engine->loadLevel(s);
-
-  return 0;
-}
-
-static int loadLevelFromBufferLua(lua_State *L) {
-  const char *s = lua_tostring(L, 1);
-  g_script_engine->loadLevel(s);
-
-  return 0;
-}
-
-static int shutdownLua(lua_State *L) {
-  g_script_engine->shutdown();
-
-  return 0;
-}
-
-static int pauseLua(lua_State *L) {
-  g_script_engine->pause();
-
-  return 0;
-}
-
-static int renderTextLua(lua_State *L) {
-  const char *s = lua_tostring(L, 1);
-  float x = lua_tonumber(L, 2);
-  float y = lua_tonumber(L, 3);
-
-  g_script_engine->renderText(s, x, y);
-
-  return 0;
-}
-
-static int displayTextLua(lua_State *L) {
-  const char *s = lua_tostring(L, 1);
-  char * t = (char*)s;
-  float x = lua_tonumber(L, 2);
-  float y = lua_tonumber(L, 3);
-  float z = lua_tonumber(L, 4);
-  float sx = lua_tonumber(L, 5);
-  float sy = lua_tonumber(L, 6);
-
-  displayText(t, x, y, z, sx, sy);
-
-  return 0;
-}
-
-/** @name Game Level
- * Game level functions are only available in game level scripts.
- */
-///@{
-#if DOXYGEN_ONLY
-/**
- * Query the engine for the last calculated value of frames per second (FPS).
- * Frames per second is calculated each iteration of the game loop.
- * @return @c float
- */
-float getFps();
-#endif
-static int getFpsLua(lua_State *L) {
-  lua_pushnumber(L, g_script_engine->getFps());
-  return 1;
-}
-
-static int getCameraIdLua(lua_State *L) {
-  lua_pushnumber(L, g_script_game_level->getCamera()->id_);
-  return 1;
-}
-///@}
-static int getLightDirectionLua(lua_State *L) {
-  returnVector(L, *g_script_game_level->getLightDirection());
-  return 1;
-}
-
-static int setCompleteLua(lua_State *L) {
-  g_script_game_level->setComplete(lua_tonumber(L, 1));
-  return 0;
-}
-
-static int testLevelCompleteLua(lua_State *L) {
-  lua_pushnumber(L, g_script_game_level->checkComplete());
-  return 1;
-}
-
-static int getLevelIdLua(lua_State *L) {
-  lua_pushnumber(L, g_script_game_level->getId());
-  return 1;
-}
-
-static int setLevelIdLua(lua_State *L) {
-  g_script_game_level->setId((int)lua_tonumber(L, 1));
-  return 0;
-}
-
-static int enableCollisionDetectionLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-  object->setCollisionDetectionEnabled(true);
-  return 0;
-}
-
-static int disableCollisionDetectionLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-  object->setCollisionDetectionEnabled(false);
-  return 0;
-}
-
-static int getCollisionDetectionEnabledLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-  lua_pushnumber(L, object->getCollisionDetectionEnabled());
-  return 1;
-}
-
-/** @name Game Object
- * Game object functions are only available in game object scripts.
- */
-///@{
-#if DOXYGEN_ONLY
-/**
- * Set the active state of the specified object to true (active).
- * @param GameObjectReference game object reference obtained from the engine
- *        through another API call.
- * @return n/a
- */
-void setActive(GameObjectReference);
-#endif
-static int setActiveLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-  object->setActive(true);
-  return 0;
-}
-
-#if DOXYGEN_ONLY
-/**
- * Set the active state of the specified object to false (inactive).
- * @param GameObjectReference game object reference obtained from the engine
- *        through another API call.
- * @return n/a
- */
-void setInactive(GameObjectReference);
-#endif
-static int setInactiveLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-  object->setActive(false);
-  return 0;
-}
-
-#if DOXYGEN_ONLY
-/**
- * Obtain the active/inactive state of the specified object.
- * @param GameObjectReference game object reference obtained from the engine
- *        through another API call.
- * @return bool true = active, false = inactive
- */
-bool getActive(GameObjectReference);
-#endif
-static int getActiveLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-  lua_pushnumber(L, object->getActive());
-  return 1;
-}
-///@}
-
-static int enableDrawLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-  object->setDrawEnabled(true);
-  return 0;
-}
-
-static int disableDrawLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-  object->setDrawEnabled(false);
-  return 0;
-}
-
-static int getDrawEnabledLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-  lua_pushnumber(L, object->getDrawEnabled());
-  return 1;
-}
-
-static int getBoundingSphereRadiusLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-  lua_pushnumber(L, object->getBoundingSphere().getRadius());
-  return 1;
-}
-
-static int getInViewLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-  lua_pushnumber(L, object->getInView());
-  return 1;
-}
-
-static int swapLevelLua(lua_State *L) {
-  g_script_engine->swapLevel();
-  return 0;
-}
-
-static int setFadeRateLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
-  object->fadeRate = lua_tonumber(L, 2);
-  return 0;
-}
-
-static int getFadeRateLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
-  lua_pushnumber(L, object->fadeRate);
-  return 1;
-}
-
-static int setAlphaLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
-  object->color[3] = lua_tonumber(L, 2);
-  return 0;
-}
-
-static int getAlphaLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
-  lua_pushnumber(L, object->color[3]);
-  return 1;
-}
-
-static int setColorLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
-  object->color[0] = lua_tonumber(L, 2);
-  object->color[1] = lua_tonumber(L, 3);
-  object->color[2] = lua_tonumber(L, 4);
-  return 0;
-}
-
-static int setColorvLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
+static int vector_getScalarLua(lua_State *L) {
   Vector t = loadVector(L);
-  object->color[0] = t.x;
-  object->color[1] = t.y;
-  object->color[2] = t.z;
-  return 0;
+  Vector u = loadVector(L);
+  lua_pushnumber(L, t.getScaler(u));
+  return 1;
 }
 
-static int getColorLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
-  Vector t; t.setVector(object->color[0], object->color[1], object->color[2]);
+static int vector_normalizeLua(lua_State *L) {
+  Vector t = loadVector(L);
+  t.normalize();
   returnVector(L, t);
   return 1;
 }
 
-static int setWidthLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
-  object->width = lua_tonumber(L, 2);
-  return 0;
-}
-
-static int getWidthLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
-  lua_pushnumber(L, object->width);
+static int vector_dotProductLua(lua_State *L) {
+  Vector t = loadVector(L);
+  Vector u = loadVector(L);
+  float angle = t.dotProduct(u);
+  lua_pushnumber(L, angle);
   return 1;
 }
 
-static int orientOnTerrainLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Model *object = static_cast<Model*>(lua_touserdata(L, 1));
+static int vector_crossProductLua(lua_State *L) {
+  Vector t = loadVector(L);
+  Vector u = loadVector(L);
+  Vector result;
+  result.crossProduct(t, u);
+  returnVector(L, result);
+  return 1;
+}
 
-  Quaternion rotation;
-  rotation.buildFromEuler(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+static int terrain_getVertexHeightLua(lua_State *L) {
+  int x = lua_tonumber(L,1);
+  int z = lua_tonumber(L,2);
 
-  object->orientOnTerrain(g_script_game_level->getTerrain(), rotation);
+  float height = (float)g_script_game_level->getTerrain()->getVertexHeight(x, z);
+
+  lua_pushnumber(L, height);
+
+  return 1;
+}
+
+static int terrain_getVertexColorLua(lua_State *L) {
+  int x = lua_tonumber(L,1);
+  int z = lua_tonumber(L,2);
+
+  Vector color = g_script_game_level->getTerrain()->getVertexColor(x, z);
+
+  returnVector(L, color);
+
+  return 1;
+}
+
+static int terrain_getVertexTypeLua(lua_State *L) {
+  int x = lua_tonumber(L,1);
+  int z = lua_tonumber(L,2);
+
+  float type = g_script_game_level->getTerrain()->getVertexType(x, z);
+
+  lua_pushnumber(L, type);
+
+  return 1;
+}
+
+static int terrain_setVertexHeightLua(lua_State *L) {
+  int x = lua_tonumber(L,1);
+  int z = lua_tonumber(L,2);
+  float height = lua_tonumber(L,3);
+
+  g_script_game_level->getTerrain()->setVertexHeight(x, z, height);
 
   return 0;
 }
 
-static int setHeightFromTerrainLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Model *object = static_cast<Model*>(lua_touserdata(L, 1));
+static int terrain_setVertexColorLua(lua_State *L) {
+  int x = lua_tonumber(L,1);
+  int z = lua_tonumber(L,2);
+  Vector color = loadVector(L);
 
-  float offset = lua_tonumber(L, 2);
-
-  object->setHeightFromTerrain(g_script_game_level->getTerrain(), offset);
+  g_script_game_level->getTerrain()->setVertexColor(x, z, color);
 
   return 0;
 }
+
+static int terrain_setVertexTypeLua(lua_State *L) {
+  int x = lua_tonumber(L,1);
+  int z = lua_tonumber(L,2);
+  int type = lua_tonumber(L,3);
+
+  g_script_game_level->getTerrain()->setVertexType(x, z, type);
+
+  return 0;
+}
+
+static int terrain_getHeightLua(lua_State *L) {
+  float x = lua_tonumber(L,1);
+  float z = lua_tonumber(L,2);
+
+  float height = (float)g_script_game_level->getTerrain()->getHeight(x, z);
+
+  lua_pushnumber(L, height);
+
+  return 1;
+}
+
+static int camera_addRotationLua(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  Camera *object = static_cast<Camera*>(lua_touserdata(L, 1));
+
+  Quaternion qt;
+  qt.buildFromEuler(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
+  object->worldRotation = object->worldRotation * qt;
+
+  return 0;
+}
+
+static int camera_getFrustumPlaneLua(lua_State *L) {
+  int plane_num = lua_tonumber(L,1);
+  float a, b, c, d;
+
+  static_cast<Camera*>(g_script_camera)->getFrustum()->getPlaneDefinition(plane_num, a, b, c, d);
+
+  lua_newtable(L);
+
+  lua_pushnumber(L, 1);
+  lua_pushnumber(L, a);
+  lua_rawset(L, -3);
+
+  lua_pushnumber(L, 2);
+  lua_pushnumber(L, b);
+  lua_rawset(L, -3);
+
+  lua_pushnumber(L, 3);
+  lua_pushnumber(L, c);
+  lua_rawset(L, -3);
+
+  lua_pushnumber(L, 4);
+  lua_pushnumber(L, d);
+  lua_rawset(L, -3);
+
+  return 1;
+}
+///@}
 
 // helpers ////////////////////////////////////////////////////////////////////
 static Vector loadVector(lua_State *L) {
@@ -1522,6 +1532,7 @@ static void returnVector(lua_State *L, Vector &t) {
 }
 
 static int registerFunctions(lua_State *L, int level) {
+  // game objects
   lua_register(L, "setPosition", setPositionLua);
   lua_register(L, "setPositionv", setPositionvLua);
   lua_register(L, "getPosition", getPositionLua);
@@ -1587,17 +1598,6 @@ static int registerFunctions(lua_State *L, int level) {
   lua_register(L, "getScale", getScaleLua);
   lua_register(L, "getScaleRate", getScaleRateLua);
   lua_register(L, "addParticleSystem", addParticleSystemLua);
-  lua_register(L, "vector_getScalar", vector_getScalarLua);
-  lua_register(L, "engine_testKeyPressed", engine_testKeyPressedLua);
-  lua_register(L, "engine_testKeyReleased", engine_testKeyReleasedLua);
-  lua_register(L, "engine_testSpecialKeyPressed", engine_testSpecialKeyPressedLua);
-  lua_register(L, "engine_testSpecialKeyReleased", engine_testSpecialKeyReleasedLua);
-  lua_register(L, "engine_testDebugEnabled", engine_testDebugEnabledLua);
-  lua_register(L, "engine_getMouseCoordinates", engine_getMouseCoordinatesLua);
-  lua_register(L, "level_findObjectOfType", level_findObjectOfTypeLua);
-  lua_register(L, "vector_normalize", vector_normalizeLua);
-  lua_register(L, "vector_dotProduct", vector_dotProductLua);
-  lua_register(L, "vector_crossProduct", vector_crossProductLua);
   lua_register(L, "getTypeId", getTypeIdLua);
   lua_register(L, "setTypeId", setTypeIdLua);
   lua_register(L, "getScriptValue", getScriptValueLua);
@@ -1618,6 +1618,17 @@ static int registerFunctions(lua_State *L, int level) {
   lua_register(L, "disableAlwaysLit", disableAlwaysLitLua);
   lua_register(L, "orientOnTerrain", orientOnTerrainLua);
   lua_register(L, "setHeightFromTerrain", setHeightFromTerrainLua);
+  lua_register(L, "engine_testKeyPressed", engine_testKeyPressedLua);
+  lua_register(L, "engine_testKeyReleased", engine_testKeyReleasedLua);
+  lua_register(L, "engine_testSpecialKeyPressed", engine_testSpecialKeyPressedLua);
+  lua_register(L, "engine_testSpecialKeyReleased", engine_testSpecialKeyReleasedLua);
+  lua_register(L, "engine_testDebugEnabled", engine_testDebugEnabledLua);
+  lua_register(L, "engine_getMouseCoordinates", engine_getMouseCoordinatesLua);
+  lua_register(L, "level_findObjectOfType", level_findObjectOfTypeLua);
+  lua_register(L, "vector_getScalar", vector_getScalarLua);
+  lua_register(L, "vector_normalize", vector_normalizeLua);
+  lua_register(L, "vector_dotProduct", vector_dotProductLua);
+  lua_register(L, "vector_crossProduct", vector_crossProductLua);
   lua_register(L, "terrain_getVertexHeight", terrain_getVertexHeightLua);
   lua_register(L, "terrain_getVertexColor", terrain_getVertexColorLua);
   lua_register(L, "terrain_getVertexType", terrain_getVertexTypeLua);
@@ -1657,6 +1668,7 @@ static int registerFunctions(lua_State *L, int level) {
     lua_register(L, "shutdown", shutdownLua);
   }
 
+  // game only
   if (level == 0) {
     lua_register(L, "loadLevel", loadLevelLua);
     lua_register(L, "loadLevelFromBuffer", loadLevelFromBufferLua);
