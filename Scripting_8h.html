@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.8"/>
-<title>Krig Game Engine: /Users/srobbibaro/github/personal/krig-game-engine/src/Scripting.h File Reference</title>
+<title>Krig Game Engine: Scripting.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -149,6 +149,14 @@ Functions</h2></td></tr>
 <tr class="separator:ad7844f16c987c90679acb39968513219"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f5e0ae298272339452437d5dcf8d865"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a8f5e0ae298272339452437d5dcf8d865">setLightDirectionv</a> (<a class="el" href="structVector.html">Vector</a>)</td></tr>
 <tr class="separator:a8f5e0ae298272339452437d5dcf8d865"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab14401c3f34161c1c10a94bd4d8d278d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structVector.html">Vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ab14401c3f34161c1c10a94bd4d8d278d">getLightDirection</a> ()</td></tr>
+<tr class="separator:ab14401c3f34161c1c10a94bd4d8d278d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae15cca8317382ac6b26082cc8f4d853e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ae15cca8317382ac6b26082cc8f4d853e">setTerrain</a> (TerrainObjectReference, string)</td></tr>
+<tr class="separator:ae15cca8317382ac6b26082cc8f4d853e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57dc37d9bb650ac600310aa6751bf04b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a57dc37d9bb650ac600310aa6751bf04b">displayText</a> (string, float, float, float, float, float)</td></tr>
+<tr class="separator:a57dc37d9bb650ac600310aa6751bf04b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41952c8b9b3af1fc4397b81b9936b45b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a41952c8b9b3af1fc4397b81b9936b45b">renderText</a> (string, float, float)</td></tr>
+<tr class="separator:a41952c8b9b3af1fc4397b81b9936b45b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82105fa6928dd6f6d05d5a47a1def7f6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a82105fa6928dd6f6d05d5a47a1def7f6">getFps</a> ()</td></tr>
 <tr class="separator:a82105fa6928dd6f6d05d5a47a1def7f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49f8886ede9d46e00508b57a8766f076"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a49f8886ede9d46e00508b57a8766f076">getCameraId</a> ()</td></tr>
@@ -176,11 +184,163 @@ Functions</h2></td></tr>
 <tr class="separator:a51230fd178b224e5426e6c55bca613ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad304f4682414057ed5dc95e38528cbb5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ad304f4682414057ed5dc95e38528cbb5">setWidth</a> (TextObjectReference, float)</td></tr>
 <tr class="separator:ad304f4682414057ed5dc95e38528cbb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c95ba0dd8f4b5e6356ff43ed8738de3"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a8c95ba0dd8f4b5e6356ff43ed8738de3">get</a> (TextObjectReference)</td></tr>
-<tr class="separator:a8c95ba0dd8f4b5e6356ff43ed8738de3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7f39ef58e6a50a0d01d505e7d99c19a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ae7f39ef58e6a50a0d01d505e7d99c19a">getWidth</a> (TextObjectReference)</td></tr>
+<tr class="separator:ae7f39ef58e6a50a0d01d505e7d99c19a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Game Object</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Game object functions are only available in game object scripts. </p>
 </div></td></tr>
+<tr class="memitem:af279487f71ae57c7a539d1bab2823300"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#af279487f71ae57c7a539d1bab2823300">setPosition</a> (GameObjectReference, float, float, float)</td></tr>
+<tr class="separator:af279487f71ae57c7a539d1bab2823300"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41dfde60c80b6a1aeed2251a7a1d2270"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a41dfde60c80b6a1aeed2251a7a1d2270">setPositionv</a> (GameObjectReference, <a class="el" href="structVector.html">Vector</a>)</td></tr>
+<tr class="separator:a41dfde60c80b6a1aeed2251a7a1d2270"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a039a84240d81e6f379e6386eca504bda"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structVector.html">Vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a039a84240d81e6f379e6386eca504bda">getPosition</a> (GameObjectReference)</td></tr>
+<tr class="separator:a039a84240d81e6f379e6386eca504bda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7153140878fe6c0cda46cf3efe7dcf39"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a7153140878fe6c0cda46cf3efe7dcf39">setVelocity</a> (GameObjectReference, float, float, float)</td></tr>
+<tr class="separator:a7153140878fe6c0cda46cf3efe7dcf39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6402d59ff54eb732729e889007e559de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a6402d59ff54eb732729e889007e559de">setVelocityv</a> (GameObjectReference, <a class="el" href="structVector.html">Vector</a>)</td></tr>
+<tr class="separator:a6402d59ff54eb732729e889007e559de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50a917cd054f5266d69e662d63fb710a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structVector.html">Vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a50a917cd054f5266d69e662d63fb710a">getVelocity</a> (GameObjectReference)</td></tr>
+<tr class="separator:a50a917cd054f5266d69e662d63fb710a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac53cbebbf2c5c6135e72902c34964a05"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ac53cbebbf2c5c6135e72902c34964a05">setRotationVelocity</a> (GameObjectReference, float, float, float)</td></tr>
+<tr class="separator:ac53cbebbf2c5c6135e72902c34964a05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f808133fd3cf45a1ee916b898dfa7e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a4f808133fd3cf45a1ee916b898dfa7e3">setRotationVelocityv</a> (GameObjectReference, <a class="el" href="structVector.html">Vector</a>)</td></tr>
+<tr class="separator:a4f808133fd3cf45a1ee916b898dfa7e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dbb99736b854e5fd424cff22314eed2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structVector.html">Vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a3dbb99736b854e5fd424cff22314eed2">getRotationVelocity</a> (GameObjectReference)</td></tr>
+<tr class="separator:a3dbb99736b854e5fd424cff22314eed2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbffbabc04e3e8ee455df221d247f9e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#abbffbabc04e3e8ee455df221d247f9e9">setSpeed</a> (GameObjectReference, float, float, float)</td></tr>
+<tr class="separator:abbffbabc04e3e8ee455df221d247f9e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2e11f410057ed6fb4821de7995207ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ab2e11f410057ed6fb4821de7995207ae">setSpeedv</a> (GameObjectReference, <a class="el" href="structVector.html">Vector</a>)</td></tr>
+<tr class="separator:ab2e11f410057ed6fb4821de7995207ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80fff758ed6dec257d00ed2a168b798a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structVector.html">Vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a80fff758ed6dec257d00ed2a168b798a">getSpeed</a> (GameObjectReference)</td></tr>
+<tr class="separator:a80fff758ed6dec257d00ed2a168b798a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e38074318f4ef33f969d322d3afd14e"><td class="memItemLeft" align="right" valign="top">GameObjectReference&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a7e38074318f4ef33f969d322d3afd14e">getPlayer</a> ()</td></tr>
+<tr class="separator:a7e38074318f4ef33f969d322d3afd14e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3605a07427bab5837fb9bfcddcfc7eb7"><td class="memItemLeft" align="right" valign="top">GameObjectReference&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a3605a07427bab5837fb9bfcddcfc7eb7">getCamera</a> ()</td></tr>
+<tr class="separator:a3605a07427bab5837fb9bfcddcfc7eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2f81df6c93a17a07beb2c4190dcacd1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#aa2f81df6c93a17a07beb2c4190dcacd1">setRotation</a> (GameObjectReference, float, float, float)</td></tr>
+<tr class="separator:aa2f81df6c93a17a07beb2c4190dcacd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8403a5a75a978910dac4705418bd928"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#af8403a5a75a978910dac4705418bd928">setRotationv</a> (GameObjectReference, <a class="el" href="structVector.html">Vector</a>)</td></tr>
+<tr class="separator:af8403a5a75a978910dac4705418bd928"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11743a6a75f047bb4c88733d9d8c836c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structVector.html">Vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a11743a6a75f047bb4c88733d9d8c836c">getRotation</a> (GameObjectReference)</td></tr>
+<tr class="separator:a11743a6a75f047bb4c88733d9d8c836c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a949391a58e7a26bd4aa6e13d6a713765"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structVector.html">Vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a949391a58e7a26bd4aa6e13d6a713765">getDirection</a> (GameObjectReference)</td></tr>
+<tr class="separator:a949391a58e7a26bd4aa6e13d6a713765"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c553a616c512c2297f5b248d97bc5ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structVector.html">Vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a3c553a616c512c2297f5b248d97bc5ff">getUp</a> (GameObjectReference)</td></tr>
+<tr class="separator:a3c553a616c512c2297f5b248d97bc5ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad28ab27d771ed69400dab1623b1acdcc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structVector.html">Vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ad28ab27d771ed69400dab1623b1acdcc">getOrthogonal</a> (GameObjectReference)</td></tr>
+<tr class="separator:ad28ab27d771ed69400dab1623b1acdcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ba85c293caa8172c92d7042733e15c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a8ba85c293caa8172c92d7042733e15c4">addPosition</a> (GameObjectReference, float, float, float)</td></tr>
+<tr class="separator:a8ba85c293caa8172c92d7042733e15c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac93e301b6e897f96d555392cf646b62f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ac93e301b6e897f96d555392cf646b62f">addPositionv</a> (GameObjectReference, <a class="el" href="structVector.html">Vector</a>)</td></tr>
+<tr class="separator:ac93e301b6e897f96d555392cf646b62f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e4d96af1756d70f1ae28d9e40566285"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a7e4d96af1756d70f1ae28d9e40566285">addRotation</a> (GameObjectReference, float, float, float)</td></tr>
+<tr class="separator:a7e4d96af1756d70f1ae28d9e40566285"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4bd40da84cf187da56a5e21ce0332bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#af4bd40da84cf187da56a5e21ce0332bf">addRotationv</a> (GameObjectReference, <a class="el" href="structVector.html">Vector</a>)</td></tr>
+<tr class="separator:af4bd40da84cf187da56a5e21ce0332bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05ca85df8ff78783251bfd818b1ad029"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a05ca85df8ff78783251bfd818b1ad029">addVelocity</a> (GameObjectReference, float, float, float)</td></tr>
+<tr class="separator:a05ca85df8ff78783251bfd818b1ad029"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47b02099a9d872faa671c2f3aba29a6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a47b02099a9d872faa671c2f3aba29a6e">addVelocityv</a> (GameObjectReference, <a class="el" href="structVector.html">Vector</a>)</td></tr>
+<tr class="separator:a47b02099a9d872faa671c2f3aba29a6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fbe4c8cbe06854cd01e4ad4a1b78c5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a0fbe4c8cbe06854cd01e4ad4a1b78c5c">addSpeed</a> (GameObjectReference, float, float, float)</td></tr>
+<tr class="separator:a0fbe4c8cbe06854cd01e4ad4a1b78c5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a587a1acf3011acaf22e72a14b845f5ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a587a1acf3011acaf22e72a14b845f5ba">addSpeedv</a> (GameObjectReference, <a class="el" href="structVector.html">Vector</a>)</td></tr>
+<tr class="separator:a587a1acf3011acaf22e72a14b845f5ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a388c994e1750ab91ca6707d9fe14b549"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a388c994e1750ab91ca6707d9fe14b549">addRotationVelocity</a> (GameObjectReference, float, float, float)</td></tr>
+<tr class="separator:a388c994e1750ab91ca6707d9fe14b549"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74a66f97d78d5a410f60e33d9c3b6b05"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a74a66f97d78d5a410f60e33d9c3b6b05">addRotationVelocityv</a> (GameObjectReference, <a class="el" href="structVector.html">Vector</a>)</td></tr>
+<tr class="separator:a74a66f97d78d5a410f60e33d9c3b6b05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8af2aebd486ca4a97e46b7fbdba090b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a8af2aebd486ca4a97e46b7fbdba090b4">addScale</a> (GameObjectReference, float, float, float)</td></tr>
+<tr class="separator:a8af2aebd486ca4a97e46b7fbdba090b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d0a94073d53a5f78548f36f3fa0dd64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a8d0a94073d53a5f78548f36f3fa0dd64">addScalev</a> (GameObjectReference, <a class="el" href="structVector.html">Vector</a>)</td></tr>
+<tr class="separator:a8d0a94073d53a5f78548f36f3fa0dd64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25d9496719bc151eaba11643c46c2ff7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a25d9496719bc151eaba11643c46c2ff7">addScaleRate</a> (GameObjectReference, float, float, float)</td></tr>
+<tr class="separator:a25d9496719bc151eaba11643c46c2ff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e37bcf3ad91f37e1c793c81744e45f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a1e37bcf3ad91f37e1c793c81744e45f6">addScaleRatev</a> (GameObjectReference, <a class="el" href="structVector.html">Vector</a>)</td></tr>
+<tr class="separator:a1e37bcf3ad91f37e1c793c81744e45f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a777b6d802f72a356967b8278ebe64506"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a777b6d802f72a356967b8278ebe64506">setInterpolationRotationEndAxis</a> (GameObjectReference, float, float, float, float)</td></tr>
+<tr class="separator:a777b6d802f72a356967b8278ebe64506"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91f9f15a74eba65d68f1be0c3aa7d6e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a91f9f15a74eba65d68f1be0c3aa7d6e5">setInterpolationRotationEndAxisv</a> (GameObjectReference, <a class="el" href="structVector.html">Vector</a>, float)</td></tr>
+<tr class="separator:a91f9f15a74eba65d68f1be0c3aa7d6e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a605484559c4d8c36d4326eeb0580934f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a605484559c4d8c36d4326eeb0580934f">setInterpolationRotationStartAxis</a> (GameObjectReference, float, float, float, float)</td></tr>
+<tr class="separator:a605484559c4d8c36d4326eeb0580934f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae56c817c98df5c1b64e249198e22fe50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ae56c817c98df5c1b64e249198e22fe50">setInterpolationRotationStartAxisv</a> (GameObjectReference, <a class="el" href="structVector.html">Vector</a>, float)</td></tr>
+<tr class="separator:ae56c817c98df5c1b64e249198e22fe50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a232d2d5753656b0c2676c0ae6290c2cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a232d2d5753656b0c2676c0ae6290c2cc">setInterpolationRotationStart</a> (GameObjectReference, float, float, float)</td></tr>
+<tr class="separator:a232d2d5753656b0c2676c0ae6290c2cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d6f3a420e5ed3f57cd45d25617a6f9b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a6d6f3a420e5ed3f57cd45d25617a6f9b">setInterpolationRotationStartv</a> (GameObjectReference, <a class="el" href="structVector.html">Vector</a>)</td></tr>
+<tr class="separator:a6d6f3a420e5ed3f57cd45d25617a6f9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74270d4f69843aaccc8457a5803e9cec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a74270d4f69843aaccc8457a5803e9cec">setInterpolationRotationEnd</a> (GameObjectReference, float, float, float)</td></tr>
+<tr class="separator:a74270d4f69843aaccc8457a5803e9cec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5e4461bf6c8a8f3ef201f133aa901c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#aa5e4461bf6c8a8f3ef201f133aa901c8">setInterpolationRotationEndv</a> (GameObjectReference, <a class="el" href="structVector.html">Vector</a>)</td></tr>
+<tr class="separator:aa5e4461bf6c8a8f3ef201f133aa901c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac101c5d7170442abfdae7df5a796fd03"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ac101c5d7170442abfdae7df5a796fd03">setInterpolationEnable</a> (GameObjectReference, bool)</td></tr>
+<tr class="separator:ac101c5d7170442abfdae7df5a796fd03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae88ad945ad04d2668c4149ffd4e83b7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ae88ad945ad04d2668c4149ffd4e83b7b">setInterpolationVariableBeginValue</a> (GameObjectReference, float)</td></tr>
+<tr class="separator:ae88ad945ad04d2668c4149ffd4e83b7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac512e8721d40f986639ae114ec5fd49e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ac512e8721d40f986639ae114ec5fd49e">setInterpolationVariableEndValue</a> (GameObjectReference, float)</td></tr>
+<tr class="separator:ac512e8721d40f986639ae114ec5fd49e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08dce3006540933865a2cf3322ea50a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a08dce3006540933865a2cf3322ea50a9">setInterpolationVariableCurrentValue</a> (GameObjectReference, float)</td></tr>
+<tr class="separator:a08dce3006540933865a2cf3322ea50a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afeb28e03af55c1367eeceda94bf23e15"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#afeb28e03af55c1367eeceda94bf23e15">setRotationVelocityAxis</a> (GameObjectReference, float, float, float, float)</td></tr>
+<tr class="separator:afeb28e03af55c1367eeceda94bf23e15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c0b22907fb31901284c5ee0cb5231ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a4c0b22907fb31901284c5ee0cb5231ce">setRotationVelocityAxisv</a> (GameObjectReference, <a class="el" href="structVector.html">Vector</a>, float)</td></tr>
+<tr class="separator:a4c0b22907fb31901284c5ee0cb5231ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad53f19511bf3269907d0c1b8528f692f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ad53f19511bf3269907d0c1b8528f692f">setRotationAxis</a> (GameObjectReference, float, float, float, float)</td></tr>
+<tr class="separator:ad53f19511bf3269907d0c1b8528f692f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50ba334752c57eb8c06a6aecaabe6228"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a50ba334752c57eb8c06a6aecaabe6228">setRotationAxisv</a> (GameObjectReference, <a class="el" href="structVector.html">Vector</a>, float)</td></tr>
+<tr class="separator:a50ba334752c57eb8c06a6aecaabe6228"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac30d701c5201696800b224b2c201c861"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ac30d701c5201696800b224b2c201c861">addRotationAxis</a> (GameObjectReference, float, float, float, float)</td></tr>
+<tr class="separator:ac30d701c5201696800b224b2c201c861"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0c85b97ce1c9d4f35ab4e7c52532e13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ad0c85b97ce1c9d4f35ab4e7c52532e13">addRotationAxisv</a> (GameObjectReference, <a class="el" href="structVector.html">Vector</a>, float)</td></tr>
+<tr class="separator:ad0c85b97ce1c9d4f35ab4e7c52532e13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f0ebe7596967a7df779876c9e2b13dc"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a7f0ebe7596967a7df779876c9e2b13dc">getTimer</a> (GameObjectReference, float)</td></tr>
+<tr class="separator:a7f0ebe7596967a7df779876c9e2b13dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f9e11b9be8dd264d45e55a13e126593"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a8f9e11b9be8dd264d45e55a13e126593">suspend</a> (GameObjectReference, float)</td></tr>
+<tr class="separator:a8f9e11b9be8dd264d45e55a13e126593"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89564f21ea33346e5f2b5d9718a1809f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a89564f21ea33346e5f2b5d9718a1809f">playSound</a> (GameObjectReference, string)</td></tr>
+<tr class="separator:a89564f21ea33346e5f2b5d9718a1809f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3abd13f388c646d32cfd7510108c6dea"><td class="memItemLeft" align="right" valign="top">GameObjectReference&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a3abd13f388c646d32cfd7510108c6dea">addObject</a> (TerrainReference, string, float, float,...)</td></tr>
+<tr class="separator:a3abd13f388c646d32cfd7510108c6dea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0665199b12bf8a41e6ae9e995c48579e"><td class="memItemLeft" align="right" valign="top">TextObjectReference&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a0665199b12bf8a41e6ae9e995c48579e">addText</a> (TerrainReference, string, float, float,...)</td></tr>
+<tr class="separator:a0665199b12bf8a41e6ae9e995c48579e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af579004d55beac3dfaf92c1529e76944"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#af579004d55beac3dfaf92c1529e76944">removeObject</a> (GameObjectReference)</td></tr>
+<tr class="separator:af579004d55beac3dfaf92c1529e76944"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6956e35e19c0255ac433f5d0054168b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a6956e35e19c0255ac433f5d0054168b9">setModel</a> (GameObjectReference, string)</td></tr>
+<tr class="separator:a6956e35e19c0255ac433f5d0054168b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae672cba94b86f1f4e0b010c96577e9e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ae672cba94b86f1f4e0b010c96577e9e5">setScale</a> (GameObjectReference, float, float, float)</td></tr>
+<tr class="separator:ae672cba94b86f1f4e0b010c96577e9e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c0cc0f5363ecfee1674b2f904c0e8bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a7c0cc0f5363ecfee1674b2f904c0e8bd">setScalev</a> (GameObjectReference, <a class="el" href="structVector.html">Vector</a>)</td></tr>
+<tr class="separator:a7c0cc0f5363ecfee1674b2f904c0e8bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25f6aec998abd3a2154ca36f57e070b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a25f6aec998abd3a2154ca36f57e070b2">setScript</a> (GameObjectReference, string)</td></tr>
+<tr class="separator:a25f6aec998abd3a2154ca36f57e070b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a054b5f34c06b3a609f39723ee26d251a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a054b5f34c06b3a609f39723ee26d251a">enableAlwaysLit</a> (GameObjectReference)</td></tr>
+<tr class="separator:a054b5f34c06b3a609f39723ee26d251a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4226a16e32a412a18cbc0b5064e9c4a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a4226a16e32a412a18cbc0b5064e9c4a2">disableAlwaysLit</a> (GameObjectReference)</td></tr>
+<tr class="separator:a4226a16e32a412a18cbc0b5064e9c4a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9fdffba4f4966736d025805f1429681"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ab9fdffba4f4966736d025805f1429681">addParticleSystem</a> (GameObjectReference, int)</td></tr>
+<tr class="separator:ab9fdffba4f4966736d025805f1429681"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02acc5892646eec3c17936f1d6d46871"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a02acc5892646eec3c17936f1d6d46871">setTypeId</a> (GameObjectReference, int)</td></tr>
+<tr class="separator:a02acc5892646eec3c17936f1d6d46871"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae10b9b6b58ab19bd1fbdc861dadb9a0c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ae10b9b6b58ab19bd1fbdc861dadb9a0c">getTypeId</a> (GameObjectReference)</td></tr>
+<tr class="separator:ae10b9b6b58ab19bd1fbdc861dadb9a0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46e4b73e160004395eba044685fb146c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a46e4b73e160004395eba044685fb146c">setScaleRate</a> (GameObjectReference, float, float, float)</td></tr>
+<tr class="separator:a46e4b73e160004395eba044685fb146c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c7ca264788e575e365f707ea072680c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a0c7ca264788e575e365f707ea072680c">setScaleRatev</a> (GameObjectReference, <a class="el" href="structVector.html">Vector</a>)</td></tr>
+<tr class="separator:a0c7ca264788e575e365f707ea072680c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07d7aa45c6c8ad223c940fb6b7640ce3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structVector.html">Vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a07d7aa45c6c8ad223c940fb6b7640ce3">getScale</a> (GameObjectReference)</td></tr>
+<tr class="separator:a07d7aa45c6c8ad223c940fb6b7640ce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2eafda50098323ca04d5d9c265705d25"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structVector.html">Vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a2eafda50098323ca04d5d9c265705d25">getScaleRate</a> (GameObjectReference)</td></tr>
+<tr class="separator:a2eafda50098323ca04d5d9c265705d25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a718ca2f7b9dd513b92baf5e3304ebc16"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a718ca2f7b9dd513b92baf5e3304ebc16">getScriptValue</a> (GameObjectReference, string)</td></tr>
+<tr class="separator:a718ca2f7b9dd513b92baf5e3304ebc16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9baff7d88bf7c33e0800ac3b769eaded"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a9baff7d88bf7c33e0800ac3b769eaded">setScriptValue</a> (GameObjectReference, string, float)</td></tr>
+<tr class="separator:a9baff7d88bf7c33e0800ac3b769eaded"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8cc6d65d9fcaa475bb2a91fc3d7893c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ad8cc6d65d9fcaa475bb2a91fc3d7893c">enableCollisionDetection</a> (GameObjectReference)</td></tr>
+<tr class="separator:ad8cc6d65d9fcaa475bb2a91fc3d7893c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a240cce68646e2467f24ad7738f660484"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a240cce68646e2467f24ad7738f660484">disableCollisionDetection</a> (GameObjectReference)</td></tr>
+<tr class="separator:a240cce68646e2467f24ad7738f660484"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82e8232a671a918a08b35256041692db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a82e8232a671a918a08b35256041692db">getCollisionDetectionEnabled</a> (GameObjectReference)</td></tr>
+<tr class="separator:a82e8232a671a918a08b35256041692db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60cd7d671fbd73749761f696f971c5c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a60cd7d671fbd73749761f696f971c5c7">setActive</a> (GameObjectReference)</td></tr>
 <tr class="separator:a60cd7d671fbd73749761f696f971c5c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:affa4d944e628eadd634b644ab3c7e8c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#affa4d944e628eadd634b644ab3c7e8c5">setInactive</a> (GameObjectReference)</td></tr>
@@ -197,6 +357,26 @@ Functions</h2></td></tr>
 <tr class="separator:aab91b3371231859f0240339d83d5c00c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad671b114ff3aa2035be937abb7b29cad"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ad671b114ff3aa2035be937abb7b29cad">getInView</a> (GameObjectReference)</td></tr>
 <tr class="separator:ad671b114ff3aa2035be937abb7b29cad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79fbed78fd36c61c6f51723d0aed5977"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a79fbed78fd36c61c6f51723d0aed5977">orientOnTerrain</a> (GameObjectReference, float, float, float)</td></tr>
+<tr class="separator:a79fbed78fd36c61c6f51723d0aed5977"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac531146e5cc6d0dfac0e1766b940f5ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ac531146e5cc6d0dfac0e1766b940f5ae">setHeightFromTerrain</a> (GameObjectReference, float)</td></tr>
+<tr class="separator:ac531146e5cc6d0dfac0e1766b940f5ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a061a96714976ded6b216f644acb56288"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a061a96714976ded6b216f644acb56288">engine_testKeyPressed</a> (int)</td></tr>
+<tr class="separator:a061a96714976ded6b216f644acb56288"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9265e3fa80f361c82fa0c2e780153aa8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a9265e3fa80f361c82fa0c2e780153aa8">engine_testKeyReleased</a> (int)</td></tr>
+<tr class="separator:a9265e3fa80f361c82fa0c2e780153aa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4404140678339df0cc4697242eaf93bc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a4404140678339df0cc4697242eaf93bc">engine_testSpecialKeyRelease</a> (int)</td></tr>
+<tr class="separator:a4404140678339df0cc4697242eaf93bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38fe0d2c57e548ee10ed8ab12e6e448c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a38fe0d2c57e548ee10ed8ab12e6e448c">engine_testDebugEnabled</a> ()</td></tr>
+<tr class="separator:a38fe0d2c57e548ee10ed8ab12e6e448c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b082fe40430b18b321acbb8a2567268"><td class="memItemLeft" align="right" valign="top">Vertex2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a3b082fe40430b18b321acbb8a2567268">engine_getMouseCoordinates</a> ()</td></tr>
+<tr class="separator:a3b082fe40430b18b321acbb8a2567268"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a571c1b38fc31afe3f522c587587acf34"><td class="memItemLeft" align="right" valign="top">GameObjectReference&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a571c1b38fc31afe3f522c587587acf34">level_findObjectOfType</a> (int)</td></tr>
+<tr class="separator:a571c1b38fc31afe3f522c587587acf34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c070f620a51d01f1459fee5fc24800a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a5c070f620a51d01f1459fee5fc24800a">camera_addRotation</a> (CameraObjectReference, float, float, float)</td></tr>
+<tr class="separator:a5c070f620a51d01f1459fee5fc24800a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af851169187ef70874910c91bd5d792ed"><td class="memItemLeft" align="right" valign="top">table&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#af851169187ef70874910c91bd5d792ed">camera_getFrustumPlane</a> (int)</td></tr>
+<tr class="separator:af851169187ef70874910c91bd5d792ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -217,6 +397,934 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 <div class="textblock"><p>Krig Game <a class="el" href="classEngine.html">Engine</a> Lua Scripting API. </p>
 <p>API calls are split into four classes of functions. The classes are defined by the type of script where they are available for use. For example, the playBgMusic function is supported for a game level script and would not be available to use for an object. The four classes of functions are: Game Object, Text, Game Level, and Game (<a class="el" href="classEngine.html">Engine</a>). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a3abd13f388c646d32cfd7510108c6dea"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GameObjectReference addObject </td>
+          <td>(</td>
+          <td class="paramtype">TerrainReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add a game object to the current level. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TerrainReference</td><td></td></tr>
+    <tr><td class="paramname">string</td><td>- path to lua game object script for this object to use. </td></tr>
+    <tr><td class="paramname">float</td><td>- values to be passed into the "on_load" method for the game object. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>GameObjectReference </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab9fdffba4f4966736d025805f1429681"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void addParticleSystem </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add a particle system to the specified object. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">int</td><td>- number representing the particle system to load. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a8ba85c293caa8172c92d7042733e15c4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void addPosition </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add to the specified object's position. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>x coordinate. </td></tr>
+    <tr><td class="paramname">float</td><td>y coordinate. </td></tr>
+    <tr><td class="paramname">float</td><td>z coordinate. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac93e301b6e897f96d555392cf646b62f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void addPositionv </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add to the specified object's position. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td>coordinates. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7e4d96af1756d70f1ae28d9e40566285"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void addRotation </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add to the specified object's rotation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>x rotation component. </td></tr>
+    <tr><td class="paramname">float</td><td>y rotation component. </td></tr>
+    <tr><td class="paramname">float</td><td>z rotation component. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac30d701c5201696800b224b2c201c861"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void addRotationAxis </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add to the specified object's rotation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>x rotation component. </td></tr>
+    <tr><td class="paramname">float</td><td>y rotation component. </td></tr>
+    <tr><td class="paramname">float</td><td>z rotation component. </td></tr>
+    <tr><td class="paramname">float</td><td>angle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad0c85b97ce1c9d4f35ab4e7c52532e13"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void addRotationAxisv </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add to the specified object's rotation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td>rotation axis. </td></tr>
+    <tr><td class="paramname">float</td><td>angle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af4bd40da84cf187da56a5e21ce0332bf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void addRotationv </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add to the specified object's rotation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td>rotation. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a388c994e1750ab91ca6707d9fe14b549"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void addRotationVelocity </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add to the specified object's rotational velocity. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>rotation velocity x component. </td></tr>
+    <tr><td class="paramname">float</td><td>rotation velocity y component. </td></tr>
+    <tr><td class="paramname">float</td><td>rotation velocity z component. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a74a66f97d78d5a410f60e33d9c3b6b05"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void addRotationVelocityv </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add to the specified object's rotational velocity. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td>rotation velocity. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a8af2aebd486ca4a97e46b7fbdba090b4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void addScale </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add to the scale for the specified object. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">x</td><td>scale factor. </td></tr>
+    <tr><td class="paramname">y</td><td>scale factor. </td></tr>
+    <tr><td class="paramname">z</td><td>scale factor. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a25d9496719bc151eaba11643c46c2ff7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void addScaleRate </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add to the rate that the specified game object should scale each game cycle. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">x</td><td>scale rate. </td></tr>
+    <tr><td class="paramname">y</td><td>scale rate. </td></tr>
+    <tr><td class="paramname">z</td><td>scale rate. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a1e37bcf3ad91f37e1c793c81744e45f6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void addScaleRatev </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add to the rate that the specified game object should scale each game cycle. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td>scale rate. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a8d0a94073d53a5f78548f36f3fa0dd64"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void addScalev </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add to the scale for the specified object. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td>scale factor. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a0fbe4c8cbe06854cd01e4ad4a1b78c5c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void addSpeed </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add to the specified object's speed. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>speed in direction of the object. </td></tr>
+    <tr><td class="paramname">float</td><td>speed in up direction of the object. </td></tr>
+    <tr><td class="paramname">float</td><td>speed in orthoginal direction of the object. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a587a1acf3011acaf22e72a14b845f5ba"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void addSpeedv </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add to the specified object's speed. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td>speed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a0665199b12bf8a41e6ae9e995c48579e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TextObjectReference addText </td>
+          <td>(</td>
+          <td class="paramtype">TerrainReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add a game object to the current level. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TerrainReference</td><td></td></tr>
+    <tr><td class="paramname">string</td><td>- path to lua script for this text object to use. </td></tr>
+    <tr><td class="paramname">float</td><td>- values to be passed into the "on_load" method for the game object. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>TextObjectReference </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a05ca85df8ff78783251bfd818b1ad029"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void addVelocity </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add to the specified object's velocity. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>x component. </td></tr>
+    <tr><td class="paramname">float</td><td>y component. </td></tr>
+    <tr><td class="paramname">float</td><td>z component. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a47b02099a9d872faa671c2f3aba29a6e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void addVelocityv </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add to the specified object's velocity. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a5c070f620a51d01f1459fee5fc24800a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void camera_addRotation </td>
+          <td>(</td>
+          <td class="paramtype">CameraObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add to the camera's rotation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>x rotation component. </td></tr>
+    <tr><td class="paramname">float</td><td>y rotation component. </td></tr>
+    <tr><td class="paramname">float</td><td>z rotation component. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af851169187ef70874910c91bd5d792ed"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">table camera_getFrustumPlane </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Return the camera's frustum plane. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">int</td><td>plane number. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>- table containing four plane points (a, b, c, &amp; d). </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4226a16e32a412a18cbc0b5064e9c4a2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void disableAlwaysLit </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Disable the specified game object's "always lit" mode which will is the default setting and renders object using the level's light direction </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a240cce68646e2467f24ad7738f660484"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void disableCollisionDetection </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Disable collision detection between the specified object and all other game objects. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a1f1748956e4c8e54b613fc50bf006b01"></a>
 <div class="memitem">
 <div class="memproto">
@@ -231,6 +1339,114 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
       </table>
 </div><div class="memdoc">
 <p>Designate the specified game object not to be drawn by the engine each game cycle. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a57dc37d9bb650ac600310aa6751bf04b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void displayText </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Display 3D text to the screen. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>text. </td></tr>
+    <tr><td class="paramname">float</td><td>x coordinate. </td></tr>
+    <tr><td class="paramname">float</td><td>y coordinate. </td></tr>
+    <tr><td class="paramname">float</td><td>z coordinate. </td></tr>
+    <tr><td class="paramname">float</td><td>scale x. </td></tr>
+    <tr><td class="paramname">float</td><td>scale y. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a054b5f34c06b3a609f39723ee26d251a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void enableAlwaysLit </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Enable the specified game object's "always lit" mode which will always render the object's model in full direct light (regardless of the level's light direction). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad8cc6d65d9fcaa475bb2a91fc3d7893c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void enableCollisionDetection </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Enable collision detection between the specified object and other game objects. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">GameObjectReference</td><td></td></tr>
   </table>
@@ -263,26 +1479,111 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 
 </div>
 </div>
-<a class="anchor" id="a8c95ba0dd8f4b5e6356ff43ed8738de3"></a>
+<a class="anchor" id="a3b082fe40430b18b321acbb8a2567268"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float get </td>
+          <td class="memname">Vertex2 engine_getMouseCoordinates </td>
           <td>(</td>
-          <td class="paramtype">TextObjectReference&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get text's width. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Query the engine to determine the mouse's last known coordinates. </p><dl class="section return"><dt>Returns</dt><dd>Vertex2 - x, y coordinate of the mouse. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a38fe0d2c57e548ee10ed8ab12e6e448c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool engine_testDebugEnabled </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Query the engine for the state of the compiler's DEBUG flag. </p><dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a061a96714976ded6b216f644acb56288"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool engine_testKeyPressed </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Query the engine to determine if the specified key has been pressed this game cycle. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">TextObjectReference</td><td></td></tr>
+    <tr><td class="paramname">int</td><td>- integer representation of the key </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>float width of text </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>bool</dd></dl>
+<p>Query the engine to determine if the specified key has been pressed this game cycle. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>- integer representation of the special key </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9265e3fa80f361c82fa0c2e780153aa8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool engine_testKeyReleased </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Query the engine to determine if the specified key has been released this game cycle. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>- integer representation of the key </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4404140678339df0cc4697242eaf93bc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool engine_testSpecialKeyRelease </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Query the engine to determine if the specified key has been released this game cycle. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>- integer representation of the special key </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
 </div>
 </div>
@@ -355,6 +1656,22 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 
 </div>
 </div>
+<a class="anchor" id="a3605a07427bab5837fb9bfcddcfc7eb7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GameObjectReference getCamera </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get a game object reference to the active camera object. </p><dl class="section return"><dt>Returns</dt><dd>GameObjectReference </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a49f8886ede9d46e00508b57a8766f076"></a>
 <div class="memitem">
 <div class="memproto">
@@ -368,6 +1685,29 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
       </table>
 </div><div class="memdoc">
 <p>A game level can use up to 4 cameras, each with its own independent attached script and settings. However, only one camera can be "active" at a time. This method returns the ID of the active camera. </p><dl class="section return"><dt>Returns</dt><dd>int ID of the active camera </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a82e8232a671a918a08b35256041692db"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void getCollisionDetectionEnabled </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Query the game engine to determine if collision detection has been enabled for the specified game object. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
 </div>
 </div>
@@ -391,6 +1731,29 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="structVector.html">Vector</a> array containing red, green, and blue components (0.0 - 1.0). </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a949391a58e7a26bd4aa6e13d6a713765"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structVector.html">Vector</a> getDirection </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get the specified object's direction. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structVector.html">Vector</a> - direction. </dd></dl>
 
 </div>
 </div>
@@ -502,6 +1865,380 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 
 </div>
 </div>
+<a class="anchor" id="ab14401c3f34161c1c10a94bd4d8d278d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structVector.html">Vector</a> getLightDirection </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Fetch the configured light direction. </p><dl class="section return"><dt>Returns</dt><dd><a class="el" href="structVector.html">Vector</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad28ab27d771ed69400dab1623b1acdcc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structVector.html">Vector</a> getOrthogonal </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get the specified object's orthogonal vector (orthogonal to up and direction vectors). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structVector.html">Vector</a> - orthogonal vector. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7e38074318f4ef33f969d322d3afd14e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GameObjectReference getPlayer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get a game object reference to the player object. </p><dl class="section return"><dt>Returns</dt><dd>GameObjectReference </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a039a84240d81e6f379e6386eca504bda"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structVector.html">Vector</a> getPosition </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get the specified object's position. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structVector.html">Vector</a> - position. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a11743a6a75f047bb4c88733d9d8c836c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structVector.html">Vector</a> getRotation </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Fetch the specified object's rotation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structVector.html">Vector</a> - rotation. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a3dbb99736b854e5fd424cff22314eed2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structVector.html">Vector</a> getRotationVelocity </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Fetch the specified object's rotational velocity. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structVector.html">Vector</a> - rotational velocity. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a07d7aa45c6c8ad223c940fb6b7640ce3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structVector.html">Vector</a> getScale </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Fetch the scale for the specified game object. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structVector.html">Vector</a> - game object's scale factor. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a2eafda50098323ca04d5d9c265705d25"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structVector.html">Vector</a> getScaleRate </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Fetch the scale rate for the specified game object. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structVector.html">Vector</a> - game object's scale rate. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a718ca2f7b9dd513b92baf5e3304ebc16"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float getScriptValue </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Fetch variable value from specified game object's script. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string - variable name. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a80fff758ed6dec257d00ed2a168b798a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structVector.html">Vector</a> getSpeed </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Fetch the specified object's speed. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structVector.html">Vector</a> - speed. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7f0ebe7596967a7df779876c9e2b13dc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float getTimer </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Fetch the specified game object's timer. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>float </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae10b9b6b58ab19bd1fbdc861dadb9a0c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void getTypeId </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Fetch the type identification number for the specified game object. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int - identification number. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a3c553a616c512c2297f5b248d97bc5ff"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structVector.html">Vector</a> getUp </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get the specified object's up vector. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structVector.html">Vector</a> - up vector. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a50a917cd054f5266d69e662d63fb710a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structVector.html">Vector</a> getVelocity </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get the specified object's velocity. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structVector.html">Vector</a> - velocity. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae7f39ef58e6a50a0d01d505e7d99c19a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float getWidth </td>
+          <td>(</td>
+          <td class="paramtype">TextObjectReference&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get text's width. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TextObjectReference</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>float width of text. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a571c1b38fc31afe3f522c587587acf34"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GameObjectReference level_findObjectOfType </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Query the engine for a game object of the specified type. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>- ID of object type to find. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Vertex2 - x, y coordinate of the mouse. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a2c84ea8912b69b34f72eedd7c05c4e7f"></a>
 <div class="memitem">
 <div class="memproto">
@@ -541,6 +2278,54 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 <p>Load the game level Lua script from the supplied string buffer. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">string</td><td>buffer containing a game level Lua script to load. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a79fbed78fd36c61c6f51723d0aed5977"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void orientOnTerrain </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Rotate the specified object such that it appears to be resting on the terrain. Additionally, the specified rotation will be used as the base rotation of the game object. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">x</td><td>rotation around x axis </td></tr>
+    <tr><td class="paramname">y</td><td>rotation around y axis </td></tr>
+    <tr><td class="paramname">z</td><td>rotation around z axis </td></tr>
   </table>
   </dd>
 </dl>
@@ -607,6 +2392,104 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
   <table class="params">
     <tr><td class="paramname">string</td><td>name of file containing the song to play. </td></tr>
     <tr><td class="paramname">int</td><td>repeat control (0 - do not repeat, 1 - repeat). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a89564f21ea33346e5f2b5d9718a1809f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void playSound </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Play the sound in the specified wav file. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">string</td><td>- path to wav file to play. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af579004d55beac3dfaf92c1529e76944"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void removeObject </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Remove the specified object from the level. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a41952c8b9b3af1fc4397b81b9936b45b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void renderText </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Display 2D text to the screen. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>text. </td></tr>
+    <tr><td class="paramname">float</td><td>x coordinate. </td></tr>
+    <tr><td class="paramname">float</td><td>y coordinate. </td></tr>
   </table>
   </dd>
 </dl>
@@ -810,6 +2693,40 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 
 </div>
 </div>
+<a class="anchor" id="ac531146e5cc6d0dfac0e1766b940f5ae"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setHeightFromTerrain </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Determine the height of the terrain beneath the specified game object and set its height to match the terrain's height at this location. The offset is used to adjust the object's height along the y axis. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>- height offset </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="affa4d944e628eadd634b644ab3c7e8c5"></a>
 <div class="memitem">
 <div class="memproto">
@@ -826,6 +2743,498 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 <p>Set the active state of the specified object to false (inactive). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">GameObjectReference</td><td>game object reference obtained from the engine through another API call. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac101c5d7170442abfdae7df5a796fd03"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setInterpolationEnable </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Enable/Disable interpolation for the specified object. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">bool</td><td>enable/disable. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a74270d4f69843aaccc8457a5803e9cec"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setInterpolationRotationEnd </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the end rotation for the specified game object's interpolation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>x coordinate. </td></tr>
+    <tr><td class="paramname">float</td><td>y coordinate. </td></tr>
+    <tr><td class="paramname">float</td><td>z coordinate. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a777b6d802f72a356967b8278ebe64506"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setInterpolationRotationEndAxis </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the end rotation (by axis) for the specified game object's interpolation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>x component. </td></tr>
+    <tr><td class="paramname">float</td><td>y component. </td></tr>
+    <tr><td class="paramname">float</td><td>z component. </td></tr>
+    <tr><td class="paramname">float</td><td>degrees. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a91f9f15a74eba65d68f1be0c3aa7d6e5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setInterpolationRotationEndAxisv </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the end rotation (by axis) for the specified game object's interpolation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td>axis. </td></tr>
+    <tr><td class="paramname">float</td><td>degrees. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa5e4461bf6c8a8f3ef201f133aa901c8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setInterpolationRotationEndv </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the end rotation for the specified game object's interpolation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td>coordinates. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a232d2d5753656b0c2676c0ae6290c2cc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setInterpolationRotationStart </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the beginning rotation for the specified game object's interpolation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>x coordinate. </td></tr>
+    <tr><td class="paramname">float</td><td>y coordinate. </td></tr>
+    <tr><td class="paramname">float</td><td>z coordinate. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a605484559c4d8c36d4326eeb0580934f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setInterpolationRotationStartAxis </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the beginning rotation (by axis) for the specified game object's interpolation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>x component. </td></tr>
+    <tr><td class="paramname">float</td><td>y component. </td></tr>
+    <tr><td class="paramname">float</td><td>z component. </td></tr>
+    <tr><td class="paramname">float</td><td>degrees. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae56c817c98df5c1b64e249198e22fe50"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setInterpolationRotationStartAxisv </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the beginning rotation (by axis) for the specified game object's interpolation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td>axis. </td></tr>
+    <tr><td class="paramname">float</td><td>degrees. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6d6f3a420e5ed3f57cd45d25617a6f9b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setInterpolationRotationStartv </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the beginning rotation for the specified game object's interpolation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td>coordinates. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae88ad945ad04d2668c4149ffd4e83b7b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setInterpolationVariableBeginValue </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set beginning value of interpolation variable's value range. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>value. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a08dce3006540933865a2cf3322ea50a9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setInterpolationVariableCurrentValue </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set current value of interpolation variable's value range. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>value. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac512e8721d40f986639ae114ec5fd49e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setInterpolationVariableEndValue </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set end value of interpolation variable's value range. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>value. </td></tr>
   </table>
   </dd>
 </dl>
@@ -894,6 +3303,714 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6956e35e19c0255ac433f5d0054168b9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setModel </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Specify the model to render for this game object. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td>file containing the model to load. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af279487f71ae57c7a539d1bab2823300"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setPosition </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the specified object's position. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>x coordinate. </td></tr>
+    <tr><td class="paramname">float</td><td>y coordinate. </td></tr>
+    <tr><td class="paramname">float</td><td>z coordinate. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a41dfde60c80b6a1aeed2251a7a1d2270"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setPositionv </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the specified object's position. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa2f81df6c93a17a07beb2c4190dcacd1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setRotation </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the specified object's rotation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>x rotation component. </td></tr>
+    <tr><td class="paramname">float</td><td>y rotation component. </td></tr>
+    <tr><td class="paramname">float</td><td>z rotation component. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad53f19511bf3269907d0c1b8528f692f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setRotationAxis </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the specified object's rotation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>x rotation component. </td></tr>
+    <tr><td class="paramname">float</td><td>y rotation component. </td></tr>
+    <tr><td class="paramname">float</td><td>z rotation component. </td></tr>
+    <tr><td class="paramname">float</td><td>angle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a50ba334752c57eb8c06a6aecaabe6228"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setRotationAxisv </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the specified object's rotation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td>rotation axis. </td></tr>
+    <tr><td class="paramname">float</td><td>angle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af8403a5a75a978910dac4705418bd928"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setRotationv </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the specified object's rotation. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td>rotation. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac53cbebbf2c5c6135e72902c34964a05"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setRotationVelocity </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the specified object's rotational velocity. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>rotation velocity x component. </td></tr>
+    <tr><td class="paramname">float</td><td>rotation velocity y component. </td></tr>
+    <tr><td class="paramname">float</td><td>rotation velocity z component. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afeb28e03af55c1367eeceda94bf23e15"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setRotationVelocityAxis </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the specified object's rotational velocity from an axis and angle. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>x rotation velocity component. </td></tr>
+    <tr><td class="paramname">float</td><td>y rotation velocity component. </td></tr>
+    <tr><td class="paramname">float</td><td>z rotation velocity component. </td></tr>
+    <tr><td class="paramname">float</td><td>angle. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4c0b22907fb31901284c5ee0cb5231ce"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setRotationVelocityAxisv </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the specified object's rotational velocity. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td>rotation velocity. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4f808133fd3cf45a1ee916b898dfa7e3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setRotationVelocityv </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the specified object's rotational velocity. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td>rotation velocity. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae672cba94b86f1f4e0b010c96577e9e5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setScale </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the scale for the specified object. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">x</td><td>scale factor. </td></tr>
+    <tr><td class="paramname">y</td><td>scale factor. </td></tr>
+    <tr><td class="paramname">z</td><td>scale factor. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a46e4b73e160004395eba044685fb146c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setScaleRate </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the rate that the specified game object should scale each game cycle. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">x</td><td>scale rate. </td></tr>
+    <tr><td class="paramname">y</td><td>scale rate. </td></tr>
+    <tr><td class="paramname">z</td><td>scale rate. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a0c7ca264788e575e365f707ea072680c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setScaleRatev </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the rate that the specified game object should scale each game cycle. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td>scale rate. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7c0cc0f5363ecfee1674b2f904c0e8bd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setScalev </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the scale for the specified object. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td>scale factor. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a25f6aec998abd3a2154ca36f57e070b2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setScript </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set lua script for specified game object. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">string</td><td>lua script file name. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9baff7d88bf7c33e0800ac3b769eaded"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setScriptValue </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set variable value in specified game object's script. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>value. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string - variable name. </dd></dl>
 
 </div>
 </div>
@@ -980,6 +4097,238 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 
 </div>
 </div>
+<a class="anchor" id="abbffbabc04e3e8ee455df221d247f9e9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setSpeed </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the specified object's speed. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>speed in direction of the object. </td></tr>
+    <tr><td class="paramname">float</td><td>speed in up direction of the object. </td></tr>
+    <tr><td class="paramname">float</td><td>speed in orthoginal direction of the object. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab2e11f410057ed6fb4821de7995207ae"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setSpeedv </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the specified object's speed. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td>speed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae15cca8317382ac6b26082cc8f4d853e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setTerrain </td>
+          <td>(</td>
+          <td class="paramtype">TerrainObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the specified level's terrain. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TerrainObjectReference</td><td></td></tr>
+    <tr><td class="paramname">string</td><td>terrain file to load. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a02acc5892646eec3c17936f1d6d46871"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setTypeId </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set a type identification number for the specified game object. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">int</td><td>ID for this game object. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7153140878fe6c0cda46cf3efe7dcf39"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setVelocity </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the specified object's velocity. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>x component. </td></tr>
+    <tr><td class="paramname">float</td><td>y component. </td></tr>
+    <tr><td class="paramname">float</td><td>z component. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6402d59ff54eb732729e889007e559de"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setVelocityv </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the specified object's velocity. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ad304f4682414057ed5dc95e38528cbb5"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1047,6 +4396,40 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 
 </div>
 </div>
+<a class="anchor" id="a8f9e11b9be8dd264d45e55a13e126593"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void suspend </td>
+          <td>(</td>
+          <td class="paramtype">GameObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Suspend running the specified game object's script until the suspend time has elapsed. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GameObjectReference</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>- path to wav file to play. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ac087088e51edc8dae4637b34cfba7df3"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1082,7 +4465,7 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 20 2015 18:47:26 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Aug 22 2015 14:58:52 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>
