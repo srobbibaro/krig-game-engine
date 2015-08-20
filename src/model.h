@@ -42,12 +42,12 @@ class Model : public Object {
     void load(string);
     void unload(void);
 
-    void draw(Object*); // Camera*
-    void drawOutline(Object*); // Camera*
+    void draw(Object*);
+    void drawOutline(Object*);
     void drawShadow (Vector*);
     void handleCollision(Object*);
     void update(Vector*);
-    void animate(float, Object*); // Camera*
+    void animate(float, Object*);
 
     void buildEdges();
 

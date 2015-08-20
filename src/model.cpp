@@ -25,8 +25,8 @@ void Model::load(string modelKey) {
     int numVertices = modelHash[modelKey_]->numVertices;
 
     // load in vertices used for model //////
-    for (int i = 0; i < numVertices; i++) {
-      for (int j = 0; j < 3; j++) {
+    for (int i = 0; i < numVertices; ++i) {
+      for (int j = 0; j < 3; ++j) {
         updatedVertex[i][j] = modelHash[modelKey_]->baseVertex[i][j];
       }
     }
@@ -53,13 +53,14 @@ void Model::load(string modelKey) {
   }
 
   // load in vertices used for model //////
-  for (int i = 0; i < numVertices; i++) {
-    for (int j = 0; j < 3; j++) {
+  for (int i = 0; i < numVertices; ++i) {
+    for (int j = 0; j < 3; ++j) {
       updatedVertex[i][j] = modelHash[modelKey]->baseVertex[i][j];
     }
   }
   /////////////////////////////////////////
 
+  // TODO: This call was used for shadows; address when shadows are addressed
   //buildEdges();
 }
 
@@ -67,7 +68,7 @@ void Model::load(string modelKey) {
 void Model::unload() {
   // delete old transforemed data /////////////
   if (updatedVertex) {
-    for (int r = 0; r < modelHash[modelKey_]->numVertices; r++) {
+    for (int r = 0; r < modelHash[modelKey_]->numVertices; ++r) {
       delete[] updatedVertex[r];
     }
 
@@ -94,8 +95,8 @@ void Model::draw(Object* c) {
 
   ModelStorage *m = modelHash[modelKey_];
   glBegin(GL_TRIANGLES);
-  for (int i = 0; i < m->numTriangles; i++) {
-    for (int j = 0; j < 3; j++) {
+  for (int i = 0; i < m->numTriangles; ++i) {
+    for (int j = 0; j < 3; ++j) {
       glColor3fv(m->triangle[i].colors[j]);
       glTexCoord1f(lightIntensity[m->triangle[i].vertices[j]]);
       glVertex3fv(updatedVertex[m->triangle[i].vertices[j]]);
@@ -123,8 +124,8 @@ void Model::drawOutline(Object* c) {
   glColor3f(0.0f, 0.0f, 0.0f);
 
   glBegin(GL_TRIANGLES);
-  for (int i = 0; i < m->numTriangles; i++) {
-    for (int j = 0; j < 3; j++) {
+  for (int i = 0; i < m->numTriangles; ++i) {
+    for (int j = 0; j < 3; ++j) {
       glVertex3fv(updatedVertex[m->triangle[i].vertices[j]]);
     }
   }
@@ -137,7 +138,7 @@ void Model::drawShadow (Vector* light) {
   int p1, p2;
   Vector v1, v2;
 
-  for (int i = 0; i < numSEdge; i++) {
+  for (int i = 0; i < numSEdge; ++i) {
     //calculate the length of the vector
     v1.x = (sEdge[i].p1.x - light->x)*100;
     v1.y = (sEdge[i].p1.y - light->y)*100;
@@ -207,11 +208,11 @@ void Model::update(Vector* light) {
     return;
   }
 
-lastLight_.x     = light->x;
-lastLight_.y     = light->y;
-lastLight_.z     = light->z;
-scaleChanged_    = false;
-rotationChanged_ = false;
+  lastLight_.x     = light->x;
+  lastLight_.y     = light->y;
+  lastLight_.z     = light->z;
+  scaleChanged_    = false;
+  rotationChanged_ = false;
 
   Vector tempV;
   GLfloat temp;
@@ -234,7 +235,7 @@ rotationChanged_ = false;
 
   float radius = 0.0f;
 
-  for (int i = 0; i < m->numVertices; i++) {
+  for (int i = 0; i < m->numVertices; ++i) {
     // transform vertex /////////////////////
     transform.transformVertex(m->baseVertex[i], updatedVertex[i]);
 
@@ -258,7 +259,7 @@ rotationChanged_ = false;
     /////////////////////////////////////////
 
     // re-calculate collision box ///////////
-    for (int j = 0; j < 3; j++) {
+    for (int j = 0; j < 3; ++j) {
       if (updatedVertex[i][j] > max[j])
         max[j] = updatedVertex[i][j];
 
@@ -299,6 +300,7 @@ rotationChanged_ = false;
   orth_.crossProduct(up_, direction_);
   orth_.normalize();
 
+  // TODO: This code is likely from shadows; address with shadows
   /*
      Vector p1, p2, p3;
      Vector tempN;
@@ -350,7 +352,6 @@ rotationChanged_ = false;
      numSEdge++;
      }
      }
-
 */
 }
 
@@ -487,8 +488,8 @@ void ModelStorage::load(char fileName[]) {
   }
 
   // load in vertices used for model //////
-  for (int i = 0; i < numVertices; i++) {
-    for (int j = 0; j < 3; j++) {
+  for (int i = 0; i < numVertices; ++i) {
+    for (int j = 0; j < 3; ++j) {
       fin >> temp;
       baseVertex[i][j] = temp;
     }
@@ -503,12 +504,12 @@ void ModelStorage::load(char fileName[]) {
   triangle = new Triangle[ numTriangles ];
 
   // load in triangles used for model /////
-  for (int i = 0; i < numTriangles; i++) {
-    for (int j = 0; j < 3; j++)
+  for (int i = 0; i < numTriangles; ++i) {
+    for (int j = 0; j < 3; ++j)
       fin >> triangle[i].vertices[j];
 
-    for (int j = 0; j < 3; j++)
-      for (int k = 0; k < 3; k++)
+    for (int j = 0; j < 3; ++j)
+      for (int k = 0; k < 3; ++k)
         fin >> triangle[i].colors[j][k];
   }
   /////////////////////////////////////////
@@ -518,6 +519,7 @@ void ModelStorage::load(char fileName[]) {
 //------------------------------------------------------------------------------
 void Model::buildEdges()
 {
+  // TODO: This code is from shadows; address at that time
   /*
   // Allocate enough space to hold all edges
   edges = new Edge[numTriangles * 3];
@@ -557,7 +559,6 @@ void Model::buildEdges()
   }
   }
 
-
   // Second pass: match triangles to edges
   for (int a = 0; a < numTriangles; a++) {
   i1 = triangle[a].vertices[0];
@@ -596,7 +597,6 @@ void Model::buildEdges()
     }
 }
 }
-
 }
 
 numEdges = edgeCount;
