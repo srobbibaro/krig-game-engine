@@ -9,3 +9,6 @@ krig
 # project files
 krig.depend
 krig.layout
+
+# documentation
+html/
