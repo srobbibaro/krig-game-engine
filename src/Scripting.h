@@ -1,3 +1,14 @@
+/**
+ * @file Scripting.h
+ * @brief Krig Game Engine Lua Scripting API
+ *
+ * API calls are split into four classes of functions. The classes are defined
+ * by the type of script where they are available for use. For example, the
+ * playBgMusic function is supported for a game level script and would not be
+ * available to use for an object. The four classes of functions are: Object,
+ * Text, Game Level, and Game.
+ */
+
 #ifndef _SCRIPTING_H_
 #define _SCRIPTING_H_
 
@@ -1255,6 +1266,14 @@ static int displayTextLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Query the engine for the last calculated value of frames per second (FPS).
+ * Frames per second is calculated each iteration of the game loop.
+ * @return @c float
+ */
+float getFps();
+#endif
 static int getFpsLua(lua_State *L) {
   lua_pushnumber(L, g_script_engine->getFps());
   return 1;
@@ -1311,6 +1330,15 @@ static int getCollisionDetectionEnabledLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the active state of the specified object to true (active).
+ * @param GameObjectReference game object reference obtained from the engine
+ *        through another API call.
+ * @return n/a
+ */
+void setActive(GameObjectReference);
+#endif
 static int setActiveLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1318,6 +1346,15 @@ static int setActiveLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the active state of the specified object to false (inactive).
+ * @param GameObjectReference game object reference obtained from the engine
+ *        through another API call.
+ * @return n/a
+ */
+void setInactive(GameObjectReference);
+#endif
 static int setInactiveLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1325,6 +1362,15 @@ static int setInactiveLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Obtain the active/inactive state of the specified object.
+ * @param GameObjectReference game object reference obtained from the engine
+ *        through another API call.
+ * @return bool true = active, false = inactive
+ */
+bool getActive(GameObjectReference);
+#endif
 static int getActiveLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
