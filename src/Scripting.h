@@ -44,6 +44,14 @@ extern Engine* g_script_engine;
  *  Game functions are only available in game scripts.
  */
 ///@{
+#if DOXYGEN_ONLY
+/**
+ * Load the game level Lua script from the file specified.
+ * @param string name of the game level Lua script to load.
+ * @return n/a
+ */
+void loadLevel(string);
+#endif
 static int loadLevelLua(lua_State *L) {
   const char *s = lua_tostring(L, 1);
   g_script_engine->loadLevel(s);
@@ -51,34 +59,78 @@ static int loadLevelLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Load the game level Lua script from the supplied string buffer.
+ * @param string buffer containing a game level Lua script to load.
+ * @return n/a
+ */
+void loadLevelFromBuffer(string);
+#endif
 static int loadLevelFromBufferLua(lua_State *L) {
   const char *s = lua_tostring(L, 1);
-  g_script_engine->loadLevel(s);
+  g_script_engine->loadLevelFromBuffer(s);
 
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Pause execution of the game
+ * @return n/a
+ */
+void pause();
+#endif
 static int pauseLua(lua_State *L) {
   g_script_engine->pause();
 
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * TODO: Undefined
+ * @return n/a
+ */
+void swapLevel();
+#endif
 static int swapLevelLua(lua_State *L) {
   g_script_engine->swapLevel();
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Query the engine to determine if the present level has been marked complete.
+ * @return bool true if the level has been marked complete, false otherwise
+ */
+void testLevelComplete();
+#endif
 static int testLevelCompleteLua(lua_State *L) {
   lua_pushnumber(L, g_script_game_level->checkComplete());
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Query the engine to determine the ID of the present level.
+ * @return int the ID associated with the present game level.
+ */
+int getLevelId();
+#endif
 static int getLevelIdLua(lua_State *L) {
   lua_pushnumber(L, g_script_game_level->getId());
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the ID associated with the present level.
+ * @param level_id
+ * @return n/a
+ */
+int getLevelId();
+#endif
 static int setLevelIdLua(lua_State *L) {
   g_script_game_level->setId((int)lua_tonumber(L, 1));
   return 0;
