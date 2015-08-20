@@ -644,8 +644,6 @@ void GameLevel::drawShadows(Vector* l) {
 //------------------------------------------------------------------------------
 void GameLevel::updateObjects(Vector* light) {
   for (Object *object = static_cast<Object*>(objects_.head); object != NULL;) {
-    //if (active_ == true && state_ != DEAD)
-    //if (isInView_ && state_ != DEAD)
     if (object->getActive() && object->getState() != DEAD)
       object->update(light);
 
