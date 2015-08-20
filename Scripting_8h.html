@@ -137,8 +137,8 @@ Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Game Level</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Game level functions are only available in game level scripts. </p>
 </div></td></tr>
-<tr class="memitem:a5ed74f360d932fbc83c79bf0c0ceb27f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a5ed74f360d932fbc83c79bf0c0ceb27f">playBgMusic</a> ()</td></tr>
-<tr class="separator:a5ed74f360d932fbc83c79bf0c0ceb27f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d7babee2c47798d4f0fd220bfbe9343"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a8d7babee2c47798d4f0fd220bfbe9343">playBgMusic</a> (string, int)</td></tr>
+<tr class="separator:a8d7babee2c47798d4f0fd220bfbe9343"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f0b17ae2736029daa6a1ee5133dfacb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a6f0b17ae2736029daa6a1ee5133dfacb">stopBgMusic</a> ()</td></tr>
 <tr class="separator:a6f0b17ae2736029daa6a1ee5133dfacb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf1218aa53e3b7b3cab85aa6f071af01"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#abf1218aa53e3b7b3cab85aa6f071af01">pauseBgMusic</a> ()</td></tr>
@@ -150,6 +150,16 @@ Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Text</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Text functions are only available for text scripts. </p>
 </div></td></tr>
+<tr class="memitem:a075d2c2ed4b6028fd813a30ce1583a0b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a075d2c2ed4b6028fd813a30ce1583a0b">setColor</a> (TextObjectReference, float, float, float)</td></tr>
+<tr class="separator:a075d2c2ed4b6028fd813a30ce1583a0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1e02e7b17a0e61ac87f760afa350878"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ad1e02e7b17a0e61ac87f760afa350878">setColorv</a> (TextObjectReference, <a class="el" href="structVector.html">Vector</a>)</td></tr>
+<tr class="separator:ad1e02e7b17a0e61ac87f760afa350878"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51230fd178b224e5426e6c55bca613ce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structVector.html">Vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a51230fd178b224e5426e6c55bca613ce">getColor</a> (TextObjectReference)</td></tr>
+<tr class="separator:a51230fd178b224e5426e6c55bca613ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad304f4682414057ed5dc95e38528cbb5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#ad304f4682414057ed5dc95e38528cbb5">setWidth</a> (TextObjectReference, float)</td></tr>
+<tr class="separator:ad304f4682414057ed5dc95e38528cbb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c95ba0dd8f4b5e6356ff43ed8738de3"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a8c95ba0dd8f4b5e6356ff43ed8738de3">get</a> (TextObjectReference)</td></tr>
+<tr class="separator:a8c95ba0dd8f4b5e6356ff43ed8738de3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Game Object</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Game object functions are only available in game object scripts. </p>
 </div></td></tr>
@@ -179,6 +189,29 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 <div class="textblock"><p>Krig Game <a class="el" href="classEngine.html">Engine</a> Lua Scripting API. </p>
 <p>API calls are split into four classes of functions. The classes are defined by the type of script where they are available for use. For example, the playBgMusic function is supported for a game level script and would not be available to use for an object. The four classes of functions are: Game Object, Text, Game Level, and Game (<a class="el" href="classEngine.html">Engine</a>). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a8c95ba0dd8f4b5e6356ff43ed8738de3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float get </td>
+          <td>(</td>
+          <td class="paramtype">TextObjectReference&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get text's width. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TextObjectReference.</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>float width of text </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="afb1a31b7a8c0bab7963726dff88a3aa8"></a>
 <div class="memitem">
 <div class="memproto">
@@ -199,6 +232,29 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>bool true = active, false = inactive </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a51230fd178b224e5426e6c55bca613ce"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structVector.html">Vector</a> getColor </td>
+          <td>(</td>
+          <td class="paramtype">TextObjectReference&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get the text's color. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TextObjectReference.</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structVector.html">Vector</a> array containing red, green, and blue components (0.0 - 1.0). </dd></dl>
 
 </div>
 </div>
@@ -319,15 +375,26 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 
 </div>
 </div>
-<a class="anchor" id="a5ed74f360d932fbc83c79bf0c0ceb27f"></a>
+<a class="anchor" id="a8d7babee2c47798d4f0fd220bfbe9343"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">int playBgMusic </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -358,6 +425,88 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 <p>Set the active state of the specified object to true (active). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">GameObjectReference</td><td>game object reference obtained from the engine through another API call. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a075d2c2ed4b6028fd813a30ce1583a0b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setColor </td>
+          <td>(</td>
+          <td class="paramtype">TextObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the text's color. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TextObjectReference.</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>red component (0.0 - 1.0). </td></tr>
+    <tr><td class="paramname">float</td><td>green component (0.0 - 1.0). </td></tr>
+    <tr><td class="paramname">float</td><td>blue component (0.0 - 1.0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad1e02e7b17a0e61ac87f760afa350878"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setColorv </td>
+          <td>(</td>
+          <td class="paramtype">TextObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the text's color. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TextObjectReference.</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td>array containing red, green, and blue components (0.0 - 1.0). </td></tr>
   </table>
   </dd>
 </dl>
@@ -471,6 +620,40 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 
 </div>
 </div>
+<a class="anchor" id="ad304f4682414057ed5dc95e38528cbb5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setWidth </td>
+          <td>(</td>
+          <td class="paramtype">TextObjectReference&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set text's width. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TextObjectReference.</td><td></td></tr>
+    <tr><td class="paramname">float</td><td>width of text. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>n/a </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a6f0b17ae2736029daa6a1ee5133dfacb"></a>
 <div class="memitem">
 <div class="memproto">
@@ -522,7 +705,7 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 20 2015 12:39:41 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 20 2015 12:58:34 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>
