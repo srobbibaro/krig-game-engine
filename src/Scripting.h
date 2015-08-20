@@ -213,15 +213,40 @@ static int setSkyBoxLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the light direction in the game level's scene. This setting affects
+ * shading on models and the terrain.
+ * @param float x coordinate of the directed light vector
+ * @param float y coordinate of the directed light vector
+ * @param float z coordinate of the directed light vector
+ * @return n/a
+ */
+void setLightDirection(float, float, float);
+#endif
 static int setLightDirectionLua(lua_State *L) {
   g_script_game_level->setLightDirection(lua_tonumber(L, 1), lua_tonumber(L, 2), lua_tonumber(L, 3));
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the light direction in the game level's scene. This setting affects
+ * shading on models and the terrain.
+ * @param Vector array containing x, y, z coordinates of the directed light vector
+ * @return n/a
+ */
+void setLightDirectionv(Vector);
+#endif
 static int setLightDirectionvLua(lua_State *L) {
   Vector t = loadVector(L);
   g_script_game_level->setLightDirection(t.x, t.y, t.z);
   return 0;
+}
+
+static int getLightDirectionLua(lua_State *L) {
+  returnVector(L, *g_script_game_level->getLightDirection());
+  return 1;
 }
 
 static int setTerrainLua(lua_State *L) {
@@ -272,23 +297,44 @@ static int getFpsLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * A game level can use up to 4 cameras, each with its own independent attached
+ * script and settings. However, only one camera can be "active" at a time. This
+ * method returns the ID of the active camera.
+ * @return int ID of the active camera
+ */
+int getCameraId();
+#endif
 static int getCameraIdLua(lua_State *L) {
   lua_pushnumber(L, g_script_game_level->getCamera()->id_);
   return 1;
 }
-static int getLightDirectionLua(lua_State *L) {
-  returnVector(L, *g_script_game_level->getLightDirection());
-  return 1;
-}
 
+#if DOXYGEN_ONLY
+/**
+ * The currently running game level maintains a state about whether it has been
+ * marked as "complete" or not. This method sets this state.
+ * @param bool true - level is marked as complete, false - level is not complete
+ * @return n/a
+ */
+void setComplete(bool);
+#endif
 static int setCompleteLua(lua_State *L) {
   g_script_game_level->setComplete(lua_tonumber(L, 1));
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Initiate the Game/Engine shutdown process. This command will kick off clean-up
+ * operations and will end with terminating the game.
+ * @return n/a
+ */
+void shutdown(bool);
+#endif
 static int shutdownLua(lua_State *L) {
   g_script_engine->shutdown();
-
   return 0;
 }
 ///@}
@@ -297,6 +343,17 @@ static int shutdownLua(lua_State *L) {
  *  Text functions are only available for text scripts.
  */
 ///@{
+#if DOXYGEN_ONLY
+/**
+ * Fade text between fully seen and unseen incrementally each game cycle by
+ * giving it a fade rate. This method sets the specified text object's fade rate.
+ * @param TextObjectReference
+ * @param float fade rate - can be positive or negative (numbers approaching
+ *        zero fade more slowly than numbes with a higher magnitude).
+ * @return n/a
+ */
+void setFadeRate(TextObjectReference, float);
+#endif
 static int setFadeRateLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
@@ -304,6 +361,15 @@ static int setFadeRateLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Fade text between fully seen and unseen incrementally each game cycle by
+ * giving it a fade rate. This method returns the specified text object's fade rate.
+ * @param TextObjectReference
+ * @return float fade rate
+ */
+float getFadeRate(TextObjectReference);
+#endif
 static int getFadeRateLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
@@ -311,6 +377,18 @@ static int getFadeRateLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * The alpha setting controls the degree of transparency for the text object.
+ * It can be not transparent (1.0), partially transparent (< 1.0 - > 0.0),
+ * or fully transparent (0.0). This method sets the alpha value for the specified
+ * text object.
+ * @param TextObjectReference
+ * @param float alpha
+ * @return n/a
+ */
+void setAlpha(TextObjectReference, float);
+#endif
 static int setAlphaLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
@@ -318,6 +396,17 @@ static int setAlphaLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * The alpha setting controls the degree of transparency for the text object.
+ * It can be not transparent (1.0), partially transparent (< 1.0 - > 0.0),
+ * or fully transparent (0.0). This method returns the alpha value for the specified
+ * text object.
+ * @param TextObjectReference
+ * @return float alpha
+ */
+float getAlpha(TextObjectReference);
+#endif
 static int getAlphaLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
@@ -1342,6 +1431,14 @@ static int getActiveLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Designate the specified game object to be drawn by the engine each game cycle.
+ * @param GameObjectReference
+ * @return n/a
+ */
+void enableDraw(GameObjectReference);
+#endif
 static int enableDrawLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1349,6 +1446,14 @@ static int enableDrawLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Designate the specified game object not to be drawn by the engine each game cycle.
+ * @param GameObjectReference
+ * @return n/a
+ */
+void disableDraw(GameObjectReference);
+#endif
 static int disableDrawLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1356,6 +1461,14 @@ static int disableDrawLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Query the engine to determine if the specified game object will be drawn each game cycle.
+ * @param GameObjectReference
+ * @return bool - whether or not the object will be drawn
+ */
+void getDrawEnabled(GameObjectReference);
+#endif
 static int getDrawEnabledLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1363,6 +1476,14 @@ static int getDrawEnabledLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Fetch the radius of the specified game object's bounding sphere.
+ * @param GameObjectReference
+ * @return float - radius
+ */
+float getBoundingSphereRadius(GameObjectReference);
+#endif
 static int getBoundingSphereRadiusLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1370,6 +1491,14 @@ static int getBoundingSphereRadiusLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Determine whether the specified object is in the current camera's view.
+ * @param GameObjectReference
+ * @return bool - whether or not the object is in the camera's view
+ */
+float getInView(GameObjectReference);
+#endif
 static int getInViewLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
