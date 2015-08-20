@@ -141,6 +141,15 @@ static int setLevelIdLua(lua_State *L) {
  *  Game level functions are only available in game level scripts.
  */
 ///@{
+#if DOXYGEN_ONLY
+/**
+ * Playing song specified.
+ * @param string name of file containing the song to play.
+ * @param int repeat control (0 - do not repeat, 1 - repeat).
+ * @return n/a
+ */
+int playBgMusic();
+#endif
 static int playBgMusicLua(lua_State *L) {
   const char *s = lua_tostring(L, 1);
   int repeat = (int)lua_tonumber(L, 2);
@@ -150,16 +159,47 @@ static int playBgMusicLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Stop playing song (if playing). Song will restart when played.
+ * @return n/a
+ */
+int stopBgMusic();
+#endif
 static int stopBgMusicLua(lua_State *L) {
   g_script_game_level->getMusic()->StopSong();
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Pause song (if playing). Song will resume where it was paused when played.
+ * @return n/a
+ */
+int pauseBgMusic();
+#endif
 static int pauseBgMusicLua(lua_State *L) {
   g_script_game_level->getMusic()->PauseSong();
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Render a sky box around the level using the three colors supplied.
+ * Color 1 is the top color; Color two is in the middle; Color 3 is the bottom color.
+ * @param float first color, red attribute (0.0 - 1.0)
+ * @param float first color, green attribute (0.0 - 1.0)
+ * @param float first color, blue attribute (0.0 - 1.0)
+ * @param float second color, red attribute (0.0 - 1.0)
+ * @param float second color, green attribute (0.0 - 1.0)
+ * @param float second color, blue attribute (0.0 - 1.0)
+ * @param float third color, red attribute (0.0 - 1.0)
+ * @param float third color, green attribute (0.0 - 1.0)
+ * @param float third color, blue attribute (0.0 - 1.0)
+ * @return n/a
+ */
+int setSkyBox(float, float, float, float, float, float, float, float, float);
+#endif
 static int setSkyBoxLua(lua_State *L) {
   int num = 1;
 
