@@ -8,7 +8,6 @@
  * available to use for an object. The four classes of functions are: Game Object,
  * Text, Game Level, and Game (Engine).
  */
-
 #ifndef _SCRIPTING_H_
 #define _SCRIPTING_H_
 
@@ -148,7 +147,7 @@ static int setLevelIdLua(lua_State *L) {
  * @param int repeat control (0 - do not repeat, 1 - repeat).
  * @return n/a
  */
-int playBgMusic(string, int);
+void playBgMusic(string, int);
 #endif
 static int playBgMusicLua(lua_State *L) {
   const char *s = lua_tostring(L, 1);
@@ -164,7 +163,7 @@ static int playBgMusicLua(lua_State *L) {
  * Stop playing song (if playing). Song will restart when played.
  * @return n/a
  */
-int stopBgMusic();
+void stopBgMusic();
 #endif
 static int stopBgMusicLua(lua_State *L) {
   g_script_game_level->getMusic()->StopSong();
@@ -176,7 +175,7 @@ static int stopBgMusicLua(lua_State *L) {
  * Pause song (if playing). Song will resume where it was paused when played.
  * @return n/a
  */
-int pauseBgMusic();
+void pauseBgMusic();
 #endif
 static int pauseBgMusicLua(lua_State *L) {
   g_script_game_level->getMusic()->PauseSong();
@@ -198,7 +197,7 @@ static int pauseBgMusicLua(lua_State *L) {
  * @param float third color, blue attribute (0.0 - 1.0)
  * @return n/a
  */
-int setSkyBox(float, float, float, float, float, float, float, float, float);
+void setSkyBox(float, float, float, float, float, float, float, float, float);
 #endif
 static int setSkyBoxLua(lua_State *L) {
   int num = 1;
@@ -264,7 +263,7 @@ static int renderTextLua(lua_State *L) {
 /**
  * Query the engine for the last calculated value of frames per second (FPS).
  * Frames per second is calculated each iteration of the game loop.
- * @return @c float
+ * @return float frames per second
  */
 float getFps();
 #endif
@@ -329,7 +328,7 @@ static int getAlphaLua(lua_State *L) {
 #if DOXYGEN_ONLY
 /**
  * Set the text's color.
- * @param TextObjectReference.
+ * @param TextObjectReference
  * @param float red component (0.0 - 1.0).
  * @param float green component (0.0 - 1.0).
  * @param float blue component (0.0 - 1.0).
@@ -349,7 +348,7 @@ static int setColorLua(lua_State *L) {
 #if DOXYGEN_ONLY
 /**
  * Set the text's color.
- * @param TextObjectReference.
+ * @param TextObjectReference
  * @param Vector array containing red, green, and blue components (0.0 - 1.0).
  * @return n/a
  */
@@ -368,7 +367,7 @@ static int setColorvLua(lua_State *L) {
 #if DOXYGEN_ONLY
 /**
  * Get the text's color.
- * @param TextObjectReference.
+ * @param TextObjectReference
  * @return Vector array containing red, green, and blue components (0.0 - 1.0).
  */
 Vector getColor(TextObjectReference);
@@ -384,7 +383,7 @@ static int getColorLua(lua_State *L) {
 #if DOXYGEN_ONLY
 /**
  * Set text's width.
- * @param TextObjectReference.
+ * @param TextObjectReference
  * @param float width of text.
  * @return n/a
  */
@@ -400,7 +399,7 @@ static int setWidthLua(lua_State *L) {
 #if DOXYGEN_ONLY
 /**
  * Get text's width.
- * @param TextObjectReference.
+ * @param TextObjectReference
  * @return float width of text
  */
 float get(TextObjectReference);
@@ -1332,7 +1331,7 @@ static int setInactiveLua(lua_State *L) {
  * Obtain the active/inactive state of the specified object.
  * @param GameObjectReference game object reference obtained from the engine
  *        through another API call.
- * @return bool true = active, false = inactive
+ * @return bool - true = active, false = inactive
  */
 bool getActive(GameObjectReference);
 #endif
@@ -1402,11 +1401,7 @@ static int setHeightFromTerrainLua(lua_State *L) {
 }
 
 static int engine_testKeyPressedLua(lua_State *L) {
-  //luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  //Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-  //int key = (int)lua_tonumber(L, 2);
   int key = (int)lua_tonumber(L, 1);
-  //int result = (int)(object->keyState->testKeyPressed(key));
   int result = (int)(g_script_engine->getKeyState()->testKeyPressed(key));
   lua_pushnumber(L, result);
 
@@ -1414,22 +1409,14 @@ static int engine_testKeyPressedLua(lua_State *L) {
 }
 
 static int engine_testKeyReleasedLua(lua_State *L) {
-  //luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  //Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-  //int key = (int)lua_tonumber(L, 2);
   int key = (int)lua_tonumber(L, 1);
-  //int result = (int)(object->keyState->testKeyReleased(key));
   int result = (int)(g_script_engine->getKeyState()->testKeyReleased(key));
   lua_pushnumber(L, result);
   return 1;
 }
 
 static int engine_testSpecialKeyPressedLua(lua_State *L) {
-  //luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  //Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-  //int key = (int)lua_tonumber(L, 2);
   int key = (int)lua_tonumber(L, 1);
-  //int result = (int)(object->keyState->testKeyPressed(key));
   int result = (int)(g_script_engine->getSpecialKeyState()->testKeyPressed(key));
   lua_pushnumber(L, result);
 
@@ -1437,11 +1424,7 @@ static int engine_testSpecialKeyPressedLua(lua_State *L) {
 }
 
 static int engine_testSpecialKeyReleasedLua(lua_State *L) {
-  //luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  //Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-  //int key = (int)lua_tonumber(L, 2);
   int key = (int)lua_tonumber(L, 1);
-  //int result = (int)(object->keyState->testKeyReleased(key));
   int result = (int)(g_script_engine->getSpecialKeyState()->testKeyReleased(key));
   lua_pushnumber(L, result);
   return 1;
