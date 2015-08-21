@@ -244,11 +244,27 @@ static int setLightDirectionvLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Fetch the configured light direction.
+ * @return Vector
+ */
+Vector getLightDirection();
+#endif
 static int getLightDirectionLua(lua_State *L) {
   returnVector(L, *g_script_game_level->getLightDirection());
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the specified level's terrain.
+ * @param TerrainObjectReference
+ * @param string terrain file to load.
+ * @return n/a
+ */
+void setTerrain(TerrainObjectReference, string);
+#endif
 static int setTerrainLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Terrain *terrain = static_cast<Terrain*>(lua_touserdata(L, 1));
@@ -260,6 +276,19 @@ static int setTerrainLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Display 3D text to the screen.
+ * @param string text.
+ * @param float x coordinate.
+ * @param float y coordinate.
+ * @param float z coordinate.
+ * @param float scale x.
+ * @param float scale y.
+ * @return n/a
+ */
+void displayText(string, float, float, float, float, float);
+#endif
 static int displayTextLua(lua_State *L) {
   const char *s = lua_tostring(L, 1);
   char * t = (char*)s;
@@ -274,6 +303,16 @@ static int displayTextLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Display 2D text to the screen.
+ * @param string text.
+ * @param float x coordinate.
+ * @param float y coordinate.
+ * @return n/a
+ */
+void renderText(string, float, float);
+#endif
 static int renderTextLua(lua_State *L) {
   const char *s = lua_tostring(L, 1);
   float x = lua_tonumber(L, 2);
@@ -489,9 +528,9 @@ static int setWidthLua(lua_State *L) {
 /**
  * Get text's width.
  * @param TextObjectReference
- * @return float width of text
+ * @return float width of text.
  */
-float get(TextObjectReference);
+float getWidth(TextObjectReference);
 #endif
 static int getWidthLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
@@ -505,6 +544,18 @@ static int getWidthLua(lua_State *L) {
  * Game object functions are only available in game object scripts.
  */
 ///@{
+
+#if DOXYGEN_ONLY
+/**
+ * Set the specified object's position.
+ * @param GameObjectReference
+ * @param float x coordinate.
+ * @param float y coordinate.
+ * @param float z coordinate.
+ * @return n/a
+ */
+void setPosition(GameObjectReference, float, float, float);
+#endif
 static int setPositionLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -513,6 +564,15 @@ static int setPositionLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the specified object's position.
+ * @param GameObjectReference
+ * @param Vector
+ * @return n/a
+ */
+void setPositionv(GameObjectReference, Vector);
+#endif
 static int setPositionvLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -521,6 +581,14 @@ static int setPositionvLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Get the specified object's position.
+ * @param GameObjectReference
+ * @return Vector - position.
+ */
+Vector getPosition(GameObjectReference);
+#endif
 static int getPositionLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -531,6 +599,17 @@ static int getPositionLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the specified object's velocity.
+ * @param GameObjectReference
+ * @param float x component.
+ * @param float y component.
+ * @param float z component.
+ * @return n/a
+ */
+void setVelocity(GameObjectReference, float, float, float);
+#endif
 static int setVelocityLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -539,6 +618,15 @@ static int setVelocityLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the specified object's velocity.
+ * @param GameObjectReference
+ * @param Vector
+ * @return n/a
+ */
+void setVelocityv(GameObjectReference, Vector);
+#endif
 static int setVelocityvLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -547,6 +635,14 @@ static int setVelocityvLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Get the specified object's velocity.
+ * @param GameObjectReference
+ * @return Vector - velocity.
+ */
+Vector getVelocity(GameObjectReference);
+#endif
 static int getVelocityLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -557,6 +653,17 @@ static int getVelocityLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the specified object's rotational velocity.
+ * @param GameObjectReference
+ * @param float rotation velocity x component.
+ * @param float rotation velocity y component.
+ * @param float rotation velocity z component.
+ * @return n/a
+ */
+void setRotationVelocity(GameObjectReference, float, float, float);
+#endif
 static int setRotationVelocityLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -564,6 +671,15 @@ static int setRotationVelocityLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the specified object's rotational velocity.
+ * @param GameObjectReference
+ * @param Vector rotation velocity.
+ * @return n/a
+ */
+void setRotationVelocityv(GameObjectReference, Vector);
+#endif
 static int setRotationVelocityvLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -571,6 +687,14 @@ static int setRotationVelocityvLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Fetch the specified object's rotational velocity.
+ * @param GameObjectReference
+ * @return Vector - rotational velocity.
+ */
+Vector getRotationVelocity(GameObjectReference);
+#endif
 static int getRotationVelocityLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -581,6 +705,17 @@ static int getRotationVelocityLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the specified object's speed.
+ * @param GameObjectReference
+ * @param float speed in direction of the object.
+ * @param float speed in up direction of the object.
+ * @param float speed in orthoginal direction of the object.
+ * @return n/a
+ */
+void setSpeed(GameObjectReference, float, float, float);
+#endif
 static int setSpeedLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -589,6 +724,15 @@ static int setSpeedLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the specified object's speed.
+ * @param GameObjectReference
+ * @param Vector speed.
+ * @return n/a
+ */
+void setSpeedv(GameObjectReference, Vector);
+#endif
 static int setSpeedvLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -597,6 +741,14 @@ static int setSpeedvLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Fetch the specified object's speed.
+ * @param GameObjectReference
+ * @return Vector - speed.
+ */
+Vector getSpeed(GameObjectReference);
+#endif
 static int getSpeedLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -607,16 +759,41 @@ static int getSpeedLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Get a game object reference to the player object.
+ * @return GameObjectReference
+ */
+GameObjectReference getPlayer();
+#endif
 static int getPlayerLua(lua_State *L) {
   lua_pushlightuserdata(L, (void*)g_script_player);
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Get a game object reference to the active camera object.
+ * @return GameObjectReference
+ */
+GameObjectReference getCamera();
+#endif
 static int getCameraLua(lua_State *L) {
   lua_pushlightuserdata(L, (void*)g_script_camera);
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the specified object's rotation.
+ * @param GameObjectReference
+ * @param float x rotation component.
+ * @param float y rotation component.
+ * @param float z rotation component.
+ * @return n/a
+ */
+void setRotation(GameObjectReference, float, float, float);
+#endif
 static int setRotationLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -625,6 +802,15 @@ static int setRotationLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the specified object's rotation.
+ * @param GameObjectReference
+ * @param Vector rotation.
+ * @return n/a
+ */
+void setRotationv(GameObjectReference, Vector);
+#endif
 static int setRotationvLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -633,6 +819,14 @@ static int setRotationvLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Fetch the specified object's rotation.
+ * @param GameObjectReference
+ * @return Vector - rotation.
+ */
+Vector getRotation(GameObjectReference);
+#endif
 static int getRotationLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -645,6 +839,14 @@ static int getRotationLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Get the specified object's direction.
+ * @param GameObjectReference
+ * @return Vector - direction.
+ */
+Vector getDirection(GameObjectReference);
+#endif
 static int getDirectionLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -655,6 +857,14 @@ static int getDirectionLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Get the specified object's up vector.
+ * @param GameObjectReference
+ * @return Vector - up vector.
+ */
+Vector getUp(GameObjectReference);
+#endif
 static int getUpLua(lua_State *L)
 {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
@@ -666,6 +876,14 @@ static int getUpLua(lua_State *L)
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Get the specified object's orthogonal vector (orthogonal to up and direction vectors).
+ * @param GameObjectReference
+ * @return Vector - orthogonal vector.
+ */
+Vector getOrthogonal(GameObjectReference);
+#endif
 static int getOrthogonalLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -676,6 +894,17 @@ static int getOrthogonalLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Add to the specified object's position.
+ * @param GameObjectReference
+ * @param float x coordinate.
+ * @param float y coordinate.
+ * @param float z coordinate.
+ * @return n/a
+ */
+void addPosition(GameObjectReference, float, float, float);
+#endif
 static int addPositionLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -689,6 +918,15 @@ static int addPositionLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Add to the specified object's position.
+ * @param GameObjectReference
+ * @param Vector coordinates.
+ * @return n/a
+ */
+void addPositionv(GameObjectReference, Vector);
+#endif
 static int addPositionvLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -701,6 +939,17 @@ static int addPositionvLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Add to the specified object's rotation.
+ * @param GameObjectReference
+ * @param float x rotation component.
+ * @param float y rotation component.
+ * @param float z rotation component.
+ * @return n/a
+ */
+void addRotation(GameObjectReference, float, float, float);
+#endif
 static int addRotationLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -712,6 +961,15 @@ static int addRotationLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Add to the specified object's rotation.
+ * @param GameObjectReference
+ * @param Vector rotation.
+ * @return n/a
+ */
+void addRotationv(GameObjectReference, Vector);
+#endif
 static int addRotationvLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -723,6 +981,17 @@ static int addRotationvLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Add to the specified object's velocity.
+ * @param GameObjectReference
+ * @param float x component.
+ * @param float y component.
+ * @param float z component.
+ * @return n/a
+ */
+void addVelocity(GameObjectReference, float, float, float);
+#endif
 static int addVelocityLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -736,6 +1005,15 @@ static int addVelocityLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Add to the specified object's velocity.
+ * @param GameObjectReference
+ * @param Vector
+ * @return n/a
+ */
+void addVelocityv(GameObjectReference, Vector);
+#endif
 static int addVelocityvLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -748,6 +1026,17 @@ static int addVelocityvLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Add to the specified object's speed.
+ * @param GameObjectReference
+ * @param float speed in direction of the object.
+ * @param float speed in up direction of the object.
+ * @param float speed in orthoginal direction of the object.
+ * @return n/a
+ */
+void addSpeed(GameObjectReference, float, float, float);
+#endif
 static int addSpeedLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -760,6 +1049,15 @@ static int addSpeedLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Add to the specified object's speed.
+ * @param GameObjectReference
+ * @param Vector speed.
+ * @return n/a
+ */
+void addSpeedv(GameObjectReference, Vector);
+#endif
 static int addSpeedvLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -773,6 +1071,17 @@ static int addSpeedvLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Add to the specified object's rotational velocity.
+ * @param GameObjectReference
+ * @param float rotation velocity x component.
+ * @param float rotation velocity y component.
+ * @param float rotation velocity z component.
+ * @return n/a
+ */
+void addRotationVelocity(GameObjectReference, float, float, float);
+#endif
 static int addRotationVelocityLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -786,6 +1095,15 @@ static int addRotationVelocityLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Add to the specified object's rotational velocity.
+ * @param GameObjectReference
+ * @param Vector rotation velocity.
+ * @return n/a
+ */
+void addRotationVelocityv(GameObjectReference, Vector);
+#endif
 static int addRotationVelocityvLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -799,6 +1117,17 @@ static int addRotationVelocityvLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Add to the scale for the specified object.
+ * @param GameObjectReference
+ * @param x scale factor.
+ * @param y scale factor.
+ * @param z scale factor.
+ * @return n/a
+ */
+void addScale(GameObjectReference, float, float, float);
+#endif
 static int addScaleLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -812,6 +1141,15 @@ static int addScaleLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Add to the scale for the specified object.
+ * @param GameObjectReference
+ * @param Vector scale factor.
+ * @return n/a
+ */
+void addScalev(GameObjectReference, Vector);
+#endif
 static int addScalevLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -825,6 +1163,17 @@ static int addScalevLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Add to the rate that the specified game object should scale each game cycle.
+ * @param GameObjectReference
+ * @param x scale rate.
+ * @param y scale rate.
+ * @param z scale rate.
+ * @return n/a
+ */
+void addScaleRate(GameObjectReference, float, float, float);
+#endif
 static int addScaleRateLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -838,6 +1187,15 @@ static int addScaleRateLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Add to the rate that the specified game object should scale each game cycle.
+ * @param GameObjectReference
+ * @param Vector scale rate.
+ * @return n/a
+ */
+void addScaleRatev(GameObjectReference, Vector);
+#endif
 static int addScaleRatevLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
 
@@ -852,6 +1210,18 @@ static int addScaleRatevLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the end rotation (by axis) for the specified game object's interpolation.
+ * @param GameObjectReference
+ * @param float x component.
+ * @param float y component.
+ * @param float z component.
+ * @param float degrees.
+ * @return n/a
+ */
+void setInterpolationRotationEndAxis(GameObjectReference, float, float, float, float);
+#endif
 static int setInterpolationRotationEndAxisLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -869,6 +1239,16 @@ static int setInterpolationRotationEndAxisLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the end rotation (by axis) for the specified game object's interpolation.
+ * @param GameObjectReference
+ * @param Vector axis.
+ * @param float degrees.
+ * @return n/a
+ */
+void setInterpolationRotationEndAxisv(GameObjectReference, Vector, float);
+#endif
 static int setInterpolationRotationEndAxisvLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -885,6 +1265,18 @@ static int setInterpolationRotationEndAxisvLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the beginning rotation (by axis) for the specified game object's interpolation.
+ * @param GameObjectReference
+ * @param float x component.
+ * @param float y component.
+ * @param float z component.
+ * @param float degrees.
+ * @return n/a
+ */
+void setInterpolationRotationStartAxis(GameObjectReference, float, float, float, float);
+#endif
 static int setInterpolationRotationStartAxisLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -902,6 +1294,16 @@ static int setInterpolationRotationStartAxisLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the beginning rotation (by axis) for the specified game object's interpolation.
+ * @param GameObjectReference
+ * @param Vector axis.
+ * @param float degrees.
+ * @return n/a
+ */
+void setInterpolationRotationStartAxisv(GameObjectReference, Vector, float);
+#endif
 static int setInterpolationRotationStartAxisvLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -918,6 +1320,17 @@ static int setInterpolationRotationStartAxisvLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the beginning rotation for the specified game object's interpolation.
+ * @param GameObjectReference
+ * @param float x coordinate.
+ * @param float y coordinate.
+ * @param float z coordinate.
+ * @return n/a
+ */
+void setInterpolationRotationStart(GameObjectReference, float, float, float);
+#endif
 static int setInterpolationRotationStartLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -931,6 +1344,15 @@ static int setInterpolationRotationStartLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the beginning rotation for the specified game object's interpolation.
+ * @param GameObjectReference
+ * @param Vector coordinates.
+ * @return n/a
+ */
+void setInterpolationRotationStartv(GameObjectReference, Vector);
+#endif
 static int setInterpolationRotationStartvLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -944,6 +1366,17 @@ static int setInterpolationRotationStartvLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the end rotation for the specified game object's interpolation.
+ * @param GameObjectReference
+ * @param float x coordinate.
+ * @param float y coordinate.
+ * @param float z coordinate.
+ * @return n/a
+ */
+void setInterpolationRotationEnd(GameObjectReference, float, float, float);
+#endif
 static int setInterpolationRotationEndLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -957,6 +1390,15 @@ static int setInterpolationRotationEndLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the end rotation for the specified game object's interpolation.
+ * @param GameObjectReference
+ * @param Vector coordinates.
+ * @return n/a
+ */
+void setInterpolationRotationEndv(GameObjectReference, Vector);
+#endif
 static int setInterpolationRotationEndvLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -970,11 +1412,20 @@ static int setInterpolationRotationEndvLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Enable/Disable interpolation for the specified object.
+ * @param GameObjectReference
+ * @param bool enable/disable.
+ * @return n/a
+ */
+void setInterpolationEnable(GameObjectReference, bool);
+#endif
 static int setInterpolationEnableLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
 
-  // TODO: there's probably a better wy to do this...
+  // TODO: there's probably a better way to do this...
   int op = (int)lua_tonumber(L,2);
 
   if (op == 0)
@@ -985,6 +1436,15 @@ static int setInterpolationEnableLua(lua_State *L) {
   return (0);
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set beginning value of interpolation variable's value range.
+ * @param GameObjectReference
+ * @param float value.
+ * @return n/a
+ */
+void setInterpolationVariableBeginValue(GameObjectReference, float);
+#endif
 static int setInterpolationVariableBeginValueLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -992,6 +1452,15 @@ static int setInterpolationVariableBeginValueLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set end value of interpolation variable's value range.
+ * @param GameObjectReference
+ * @param float value.
+ * @return n/a
+ */
+void setInterpolationVariableEndValue(GameObjectReference, float);
+#endif
 static int setInterpolationVariableEndValueLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -999,6 +1468,15 @@ static int setInterpolationVariableEndValueLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set current value of interpolation variable's value range.
+ * @param GameObjectReference
+ * @param float value.
+ * @return n/a
+ */
+void setInterpolationVariableCurrentValue(GameObjectReference, float);
+#endif
 static int setInterpolationVariableCurrentValueLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1006,6 +1484,18 @@ static int setInterpolationVariableCurrentValueLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the specified object's rotational velocity from an axis and angle.
+ * @param GameObjectReference
+ * @param float x rotation velocity component.
+ * @param float y rotation velocity component.
+ * @param float z rotation velocity component.
+ * @param float angle.
+ * @return n/a
+ */
+void setRotationVelocityAxis(GameObjectReference, float, float, float, float);
+#endif
 static int setRotationVelocityAxisLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1021,6 +1511,15 @@ static int setRotationVelocityAxisLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the specified object's rotational velocity.
+ * @param GameObjectReference
+ * @param Vector rotation velocity.
+ * @return n/a
+ */
+void setRotationVelocityAxisv(GameObjectReference, Vector, float);
+#endif
 static int setRotationVelocityAxisvLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1036,6 +1535,18 @@ static int setRotationVelocityAxisvLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the specified object's rotation.
+ * @param GameObjectReference
+ * @param float x rotation component.
+ * @param float y rotation component.
+ * @param float z rotation component.
+ * @param float angle.
+ * @return n/a
+ */
+void setRotationAxis(GameObjectReference, float, float, float, float);
+#endif
 static int setRotationAxisLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1054,6 +1565,16 @@ static int setRotationAxisLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the specified object's rotation.
+ * @param GameObjectReference
+ * @param Vector rotation axis.
+ * @param float angle.
+ * @return n/a
+ */
+void setRotationAxisv(GameObjectReference, Vector, float);
+#endif
 static int setRotationAxisvLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1075,6 +1596,18 @@ static int setRotationAxisvLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Add to the specified object's rotation.
+ * @param GameObjectReference
+ * @param float x rotation component.
+ * @param float y rotation component.
+ * @param float z rotation component.
+ * @param float angle.
+ * @return n/a
+ */
+void addRotationAxis(GameObjectReference, float, float, float, float);
+#endif
 static int addRotationAxisLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1094,6 +1627,16 @@ static int addRotationAxisLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Add to the specified object's rotation.
+ * @param GameObjectReference
+ * @param Vector rotation axis.
+ * @param float angle.
+ * @return n/a
+ */
+void addRotationAxisv(GameObjectReference, Vector, float);
+#endif
 static int addRotationAxisvLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1112,6 +1655,14 @@ static int addRotationAxisvLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Fetch the specified game object's timer.
+ * @param GameObjectReference
+ * @return float
+ */
+float getTimer(GameObjectReference, float);
+#endif
 static int getTimerLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1121,6 +1672,15 @@ static int getTimerLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Suspend running the specified game object's script until the suspend time has elapsed.
+ * @param GameObjectReference
+ * @param float - path to wav file to play.
+ * @return n/a
+ */
+void suspend(GameObjectReference, float);
+#endif
 static int suspendLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1128,6 +1688,15 @@ static int suspendLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Play the sound in the specified wav file.
+ * @param GameObjectReference
+ * @param string - path to wav file to play.
+ * @return n/a
+ */
+void playSound(GameObjectReference, string);
+#endif
 static int playSoundLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1143,6 +1712,16 @@ static int playSoundLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Add a game object to the current level.
+ * @param TerrainReference
+ * @param string - path to lua game object script for this object to use.
+ * @param float - values to be passed into the "on_load" method for the game object.
+ * @return GameObjectReference
+ */
+GameObjectReference addObject(TerrainReference, string, float, float, ...);
+#endif
 static int addObjectLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1167,6 +1746,16 @@ static int addObjectLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Add a game object to the current level.
+ * @param TerrainReference
+ * @param string - path to lua script for this text object to use.
+ * @param float - values to be passed into the "on_load" method for the game object.
+ * @return TextObjectReference
+ */
+TextObjectReference addText(TerrainReference, string, float, float, ...);
+#endif
 static int addTextLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1195,6 +1784,14 @@ static int addTextLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Remove the specified object from the level.
+ * @param GameObjectReference
+ * @return n/a
+ */
+void removeObject(GameObjectReference);
+#endif
 static int removeObjectLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1203,29 +1800,37 @@ static int removeObjectLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Specify the model to render for this game object.
+ * @param GameObjectReference
+ * @string file containing the model to load.
+ * @return n/a
+ */
+void setModel(GameObjectReference, string);
+#endif
 static int setModelLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  //Object *object = static_cast<Object*>(lua_touserdata(L, 1));
   ScriptedObject *object = static_cast<ScriptedObject*>(lua_touserdata(L, 1));
 
   const char *s = lua_tostring(L, 2);
   string model = string(s);
 
   object->load(model);
-
-  /*
-     if (typeid(*object) == typeid(ScriptedObject)) {
-     const char *s = lua_tostring(L, -1);
-     string model = string(s);
-     object = static_cast<ScriptedObject*>(object);
-     object->unload();
-     object->load(model);
-     }
-     */
-
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the scale for the specified object.
+ * @param GameObjectReference
+ * @param x scale factor.
+ * @param y scale factor.
+ * @param z scale factor.
+ * @return n/a
+ */
+void setScale(GameObjectReference, float, float, float);
+#endif
 static int setScaleLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1236,6 +1841,15 @@ static int setScaleLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the scale for the specified object.
+ * @param GameObjectReference
+ * @param Vector scale factor.
+ * @return n/a
+ */
+void setScalev(GameObjectReference, Vector);
+#endif
 static int setScalevLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1245,6 +1859,15 @@ static int setScalevLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set lua script for specified game object.
+ * @param GameObjectReference
+ * @param string lua script file name.
+ * @return n/a
+ */
+void setScript(GameObjectReference, string);
+#endif
 static int setScriptLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1261,6 +1884,15 @@ static int setScriptLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Enable the specified game object's "always lit" mode which will always render
+ * the object's model in full direct light (regardless of the level's light direction).
+ * @param GameObjectReference
+ * @return n/a
+ */
+void enableAlwaysLit(GameObjectReference);
+#endif
 static int enableAlwaysLitLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1268,6 +1900,15 @@ static int enableAlwaysLitLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Disable the specified game object's "always lit" mode which will is the default setting
+ * and renders object using the level's light direction
+ * @param GameObjectReference
+ * @return n/a
+ */
+void disableAlwaysLit(GameObjectReference);
+#endif
 static int disableAlwaysLitLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1275,6 +1916,15 @@ static int disableAlwaysLitLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Add a particle system to the specified object.
+ * @param GameObjectReference
+ * @param int - number representing the particle system to load.
+ * @return n/a
+ */
+void addParticleSystem(GameObjectReference, int);
+#endif
 static int addParticleSystemLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1284,6 +1934,15 @@ static int addParticleSystemLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set a type identification number for the specified game object.
+ * @param GameObjectReference
+ * @param int ID for this game object.
+ * @return n/a
+ */
+void setTypeId(GameObjectReference, int);
+#endif
 static int setTypeIdLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1291,6 +1950,14 @@ static int setTypeIdLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Fetch the type identification number for the specified game object.
+ * @param GameObjectReference
+ * @return int - identification number.
+ */
+void getTypeId(GameObjectReference);
+#endif
 static int getTypeIdLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1298,6 +1965,17 @@ static int getTypeIdLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the rate that the specified game object should scale each game cycle.
+ * @param GameObjectReference
+ * @param x scale rate.
+ * @param y scale rate.
+ * @param z scale rate.
+ * @return n/a
+ */
+void setScaleRate(GameObjectReference, float, float, float);
+#endif
 static int setScaleRateLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1310,6 +1988,15 @@ static int setScaleRateLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set the rate that the specified game object should scale each game cycle.
+ * @param GameObjectReference
+ * @param Vector scale rate.
+ * @return n/a
+ */
+void setScaleRatev(GameObjectReference, Vector);
+#endif
 static int setScaleRatevLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1323,6 +2010,14 @@ static int setScaleRatevLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Fetch the scale for the specified game object.
+ * @param GameObjectReference
+ * @return Vector - game object's scale factor.
+ */
+Vector getScale(GameObjectReference);
+#endif
 static int getScaleLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1333,6 +2028,14 @@ static int getScaleLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Fetch the scale rate for the specified game object.
+ * @param GameObjectReference
+ * @return Vector - game object's scale rate.
+ */
+Vector getScaleRate(GameObjectReference);
+#endif
 static int getScaleRateLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1343,6 +2046,14 @@ static int getScaleRateLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Fetch variable value from specified game object's script.
+ * @param GameObjectReference
+ * @return string - variable name.
+ */
+float getScriptValue(GameObjectReference, string);
+#endif
 static int getScriptValueLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1352,6 +2063,15 @@ static int getScriptValueLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set variable value in specified game object's script.
+ * @param GameObjectReference
+ * @param float value.
+ * @return string - variable name.
+ */
+void setScriptValue(GameObjectReference, string, float);
+#endif
 static int setScriptValueLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1362,6 +2082,14 @@ static int setScriptValueLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Enable collision detection between the specified object and other game objects.
+ * @param GameObjectReference
+ * @return n/a
+ */
+void enableCollisionDetection(GameObjectReference);
+#endif
 static int enableCollisionDetectionLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1369,6 +2097,14 @@ static int enableCollisionDetectionLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Disable collision detection between the specified object and all other game objects.
+ * @param GameObjectReference
+ * @return n/a
+ */
+void disableCollisionDetection(GameObjectReference);
+#endif
 static int disableCollisionDetectionLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1376,6 +2112,15 @@ static int disableCollisionDetectionLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Query the game engine to determine if collision detection has been enabled
+ * for the specified game object.
+ * @param GameObjectReference
+ * @return bool
+ */
+void getCollisionDetectionEnabled(GameObjectReference);
+#endif
 static int getCollisionDetectionEnabledLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Object *object = static_cast<Object*>(lua_touserdata(L, 1));
@@ -1506,6 +2251,18 @@ static int getInViewLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Rotate the specified object such that it appears to be resting on the terrain.
+ * Additionally, the specified rotation will be used as the base rotation of the game object.
+ * @param GameObjectReference
+ * @param x rotation around x axis
+ * @param y rotation around y axis
+ * @param z rotation around z axis
+ * @return n/a
+ */
+void orientOnTerrain(GameObjectReference, float, float, float);
+#endif
 static int orientOnTerrainLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Model *object = static_cast<Model*>(lua_touserdata(L, 1));
@@ -1518,6 +2275,17 @@ static int orientOnTerrainLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Determine the height of the terrain beneath the specified game object and
+ * set its height to match the terrain's height at this location. The offset
+ * is used to adjust the object's height along the y axis.
+ * @param GameObjectReference
+ * @param float - height offset
+ * @return n/a
+ */
+void setHeightFromTerrain(GameObjectReference, float);
+#endif
 static int setHeightFromTerrainLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Model *object = static_cast<Model*>(lua_touserdata(L, 1));
@@ -1529,6 +2297,14 @@ static int setHeightFromTerrainLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Query the engine to determine if the specified key has been pressed this game cycle.
+ * @param int - integer representation of the key
+ * @return bool
+ */
+bool engine_testKeyPressed(int);
+#endif
 static int engine_testKeyPressedLua(lua_State *L) {
   int key = (int)lua_tonumber(L, 1);
   int result = (int)(g_script_engine->getKeyState()->testKeyPressed(key));
@@ -1537,6 +2313,14 @@ static int engine_testKeyPressedLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Query the engine to determine if the specified key has been released this game cycle.
+ * @param int - integer representation of the key
+ * @return bool
+ */
+bool engine_testKeyReleased(int);
+#endif
 static int engine_testKeyReleasedLua(lua_State *L) {
   int key = (int)lua_tonumber(L, 1);
   int result = (int)(g_script_engine->getKeyState()->testKeyReleased(key));
@@ -1544,6 +2328,14 @@ static int engine_testKeyReleasedLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Query the engine to determine if the specified key has been pressed this game cycle.
+ * @param int - integer representation of the special key
+ * @return bool
+ */
+bool engine_testKeyPressed(int);
+#endif
 static int engine_testSpecialKeyPressedLua(lua_State *L) {
   int key = (int)lua_tonumber(L, 1);
   int result = (int)(g_script_engine->getSpecialKeyState()->testKeyPressed(key));
@@ -1552,6 +2344,14 @@ static int engine_testSpecialKeyPressedLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Query the engine to determine if the specified key has been released this game cycle.
+ * @param int - integer representation of the special key
+ * @return bool
+ */
+bool engine_testSpecialKeyRelease(int);
+#endif
 static int engine_testSpecialKeyReleasedLua(lua_State *L) {
   int key = (int)lua_tonumber(L, 1);
   int result = (int)(g_script_engine->getSpecialKeyState()->testKeyReleased(key));
@@ -1559,13 +2359,26 @@ static int engine_testSpecialKeyReleasedLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Query the engine for the state of the compiler's DEBUG flag.
+ * @return bool
+ */
+bool engine_testDebugEnabled();
+#endif
 static int engine_testDebugEnabledLua(lua_State *L) {
   lua_pushnumber(L, DEBUG);
   return 1;
 }
 
-static int engine_getMouseCoordinatesLua(lua_State *L)
-{
+#if DOXYGEN_ONLY
+/**
+ * Query the engine to determine the mouse's last known coordinates.
+ * @return Vertex2 - x, y coordinate of the mouse.
+ */
+Vertex2 engine_getMouseCoordinates();
+#endif
+static int engine_getMouseCoordinatesLua(lua_State *L) {
   float x = g_script_engine->getMouseX();
   float y = g_script_engine->getMouseY();
 
@@ -1581,6 +2394,14 @@ static int engine_getMouseCoordinatesLua(lua_State *L)
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Query the engine for a game object of the specified type.
+ * @param int - ID of object type to find.
+ * @return Vertex2 - x, y coordinate of the mouse.
+ */
+GameObjectReference level_findObjectOfType(int);
+#endif
 static int level_findObjectOfTypeLua(lua_State *L) {
   int type = (int)lua_tonumber(L, 1);
   Object *temp = g_script_game_level->findEnemyOfType(type);
@@ -1698,6 +2519,17 @@ static int terrain_getHeightLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Add to the camera's rotation.
+ * @param GameObjectReference
+ * @param float x rotation component.
+ * @param float y rotation component.
+ * @param float z rotation component.
+ * @return n/a
+ */
+void camera_addRotation(CameraObjectReference, float, float, float);
+#endif
 static int camera_addRotationLua(lua_State *L) {
   luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
   Camera *object = static_cast<Camera*>(lua_touserdata(L, 1));
@@ -1709,6 +2541,15 @@ static int camera_addRotationLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Return the camera's frustum plane.
+ * @param GameObjectReference
+ * @param int plane number.
+ * @return - table containing four plane points (a, b, c, & d).
+ */
+table camera_getFrustumPlane(int);
+#endif
 static int camera_getFrustumPlaneLua(lua_State *L) {
   int plane_num = lua_tonumber(L,1);
   float a, b, c, d;
