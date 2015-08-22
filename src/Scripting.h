@@ -2414,6 +2414,15 @@ static int level_findObjectOfTypeLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Calculate scalar value between two vectors.
+ * @param Vector
+ * @param Vector
+ * @return float
+ */
+float vector_getScalar(Vector, Vector);
+#endif
 static int vector_getScalarLua(lua_State *L) {
   Vector t = loadVector(L);
   Vector u = loadVector(L);
@@ -2421,6 +2430,14 @@ static int vector_getScalarLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Normalize vector.
+ * @param Vector
+ * @return Vector
+ */
+Vector vector_normalize(Vector, Vector);
+#endif
 static int vector_normalizeLua(lua_State *L) {
   Vector t = loadVector(L);
   t.normalize();
@@ -2428,6 +2445,15 @@ static int vector_normalizeLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Calculate dot product between two vectors.
+ * @param Vector
+ * @param Vector
+ * @return float - dot product.
+ */
+float vector_dotProduct(Vector, Vector);
+#endif
 static int vector_dotProductLua(lua_State *L) {
   Vector t = loadVector(L);
   Vector u = loadVector(L);
@@ -2436,6 +2462,15 @@ static int vector_dotProductLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Calculate cross product between two vectors.
+ * @param Vector
+ * @param Vector
+ * @return Vector
+ */
+Vector vector_crossProduct(Vector, Vector);
+#endif
 static int vector_crossProductLua(lua_State *L) {
   Vector t = loadVector(L);
   Vector u = loadVector(L);
@@ -2445,6 +2480,15 @@ static int vector_crossProductLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Get height of terrain at specified x,z coordinates.
+ * @param int x coordinate.
+ * @param int z coordinate.
+ * @return Vector
+ */
+Vector terrain_getVertexHeight(int, int);
+#endif
 static int terrain_getVertexHeightLua(lua_State *L) {
   int x = lua_tonumber(L,1);
   int z = lua_tonumber(L,2);
@@ -2456,6 +2500,15 @@ static int terrain_getVertexHeightLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Get color of terrain at specified x,z coordinates.
+ * @param int x coordinate.
+ * @param int z coordinate.
+ * @return Vector
+ */
+Vector terrain_getVertexType(int, int);
+#endif
 static int terrain_getVertexColorLua(lua_State *L) {
   int x = lua_tonumber(L,1);
   int z = lua_tonumber(L,2);
@@ -2467,6 +2520,15 @@ static int terrain_getVertexColorLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Get type of terrain at specified x,z coordinates.
+ * @param int x coordinate.
+ * @param int z coordinate.
+ * @return float - type.
+ */
+float terrain_getVertexType(int, int);
+#endif
 static int terrain_getVertexTypeLua(lua_State *L) {
   int x = lua_tonumber(L,1);
   int z = lua_tonumber(L,2);
@@ -2478,6 +2540,16 @@ static int terrain_getVertexTypeLua(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set height of terrain at specified x,z coordinates.
+ * @param int x coordinate.
+ * @param int z coordinate.
+ * @param float height
+ * @return n/a.
+ */
+void terrain_setVertexHeight(int, int, Vector);
+#endif
 static int terrain_setVertexHeightLua(lua_State *L) {
   int x = lua_tonumber(L,1);
   int z = lua_tonumber(L,2);
@@ -2488,6 +2560,16 @@ static int terrain_setVertexHeightLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set type of terrain at specified x,z coordinates.
+ * @param int x coordinate.
+ * @param int z coordinate.
+ * @param Vector containing r,g,b values.
+ * @return n/a.
+ */
+void terrain_setVertexType(int, int, Vector);
+#endif
 static int terrain_setVertexColorLua(lua_State *L) {
   int x = lua_tonumber(L,1);
   int z = lua_tonumber(L,2);
@@ -2498,6 +2580,16 @@ static int terrain_setVertexColorLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Set type of terrain at specified x,z coordinates.
+ * @param int x coordinate.
+ * @param int z coordinate.
+ * @param int type
+ * @return n/a.
+ */
+void terrain_setVertexType(int, int, int);
+#endif
 static int terrain_setVertexTypeLua(lua_State *L) {
   int x = lua_tonumber(L,1);
   int z = lua_tonumber(L,2);
@@ -2508,6 +2600,15 @@ static int terrain_setVertexTypeLua(lua_State *L) {
   return 0;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Get height of terrain at specified x,z coordinates.
+ * @param int x coordinate.
+ * @param int z coordinate.
+ * @return float - height.
+ */
+float terrain_getHeight(int, int);
+#endif
 static int terrain_getHeightLua(lua_State *L) {
   float x = lua_tonumber(L,1);
   float z = lua_tonumber(L,2);
