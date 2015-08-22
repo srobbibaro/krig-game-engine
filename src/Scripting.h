@@ -1758,29 +1758,25 @@ static int playSoundLua(lua_State *L) {
 #if DOXYGEN_ONLY
 /**
  * Add a game object to the current level.
- * @param TerrainReference
- * @param string - path to lua game object script for this object to use.
- * @param float - values to be passed into the "on_load" method for the game object.
+ * @param string - path to lua script for new game object to load.
+ * @param float, ... - values to be passed into the "on_load" method for the game object.
  * @return GameObjectReference
  */
-GameObjectReference addObject(TerrainReference, string, float, float, ...);
+GameObjectReference addObject(string, float, ...);
 #endif
 static int addObjectLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-
-  const char *s = lua_tostring(L, 2);
+  const char *s = lua_tostring(L, 1);
   string script = string(s);
 
   int n = lua_gettop(L);
-  n = n - 2;
+  n = n - 1;
 
   if (n > 8) n = 8;
 
   float args[8];
 
   for (int i = 0; i < n; i++) {
-    args[i] = lua_tonumber(L, i+3);
+    args[i] = lua_tonumber(L, i+2);
   }
 
   ScriptedObject * temp = g_script_game_level->addObject(script, args, n);
@@ -1793,31 +1789,29 @@ static int addObjectLua(lua_State *L) {
 /**
  * Add a game object to the current level.
  * @param TerrainReference
- * @param string - path to lua script for this text object to use.
+ * @param string - path to lua script for new text object to load.
+ * @param string - text.
  * @param float - values to be passed into the "on_load" method for the game object.
  * @return TextObjectReference
  */
-TextObjectReference addText(TerrainReference, string, float, float, ...);
+TextObjectReference addText(string string, float, ...);
 #endif
 static int addTextLua(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
-
-  const char *s = lua_tostring(L, 2);
+  const char *s = lua_tostring(L, 1);
   string script = string(s);
 
-  const char *t = lua_tostring(L, 3);
+  const char *t = lua_tostring(L, 2);
   string text = string(t);
 
   int n = lua_gettop(L);
-  n = n - 3;
+  n = n - 2;
 
   if (n > 8) n = 8;
 
   float args[8];
 
   for (int i = 0; i < n; i++) {
-    args[i] = lua_tonumber(L, i+4);
+    args[i] = lua_tonumber(L, i+3);
   }
 
   ScriptTextType *temp = g_script_game_level->addScriptTextType(script, args, n);

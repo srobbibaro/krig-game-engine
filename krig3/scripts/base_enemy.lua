@@ -38,11 +38,11 @@ function create_powerup(this, powerup_num)
   local obj = nil
 
   if powerup_num == 1 then
-    obj = addObject(this, "./scripts/powerup1.lua")
+    obj = addObject("./scripts/powerup1.lua")
   elseif powerup_num == 2 then
-    obj = addObject(this, "./scripts/powerup2.lua")
+    obj = addObject("./scripts/powerup2.lua")
   elseif powerup_num == 3 then
-    obj = addObject(this, "./scripts/powerup3.lua")
+    obj = addObject("./scripts/powerup3.lua")
   end
 
   if obj ~= nil then
@@ -54,7 +54,7 @@ end
 function create_explosion(this)
   this_position = getPosition(this)
 
-  obj = addObject(this, "./scripts/explosion.lua")
+  obj = addObject("./scripts/explosion.lua")
   setPosition(obj, this_position[1], this_position[2], this_position[3])
 end
 
@@ -63,7 +63,7 @@ function create_score_text(this)
   cam_vel       = getVelocity(camera)
   this_position = getPosition(this)
 
-  obj = addText(this, "./scripts/camera1.lua", score)
+  obj = addText("./scripts/camera1.lua", score)
 
   setPositionv(obj, this_position)
   setScale(obj, 0.25, 0.25, 0.0)

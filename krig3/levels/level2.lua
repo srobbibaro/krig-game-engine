@@ -53,7 +53,7 @@ function on_update(terrain, elapsedTime)
       setVelocity(player, (plr_vel[1] - 10.0), plr_vel[2], plr_vel[3])
 
       -- Create the boss...
-      boss = addObject(terrain, "./scripts/boss2.lua")
+      boss = addObject("./scripts/boss2.lua")
       setPosition(boss, 1960.0, 15.0, 7.5)
     end
   elseif bossBattle == 1 then
@@ -81,20 +81,20 @@ function on_draw() end
 -- Helper Functions
 function setupEnemyShips(terrain)
   -- Intro ships
-  obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+  obj = addObject("./scripts/enemy_ship1.lua")
   setPosition(obj, 160, 15, 7.5)
 
-  obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+  obj = addObject("./scripts/enemy_ship1.lua")
   setPosition(obj, 180, 22, 7.5)
 
-  obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+  obj = addObject("./scripts/enemy_ship1.lua")
   setPosition(obj, 200, 20, 7.5)
 
-  obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+  obj = addObject("./scripts/enemy_ship1.lua")
   setPosition(obj, 220, 10, 7.5)
 
   -- The trickster...
-  obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+  obj = addObject("./scripts/enemy_ship1.lua")
   setPosition(obj, 260, 17, 7.5)
 
   -- "V" groups.
@@ -122,21 +122,21 @@ function setupEnemyShips(terrain)
 end
 
 function setupFlyingCircleEnemyShips(terrain)
-  obj = addObject(terrain, "./scripts/enemy_ship12.lua")
+  obj = addObject("./scripts/enemy_ship12.lua")
   setPosition(obj, 1410.0, 5.0, 7.5)
-  obj = addObject(terrain, "./scripts/enemy_ship12.lua")
+  obj = addObject("./scripts/enemy_ship12.lua")
   setPosition(obj, 1420.0, 8.0, 7.5)
-  obj = addObject(terrain, "./scripts/enemy_ship12.lua")
+  obj = addObject("./scripts/enemy_ship12.lua")
   setPosition(obj, 1430.0, 11.0, 7.5)
-  obj = addObject(terrain, "./scripts/enemy_ship12.lua")
+  obj = addObject("./scripts/enemy_ship12.lua")
   setPosition(obj, 1440.0, 13.0, 7.5)
-  obj = addObject(terrain, "./scripts/enemy_ship12.lua")
+  obj = addObject("./scripts/enemy_ship12.lua")
   setPosition(obj, 1450.0, 13.0, 7.5)
-  obj = addObject(terrain, "./scripts/enemy_ship12.lua")
+  obj = addObject("./scripts/enemy_ship12.lua")
   setPosition(obj, 1460.0, 11.0, 7.5)
-  obj = addObject(terrain, "./scripts/enemy_ship12.lua")
+  obj = addObject("./scripts/enemy_ship12.lua")
   setPosition(obj, 1470.0, 8.0, 7.5)
-  obj = addObject(terrain, "./scripts/enemy_ship12.lua")
+  obj = addObject("./scripts/enemy_ship12.lua")
   setPosition(obj, 1480.0, 5.0, 7.5)
 
   buildFlyingCircleUpGroup(terrain, 4, 5, 1510.0, 11.0, 7.5)

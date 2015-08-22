@@ -102,40 +102,40 @@ function on_load(terrain)
   addParticleSystem(camera, 1)
 
   for i, v in ipairs(asteroid_wave1) do
-    obj = addObject(terrain, "./scripts/asteroid_space.lua")
+    obj = addObject("./scripts/asteroid_space.lua")
     setPositionv(obj, v.position)
     setVelocityv(obj, v.velocity)
   end
 
   for i, v in ipairs(enemy_ship_wave1) do
-    obj = addObject(terrain, v.script)
+    obj = addObject(v.script)
     setPositionv(obj, v.position)
   end
 
-  obj = addObject(terrain, "./scripts/redrock.lua")
+  obj = addObject("./scripts/redrock.lua")
   setPosition(obj, 175.0, 6.0, -30.0)
   setScale(obj, 25.0, 25.0, 25.0)
 
-  obj = addObject(terrain, "./scripts/redrock.lua")
+  obj = addObject("./scripts/redrock.lua")
   setPosition(obj, 255.0, 9.0, -60.0)
   setRotation(obj, 3.14, 3.14, 3.14)
   setScale(obj, 35.0, 35.0, 35.0)
 
-  obj = addObject(terrain, "./scripts/redrock.lua")
+  obj = addObject("./scripts/redrock.lua")
   setPosition(obj, 295.0, 20.0, -15.0)
   setRotation(obj, 3.14, 0.0, 1.57)
   setScale(obj, 15.0, 15.0, 15.0)
 
-  obj = addObject(terrain, "./scripts/redrock.lua")
+  obj = addObject("./scripts/redrock.lua")
   setPosition(obj, 350.0, -22.0, -80.0)
   setScale(obj, 25.0, 25.0, 25.0)
 
-  obj = addObject(terrain, "./scripts/redrock.lua")
+  obj = addObject("./scripts/redrock.lua")
   setPosition(obj, 430.0, 42.0, -70.0)
   setRotation(obj, 3.14, 0.0, 1.57)
   setScale(obj, 35.0, 35.0, 35.0)
 
-  obj = addObject(terrain, "./scripts/redrock.lua")
+  obj = addObject("./scripts/redrock.lua")
   setPosition(obj, 400.0, 10.0, -45.0)
   setRotation(obj, 1.57, 1.57, 1.57)
   setScale(obj, 15.0, 15.0, 15.0)
@@ -151,7 +151,7 @@ function on_update(terrain, elapsedTime)
     if cam_pos[1] >= 800 then
       setVelocity(camera, 0.0, 0.0, 0.0)
       boss_battle = 1
-      boss = addObject(terrain, "./scripts/boss5.lua")
+      boss = addObject("./scripts/boss5.lua")
       setPosition(boss, cam_pos[1] - 20.0, cam_pos[2], 0.0)
     end
   elseif boss_battle == 1 then
@@ -159,7 +159,7 @@ function on_update(terrain, elapsedTime)
     next_background = next_background - elapsedTime
 
     if next_asteroid <= 0.0 then
-      obj = addObject(terrain, "./scripts/asteroid3.lua")
+      obj = addObject("./scripts/asteroid3.lua")
       setRotation(obj, math.random(3), math.random(3), math.random(3))
       setVelocity(obj, -28.0, 0.0, 0.0)
       next_asteroid = 0.1

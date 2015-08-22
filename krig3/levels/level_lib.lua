@@ -111,19 +111,19 @@ end
 
 function buildCircleGroup(terrain, num, x, y, z)
   for i = 0, num, 1 do
-    obj = addObject(terrain, "./scripts/enemy_ship10.lua")
+    obj = addObject("./scripts/enemy_ship10.lua")
     setPosition(obj, x + (i * 5.0), y, z)
   end
 end
 
 function buildVGroup(terrain, x,y,z)
   -- Leader
-  obj = addObject(terrain, "./scripts/enemy_ship1.lua")
+  obj = addObject("./scripts/enemy_ship1.lua")
   setPosition(obj, x, y, z)
 
   -- First two
-  obj1 = addObject(terrain, "./scripts/enemy_ship1.lua")
-  obj2 = addObject(terrain, "./scripts/enemy_ship1.lua")
+  obj1 = addObject("./scripts/enemy_ship1.lua")
+  obj2 = addObject("./scripts/enemy_ship1.lua")
   x = x + 2
   y1 = y + 2
   y2 = y - 2
@@ -131,8 +131,8 @@ function buildVGroup(terrain, x,y,z)
   setPosition(obj2, x, y2, z)
 
   -- Back two
-  obj1 = addObject(terrain, "./scripts/enemy_ship1.lua")
-  obj2 = addObject(terrain, "./scripts/enemy_ship1.lua")
+  obj1 = addObject("./scripts/enemy_ship1.lua")
+  obj2 = addObject("./scripts/enemy_ship1.lua")
   x = x + 2
   y1 = y1 + 2
   y2 = y2 - 2
@@ -141,54 +141,54 @@ function buildVGroup(terrain, x,y,z)
 end
 
 function setup_volcano(terrain, xpos, zpos)
-  local obj = addObject(terrain, "./scripts/volcano.lua")
+  local obj = addObject("./scripts/volcano.lua")
   setPosition(obj, xpos, 20.0, zpos)
 
   for i = -15.0, 25.0, 10 do
-    obj = addObject( terrain, "./scripts/lavarock1.lua" )
+    obj = addObject("./scripts/lavarock1.lua")
     setPosition( obj, xpos, i, zpos )
   end
 
   for i = -20.0, 20.0, 10 do
-    obj = addObject( terrain, "./scripts/lavarock2.lua" )
+    obj = addObject("./scripts/lavarock2.lua")
     setPosition( obj, xpos, i, zpos )
   end
 end
 
 function setAsteroidWave(terrain, x_start, x_end)
   for i = x_start, x_end, 15 do
-    obj = addObject(terrain, "./scripts/asteroid.lua")
+    obj = addObject("./scripts/asteroid.lua")
     setPosition(obj, i, 30.0, 7.5)
 
-    obj = addObject(terrain, "./scripts/asteroid.lua")
+    obj = addObject("./scripts/asteroid.lua")
     setPosition(obj, (i + 5.0), 30.0, 7.5)
 
-    obj = addObject(terrain, "./scripts/asteroid.lua")
+    obj = addObject("./scripts/asteroid.lua")
     setPosition(obj, (i + 10.0), 30.0, 7.5)
   end
 end
 
 function setSweepingFromAboveEnemyShips(terrain, x_start, x_end, x_step, y, z)
   for i = x_start, x_end, x_step do
-    obj = addObject(terrain, "./scripts/enemy_ship2.lua")
+    obj = addObject("./scripts/enemy_ship2.lua")
     setPosition(obj, i, y, z)
   end
 end
 
 function setSweepingFromBelowEnemyShips(terrain, x_start, x_end, x_step, y, z)
   for i = x_start, x_end, x_step do
-    obj = addObject(terrain, "./scripts/enemy_ship3.lua")
+    obj = addObject("./scripts/enemy_ship3.lua")
     setPosition(obj, i, y, z)
   end
 end
 
 function buildDockedGroup(terrain, x_start, x_end, x_step, y, z)
   for i = x_start, x_end, x_step do
-    obj = addObject(terrain, "./scripts/enemy_ship11.lua")
+    obj = addObject("./scripts/enemy_ship11.lua")
     setPosition(obj, i, y, z)
     setRotation(obj, 0.2, 0.0, 0.0)
 
-    obj = addObject(terrain, "./scripts/enemy_ship11.lua")
+    obj = addObject("./scripts/enemy_ship11.lua")
     setPosition(obj, i + 5.0, y, z)
     setRotation(obj, 0.2, 0.0, 0.0)
   end
@@ -196,14 +196,14 @@ end
 
 function buildFlyingCircleUpGroup(terrain, num, space, x_start, y, z)
   for i = 0, num, 1 do
-    obj = addObject(terrain, "./scripts/enemy_ship12.lua")
+    obj = addObject("./scripts/enemy_ship12.lua")
     setPosition(obj, x_start + (i * space), y, z)
   end
 end
 
 function buildFlyingCircleDownGroup(terrain, num, space, x_start, y, z)
   for i = 0, num, 1 do
-    obj = addObject(terrain, "./scripts/enemy_ship13.lua")
+    obj = addObject("./scripts/enemy_ship13.lua")
     setPosition(obj, x_start + (i * space), y, z)
   end
 end

@@ -14,7 +14,7 @@ function setShot(this, script, dir_offset, up_offset)
   if up_offset == nil then up_offset = 0 end
   if dir_offset == nil then dir_offset = 0 end
 
-  obj           = addObject(this, script)
+  obj           = addObject(script)
   direction     = getDirection(this)
   up            = getUp(this)
   this_position = getPosition(this)
@@ -127,7 +127,7 @@ end
 
 function attemptShot(this, dir_offset, up_offset)
   if next_shot_time <= 0.0 then
-    shot = addObject(this, script)
+    shot = addObject(script)
     setShotNew(this, shot, dir_offset, up_offset)
     next_shot_time = initial_next_shot_time
   end
@@ -135,7 +135,7 @@ end
 
 function attemptShotWithDirection(this, direction, dir_offset, up_offset)
   if next_shot_time <= 0.0 then
-    shot = addObject(this, script)
+    shot = addObject(script)
     setShotWithDirectionNew(this, shot, direction, dir_offset, up_offset)
     next_shot_time = initial_next_shot_time
   end
@@ -146,7 +146,7 @@ function attemptShots(this, num_shots, dir_offset, up_offset)
 
   if next_shot_time <= 0.0 then
     for i = 1, num_shots do
-      shot = addObject(this, script)
+      shot = addObject(script)
       setShotNew(this, shot, dir_offset[i], up_offset[i])
     end
     next_shot_time = initial_next_shot_time
