@@ -38,6 +38,49 @@ extern Object* g_script_camera;
 extern GameLevel* g_script_game_level;
 extern Engine* g_script_engine;
 
+// helpers ////////////////////////////////////////////////////////////////////
+static Vector loadVector(lua_State *L) {
+  Vector t;
+
+  // x
+  lua_pushnumber(L, 1);
+  lua_gettable(L, -2);
+  t.x = (float)lua_tonumber(L, -1);
+  lua_pop(L, 1);
+
+  // y
+  lua_pushnumber(L, 2);
+  lua_gettable(L, -2);
+  t.y = (float)lua_tonumber(L, -1);
+  lua_pop(L, 1);
+
+  // z
+  lua_pushnumber(L, 3);
+  lua_gettable(L, -2);
+  t.z = (float)lua_tonumber(L, -1);
+  lua_pop(L, 1);
+
+  lua_pop(L, 1);
+
+  return t;
+}
+
+static void returnVector(lua_State *L, Vector &t) {
+  lua_newtable(L);
+
+  lua_pushnumber(L, 1);
+  lua_pushnumber(L, t.x);
+  lua_rawset(L, -3);
+
+  lua_pushnumber(L, 2);
+  lua_pushnumber(L, t.y);
+  lua_rawset(L, -3);
+
+  lua_pushnumber(L, 3);
+  lua_pushnumber(L, t.z);
+  lua_rawset(L, -3);
+}
+
 // Lua API ////////////////////////////////////////////////////////////////////
 /** @name Game
  *  Game functions are only available in game scripts.
@@ -2678,49 +2721,6 @@ static int camera_getFrustumPlaneLua(lua_State *L) {
   return 1;
 }
 ///@}
-
-// helpers ////////////////////////////////////////////////////////////////////
-static Vector loadVector(lua_State *L) {
-  Vector t;
-
-  // x
-  lua_pushnumber(L, 1);
-  lua_gettable(L, -2);
-  t.x = (float)lua_tonumber(L, -1);
-  lua_pop(L, 1);
-
-  // y
-  lua_pushnumber(L, 2);
-  lua_gettable(L, -2);
-  t.y = (float)lua_tonumber(L, -1);
-  lua_pop(L, 1);
-
-  // z
-  lua_pushnumber(L, 3);
-  lua_gettable(L, -2);
-  t.z = (float)lua_tonumber(L, -1);
-  lua_pop(L, 1);
-
-  lua_pop(L, 1);
-
-  return t;
-}
-
-static void returnVector(lua_State *L, Vector &t) {
-  lua_newtable(L);
-
-  lua_pushnumber(L, 1);
-  lua_pushnumber(L, t.x);
-  lua_rawset(L, -3);
-
-  lua_pushnumber(L, 2);
-  lua_pushnumber(L, t.y);
-  lua_rawset(L, -3);
-
-  lua_pushnumber(L, 3);
-  lua_pushnumber(L, t.z);
-  lua_rawset(L, -3);
-}
 
 static int registerFunctions(lua_State *L, int level) {
   // game objects
