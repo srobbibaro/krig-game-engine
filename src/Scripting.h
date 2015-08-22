@@ -2543,12 +2543,12 @@ static int camera_addRotationLua(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Return the camera's frustum plane.
+ * Return the definition of he specified plane, a list containing A, B, C and D, where: Ax + By + Cz + D = 0.
  * @param GameObjectReference
- * @param int plane number.
- * @return - table containing four plane points (a, b, c, & d).
+ * @param int plane number (0-6), where: 0 - left, 1 - right, 2 - down, 3 - up, 4 - far, and 5 - near.
+ * @return array - definition of plane.
  */
-table camera_getFrustumPlane(int);
+array camera_getFrustumPlane(int);
 #endif
 static int camera_getFrustumPlaneLua(lua_State *L) {
   int plane_num = lua_tonumber(L,1);
