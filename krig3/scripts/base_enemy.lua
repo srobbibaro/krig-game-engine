@@ -23,7 +23,7 @@ function handle_collision(this, temp)
         create_powerup(this, 1)
       elseif powerup_rand  >= 10 and powerup_rand < 20 then
         create_powerup(this, 2)
-      elseif powerup_rand  >= 20 and powerup_rand < 30 then
+      elseif powerup_rand  >= 20 and powerup_rand < 25 then
         create_powerup(this, 3)
       else
         create_explosion(this)
