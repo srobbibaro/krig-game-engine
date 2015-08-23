@@ -90,14 +90,14 @@ function on_load(terrain)
   setPosition(obj, 390, 8, 7.5)
 
   --  setup the asteroids --
-  setAsteroidWave(terrain, 410.0, 560.0)
+  setAsteroidWave(410.0, 560.0)
 
   --  sweeping enemy ships
-  setSweepingFromAboveEnemyShips(terrain, 610, 635, 5, 22.0, 7.5)
-  setSweepingFromBelowEnemyShips(terrain, 675, 700, 5, 8.0, 7.5)
+  setSweepingFromAboveEnemyShips(610, 635, 5, 22.0, 7.5)
+  setSweepingFromBelowEnemyShips(675, 700, 5, 8.0, 7.5)
 
   -- 2nd wave of asteroids --
-  setAsteroidWave(terrain, 730.0, 810.0)
+  setAsteroidWave(730.0, 810.0)
 
   -- last wave - crashing ships --
   obj6 = addObject("./scripts/enemy_ship4.lua")

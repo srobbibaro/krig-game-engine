@@ -109,14 +109,14 @@ function update_level(timeElapsed, bossLife)
   end
 end
 
-function buildCircleGroup(terrain, num, x, y, z)
+function buildCircleGroup(num, x, y, z)
   for i = 0, num, 1 do
     obj = addObject("./scripts/enemy_ship10.lua")
     setPosition(obj, x + (i * 5.0), y, z)
   end
 end
 
-function buildVGroup(terrain, x,y,z)
+function buildVGroup(x, y, z)
   -- Leader
   obj = addObject("./scripts/enemy_ship1.lua")
   setPosition(obj, x, y, z)
@@ -140,7 +140,7 @@ function buildVGroup(terrain, x,y,z)
   setPosition(obj2, x, y2, z)
 end
 
-function setup_volcano(terrain, xpos, zpos)
+function setup_volcano(xpos, zpos)
   local obj = addObject("./scripts/volcano.lua")
   setPosition(obj, xpos, 20.0, zpos)
 
@@ -155,7 +155,7 @@ function setup_volcano(terrain, xpos, zpos)
   end
 end
 
-function setAsteroidWave(terrain, x_start, x_end)
+function setAsteroidWave(x_start, x_end)
   for i = x_start, x_end, 15 do
     obj = addObject("./scripts/asteroid.lua")
     setPosition(obj, i, 30.0, 7.5)
@@ -168,21 +168,21 @@ function setAsteroidWave(terrain, x_start, x_end)
   end
 end
 
-function setSweepingFromAboveEnemyShips(terrain, x_start, x_end, x_step, y, z)
+function setSweepingFromAboveEnemyShips(x_start, x_end, x_step, y, z)
   for i = x_start, x_end, x_step do
     obj = addObject("./scripts/enemy_ship2.lua")
     setPosition(obj, i, y, z)
   end
 end
 
-function setSweepingFromBelowEnemyShips(terrain, x_start, x_end, x_step, y, z)
+function setSweepingFromBelowEnemyShips(x_start, x_end, x_step, y, z)
   for i = x_start, x_end, x_step do
     obj = addObject("./scripts/enemy_ship3.lua")
     setPosition(obj, i, y, z)
   end
 end
 
-function buildDockedGroup(terrain, x_start, x_end, x_step, y, z)
+function buildDockedGroup(x_start, x_end, x_step, y, z)
   for i = x_start, x_end, x_step do
     obj = addObject("./scripts/enemy_ship11.lua")
     setPosition(obj, i, y, z)
@@ -194,14 +194,14 @@ function buildDockedGroup(terrain, x_start, x_end, x_step, y, z)
   end
 end
 
-function buildFlyingCircleUpGroup(terrain, num, space, x_start, y, z)
+function buildFlyingCircleUpGroup(num, space, x_start, y, z)
   for i = 0, num, 1 do
     obj = addObject("./scripts/enemy_ship12.lua")
     setPosition(obj, x_start + (i * space), y, z)
   end
 end
 
-function buildFlyingCircleDownGroup(terrain, num, space, x_start, y, z)
+function buildFlyingCircleDownGroup(num, space, x_start, y, z)
   for i = 0, num, 1 do
     obj = addObject("./scripts/enemy_ship13.lua")
     setPosition(obj, x_start + (i * space), y, z)
