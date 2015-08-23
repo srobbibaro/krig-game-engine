@@ -58,7 +58,7 @@ class GameLevel {
     void prepareObjects();
     void animateObjects(float);
 
-    ScriptedObject* addObject(string script, float args[], int n) {
+    ScriptedObject* addObject(string script, lua_State* luaState) {
       ScriptedObject *temp = static_cast<ScriptedObject*> (freeObjects_[script].head);
 
       if (temp != NULL) {
@@ -81,12 +81,12 @@ class GameLevel {
       objects_.insertFront(temp);
       //temp->unloadScript();
 
-      temp->loadScript(script, args, n);
+      temp->loadScript(script, luaState);
 
       return temp;
     }
 
-    ScriptTextType* addScriptTextType(string script, float args[], int n) {
+    ScriptTextType* addScriptTextType(string script,  lua_State* luaState) {
       ScriptTextType *temp = static_cast<ScriptTextType*> (freeObjects_[script].head);
 
       if (temp != NULL) {
@@ -109,7 +109,7 @@ class GameLevel {
 
       objects_.insertFront(temp);
       //temp->unloadScript();
-      temp->loadScript(script, args, n);
+      temp->loadScript(script, luaState);
 
       return temp;
     }

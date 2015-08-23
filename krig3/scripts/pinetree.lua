@@ -1,7 +1,11 @@
 -- Overridden Engine Callbacks
-function on_load(this, x_pos, z_pos, scale_factor)
+function on_load(this, options)
   setModel(this, "Pinetree.mdl")
   setRotation(this, 0.0, 0.0, 0.0)
+
+  scale_factor = options.scale_factor
+  x_pos        = options.x_pos
+  z_pos        = options.z_pos
 
   if scale_factor ~= nil then
     setScale(this, scale_factor, scale_factor, scale_factor)

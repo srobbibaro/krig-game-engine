@@ -49,7 +49,7 @@ class Object : public ObjectNode {
     void initSettings(void);
     void cleanup(void);
 
-    void loadScript(string file, float args[], int n);
+    void loadScript(string file, lua_State* luaState);
     void animateScript(float elapsedTime);
     void unloadScript();
 

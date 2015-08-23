@@ -1759,27 +1759,16 @@ static int playSoundLua(lua_State *L) {
 /**
  * Add a game object to the current level.
  * @param string - path to lua script for new game object to load.
- * @param float, ... - values to be passed into the "on_load" method for the game object.
+ * @param table - options table to be passed into the "on_load" method for the game object.
  * @return GameObjectReference
  */
-GameObjectReference addObject(string, float, ...);
+GameObjectReference addObject(string, options);
 #endif
 static int addObjectLua(lua_State *L) {
   const char *s = lua_tostring(L, 1);
   string script = string(s);
 
-  int n = lua_gettop(L);
-  n = n - 1;
-
-  if (n > 8) n = 8;
-
-  float args[8];
-
-  for (int i = 0; i < n; i++) {
-    args[i] = lua_tonumber(L, i+2);
-  }
-
-  ScriptedObject * temp = g_script_game_level->addObject(script, args, n);
+  ScriptedObject * temp = g_script_game_level->addObject(script, L);
 
   lua_pushlightuserdata(L, (void*)temp);
   return 1;
@@ -1791,10 +1780,10 @@ static int addObjectLua(lua_State *L) {
  * @param TerrainReference
  * @param string - path to lua script for new text object to load.
  * @param string - text.
- * @param float - values to be passed into the "on_load" method for the game object.
+ * @param table - options table to be passed into the "on_load" method for the text object.
  * @return TextObjectReference
  */
-TextObjectReference addText(string string, float, ...);
+TextObjectReference addText(string, string, options);
 #endif
 static int addTextLua(lua_State *L) {
   const char *s = lua_tostring(L, 1);
@@ -1803,18 +1792,7 @@ static int addTextLua(lua_State *L) {
   const char *t = lua_tostring(L, 2);
   string text = string(t);
 
-  int n = lua_gettop(L);
-  n = n - 2;
-
-  if (n > 8) n = 8;
-
-  float args[8];
-
-  for (int i = 0; i < n; i++) {
-    args[i] = lua_tonumber(L, i+3);
-  }
-
-  ScriptTextType *temp = g_script_game_level->addScriptTextType(script, args, n);
+  ScriptTextType *temp = g_script_game_level->addScriptTextType(script, L);
   temp->text = text;
 
   lua_pushlightuserdata(L, (void*)temp);
@@ -1912,11 +1890,9 @@ static int setScriptLua(lua_State *L) {
   const char *s = lua_tostring(L, 2);
   string script = string(s);
 
-  float args[8];
-
   object->unloadScript();
   object->setScript(script);
-  object->loadScript(script, args, 0);
+  object->loadScript(script, L);
 
   return 0;
 }

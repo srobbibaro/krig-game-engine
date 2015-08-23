@@ -123,29 +123,48 @@ void Object::setScript( string name ) {
 }
 
 //------------------------------------------------------------------------------
-void Object::loadScript(string name, float args[], int n) {
-  // Load this object's animation script
-  //luaL_dofile(L_, scriptName_.c_str());
-
+void Object::loadScript(string name, lua_State* luaState) {
   if (scriptIndex_ == -1)
     return;
 
-  lua_rawgeti( L_, LUA_REGISTRYINDEX, scriptIndex_);
+  lua_rawgeti(L_, LUA_REGISTRYINDEX, scriptIndex_);
   lua_call(L_, 0, 0);
 
   // Find the update function and call it
   lua_getglobal(L_, SCRIPT_CALLBACK_ON_LOAD);
 
+  // Push a pointer to the current object for use within the lua function
   if (lua_isfunction (L_, -1)) {
-    // Push a pointer to the current object for use within the lua function
     lua_pushlightuserdata(L_, (void*)this);
+    lua_newtable(L_);
 
-    for (int i = 0; i < n; i++) {
-      lua_pushnumber(L_, args[i]);
+    if (lua_istable(luaState, -1)) {
+      lua_pushnil(luaState);
+      while (lua_next(luaState, 2) != 0) {
+        if (lua_isnumber(luaState, -1)) {
+          lua_pushstring(L_, lua_tostring(luaState, -2));
+          lua_pushnumber(L_, lua_tonumber(luaState, -1));
+          lua_rawset(L_, -3);
+        }
+        else if (lua_isstring(luaState, -1)) {
+          lua_pushstring(L_, lua_tostring(luaState, -2));
+          lua_pushstring(L_, lua_tostring(luaState, -1));
+          lua_rawset(L_, -3);
+        }
+        else {
+          PRINT_DEBUG_LVL(
+              2,
+              "Unsupported type (%s) in addObject method options. %s will be ignored.",
+              lua_typename(luaState, lua_type(luaState, -1)),
+              lua_tostring(luaState, -2)
+          );
+        }
+        lua_pop(luaState, 1);
+      }
     }
 
-    // Call the function with variable arguments and no return values
-    lua_call(L_, 1 + n, 0);
+    // Call the function with two arguments and no return values
+    lua_call(L_, 2, 0);
   }
   else {
     PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_LOAD);
