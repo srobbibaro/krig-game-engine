@@ -147,7 +147,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> prepareObjects();</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> animateObjects(<span class="keywordtype">float</span>);</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="classScriptedObject.html">ScriptedObject</a>* addObject(<span class="keywordtype">string</span> script, <span class="keywordtype">float</span> args[], <span class="keywordtype">int</span> n) {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="classScriptedObject.html">ScriptedObject</a>* addObject(<span class="keywordtype">string</span> script, lua_State* luaState) {</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <a class="code" href="classScriptedObject.html">ScriptedObject</a> *temp = <span class="keyword">static_cast&lt;</span><a class="code" href="classScriptedObject.html">ScriptedObject</a>*<span class="keyword">&gt;</span> (freeObjects_[script].head);</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="keywordflow">if</span> (temp != NULL) {</div>
@@ -170,12 +170,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      objects_.insertFront(temp);</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      <span class="comment">//temp-&gt;unloadScript();</span></div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;      temp-&gt;loadScript(script, args, n);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;      temp-&gt;loadScript(script, luaState);</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;      <span class="keywordflow">return</span> temp;</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <a class="code" href="classScriptTextType.html">ScriptTextType</a>* addScriptTextType(<span class="keywordtype">string</span> script, <span class="keywordtype">float</span> args[], <span class="keywordtype">int</span> n) {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <a class="code" href="classScriptTextType.html">ScriptTextType</a>* addScriptTextType(<span class="keywordtype">string</span> script,  lua_State* luaState) {</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      <a class="code" href="classScriptTextType.html">ScriptTextType</a> *temp = <span class="keyword">static_cast&lt;</span><a class="code" href="classScriptTextType.html">ScriptTextType</a>*<span class="keyword">&gt;</span> (freeObjects_[script].head);</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      <span class="keywordflow">if</span> (temp != NULL) {</div>
@@ -198,7 +198,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;      objects_.insertFront(temp);</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;      <span class="comment">//temp-&gt;unloadScript();</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;      temp-&gt;loadScript(script, args, n);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;      temp-&gt;loadScript(script, luaState);</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;      <span class="keywordflow">return</span> temp;</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    }</div>
@@ -280,7 +280,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 22 2015 17:19:42 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 23 2015 11:43:24 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

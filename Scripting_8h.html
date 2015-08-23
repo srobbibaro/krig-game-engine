@@ -299,10 +299,10 @@ Functions</h2></td></tr>
 <tr class="separator:a8f9e11b9be8dd264d45e55a13e126593"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a89564f21ea33346e5f2b5d9718a1809f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a89564f21ea33346e5f2b5d9718a1809f">playSound</a> (GameObjectReference, string)</td></tr>
 <tr class="separator:a89564f21ea33346e5f2b5d9718a1809f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3abd13f388c646d32cfd7510108c6dea"><td class="memItemLeft" align="right" valign="top">GameObjectReference&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a3abd13f388c646d32cfd7510108c6dea">addObject</a> (TerrainReference, string, float, float,...)</td></tr>
-<tr class="separator:a3abd13f388c646d32cfd7510108c6dea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0665199b12bf8a41e6ae9e995c48579e"><td class="memItemLeft" align="right" valign="top">TextObjectReference&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a0665199b12bf8a41e6ae9e995c48579e">addText</a> (TerrainReference, string, float, float,...)</td></tr>
-<tr class="separator:a0665199b12bf8a41e6ae9e995c48579e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a67d4573d1a9958a1ce3d6d397da21a"><td class="memItemLeft" align="right" valign="top">GameObjectReference&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a1a67d4573d1a9958a1ce3d6d397da21a">addObject</a> (string, options)</td></tr>
+<tr class="separator:a1a67d4573d1a9958a1ce3d6d397da21a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23fda4e11fa0756d746b64b883a92253"><td class="memItemLeft" align="right" valign="top">TextObjectReference&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a23fda4e11fa0756d746b64b883a92253">addText</a> (string, string, options)</td></tr>
+<tr class="separator:a23fda4e11fa0756d746b64b883a92253"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af579004d55beac3dfaf92c1529e76944"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#af579004d55beac3dfaf92c1529e76944">removeObject</a> (GameObjectReference)</td></tr>
 <tr class="separator:af579004d55beac3dfaf92c1529e76944"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6956e35e19c0255ac433f5d0054168b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Scripting_8h.html#a6956e35e19c0255ac433f5d0054168b9">setModel</a> (GameObjectReference, string)</td></tr>
@@ -417,39 +417,21 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 <div class="textblock"><p>Krig Game <a class="el" href="classEngine.html">Engine</a> Lua Scripting API. </p>
 <p>API calls are split into four classes of functions. The classes are defined by the type of script where they are available for use. For example, the playBgMusic function is supported for a game level script and would not be available to use for an object. The four classes of functions are: Game Object, Text, Game Level, and Game (<a class="el" href="classEngine.html">Engine</a>). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a3abd13f388c646d32cfd7510108c6dea"></a>
+<a class="anchor" id="a1a67d4573d1a9958a1ce3d6d397da21a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">GameObjectReference addObject </td>
           <td>(</td>
-          <td class="paramtype">TerrainReference&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">string&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>...</em>&#160;</td>
+          <td class="paramtype">options&#160;</td>
+          <td class="paramname">&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -460,9 +442,8 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 </div><div class="memdoc">
 <p>Add a game object to the current level. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">TerrainReference</td><td></td></tr>
-    <tr><td class="paramname">string</td><td>- path to lua game object script for this object to use. </td></tr>
-    <tr><td class="paramname">float</td><td>- values to be passed into the "on_load" method for the game object. </td></tr>
+    <tr><td class="paramname">string</td><td>- path to lua script for new game object to load. </td></tr>
+    <tr><td class="paramname">table</td><td>- options table to be passed into the "on_load" method for the game object. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1092,14 +1073,14 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 
 </div>
 </div>
-<a class="anchor" id="a0665199b12bf8a41e6ae9e995c48579e"></a>
+<a class="anchor" id="a23fda4e11fa0756d746b64b883a92253"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">TextObjectReference addText </td>
           <td>(</td>
-          <td class="paramtype">TerrainReference&#160;</td>
+          <td class="paramtype">string&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
@@ -1111,20 +1092,8 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>...</em>&#160;</td>
+          <td class="paramtype">options&#160;</td>
+          <td class="paramname">&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1136,8 +1105,9 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 <p>Add a game object to the current level. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">TerrainReference</td><td></td></tr>
-    <tr><td class="paramname">string</td><td>- path to lua script for this text object to use. </td></tr>
-    <tr><td class="paramname">float</td><td>- values to be passed into the "on_load" method for the game object. </td></tr>
+    <tr><td class="paramname">string</td><td>- path to lua script for new text object to load. </td></tr>
+    <tr><td class="paramname">string</td><td>- text. </td></tr>
+    <tr><td class="paramname">table</td><td>- options table to be passed into the "on_load" method for the text object. </td></tr>
   </table>
   </dd>
 </dl>
@@ -4853,7 +4823,7 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>g_script_camera</
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 22 2015 17:19:43 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 23 2015 11:43:25 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>
