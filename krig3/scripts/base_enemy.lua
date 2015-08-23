@@ -35,19 +35,11 @@ function handle_collision(this, temp)
 end
 
 function create_powerup(this, powerup_num)
-  local obj = nil
-
-  if powerup_num == 1 then
-    obj = addObject("./scripts/powerup1.lua")
-  elseif powerup_num == 2 then
-    obj = addObject("./scripts/powerup2.lua")
-  elseif powerup_num == 3 then
-    obj = addObject("./scripts/powerup3.lua")
-  end
+  local obj = addObject(string.format("./scripts/powerup%d.lua"), powerup_num)
 
   if obj ~= nil then
     this_position = getPosition(this)
-    setPosition(obj, this_position[1], this_position[2], this_position[3])
+    setPositionv(obj, this_position)
   end
 end
 
@@ -55,7 +47,7 @@ function create_explosion(this)
   this_position = getPosition(this)
 
   obj = addObject("./scripts/explosion.lua")
-  setPosition(obj, this_position[1], this_position[2], this_position[3])
+  setPositionv(obj, this_position)
 end
 
 function create_score_text(this)
