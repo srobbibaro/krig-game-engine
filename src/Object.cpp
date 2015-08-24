@@ -139,28 +139,7 @@ void Object::loadScript(string name, lua_State* luaState) {
     lua_newtable(L_);
 
     if (lua_istable(luaState, -1)) {
-      lua_pushnil(luaState);
-      while (lua_next(luaState, 2) != 0) {
-        if (lua_isnumber(luaState, -1)) {
-          lua_pushstring(L_, lua_tostring(luaState, -2));
-          lua_pushnumber(L_, lua_tonumber(luaState, -1));
-          lua_rawset(L_, -3);
-        }
-        else if (lua_isstring(luaState, -1)) {
-          lua_pushstring(L_, lua_tostring(luaState, -2));
-          lua_pushstring(L_, lua_tostring(luaState, -1));
-          lua_rawset(L_, -3);
-        }
-        else {
-          PRINT_DEBUG_LVL(
-              2,
-              "Unsupported type (%s) in addObject method options. %s will be ignored.",
-              lua_typename(luaState, lua_type(luaState, -1)),
-              lua_tostring(luaState, -2)
-          );
-        }
-        lua_pop(luaState, 1);
-      }
+      traverseAndCopyLuaTable(luaState, L_, 2);
     }
 
     // Call the function with two arguments and no return values
@@ -461,3 +440,37 @@ void Object::setScaleRate(GLfloat x, GLfloat y, GLfloat z)
 //------------------------------------------------------------------------------
 void Object::setScaleRate(const Vector &v)
 { scaleRate_ = v; }
+
+//------------------------------------------------------------------------------
+void Object::traverseAndCopyLuaTable(lua_State* srcState, lua_State* destState, int index) {
+  lua_pushnil(srcState);
+
+  while (lua_next(srcState, index) != 0) {
+    if (lua_istable(srcState, -1)) {
+      lua_pushstring(destState, lua_tostring(srcState, -2));
+      lua_newtable(destState);
+      traverseAndCopyLuaTable(srcState, destState, -2);
+      lua_rawset(destState, -3);
+    }
+    else if (lua_isnumber(srcState, -1)) {
+      lua_pushstring(destState, lua_tostring(srcState, -2));
+      lua_pushnumber(destState, lua_tonumber(srcState, -1));
+      lua_rawset(destState, -3);
+    }
+    else if (lua_isstring(srcState, -1)) {
+      lua_pushstring(destState, lua_tostring(srcState, -2));
+      lua_pushstring(destState, lua_tostring(srcState, -1));
+      lua_rawset(destState, -3);
+    }
+    else {
+      PRINT_DEBUG_LVL(
+        2,
+        "Unsupported type (%s) in addObject method options. %s will be ignored.\n",
+        lua_typename(srcState, lua_type(srcState, -1)),
+        lua_tostring(srcState, -2)
+      );
+    }
+
+    lua_pop(srcState, 1);
+  }
+}

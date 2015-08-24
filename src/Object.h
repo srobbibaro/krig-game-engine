@@ -223,6 +223,9 @@ class Object : public ObjectNode {
     bool isAlwaysLit_;
 
     bool enableSphereTest_;
+
+  private:
+    void traverseAndCopyLuaTable(lua_State* srcState, lua_State* destState, int index);
 };
 
 #endif
