@@ -400,6 +400,7 @@ void Object::setSpeed(GLfloat x, GLfloat y, GLfloat z)
 void Object::setSpeed(const Vector &v)
 { speed_ = v; }
 
+//------------------------------------------------------------------------------
 void Object::setParticleSystem(int particleSystemNumber) {
   if (particleSystem_) {
     // We won't allow updating a particle system for now
