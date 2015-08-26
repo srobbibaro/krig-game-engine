@@ -157,13 +157,13 @@ end
 
 function setAsteroidWave(x_start, x_end)
   for i = x_start, x_end, 15 do
-    obj = addObject("./scripts/asteroid.lua")
+    obj = addObject("./scripts/asteroid1.lua")
     setPosition(obj, i, 30.0, 7.5)
 
-    obj = addObject("./scripts/asteroid.lua")
+    obj = addObject("./scripts/asteroid1.lua")
     setPosition(obj, (i + 5.0), 30.0, 7.5)
 
-    obj = addObject("./scripts/asteroid.lua")
+    obj = addObject("./scripts/asteroid1.lua")
     setPosition(obj, (i + 10.0), 30.0, 7.5)
   end
 end
