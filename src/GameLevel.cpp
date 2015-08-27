@@ -91,6 +91,7 @@ void GameLevel::drawLevel() {
   }
   else {
     PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_DRAW);
+    lua_pop(luaState_, 1);
   }
 }
 
@@ -115,6 +116,7 @@ void GameLevel::postDraw() {
   }
   else {
     PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_DRAW_SCREEN);
+    lua_pop(luaState_, 1);
   }
 }
 
@@ -139,6 +141,7 @@ void GameLevel::updateLevel() {
   }
   else {
     PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_UPDATE);
+    lua_pop(luaState_, 1);
   }
 
   updateObjects(&lightDirection_);
@@ -222,6 +225,7 @@ bool GameLevel::loadLevelLua(string file) {
   }
   else {
     PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_LOAD);
+    lua_pop(luaState_, 1);
   }
 
   PRINT_DEBUG("Lua level script 'on_load' function complete.\n");
@@ -314,6 +318,7 @@ bool GameLevel::loadLevelFromBufferLua(const char* buffer) {
   }
   else {
     PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_LOAD);
+    lua_pop(luaState_, 1);
   }
 
   PRINT_DEBUG("Lua level script 'on_load' function complete.\n");
@@ -523,6 +528,7 @@ void GameLevel::unloadLevel() {
     }
     else {
       PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_UNLOAD);
+      lua_pop(luaState_, 1);
     }
   }
 

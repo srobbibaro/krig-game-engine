@@ -147,6 +147,7 @@ void Object::loadScript(string name, lua_State* luaState) {
   }
   else {
     PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_LOAD);
+    lua_pop(L_, 1);
   }
 }
 
@@ -167,6 +168,7 @@ void Object::unloadScript() {
   }
   else {
     PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_UNLOAD);
+    lua_pop(L_, 1);
   }
 
   lua_close(L_);
@@ -202,6 +204,7 @@ void Object::animateScript(float elapsedTime) {
   }
   else {
     PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_UPDATE);
+    lua_pop(L_, 1);
   }
 }
 

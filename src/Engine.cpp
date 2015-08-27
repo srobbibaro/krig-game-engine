@@ -99,6 +99,7 @@ bool Engine::loadGame(string file) {
   }
   else {
     PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_LOAD);
+    lua_pop(luaState_, 1);
   }
 
   return (true);
@@ -142,6 +143,7 @@ bool Engine::loadGameFromBuffer(char* buffer) {
   }
   else {
     PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_LOAD);
+    lua_pop(luaState_, 1);
   }
 
   return (true);
@@ -201,6 +203,7 @@ void Engine::updateGame(float elapsedTime) {
   }
   else {
     PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_UPDATE);
+    lua_pop(luaState_, 1);
   }
 }
 
@@ -219,6 +222,7 @@ void Engine::unloadGame() {
   }
   else {
     PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_UNLOAD);
+    lua_pop(luaState_, 1);
   }
 
   lua_close(luaState_);
