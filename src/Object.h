@@ -226,6 +226,7 @@ class Object : public ObjectNode {
 
   private:
     void traverseAndCopyLuaTable(lua_State* srcState, lua_State* destState, int index);
+    void copyLuaTableKey(lua_State* srcState, lua_State* destState);
 };
 
 #endif

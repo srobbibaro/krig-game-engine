@@ -139,7 +139,7 @@ void Object::loadScript(string name, lua_State* luaState) {
     lua_newtable(L_);
 
     if (lua_istable(luaState, -1)) {
-      traverseAndCopyLuaTable(luaState, L_, 2);
+      traverseAndCopyLuaTable(luaState, L_, -2);
     }
 
     // Call the function with two arguments and no return values
@@ -447,31 +447,42 @@ void Object::traverseAndCopyLuaTable(lua_State* srcState, lua_State* destState, 
   lua_pushnil(srcState);
 
   while (lua_next(srcState, index) != 0) {
-    if (lua_istable(srcState, -1)) {
-      lua_pushstring(destState, lua_tostring(srcState, -2));
-      lua_newtable(destState);
-      traverseAndCopyLuaTable(srcState, destState, -2);
-      lua_rawset(destState, -3);
-    }
-    else if (lua_isnumber(srcState, -1)) {
-      lua_pushstring(destState, lua_tostring(srcState, -2));
-      lua_pushnumber(destState, lua_tonumber(srcState, -1));
-      lua_rawset(destState, -3);
-    }
-    else if (lua_isstring(srcState, -1)) {
-      lua_pushstring(destState, lua_tostring(srcState, -2));
-      lua_pushstring(destState, lua_tostring(srcState, -1));
-      lua_rawset(destState, -3);
-    }
-    else {
-      PRINT_DEBUG_LVL(
-        2,
-        "Unsupported type (%s) in addObject method options. %s will be ignored.\n",
-        lua_typename(srcState, lua_type(srcState, -1)),
-        lua_tostring(srcState, -2)
-      );
+    switch(lua_type(srcState, -1)) {
+      case LUA_TTABLE:
+        copyLuaTableKey(srcState, destState);
+        lua_newtable(destState);
+        traverseAndCopyLuaTable(srcState, destState, -2);
+        lua_rawset(destState, -3);
+        break;
+      case LUA_TNUMBER:
+        copyLuaTableKey(srcState, destState);
+        lua_pushnumber(destState, lua_tonumber(srcState, -1));
+        lua_rawset(destState, -3);
+        break;
+      case LUA_TSTRING:
+        copyLuaTableKey(srcState, destState);
+        lua_pushstring(destState, lua_tostring(srcState, -1));
+        lua_rawset(destState, -3);
+        break;
+      default:
+        PRINT_DEBUG_LVL(
+          1,
+          "Ignoring unsupported type (%s) found on Lua stack while traversing table.\n",
+          lua_typename(srcState, lua_type(srcState, -1))
+        );
     }
 
     lua_pop(srcState, 1);
+  }
+}
+
+void Object::copyLuaTableKey(lua_State* srcState, lua_State* destState) {
+  switch (lua_type(srcState, -2)) {
+    case LUA_TNUMBER:
+      lua_pushnumber(destState, lua_tonumber(srcState, -2));
+      break;
+    case LUA_TSTRING:
+      lua_pushstring(destState, lua_tostring(srcState, -2));
+      break;
   }
 }
