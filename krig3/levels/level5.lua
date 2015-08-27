@@ -102,14 +102,11 @@ function on_load(terrain)
   addParticleSystem(camera, 1)
 
   for i, v in ipairs(asteroid_wave1) do
-    obj = addObject("./scripts/asteroid_space.lua")
-    setPositionv(obj, v.position)
-    setVelocityv(obj, v.velocity)
+    obj = addObject("./scripts/asteroid_space.lua", v)
   end
 
   for i, v in ipairs(enemy_ship_wave1) do
-    obj = addObject(v.script)
-    setPositionv(obj, v.position)
+    obj = addObject(v.script, v)
   end
 
   obj = addObject("./scripts/redrock.lua")
