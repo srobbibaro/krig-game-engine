@@ -1,4 +1,4 @@
-dofile("./levels/level_lib.lua")
+local level_lib = require './levels/level_lib'
 
 -- Configuration
 X_START_BOSS   = 995.0
@@ -90,14 +90,14 @@ function on_load(terrain)
   setPosition(obj, 390, 8, 7.5)
 
   --  setup the asteroids --
-  setAsteroidWave(410.0, 560.0)
+  level_lib.setAsteroidWave(410.0, 560.0)
 
   --  sweeping enemy ships
-  setSweepingFromAboveEnemyShips(610, 635, 5, 22.0, 7.5)
-  setSweepingFromBelowEnemyShips(675, 700, 5, 8.0, 7.5)
+  level_lib.setSweepingFromAboveEnemyShips(610, 635, 5, 22.0, 7.5)
+  level_lib.setSweepingFromBelowEnemyShips(675, 700, 5, 8.0, 7.5)
 
   -- 2nd wave of asteroids --
-  setAsteroidWave(730.0, 810.0)
+  level_lib.setAsteroidWave(730.0, 810.0)
 
   -- last wave - crashing ships --
   obj6 = addObject("./scripts/enemy_ship4.lua")
@@ -207,7 +207,7 @@ function on_update(terrain, elapsedTime)
     bossLife = 0
     if boss ~= nil then bossLife = getScriptValue(boss, "life") end
     if bossLife == 0 then boss = nil end
-    update_level(elapsedTime, bossLife)
+    level_lib.update_level(elapsedTime, bossLife)
   end
 end
 
@@ -218,6 +218,6 @@ function on_draw_screen()
     if bossLife == 0 then boss = nil end
   end
 
-  display_hud(bossBattle, bossLife)
-  display_debug()
+  level_lib.display_hud(bossBattle, bossLife)
+  level_lib.display_debug()
 end

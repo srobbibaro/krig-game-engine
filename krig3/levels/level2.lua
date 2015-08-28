@@ -1,4 +1,4 @@
-dofile("./levels/level_lib.lua")
+local level_lib = require './levels/level_lib'
 
 -- Configuration
 X_START_CAMERA = 110.0
@@ -60,7 +60,7 @@ function on_update(terrain, elapsedTime)
     bossLife = 0
     if boss ~= nil then bossLife = getScriptValue(boss, "life") end
     if bossLife == 0 then boss = nil end
-    update_level(elapsedTime, bossLife)
+    level_lib.update_level(elapsedTime, bossLife)
   end
 end
 
@@ -71,8 +71,8 @@ function on_draw_screen()
     if bossLife == 0 then boss = nil end
   end
 
-  display_hud(bossBattle, bossLife)
-  display_debug()
+  level_lib.display_hud(bossBattle, bossLife)
+  level_lib.display_debug()
 end
 
 -- Helper Functions
@@ -95,25 +95,25 @@ function setupEnemyShips()
   setPosition(obj, 260, 17, 7.5)
 
   -- "V" groups.
-  buildVGroup(270, 17, 7.5)
-  buildVGroup(290, 10, 7.5)
-  buildVGroup(310, 17, 7.5)
-  buildVGroup(330, 10, 7.5)
-  buildVGroup(350, 17, 7.5)
+  level_lib.buildVGroup(270, 17, 7.5)
+  level_lib.buildVGroup(290, 10, 7.5)
+  level_lib.buildVGroup(310, 17, 7.5)
+  level_lib.buildVGroup(330, 10, 7.5)
+  level_lib.buildVGroup(350, 17, 7.5)
 
   -- Interlacing swoops
-  setSweepingFromBelowEnemyShips(500, 570, 10, 22.0, 7.5)
-  setSweepingFromBelowEnemyShips(505, 575, 10, 8.0, 7.5)
+  level_lib.setSweepingFromBelowEnemyShips(500, 570, 10, 22.0, 7.5)
+  level_lib.setSweepingFromBelowEnemyShips(505, 575, 10, 8.0, 7.5)
 
-  buildCircleGroup(5, 900.0, 25.0, 7.5)
-  buildCircleGroup(5, 975.0, 20.0, 7.5)
-  buildCircleGroup(5, 1050.0, 15.0, 7.5)
-  buildCircleGroup(5, 1125.0, 10.0, 7.5)
-  buildCircleGroup(5, 1200.0, 15.0, 7.5)
-  buildCircleGroup(5, 1275.0, 20.0, 7.5)
-  buildCircleGroup(5, 1350.0, 25.0, 7.5)
+  level_lib.buildCircleGroup(5, 900.0, 25.0, 7.5)
+  level_lib.buildCircleGroup(5, 975.0, 20.0, 7.5)
+  level_lib.buildCircleGroup(5, 1050.0, 15.0, 7.5)
+  level_lib.buildCircleGroup(5, 1125.0, 10.0, 7.5)
+  level_lib.buildCircleGroup(5, 1200.0, 15.0, 7.5)
+  level_lib.buildCircleGroup(5, 1275.0, 20.0, 7.5)
+  level_lib.buildCircleGroup(5, 1350.0, 25.0, 7.5)
 
-  buildDockedGroup(645, 890, 25, 30.25, -53.0)
+  level_lib.buildDockedGroup(645, 890, 25, 30.25, -53.0)
 
   setupFlyingCircleEnemyShips()
 end
@@ -136,20 +136,20 @@ function setupFlyingCircleEnemyShips()
   obj = addObject("./scripts/enemy_ship12.lua")
   setPosition(obj, 1480.0, 5.0, 7.5)
 
-  buildFlyingCircleUpGroup(4, 5, 1510.0, 11.0, 7.5)
-  buildFlyingCircleUpGroup(4, 5, 1555.0, 8.0, 7.5)
-  buildFlyingCircleUpGroup(4, 5, 1600.0, 5.0, 7.5)
+  level_lib.buildFlyingCircleUpGroup(4, 5, 1510.0, 11.0, 7.5)
+  level_lib.buildFlyingCircleUpGroup(4, 5, 1555.0, 8.0, 7.5)
+  level_lib.buildFlyingCircleUpGroup(4, 5, 1600.0, 5.0, 7.5)
 
-  buildFlyingCircleUpGroup(4, 5, 1645.0, 15.0, 7.5)
-  buildFlyingCircleDownGroup(4, 5, 1645.0, 13.0, 7.5)
+  level_lib.buildFlyingCircleUpGroup(4, 5, 1645.0, 15.0, 7.5)
+  level_lib.buildFlyingCircleDownGroup(4, 5, 1645.0, 13.0, 7.5)
 
-  buildFlyingCircleDownGroup(7, 20, 1690.0, 20.0, 7.5)
-  buildFlyingCircleUpGroup(7, 20, 1700.0, 8.0, 7.5)
+  level_lib.buildFlyingCircleDownGroup(7, 20, 1690.0, 20.0, 7.5)
+  level_lib.buildFlyingCircleUpGroup(7, 20, 1700.0, 8.0, 7.5)
 end
 
 function setupAsteroids()
   -- First wave
-  setAsteroidWave(370, 460)
+  level_lib.setAsteroidWave(370, 460)
   -- Second wave
-  setAsteroidWave(620, 720)
+  level_lib.setAsteroidWave(620, 720)
 end

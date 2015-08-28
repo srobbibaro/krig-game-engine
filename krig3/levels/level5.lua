@@ -1,4 +1,4 @@
-dofile("./levels/level_lib.lua")
+local level_lib = require './levels/level_lib'
 
 -- Configuration
 X_START_CAMERA = 0.0
@@ -165,7 +165,7 @@ function on_update(terrain, elapsedTime)
     bossLife = 0
     if boss ~= nil then bossLife = getScriptValue(boss, "life") end
     if bossLife == 0 then boss = nil end
-    update_level(elapsedTime, bossLife)
+    level_lib.update_level(elapsedTime, bossLife)
   end
 end
 
@@ -176,6 +176,6 @@ function on_draw_screen()
     if bossLife == 0 then boss = nil end
   end
 
-  display_hud(boss_battle, bossLife)
-  display_debug()
+  level_lib.display_hud(boss_battle, bossLife)
+  level_lib.display_debug()
 end

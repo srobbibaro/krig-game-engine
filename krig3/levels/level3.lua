@@ -1,4 +1,4 @@
-dofile("./levels/level_lib.lua")
+local level_lib = require './levels/level_lib'
 
 -- Configuration
 X_START_CAMERA = 110.0
@@ -34,18 +34,18 @@ function on_load(terrain)
   buildWaterStructure(280.0, -100.0)
   buildWaterStructure(500.0, 0.0)
 
-  buildCircleGroup(5, 170.0, 25.0, 7.5)
-  buildCircleGroup(5, 170.0, 15.0, 7.5)
-  buildCircleGroup(5, 250.0, 25.0, 7.5)
-  buildCircleGroup(5, 250.0, 15.0, 7.5)
+  level_lib.buildCircleGroup(5, 170.0, 25.0, 7.5)
+  level_lib.buildCircleGroup(5, 170.0, 15.0, 7.5)
+  level_lib.buildCircleGroup(5, 250.0, 25.0, 7.5)
+  level_lib.buildCircleGroup(5, 250.0, 15.0, 7.5)
 
-  buildVGroup(350.0, 17.0, 7.5)
-  buildVGroup(370.0, 10.0, 7.5)
+  level_lib.buildVGroup(350.0, 17.0, 7.5)
+  level_lib.buildVGroup(370.0, 10.0, 7.5)
 
-  setup_volcano(440.0, -75.0)
-  setup_volcano(670.0, -115.0)
-  setup_volcano(1620.0, -65.0)
-  setup_volcano(2195.0, -105.0)
+  level_lib.setup_volcano(440.0, -75.0)
+  level_lib.setup_volcano(670.0, -115.0)
+  level_lib.setup_volcano(1620.0, -65.0)
+  level_lib.setup_volcano(2195.0, -105.0)
 
   buildBossScenery()
 
@@ -76,7 +76,7 @@ function on_update(terrain, elapsedTime)
     bossLife = 0
     if boss ~= nil then bossLife = getScriptValue(boss, "life") end
     if bossLife == 0 then boss = nil end
-    update_level(elapsedTime, bossLife)
+    level_lib.update_level(elapsedTime, bossLife)
   end
 end
 
@@ -87,8 +87,8 @@ function on_draw_screen()
     if bossLife == 0 then boss = nil end
   end
 
-  display_hud(bossBattle, bossLife)
-  display_debug()
+  level_lib.display_hud(bossBattle, bossLife)
+  level_lib.display_debug()
 end
 
 function buildWaterStructure(xpos, zpos)

@@ -1,4 +1,4 @@
-dofile("./levels/level_lib.lua")
+local level_lib = require './levels/level_lib'
 
 -- Configuration
 creditsPos     = 0.0
@@ -33,7 +33,7 @@ credCoord = {
 
 -- Overriden Engine Callbacks
 function on_draw_screen(terrain, elapsedTime)
-  display_debug()
+  level_lib.display_debug()
 
   local delay = elapsedTime
 
