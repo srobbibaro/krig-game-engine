@@ -1,14 +1,13 @@
-dofile('./scripts/base_enemy.lua')
+local enemy = require 'scripts/enemy'
 
 -- Configuration
-go_up = 1
+enemy.life = 10
 
 -- Overridden Engine Callbacks
 function on_load(this)
   setModel(this, "CannonBall.mdl")
   setScale(this, 2.0, 2.0, 2.0)
   setRotation(this, 0.0, 0.0, 0.0)
-  life = 3
   -- setTypeId(this, 4)
 end
 
@@ -43,8 +42,4 @@ function on_update(this, elapsedTime)
   end
 end
 
-function on_collision(this, temp)
-  handle_collision(this, temp)
-end
-
-function on_unload(this) end
+on_collision = enemy.on_collision

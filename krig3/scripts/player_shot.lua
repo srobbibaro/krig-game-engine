@@ -1,22 +1,10 @@
--- Configuration
-duration = 0.0
+local shot = require 'scripts/shot'
 
 -- Overridden Engine Callbacks
-function on_load(this)
+function on_load(this, options)
   setModel(this, "blueshot.mdl")
   setTypeId(this, 2)
-  enableAlwaysLit(this)
-
-  playSound(this, "laser.wav")
-end
-
-function on_update(this, elapsedTime)
-  duration = duration + elapsedTime
-
-  if duration > 1.5 then
-    removeObject(this)
-    duration = 0.0
-  end
+  shot.on_load(this, options)
 end
 
 function on_collision(this, temp)
@@ -28,4 +16,4 @@ function on_collision(this, temp)
   end
 end
 
-function on_unload(this) end
+on_update = shot.on_update

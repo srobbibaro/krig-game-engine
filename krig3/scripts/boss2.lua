@@ -1,4 +1,5 @@
-dofile('./scripts/base_enemy.lua')
+local enemy      = require 'scripts/enemy'
+local enemy_ship = require 'scripts/enemy_ship'
 
 -- Configuration
 local x_min = 0.0
@@ -6,8 +7,9 @@ local x_max = 0.0
 local y_min = 0.0
 local y_max = 0.0
 
-shot_timer = 0.0
-score = 5000
+enemy.score = 5000
+enemy.life  = 40
+life        = enemy.life
 
 -- Helper Methods
 function set_window()
@@ -41,7 +43,6 @@ function on_load(this)
   setVelocity(this, -speed, 0.0, 0.0)
 
   setTypeId(this, 1)
-  life = 40
 end
 
 function on_update(this, elapsedTime)
@@ -73,5 +74,6 @@ function on_update(this, elapsedTime)
 end
 
 function on_collision(this, temp)
-  handle_collision(this, temp)
+  enemy.on_collision(this, temp)
+  life = enemy.life
 end

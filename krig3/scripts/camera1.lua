@@ -1,4 +1,6 @@
+local game_object = require 'scripts/game_object'
+
 -- Overridden Engine Callbacks
 function on_load(this)
-  setVelocity(this, 10.0, 0.0, 0.0)
+  game_object.on_load(this, {velocity = {10.0, 0.0, 0.0}})
 end

@@ -1,23 +1,17 @@
-dofile('./scripts/base_enemy.lua')
-dofile('./scripts/base_shooting_object.lua')
+local enemy_ship      = require 'scripts/enemy_ship'
+local shooting_object = require 'scripts/shooting_object'
 
 -- Configuration
 local state = 0
 
 function on_load(this)
-  setModel(this, "Enemy.mdl")
-  setScale(this, 2.0, 2.0, 2.0)
-  setRotation(this, 0.0, -1.57, 0.0)
-  setTypeId(this, 1)
-
-  setupShots(this, "./scripts/enemy_shot.lua", 0.2)
-
-  score = 100
+  enemy_ship.on_load(this, options)
+  shooting_object.setupShots(this, "./scripts/enemy_shot.lua", 0.2)
 end
 
 -- Overridden Engine Callbacks
 function on_update(this, elapsedTime)
-  update_shots(elapsedTime)
+  shooting_object.update_shots(elapsedTime)
 
   plr      = getPlayer()
   camera   = getCamera()
@@ -58,8 +52,4 @@ function on_update(this, elapsedTime)
   end
 end
 
-function on_collision(this, temp)
-  handle_collision(this, temp)
-end
-
-function on_unload(this) end
+on_collision = enemy_ship.on_collision

@@ -1,11 +1,11 @@
+local shot = require 'scripts/shot'
+
 -- Overridden Engine Callbacks
 function on_load(this)
   setModel(this, "GreenShot.mdl")
   setTypeId(this, 20)
-  enableAlwaysLit(this)
-
-  playSound(this, "laser.wav")
   setScale(this, 4.0, 4.0, 4.0)
+  shot.on_load(this, options)
 end
 
 function on_update(this, elapsedTime)

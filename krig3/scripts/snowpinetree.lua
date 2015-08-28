@@ -1,3 +1,5 @@
+local scenery = require 'scripts/scenery'
+
 -- Configuration
 state        = 0
 scale_factor = 0.0
@@ -20,7 +22,7 @@ function on_load(this, x_pos, z_pos, temp_scale_factor)
     setHeightFromTerrain(this, scale_factor)
   end
 
-  disableCollisionDetection(this)
+  scenery.on_load(this, options)
 end
 
 function on_update(this, elapsedTime)

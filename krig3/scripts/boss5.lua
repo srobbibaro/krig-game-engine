@@ -1,4 +1,5 @@
-dofile('./scripts/base_enemy.lua')
+local enemy      = require 'scripts/enemy'
+local enemy_ship = require 'scripts/enemy_ship'
 
 -- Configuration
 x_min = 0.0
@@ -6,10 +7,10 @@ x_max = 0.0
 y_min = 0.0
 y_max = 0.0
 
-shot_timer = 0.0
-score = 5000
-
 x_move_time = 0.0
+enemy.score = 5000
+enemy.life  = 40
+life        = enemy.life
 
 -- Overridden Engine Callbacks
 function on_load(this)
@@ -18,7 +19,6 @@ function on_load(this)
   setScale(this, 4.0, 4.0, 4.0)
 
   setTypeId(this, 1)
-  life = 40
 end
 
 function on_update(this, elapsedTime)
@@ -51,6 +51,7 @@ function on_update(this, elapsedTime)
 end
 
 function on_collision(this, temp)
-  handle_collision(this, temp)
+  enemy.on_collision(this, temp)
   addVelocity(this, -16.0, 0.0, 0.0)
+  life = enemy.life
 end

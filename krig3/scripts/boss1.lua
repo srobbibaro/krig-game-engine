@@ -1,10 +1,12 @@
-dofile('./scripts/base_enemy.lua')
-dofile('./scripts/base_shooting_object.lua')
+local enemy           = require 'scripts/enemy'
+local enemy_ship      = require 'scripts/enemy_ship'
+local shooting_object = require 'scripts/shooting_object'
 
 -- Configuration
-state    = 0
-nextShot = 3.5
-score    = 2000
+state       = 0
+enemy.score = 2000
+enemy.life  = 40
+life        = enemy.life
 
 -- Overridden Engine Callbacks
 function on_load(this)
@@ -13,15 +15,14 @@ function on_load(this)
   setRotation(this, 0.0, -1.5708, 0.0)
 
   setVelocity(this, -5.0, 0.0, 0.0)
-  life = 40
   setTypeId(this, 1)
   disableCollisionDetection(this)
 
-  setupShots(this, './scripts/boss_shot.lua', 0.85)
+  shooting_object.setupShots(this, './scripts/boss_shot.lua', 0.85)
 end
 
 function on_update(this, elapsedTime)
-  update_shots(elapsedTime)
+  shooting_object.update_shots(elapsedTime)
 
   camera = getCamera()
   cam_pos = getPosition(camera)
@@ -52,10 +53,11 @@ function on_update(this, elapsedTime)
 
   if in_view == 1 then
     radius = getBoundingSphereRadius(this) - 1.25
-    attemptShots(this, 2, {radius, radius}, {radius, -radius})
+    shooting_object.attemptShots(this, 2, {radius, radius}, {radius, -radius})
   end
 end
 
 function on_collision(this, temp)
-  handle_collision(this, temp)
+  enemy.on_collision(this, temp)
+  life = enemy.life
 end

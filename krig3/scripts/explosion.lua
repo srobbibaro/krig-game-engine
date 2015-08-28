@@ -1,3 +1,5 @@
+local game_object = require 'scripts/game_object'
+
 -- Configuration
 local duration = 0.0
 
@@ -7,6 +9,7 @@ function on_load(this, options)
   setScaleRate(this, 1.0, 1.0, 1.0)
   disableCollisionDetection(this)
   enableAlwaysLit(this)
+  game_object.on_load(this, options)
 end
 
 function on_update(this, elapsedTime)

@@ -1,10 +1,10 @@
-dofile('./scripts/base_enemy.lua')
+local enemy = require 'scripts/enemy'
 
 -- Configuration
-score = 500
+enemy.score = 500
 
 -- Overridden Engine Callbacks
-function on_load(this) 
+function on_load(this, options)
   setModel(this, "redrock.mdl")
   setScale(this, 1.0, 1.0, 1.0)
   setRotation(this, 0.0, 0.0, 0.0)

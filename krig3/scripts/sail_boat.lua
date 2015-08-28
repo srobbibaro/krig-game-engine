@@ -1,3 +1,5 @@
+local boat = require 'scripts/boat'
+
 -- Overridden Engine Callbacks
 function on_load(this)
   setModel(this, "SailBoat.mdl")
@@ -10,12 +12,4 @@ function on_update(this, elapsedTime)
   orientOnTerrain(this, 0.0, 3.14, 0.0)
 end
 
-function on_collision(this, temp)
-  temp_id = getTypeId(temp)
-
-  if temp_id == 100 then
-    orientOnTerrain(this)
-  end
-end
-
-function on_unload(this) end
+on_collision = boat.on_collision

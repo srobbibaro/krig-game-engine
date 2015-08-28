@@ -1,6 +1,7 @@
+local powerup = require 'scripts/powerup'
+
 -- Configuration
-MAX_DURATION = 7.0
-duration     = 0.0
+powerup.max_duration = 7.0
 
 -- Overridden Engine Callbacks
 function on_load(this)
@@ -10,20 +11,5 @@ function on_load(this)
   setTypeId(this, 5);
 end
 
-function on_update(this, elapsedTime)
-  duration = duration + elapsedTime
-
-  if duration >= MAX_DURATION then
-    removeObject(this)
-  end
-end
-
-function on_collision(this, temp)
-  typeId = getTypeId(temp)
-  if typeId == 0 then
-    playSound(this, "pause.wav")
-    removeObject(this)
-  end
-end
-
-function on_unload(this) end
+on_update    = powerup.on_update
+on_collision = powerup.on_collision

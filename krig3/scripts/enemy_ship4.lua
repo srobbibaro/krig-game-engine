@@ -1,15 +1,13 @@
-dofile('./scripts/base_enemy.lua')
+local enemy = require 'scripts/enemy'
+local enemy_ship = require 'scripts/enemy_ship'
 
 -- Configuration
-score = 100
-state = 0
+local state = 0
 
 -- Overridden Engine Callbacks
-function on_load(this)
-  setModel(this, "Enemy.mdl")
-  setScale(this, 2.0, 2.0, 2.0)
+function on_load(this, options)
+  enemy_ship.on_load(this, options)
   setRotation(this, 0.19625, -2.7475, 0.0)
-  setTypeId(this, 1)
 end
 
 function on_update(this, elapsedTime)
@@ -38,10 +36,10 @@ function on_collision(this, temp)
     if (this_pos[2] - this_radius) <= terrain_height then
       playSound(this, "explosion.wav")
 
-      create_explosion(this)
+      enemy.create_explosion(this)
       removeObject(this)
     end
   else
-    handle_collision(this, temp)
+    enemy.on_collision(this, temp)
   end
 end

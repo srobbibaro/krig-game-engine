@@ -1,4 +1,4 @@
-dofile('./scripts/sail_boat.lua')
+local boat = require 'scripts/boat'
 
 -- Overridden Engine Callbacks
 function on_load(this)
@@ -11,3 +11,5 @@ end
 function on_update(this, elapsedTime)
   orientOnTerrain(this, 0.0, 0.0, 0.0)
 end
+
+on_collision = boat.on_collision

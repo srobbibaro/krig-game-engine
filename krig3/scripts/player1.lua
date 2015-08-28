@@ -1,4 +1,4 @@
-dofile('./scripts/base_shooting_object.lua')
+local shooting_object = require 'scripts/shooting_object'
 
 -- Configuration
 progress        = 0
@@ -28,11 +28,12 @@ function on_load(this)
 
   suspend(this, 0.25)
 
-  setupShots(this, "./scripts/player_shot.lua", 0.25)
+  shooting_object.setupShots(this, "./scripts/player_shot.lua", 0.25)
 end
 
 function on_update(this, elapsedTime)
-  update_shots(elapsedTime)
+  shooting_object.update_shots(elapsedTime)
+
   if nextMissileShot > 0.0 then nextMissileShot = nextMissileShot - elapsedTime end
   if invul > 0.0 then invul = invul - elapsedTime end
 
@@ -145,13 +146,13 @@ function on_update(this, elapsedTime)
     setPositionv(this, this_pos)
 
     if engine_testKeyPressed(32) == 1 then
-      attemptShot(this, (getBoundingSphereRadius(this) - 1.0))
+      shooting_object.attemptShot(this, (getBoundingSphereRadius(this) - 1.0))
     end
 
     if engine_testKeyPressed(string.byte("m", 1)) == 1 and
        nextMissileShot <= 0.0 and
        numMissiles > 0 then
-      obj = setShot(this, "./scripts/player_missile.lua")
+      obj = shooting_object.setShot(this, "./scripts/player_missile.lua")
       nextMissileShot = .75
       numMissiles = numMissiles - 1
     end

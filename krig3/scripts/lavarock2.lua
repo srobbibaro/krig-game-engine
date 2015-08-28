@@ -1,14 +1,13 @@
-dofile('./scripts/base_enemy.lua')
+local asteroid = require 'scripts/asteroid'
 
 -- Configuration
-falling = 0
+local falling = 0
 
 -- Overridden Engine Callbacks
 function on_load(this)
   setModel(this, "redrock.mdl")
   setScale(this, 4.0, 4.0, 4.0)
   setRotation(this, 0.0, 0.0, 0.0)
-  life = 3
 
   setTypeId(this, 4)
 end
@@ -56,5 +55,4 @@ function on_update(this, elapsedTime)
   end
 end
 
-function on_unload(this) end
-function on_collision(this, temp) end
+on_collision = asteroid.on_collision

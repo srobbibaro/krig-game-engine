@@ -1,45 +1,31 @@
-dofile('./scripts/base_enemy.lua')
+local game_object = require 'scripts/game_object'
+local enemy       = require 'scripts/enemy'
 
 -- Configuration
-score = 500
+enemy.score = 500
+enemy.life  = 3
 
--- Overridden Engine Callbacks
-function on_load(this)
+local function on_load(this, options)
   setModel(this, "Asteroid.mdl")
-
   setScale(this, 2.0, 2.0, 2.0)
   setRotation(this, 0.0, 0.0, 0.0)
 
-  life = 3
   setTypeId(this, 4)
-
-  -- This value is used to determine how "far" the camera should be from
-  -- the asteroid before it is activated. Doing it this way provides a little
-  -- variance.
-  active_offset = math.random(0, 40)
+  game_object.on_load(this, options)
 end
 
-function on_update(this, elapsedTime)
-  camera          = getCamera()
-  camera_position = getPosition(camera)
+local on_collision = enemy.on_collision
 
-  this_position   = getPosition(this)
-
-  if active_offset + camera_position[1] > this_position[1] then
-    setVelocity(this, math.random(0,3), -math.random(5, 7), 0.0)
-    setRotationVelocity(
-      this,
-      math.random(0, 3), math.random(0, 3), math.random(0, 3)
-    )
-  end
-
+local function is_out_of_view(this, this_position, camera_position)
   if this_position[2] < camera_position[2] - 20 then
     removeObject(this)
   end
 end
 
-function on_collision(this, temp)
-  handle_collision(this, temp)
-end
+asteroid = {
+  on_load        = on_load,
+  on_collision   = on_collision,
+  is_out_of_view = is_out_of_view
+}
 
-function on_unload(this) end
+return asteroid

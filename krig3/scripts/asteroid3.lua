@@ -1,21 +1,14 @@
-dofile('./scripts/base_enemy.lua')
-
--- Configuration
-score = 500
+local asteroid = require 'scripts/asteroid'
 
 -- Overridden Engine Callbacks
-function on_load(this)
+function on_load(this, options)
+  asteroid.on_load(this, options)
+
   camera          = getCamera()
   camera_position = getPosition(camera)
 
-  setModel(this, "Asteroid.mdl")
-  setScale(this, 2.0, 2.0, 2.0)
-
   setPosition(this, camera_position[1] + 20.0, math.random(30), 0.0)
   setVelocity(this, -30.0, 0.0, 0.0)
-
-  life = 3
-  setTypeId(this, 4)
 end
 
 function on_update(this, elapsedTime)
@@ -29,7 +22,7 @@ function on_update(this, elapsedTime)
 end
 
 function on_collision(this, temp)
-  handle_collision(this, temp)
+  asteroid.on_collision(this, temp)
 
   tempId = getTypeId(temp)
 

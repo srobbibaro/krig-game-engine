@@ -1,15 +1,13 @@
-dofile('./scripts/base_enemy.lua')
+local enemy_ship = require 'scripts/enemy_ship'
 
 -- Configuration
-score = 100
-state = 0
+local state = 0
 
 -- Overridden Engine Callbacks
-function on_load(this)
+function on_load(this, options)
+  enemy_ship.on_load(this, options)
   setModel(this, "Enemy.mdl")
-  setScale(this, 2.0, 2.0, 2.0)
   setRotation(this, 0.19625, -2.7475, 0.0)
-  setTypeId(this, 1)
 end
 
 function on_update(this, elapsedTime)
@@ -26,8 +24,4 @@ function on_update(this, elapsedTime)
   end
 end
 
-function on_collision(this, temp)
-  handle_collision(this, temp)
-end
-
-function on_unload(this) end
+on_collision = enemy_ship.on_collision

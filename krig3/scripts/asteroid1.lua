@@ -1,17 +1,8 @@
-dofile('./scripts/base_enemy.lua')
-
--- Configuration
-score = 500
+local asteroid = require 'scripts/asteroid'
 
 -- Overridden Engine Callbacks
-function on_load(this)
-  setModel(this, "Asteroid.mdl")
-
-  setScale(this, 2.0, 2.0, 2.0)
-  setRotation(this, 0.0, 0.0, 0.0)
-
-  life = 3
-  setTypeId(this, 4)
+function on_load(this, options)
+  asteroid.on_load(this, options)
 
   -- This value is used to determine how "far" the camera should be from
   -- the asteroid before it is activated. Doing it this way provides a little

@@ -1,16 +1,9 @@
-dofile('./scripts/base_enemy.lua')
-
--- Configuration
-score = 500
+local asteroid = require 'scripts/asteroid'
 
 -- Overridden Engine Callbacks
-function on_load(this) 
-  setModel(this, "Asteroid.mdl")
+function on_load(this, options)
+  asteroid.on_load(this, options)
   setScale(this, 5.0, 5.0, 5.0)
-  setRotation(this, 0.0, 0.0, 0.0)
-  life = 3
-
-  setTypeId(this, 4)
 end
 
 function on_update(this, elapsedTime)
@@ -18,13 +11,5 @@ function on_update(this, elapsedTime)
   this_position   = getPosition(this)
   camera_position = getPosition(camera)
 
-  if this_position[2] < camera_position[2] - 20 then
-    removeObject(this)
-  end
+  asteroid.is_out_of_view(this, this_position, camera_position)
 end
-
-function on_collision(this, temp)
-  handle_collision(this, temp)
-end
-
-function on_unload(this) end
