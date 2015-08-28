@@ -21,7 +21,3 @@ function on_load(this, options)
 
   disableCollisionDetection(this)
 end
-
-function on_update(this, elapsedTime) end
-function on_unload(this) end
-function on_collision(this, temp) end

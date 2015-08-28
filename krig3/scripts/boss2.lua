@@ -1,18 +1,18 @@
 dofile('./scripts/base_enemy.lua')
 
 -- Configuration
-x_min = 0.0
-x_max = 0.0
-y_min = 0.0
-y_max = 0.0
+local x_min = 0.0
+local x_max = 0.0
+local y_min = 0.0
+local y_max = 0.0
 
 shot_timer = 0.0
 score = 5000
 
--- Overridden Engine Callbacks
+-- Helper Methods
 function set_window()
-  camera = getCamera()
-  camera_position = getPosition(camera)
+  local camera = getCamera()
+  local camera_position = getPosition(camera)
   x_min = camera_position[1] - math.random(20)
   x_max = camera_position[1] + math.random(20)
   y_min = camera_position[2] - math.random(20)
@@ -20,8 +20,7 @@ function set_window()
 end
 
 function calc_speed()
-  speed = math.random(20)
-  speed = 50.0 - speed
+  local speed = 50.0 - math.random(20)
 
   if math.random(2) == 1 then
     speed = speed * -1
@@ -30,6 +29,7 @@ function calc_speed()
   return speed
 end
 
+-- Overridden Engine Callbacks
 function on_load(this)
   setModel(this, "snowboss.mdl")
   setRotation(this, 0.0, -1.57, 0.0)
@@ -47,12 +47,6 @@ end
 function on_update(this, elapsedTime)
   this_position = getPosition(this)
   this_velocity = getVelocity(this)
-
-  shot_timer = shot_timer + elapsedTime
-  if shot_timer > 2.0 then
-    shot_timer = 0.0
-    fire_shot(this)
-  end
 
   if this_velocity[1] > 0.0 then
     if this_position[1] > x_max then
@@ -81,6 +75,3 @@ end
 function on_collision(this, temp)
   handle_collision(this, temp)
 end
-
-function on_unload(this) end
-function fire_shot(this) end

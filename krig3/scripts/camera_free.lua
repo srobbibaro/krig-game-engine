@@ -88,7 +88,3 @@ function on_update(this, elapsedTime)
     addSpeed(camera, 0.0, speed, 0.0)
   end
 end
-
-function on_load(this) end
-function on_unload(this) end
-function on_collision(this, temp) end

@@ -23,5 +23,3 @@ function on_collision(this, temp)
     removeObject(this)
   end
 end
-
-function on_unload(this) end

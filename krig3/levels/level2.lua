@@ -75,9 +75,6 @@ function on_draw_screen()
   display_debug()
 end
 
-function on_unload() end
-function on_draw() end
-
 -- Helper Functions
 function setupEnemyShips()
   -- Intro ships

@@ -149,6 +149,3 @@ function setupCannonboats()
   obj = addObject("./scripts/cannonball.lua")
   setPosition(obj, 840.0, 5.0, -33.5 )
 end
-
-function on_unload() end
-function on_draw() end

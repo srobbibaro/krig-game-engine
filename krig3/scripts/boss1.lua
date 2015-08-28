@@ -59,5 +59,3 @@ end
 function on_collision(this, temp)
   handle_collision(this, temp)
 end
-
-function on_unload(this) end

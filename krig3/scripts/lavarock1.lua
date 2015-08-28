@@ -1,7 +1,7 @@
 dofile('./scripts/base_enemy.lua')
 
 -- Configuration
-falling = 0
+local falling = 0
 
 -- Overridden Engine Callbacks
 function on_load(this)

@@ -11,7 +11,3 @@ function on_load(this)
 
   setTypeId(this, 4)
 end
-
-function on_update(this, elapsedTime) end
-function on_unload(this) end
-function on_collision(this, temp) end

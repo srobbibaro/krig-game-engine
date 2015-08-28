@@ -1,10 +1,9 @@
 dofile('./scripts/base_enemy.lua')
 
 -- Configuration
-state      = 0
-delay      = 0.0
-interpTime = 0.0
-score      = 100
+local state      = 0
+local delay      = 0.0
+local interpTime = 0.0
 
 -- Overridden Engine Callbacks
 function on_load(this)

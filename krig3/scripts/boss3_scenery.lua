@@ -1,7 +1,5 @@
 -- Configuration
-state = 0
-score = 0
-life  = 1
+local state = 0
 
 -- Overridden Engine Callbacks
 function on_load(this)
@@ -9,7 +7,6 @@ function on_load(this)
   setScale(this, 16.0, 16.0, 16.0)
   setRotation(this, 0.0, 1.5708, 1.2)
 
-  life = 40
   setTypeId(this, 3)
 
   disableCollisionDetection(this)
@@ -49,6 +46,3 @@ function on_update(this, elapsedTime)
     end
   end
 end
-
-function on_unload(this) end
-function on_collision(this, temp) end

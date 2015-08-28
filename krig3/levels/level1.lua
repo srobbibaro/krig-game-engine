@@ -221,6 +221,3 @@ function on_draw_screen()
   display_hud(bossBattle, bossLife)
   display_debug()
 end
-
-function on_unload() end
-function on_draw() end

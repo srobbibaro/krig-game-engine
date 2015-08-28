@@ -35,7 +35,7 @@ credCoord = {
 function on_draw_screen(terrain, elapsedTime)
   display_debug()
 
-  delay = elapsedTime
+  local delay = elapsedTime
 
   if creditsPos >= 7.0 then
     CredTrans = 0.0
@@ -112,6 +112,3 @@ function on_update(this)
 
   setLightDirectionv(light)
 end
-
-function on_draw() end
-function on_unload() end

@@ -1,5 +1,5 @@
 -- Configuration
-shake = 0
+local shake = 0
 
 -- Overridden Engine Callbacks
 function on_load(this)
@@ -10,9 +10,9 @@ function on_load(this)
 end
 
 function on_update(this, elapsedTime)
-  camera = getCamera()
-  this_position = getPosition(this)
-  camera_position = getPosition(camera)
+  local camera          = getCamera()
+  local this_position   = getPosition(this)
+  local camera_position = getPosition(camera)
 
   -- Don't start shaking until we're close to it.
   if camera_position[1] < this_position[1]-30.0 or
@@ -29,6 +29,3 @@ function on_update(this, elapsedTime)
     shake = 0
   end
 end
-
-function on_unload(this) end
-function on_collision(this, temp) end

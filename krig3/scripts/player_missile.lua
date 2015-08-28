@@ -1,7 +1,7 @@
 -- Configuration
-duration = 0.0
-obj      = nil
-changed  = 0
+local duration = 0.0
+local obj      = nil
+local changed  = 0
 
 -- Overridden Engine Callbacks
 function on_load(this)

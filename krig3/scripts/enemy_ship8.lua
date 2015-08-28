@@ -2,7 +2,7 @@ dofile('./scripts/base_enemy.lua')
 dofile('./scripts/base_shooting_object.lua')
 
 -- Configuration
-state = 0
+local state = 0
 
 function on_load(this)
   setModel(this, "Enemy.mdl")

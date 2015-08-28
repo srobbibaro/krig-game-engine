@@ -41,6 +41,3 @@ function on_update(this, elapsedTime)
     setHeightFromTerrain(this, scale_factor)
   end
 end
-
-function on_unload(this) end
-function on_collision(this, temp) end

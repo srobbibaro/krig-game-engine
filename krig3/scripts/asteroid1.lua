@@ -33,13 +33,7 @@ function on_update(this, elapsedTime)
     )
   end
 
-  if this_position[2] < camera_position[2] - 20 then
-    removeObject(this)
-  end
+  asteroid.is_out_of_view(this, this_position, camera_position)
 end
 
-function on_collision(this, temp)
-  handle_collision(this, temp)
-end
-
-function on_unload(this) end
+on_collision = asteroid.on_collision

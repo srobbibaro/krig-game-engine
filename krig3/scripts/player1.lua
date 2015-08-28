@@ -189,5 +189,3 @@ function on_collision(this,temp)
     if lives > 99 then lives = 99 end
   end
 end
-
-function on_unload(this, temp) end

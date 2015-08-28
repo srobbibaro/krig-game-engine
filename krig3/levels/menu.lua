@@ -1,8 +1,8 @@
 -- Configuration
-cursor      = -0.2
-alph        = 0.1
-alphaChange = 0.01
-updown      = 0
+local cursor      = -0.2
+local alph        = 0.1
+local alphaChange = 0.01
+local updown      = 0
 
 -- Overridden Engine Callbacks
 function on_load()
@@ -19,19 +19,9 @@ function on_update(this)
     playSound(this, "menu.wav")
   end
 
-  if updown > 1 then
-    updown = 0
-  end
-
-  if updown < 0 then
-    updown = 1
-  end
-
-  if updown == 1 then
-    cursor = 0.0
-  else
-    cursor = -0.2
-  end
+  if updown > 1 then updown = 0 end
+  if updown < 0 then updown = 1 end
+  if updown == 1 then cursor = 0.0 else cursor = -0.2 end
 
   if engine_testKeyPressed(13) == 1 then
     stopBgMusic()
@@ -197,6 +187,3 @@ function on_draw_screen(elapsedTime)
 
   gl.LineWidth(3.0)
 end
-
-function on_unload() end
-function on_draw() end

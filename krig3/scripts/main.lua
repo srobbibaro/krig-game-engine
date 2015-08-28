@@ -86,5 +86,3 @@ function inc_level(inc)
     prevLevelNum = level1
   end
 end
-
-function on_unload() end
