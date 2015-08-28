@@ -1,4 +1,4 @@
-dofile('./scripts/debug_lib.lua')
+local debug_lib = require 'scripts/debug_lib'
 
 -- Configuration
 levels = {
@@ -30,7 +30,7 @@ function on_update(elapsedTime)
   totalTime = totalTime + elapsedTime
 
   if debugEnabled == 1 then
-    handle_debug_controls(elapsedTime)
+    debug_lib.handle_debug_controls(elapsedTime)
   end
 
   -- handle global user control

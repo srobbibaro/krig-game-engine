@@ -1,20 +1,20 @@
 -- Configuration
-paint_all   = 0
-paint_color = 0
+local paint_all   = 0
+local paint_color = 0
 
-last_x      = 0
-last_z      = 0
-last_type   = 0
-last_red    = 0.0
-last_green  = 0.0
-last_blue   = 0.0
-last_height = 0.0
+local last_x      = 0
+local last_z      = 0
+local last_type   = 0
+local last_red    = 0.0
+local last_green  = 0.0
+local last_blue   = 0.0
+local last_height = 0.0
 
-mouse_x = nil
-mouse_y = nil
+local mouse_x = nil
+local mouse_y = nil
 
 -- Helper Functions
-function handle_debug_controls(elapsedTime)
+local function handle_debug_controls(elapsedTime)
   -- handle global user control
   cam_id  = getCameraId()
   camera  = getCamera()
@@ -307,9 +307,15 @@ function handle_debug_controls(elapsedTime)
   setLightDirectionv(light)
 end
 
-function get_terrain_coords(x,z)
+local function get_terrain_coords(x,z)
   x = math.floor(x / 5.0)
   z = -math.floor(z / 5.0)
 
   return x, z
 end
+
+debug_lib = {
+  handle_debug_controls = handle_debug_controls
+}
+
+return debug_lib
