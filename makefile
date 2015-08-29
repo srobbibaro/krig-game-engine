@@ -3,7 +3,7 @@ CFLAGS        := -O3 -O2 -O1 -O -fpermissive -O3 -O2 -O1 -O
 INCLUDES      := -I./src/ -I/usr/include/ -I/usr/include/malloc
 TEST_INCLUDES := -I./src/ -I/usr/include/ -I/usr/include/malloc
 LIBS          := -llua5.1 -lvorbisfile -lvorbisenc -lvorbis -lalut -logg -lopenal -lglut -lGL -lGLU
-DEFINES        = ""
+DEFINES        = -DGL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED
 
 SRC_DIR        := ./src/
 BUILD_DIR      := ./obj/src/
@@ -36,8 +36,8 @@ $(TEST_BUILD_DIR)%.o: $(TEST_SRC_DIR)%.cpp
 
 checkdirs: $(BUILD_DIR) $(TEST_BUILD_DIR)
 
-build-debug: DEFINES = -DDEBUG=1 -DMSG_LVL=2
-build-edit: DEFINES = -DEDIT=1 -DDEBUG=1 -DMSG_LVL=2
+build-debug: DEFINES += -DDEBUG=1 -DMSG_LVL=2
+build-edit: DEFINES += -DEDIT=1 -DDEBUG=1 -DMSG_LVL=2
 
 build: checkdirs krig
 build-edit: build
