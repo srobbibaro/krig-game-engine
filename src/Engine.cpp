@@ -111,7 +111,7 @@ bool Engine::loadGameFromBuffer(char* buffer) {
 
   // If the lua state has not been initialized for this object, attempt to
   // initialize it.
-  if (buffer == "" || luaState_ != NULL)
+  if (strcmp(buffer, "") == 0 || luaState_ != NULL)
     return false;
 
   luaState_ = lua_open();
