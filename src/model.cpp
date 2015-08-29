@@ -190,7 +190,7 @@ void Model::handleCollision(Object* temp) {
     lua_call(L_, 2, 0);
   }
   else {
-    PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_COLLISION);
+    PRINT_DEBUG_LVL(4, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_COLLISION);
     lua_pop(L_, 1);
   }
 }

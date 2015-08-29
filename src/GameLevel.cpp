@@ -90,7 +90,7 @@ void GameLevel::drawLevel() {
     lua_call(luaState_, 2, 0);
   }
   else {
-    PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_DRAW);
+    PRINT_DEBUG_LVL(4, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_DRAW);
     lua_pop(luaState_, 1);
   }
 }
@@ -115,7 +115,7 @@ void GameLevel::postDraw() {
     lua_call(luaState_, 2, 0);
   }
   else {
-    PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_DRAW_SCREEN);
+    PRINT_DEBUG_LVL(4, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_DRAW_SCREEN);
     lua_pop(luaState_, 1);
   }
 }
@@ -140,7 +140,7 @@ void GameLevel::updateLevel() {
     lua_call(luaState_, 2, 0);
   }
   else {
-    PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_UPDATE);
+    PRINT_DEBUG_LVL(4, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_UPDATE);
     lua_pop(luaState_, 1);
   }
 
@@ -224,7 +224,7 @@ bool GameLevel::loadLevelLua(string file) {
     lua_call(luaState_, 1, 0);
   }
   else {
-    PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_LOAD);
+    PRINT_DEBUG_LVL(4, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_LOAD);
     lua_pop(luaState_, 1);
   }
 
@@ -317,7 +317,7 @@ bool GameLevel::loadLevelFromBufferLua(const char* buffer) {
     lua_call(luaState_, 1, 0);
   }
   else {
-    PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_LOAD);
+    PRINT_DEBUG_LVL(4, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_LOAD);
     lua_pop(luaState_, 1);
   }
 
@@ -527,7 +527,7 @@ void GameLevel::unloadLevel() {
       lua_call(luaState_, 1, 0);
     }
     else {
-      PRINT_DEBUG_LVL(2, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_UNLOAD);
+      PRINT_DEBUG_LVL(4, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_UNLOAD);
       lua_pop(luaState_, 1);
     }
   }
