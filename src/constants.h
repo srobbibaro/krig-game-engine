@@ -31,6 +31,7 @@ mode is designed to aid in level creation. Edit mode gives users the ability to
 move around the level freely, manipulate the terrain, and experiment with
 certain level-specific variables which can be tweaked on the fly.
 */
+#ifndef DEBUG
 #define EDIT          0
 /*
 The DEBUG flag is disabled by default (set to 0).
@@ -46,6 +47,7 @@ increasingly larger number of messages.
 Be careful - higher numbers will output a lot of information!
 */
 #define MSG_LVL       0
+#endif
 
 // Sound Library Constants ////////////////////////////////////////////////////
 #define BUFFER_SIZE   65536
