@@ -25,10 +25,10 @@ rebuild: clean build
 rebuild-all: clean build-test
 
 krig: $(OBJ)
-	$(CC) $(LIBS) $^ -o $@
+	$(CC) $^ $(LIBS) -o $@
 
 unit-test: $(TEST_OBJ) $(OBJ_WITHOUT_MAIN)
-	$(CC) $(LIBS) $^ -o $@
+	$(CC) $^ $(LIBS) -o $@
 
 $(BUILD_DIR)%.o: $(SRC_DIR)%.cpp
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
