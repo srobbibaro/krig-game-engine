@@ -86,7 +86,7 @@ int Frustum::testSphere(Sphere sphere) {
 }
 
 //------------------------------------------------------------------------------
-int Frustum::testBoundingBox(void) {}
+int Frustum::testBoundingBox(void) { return 0; }
 
 //------------------------------------------------------------------------------
 void Frustum::getPlaneDefinition(int num, float &a, float &b, float &c, float &d) {
