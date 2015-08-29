@@ -19,7 +19,7 @@ SoundFX::SoundFX() {
    */
   if (SFXDir != NULL) {
     Num_of_SFX = 0;
-    while ( de = readdir( SFXDir ) ) {
+    while ((de = readdir(SFXDir)) != NULL) {
       if ( strstr( de->d_name, ".wav" ) ) {
         files[Num_of_SFX] = string( de->d_name );
         Num_of_SFX++;
