@@ -130,7 +130,7 @@ class Object : public ObjectNode {
     void setRInterpEnd(Quaternion rInterpEnd_l) { rInterpEnd_= rInterpEnd_l;}
 
     bool isInterpolationEnabled() { return isInterpolationEnabled_; }
-    bool setIsInterpolationEnabled(bool isInterpolationEnabled_l) { isInterpolationEnabled_ = isInterpolationEnabled_l; }
+    void setIsInterpolationEnabled(bool isInterpolationEnabled_l) { isInterpolationEnabled_ = isInterpolationEnabled_l; }
 
     float getValInterpBegin() { return valInterpBegin_; }
     float getValInterpCurrent() { return valInterpCurrent_; }

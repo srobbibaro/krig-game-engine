@@ -2692,7 +2692,7 @@ static int camera_getFrustumPlaneLua(lua_State *L) {
 }
 ///@}
 
-static int registerFunctions(lua_State *L, int level) {
+static void registerFunctions(lua_State *L, int level) {
   // game objects
   lua_register(L, "setPosition", setPositionLua);
   lua_register(L, "setPositionv", setPositionvLua);

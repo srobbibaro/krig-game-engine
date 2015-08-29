@@ -8,7 +8,7 @@ QuadTree::QuadTree(void)
 QuadTree::~QuadTree(void) {}
 
 //------------------------------------------------------------------------------
-int QuadTree::buildTree(Terrain* t) {
+void QuadTree::buildTree(Terrain* t) {
   buildTree(root, 0.0f, ((t->getXSize() - 1.0f) * t->getScaleFactor()), 0.0f, ((t->getZSize() - 1.0f) * t->getScaleFactor()), t->getScaleFactor());
 }
 //------------------------------------------------------------------------------

@@ -11,7 +11,7 @@ class QuadTree {
     QuadTree(void);
     ~QuadTree(void);
 
-    int buildTree(Terrain* t);
+    void buildTree(Terrain* t);
     int buildDisplayList(DisplayList* l, Camera* c);
     int buildLeafList(DisplayList* l);
 
