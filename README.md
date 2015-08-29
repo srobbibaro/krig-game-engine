@@ -30,7 +30,6 @@ see: https://github.com/srobbibaro/krig-game-engine-vagrant
 ##### Linux
 
 Install the following packages:
-* codeblocks
 * lua5.1
 * lua5.1-dev
 * libalut-dev
@@ -43,7 +42,15 @@ Install the following packages:
 For example:
 
 ```bash
-$ apt-get install codeblocks lua5.1 lua5.1-dev libalut-dev libvorbis-dev libglu1-mesa-dev freeglut3 freeglut3-dev g++
+$ apt-get install lua5.1 lua5.1-dev libalut-dev libvorbis-dev libglu1-mesa-dev freeglut3 freeglut3-dev g++
+```
+
+If you prefer to work with an IDE, you can optionally install CodeBlocks:
+
+For example:
+
+```bash
+$ apt-get install codeblocks
 ```
 
 ##### Mac OSX
@@ -52,16 +59,21 @@ Install [Homebrew](http://brew.sh/) to help with package installation.
 
 Install [Homebrew Cask](http://caskroom.io/) to help with application installation.
 
-Install the following applications:
+Install the following application:
 
-* codeblocks
 * xquartz
 
 For example:
 
 ```bash
 $ brew install caskroom/cask/brew-cask
-$ brew cask install codeblocks xquartz
+$ brew cask install xquartz
+```
+
+If you prefer to work with an IDE, you can optionally install CodeBlocks:
+
+```bash
+$ brew cask install codeblocks
 ```
 
 Install the following packages:
@@ -100,6 +112,12 @@ $ sudo ln -s /System/Library/Frameworks/OpenGL.framework/Libraries/libGLU.dylib 
 
 ### Compile
 
+After the required packages have been installed, the project can be built using
+the provided makefile.
+
+To build the main executable, run: `$ make` or `$ make build`.
+
+#### Optional: Building with CodeBlocks
 After the required packages have been installed, launch Code::Blocks and load the _krig.cbp_
 project file. Krig should now build with Code::Blocks.
 
@@ -111,6 +129,13 @@ For example:
 $ codeblocks --build krig.cbp
 ```
 #### Enable Debug Mode
+
+To build the main executable in debug mode, run: `$ make build-debug`.
+
+Note: You may need to run `$ make clean` prior to running the above command for it
+to build the executable properly.
+
+You can also change the setting in source, if you prefer:
 
 The `DEBUG` flag is located in _src/constants.h_ and is disabled by default (set to 0).
 To enable debug mode, set this value to 1. Debug mode will output debug messages to
@@ -129,11 +154,20 @@ to 0 which will output minimal debug. This number can be set higher to see an
 increasingly larger number of messages.
 Be careful - higher numbers will output a lot of information!
 
+Note: When you build with `$ make build-debug` a mid-range setting of `2` is assigned.
+
 ```c
 #define MSG_LVL 0
 ```
 
 #### Enable Edit Mode
+
+To build the main executable in debug mode, run: `$ make build-edit`.
+
+Note: You may need to run `$ make clean` prior to running the above command for it
+to build the executable properly.
+
+You can also change the setting in source, if you prefer:
 
 The `EDIT` flag is located in _src/constants.h_ and is disabled by default (set to 0).
 When the `EDIT` flag is enabled (set to 1), Krig will launch in edit mode. This mode is
@@ -158,7 +192,7 @@ Full screen rendering is not compatible with the `EDIT` flag and will be ignored
 
 ### Run
 
-Krig will run from either Code::Blocks or command line.
+Krig can be run from the command-line using a number of different methods.
 The Krig executable is created in the base project directory and is named _krig_.
 You must supply the path to the game to run as the first argument. The Krig
 Game Engine comes with a demo game in the root directory, `krig3`.
@@ -167,6 +201,31 @@ For example:
 
 ```bash
 $ ./krig krig3
+```
+
+The `run-demo` make target will also run the above command. For example:
+
+```bash
+$ make run-demo
+```
+
+Optionally the game can be run from within CodeBlocks, but the game directory `krig3`
+must be specified for it to run properly.
+
+### Run Tests
+
+Unit tests can be run with the following command:
+
+```bash
+$ make run-tests
+```
+
+### Generate Doxygen Documentation
+
+Doxygen documentation is built (in the `html` directory) using the following command:
+
+```bash
+$ make doc
 ```
 
 ## Game Scripting
