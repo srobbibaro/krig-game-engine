@@ -14,6 +14,7 @@ struct Particle {
 class ParticleSystem {
   public:
     ParticleSystem();
+    virtual ~ParticleSystem();
 
     virtual void update(float elapsedTime) = 0;
     virtual void draw(void) = 0;
