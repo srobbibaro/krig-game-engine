@@ -3,7 +3,7 @@
 #include <dirent.h>
 
 #include "Engine.h"
-#include "Scripting.h"
+#include "api.h"
 #include "buffer.h"
 
 extern const char* intro_level_script_buffer;
