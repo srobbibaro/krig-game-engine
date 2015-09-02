@@ -174,12 +174,6 @@ bool Engine::loadIntroCredits() {
 
   // load the intro script from the buffer
   PRINT_DEBUG("Loading Lua game script 'intro credits'...\n");
-  luaL_loadbuffer(
-    luaState_,
-    intro_game_script_buffer,
-    strlen(intro_game_script_buffer),
-    "line"
-  ) || lua_pcall(luaState_, 0, 0, 0);
   loadLevelFromBuffer(intro_level_script_buffer);
 
   isIntroRunning_ = true;
