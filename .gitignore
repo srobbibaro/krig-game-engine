@@ -1,6 +1,9 @@
 # main executable
 krig
 
+# test executable
+unit-test
+
 # build files
 *.o
 *.so
@@ -12,3 +15,7 @@ krig.layout
 
 # documentation
 html/
+
+# library headers
+src/AL
+src/GL
