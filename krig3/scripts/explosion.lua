@@ -5,10 +5,10 @@ local duration = 0.0
 
 -- Overridden Engine Callbacks
 function on_load(this, options)
-  setModel(this, "Explosion.mdl")
-  setScaleRate(this, 1.0, 1.0, 1.0)
-  disableCollisionDetection(this)
-  enableAlwaysLit(this)
+  krig.object.set_model(this, "Explosion.mdl")
+  krig.object.set_scale_rate(this, 1.0, 1.0, 1.0)
+  krig.object.disable_collision_detection(this)
+  krig.object.enable_always_lit(this)
   game_object.on_load(this, options)
 end
 
@@ -16,6 +16,6 @@ function on_update(this, elapsedTime)
   duration = duration + elapsedTime
 
   if duration >= 2.0 then
-    removeObject(this)
+    krig.level.remove_object(this)
   end
 end

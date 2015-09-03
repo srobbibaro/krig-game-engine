@@ -6,16 +6,16 @@ local duration = 0.0
 -- Overridden Engine Callbacks
 local function on_load(this, options)
   game_object.on_load(this, options)
-  enableAlwaysLit(this)
+  krig.object.enable_always_lit(this)
 
-  playSound(this, "laser.wav")
+  krig.play_sound(this, "laser.wav")
 end
 
 local function on_update(this, elapsedTime)
   duration = duration + elapsedTime
 
   if duration > 5.0 then
-    removeObject(this)
+    krig.level.remove_object(this)
     duration = 0
   end
 end

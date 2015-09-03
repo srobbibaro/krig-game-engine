@@ -83,87 +83,87 @@ enemy_ship_wave1 = {
 
 -- Overridden Engine Callbacks
 function on_load(terrain)
-  setSkyBox(
+  krig.level.set_sky_box(
     0.0, 0.0, 0.0,
     0.0, 0.0, 0.0,
     0.2, 0.0, 0.2
   )
 
-  setLightDirection(0.96, 0.07, 0.13)
+  krig.level.set_light_direction(0.96, 0.07, 0.13)
 
-  player = getPlayer()
-  setScript(player, "./scripts/player1.lua")
-  setPosition(player, X_START_PLAYER, 20.0, 0.0)
+  player = krig.get_player()
+  krig.object.set_script(player, "./scripts/player1.lua")
+  krig.object.set_position(player, X_START_PLAYER, 20.0, 0.0)
 
-  camera = getCamera()
-  setScript(camera, "./scripts/camera1.lua")
-  setPosition(camera, X_START_CAMERA, 15.0, 27.5)
+  camera = krig.get_camera()
+  krig.object.set_script(camera, "./scripts/camera1.lua")
+  krig.object.set_position(camera, X_START_CAMERA, 15.0, 27.5)
 
-  addParticleSystem(camera, 1)
+  krig.object.add_particle_system(camera, 1)
 
   for i, v in ipairs(asteroid_wave1) do
-    obj = addObject("./scripts/asteroid_space.lua", v)
+    obj = krig.level.add_object("./scripts/asteroid_space.lua", v)
   end
 
   for i, v in ipairs(enemy_ship_wave1) do
-    obj = addObject(v.script, v)
+    obj = krig.level.add_object(v.script, v)
   end
 
-  obj = addObject("./scripts/redrock.lua")
-  setPosition(obj, 175.0, 6.0, -30.0)
-  setScale(obj, 25.0, 25.0, 25.0)
+  obj = krig.level.add_object("./scripts/redrock.lua")
+  krig.object.set_position(obj, 175.0, 6.0, -30.0)
+  krig.object.set_scale(obj, 25.0, 25.0, 25.0)
 
-  obj = addObject("./scripts/redrock.lua")
-  setPosition(obj, 255.0, 9.0, -60.0)
-  setRotation(obj, 3.14, 3.14, 3.14)
-  setScale(obj, 35.0, 35.0, 35.0)
+  obj = krig.level.add_object("./scripts/redrock.lua")
+  krig.object.set_position(obj, 255.0, 9.0, -60.0)
+  krig.object.set_rotation(obj, 3.14, 3.14, 3.14)
+  krig.object.set_scale(obj, 35.0, 35.0, 35.0)
 
-  obj = addObject("./scripts/redrock.lua")
-  setPosition(obj, 295.0, 20.0, -15.0)
-  setRotation(obj, 3.14, 0.0, 1.57)
-  setScale(obj, 15.0, 15.0, 15.0)
+  obj = krig.level.add_object("./scripts/redrock.lua")
+  krig.object.set_position(obj, 295.0, 20.0, -15.0)
+  krig.object.set_rotation(obj, 3.14, 0.0, 1.57)
+  krig.object.set_scale(obj, 15.0, 15.0, 15.0)
 
-  obj = addObject("./scripts/redrock.lua")
-  setPosition(obj, 350.0, -22.0, -80.0)
-  setScale(obj, 25.0, 25.0, 25.0)
+  obj = krig.level.add_object("./scripts/redrock.lua")
+  krig.object.set_position(obj, 350.0, -22.0, -80.0)
+  krig.object.set_scale(obj, 25.0, 25.0, 25.0)
 
-  obj = addObject("./scripts/redrock.lua")
-  setPosition(obj, 430.0, 42.0, -70.0)
-  setRotation(obj, 3.14, 0.0, 1.57)
-  setScale(obj, 35.0, 35.0, 35.0)
+  obj = krig.level.add_object("./scripts/redrock.lua")
+  krig.object.set_position(obj, 430.0, 42.0, -70.0)
+  krig.object.set_rotation(obj, 3.14, 0.0, 1.57)
+  krig.object.set_scale(obj, 35.0, 35.0, 35.0)
 
-  obj = addObject("./scripts/redrock.lua")
-  setPosition(obj, 400.0, 10.0, -45.0)
-  setRotation(obj, 1.57, 1.57, 1.57)
-  setScale(obj, 15.0, 15.0, 15.0)
+  obj = krig.level.add_object("./scripts/redrock.lua")
+  krig.object.set_position(obj, 400.0, 10.0, -45.0)
+  krig.object.set_rotation(obj, 1.57, 1.57, 1.57)
+  krig.object.set_scale(obj, 15.0, 15.0, 15.0)
 
-  playBgMusic("./music/level5.ogg", 1)
+  krig.level.play_music("./music/level5.ogg", 1)
 end
 
 function on_update(terrain, elapsedTime)
-  camera = getCamera()
-  cam_pos = getPosition(camera)
+  camera = krig.get_camera()
+  cam_pos = krig.object.get_position(camera)
 
   if boss_battle == 0 then
     if cam_pos[1] >= 800 then
-      setVelocity(camera, 0.0, 0.0, 0.0)
+      krig.object.set_velocity(camera, 0.0, 0.0, 0.0)
       boss_battle = 1
-      boss = addObject("./scripts/boss5.lua")
-      setPosition(boss, cam_pos[1] - 20.0, cam_pos[2], 0.0)
+      boss = krig.level.add_object("./scripts/boss5.lua")
+      krig.object.set_position(boss, cam_pos[1] - 20.0, cam_pos[2], 0.0)
     end
   elseif boss_battle == 1 then
     next_asteroid = next_asteroid - elapsedTime
     next_background = next_background - elapsedTime
 
     if next_asteroid <= 0.0 then
-      obj = addObject("./scripts/asteroid3.lua")
-      setRotation(obj, math.random(3), math.random(3), math.random(3))
-      setVelocity(obj, -28.0, 0.0, 0.0)
+      obj = krig.level.add_object("./scripts/asteroid3.lua")
+      krig.object.set_rotation(obj, math.random(3), math.random(3), math.random(3))
+      krig.object.set_velocity(obj, -28.0, 0.0, 0.0)
       next_asteroid = 0.1
     end
 
     bossLife = 0
-    if boss ~= nil then bossLife = getScriptValue(boss, "life") end
+    if boss ~= nil then bossLife = krig.get_script_value(boss, "life") end
     if bossLife == 0 then boss = nil end
     level_lib.update_level(elapsedTime, bossLife)
   end
@@ -172,7 +172,7 @@ end
 function on_draw_screen()
   if boss_battle == 1 then
     bossLife = 0
-    if boss ~= nil then bossLife = getScriptValue(boss, "life") end
+    if boss ~= nil then bossLife = krig.get_script_value(boss, "life") end
     if bossLife == 0 then boss = nil end
   end
 

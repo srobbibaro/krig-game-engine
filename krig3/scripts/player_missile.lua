@@ -5,35 +5,35 @@ local changed  = 0
 
 -- Overridden Engine Callbacks
 function on_load(this)
-  setModel(this, "Missle.mdl")
-  setTypeId(this, 2)
-  enableAlwaysLit(this)
+  krig.object.set_model(this, "Missle.mdl")
+  krig.object.set_type_id(this, 2)
+  krig.object.enable_always_lit(this)
 
-  playSound(this, "laser.wav")
+  krig.play_sound(this, "laser.wav")
 
-  obj = level_findObjectOfType(1)
-  setRotationVelocity(this, 0.0, 0.0, 0.0)
+  obj = krig.level.find_object_of_type(1)
+  krig.object.set_rotation_velocity(this, 0.0, 0.0, 0.0)
 end
 
 function on_update(this, elapsedTime)
   duration = duration + elapsedTime
 
   if duration > 5.0 then
-    removeObject(this)
+    krig.level.remove_object(this)
     duration = 0.0
   end
 
-  this_dir = getDirection(this)
-  this_rot_vel = getRotationVelocity(this)
-  this_speed = getSpeed(this)
-  this_orth  = getOrthogonal(this)
+  this_dir = krig.object.get_direction(this)
+  this_rot_vel = krig.object.get_rotation_velocity(this)
+  this_speed = krig.object.get_speed(this)
+  this_orth  = krig.object.get_orthogonal(this)
 
   if obj ~= nil then
-    setSpeed(this, 0.0, 0.0, 0.0)
+    krig.object.set_speed(this, 0.0, 0.0, 0.0)
 
-    obj_pos = getPosition(obj)
-    obj_radius = getBoundingSphereRadius(obj)
-    this_pos = getPosition(this)
+    obj_pos = krig.object.get_position(obj)
+    obj_radius = krig.object.get_bounding_sphere_radius(obj)
+    this_pos = krig.object.get_position(this)
 
     if obj_pos[2] + obj_radius < this_pos[2] then
       this_rot_vel[3] = -30.0 * elapsedTime
@@ -53,23 +53,21 @@ function on_update(this, elapsedTime)
       changed       = 0
     end
   else
-    obj           = level_findObjectOfType(3)
+    obj           = krig.level.find_object_of_type(1)
     this_rot_vel  = { this_dir[1] * 8.0, this_dir[2] * 8.0, this_dir[3] * 8.0 }
     this_speed[1] = this_speed[1] + 8.0 * elapsedTime
     changed       = 0
   end
 
-  setRotationVelocityv(this, this_rot_vel)
-  setSpeedv(this, this_speed)
+  krig.object.set_rotation_velocity(this, this_rot_vel)
+  krig.object.set_speed(this, this_speed)
 end
 
 function on_collision(this, temp)
-  typeId = getTypeId(temp)
+  typeId = krig.object.get_type_id(temp)
 
   if typeId ~= 0 then
-    removeObject(this)
+    krig.level.remove_object(this)
     duration = 0.0
   end
 end
-
-function on_unload(this) end

@@ -6,15 +6,15 @@ local function on_update(this, elapsedTime)
   duration = duration + elapsedTime
 
   if duration >= powerup.max_duration then
-    removeObject(this)
+    krig.level.remove_object(this)
   end
 end
 
 local function on_collision(this, temp)
-  typeId = getTypeId(temp)
+  typeId = krig.object.get_type_id(temp)
   if typeId == 0 then
-    playSound(this, "pause.wav")
-    removeObject(this)
+    krig.play_sound(this, "pause.wav")
+    krig.level.remove_object(this)
   end
 end
 

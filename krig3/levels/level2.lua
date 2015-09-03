@@ -9,56 +9,56 @@ bossLife = 0
 
 -- Overridden Engine Callbacks
 function on_load(terrain)
-  setSkyBox(
+  krig.level.set_sky_box(
     0.0, 0.0, 0.3,
     0.6, 0.6, 0.6,
     1.0, 1.0, 1.0
   )
 
-  setLightDirection(0.25, 0.25, 0.5)
+  krig.level.set_light_direction(0.25, 0.25, 0.5)
 
-  setTerrain(terrain, "./terrains/level2.txt")
+  krig.level.set_terrain(terrain, "./terrains/level2.txt")
 
-  player = getPlayer()
-  setScript(player, "./scripts/player1.lua")
-  setPosition(player, X_START_PLAYER, 20.0, 7.5)
+  player = krig.get_player()
+  krig.object.set_script(player, "./scripts/player1.lua")
+  krig.object.set_position(player, X_START_PLAYER, 20.0, 7.5)
 
-  camera = getCamera()
-  setScript(camera, "./scripts/camera1.lua")
-  setPosition(camera, X_START_CAMERA, 15.0, 35.0)
+  camera = krig.get_camera()
+  krig.object.set_script(camera, "./scripts/camera1.lua")
+  krig.object.set_position(camera, X_START_CAMERA, 15.0, 35.0)
 
-  addParticleSystem(camera, 2)
+  krig.object.add_particle_system(camera, 2)
 
   -- gameplay obstacles (ships, asteroids, etc)
   setupEnemyShips()
   setupAsteroids()
 
-  playBgMusic("./music/level2.ogg", 1)
+  krig.level.play_music("./music/level2.ogg", 1)
 end
 
 function on_update(terrain, elapsedTime)
   if bossBattle == 0  then
-    camera = getCamera()
-    cam_pos = getPosition(camera)
+    camera = krig.get_camera()
+    cam_pos = krig.object.get_position(camera)
 
     if cam_pos[1] >= 1935.0 then
       bossBattle = 1
 
       -- Set the camera's velocity
-      setVelocity(camera, 0.0, 0.0, 0.0)
+      krig.object.set_velocity(camera, 0.0, 0.0, 0.0)
 
       -- Set the player's velocity
-      player = getPlayer()
-      plr_vel = getVelocity(player)
-      setVelocity(player, (plr_vel[1] - 10.0), plr_vel[2], plr_vel[3])
+      player = krig.get_player()
+      plr_vel = krig.object.get_velocity(player)
+      krig.object.set_velocity(player, (plr_vel[1] - 10.0), plr_vel[2], plr_vel[3])
 
       -- Create the boss...
-      boss = addObject("./scripts/boss2.lua")
-      setPosition(boss, 1960.0, 15.0, 7.5)
+      boss = krig.level.add_object("./scripts/boss2.lua")
+      krig.object.set_position(boss, 1960.0, 15.0, 7.5)
     end
   elseif bossBattle == 1 then
     bossLife = 0
-    if boss ~= nil then bossLife = getScriptValue(boss, "life") end
+    if boss ~= nil then bossLife = krig.get_script_value(boss, "life") end
     if bossLife == 0 then boss = nil end
     level_lib.update_level(elapsedTime, bossLife)
   end
@@ -67,7 +67,7 @@ end
 function on_draw_screen()
   if bossBattle == 1 then
     bossLife = 0
-    if boss ~= nil then bossLife = getScriptValue(boss, "life") end
+    if boss ~= nil then bossLife = krig.get_script_value(boss, "life") end
     if bossLife == 0 then boss = nil end
   end
 
@@ -78,21 +78,21 @@ end
 -- Helper Functions
 function setupEnemyShips()
   -- Intro ships
-  obj = addObject("./scripts/enemy_ship1.lua")
-  setPosition(obj, 160, 15, 7.5)
+  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
+  krig.object.set_position(obj, 160, 15, 7.5)
 
-  obj = addObject("./scripts/enemy_ship1.lua")
-  setPosition(obj, 180, 22, 7.5)
+  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
+  krig.object.set_position(obj, 180, 22, 7.5)
 
-  obj = addObject("./scripts/enemy_ship1.lua")
-  setPosition(obj, 200, 20, 7.5)
+  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
+  krig.object.set_position(obj, 200, 20, 7.5)
 
-  obj = addObject("./scripts/enemy_ship1.lua")
-  setPosition(obj, 220, 10, 7.5)
+  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
+  krig.object.set_position(obj, 220, 10, 7.5)
 
   -- The trickster...
-  obj = addObject("./scripts/enemy_ship1.lua")
-  setPosition(obj, 260, 17, 7.5)
+  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
+  krig.object.set_position(obj, 260, 17, 7.5)
 
   -- "V" groups.
   level_lib.buildVGroup(270, 17, 7.5)
@@ -119,22 +119,22 @@ function setupEnemyShips()
 end
 
 function setupFlyingCircleEnemyShips()
-  obj = addObject("./scripts/enemy_ship12.lua")
-  setPosition(obj, 1410.0, 5.0, 7.5)
-  obj = addObject("./scripts/enemy_ship12.lua")
-  setPosition(obj, 1420.0, 8.0, 7.5)
-  obj = addObject("./scripts/enemy_ship12.lua")
-  setPosition(obj, 1430.0, 11.0, 7.5)
-  obj = addObject("./scripts/enemy_ship12.lua")
-  setPosition(obj, 1440.0, 13.0, 7.5)
-  obj = addObject("./scripts/enemy_ship12.lua")
-  setPosition(obj, 1450.0, 13.0, 7.5)
-  obj = addObject("./scripts/enemy_ship12.lua")
-  setPosition(obj, 1460.0, 11.0, 7.5)
-  obj = addObject("./scripts/enemy_ship12.lua")
-  setPosition(obj, 1470.0, 8.0, 7.5)
-  obj = addObject("./scripts/enemy_ship12.lua")
-  setPosition(obj, 1480.0, 5.0, 7.5)
+  obj = krig.level.add_object("./scripts/enemy_ship12.lua")
+  krig.object.set_position(obj, 1410.0, 5.0, 7.5)
+  obj = krig.level.add_object("./scripts/enemy_ship12.lua")
+  krig.object.set_position(obj, 1420.0, 8.0, 7.5)
+  obj = krig.level.add_object("./scripts/enemy_ship12.lua")
+  krig.object.set_position(obj, 1430.0, 11.0, 7.5)
+  obj = krig.level.add_object("./scripts/enemy_ship12.lua")
+  krig.object.set_position(obj, 1440.0, 13.0, 7.5)
+  obj = krig.level.add_object("./scripts/enemy_ship12.lua")
+  krig.object.set_position(obj, 1450.0, 13.0, 7.5)
+  obj = krig.level.add_object("./scripts/enemy_ship12.lua")
+  krig.object.set_position(obj, 1460.0, 11.0, 7.5)
+  obj = krig.level.add_object("./scripts/enemy_ship12.lua")
+  krig.object.set_position(obj, 1470.0, 8.0, 7.5)
+  obj = krig.level.add_object("./scripts/enemy_ship12.lua")
+  krig.object.set_position(obj, 1480.0, 5.0, 7.5)
 
   level_lib.buildFlyingCircleUpGroup(4, 5, 1510.0, 11.0, 7.5)
   level_lib.buildFlyingCircleUpGroup(4, 5, 1555.0, 8.0, 7.5)

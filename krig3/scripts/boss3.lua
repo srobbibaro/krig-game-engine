@@ -11,40 +11,40 @@ life        = enemy.life
 
 -- Overridden Engine Callbacks
 function on_load(this)
-  setModel(this, "FishBoss.mdl")
-  setScale(this, 16.0, 16.0, 16.0)
-  setRotation(this, 0.0, -1.5708, -1.2)
+  krig.object.set_model(this, "FishBoss.mdl")
+  krig.object.set_scale(this, 16.0, 16.0, 16.0)
+  krig.object.set_rotation(this, 0.0, -1.5708, -1.2)
 
-  setTypeId(this, 1)
+  krig.object.set_type_id(this, 1)
 end
 
 function on_update(this, elapsedTime)
-  this_pos = getPosition(this)
+  this_pos = krig.object.get_position(this)
 
   -- Disable collision detection when the boss is close to the screen
   -- since it is a little harder to judge for the player
   if (this_pos[3] > 8.0) then
-    disableCollisionDetection(this)
+    krig.object.disable_collision_detection(this)
   else
-    enableCollisionDetection(this)
+    krig.object.enable_collision_detection(this)
   end
 
   if state == 0 then
     state = 2
-    orig_position = getPosition(this)
+    orig_position = krig.object.get_position(this)
   elseif state == 1 then
     interpTime = interpTime + elapsedTime
-    setInterpolationVariableCurrentValue(this, interpTime)
+    krig.object.set_interpolation_variable_current_value(this, interpTime)
 
     if interpTime >= 2.0 then
       state = 2
-      setInterpolationEnable(this, 0)
+      krig.object.set_interpolation_enable(this, 0)
     end
   elseif state == 2 then
     interpTime = interpTime + elapsedTime
 
     if interpTime > 6.0 then
-      setSpeed(this, 0.0)
+      krig.object.set_speed(this, 0.0)
 
       new_position   = {}
       start_rotation = {}
@@ -90,17 +90,17 @@ function on_update(this, elapsedTime)
       end
 
       -- set orientation and speed
-      setPositionv(this, new_position)
-      setRotationv(this, start_rotation)
-      setSpeed(this, 45.0 + math.random(0, 15))
+      krig.object.set_position(this, new_position)
+      krig.object.set_rotation(this, start_rotation)
+      krig.object.set_speed(this, 45.0 + math.random(0, 15))
 
       -- setup interpolation
-      setInterpolationEnable(this, 1)
-      setInterpolationVariableBeginValue(this, 0.0)
-      setInterpolationVariableEndValue(this, 2.0)
-      setInterpolationVariableCurrentValue(this, 0.0)
-      setInterpolationRotationStartv(this, start_rotation)
-      setInterpolationRotationEndv(this, end_rotation)
+      krig.object.set_interpolation_enable(this, 1)
+      krig.object.set_interpolation_variable_begin_value(this, 0.0)
+      krig.object.set_interpolation_variable_end_value(this, 2.0)
+      krig.object.set_interpolation_variable_current_value(this, 0.0)
+      krig.object.set_interpolation_rotation_start(this, start_rotation)
+      krig.object.set_interpolation_rotation_end(this, end_rotation)
       interpTime = 0.0
 
       -- transition to active interpolation state

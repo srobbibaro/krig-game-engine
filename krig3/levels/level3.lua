@@ -9,23 +9,23 @@ bossLife = 40
 
 -- Overridden Engine Callbacks
 function on_load(terrain)
-  setSkyBox(
+  krig.level.set_sky_box(
     0.8, 0.2, 0.5,
     0.4, 0.4, 0.6,
     0.7, 1.0, 0.2
   )
 
-  setLightDirection(0.25, 0.25, 0.5)
+  krig.level.set_light_direction(0.25, 0.25, 0.5)
 
-  setTerrain(terrain, "./terrains/level3.txt")
+  krig.level.set_terrain(terrain, "./terrains/level3.txt")
 
-  player = getPlayer()
-  setScript(player, "./scripts/player1.lua")
-  setPosition(player, X_START_PLAYER, 20.0, 7.5)
+  player = krig.get_player()
+  krig.object.set_script(player, "./scripts/player1.lua")
+  krig.object.set_position(player, X_START_PLAYER, 20.0, 7.5)
 
-  camera = getCamera()
-  setScript(camera, "./scripts/camera1.lua")
-  setPosition(camera, X_START_CAMERA, 15.0, 35.0)
+  camera = krig.get_camera()
+  krig.object.set_script(camera, "./scripts/camera1.lua")
+  krig.object.set_position(camera, X_START_CAMERA, 15.0, 35.0)
 
   setupSailboats()
   setupCannonboats()
@@ -49,32 +49,32 @@ function on_load(terrain)
 
   buildBossScenery()
 
-  playBgMusic("./music/level3.ogg", 1)
+  krig.level.play_music("./music/level3.ogg", 1)
 end
 
 function on_update(terrain, elapsedTime)
   if bossBattle == 0  then
-    camera = getCamera()
-    cam_pos = getPosition(camera)
+    camera = krig.get_camera()
+    cam_pos = krig.object.get_position(camera)
 
     if cam_pos[1] >= 2300.0 then
       bossBattle = 1
 
       -- Set the camera's velocity
-      setVelocity(camera, 0.0, 0.0, 0.0)
+      krig.object.set_velocity(camera, 0.0, 0.0, 0.0)
 
       -- Set the player's velocity
-      player = getPlayer()
-      plr_vel = getVelocity(player)
-      setVelocity(player, (plr_vel[1] - 10.0), plr_vel[2], plr_vel[3])
+      player = krig.get_player()
+      plr_vel = krig.object.get_velocity(player)
+      krig.object.set_velocity(player, (plr_vel[1] - 10.0), plr_vel[2], plr_vel[3])
 
       -- Create the boss...
-      boss = addObject("./scripts/boss3.lua")
-      setPosition(boss, 2340.0, -20.0, 7.5)
+      boss = krig.level.add_object("./scripts/boss3.lua")
+      krig.object.set_position(boss, 2340.0, -20.0, 7.5)
     end
   elseif bossBattle == 1 then
     bossLife = 0
-    if boss ~= nil then bossLife = getScriptValue(boss, "life") end
+    if boss ~= nil then bossLife = krig.get_script_value(boss, "life") end
     if bossLife == 0 then boss = nil end
     level_lib.update_level(elapsedTime, bossLife)
   end
@@ -83,7 +83,7 @@ end
 function on_draw_screen()
   if bossBattle == 1 then
     bossLife = 0
-    if boss ~= nil then bossLife = getScriptValue(boss, "life") end
+    if boss ~= nil then bossLife = krig.get_script_value(boss, "life") end
     if bossLife == 0 then boss = nil end
   end
 
@@ -92,60 +92,60 @@ function on_draw_screen()
 end
 
 function buildWaterStructure(xpos, zpos)
-  local obj = addObject("./scripts/beam_scenery.lua")
-  setScale(obj, 5.0, 3.0, 5.0)
-  setPosition(obj, xpos, 5.0, zpos)
-  setRotation(obj, 0.0, 0.0, 1.57)
+  local obj = krig.level.add_object("./scripts/beam_scenery.lua")
+  krig.object.set_scale(obj, 5.0, 3.0, 5.0)
+  krig.object.set_position(obj, xpos, 5.0, zpos)
+  krig.object.set_rotation(obj, 0.0, 0.0, 1.57)
 
-  obj = addObject("./scripts/beam_scenery.lua")
-  setScale(obj, 6.0, 3.0, 5.0)
-  setPosition(obj, xpos-8.0, 5.0, zpos)
-  setRotation(obj, 0.0, 0.0, 2.0)
+  obj = krig.level.add_object("./scripts/beam_scenery.lua")
+  krig.object.set_scale(obj, 6.0, 3.0, 5.0)
+  krig.object.set_position(obj, xpos-8.0, 5.0, zpos)
+  krig.object.set_rotation(obj, 0.0, 0.0, 2.0)
 
-  obj = addObject("./scripts/beam_scenery.lua")
-  setScale(obj, 5.0, 3.0, 5.0)
-  setPosition(obj, xpos+5.0, 5.0, zpos+15)
-  setRotation(obj, 0.0, 0.0, -2.0)
+  obj = krig.level.add_object("./scripts/beam_scenery.lua")
+  krig.object.set_scale(obj, 5.0, 3.0, 5.0)
+  krig.object.set_position(obj, xpos+5.0, 5.0, zpos+15)
+  krig.object.set_rotation(obj, 0.0, 0.0, -2.0)
 end
 
 function buildBossScenery()
-  local obj = addObject("./scripts/boss3_scenery.lua")
-  setPosition(obj, 200.0, -15.0, -180.0 )
+  local obj = krig.level.add_object("./scripts/boss3_scenery.lua")
+  krig.object.set_position(obj, 200.0, -15.0, -180.0 )
 
-  obj = addObject("./scripts/boss3_scenery.lua")
-  setPosition(obj, 400.0, -15.0, -150.0 )
+  obj = krig.level.add_object("./scripts/boss3_scenery.lua")
+  krig.object.set_position(obj, 400.0, -15.0, -150.0 )
 
-  obj = addObject("./scripts/boss3_scenery.lua")
-  setPosition(obj, 800.0, -15.0, -100.0 )
+  obj = krig.level.add_object("./scripts/boss3_scenery.lua")
+  krig.object.set_position(obj, 800.0, -15.0, -100.0 )
 
-  obj = addObject("./scripts/boss3_scenery.lua")
-  setPosition(obj, 1100.0, -15.0, -60.0 )
+  obj = krig.level.add_object("./scripts/boss3_scenery.lua")
+  krig.object.set_position(obj, 1100.0, -15.0, -60.0 )
 
-  obj = addObject("./scripts/boss3_scenery.lua")
-  setPosition(obj, 1400.0, -15.0, -20.0 )
+  obj = krig.level.add_object("./scripts/boss3_scenery.lua")
+  krig.object.set_position(obj, 1400.0, -15.0, -20.0 )
 end
 
 function setupSailboats()
-  local obj = addObject("./scripts/sail_boat.lua")
-  setPosition(obj, 270.0, 0.0, -65.0 )
+  local obj = krig.level.add_object("./scripts/sail_boat.lua")
+  krig.object.set_position(obj, 270.0, 0.0, -65.0 )
 
-  obj = addObject("./scripts/sail_boat.lua")
-  setPosition(obj, 350.0, 0.0, -100.0 )
+  obj = krig.level.add_object("./scripts/sail_boat.lua")
+  krig.object.set_position(obj, 350.0, 0.0, -100.0 )
 
-  obj = addObject("./scripts/sail_boat.lua")
-  setPosition(obj, 550.0, 0.0, -80.0 )
+  obj = krig.level.add_object("./scripts/sail_boat.lua")
+  krig.object.set_position(obj, 550.0, 0.0, -80.0 )
 end
 
 function setupCannonboats()
-  local obj = addObject("./scripts/cannon_boat.lua")
-  setPosition(obj, 800.0, 0.0, -40.0 )
+  local obj = krig.level.add_object("./scripts/cannon_boat.lua")
+  krig.object.set_position(obj, 800.0, 0.0, -40.0 )
 
-  obj = addObject("./scripts/cannonball.lua")
-  setPosition(obj, 800.0, 5.0, -38.5 )
+  obj = krig.level.add_object("./scripts/cannonball.lua")
+  krig.object.set_position(obj, 800.0, 5.0, -38.5 )
 
-  obj = addObject("./scripts/cannon_boat.lua")
-  setPosition(obj, 840.0, 0.0, -35.0 )
+  obj = krig.level.add_object("./scripts/cannon_boat.lua")
+  krig.object.set_position(obj, 840.0, 0.0, -35.0 )
 
-  obj = addObject("./scripts/cannonball.lua")
-  setPosition(obj, 840.0, 5.0, -33.5 )
+  obj = krig.level.add_object("./scripts/cannonball.lua")
+  krig.object.set_position(obj, 840.0, 5.0, -33.5 )
 end
