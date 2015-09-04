@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "object.h"
+#include "Object.h"
 
 class BasicObject : public Object {
   public:
