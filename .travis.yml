@@ -1,29 +1,23 @@
 language: cpp
-
 compiler:
-  - gcc
-  - clang
-
+- gcc
 before_install:
-  - echo $LANG
-  - echo $LC_ALL
-  - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get update && sudo apt-get install -y lua5.1 lua5.1-dev libalut-dev libvorbis-dev libglu1-mesa-dev freeglut3 freeglut3-dev; fi
-  - if [ $TRAVIS_OS_NAME == osx ]; then brew install freeglut freealut libvorbis lua51; fi
-  - if [ $TRAVIS_OS_NAME == osx ]; then ln -s /System/Library/Frameworks/OpenAL.framework/Headers/ src/AL; fi
-  - if [ $TRAVIS_OS_NAME == osx ]; then ln -s /System/Library/Frameworks/OpenGL.framework/Headers/ src/GL; fi
-  - if [ $TRAVIS_OS_NAME == osx ]; then sudo ln -s /System/Library/Frameworks/OpenAL.framework/OpenAL /usr/lib/libopenal.a; fi
-  - if [ $TRAVIS_OS_NAME == osx ]; then sudo ln -s /System/Library/Frameworks/OpenGL.framework/OpenGL /usr/lib/libGL.a; fi
-  - if [ $TRAVIS_OS_NAME == osx ]; then sudo ln -s /System/Library/Frameworks/OpenGL.framework/Libraries/libGLU.dylib /usr/lib/libGLU.a; fi
-
+- echo $LANG
+- echo $LC_ALL
+- if [ $TRAVIS_OS_NAME == linux ]; then sudo ./build-scripts/setup-linux.sh; fi
+- if [ $TRAVIS_OS_NAME == osx ]; then ./build-scripts/setup-mac.sh; fi
 script: make run-tests
-
+after_success:
+- if [ $TRAVIS_OS_NAME == osx ]; then ./build-scripts/update-documentation.sh; fi
 branches:
   only:
-    - master
-
+  - master
 notifications:
-  email: false
-
+  email: true
 os:
-  - linux
-  - osx
+- linux
+- osx
+env:
+  global:
+  - secure: HYDOTrLrY1QPXOzUfTRHwsaKmXNj2M94AnX+r7hZWX3MeCy8nt63JpbKgJwNGbPqwswAwjjXplahRM2LJ7pf3Co9HWDdrvlGDXSzI017egXC1lj3wF9gMVC56/WdIlgv9Pvs76Ez1R9FK9PWTggvJAUaqNuJOHa4j+ehBNK4/icBiibPRds0oqqa70z6txsMXWbCRWawbUCEiSpl21YBDdOU9M2ginC30mXHvxLQQcWzLyDcI8aOQy0xB3zGnDH/N+nf0RL17nsWIoeuhXYJVMI10jonC79DODKdD0k73GXWjBZPOTIZ+jamQwz9EXMZkCqQ2ZmG2N65fucrIAsbaxAKmyTU7BCTRcNkavJ2xCzn958FGB8kRWa8lbYgG5HSBlNzxZEKqeXNZfqG0tGbOap9x2d+GgmUX2nMhaIn8hWAb56oO6CH/H/zxS2XYDAf+YPN6EK8uDTRV1J6EVkaUZM5QZsz+mxYim3qhcm8N4fZowgGp8/QqN0ztUstD96SSNRzTvti29KP+lAULqbWiU7aRVVa/oDwDT6Hanbz6GeEKgXgNFSsEMnS6g4bjoJbzSSD3k+Sjko2ENzGevj8mOozVyFhz3DqsVxdWKPVzcwjEgUyF1gAWkyMg+X0zYa1yzrfpGt8ER2DrJV45o9jCdHF2sAypEHxxdxquRX97PQ=
+  - secure: e/gfCloFHRU0I6oCxKUH7vIKGoNuhDaet52bTI7h1y+SRmEDle5LMpCI1pn+XtnEfazPbWjeSt9UcV7LF3ivmtkhjtNr4XzawXd7n1+Rg0JAdDkmRsubYgjjt9A90sDUAt731BGjytD7CkKOpc6JwvvnzOksG9+woMNSutwC0V+ic+gdt+TSOnsiv+P6xfXKQ49HGvzlcYDNAj8lNsOBVzdlTdI2NZok00ZcAcAZ1Bns5ZbwdpYvAOGXyHTiNkG4bFyT0ky9Y6fGO61JO9Y+tA0b/ue/VgrElH1fz2AxC6p+SiZXi6aU69Iyqxr18DQVJEwaKE61S1vdlnBFaHlbqTHKJRX2pTfBJNcisVxLX/H8ppF48kiLxM6ddCtnbYAtf3ZqKDC7gwN7EnY8FzQ8TgMBCPge05Q9/Tcd3V6RgLW0jl5qcJKjdKMzc2PLJjsQrOlLjhxZvuWX4lwBlU1idSJEgCYdZIE9CqiA8UttN/gVYzYAss76D/YU91PTp3Qxd42UlQ7g8HlnSzF0E84nHlmuFB+ZkvrmMvyECkTZQ+x+La+Vjbu5BCeCYBe7o0WLXyIkvtvKTH6UgxaPpmHhzjK1iT55VwZvthe8ARhnnwuWTlpYWTjlP6oHpUfWKjxVkbQeBt7lab9eBSsdGD2NYpxEs/cQ9bR62PkdrS6JVb8=
