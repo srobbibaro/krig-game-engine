@@ -1,0 +1,29 @@
+language: cpp
+
+compiler:
+  - gcc
+  - clang
+
+before_install:
+  - echo $LANG
+  - echo $LC_ALL
+  - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get update && sudo apt-get install -y lua5.1 lua5.1-dev libalut-dev libvorbis-dev libglu1-mesa-dev freeglut3 freeglut3-dev; fi
+  - if [ $TRAVIS_OS_NAME == osx ]; then brew install freeglut freealut libvorbis lua51; fi
+  - if [ $TRAVIS_OS_NAME == osx ]; then ln -s /System/Library/Frameworks/OpenAL.framework/Headers/ src/AL; fi
+  - if [ $TRAVIS_OS_NAME == osx ]; then ln -s /System/Library/Frameworks/OpenGL.framework/Headers/ src/GL; fi
+  - if [ $TRAVIS_OS_NAME == osx ]; then sudo ln -s /System/Library/Frameworks/OpenAL.framework/OpenAL /usr/lib/libopenal.a; fi
+  - if [ $TRAVIS_OS_NAME == osx ]; then sudo ln -s /System/Library/Frameworks/OpenGL.framework/OpenGL /usr/lib/libGL.a; fi
+  - if [ $TRAVIS_OS_NAME == osx ]; then sudo ln -s /System/Library/Frameworks/OpenGL.framework/Libraries/libGLU.dylib /usr/lib/libGLU.a; fi
+
+script: make run-tests
+
+branches:
+  only:
+    - master
+
+notifications:
+  email: false
+
+os:
+  - linux
+  - osx
