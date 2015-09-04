@@ -4,6 +4,8 @@ Krig Game Engine
 Krig is a cross-platform, open source game engine with accompanying demo game
 (by the same name).
 
+[![Build Status](https://travis-ci.org/srobbibaro/krig-game-engine.svg?branch=master)](https://travis-ci.org/srobbibaro/krig-game-engine)
+
 ## Getting Started
 
 At this time, Krig is known to build and run on a number of *nix operating systems.
