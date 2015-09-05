@@ -237,4 +237,4 @@ engine provides an API designed to handle common game writing tasks. For example
 there are functions which add objects to a level, provide these objects properties,
 and notify the script of important events, such as object collisions.
 
-See the [API documentation](http://srobbibaro.github.io/krig-game-engine/Scripting_8h.html) for game scripting details.
+See the [API documentation](http://srobbibaro.github.io/krig-game-engine/api_8cpp.html) for game scripting details.

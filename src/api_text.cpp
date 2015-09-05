@@ -1,3 +1,9 @@
+/**
+ * @file api_text.cpp
+ * @brief Krig Game Engine Lua Scripting API - Text
+ *
+ * Text object focused API functionality.
+ */
 #include "api.h"
 #include "api_text.h"
 

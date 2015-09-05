@@ -2,11 +2,12 @@
  * @file api.cpp
  * @brief Krig Game Engine Lua Scripting API
  *
- * API calls are split into four classes of functions. The classes are defined
- * by the type of script where they are available for use. For example, the
- * playBgMusic function is supported for a game level script and would not be
- * available to use for an object. The four classes of functions are: Game Object,
- * Text, Game Level, and Game (Engine).
+ * API calls are split into seven classes of functions. The classes are grouped
+ * by the type of functionality they provide. For example, the
+ * krig.object.set_position function is supported for a game objects, while
+ * krig.level.add_object function is supported for game levels. The seven classes 
+ * of functions are: Game Object, Game Level, Text, Terrain, Camera, Vector Math,
+ * and Game (Engine).
  */
 #include "api.h"
 #include "api_engine.h"

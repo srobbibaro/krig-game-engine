@@ -1,3 +1,9 @@
+/**
+ * @file api_object.cpp
+ * @brief Krig Game Engine Lua Scripting API - Game Object
+ *
+ * Game object focused API functionality.
+ */
 #include "api.h"
 #include "api_object.h"
 

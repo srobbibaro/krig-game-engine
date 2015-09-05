@@ -1,3 +1,9 @@
+/**
+ * @file api_vector.cpp
+ * @brief Krig Game Engine Lua Scripting API - Vector
+ *
+ * Vector focused API functionality.
+ */
 #include "api.h"
 #include "api_vector.h"
 

@@ -1,3 +1,9 @@
+/**
+ * @file api_camera.cpp
+ * @brief Krig Game Engine Lua Scripting API - Camera
+ *
+ * Camera focused API functionality.
+ */
 #include "api.h"
 #include "api_camera.h"
 

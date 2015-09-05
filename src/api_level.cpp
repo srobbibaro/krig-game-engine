@@ -1,3 +1,9 @@
+/**
+ * @file api_level.cpp
+ * @brief Krig Game Engine Lua Scripting API - Game Level
+ *
+ * Game level focused API functionality.
+ */
 #include "api.h"
 #include "api_level.h"
 
