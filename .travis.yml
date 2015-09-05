@@ -9,11 +9,6 @@ before_install:
 script: make run-tests
 after_success:
 - if [ $TRAVIS_OS_NAME == osx ]; then ./build-scripts/update-documentation.sh; fi
-branches:
-  only:
-  - master
-notifications:
-  email: true
 os:
 - linux
 - osx
