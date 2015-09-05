@@ -216,7 +216,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordtype">void</span> setRInterpEnd(<a class="code" href="classQuaternion.html">Quaternion</a> rInterpEnd_l) { rInterpEnd_= rInterpEnd_l;}</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordtype">bool</span> isInterpolationEnabled() { <span class="keywordflow">return</span> isInterpolationEnabled_; }</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordtype">bool</span> setIsInterpolationEnabled(<span class="keywordtype">bool</span> isInterpolationEnabled_l) { isInterpolationEnabled_ = isInterpolationEnabled_l; }</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordtype">void</span> setIsInterpolationEnabled(<span class="keywordtype">bool</span> isInterpolationEnabled_l) { isInterpolationEnabled_ = isInterpolationEnabled_l; }</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordtype">float</span> getValInterpBegin() { <span class="keywordflow">return</span> valInterpBegin_; }</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordtype">float</span> getValInterpCurrent() { <span class="keywordflow">return</span> valInterpCurrent_; }</div>
@@ -309,9 +309,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <span class="keywordtype">bool</span> isAlwaysLit_;</div>
 <div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;</div>
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="keywordtype">bool</span> enableSphereTest_;</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;};</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="keywordtype">void</span> traverseAndCopyLuaTable(lua_State* srcState, lua_State* destState, <span class="keywordtype">int</span> index);</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keywordtype">void</span> copyLuaTableKey(lua_State* srcState, lua_State* destState);</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;};</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="classQuaternion_html"><div class="ttname"><a href="classQuaternion.html">Quaternion</a></div><div class="ttdef"><b>Definition:</b> Quaternion.h:7</div></div>
 <div class="ttc" id="Scripting_8h_html_a3c553a616c512c2297f5b248d97bc5ff"><div class="ttname"><a href="Scripting_8h.html#a3c553a616c512c2297f5b248d97bc5ff">getUp</a></div><div class="ttdeci">Vector getUp(GameObjectReference)</div></div>
 <div class="ttc" id="Scripting_8h_html_af279487f71ae57c7a539d1bab2823300"><div class="ttname"><a href="Scripting_8h.html#af279487f71ae57c7a539d1bab2823300">setPosition</a></div><div class="ttdeci">void setPosition(GameObjectReference, float, float, float)</div></div>
@@ -350,7 +354,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 23 2015 11:43:24 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 5 2015 04:14:00 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>
