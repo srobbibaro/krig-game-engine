@@ -121,7 +121,14 @@ INPUT                  = \
 	"../src/Snow.h" \
 	"../src/main.cpp" \
 	"../src/Camera.h" \
-	"../src/Scripting.h" \
+	"../src/api.cpp" \
+	"../src/api_camera.cpp" \
+	"../src/api_object.cpp" \
+	"../src/api_terrain.cpp" \
+	"../src/api_level.cpp" \
+	"../src/api_engine.cpp" \
+	"../src/api_vector.cpp" \
+	"../src/api_text.cpp" \
 	"../src/ScriptedObject.cpp" \
 	"../src/ObjectInclude.h" \
 	"../src/Sphere.h" \
