@@ -156,7 +156,7 @@ int main(int argc, char *argv[]) {
 
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 
-  KRIG = new Engine(gameDir);
+  KRIG = new Engine();
   g_script_engine = KRIG;
 
   // setup window /////////////////////////////

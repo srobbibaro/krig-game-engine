@@ -12,9 +12,7 @@ extern const char* intro_game_script_buffer;
 GameLevel *g_script_game_level;
 
 //------------------------------------------------------------------------------
-Engine::Engine(char* game) {
-  game_ = std::string(game);
-
+Engine::Engine() {
   // initialize resources used by the engine //
   keyState_.initKeyState();
   specialKeyState_.initKeyState();
@@ -35,11 +33,11 @@ Engine::Engine(char* game) {
 
 #if EDIT
   // terrain editing values //
-  paint      = false;
-  paintColor = false;
+  paint       = false;
+  paintColor  = false;
 
-  lastX = 0.0f;
-  lastY = 0.0f;
+  lastX       = 0.0f;
+  lastY       = 0.0f;
 
   last_x      = 0;
   last_z      = 0;
@@ -525,18 +523,17 @@ void Engine::loadLevelFromBuffer(const char* buffer) {
 
 //------------------------------------------------------------------------------
 void Engine::loadModels() {
-  DIR *dir;
-  struct dirent *de;
-  ModelStorage *model;
-  char filePath[MAX_PATH_LEN];
-  string hashKey;
-
-  dir = opendir("./models/");
+  DIR *dir = opendir("./models/");
 
   if (dir == NULL) {
     PRINT_DEBUG_LVL(2, "'models' directory not present; no models will be loaded.\n");
     return;
   }
+
+  dirent *de;
+  ModelStorage *model;
+  char filePath[MAX_PATH_LEN];
+  string hashKey;
 
   while ((de = readdir(dir)) != NULL) {
     // only consider model files with the .mdl extension //

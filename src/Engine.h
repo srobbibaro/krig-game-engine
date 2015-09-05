@@ -14,7 +14,7 @@ using namespace std;
 
 class Engine {
   public:
-    Engine(char* game);
+    Engine();
     ~Engine();
 
     void gameCycle(void); // physics, animation, collision, draw
@@ -87,7 +87,6 @@ class Engine {
     float fps_;
 
     string levelScript_;
-    std::string game_;
     lua_State* luaState_;
 
     bool isRunning_, isIntroRunning_, isPaused_;
