@@ -6,30 +6,30 @@ local updown      = 0
 
 -- Overridden Engine Callbacks
 function on_load()
-  playBgMusic("./music/menu.ogg", 0)
+  krig.level.play_music("./music/menu.ogg", 0)
 end
 
 function on_update(this)
-  if engine_testSpecialKeyPressed(101) == 1 then
+  if krig.test_special_key_pressed(101) == 1 then
     updown = updown + 1
-    playSound(this, "menu.wav")
+    krig.play_sound(this, "menu.wav")
   end
-  if engine_testSpecialKeyPressed(103) == 1 then
+  if krig.test_special_key_pressed(103) == 1 then
     updown = updown - 1
-    playSound(this, "menu.wav")
+    krig.play_sound(this, "menu.wav")
   end
 
   if updown > 1 then updown = 0 end
   if updown < 0 then updown = 1 end
   if updown == 1 then cursor = 0.0 else cursor = -0.2 end
 
-  if engine_testKeyPressed(13) == 1 then
-    stopBgMusic()
+  if krig.test_key_pressed(13) == 1 then
+    krig.level.stop_music()
 
     if cursor == 0.0 then
-      setComplete(1)
+      krig.level.set_complete(1)
     else
-      shutdown()
+      krig.shutdown()
     end
   end
 end
@@ -70,19 +70,19 @@ function on_draw_screen(elapsedTime)
 
   gl.LineWidth(15.0)
   gl.Color(0.0, 0.0, 0.0)
-  displayText("KRIG", -0.69, 0.5, -0.01, 0.005, 0.003)
+  krig.display_text("KRIG", -0.69, 0.5, -0.01, 0.005, 0.003)
 
   gl.LineWidth(3.0)
   gl.Color(0.0, 0.0, 1.0)
-  displayText("KRIG", -0.69, 0.5, -0.01, 0.005, 0.003)
+  krig.display_text("KRIG", -0.69, 0.5, -0.01, 0.005, 0.003)
   gl.PushMatrix()
   gl.Rotate(50.0, 0.0, 1.0, 0.0)
   gl.Translate (-0.9, -0.2, 0.0)
 
   gl.LineWidth(2.0)
   gl.Color(1.0, 0.0, 0.0)
-  displayText("Start Game", 0.0, 0.0, 0.0, 0.001, 0.001)
-  displayText("Quit", 0.0, -0.2, 0.0, 0.001, 0.001)
+  krig.display_text("Start Game", 0.0, 0.0, 0.0, 0.001, 0.001)
+  krig.display_text("Quit", 0.0, -0.2, 0.0, 0.001, 0.001)
   gl.LineWidth(1.0)
 
   gl.PushMatrix() --Draws Blue translucent rectangle. Cursor for Menu
@@ -145,36 +145,36 @@ function on_draw_screen(elapsedTime)
   gl.PushMatrix()
   gl.Translate(0.0, -0.4, 0.0)
   gl.Color(1.0, 0.0, 0.0)
-  renderText("Controls:", 0.0, 0.2)
+  krig.render_text("Controls:", 0.0, 0.2)
 
   gl.Color(0.0, 0.0, 0.0)
-  renderText("Arrow Keys", 0.1, 0.15)
-  renderText("Enter", 0.1, 0.1)
-  renderText("Spacebar", 0.1, 0.05)
-  renderText("m", 0.1, 0.0)
-  renderText("Escape", 0.1, -0.05)
+  krig.render_text("Arrow Keys", 0.1, 0.15)
+  krig.render_text("Enter", 0.1, 0.1)
+  krig.render_text("Spacebar", 0.1, 0.05)
+  krig.render_text("m", 0.1, 0.0)
+  krig.render_text("Escape", 0.1, -0.05)
 
-  renderText(": Move Ship/Menu", 0.4, 0.15)
-  renderText(": Choose Option", 0.4, 0.1)
-  renderText(": Fire Weapon", 0.4, 0.05)
-  renderText(": Fire Missile", 0.4, 0.0)
-  renderText(": Pause Menu", 0.4, -0.05)
+  krig.render_text(": Move Ship/Menu", 0.4, 0.15)
+  krig.render_text(": Choose Option", 0.4, 0.1)
+  krig.render_text(": Fire Weapon", 0.4, 0.05)
+  krig.render_text(": Fire Missile", 0.4, 0.0)
+  krig.render_text(": Pause Menu", 0.4, -0.05)
 
   gl.Color(1.0, 0.0, 0.0)
-  renderText("Game Description:", 0.0, -0.1)
+  krig.render_text("Game Description:", 0.0, -0.1)
 
   gl.Color(0.0, 0.0, 0.0)
-  renderText("An alien army, the Krig, has come", 0.1, -0.15)
-  renderText("to destroy the planet! Shoot down", 0.1, -0.2)
-  renderText("their fighters and avoid asteroids", 0.1, -0.25)
-  renderText("to stop the full scale invasion", 0.1, -0.3)
-  renderText("of the Krig!!!", 0.1, -0.35)
+  krig.render_text("An alien army, the Krig, has come", 0.1, -0.15)
+  krig.render_text("to destroy the planet! Shoot down", 0.1, -0.2)
+  krig.render_text("their fighters and avoid asteroids", 0.1, -0.25)
+  krig.render_text("to stop the full scale invasion", 0.1, -0.3)
+  krig.render_text("of the Krig!!!", 0.1, -0.35)
 
-  renderText("v 3.0", 0.6, .87)
+  krig.render_text("v 3.0", 0.6, .87)
 
   -- TODO: Use a real highscore
   gl.Color(1.0, 0.0, 0.0)
-  renderText("HighScore: 1000250", -0.25, .8)
+  krig.render_text("HighScore: 1000250", -0.25, .8)
 
   gl.PopMatrix()
 

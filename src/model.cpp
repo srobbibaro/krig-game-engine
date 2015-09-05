@@ -1,7 +1,7 @@
 #include "constants.h"
 #include "model.h"
 #include "terrain.h"
-#include "Scripting.h"
+#include "api.h"
 using namespace std;
 
 map <string, ModelStorage*> modelHash;

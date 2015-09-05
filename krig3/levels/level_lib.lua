@@ -7,32 +7,32 @@ debugEnabled = nil
 -- Helper Functions
 local function display_debug()
   if (debugEnabled == nil) then
-    debugEnabled = engine_testDebugEnabled()
+    debugEnabled = krig.test_debug_enabled()
   end
 
   if (debugEnabled == 1) then
-    player    = getPlayer()
-    camera    = getCamera()
-    plr_pos   = getPosition(player)
-    cam_pos   = getPosition(camera)
-    cam_dir   = getDirection(camera)
-    cam_up    = getUp(camera)
-    cam_rot   = getRotation(camera)
-    light_dir = getLightDirection()
+    player    = krig.get_player()
+    camera    = krig.get_camera()
+    plr_pos   = krig.object.get_position(player)
+    cam_pos   = krig.object.get_position(camera)
+    cam_dir   = krig.object.get_direction(camera)
+    cam_up    = krig.object.get_up(camera)
+    cam_rot   = krig.object.get_rotation(camera)
+    light_dir = krig.level.get_light_direction()
 
     gl.PushMatrix()
     gl.Translate (0.0, 0.0, -2.0)
     gl.Color (1.0, 1.0, 1.0)
 
-    renderText(string.format("plr pos: %.04f %.04f %.04f", plr_pos[1], plr_pos[2], plr_pos[3]), -1.0, 0.55)
-    renderText(string.format("cam pos: %.04f %.04f %.04f", cam_pos[1], cam_pos[2], cam_pos[3]), -1.0, 0.48)
-    renderText(string.format("cam dir: %.04f %.04f %.04f", cam_dir[1], cam_dir[2], cam_dir[3]), -1.0, 0.40)
-    renderText(string.format("cam up: %.04f %.04f %.04f", cam_up[1], cam_up[2], cam_up[3]), -1.0, 0.33)
-    renderText(string.format("cam rot: %.04f %.04f %.04f", cam_rot[1], cam_rot[2], cam_rot[3]), -1.0, 0.26)
-    renderText(string.format("fps: %.04f", getFps()), -1.0, 0.18)
-    renderText(string.format("cam id: %d", getCameraId()), -1.0, 0.10)
+    krig.render_text(string.format("plr pos: %.04f %.04f %.04f", plr_pos[1], plr_pos[2], plr_pos[3]), -1.0, 0.55)
+    krig.render_text(string.format("cam pos: %.04f %.04f %.04f", cam_pos[1], cam_pos[2], cam_pos[3]), -1.0, 0.48)
+    krig.render_text(string.format("cam dir: %.04f %.04f %.04f", cam_dir[1], cam_dir[2], cam_dir[3]), -1.0, 0.40)
+    krig.render_text(string.format("cam up: %.04f %.04f %.04f", cam_up[1], cam_up[2], cam_up[3]), -1.0, 0.33)
+    krig.render_text(string.format("cam rot: %.04f %.04f %.04f", cam_rot[1], cam_rot[2], cam_rot[3]), -1.0, 0.26)
+    krig.render_text(string.format("fps: %.04f", krig.get_fps()), -1.0, 0.18)
+    krig.render_text(string.format("cam id: %d", krig.level.get_camera_id()), -1.0, 0.10)
 
-    renderText(string.format("light dir: %.04f %.04f %.04f", light_dir[1], light_dir[2], light_dir[3]), -1.0, 0.0)
+    krig.render_text(string.format("light dir: %.04f %.04f %.04f", light_dir[1], light_dir[2], light_dir[3]), -1.0, 0.0)
     gl.End()
 
     gl.PopMatrix()
@@ -40,27 +40,27 @@ local function display_debug()
 end
 
 local function display_hud(bossBattle, bossLife)
-  player = getPlayer()
+  player = krig.get_player()
 
-  ShipEnergy  = getScriptValue(player, "life")
-  score       = getScriptValue(player, "score")
-  numMissiles = getScriptValue(player, "numMissiles")
+  ShipEnergy  = krig.get_script_value(player, "life")
+  score       = krig.get_script_value(player, "score")
+  numMissiles = krig.get_script_value(player, "numMissiles")
   EnemyEnergy = bossLife
   EnergyBar   = -0.31 - (0.068 * (10.0 - ShipEnergy))
   BossEnergy  = 0.31 + (0.017 * (40.0 - EnemyEnergy))
 
-  plr_pos = getPosition(player)
+  plr_pos = krig.object.get_position(player)
 
   gl.PushMatrix()
   gl.Translate (0.0, 0.0, -2.0)
   gl.Color (1.0, 1.0, 1.0)
-  renderText("Lives: " .. getScriptValue(player, "lives"), -1.0, 0.7)
+  krig.render_text("Lives: " .. krig.get_script_value(player, "lives"), -1.0, 0.7)
 
-  renderText("Score: " .. score, -.2, 0.7)
-  renderText("Missiles: " .. numMissiles, -1.0, .75)
+  krig.render_text("Score: " .. score, -.2, 0.7)
+  krig.render_text("Missiles: " .. numMissiles, -1.0, .75)
 
   if bossBattle == 1 then
-    renderText("Enemy", 0.85, 0.7)
+    krig.render_text("Enemy", 0.85, 0.7)
   end
 
   gl.Begin("QUADS")
@@ -103,7 +103,7 @@ function update_level(timeElapsed, bossLife)
     elseif bossDefeated == 1 then
       endTimer = endTimer - timeElapsed
       if endTimer < 0.0 then
-        setComplete(1)
+        krig.level.set_complete(1)
       end
     end
   end
@@ -111,100 +111,100 @@ end
 
 local function buildCircleGroup(num, x, y, z)
   for i = 0, num, 1 do
-    obj = addObject("./scripts/enemy_ship10.lua")
-    setPosition(obj, x + (i * 5.0), y, z)
+    obj = krig.level.add_object("./scripts/enemy_ship10.lua")
+    krig.object.set_position(obj, x + (i * 5.0), y, z)
   end
 end
 
 local function buildVGroup(x, y, z)
   -- Leader
-  obj = addObject("./scripts/enemy_ship1.lua")
-  setPosition(obj, x, y, z)
+  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
+  krig.object.set_position(obj, x, y, z)
 
   -- First two
-  obj1 = addObject("./scripts/enemy_ship1.lua")
-  obj2 = addObject("./scripts/enemy_ship1.lua")
+  obj1 = krig.level.add_object("./scripts/enemy_ship1.lua")
+  obj2 = krig.level.add_object("./scripts/enemy_ship1.lua")
   x = x + 2
   y1 = y + 2
   y2 = y - 2
-  setPosition(obj1, x, y1, z)
-  setPosition(obj2, x, y2, z)
+  krig.object.set_position(obj1, x, y1, z)
+  krig.object.set_position(obj2, x, y2, z)
 
   -- Back two
-  obj1 = addObject("./scripts/enemy_ship1.lua")
-  obj2 = addObject("./scripts/enemy_ship1.lua")
+  obj1 = krig.level.add_object("./scripts/enemy_ship1.lua")
+  obj2 = krig.level.add_object("./scripts/enemy_ship1.lua")
   x = x + 2
   y1 = y1 + 2
   y2 = y2 - 2
-  setPosition(obj1, x, y1, z)
-  setPosition(obj2, x, y2, z)
+  krig.object.set_position(obj1, x, y1, z)
+  krig.object.set_position(obj2, x, y2, z)
 end
 
 local function setup_volcano(xpos, zpos)
-  local obj = addObject("./scripts/volcano.lua")
-  setPosition(obj, xpos, 20.0, zpos)
+  local obj = krig.level.add_object("./scripts/volcano.lua")
+  krig.object.set_position(obj, xpos, 20.0, zpos)
 
   for i = -15.0, 25.0, 10 do
-    obj = addObject("./scripts/lavarock1.lua")
-    setPosition( obj, xpos, i, zpos )
+    obj = krig.level.add_object("./scripts/lavarock1.lua")
+    krig.object.set_position( obj, xpos, i, zpos )
   end
 
   for i = -20.0, 20.0, 10 do
-    obj = addObject("./scripts/lavarock2.lua")
-    setPosition( obj, xpos, i, zpos )
+    obj = krig.level.add_object("./scripts/lavarock2.lua")
+    krig.object.set_position( obj, xpos, i, zpos )
   end
 end
 
 local function setAsteroidWave(x_start, x_end)
   for i = x_start, x_end, 15 do
-    obj = addObject("./scripts/asteroid1.lua")
-    setPosition(obj, i, 30.0, 7.5)
+    obj = krig.level.add_object("./scripts/asteroid1.lua")
+    krig.object.set_position(obj, i, 30.0, 7.5)
 
-    obj = addObject("./scripts/asteroid1.lua")
-    setPosition(obj, (i + 5.0), 30.0, 7.5)
+    obj = krig.level.add_object("./scripts/asteroid1.lua")
+    krig.object.set_position(obj, (i + 5.0), 30.0, 7.5)
 
-    obj = addObject("./scripts/asteroid1.lua")
-    setPosition(obj, (i + 10.0), 30.0, 7.5)
+    obj = krig.level.add_object("./scripts/asteroid1.lua")
+    krig.object.set_position(obj, (i + 10.0), 30.0, 7.5)
   end
 end
 
 local function setSweepingFromAboveEnemyShips(x_start, x_end, x_step, y, z)
   for i = x_start, x_end, x_step do
-    obj = addObject("./scripts/enemy_ship2.lua")
-    setPosition(obj, i, y, z)
+    obj = krig.level.add_object("./scripts/enemy_ship2.lua")
+    krig.object.set_position(obj, i, y, z)
   end
 end
 
 local function setSweepingFromBelowEnemyShips(x_start, x_end, x_step, y, z)
   for i = x_start, x_end, x_step do
-    obj = addObject("./scripts/enemy_ship3.lua")
-    setPosition(obj, i, y, z)
+    obj = krig.level.add_object("./scripts/enemy_ship3.lua")
+    krig.object.set_position(obj, i, y, z)
   end
 end
 
 local function buildDockedGroup(x_start, x_end, x_step, y, z)
   for i = x_start, x_end, x_step do
-    obj = addObject("./scripts/enemy_ship11.lua")
-    setPosition(obj, i, y, z)
-    setRotation(obj, 0.2, 0.0, 0.0)
+    obj = krig.level.add_object("./scripts/enemy_ship11.lua")
+    krig.object.set_position(obj, i, y, z)
+    krig.object.set_rotation(obj, 0.2, 0.0, 0.0)
 
-    obj = addObject("./scripts/enemy_ship11.lua")
-    setPosition(obj, i + 5.0, y, z)
-    setRotation(obj, 0.2, 0.0, 0.0)
+    obj = krig.level.add_object("./scripts/enemy_ship11.lua")
+    krig.object.set_position(obj, i + 5.0, y, z)
+    krig.object.set_rotation(obj, 0.2, 0.0, 0.0)
   end
 end
 
 local function buildFlyingCircleUpGroup(num, space, x_start, y, z)
   for i = 0, num, 1 do
-    obj = addObject("./scripts/enemy_ship12.lua")
-    setPosition(obj, x_start + (i * space), y, z)
+    obj = krig.level.add_object("./scripts/enemy_ship12.lua")
+    krig.object.set_position(obj, x_start + (i * space), y, z)
   end
 end
 
 local function buildFlyingCircleDownGroup(num, space, x_start, y, z)
   for i = 0, num, 1 do
-    obj = addObject("./scripts/enemy_ship13.lua")
-    setPosition(obj, x_start + (i * space), y, z)
+    obj = krig.level.add_object("./scripts/enemy_ship13.lua")
+    krig.object.set_position(obj, x_start + (i * space), y, z)
   end
 end
 

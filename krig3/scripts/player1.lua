@@ -18,15 +18,15 @@ interpTime       = 0.0
 
 -- Overridden Engine Callbacks
 function on_load(this)
-  setModel(this, "Ship.mdl")
+  krig.object.set_model(this, "Ship.mdl")
 
-  setRotation(this, 0.0, 1.57, 0.0)
-  setScale(this, 2.0, 2.0, 2.0)
-  setVelocity(this, 40.0, 0.0, 0.0)
-  setRotationVelocity(this, -10.0, 0.0, 0.0)
-  setTypeId(this, 0)
+  krig.object.set_rotation(this, 0.0, 1.57, 0.0)
+  krig.object.set_scale(this, 2.0, 2.0, 2.0)
+  krig.object.set_velocity(this, 40.0, 0.0, 0.0)
+  krig.object.set_rotation_velocity(this, -10.0, 0.0, 0.0)
+  krig.object.set_type_id(this, 0)
 
-  suspend(this, 0.25)
+  krig.object.suspend(this, 0.25)
 
   shooting_object.setupShots(this, "./scripts/player_shot.lua", 0.25)
 end
@@ -39,73 +39,73 @@ function on_update(this, elapsedTime)
 
   -- handle invul --
   if collisionRecover == 1 then
-    isDrawn = getDrawEnabled(this)
+    isDrawn = krig.object.get_draw_enabled(this)
 
     if isDrawn == 0 then
-      enableDraw(this)
+      krig.object.enable_draw(this)
     else
-      disableDraw(this)
+      krig.object.disable_draw(this)
     end
 
     if invul <= 0.0 then
-      enableDraw(this)
+      krig.object.enable_draw(this)
       collisionRecover = 0
     end
   end
 
   -- handle individual states
   if progress == 0 then
-    camera = getCamera()
-    this_position = getPosition(this)
-    camera_position = getPosition(camera)
+    camera = krig.get_camera()
+    this_position = krig.object.get_position(this)
+    camera_position = krig.object.get_position(camera)
     tx = camera_position[1] - 20.0
     if this_position[1] >= tx then
-      setVelocity(this, 8.0, 0.0, 0.0)
+      krig.object.set_velocity(this, 8.0, 0.0, 0.0)
       progress = 1
-      suspend(this, 1.0)
+      krig.object.suspend(this, 1.0)
     else
-      suspend(this, 0.25)
+      krig.object.suspend(this, 0.25)
     end
   elseif progress == 1 then
-    setVelocity(this, 10.0, 0.0, 0.0)
-    setRotationVelocity(this, 0.0, 0.0, 0.0)
+    krig.object.set_velocity(this, 10.0, 0.0, 0.0)
+    krig.object.set_rotation_velocity(this, 0.0, 0.0, 0.0)
     progress = 2
   elseif progress == 2 then
-    this_rotation = getRotation(this)
-    setInterpolationVariableBeginValue(this, 0.0)
-    setInterpolationVariableEndValue(this, 0.5)
-    setInterpolationVariableCurrentValue(this, 0.0)
-    setInterpolationRotationStartv(this, this_rotation)
-    setInterpolationRotationEnd(this, 0.0, 1.57, 0.0)
-    setInterpolationEnable(this, 1)
+    this_rotation = krig.object.get_rotation(this)
+    krig.object.set_interpolation_variable_begin_value(this, 0.0)
+    krig.object.set_interpolation_variable_end_value(this, 0.5)
+    krig.object.set_interpolation_variable_current_value(this, 0.0)
+    krig.object.set_interpolation_rotation_start(this, this_rotation)
+    krig.object.set_interpolation_rotation_end(this, 0.0, 1.57, 0.0)
+    krig.object.set_interpolation_enable(this, 1)
 
     progress = 3
   elseif progress == 3 then
     interpTime = interpTime + elapsedTime
-    setInterpolationVariableCurrentValue(this, interpTime)
+    krig.object.set_interpolation_variable_current_value(this, interpTime)
 
     if interpTime > 0.5 then
-      setInterpolationEnable(this, 0)
+      krig.object.set_interpolation_enable(this, 0)
       progress = 4
     end
   elseif progress == 4 then
-    this_position   = getPosition(this)
-    this_velocity   = getVelocity(this)
-    camera          = getCamera()
-    camera_velocity = getVelocity(camera)
+    this_position   = krig.object.get_position(this)
+    this_velocity   = krig.object.get_velocity(this)
+    camera          = krig.get_camera()
+    camera_velocity = krig.object.get_velocity(camera)
 
     this_velocity[1] = camera_velocity[1]
     this_velocity[2] = camera_velocity[2]
 
-    if engine_testSpecialKeyPressed(101) == 1 then upDown = 1 end
-    if engine_testSpecialKeyPressed(103) == 1 then downDown = 1 end
-    if engine_testSpecialKeyPressed(100) == 1 then leftDown = 1 end
-    if engine_testSpecialKeyPressed(102) == 1 then rightDown = 1 end
+    if krig.test_special_key_pressed(101) == 1 then upDown = 1 end
+    if krig.test_special_key_pressed(103) == 1 then downDown = 1 end
+    if krig.test_special_key_pressed(100) == 1 then leftDown = 1 end
+    if krig.test_special_key_pressed(102) == 1 then rightDown = 1 end
 
-    if engine_testSpecialKeyReleased(101) == 1 then upDown = 0 end
-    if engine_testSpecialKeyReleased(103) == 1 then downDown = 0 end
-    if engine_testSpecialKeyReleased(100) == 1 then leftDown = 0 end
-    if engine_testSpecialKeyReleased(102) == 1 then rightDown = 0 end
+    if krig.test_special_key_released(101) == 1 then upDown = 0 end
+    if krig.test_special_key_released(103) == 1 then downDown = 0 end
+    if krig.test_special_key_released(100) == 1 then leftDown = 0 end
+    if krig.test_special_key_released(102) == 1 then rightDown = 0 end
 
     if upDown == 1 then this_velocity[2] = this_velocity[2] + 10 end
     if downDown == 1 then this_velocity[2] = this_velocity[2] - 10 end
@@ -113,43 +113,43 @@ function on_update(this, elapsedTime)
     if rightDown == 1 then this_velocity[1] = this_velocity[1] + 10 end
 
     -- Ax + By + Cz + D = 0
-    this_pos = getPosition(this)
-    plane    = camera_getFrustumPlane(1)
+    this_pos = krig.object.get_position(this)
+    plane    = krig.camera.get_frustum_plane(1)
     x        = -(((plane[3] * this_pos[3]) + plane[4]) / plane[1])
 
-    if this_pos[1] > x - getBoundingSphereRadius(this) then
-      this_pos[1] = x - getBoundingSphereRadius(this)
+    if this_pos[1] > x - krig.object.get_bounding_sphere_radius(this) then
+      this_pos[1] = x - krig.object.get_bounding_sphere_radius(this)
     end
 
-    plane = camera_getFrustumPlane(0)
+    plane = krig.camera.get_frustum_plane(0)
     x     = -(((plane[3] * this_pos[3]) + plane[4]) / plane[1])
 
-    if this_pos[1] < x + getBoundingSphereRadius(this) then
-      this_pos[1] = x + getBoundingSphereRadius(this)
+    if this_pos[1] < x + krig.object.get_bounding_sphere_radius(this) then
+      this_pos[1] = x + krig.object.get_bounding_sphere_radius(this)
     end
 
-    plane = camera_getFrustumPlane(2)
+    plane = krig.camera.get_frustum_plane(2)
     y     = -(((plane[3] * this_pos[3]) + plane[4]) / plane[2])
 
-    if this_pos[2] < y + getBoundingSphereRadius(this) then
-      this_pos[2] = y + getBoundingSphereRadius(this)
+    if this_pos[2] < y + krig.object.get_bounding_sphere_radius(this) then
+      this_pos[2] = y + krig.object.get_bounding_sphere_radius(this)
     end
 
-    plane = camera_getFrustumPlane(3)
+    plane = krig.camera.get_frustum_plane(3)
     y     = -(((plane[3] * this_pos[3]) + plane[4]) / plane[2])
 
-    if this_pos[2] > y - getBoundingSphereRadius(this) then
-      this_pos[2] = y - getBoundingSphereRadius(this)
+    if this_pos[2] > y - krig.object.get_bounding_sphere_radius(this) then
+      this_pos[2] = y - krig.object.get_bounding_sphere_radius(this)
     end
 
-    setVelocityv(this, this_velocity)
-    setPositionv(this, this_pos)
+    krig.object.set_velocity(this, this_velocity)
+    krig.object.set_position(this, this_pos)
 
-    if engine_testKeyPressed(32) == 1 then
-      shooting_object.attemptShot(this, (getBoundingSphereRadius(this) - 1.0))
+    if krig.test_key_pressed(32) == 1 then
+      shooting_object.attemptShot(this, (krig.object.get_bounding_sphere_radius(this) - 1.0))
     end
 
-    if engine_testKeyPressed(string.byte("m", 1)) == 1 and
+    if krig.test_key_pressed(string.byte("m", 1)) == 1 and
        nextMissileShot <= 0.0 and
        numMissiles > 0 then
       obj = shooting_object.setShot(this, "./scripts/player_missile.lua")
@@ -160,7 +160,7 @@ function on_update(this, elapsedTime)
 end
 
 function on_collision(this,temp)
-  tempId = getTypeId(temp)
+  tempId = krig.object.get_type_id(temp)
 
   if collisionRecover == 0 and (tempId == 1 or tempId == 10 or tempId == 4) then
     life             = life - 1

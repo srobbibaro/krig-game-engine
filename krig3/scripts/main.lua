@@ -20,10 +20,10 @@ debugEnabled = false
 
 -- Overridden Engine Callbacks
 function on_load()
-  loadLevel(levels[levelNum])
-  setLevelId(levelNum)
+  krig.level.load(levels[levelNum])
+  krig.level.set_id(levelNum)
 
-  debugEnabled = engine_testDebugEnabled()
+  debugEnabled = krig.test_debug_enabled()
 end
 
 function on_update(elapsedTime)
@@ -34,36 +34,36 @@ function on_update(elapsedTime)
   end
 
   -- handle global user control
-  if engine_testKeyPressed(27) == 1 then
-    loadLevel(levels[1])
-    setLevelId(levelNum)
+  if krig.test_key_pressed(27) == 1 then
+    krig.level.load(levels[1])
+    krig.level.set_id(levelNum)
     prevLevelNum = levelNum
     levelNum = 1
   end
 
-  if engine_testKeyPressed(string.byte("*", 1)) == 1 then
-    swapLevel()
+  if krig.test_key_pressed(string.byte("*", 1)) == 1 then
+    krig.level.swap()
   end
 
-  if engine_testKeyPressed(string.byte("p", 1)) == 1 then pause() end
+  if krig.test_key_pressed(string.byte("p", 1)) == 1 then krig.level.pause() end
 
-  if engine_testKeyPressed(string.byte("L", 1)) == 1 then
+  if krig.test_key_pressed(string.byte("L", 1)) == 1 then
     inc_level(1)
-    loadLevel(levels[levelNum])
+    krig.level.load(levels[levelNum])
   end
 
-  if engine_testKeyPressed(string.byte("l", l)) == 1 then
+  if krig.test_key_pressed(string.byte("l", l)) == 1 then
     inc_level(-1)
-    loadLevel(levels[levelNum])
+    krig.level.load(levels[levelNum])
   end
 
-  if engine_testKeyPressed(string.byte("k", 1)) == 1 or
-    engine_testKeyPressed(string.byte("K", 1)) == 1 then
-    loadLevel(levels[levelNum])
+  if krig.test_key_pressed(string.byte("k", 1)) == 1 or
+    krig.test_key_pressed(string.byte("K", 1)) == 1 then
+    krig.level.load(levels[levelNum])
   end
 
-  if testLevelComplete() == 1 then
-    levelId = getLevelId()
+  if krig.level.get_complete() == 1 then
+    levelId = krig.level.get_id()
 
     if levelNum == 1 then
       levelNum = prevLevelNum
@@ -71,7 +71,7 @@ function on_update(elapsedTime)
       inc_level(1)
     end
 
-    loadLevel(levels[levelNum])
+    krig.level.load(levels[levelNum])
   end
 end
 

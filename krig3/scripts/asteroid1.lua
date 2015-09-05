@@ -11,14 +11,14 @@ function on_load(this, options)
 end
 
 function on_update(this, elapsedTime)
-  camera          = getCamera()
-  camera_position = getPosition(camera)
+  camera          = krig.get_camera()
+  camera_position = krig.object.get_position(camera)
 
-  this_position   = getPosition(this)
+  this_position   = krig.object.get_position(this)
 
   if active_offset + camera_position[1] > this_position[1] then
-    setVelocity(this, math.random(0,3), -math.random(5, 7), 0.0)
-    setRotationVelocity(
+    krig.object.set_velocity(this, math.random(0,3), -math.random(5, 7), 0.0)
+    krig.object.set_rotation_velocity(
       this,
       math.random(0, 3), math.random(0, 3), math.random(0, 3)
     )

@@ -55,60 +55,60 @@ function on_draw_screen(terrain, elapsedTime)
       else
         gl.Color(1.0, 0.0, 0.0)
       end
-      renderText(creds[i][u], credCoord[i][u][1], credCoord[i][u][2])
+      krig.render_text(creds[i][u], credCoord[i][u][1], credCoord[i][u][2])
     end
   end
   gl.PopMatrix()
 end
 
 function on_load(terrain)
-  setSkyBox(
+  krig.level.set_sky_box(
     0.0, 0.0, 0.0,
     0.0, 0.0, 0.3,
     1.0, 0.0, 0.5
   )
 
-  setLightDirection(0.96, 0.07, 0.13)
+  krig.level.set_light_direction(0.96, 0.07, 0.13)
 
-  setTerrain(terrain, "./terrains/level4.txt")
+  krig.level.set_terrain(terrain, "./terrains/level4.txt")
 
-  camera = getCamera()
-  setScript(camera, "./scripts/camera_free.lua")
-  setPosition(camera, x_start_camera, 55.0, 105.0)
+  camera = krig.get_camera()
+  krig.object.set_script(camera, "./scripts/camera_free.lua")
+  krig.object.set_position(camera, x_start_camera, 55.0, 105.0)
 
-  addParticleSystem(camera, 1)
+  krig.object.add_particle_system(camera, 1)
 
-  playBgMusic("./music/credits.ogg", 0)
+  krig.level.play_music("./music/credits.ogg", 0)
 end
 
 function on_update(this)
-  if engine_testKeyPressed(27) == 1 then
+  if krig.test_key_pressed(27) == 1 then
     playSound(this, "pause.wav")
     -- TODO: Title screen/menu should restart game rather than returning to
     --       the credits.
   end
 
-  light = getLightDirection()
+  light = krig.level.get_light_direction()
 
-  if engine_testKeyPressed(string.byte("[", 1)) == 1 then
+  if krig.test_key_pressed(string.byte("[", 1)) == 1 then
     light[1] = light[1] + .1
     light = vector_normalize(light)
-  elseif engine_testKeyPressed(string.byte("]", 1)) == 1 then
+  elseif krig.test_key_pressed(string.byte("]", 1)) == 1 then
     light[2] = light[2] + .1
     light = vector_normalize(light)
-  elseif engine_testKeyPressed(string.byte("\\", 1)) == 1 then
+  elseif krig.test_key_pressed(string.byte("\\", 1)) == 1 then
     light[3] = light[3] + .1
     light = vector_normalize(light)
-  elseif engine_testKeyPressed(string.byte("{", 1)) == 1 then
+  elseif krig.test_key_pressed(string.byte("{", 1)) == 1 then
     light[1] = light[1] - .1
     light = vector_normalize(light)
-  elseif engine_testKeyPressed(string.byte("}", 1)) == 1 then
+  elseif krig.test_key_pressed(string.byte("}", 1)) == 1 then
     light[2] = light[2] - .1
     light = vector_normalize(light)
-  elseif engine_testKeyPressed(string.byte("|", 1)) == 1 then
+  elseif krig.test_key_pressed(string.byte("|", 1)) == 1 then
     light[3] = light[3] - .1
     light = vector_normalize(light)
   end
 
-  setLightDirectionv(light)
+  krig.level.set_light_direction(light)
 end

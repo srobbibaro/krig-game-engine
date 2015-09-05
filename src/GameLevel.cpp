@@ -3,7 +3,7 @@
 
 #include "GameLevel.h"
 #include "ScriptedObject.h"
-#include "Scripting.h"
+#include "api.h"
 
 #include "LuaGL.h"
 

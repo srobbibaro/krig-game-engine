@@ -10,15 +10,15 @@ end
 function on_update(this, elapsedTime)
   shooting_object.update_shots(elapsedTime)
 
-  plr      = getPlayer()
-  this_pos = getPosition(this)
-  plr_pos  = getPosition(plr)
-  in_view  = getInView(this)
+  plr      = krig.get_player()
+  this_pos = krig.object.get_position(this)
+  plr_pos  = krig.object.get_position(plr)
+  in_view  = krig.object.get_in_view(this)
 
   if plr_pos[2] < (this_pos[2] + .5) and
      plr_pos[2] > (this_pos[2] - .5) and
     in_view == 1 then
-    shooting_object.attemptShot(this, getBoundingSphereRadius(this))
+    shooting_object.attemptShot(this, krig.object.get_bounding_sphere_radius(this))
   end
 end
 

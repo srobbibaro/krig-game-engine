@@ -14,20 +14,20 @@ life        = enemy.life
 
 -- Overridden Engine Callbacks
 function on_load(this)
-  setModel(this, "snowboss.mdl")
-  setRotation(this, 0.0, 1.57, 0.0)
-  setScale(this, 4.0, 4.0, 4.0)
+  krig.object.set_model(this, "snowboss.mdl")
+  krig.object.set_rotation(this, 0.0, 1.57, 0.0)
+  krig.object.set_scale(this, 4.0, 4.0, 4.0)
 
-  setTypeId(this, 1)
+  krig.object.set_type_id(this, 1)
 end
 
 function on_update(this, elapsedTime)
-  this_pos      = getPosition(this)
-  this_velocity = getVelocity(this)
-  player        = getPlayer()
-  plr_pos       = getPosition(player)
-  camera        = getCamera()
-  cam_pos       = getPosition(camera)
+  this_pos      = krig.object.get_position(this)
+  this_velocity = krig.object.get_velocity(this)
+  player        = krig.get_player()
+  plr_pos       = krig.object.get_position(player)
+  camera        = krig.get_camera()
+  cam_pos       = krig.object.get_position(camera)
 
   x_vel       = this_velocity[1]
   x_move_time = x_move_time - elapsedTime
@@ -42,16 +42,16 @@ function on_update(this, elapsedTime)
   end
 
   if this_pos[2] + 1.0  < plr_pos[2] then
-    setVelocity(this, x_vel, 10.0, 0.0)
+    krig.object.set_velocity(this, x_vel, 10.0, 0.0)
   elseif this_pos[2]  - 1.0 > plr_pos[2] then
-    setVelocity(this, x_vel, -10.0, 0.0)
+    krig.object.set_velocity(this, x_vel, -10.0, 0.0)
   else
-    setVelocity(this, x_vel, 0.0, 0.0)
+    krig.object.set_velocity(this, x_vel, 0.0, 0.0)
   end
 end
 
 function on_collision(this, temp)
   enemy.on_collision(this, temp)
-  addVelocity(this, -16.0, 0.0, 0.0)
+  krig.object.add_velocity(this, -16.0, 0.0, 0.0)
   life = enemy.life
 end

@@ -3,16 +3,16 @@ local shake = 0
 
 -- Overridden Engine Callbacks
 function on_load(this)
-  setModel(this, "volcano.mdl")
-  setScale(this, 20.0, 20.0, 20.0)
-  setRotation(this, 0.0, 1.0, 0.0)
-  disableCollisionDetection(this)
+  krig.object.set_model(this, "volcano.mdl")
+  krig.object.set_scale(this, 20.0, 20.0, 20.0)
+  krig.object.set_rotation(this, 0.0, 1.0, 0.0)
+  krig.object.disable_collision_detection(this)
 end
 
 function on_update(this, elapsedTime)
-  local camera          = getCamera()
-  local this_position   = getPosition(this)
-  local camera_position = getPosition(camera)
+  local camera          = krig.get_camera()
+  local this_position   = krig.object.get_position(this)
+  local camera_position = krig.object.get_position(camera)
 
   -- Don't start shaking until we're close to it.
   if camera_position[1] < this_position[1]-30.0 or
@@ -22,10 +22,10 @@ function on_update(this, elapsedTime)
 
   -- We're in range, shake it baby.
   if shake == 0 then
-    setScale(this, 21.0, 21.0, 21.0);
+    krig.object.set_scale(this, 21.0, 21.0, 21.0);
     shake = 1
   else
-    setScale(this, 20.0, 20.0, 20.0);
+    krig.object.set_scale(this, 20.0, 20.0, 20.0);
     shake = 0
   end
 end

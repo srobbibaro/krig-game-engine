@@ -42,4 +42,3 @@ SCENARIO( "Manipulating a matrix", "[matrix]" ) {
     }
   }
 }
-

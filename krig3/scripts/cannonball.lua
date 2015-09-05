@@ -5,16 +5,16 @@ enemy.life = 10
 
 -- Overridden Engine Callbacks
 function on_load(this)
-  setModel(this, "CannonBall.mdl")
-  setScale(this, 2.0, 2.0, 2.0)
-  setRotation(this, 0.0, 0.0, 0.0)
-  -- setTypeId(this, 4)
+  krig.object.set_model(this, "CannonBall.mdl")
+  krig.object.set_scale(this, 2.0, 2.0, 2.0)
+  krig.object.set_rotation(this, 0.0, 0.0, 0.0)
+  -- krig.object.set_type_id(this, 4)
 end
 
 function on_update(this, elapsedTime)
-  camera          = getCamera()
-  this_position   = getPosition(this)
-  camera_position = getPosition(camera)
+  camera          = krig.get_camera()
+  this_position   = krig.object.get_position(this)
+  camera_position = krig.object.get_position(camera)
 
   local offset = this_position[1] - 20
   if camera_position[1] >= offset then
@@ -38,7 +38,7 @@ function on_update(this, elapsedTime)
       z_vel = 25.0
     end
 
-    setVelocity(this, 0.0, y_vel, z_vel )
+    krig.object.set_velocity(this, 0.0, y_vel, z_vel )
   end
 end
 

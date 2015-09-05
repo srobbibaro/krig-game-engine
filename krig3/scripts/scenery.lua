@@ -2,7 +2,7 @@ local game_object = require 'scripts/game_object'
 
 local function on_load(this, options)
   game_object.on_load(this, options)
-  disableCollisionDetection(this)
+  krig.object.disable_collision_detection(this)
 end
 
 scenery = {
