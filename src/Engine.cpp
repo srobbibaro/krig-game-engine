@@ -99,47 +99,6 @@ bool Engine::loadGame(string file) {
 }
 
 //------------------------------------------------------------------------------
-bool Engine::loadGameFromBuffer(char* buffer) {
-  // If the lua state has not been initialized for this object, attempt to
-  // initialize it.
-  if (strcmp(buffer, "") == 0 || luaState_ != NULL)
-    return false;
-
-  luaState_ = lua_open();
-
-  // If the lua state still could not be initialized, then exit the game.
-  // ... we can do something smarter with this in the finished product.
-  if (!luaState_) {
-    PRINT_ERROR("Could not create Lua state.\n");
-    exit(-1);
-  }
-
-  // load Lua base libraries
-  luaL_openlibs(luaState_);
-
-  // Register our functions for use in lua
-  registerFunctions(luaState_, 0);
-
-  // load the script
-  PRINT_DEBUG("Loading Lua game script from buffer...\n");
-
-  //luaL_dofile(luaState_, file.c_str());
-  luaL_loadbuffer(luaState_, buffer, strlen(buffer), "line") || lua_pcall(luaState_, 0, 0, 0);
-
-  // Find the update function and call it
-  lua_getglobal(luaState_, SCRIPT_CALLBACK_ON_LOAD);
-
-  if (lua_isfunction(luaState_, -1)) {
-    lua_call(luaState_, 0, 0);
-  }
-  else {
-    PRINT_DEBUG_LVL(4, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_LOAD);
-    lua_pop(luaState_, 1);
-  }
-
-  return (true);
-}
-
 bool Engine::loadIntroCredits() {
   // If the lua state has not been initialized for this object, attempt to
   // initialize it.

@@ -39,7 +39,6 @@ class Engine {
     void setLevelScript(string levelScript) { levelScript_ = levelScript; }
 
     bool loadGame(string);
-    bool loadGameFromBuffer(char* buffer);
     bool loadIntroCredits();
 
     void updateGame(float);
