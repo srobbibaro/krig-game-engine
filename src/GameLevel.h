@@ -171,6 +171,9 @@ class GameLevel {
     int id_;
 
     lua_State* luaState_;
+
+    bool prepLevelLoad(const char* luaCode);
+    bool finishLevelLoad();
 };
 
 #endif

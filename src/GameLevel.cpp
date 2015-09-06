@@ -157,19 +157,19 @@ void GameLevel::prepareLevel() { prepareObjects(); }
 void GameLevel::animateLevel() { animateObjects(elapsedTime_); }
 
 //------------------------------------------------------------------------------
-bool GameLevel::loadLevel(const char* file) {
+bool GameLevel::prepLevelLoad(const char* luaCode) {
   isComplete_ = false;
   id_         = 0;
 
-  // If the lua state has not been initialized for this object, attempt to
+  // If the lua state has not been initialized for the level, attempt to
   // initialize it.
-  if (strcmp(file, "") == 0 || luaState_ != NULL)
+  if (strcmp(luaCode, "") == 0 || luaState_ != NULL)
     return false;
 
   luaState_ = lua_open();
 
   // If the lua state still could not be initialized, then exit the game.
-  // ... we can do something smarter with this in the finished product.
+  // TODO: do something smarter with this for the finished product.
   if (luaState_ == NULL) {
     PRINT_ERROR("Could not create Lua state.\n");
     exit(-1);
@@ -177,18 +177,15 @@ bool GameLevel::loadLevel(const char* file) {
 
   // load Lua base libraries
   luaL_openlibs(luaState_);
-
   luaopen_opengl(luaState_);
 
   // Register our functions for use in lua (currently defined in Object.h)
   registerFunctions(luaState_, 1);
 
-  // load the script
-  PRINT_DEBUG("Loading Lua level script '%s'...\n", file);
+  return true;
+}
 
-  luaL_dofile(luaState_, file);
-  ////////////////////////////////////////////////////////
-
+bool GameLevel::finishLevelLoad() {
   terrain_ = new Terrain();
   player_  = new Player();
 
@@ -211,7 +208,6 @@ bool GameLevel::loadLevel(const char* file) {
   if (lua_isfunction(luaState_, -1)) {
     // Push a pointer to the current object for use within the lua function
     lua_pushlightuserdata(luaState_, (void*)terrain_);
-
     lua_call(luaState_, 1, 0);
   }
   else {
@@ -242,100 +238,33 @@ bool GameLevel::loadLevel(const char* file) {
 
   return (true);
 }
+//------------------------------------------------------------------------------
+bool GameLevel::loadLevel(const char* file) {
+  if (!prepLevelLoad(file)) {
+    return false;
+  }
+
+  // load and run the specified lua script
+  PRINT_DEBUG("Loading Lua level script '%s'...\n", file);
+  luaL_dofile(luaState_, file);
+  ////////////////////////////////////////////////////////
+
+  return finishLevelLoad();
+}
 
 //------------------------------------------------------------------------------
 bool GameLevel::loadLevelFromBuffer(const char* buffer) {
-  isComplete_ = false;
-  id_         = 0;
-
-  // If the lua state has not been initialized for this object, attempt to
-  // initialize it.
-  if (strcmp(buffer, "") == 0 || luaState_ != NULL)
+  if (!prepLevelLoad(buffer)) {
     return false;
-
-  luaState_ = lua_open();
-
-  // If the lua state still could not be initialized, then exit the game.
-  // ... we can do something smarter with this in the finished product.
-  if (luaState_ == NULL) {
-    PRINT_ERROR("Could not create Lua state.\n");
-    exit(-1);
   }
 
-  // load Lua base libraries
-  luaL_openlibs(luaState_);
-
-  luaopen_opengl(luaState_);
-
-  // Register our functions for use in lua (currently defined in Object.h)
-  registerFunctions(luaState_, 1);
-
-  // load the script
+  // load the lua script from the specified buffer and run it
   PRINT_DEBUG("Loading Lua level script from buffer...\n");
-
   luaL_loadbuffer(luaState_, buffer, strlen(buffer), "line") ||
     lua_pcall(luaState_, 0, 0, 0);
-
   ////////////////////////////////////////////////////////
 
-  terrain_ = new Terrain();
-  player_  = new Player();
-
-  PRINT_DEBUG("Terrain and Player allocated.\n");
-
-  objects_.insertFront(terrain_);
-
-  PRINT_DEBUG("Terrain stored in objects list.\n");
-
-  if (camera_ == NULL) {
-    PRINT_ERROR("Camera was not allocated in GameLevel class.\n");
-    exit (1);
-  }
-
-  // Find the update function and call it
-  PRINT_DEBUG("Calling Lua level script 'on_load' function...\n");
-
-  lua_getglobal(luaState_, SCRIPT_CALLBACK_ON_LOAD);
-
-  if (lua_isfunction(luaState_, -1)) {
-    // Push a pointer to the current object for use within the lua function
-    lua_pushlightuserdata(luaState_, (void*)terrain_);
-
-    lua_call(luaState_, 1, 0);
-  }
-  else {
-    PRINT_DEBUG_LVL(4, "'%s' function not defined.\n", SCRIPT_CALLBACK_ON_LOAD);
-    lua_pop(luaState_, 1);
-  }
-
-  PRINT_DEBUG("Lua level script 'on_load' function complete.\n");
-
-  objects_.insertFront(player_);
-  ////////////////////////////////////////////
-
-  PRINT_DEBUG("Building quad tree...\n");
-
-  quadTree_.buildTree(terrain_);
-  //q->traverseTree();
-
-  PRINT_DEBUG("Building display list...\n");
-
-  quadTree_.buildDisplayList(&displayList_, dynamic_cast<Camera*>(camera_));
-  //q->buildLeafList(luaState_);
-
-  PRINT_DEBUG("Traversing list...\n");
-
-  displayList_.traverseList();
-  //sleep(10000);
-  //exit(1);
-
-  PRINT_DEBUG("Finished building quad tree.\n");
-
-  terrain_->setDisplayList(&displayList_);
-
-  PRINT_DEBUG("Finished loading level.\n\n");
-
-  return (true);
+  return finishLevelLoad();
 }
 
 //------------------------------------------------------------------------------
