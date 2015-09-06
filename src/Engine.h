@@ -60,6 +60,10 @@ class Engine {
     SoundFX* getSoundFxClass() { return &soundFx_; }
     bool getIsRunning() { return isRunning_; }
 
+    GameLevel* getCurrentLevel(void) {
+      return currentLevel_;
+    }
+
     void swapLevel() {
       GameLevel *temp = currentLevel_;
       currentLevel_ = storedLevel_;

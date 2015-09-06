@@ -210,7 +210,6 @@ bool GameLevel::loadLevelLua(string file) {
 
   g_script_player     = player_;
   g_script_camera     = camera_;
-  g_script_game_level = this;
 
   // Find the update function and call it
   PRINT_DEBUG("Calling Lua level script 'on_load' function...\n");
@@ -303,7 +302,6 @@ bool GameLevel::loadLevelFromBufferLua(const char* buffer) {
 
   g_script_player     = player_;
   g_script_camera     = camera_;
-  g_script_game_level = this;
 
   // Find the update function and call it
   PRINT_DEBUG("Calling Lua level script 'on_load' function...\n");

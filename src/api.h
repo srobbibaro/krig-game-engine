@@ -23,7 +23,6 @@ extern "C" {
 // Global variables ///////////////////////////////////////////////////////////
 extern Object* g_script_player;
 extern Object* g_script_camera;
-extern GameLevel* g_script_game_level;
 extern Engine* g_script_engine;
 
 // Functions /////// ///////////////////////////////////////////////////////////

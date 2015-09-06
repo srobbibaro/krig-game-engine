@@ -9,8 +9,6 @@
 extern const char* intro_level_script_buffer;
 extern const char* intro_game_script_buffer;
 
-GameLevel *g_script_game_level;
-
 //------------------------------------------------------------------------------
 Engine::Engine() {
   // initialize resources used by the engine //
@@ -483,8 +481,6 @@ void Engine::loadLevel(const char* levelFile) {
   currentLevel_ = new GameLevel(lists_);
   currentLevel_->setCamera(mainCamera_);
 
-  g_script_game_level = currentLevel_;
-
   currentLevel_->loadLevelLua(levelScript_);
   timeElapsed_ = timer_.getElapsedSeconds(1);
 }
@@ -514,8 +510,6 @@ void Engine::loadLevelFromBuffer(const char* buffer) {
 
   currentLevel_ = new GameLevel(lists_);
   currentLevel_->setCamera(mainCamera_);
-
-  g_script_game_level = currentLevel_;
 
   currentLevel_->loadLevelFromBufferLua(buffer);
   timeElapsed_ = timer_.getElapsedSeconds(1);
