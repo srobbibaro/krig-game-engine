@@ -77,8 +77,8 @@ bool Engine::loadGame(string file) {
   // load Lua base libraries
   luaL_openlibs(luaState_);
 
-  // Register our functions for use in lua
-  registerFunctions(luaState_, 0);
+  // Load our library
+  luaopen_krigApi(luaState_);
 
   // load the script
   PRINT_DEBUG("Loading Lua game script '%s'...\n", file.c_str());

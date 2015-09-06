@@ -179,8 +179,8 @@ bool GameLevel::prepLevelLoad(const char* luaCode) {
   luaL_openlibs(luaState_);
   luaopen_opengl(luaState_);
 
-  // Register our functions for use in lua (currently defined in Object.h)
-  registerFunctions(luaState_, 1);
+  // Load our library
+  luaopen_krigApi(luaState_);
 
   return true;
 }

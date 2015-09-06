@@ -114,9 +114,8 @@ void Object::setScript( string name ) {
   // Load the base lua libraries
   luaL_openlibs(L_);
 
-  // Register our functions for use in lua (currently defined in
-  // Object.h)
-  registerFunctions(L_, 2);
+  // Load our library
+  luaopen_krigApi(L_);
 
   luaL_loadfile(L_, name.c_str());
   scriptIndex_ = luaL_ref( L_, LUA_REGISTRYINDEX );

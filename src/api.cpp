@@ -76,7 +76,7 @@ void returnVector(lua_State *L, Vector &t) {
   lua_rawset(L, -3);
 }
 
-void registerFunctions(lua_State *L, int level) {
+void luaopen_krigApi(lua_State *L) {
   luaopen_krigEngine(L);
   luaopen_krigLevel(L);
   luaopen_krigObject(L);

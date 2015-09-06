@@ -27,7 +27,7 @@ extern Engine* g_KRIG_ENGINE;
 Vector loadVector(lua_State *L);
 Vector loadVector(lua_State *L, int &index);
 void returnVector(lua_State *L, Vector &t);
-void registerFunctions(lua_State *L, int level);
+void luaopen_krigApi(lua_State *L);
 
 #if !defined LUA_VERSION_NUM || LUA_VERSION_NUM==501
 /*
