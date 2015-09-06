@@ -4,7 +4,7 @@
 #include "api.h"
 using namespace std;
 
-map <string, ModelStorage*> modelHash;
+std::map <std::string, ModelStorage*> Model::modelHash;
 
 //------------------------------------------------------------------------------
 Model::Model() : Object() {

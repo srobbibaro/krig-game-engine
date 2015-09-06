@@ -33,8 +33,6 @@ struct ModelStorage {
   void load(char[]);
 };
 
-extern std::map <std::string, ModelStorage*> modelHash;
-
 class Model : public Object {
   public:
     Model();
@@ -55,6 +53,8 @@ class Model : public Object {
 
     void orientOnTerrain(Terrain *temp, Quaternion baseRotation);
     void setHeightFromTerrain(Terrain *temp, float offset);
+
+    static std::map <std::string, ModelStorage*> modelHash;
 
   protected:
     std::string modelKey_;
