@@ -30,7 +30,7 @@ bool GameTimer::init(void) {
 }
 
 //------------------------------------------------------------------------------
-float GameTimer::getElapsedSeconds(unsigned long) {
+float GameTimer::getElapsedSeconds(void) {
 #ifdef _WIN32
   static LARGE_INTEGER s_lastTime = m_startTime;
   LARGE_INTEGER currentTime;

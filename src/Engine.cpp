@@ -153,7 +153,7 @@ void Engine::unloadGame() {
 
 //------------------------------------------------------------------------------
 void Engine::gameCycle() {
-  timeElapsed_ = timer_.getElapsedSeconds(1);
+  timeElapsed_ = timer_.getElapsedSeconds();
   updateGame(timeElapsed_);
   fps_ = timer_.getFPS();
 
