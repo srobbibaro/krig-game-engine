@@ -203,12 +203,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;      <span class="keywordflow">return</span> temp;</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    }</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <a class="code" href="classObjectList.html">ObjectList</a>* getObjects() { <span class="keywordflow">return</span> &amp;objects_; }</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordtype">void</span> setCamera( <a class="code" href="classCamera.html">Camera</a>* tCamera );</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <a class="code" href="classTerrain.html">Terrain</a>* getTerrain(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <a class="code" href="classCamera.html">Camera</a>* getCamera(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <a class="code" href="classPlayer.html">Player</a>* getPlayer(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <a class="code" href="classMusic.html">Music</a>* getMusic() { <span class="keywordflow">return</span> &amp;music_; }</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <a class="code" href="classObjectList.html">ObjectList</a>* getObjects()       { <span class="keywordflow">return</span> &amp;objects_; }</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <a class="code" href="classTerrain.html">Terrain</a>* getTerrain(<span class="keywordtype">void</span>)      { <span class="keywordflow">return</span>((<a class="code" href="classTerrain.html">Terrain</a>*)terrain_); }</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <a class="code" href="classCamera.html">Camera</a>* getCamera(<span class="keywordtype">void</span>)        { <span class="keywordflow">return</span>((<a class="code" href="classCamera.html">Camera</a>*)camera_); }</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <a class="code" href="classPlayer.html">Player</a>* getPlayer(<span class="keywordtype">void</span>)        { <span class="keywordflow">return</span>((<a class="code" href="classPlayer.html">Player</a>*)player_); }</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <a class="code" href="classMusic.html">Music</a>* getMusic()              { <span class="keywordflow">return</span> &amp;music_; }</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordtype">void</span> setCamera(<a class="code" href="classCamera.html">Camera</a>* camera) { camera_ = camera; }</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordtype">void</span> setId(<span class="keywordtype">int</span> <span class="keywordtype">id</span>) { id_ = id; }</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordtype">int</span> getId() { <span class="keywordflow">return</span> id_; }</div>
@@ -280,7 +280,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 6 2015 00:56:41 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 6 2015 02:12:21 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>
