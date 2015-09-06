@@ -328,15 +328,14 @@ void Engine::processCommands() {
 //------------------------------------------------------------------------------
 void Engine::processNormalKeyUp(unsigned char key) {
   PRINT_DEBUG_LVL(1, "normal key up (%d)\n", key);
-
   keyState_.keys[key] = KEY_STATE_RELEASED;
 }
 
 //------------------------------------------------------------------------------
 void Engine::processNormalKeyDown(unsigned char key) {
   PRINT_DEBUG_LVL(1, "normal key down (%d)\n", key);
-
   keyState_.keys[key] = KEY_STATE_PRESSED;
+
 #if EDIT
   switch (key) {
     // Select current camera
