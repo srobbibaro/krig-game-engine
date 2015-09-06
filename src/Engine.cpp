@@ -473,6 +473,37 @@ void Engine::processMouseMove(int x, int y) {
   mouseY_ = y;
 }
 
+//------------------------------------------------------------------------------
+void Engine::shutdown() {
+  isRunning_ = false;
+}
+
+//------------------------------------------------------------------------------
+Engine::~Engine() {
+  unloadGame();
+
+  if (currentLevel_)
+    delete currentLevel_;
+
+  if (storedLevel_)
+    delete storedLevel_;
+
+  if (mainCamera_) {
+    delete c1_;
+    delete c2_;
+    delete c3_;
+    delete c4_;
+  }
+
+  currentLevel_ = storedLevel_ = NULL;
+  c1_ = c2_ = c3_ = c4_ = mainCamera_ = NULL;
+}
+
+//------------------------------------------------------------------------------
+void Engine::pause() {
+  isPaused_ = !isPaused_;
+}
+
 #if EDIT
 //------------------------------------------------------------------------------
 void Engine::getTerrainInfo(int &x, int &z, float &height, int &type, float &red, float &green, float &blue) {
@@ -525,34 +556,3 @@ void Engine::updateColor(float &red, float &green, float &blue) {
   }
 }
 #endif
-
-//------------------------------------------------------------------------------
-void Engine::shutdown() {
-  isRunning_ = false;
-}
-
-//------------------------------------------------------------------------------
-Engine::~Engine() {
-  unloadGame();
-
-  if (currentLevel_)
-    delete currentLevel_;
-
-  if (storedLevel_)
-    delete storedLevel_;
-
-  if (mainCamera_) {
-    delete c1_;
-    delete c2_;
-    delete c3_;
-    delete c4_;
-  }
-
-  currentLevel_ = storedLevel_ = NULL;
-  c1_ = c2_ = c3_ = c4_ = mainCamera_ = NULL;
-}
-
-//------------------------------------------------------------------------------
-void Engine::pause() {
-  isPaused_ = !isPaused_;
-}
