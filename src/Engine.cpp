@@ -7,7 +7,6 @@
 #include "buffer.h"
 
 extern const char* intro_level_script_buffer;
-extern const char* intro_game_script_buffer;
 
 //------------------------------------------------------------------------------
 Engine::Engine() {
