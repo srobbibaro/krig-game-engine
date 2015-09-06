@@ -32,7 +32,7 @@ $(BUILD_DIR)%.o: $(SRC_DIR)%.cpp
 	$(CC) $(CFLAGS) $(INCLUDES) $(DEFINES) -c $< -o $@
 
 $(TEST_BUILD_DIR)%.o: $(TEST_SRC_DIR)%.cpp
-	$(CC) $(CFLAGS) $(TEST_INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) $(TEST_INCLUDES) $(DEFINES) -c $< -o $@
 
 checkdirs: $(BUILD_DIR) $(TEST_BUILD_DIR)
 
