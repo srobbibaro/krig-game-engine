@@ -643,7 +643,6 @@ void Model::orientOnTerrain(Terrain *temp, Quaternion baseRotation) {
   //setRotationAxis(rotationAxis,rotationAngle);
   position_.y = height;
   rotationChanged_ = true;
-  //}
 }
 
 //------------------------------------------------------------------------------
@@ -670,5 +669,4 @@ void Model::setHeightFromTerrain(Terrain *temp, float offset) {
   //float position_height = ((Terrain*)temp)->getHeight(position_.x, position_.z);
 
   position_.y = height + offset;
-  //}
-  }
+}
