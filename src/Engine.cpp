@@ -6,8 +6,6 @@
 #include "api.h"
 #include "buffer.h"
 
-extern const char* intro_level_script_buffer;
-
 //------------------------------------------------------------------------------
 Engine::Engine() {
   // initialize resources used by the engine //

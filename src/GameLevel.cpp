@@ -7,8 +7,6 @@
 
 #include "LuaGL.h"
 
-extern int luaopen_opengl (lua_State *L);
-
 //------------------------------------------------------------------------------
 GameLevel::GameLevel(unsigned int lists) {
   lists_      = lists;
