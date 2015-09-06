@@ -1,6 +1,5 @@
 local enemy_ship      = require 'scripts/enemy_ship'
 local shooting_object = require 'scripts/shooting_object'
-local inspect  = require 'scripts/inspect'
 
 -- Configuration
 state       = 1
