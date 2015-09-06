@@ -11,31 +11,31 @@
 
 struct Vector {
   Vector();
-  Vector(float, float, float);
-  void setVector(float, float, float);
+  Vector(const float &, const float &, const float &);
+  void setVector(const float &, const float &, const float &);
 
   void normalize();
-  float dotProduct(Vector &);
-  void crossProduct(Vector &, Vector &);
-  float getDistance(Vector);
+  float dotProduct(const Vector &);
+  void crossProduct(const Vector &, const Vector &);
+  float getDistance(const Vector &);
   float getLength(void);
-  float getScaler(Vector);
+  float getScaler(const Vector &);
   float getSum(void);
   void scale(float);
-  void average(Vector &, Vector &);
-  void calcNorm(Vector &, Vector &, Vector &);
+  void average(const Vector &, const Vector &);
+  void calcNorm(const Vector &, const Vector &, const Vector &);
 
   Vector operator *(float);
-  Vector operator +(Vector);
-  void operator =(Vector);
-  void operator +=(Vector);
-  void operator -=(Vector);
+  Vector operator +(const Vector &);
+  void operator =(const Vector &);
+  void operator +=(const Vector &);
+  void operator -=(const Vector &);
 
-  void rotateVector(Matrix &, Vector &);
-  void transformVector(Matrix &, Vector &);
+  void rotateVector(const Matrix &, const Vector &);
+  void transformVector(const Matrix &, const Vector &);
 
-  bool intersectBox(Vector, Vector[], float, Vector &);
-  bool intersectBox(Vector, Vector[], float);
+  bool intersectBox(const Vector &, Vector[], float, Vector &);
+  bool intersectBox(const Vector &, Vector[], float);
 
   float x, y, z;
 };

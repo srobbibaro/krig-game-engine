@@ -6,12 +6,12 @@ Vector::Vector() {
 }
 
 //------------------------------------------------------------------------------
-Vector::Vector(float tx, float ty, float tz) {
+Vector::Vector(const float &tx, const float &ty, const float &tz) {
   x = tx; y = ty; z = tz;
 }
 
 //------------------------------------------------------------------------------
-void Vector::setVector(float tx, float ty, float tz) {
+void Vector::setVector(const float &tx, const float &ty, const float &tz) {
   x = tx; y = ty; z = tz;
 }
 
@@ -27,31 +27,31 @@ void Vector::normalize() {
 }
 
 //------------------------------------------------------------------------------
-float Vector::dotProduct(Vector &rhs) {
+float Vector::dotProduct(const Vector &rhs) {
   return (((x * rhs.x) + (y * rhs.y) + (z * rhs.z)));
 }
 
 //------------------------------------------------------------------------------
-void Vector::operator =(Vector rhs) {
+void Vector::operator =(const Vector &rhs) {
   x = rhs.x; y = rhs.y; z = rhs.z;
 }
 
 //------------------------------------------------------------------------------
-void Vector::rotateVector(Matrix &M, Vector &V) {
+void Vector::rotateVector(const Matrix &M, const Vector &V) {
   x = (M.data[0] * V.x) + (M.data[4] * V.y) + (M.data[8] * V.z);
   y = (M.data[1] * V.x) + (M.data[5] * V.y) + (M.data[9] * V.z);
   z = (M.data[2] * V.x) + (M.data[6] * V.y) + (M.data[10] * V.z);
 }
 
 //------------------------------------------------------------------------------
-void Vector::crossProduct (Vector &d1, Vector &d2) {
+void Vector::crossProduct(const Vector &d1, const Vector &d2) {
   x = d1.y * d2.z - d1.z * d2.y;
   y = d1.z * d2.x - d1.x * d2.z;
   z = d1.x * d2.y - d1.y * d2.x;
 }
 
 //------------------------------------------------------------------------------
-void Vector::calcNorm(Vector &p1, Vector &p2, Vector &p3) {
+void Vector::calcNorm(const Vector &p1, const Vector &p2, const Vector &p3) {
   // calculate the surface normal of the triangle formed by p1, p2 and p3
   Vector t1;
   Vector t2;
@@ -64,7 +64,7 @@ void Vector::calcNorm(Vector &p1, Vector &p2, Vector &p3) {
 }
 
 //------------------------------------------------------------------------------
-void Vector::transformVector(Matrix &m, Vector &v) {
+void Vector::transformVector(const Matrix &m, const Vector &v) {
   float h;
 
   x = (v.x * m.data[0]) + (v.y * m.data[4]) + (v.z * m.data[8]) + m.data[12];
@@ -78,7 +78,7 @@ void Vector::transformVector(Matrix &m, Vector &v) {
 }
 
 //------------------------------------------------------------------------------
-void Vector::average(Vector &a, Vector &b) {
+void Vector::average(const Vector &a, const Vector &b) {
   x = a.x + b.x;
   y = a.y + b.y;
   z = a.z + b.z;
@@ -92,7 +92,7 @@ void Vector::scale(float m) {
 }
 
 //------------------------------------------------------------------------------
-float Vector::getDistance(Vector t) {
+float Vector::getDistance(const Vector &t) {
   float dx = t.x - x;
   float dy = t.y - y;
   float dz = t.z - z;
@@ -106,7 +106,7 @@ float Vector::getSum(void) {
 }
 
 //------------------------------------------------------------------------------
-float Vector::getScaler(Vector vector) {
+float Vector::getScaler(const Vector &vector) {
   Vector t;
   t.x = x * vector.x;
   t.y = y * vector.y;
@@ -117,7 +117,7 @@ float Vector::getScaler(Vector vector) {
 
 //------------------------------------------------------------------------------
 bool Vector::intersectBox(
-  Vector rayPosition, Vector collisionBox[],
+  const Vector &rayPosition, Vector collisionBox[],
   float extend, Vector &tv
 ) {
   bool hit = false;
@@ -198,7 +198,7 @@ bool Vector::intersectBox(
 }
 
 //------------------------------------------------------------------------------
-bool Vector::intersectBox(Vector rayPosition, Vector collisionBox[], float extend) {
+bool Vector::intersectBox(const Vector &rayPosition, Vector collisionBox[], float extend) {
   Vector tv;
   bool hit = false;
   float s  = 0;
@@ -277,7 +277,7 @@ bool Vector::intersectBox(Vector rayPosition, Vector collisionBox[], float exten
 }
 
 //------------------------------------------------------------------------------
-Vector Vector::operator +(Vector a) {
+Vector Vector::operator +(const Vector &a) {
   Vector t;
   t.setVector(x + a.x, y + a.y, z + a.z);
   return t;
@@ -289,12 +289,12 @@ Vector Vector::operator *(float a) {
 }
 
 //------------------------------------------------------------------------------
-void Vector::operator +=(Vector a) {
+void Vector::operator +=(const Vector &a) {
   x += (a.x); y += (a.y); z += (a.z);
 }
 
 //------------------------------------------------------------------------------
-void Vector::operator -=(Vector a) {
+void Vector::operator -=(const Vector &a) {
   x -= (a.x); y -= (a.y); z -= (a.z);
 }
 

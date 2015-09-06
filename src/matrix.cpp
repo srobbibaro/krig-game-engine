@@ -17,10 +17,12 @@ Matrix::Matrix( const Matrix &t ) {
 }
 
 //------------------------------------------------------------------------------
-Matrix::Matrix ( float c11, float c21, float c31, float c41,
-                 float c12, float c22, float c32, float c42,
-                 float c13, float c23, float c33, float c43,
-                 float c14, float c24, float c34, float c44 ) {
+Matrix::Matrix(
+  const float &c11, const float &c21, const float &c31, const float &c41,
+  const float &c12, const float &c22, const float &c32, const float &c42,
+  const float &c13, const float &c23, const float &c33, const float &c43,
+  const float &c14, const float &c24, const float &c34, const float &c44
+) {
   data[0]  = c11; data[1]  = c12; data[2]  = c13; data[3]  = c14;
   data[4]  = c21; data[5]  = c22; data[6]  = c23; data[7]  = c24;
   data[8]  = c31; data[9]  = c32; data[10] = c33; data[11] = c34;
@@ -45,13 +47,13 @@ void Matrix::loadZero(void) {
 }
 
 //------------------------------------------------------------------------------
-void Matrix::operator =( Matrix t ) {
+void Matrix::operator =(const Matrix &t) {
   for ( int i = 0; i < NUM_CELLS; ++i )
     data[i] = t.data[i];
 }
 
 //------------------------------------------------------------------------------
-Matrix Matrix::operator *( Matrix p ) {
+Matrix Matrix::operator *(const Matrix &p) {
   Matrix t; int c, r;
 
   for ( int i = 0; i < NUM_CELLS; ++i ) {
@@ -66,7 +68,7 @@ Matrix Matrix::operator *( Matrix p ) {
 }
 
 //------------------------------------------------------------------------------
-void Matrix::setRotation( float angle, float x, float y, float z ) {
+void Matrix::setRotation(float angle, float x, float y, float z) {
   float t = 1 - cos(angle);
   float s = sin(angle);
   float c = cos(angle);
@@ -87,7 +89,7 @@ void Matrix::setRotation( float angle, float x, float y, float z ) {
 }
 
 //------------------------------------------------------------------------------
-void Matrix::setTranslation( float x, float y, float z ) {
+void Matrix::setTranslation(float x, float y, float z) {
   loadIdentity();
 
   data[12] = x;
@@ -96,7 +98,7 @@ void Matrix::setTranslation( float x, float y, float z ) {
 }
 
 //------------------------------------------------------------------------------
-void Matrix::setScale( float x, float y, float z ) {
+void Matrix::setScale(float x, float y, float z) {
   loadIdentity();
 
   data[0]  = x;
@@ -115,7 +117,7 @@ void Matrix::transpose(Matrix &m) {
 }
 
 //------------------------------------------------------------------------------
-void Matrix::transformVertex( float*v , float *newVertex) {
+void Matrix::transformVertex(float *v , float *newVertex) {
   float h, x, y, z;
 
   x = ( v[0] * data[0] ) + ( v[1] * data[4] ) + ( v[2] * data[8] ) + data[12];
@@ -131,8 +133,11 @@ void Matrix::transformVertex( float*v , float *newVertex) {
 }
 
 //------------------------------------------------------------------------------
-void Matrix::setShadow( float lightPos[4], float plane[4] ) {
-  float temp = plane[0] * lightPos[0] + plane[1] * lightPos[1] + plane[1] * lightPos[2] + plane[3] * lightPos[3];
+void Matrix::setShadow(float lightPos[4], float plane[4]) {
+  float temp = plane[0] * lightPos[0] +
+               plane[1] * lightPos[1] +
+               plane[1] * lightPos[2] +
+               plane[3] * lightPos[3];
 
   data[0] = temp - lightPos[0] * plane[0];
   data[4] = 0.0f - lightPos[0] * plane[1];
@@ -156,7 +161,7 @@ void Matrix::setShadow( float lightPos[4], float plane[4] ) {
 }
 
 //------------------------------------------------------------------------------
-void Matrix::display( void ) {
+void Matrix::display(void) {
 #if DEBUG
   PRINT_DEBUG("Matrix dump:\n");
   for ( int i = 0; i < NUM_CELLS; ++i ) {
@@ -168,7 +173,7 @@ void Matrix::display( void ) {
 }
 
 //------------------------------------------------------------------------------
-void Matrix::setRotation2( float x, float y, float z ) {
+void Matrix::setRotation2(float x, float y, float z) {
   // simplify math for later //
   float cosX = cos(x/2);
   float cosY = cos(y/2);

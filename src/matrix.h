@@ -15,17 +15,17 @@ struct Matrix {
   Matrix();
   Matrix(const Matrix&);
   Matrix(
-    float, float, float, float,
-    float, float, float, float,
-    float, float, float, float,
-    float, float, float, float
+    const float &, const float &, const float &, const float &,
+    const float &, const float &, const float &, const float &,
+    const float &, const float &, const float &, const float &,
+    const float &, const float &, const float &, const float &
   );
 
   void loadIdentity(void);
   void loadZero(void);
 
-  void operator =(Matrix);
-  Matrix operator *(Matrix);
+  void operator =(const Matrix &);
+  Matrix operator *(const Matrix &);
 
   void transpose(Matrix&);
   void setRotation(float, float, float, float);
