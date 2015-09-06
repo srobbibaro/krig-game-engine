@@ -7,11 +7,18 @@
 // Class constructor.  Sets up OpenAL and loads all sound effect files into
 // memory.
 SoundFX::SoundFX() {
-  DIR *SFXDir;
-  struct dirent *de;
-  string files[256];
+  Buffers = NULL;
+  Sources = NULL;
 
-  SFXDir = opendir( "./sounds/" );
+  DIR *SFXDir = opendir( "./sounds/" );
+
+  if (SFXDir == NULL) {
+    PRINT_DEBUG_LVL(2, "'sounds' directory not present; no sounds will be loaded.\n");
+    return;
+  }
+
+  dirent *de;
+  string files[256];
 
   /* TODO: Instead of holding all of the sound effects in memory in wav format,
    * it would be great to switch to compressed audio files.  It would
@@ -26,6 +33,11 @@ SoundFX::SoundFX() {
       }
     }
     closedir( SFXDir );
+  }
+
+  if (Num_of_SFX < 1) {
+    PRINT_DEBUG_LVL(2, "No sound files present in 'sounds' directory; no sounds will be loaded.\n");
+    return;
   }
 
   // Init buffers and sources.
@@ -53,11 +65,15 @@ SoundFX::SoundFX() {
 //
 // Cleans up OpenAL buffer information.
 SoundFX::~SoundFX() {
-  alDeleteBuffers( Num_of_SFX, Buffers );
-  alDeleteSources( Num_of_SFX, Sources );
+  if (Buffers != NULL) {
+    alDeleteBuffers( Num_of_SFX, Buffers );
+    delete[] Buffers;
+  }
 
-  delete[] Buffers;
-  delete[] Sources;
+  if (Sources != NULL) {
+    alDeleteSources( Num_of_SFX, Sources );
+    delete[] Sources;
+  }
 
   PRINT_DEBUG("Clean-up complete.\n");
 }
@@ -66,6 +82,9 @@ SoundFX::~SoundFX() {
 //
 // Plays a specified sound file.  Accepts a file name (not the complete path).
 void SoundFX::PlaySFX( string sfx ) {
+  if (Sources == NULL)
+    return;
+
   alSourcePlay( Sources[ File_Hash[sfx] ] );
 }
 
@@ -79,6 +98,8 @@ void SoundFX::SetSFX( string sfx,
                       ALfloat PosX, ALfloat PosY, ALfloat PosZ,
                       ALfloat VelX, ALfloat VelY, ALfloat VelZ,
                       ALboolean repeat ) {
+  if (Buffers == NULL || Sources == NULL)
+    return;
 
   ALfloat SourcePos[3] = { PosX, PosY, PosZ };
   ALfloat SourceVel[3] = { VelX, VelY, VelZ };
