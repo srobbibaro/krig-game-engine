@@ -2,4 +2,4 @@
 #include "catch.hpp"
 #include "Engine.h"
 
-Engine *g_script_engine;
+Engine *g_KRIG_ENGINE;

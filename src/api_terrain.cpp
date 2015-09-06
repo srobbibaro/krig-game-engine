@@ -21,7 +21,7 @@ int get_vertex_height(lua_State *L) {
   int x = lua_tonumber(L, 1);
   int z = lua_tonumber(L, 2);
 
-  float height = (float)g_script_engine->getCurrentLevel()->getTerrain()->getVertexHeight(x, z);
+  float height = (float)g_KRIG_ENGINE->getCurrentLevel()->getTerrain()->getVertexHeight(x, z);
 
   lua_pushnumber(L, height);
   return 1;
@@ -42,7 +42,7 @@ int set_vertex_height(lua_State *L) {
   int z = lua_tonumber(L, 2);
   float height = lua_tonumber(L, 3);
 
-  g_script_engine->getCurrentLevel()->getTerrain()->setVertexHeight(x, z, height);
+  g_KRIG_ENGINE->getCurrentLevel()->getTerrain()->setVertexHeight(x, z, height);
   return 0;
 }
 
@@ -59,7 +59,7 @@ int get_vertex_color(lua_State *L) {
   int x = lua_tonumber(L, 1);
   int z = lua_tonumber(L, 2);
 
-  Vector color = g_script_engine->getCurrentLevel()->getTerrain()->getVertexColor(x, z);
+  Vector color = g_KRIG_ENGINE->getCurrentLevel()->getTerrain()->getVertexColor(x, z);
 
   returnVector(L, color);
   return 1;
@@ -81,7 +81,7 @@ int set_vertex_color(lua_State *L) {
   int index = 3;
   Vector color = loadVector(L, index);
 
-  g_script_engine->getCurrentLevel()->getTerrain()->setVertexColor(x, z, color);
+  g_KRIG_ENGINE->getCurrentLevel()->getTerrain()->setVertexColor(x, z, color);
   return 0;
 }
 
@@ -98,7 +98,7 @@ int get_vertex_type(lua_State *L) {
   int x = lua_tonumber(L, 1);
   int z = lua_tonumber(L, 2);
 
-  float type = g_script_engine->getCurrentLevel()->getTerrain()->getVertexType(x, z);
+  float type = g_KRIG_ENGINE->getCurrentLevel()->getTerrain()->getVertexType(x, z);
 
   lua_pushnumber(L, type);
   return 1;
@@ -119,7 +119,7 @@ int set_vertex_type(lua_State *L) {
   int z = lua_tonumber(L, 2);
   int type = lua_tonumber(L,3);
 
-  g_script_engine->getCurrentLevel()->getTerrain()->setVertexType(x, z, type);
+  g_KRIG_ENGINE->getCurrentLevel()->getTerrain()->setVertexType(x, z, type);
   return 0;
 }
 
@@ -136,7 +136,7 @@ int get_height(lua_State *L) {
   float x = lua_tonumber(L, 1);
   float z = lua_tonumber(L, 2);
 
-  float height = (float)g_script_engine->getCurrentLevel()->getTerrain()->getHeight(x, z);
+  float height = (float)g_KRIG_ENGINE->getCurrentLevel()->getTerrain()->getHeight(x, z);
 
   lua_pushnumber(L, height);
   return 1;

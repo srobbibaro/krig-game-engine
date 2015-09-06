@@ -7,9 +7,6 @@
 
 #include "LuaGL.h"
 
-Object* g_script_camera;
-Object* g_script_player;
-
 extern int luaopen_opengl (lua_State *L);
 
 //------------------------------------------------------------------------------
@@ -208,9 +205,6 @@ bool GameLevel::loadLevelLua(string file) {
     exit (1);
   }
 
-  g_script_player     = player_;
-  g_script_camera     = camera_;
-
   // Find the update function and call it
   PRINT_DEBUG("Calling Lua level script 'on_load' function...\n");
 
@@ -300,9 +294,6 @@ bool GameLevel::loadLevelFromBufferLua(const char* buffer) {
     exit (1);
   }
 
-  g_script_player     = player_;
-  g_script_camera     = camera_;
-
   // Find the update function and call it
   PRINT_DEBUG("Calling Lua level script 'on_load' function...\n");
 
@@ -348,22 +339,6 @@ bool GameLevel::loadLevelFromBufferLua(const char* buffer) {
 
   return (true);
 }
-
-//------------------------------------------------------------------------------
-void GameLevel::setCamera(Camera* camera)
-{ camera_ = camera; g_script_camera = camera_; }
-
-//------------------------------------------------------------------------------
-Terrain* GameLevel::getTerrain(void)
-{ return((Terrain*)terrain_); }
-
-//------------------------------------------------------------------------------
-Camera* GameLevel::getCamera(void)
-{ return((Camera*)camera_); }
-
-//------------------------------------------------------------------------------
-Player* GameLevel::getPlayer(void)
-{ return((Player*)player_); }
 
 //------------------------------------------------------------------------------
 void GameLevel::drawSky() {

@@ -21,9 +21,7 @@ extern "C" {
 #define SCRIPT_CALLBACK_ON_UNLOAD      "on_unload"
 
 // Global variables ///////////////////////////////////////////////////////////
-extern Object* g_script_player;
-extern Object* g_script_camera;
-extern Engine* g_script_engine;
+extern Engine* g_KRIG_ENGINE;
 
 // Functions /////// ///////////////////////////////////////////////////////////
 Vector loadVector(lua_State *L);

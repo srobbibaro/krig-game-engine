@@ -114,12 +114,12 @@ class GameLevel {
       return temp;
     }
 
-    ObjectList* getObjects() { return &objects_; }
-    void setCamera( Camera* tCamera );
-    Terrain* getTerrain(void);
-    Camera* getCamera(void);
-    Player* getPlayer(void);
-    Music* getMusic() { return &music_; }
+    ObjectList* getObjects()       { return &objects_; }
+    Terrain* getTerrain(void)      { return((Terrain*)terrain_); }
+    Camera* getCamera(void)        { return((Camera*)camera_); }
+    Player* getPlayer(void)        { return((Player*)player_); }
+    Music* getMusic()              { return &music_; }
+    void setCamera(Camera* camera) { camera_ = camera; }
 
     void setId(int id) { id_ = id; }
     int getId() { return id_; }

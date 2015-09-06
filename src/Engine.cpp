@@ -60,8 +60,6 @@ Engine::Engine() {
 
 //------------------------------------------------------------------------------
 bool Engine::loadGame(string file) {
-  g_script_engine = this;
-
   // If the lua state has not been initialized for this object, attempt to
   // initialize it.
   if (file == "" || luaState_ != NULL)
@@ -102,8 +100,6 @@ bool Engine::loadGame(string file) {
 
 //------------------------------------------------------------------------------
 bool Engine::loadGameFromBuffer(char* buffer) {
-  g_script_engine = this;
-
   // If the lua state has not been initialized for this object, attempt to
   // initialize it.
   if (strcmp(buffer, "") == 0 || luaState_ != NULL)
@@ -145,8 +141,6 @@ bool Engine::loadGameFromBuffer(char* buffer) {
 }
 
 bool Engine::loadIntroCredits() {
-  g_script_engine = this;
-
   // If the lua state has not been initialized for this object, attempt to
   // initialize it.
   if (luaState_ != NULL)

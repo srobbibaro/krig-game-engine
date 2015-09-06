@@ -42,7 +42,8 @@ static int get_frustum_plane(lua_State *L) {
   int plane_num = lua_tonumber(L,1);
   float a, b, c, d;
 
-  static_cast<Camera*>(g_script_camera)->getFrustum()->getPlaneDefinition(plane_num, a, b, c, d);
+  Camera *camera = static_cast<Camera*>(g_KRIG_ENGINE->getCurrentLevel()->getCamera());
+  camera->getFrustum()->getPlaneDefinition(plane_num, a, b, c, d);
 
   lua_newtable(L);
 
