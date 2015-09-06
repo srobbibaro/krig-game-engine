@@ -34,6 +34,8 @@ class Camera : public Object {
     void prepare(void) {};
     void animate(float, Object*) {}; // Camera*
 
+    void setProjectionMatrix(void);
+
     Matrix rotationMatrix; // send to rendering library
     Frustum frustum;
     Matrix projectionMatrix;
@@ -43,6 +45,9 @@ class Camera : public Object {
 
     Matrix final;
     int id_;
+
+  private:
+    void initialize(void);
 };
 
 #endif

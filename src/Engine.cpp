@@ -391,12 +391,12 @@ void Engine::prepLevelLoad() {
 
   if (!mainCamera_) {
     // setup camera(s) for the current level
-    c1_ = new Camera(1);
+    c1_ = new Camera(1); c1_->setProjectionMatrix();
     mainCamera_ = c1_;
 
-    c2_ = new Camera(2);
-    c3_ = new Camera(3);
-    c4_ = new Camera(4);
+    c2_ = new Camera(2); c2_->setProjectionMatrix();
+    c3_ = new Camera(3); c3_->setProjectionMatrix();
+    c4_ = new Camera(4); c4_->setProjectionMatrix();
 
     c2_->setPosition(0.0f, 100.0f, 0.0f);
     c2_->setRotationEuler(1.57, 0.0f, 0.0f);
