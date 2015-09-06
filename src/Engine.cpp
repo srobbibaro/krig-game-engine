@@ -100,26 +100,6 @@ bool Engine::loadGame(string file) {
 
 //------------------------------------------------------------------------------
 bool Engine::loadIntroCredits() {
-  // If the lua state has not been initialized for this object, attempt to
-  // initialize it.
-  if (luaState_ != NULL)
-    return false;
-
-  luaState_ = lua_open();
-
-  // If the lua state still could not be initialized, then exit the game.
-  // ... we can do something smarter with this in the finished product.
-  if (!luaState_) {
-    PRINT_ERROR("Could not create Lua state.\n");
-    exit(-1);
-  }
-
-  // load Lua base libraries
-  luaL_openlibs(luaState_);
-
-  // Register our functions for use in lua
-  registerFunctions(luaState_, 0);
-
   // load the intro script from the buffer
   PRINT_DEBUG("Loading Lua game script 'intro credits'...\n");
   loadLevelFromBuffer(intro_level_script_buffer);
