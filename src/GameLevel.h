@@ -27,7 +27,7 @@ class GameLevel {
     void prepareLevel(void);
     void drawLevel(void);
 
-    bool loadLevelLua(string file);
+    bool loadLevelLua(const char* file);
     bool loadLevelFromBufferLua(const char* buffer);
     void loadScript(string file);
 
@@ -128,7 +128,6 @@ class GameLevel {
     void setElapsedTime(float elapsedTime) { elapsedTime_ = elapsedTime; }
 
     void setComplete(bool isComplete) { isComplete_ = isComplete; }
-    string getScriptName() { return scriptName_; }
     string getMusicPath() { return musicPath_; }
     void setMusicPath(string musicPath) { musicPath_ = musicPath; }
     Vector* getLightDirection() { return &lightDirection_; }
@@ -168,8 +167,6 @@ class GameLevel {
     bool controlTriangles_;
 
     string musicPath_;
-
-    string scriptName_;
 
     int id_;
 

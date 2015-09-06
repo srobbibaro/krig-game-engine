@@ -387,8 +387,6 @@ void Engine::processNormalKeyDown(unsigned char key) {
 
 //------------------------------------------------------------------------------
 void Engine::loadLevel(const char* levelFile) {
-  levelScript_ = levelFile;
-
   if (currentLevel_)
     delete currentLevel_;
 
@@ -413,7 +411,7 @@ void Engine::loadLevel(const char* levelFile) {
   currentLevel_ = new GameLevel(lists_);
   currentLevel_->setCamera(mainCamera_);
 
-  currentLevel_->loadLevelLua(levelScript_);
+  currentLevel_->loadLevelLua(levelFile);
   timeElapsed_ = timer_.getElapsedSeconds(1);
 }
 

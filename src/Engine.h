@@ -36,8 +36,6 @@ class Engine {
     void loadLevel(const char*);
     void loadLevelFromBuffer(const char*);
 
-    void setLevelScript(string levelScript) { levelScript_ = levelScript; }
-
     bool loadGame(string);
     bool loadIntroCredits();
 
@@ -89,7 +87,6 @@ class Engine {
     float timeElapsed_; // time elapsed in game
     float fps_;
 
-    string levelScript_;
     lua_State* luaState_;
 
     bool isRunning_, isIntroRunning_, isPaused_;

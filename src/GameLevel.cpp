@@ -20,7 +20,6 @@ GameLevel::GameLevel(unsigned int lists) {
   camera_     = NULL;
 
   musicPath_  = "";
-  scriptName_ = "";
 
   id_         = 0;
 
@@ -158,14 +157,13 @@ void GameLevel::prepareLevel() { prepareObjects(); }
 void GameLevel::animateLevel() { animateObjects(elapsedTime_); }
 
 //------------------------------------------------------------------------------
-bool GameLevel::loadLevelLua(string file) {
+bool GameLevel::loadLevelLua(const char* file) {
   isComplete_ = false;
   id_         = 0;
-  scriptName_ = file;
 
   // If the lua state has not been initialized for this object, attempt to
   // initialize it.
-  if (file == "" || luaState_ != NULL)
+  if (strcmp(file, "") == 0 || luaState_ != NULL)
     return false;
 
   luaState_ = lua_open();
@@ -186,9 +184,9 @@ bool GameLevel::loadLevelLua(string file) {
   registerFunctions(luaState_, 1);
 
   // load the script
-  PRINT_DEBUG("Loading Lua level script '%s'...\n", file.c_str());
+  PRINT_DEBUG("Loading Lua level script '%s'...\n", file);
 
-  luaL_dofile(luaState_, file.c_str());
+  luaL_dofile(luaState_, file);
   ////////////////////////////////////////////////////////
 
   terrain_ = new Terrain();
