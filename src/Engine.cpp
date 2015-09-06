@@ -414,14 +414,14 @@ void Engine::prepLevelLoad() {
 //------------------------------------------------------------------------------
 void Engine::loadLevel(const char* levelFile) {
   prepLevelLoad();
-  currentLevel_->loadLevelLua(levelFile);
+  currentLevel_->loadLevel(levelFile);
   timeElapsed_ = timer_.getElapsedSeconds();
 }
 
 //------------------------------------------------------------------------------
 void Engine::loadLevelFromBuffer(const char* buffer) {
   prepLevelLoad();
-  currentLevel_->loadLevelFromBufferLua(buffer);
+  currentLevel_->loadLevelFromBuffer(buffer);
   timeElapsed_ = timer_.getElapsedSeconds();
 }
 

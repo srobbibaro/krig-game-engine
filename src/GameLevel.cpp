@@ -157,7 +157,7 @@ void GameLevel::prepareLevel() { prepareObjects(); }
 void GameLevel::animateLevel() { animateObjects(elapsedTime_); }
 
 //------------------------------------------------------------------------------
-bool GameLevel::loadLevelLua(const char* file) {
+bool GameLevel::loadLevel(const char* file) {
   isComplete_ = false;
   id_         = 0;
 
@@ -244,7 +244,7 @@ bool GameLevel::loadLevelLua(const char* file) {
 }
 
 //------------------------------------------------------------------------------
-bool GameLevel::loadLevelFromBufferLua(const char* buffer) {
+bool GameLevel::loadLevelFromBuffer(const char* buffer) {
   isComplete_ = false;
   id_         = 0;
 

@@ -27,8 +27,8 @@ class GameLevel {
     void prepareLevel(void);
     void drawLevel(void);
 
-    bool loadLevelLua(const char* file);
-    bool loadLevelFromBufferLua(const char* buffer);
+    bool loadLevel(const char* file);
+    bool loadLevelFromBuffer(const char* buffer);
     void loadScript(string file);
 
     Object* findEnemyOfType(int type);
