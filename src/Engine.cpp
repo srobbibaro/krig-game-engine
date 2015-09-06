@@ -386,7 +386,7 @@ void Engine::processNormalKeyDown(unsigned char key) {
 }
 
 //------------------------------------------------------------------------------
-void Engine::loadLevel(const char* levelFile) {
+void Engine::prepLevelLoad() {
   if (currentLevel_)
     delete currentLevel_;
 
@@ -410,39 +410,20 @@ void Engine::loadLevel(const char* levelFile) {
 
   currentLevel_ = new GameLevel(lists_);
   currentLevel_->setCamera(mainCamera_);
+}
 
+//------------------------------------------------------------------------------
+void Engine::loadLevel(const char* levelFile) {
+  prepLevelLoad();
   currentLevel_->loadLevelLua(levelFile);
-  timeElapsed_ = timer_.getElapsedSeconds(1);
+  timeElapsed_ = timer_.getElapsedSeconds();
 }
 
 //------------------------------------------------------------------------------
 void Engine::loadLevelFromBuffer(const char* buffer) {
-  if (currentLevel_)
-    delete currentLevel_;
-
-  if (!mainCamera_) {
-    // setup camera(s) for the current level
-    c1_ = new Camera(1);
-    mainCamera_ = c1_;
-
-    c2_ = new Camera(2);
-    c3_ = new Camera(3);
-    c4_ = new Camera(4);
-
-    c2_->setPosition(0.0f, 100.0f, 0.0f);
-    c2_->setRotationEuler(1.57, 0.0f, 0.0f);
-    c3_->setPosition(0.0f, 0.0f, 0.0f);
-    c4_->setPosition(0.0f, 0.0f, 0.0f);
-  }
-
-  mainCamera_->init();
-  mainCamera_->unloadScript();
-
-  currentLevel_ = new GameLevel(lists_);
-  currentLevel_->setCamera(mainCamera_);
-
+  prepLevelLoad();
   currentLevel_->loadLevelFromBufferLua(buffer);
-  timeElapsed_ = timer_.getElapsedSeconds(1);
+  timeElapsed_ = timer_.getElapsedSeconds();
 }
 
 //------------------------------------------------------------------------------

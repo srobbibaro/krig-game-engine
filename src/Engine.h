@@ -97,6 +97,8 @@ class Engine {
     GLuint shaderTexture_[1];
     unsigned int lists_; // lists used for rendering
 
+    void prepLevelLoad();
+
 #if EDIT
     // Mouse control values
     float lastX, lastY;
