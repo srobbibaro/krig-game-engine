@@ -10,6 +10,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; th
   make doc > /dev/null 2>&1
   cd html
 
-  git commit -am "Update documentation after successful master build: $TRAVIS_BUILD_NUMBER"
+  git add -f .
+  git commit -m "Update documentation after successful master build: $TRAVIS_BUILD_NUMBER"
   git push -fq origin gh-pages > /dev/null 2>&1
 fi
