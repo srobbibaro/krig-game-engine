@@ -14,9 +14,9 @@ Object* object;
 
 //------------------------------------------------------------------------------
 Object::Object() : ObjectNode() {
-  scriptName_ = "";
+  scriptName_     = "";
   particleSystem_ = NULL;
-  L_ = NULL;
+  L_              = NULL;
 
   init();
 }

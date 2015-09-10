@@ -5,7 +5,7 @@
  * API calls are split into seven classes of functions. The classes are grouped
  * by the type of functionality they provide. For example, the
  * krig.object.set_position function is supported for a game objects, while
- * krig.level.add_object function is supported for game levels. The seven classes 
+ * krig.level.add_object function is supported for game levels. The seven classes
  * of functions are: Game Object, Game Level, Text, Terrain, Camera, Vector Math,
  * and Game (Engine).
  */
