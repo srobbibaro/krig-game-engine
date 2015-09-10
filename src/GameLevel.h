@@ -66,62 +66,7 @@ class GameLevel {
     void prepareObjects();
     void animateObjects(float);
 
-    int addObject(string script, lua_State* luaState, unsigned int type) {
-      Object *temp = (Object*)freeObjects_[script].head;
-
-      if (temp != NULL) {
-        switch (type) {
-          case TYPE_GAME_OBJECT:
-            temp = static_cast<ScriptedObject*>(temp);
-            break;
-          case TYPE_GAME_TEXT:
-            temp = static_cast<ScriptTextType*>(temp);
-            break;
-          default:
-            PRINT_ERROR("Could not add new object of type '%u'.\n", type);
-            return ERROR_TYPE_INVALID;
-        }
-
-        temp->initSettings();
-        freeObjects_[script].remove(temp);
-        PRINT_DEBUG_LVL(
-          2,
-          "Object removed: script='%s'. Added to free objects map (size=%d).\n",
-          script.c_str(),
-          freeObjects_[script].size
-        );
-      }
-      else {
-        if (numObjects_ < MAX_LEVEL_OBJECTS) {
-          switch (type) {
-            case TYPE_GAME_OBJECT:
-              temp = new ScriptedObject();
-              break;
-            case TYPE_GAME_TEXT:
-              temp = new ScriptTextType();
-              break;
-            default:
-              return ERROR_TYPE_INVALID;
-          }
-          temp->setScript(script);
-          temp->setGameLevelId(numObjects_);
-          idToObjectMap_[numObjects_] = temp;
-          numObjects_++;
-
-          PRINT_DEBUG_LVL(2, "Allocated a new object of type '%s' (num objects = %u).\n", script.c_str(), numObjects_);
-        }
-        else {
-          PRINT_ERROR("Could not allocate a new object of type '%s'.\n", script.c_str());
-          return ERROR_MAX_OBJECTS;
-        }
-      }
-
-      objects_.insertFront(temp);
-
-      temp->loadScript(script, luaState);
-
-      return temp->getGameLevelId();
-    }
+    int addObject(string script, lua_State* luaState, unsigned int type);
 
     ObjectList* getObjects()       { return &objects_; }
     Terrain* getTerrain(void)      { return((Terrain*)terrain_); }
