@@ -281,7 +281,7 @@ void Object::showCollisionBox(void) {
   float rad = 6.28f / 16.0f;
 
   glBegin(GL_LINE_LOOP);
-  for (int i = 0; i < 16; i++) {
+  for (int i = 0; i < 16; ++i) {
     glVertex3f((cos(rad * i) * radius), (sin(rad * i) * radius), 0.0f);
   }
   glEnd();

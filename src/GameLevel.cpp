@@ -388,23 +388,23 @@ void GameLevel::drawSky() {
 }
 
 //------------------------------------------------------------------------------
-int GameLevel::findEnemyOfType(int type) {
+Object* GameLevel::findEnemyOfType(int type) {
   float closest  = 1000, temp;
   Object* obj    = static_cast <Object*>(objects_.head);
-  int retId      = -1;
+  Object* ret    = NULL;
 
   while (obj->next != 0) {
     obj = (Object*)obj->next;
     if (obj->getTypeId() == type && obj->getInView()) {
       temp = findDistance((Object*)player_, obj);
       if (temp < closest) {
-        retId  = obj->getGameLevelId();
+        ret     = obj;
         closest = temp;
       }
     }
   }
 
-  return retId;
+  return ret;
 }
 
 //------------------------------------------------------------------------------
@@ -608,7 +608,7 @@ void GameLevel::animateObjects(float timeElapsed) {
 }
 
 //------------------------------------------------------------------------------
-int GameLevel::addObject(string script, lua_State* luaState, unsigned int type) {
+Object* GameLevel::addObject(string script, lua_State* luaState, unsigned int type) {
   Object *temp = (Object*)freeObjects_[script].head;
 
   if (temp != NULL) {
@@ -621,7 +621,7 @@ int GameLevel::addObject(string script, lua_State* luaState, unsigned int type) 
         break;
       default:
         PRINT_ERROR("Could not add new object of type '%u'.\n", type);
-        return ERROR_TYPE_INVALID;
+        return NULL;
     }
 
     temp->initSettings();
@@ -643,7 +643,8 @@ int GameLevel::addObject(string script, lua_State* luaState, unsigned int type) 
           temp = new ScriptTextType();
           break;
         default:
-          return ERROR_TYPE_INVALID;
+          PRINT_ERROR("Could not add new object of type '%u'.\n", type);
+          return NULL;
       }
       temp->setScript(script);
       temp->setGameLevelId(numObjects_);
@@ -654,7 +655,7 @@ int GameLevel::addObject(string script, lua_State* luaState, unsigned int type) 
     }
     else {
       PRINT_ERROR("Could not allocate a new object of type '%s'.\n", script.c_str());
-      return ERROR_MAX_OBJECTS;
+      return NULL;
     }
   }
 
@@ -662,5 +663,5 @@ int GameLevel::addObject(string script, lua_State* luaState, unsigned int type) 
 
   temp->loadScript(script, luaState);
 
-  return temp->getGameLevelId();
+  return temp;
 }

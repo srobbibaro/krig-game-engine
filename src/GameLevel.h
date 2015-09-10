@@ -22,9 +22,6 @@ extern "C" {
 #define TYPE_GAME_OBJECT 1
 #define TYPE_GAME_TEXT   2
 
-#define ERROR_MAX_OBJECTS   -1
-#define ERROR_TYPE_INVALID  -2
-
 class GameLevel {
   public:
     GameLevel(unsigned int);
@@ -39,7 +36,7 @@ class GameLevel {
     bool loadLevelFromBuffer(const char* buffer);
     void loadScript(string file);
 
-    int findEnemyOfType(int type);
+    Object* findEnemyOfType(int type);
     float findDistance(Object*, Object*);
 
     void drawSky(void);
@@ -66,7 +63,7 @@ class GameLevel {
     void prepareObjects();
     void animateObjects(float);
 
-    int addObject(string script, lua_State* luaState, unsigned int type);
+    Object* addObject(string script, lua_State* luaState, unsigned int type);
 
     ObjectList* getObjects()       { return &objects_; }
     Terrain* getTerrain(void)      { return((Terrain*)terrain_); }

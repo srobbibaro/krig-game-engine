@@ -187,7 +187,7 @@ static int get_mouse_coordinates(lua_State *L) {
 void play_sound(GameObjectReference, string);
 #endif
 static int play_sound(lua_State *L) {
-  luaL_checknumber(L, 1);
+  luaL_checktype(L, 1, LUA_TTABLE);
   Object *object = static_cast<Object*>(loadObject(L, 1));
 
   const char *s = lua_tostring(L, 2);
@@ -234,7 +234,7 @@ static int get_player(lua_State *L) {
 float get_script_value(GameObjectReference, string);
 #endif
 static int get_script_value(lua_State *L) {
-  luaL_checknumber(L, 1);
+  luaL_checktype(L, 1, LUA_TTABLE);
   Object *object = static_cast<Object*>(loadObject(L, 1));
   const char *s = lua_tostring(L, 2);
 
@@ -252,7 +252,7 @@ static int get_script_value(lua_State *L) {
 void set_script_value(GameObjectReference, string, float);
 #endif
 static int set_script_value(lua_State *L) {
-  luaL_checknumber(L, 1);
+  luaL_checktype(L, 1, LUA_TTABLE);
   Object *object = static_cast<Object*>(loadObject(L, 1));
   const char *s = lua_tostring(L, 2);
   float value = (int)lua_tonumber(L, 3);

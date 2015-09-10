@@ -77,14 +77,24 @@ void returnVector(lua_State *L, Vector &t) {
 }
 
 Object* loadObject(lua_State *L, const int &index) {
-  int id = lua_tonumber(L, index);
+  int id = -1;
+  if (lua_istable(L, index)) {
+    lua_pushstring(L, "id");
+    lua_gettable(L, index);
+    id = lua_tonumber(L, -1);
+    lua_pop(L, 1);
+  }
   return g_KRIG_ENGINE->getCurrentLevel()->getObjectFromId(id);
 }
 
 void returnObject(lua_State *L, Object* object) {
+  lua_newtable(L);
+
+  lua_pushstring(L, "id");
   object != NULL ?
     lua_pushnumber(L, object->getGameLevelId()) :
     lua_pushnumber(L, -1);
+  lua_rawset(L, -3);
 }
 
 void luaopen_krigApi(lua_State *L) {

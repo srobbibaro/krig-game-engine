@@ -19,7 +19,7 @@
 void add_rotation(CameraObjectReference, float, float, float);
 #endif
 static int add_rotation(lua_State *L) {
-  luaL_checknumber(L, 1);
+  luaL_checktype(L, 1, LUA_TTABLE);
   Camera *object = static_cast<Camera*>(loadObject(L, 1));
 
   Quaternion qt;

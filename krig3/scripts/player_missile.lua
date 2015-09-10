@@ -28,7 +28,7 @@ function on_update(this, elapsedTime)
   this_speed = krig.object.get_speed(this)
   this_orth  = krig.object.get_orthogonal(this)
 
-  if obj >= 0 then
+  if obj.id >= 0 then
     krig.object.set_speed(this, 0.0, 0.0, 0.0)
 
     obj_pos = krig.object.get_position(obj)
