@@ -114,9 +114,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>loadLevelFromBuffer</
 <tr class="memitem:a10284cee415d424ee23af55e8c28f979"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a10284cee415d424ee23af55e8c28f979"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>loadScript</b> (string file)</td></tr>
 <tr class="separator:a10284cee415d424ee23af55e8c28f979"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad34423917b55e15a98338b2678c6bef9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad34423917b55e15a98338b2678c6bef9"></a>
-Object *&#160;</td><td class="memItemRight" valign="bottom"><b>findEnemyOfType</b> (int type)</td></tr>
-<tr class="separator:ad34423917b55e15a98338b2678c6bef9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af39698564ddc5220c03fa71a08225542"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af39698564ddc5220c03fa71a08225542"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>findEnemyOfType</b> (int type)</td></tr>
+<tr class="separator:af39698564ddc5220c03fa71a08225542"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42069da40daa6a6862ae50012a808944"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a42069da40daa6a6862ae50012a808944"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>findDistance</b> (Object *, Object *)</td></tr>
 <tr class="separator:a42069da40daa6a6862ae50012a808944"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -174,12 +174,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>prepareObjects</b> ()
 <tr class="memitem:a24d1c48c293ab15582e1f7d8abdb9183"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a24d1c48c293ab15582e1f7d8abdb9183"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>animateObjects</b> (float)</td></tr>
 <tr class="separator:a24d1c48c293ab15582e1f7d8abdb9183"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c27c77480172e3f0e245c890f71642c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8c27c77480172e3f0e245c890f71642c"></a>
-<a class="el" href="classScriptedObject.html">ScriptedObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>addObject</b> (string script, lua_State *luaState)</td></tr>
-<tr class="separator:a8c27c77480172e3f0e245c890f71642c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e59e6c50da82db86ec470c491b41a81"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7e59e6c50da82db86ec470c491b41a81"></a>
-<a class="el" href="classScriptTextType.html">ScriptTextType</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>addScriptTextType</b> (string script, lua_State *luaState)</td></tr>
-<tr class="separator:a7e59e6c50da82db86ec470c491b41a81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cef8be738b36362846fef505f898aa7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2cef8be738b36362846fef505f898aa7"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>addObject</b> (string script, lua_State *luaState, unsigned int type)</td></tr>
+<tr class="separator:a2cef8be738b36362846fef505f898aa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c182ed073f237d3ee1b64c488efe1cd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9c182ed073f237d3ee1b64c488efe1cd"></a>
 <a class="el" href="classObjectList.html">ObjectList</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getObjects</b> ()</td></tr>
 <tr class="separator:a9c182ed073f237d3ee1b64c488efe1cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -228,6 +225,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setSkyBox</b> (float[
 <tr class="memitem:a26aec556f373a41b776e7af763baa264"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a26aec556f373a41b776e7af763baa264"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setLightDirection</b> (float x, float y, float z)</td></tr>
 <tr class="separator:a26aec556f373a41b776e7af763baa264"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae30cd0b1172c9bfcf7f9805bbdbbf501"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae30cd0b1172c9bfcf7f9805bbdbbf501"></a>
+Object *&#160;</td><td class="memItemRight" valign="bottom"><b>getObjectFromId</b> (int id)</td></tr>
+<tr class="separator:ae30cd0b1172c9bfcf7f9805bbdbbf501"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="GameLevel_8h_source.html">GameLevel.h</a></li>
@@ -236,7 +236,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setLightDirection</b>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 6 2015 14:33:52 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Sep 10 2015 16:41:04 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>
