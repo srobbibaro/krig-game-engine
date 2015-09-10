@@ -38,6 +38,7 @@ void Object::cleanup(void) {
   particleSystem_ = NULL;
 
   scriptIndex_ = -1;
+  gameLevelId_ = -1;
 }
 
 //------------------------------------------------------------------------------

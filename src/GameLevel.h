@@ -17,6 +17,14 @@ extern "C" {
 #ifndef _GAME_LEVEL_H_
 #define _GAME_LEVEL_H_
 
+#define MAX_LEVEL_OBJECTS 1024
+
+#define TYPE_GAME_OBJECT 1
+#define TYPE_GAME_TEXT   2
+
+#define ERROR_MAX_OBJECTS   -1
+#define ERROR_TYPE_INVALID  -2
+
 class GameLevel {
   public:
     GameLevel(unsigned int);
@@ -119,7 +127,11 @@ class GameLevel {
     Camera* getCamera(void)        { return((Camera*)camera_); }
     Player* getPlayer(void)        { return((Player*)player_); }
     Music* getMusic()              { return &music_; }
-    void setCamera(Camera* camera) { camera_ = camera; }
+    void setCamera(Camera* camera) {
+      camera_           = camera;
+      idToObjectMap_[0] = (Object*)camera_;
+      camera_->setGameLevelId(0);
+    }
 
     void setId(int id) { id_ = id; }
     int getId() { return id_; }
@@ -138,6 +150,10 @@ class GameLevel {
       lightDirection_.normalize();
     }
 
+    Object* getObjectFromId(int id) {
+      return (id >= 0 && id < MAX_LEVEL_OBJECTS ? idToObjectMap_[id] : NULL);
+    }
+
   private:
     unsigned int lists_;  // display lists used for rendering
 
@@ -151,6 +167,8 @@ class GameLevel {
 
     ObjectList objects_;
     map <string, ObjectList> freeObjects_;
+    Object* idToObjectMap_[MAX_LEVEL_OBJECTS];
+    unsigned int numObjects_;
 
     // colors for sky box
     float bgcolor_[3][3];

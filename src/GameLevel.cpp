@@ -21,6 +21,10 @@ GameLevel::GameLevel(unsigned int lists) {
 
   id_         = 0;
 
+  numObjects_ = 0;
+  for (int i = 0; i < MAX_LEVEL_OBJECTS; ++i)
+    idToObjectMap_[i] = NULL;
+
 #if EDIT
   grid_ = true;
 #else
@@ -158,6 +162,7 @@ void GameLevel::animateLevel() { animateObjects(elapsedTime_); }
 bool GameLevel::prepLevelLoad(const char* luaCode) {
   isComplete_ = false;
   id_         = 0;
+  numObjects_ = 0;
 
   // If the lua state has not been initialized for the level, attempt to
   // initialize it.
@@ -184,8 +189,16 @@ bool GameLevel::prepLevelLoad(const char* luaCode) {
 }
 
 bool GameLevel::finishLevelLoad() {
-  terrain_ = new Terrain();
   player_  = new Player();
+  terrain_ = new Terrain();
+
+  idToObjectMap_[1] = (Object*)player_;
+  idToObjectMap_[2] = (Object*)terrain_;
+
+  player_->setGameLevelId(1);
+  terrain_->setGameLevelId(2);
+
+  numObjects_ = 3;
 
   PRINT_DEBUG("Terrain and Player allocated.\n");
 

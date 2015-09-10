@@ -167,6 +167,9 @@ class Object : public ObjectNode {
              getState() != DEAD;
     }
 
+    void setGameLevelId(unsigned int gameLevelId) { gameLevelId_ = gameLevelId; }
+    unsigned int getGameLevelId() { return gameLevelId_; }
+
   protected:
     // orientation //
     Vector position_;      // x,y,z position of object
@@ -215,6 +218,7 @@ class Object : public ObjectNode {
     ParticleSystem *particleSystem_;
 
     int typeId_;
+    unsigned int gameLevelId_;
 
     Vector lastLight_;
     bool scaleChanged_;
