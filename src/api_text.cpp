@@ -19,8 +19,8 @@
 void set_fade_rate(TextObjectReference, float);
 #endif
 static int set_fade_rate(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  ScriptTextType *object = static_cast<ScriptTextType*>(loadObject(L, 1));
   object->fadeRate = lua_tonumber(L, 2);
   return 0;
 }
@@ -35,8 +35,8 @@ static int set_fade_rate(lua_State *L) {
 float get_fade_rate(TextObjectReference);
 #endif
 static int get_fade_rate(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  ScriptTextType *object = static_cast<ScriptTextType*>(loadObject(L, 1));
   lua_pushnumber(L, object->fadeRate);
   return 1;
 }
@@ -54,8 +54,8 @@ static int get_fade_rate(lua_State *L) {
 void set_alpha(TextObjectReference, float);
 #endif
 static int set_alpha(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  ScriptTextType *object = static_cast<ScriptTextType*>(loadObject(L, 1));
   object->color[3] = lua_tonumber(L, 2);
   return 0;
 }
@@ -72,8 +72,8 @@ static int set_alpha(lua_State *L) {
 float get_alpha(TextObjectReference);
 #endif
 static int get_alpha(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  ScriptTextType *object = static_cast<ScriptTextType*>(loadObject(L, 1));
   lua_pushnumber(L, object->color[3]);
   return 1;
 }
@@ -90,8 +90,8 @@ static int get_alpha(lua_State *L) {
 void set_color(TextObjectReference, float, float, float);
 #endif
 static int set_color(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  ScriptTextType *object = static_cast<ScriptTextType*>(loadObject(L, 1));
   object->color[0] = lua_tonumber(L, 2);
   object->color[1] = lua_tonumber(L, 3);
   object->color[2] = lua_tonumber(L, 4);
@@ -108,8 +108,8 @@ static int set_color(lua_State *L) {
 void set_colorv(TextObjectReference, Vector);
 #endif
 static int set_colorv(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  ScriptTextType *object = static_cast<ScriptTextType*>(loadObject(L, 1));
   Vector t = loadVector(L);
   object->color[0] = t.x;
   object->color[1] = t.y;
@@ -126,8 +126,8 @@ static int set_colorv(lua_State *L) {
 Vector get_color(TextObjectReference);
 #endif
 static int get_color(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  ScriptTextType *object = static_cast<ScriptTextType*>(loadObject(L, 1));
   Vector t; t.setVector(object->color[0], object->color[1], object->color[2]);
   returnVector(L, t);
   return 1;
@@ -143,8 +143,8 @@ static int get_color(lua_State *L) {
 void set_width(TextObjectReference, float);
 #endif
 static int set_width(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  ScriptTextType *object = static_cast<ScriptTextType*>(loadObject(L, 1));
   object->width = lua_tonumber(L, 2);
   return 0;
 }
@@ -158,8 +158,8 @@ static int set_width(lua_State *L) {
 float get_width(TextObjectReference);
 #endif
 static int get_width(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  ScriptTextType *object = static_cast<ScriptTextType*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  ScriptTextType *object = static_cast<ScriptTextType*>(loadObject(L, 1));
   lua_pushnumber(L, object->width);
   return 1;
 }

@@ -187,8 +187,8 @@ static int get_mouse_coordinates(lua_State *L) {
 void play_sound(GameObjectReference, string);
 #endif
 static int play_sound(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   const char *s = lua_tostring(L, 2);
   string sound = string(s);
@@ -209,7 +209,7 @@ static int play_sound(lua_State *L) {
 GameObjectReference get_camera();
 #endif
 static int get_camera(lua_State *L) {
-  lua_pushlightuserdata(L, (void*)g_KRIG_ENGINE->getCurrentLevel()->getCamera());
+  returnObject(L, g_KRIG_ENGINE->getCurrentLevel()->getCamera());
   return 1;
 }
 
@@ -221,7 +221,7 @@ static int get_camera(lua_State *L) {
 GameObjectReference get_player();
 #endif
 static int get_player(lua_State *L) {
-  lua_pushlightuserdata(L, (void*)g_KRIG_ENGINE->getCurrentLevel()->getPlayer());
+  returnObject(L, g_KRIG_ENGINE->getCurrentLevel()->getPlayer());
   return 1;
 }
 
@@ -234,8 +234,8 @@ static int get_player(lua_State *L) {
 float get_script_value(GameObjectReference, string);
 #endif
 static int get_script_value(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   const char *s = lua_tostring(L, 2);
 
   lua_pushnumber(L, object->getScriptValue(s));
@@ -252,8 +252,8 @@ static int get_script_value(lua_State *L) {
 void set_script_value(GameObjectReference, string, float);
 #endif
 static int set_script_value(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   const char *s = lua_tostring(L, 2);
   float value = (int)lua_tonumber(L, 3);
 

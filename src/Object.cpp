@@ -135,7 +135,7 @@ void Object::loadScript(string name, lua_State* luaState) {
 
   // Push a pointer to the current object for use within the lua function
   if (lua_isfunction (L_, -1)) {
-    lua_pushlightuserdata(L_, (void*)this);
+    returnObject(L_, this);
     lua_newtable(L_);
 
     if (lua_istable(luaState, -1)) {
@@ -163,7 +163,7 @@ void Object::unloadScript() {
 
   // Push a pointer to the current object for use within the lua function
   if (lua_isfunction(L_, -1)) {
-    lua_pushlightuserdata(L_, (void*)this);
+    returnObject(L_, this);
     lua_call(L_, 1, 0);
   }
   else {
@@ -195,7 +195,7 @@ void Object::animateScript(float elapsedTime) {
 
   if (lua_isfunction(L_, -1)) {
     // Push a pointer to the current object for use within the lua function
-    lua_pushlightuserdata(L_, (void*)this);
+    returnObject(L_, this);
 
     // Push the time passed since the last iteration of the game loop
     lua_pushnumber(L_, elapsedTime);

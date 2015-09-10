@@ -80,7 +80,7 @@ void GameLevel::drawLevel() {
 
   if (lua_isfunction(luaState_, -1)) {
     // Push a pointer to the current object for use within the lua function
-    lua_pushlightuserdata(luaState_, (void*)terrain_);
+    returnObject(luaState_, terrain_);
 
     // Push the time passed since the last iteration of the game loop
     lua_pushnumber(luaState_, elapsedTime_);
@@ -105,7 +105,7 @@ void GameLevel::postDraw() {
 
   if (lua_isfunction(luaState_, -1)) {
     // Push a pointer to the current object for use within the lua function
-    lua_pushlightuserdata(luaState_, (void*)terrain_);
+    returnObject(luaState_, terrain_);
 
     // Push the time passed since the last iteration of the game loop
     lua_pushnumber(luaState_, elapsedTime_);
@@ -130,7 +130,7 @@ void GameLevel::updateLevel() {
 
   if (lua_isfunction(luaState_, -1)) {
     // Push a pointer to the current object for use within the lua function
-    lua_pushlightuserdata(luaState_, (void*)terrain_);
+    returnObject(luaState_, terrain_);
 
     // Push the time passed since the last iteration of the game loop
     lua_pushnumber(luaState_, elapsedTime_);
@@ -218,7 +218,7 @@ bool GameLevel::finishLevelLoad() {
 
   if (lua_isfunction(luaState_, -1)) {
     // Push a pointer to the current object for use within the lua function
-    lua_pushlightuserdata(luaState_, (void*)terrain_);
+    returnObject(luaState_, terrain_);
     lua_call(luaState_, 1, 0);
   }
   else {
@@ -388,23 +388,23 @@ void GameLevel::drawSky() {
 }
 
 //------------------------------------------------------------------------------
-Object* GameLevel::findEnemyOfType(int type) {
+int GameLevel::findEnemyOfType(int type) {
   float closest  = 1000, temp;
   Object* obj    = static_cast <Object*>(objects_.head);
-  Object* retObj = NULL;
+  int retId      = -1;
 
   while (obj->next != 0) {
     obj = (Object*)obj->next;
     if (obj->getTypeId() == type && obj->getInView()) {
       temp = findDistance((Object*)player_, obj);
       if (temp < closest) {
-        retObj  = obj;
+        retId  = obj->getGameLevelId();
         closest = temp;
       }
     }
   }
 
-  return (retObj);
+  return retId;
 }
 
 //------------------------------------------------------------------------------
@@ -433,7 +433,7 @@ void GameLevel::unloadLevel() {
 
     if (lua_isfunction(luaState_, -1)) {
       // Push a pointer to the current object for use within the lua function
-      lua_pushlightuserdata(luaState_, (void*)terrain_);
+      returnObject(luaState_, terrain_);
 
       lua_call(luaState_, 1, 0);
     }

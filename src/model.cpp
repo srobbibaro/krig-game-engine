@@ -184,8 +184,8 @@ void Model::handleCollision(Object* temp) {
 
   if (lua_isfunction(L_, -1)) {
     // Push a pointer to the current object for use within the lua function
-    lua_pushlightuserdata(L_, (void*)this);
-    lua_pushlightuserdata(L_, (void*)temp);
+    lua_pushnumber(L_, this->getGameLevelId());
+    lua_pushnumber(L_, temp->getGameLevelId());
 
     lua_call(L_, 2, 0);
   }

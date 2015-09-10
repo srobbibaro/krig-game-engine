@@ -16,8 +16,8 @@
 Vector get_position(GameObjectReference);
 #endif
 static int get_position(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Vector position = object->getPosition();
 
@@ -45,8 +45,8 @@ void set_position(GameObjectReference, float, float, float);
 void set_position(GameObjectReference, Vector);
 #endif
 static int set_position(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   object->setPosition(loadVector(L));
   return 0;
@@ -61,8 +61,8 @@ static int set_position(lua_State *L) {
 Vector get_velocity(GameObjectReference);
 #endif
 static int get_velocity(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Vector velocity = object->getVelocity();
 
@@ -91,8 +91,8 @@ void set_velocity(GameObjectReference, Vector);
 #endif
 
 static int set_velocity(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   object->setVelocity(loadVector(L));
   return 0;
@@ -107,8 +107,8 @@ static int set_velocity(lua_State *L) {
 Vector get_rotation_velocity(GameObjectReference);
 #endif
 static int get_rotation_velocity(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Vector rotationVelocity = object->getRotationVelocity();
 
@@ -136,8 +136,8 @@ void set_rotation_velocity(GameObjectReference, float, float, float);
 void set_rotation_velocity(GameObjectReference, Vector);
 #endif
 static int set_rotation_velocity(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   object->setRotationVelocity(loadVector(L));
   return 0;
 }
@@ -162,8 +162,8 @@ void set_speed(GameObjectReference, float, float, float);
 void set_speed(GameObjectReference, Vector);
 #endif
 static int set_speed(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   object->setSpeed(loadVector(L));
   return 0;
@@ -178,8 +178,8 @@ static int set_speed(lua_State *L) {
 Vector get_speed(GameObjectReference);
 #endif
 static int get_speed(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Vector speed = object->getSpeed();
 
@@ -207,8 +207,8 @@ void set_rotation(GameObjectReference, float, float, float);
 void set_rotation(GameObjectReference, Vector);
 #endif
 static int set_rotation(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   object->setRotationEuler(loadVector(L));
   object->setRotationChanged(true);
   return 0;
@@ -223,8 +223,8 @@ static int set_rotation(lua_State *L) {
 Vector get_rotation(GameObjectReference);
 #endif
 static int get_rotation(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Vector tv;
 
@@ -243,8 +243,8 @@ static int get_rotation(lua_State *L) {
 Vector get_direction(GameObjectReference);
 #endif
 static int get_direction(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Vector direction = object->getDirection();
 
@@ -262,8 +262,8 @@ Vector get_up(GameObjectReference);
 #endif
 static int get_up(lua_State *L)
 {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Vector up = object->getUp();
 
@@ -280,8 +280,8 @@ static int get_up(lua_State *L)
 Vector get_orthogonal(GameObjectReference);
 #endif
 static int get_orthogonal(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Vector orth = object->getOrth();
 
@@ -309,8 +309,8 @@ void add_position(GameObjectReference, float, float, float);
 void add_position(GameObjectReference, Vector);
 #endif
 static int add_position(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Vector position = object->getPosition();
 
@@ -340,8 +340,8 @@ void add_rotation(GameObjectReference, float, float, float);
 void add_rotation(GameObjectReference, Vector);
 #endif
 static int add_rotation(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Quaternion qt;
   qt.buildFromEuler(loadVector(L));
@@ -370,8 +370,8 @@ void add_velocity(GameObjectReference, float, float, float);
 void add_velocityv(GameObjectReference, Vector);
 #endif
 static int add_velocity(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Vector velocity = object->getVelocity();
 
@@ -401,8 +401,8 @@ void add_speed(GameObjectReference, float, float, float);
 void add_speed(GameObjectReference, Vector);
 #endif
 static int add_speed(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Vector speed = object->getSpeed();
 
@@ -433,8 +433,8 @@ void add_rotation_velocity(GameObjectReference, float, float, float);
 void add_rotation_velocity(GameObjectReference, Vector);
 #endif
 static int add_rotation_velocity(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Vector rotationVelocity = object->getRotationVelocity();
 
@@ -465,8 +465,8 @@ void add_scale(GameObjectReference, float, float, float);
 void add_scale(GameObjectReference, Vector);
 #endif
 static int add_scale(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Vector scale = object->getScale();
 
@@ -497,9 +497,9 @@ void add_scale_rate(GameObjectReference, float, float, float);
 void add_scale_rate(GameObjectReference, Vector);
 #endif
 static int add_scale_rate(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
+  luaL_checknumber(L, 1);
 
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Vector scaleRate = object->getScaleRate();
 
@@ -532,8 +532,8 @@ void set_interpolation_rotation_end_axis(GameObjectReference, float, float, floa
 void set_interpolation_rotation_end_axis(GameObjectReference, Vector, float);
 #endif
 static int set_interpolation_rotation_end_axis(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   int index = 2;
   Vector tv = loadVector(L, index);
@@ -570,8 +570,8 @@ void set_interpolation_rotation_start_axis(GameObjectReference, float, float, fl
 void set_interpolation_rotation_start_axis(GameObjectReference, Vector, float);
 #endif
 static int set_interpolation_rotation_start_axis(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Quaternion rInterpStart = object->getRInterpStart();
 
@@ -606,8 +606,8 @@ void set_interpolation_rotation_start(GameObjectReference, float, float, float);
 void set_interpolation_rotation_start(GameObjectReference, Vector);
 #endif
 static int set_interpolation_rotation_start(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Quaternion rInterpStart = object->getRInterpStart();
 
@@ -638,8 +638,8 @@ void set_interpolation_rotation_end(GameObjectReference, float, float, float);
 void set_interpolation_rotation_end(GameObjectReference, Vector);
 #endif
 static int set_interpolation_rotation_end(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Quaternion rInterpEnd = object->getRInterpEnd();
 
@@ -660,8 +660,8 @@ static int set_interpolation_rotation_end(lua_State *L) {
 void set_interpolation_enable(GameObjectReference, bool);
 #endif
 static int set_interpolation_enable(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   // TODO: there's probably a better way to do this...
   int op = (int)lua_tonumber(L,2);
@@ -684,8 +684,8 @@ static int set_interpolation_enable(lua_State *L) {
 void set_interpolation_variable_begin_value(GameObjectReference, float);
 #endif
 static int set_interpolation_variable_begin_value(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   object->setValInterpBegin(lua_tonumber(L, 2));
   return 0;
 }
@@ -700,8 +700,8 @@ static int set_interpolation_variable_begin_value(lua_State *L) {
 void set_interpolation_variable_end_value(GameObjectReference, float);
 #endif
 static int set_interpolation_variable_end_value(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   object->setValInterpEnd(lua_tonumber(L, 2));
   return 0;
 }
@@ -716,8 +716,8 @@ static int set_interpolation_variable_end_value(lua_State *L) {
 void set_interpolation_variable_current_value(GameObjectReference, float);
 #endif
 static int set_interpolation_variable_current_value(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   object->setValInterpCurrent(lua_tonumber(L, 2));
   return 0;
 }
@@ -743,8 +743,8 @@ void set_rotation_velocity_axis(GameObjectReference, float, float, float, float)
 void set_rotation_velocity_axis(GameObjectReference, Vector, float);
 #endif
 static int set_rotation_velocity_axis(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Vector rotationVelocity = object->getRotationVelocity();
 
@@ -780,8 +780,8 @@ void set_rotation_axis(GameObjectReference, float, float, float, float);
 void set_rotation_axis(GameObjectReference, Vector, float);
 #endif
 static int set_rotation_axis(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   int index = 2;
   Vector tv = loadVector(L, index);
@@ -819,8 +819,8 @@ void add_rotation_axis(GameObjectReference, float, float, float, float);
 void add_rotation_axis(GameObjectReference, Vector, float);
 #endif
 static int add_rotation_axis(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   int index = 2;
   Quaternion tq;
@@ -846,8 +846,8 @@ static int add_rotation_axis(lua_State *L) {
 float get_timer(GameObjectReference, float);
 #endif
 static int get_timer(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   // TODO: Is this logic working properly?
   lua_pushnumber(L, 0);
@@ -864,8 +864,8 @@ static int get_timer(lua_State *L) {
 void suspend(GameObjectReference, float);
 #endif
 static int suspend(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   object->setSuspendTime(lua_tonumber(L, 2));
   return 0;
 }
@@ -880,8 +880,8 @@ static int suspend(lua_State *L) {
 void set_model(GameObjectReference, string);
 #endif
 static int set_model(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  ScriptedObject *object = static_cast<ScriptedObject*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  ScriptedObject *object = static_cast<ScriptedObject*>(loadObject(L, 1));
 
   const char *s = lua_tostring(L, 2);
   string model = string(s);
@@ -910,8 +910,8 @@ void set_scale(GameObjectReference, float, float, float);
 void set_scale(GameObjectReference, Vector);
 #endif
 static int set_scale(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   object->setScale(loadVector(L));
   object->setScaleChanged(true);
@@ -928,15 +928,17 @@ static int set_scale(lua_State *L) {
 void set_script(GameObjectReference, string);
 #endif
 static int set_script(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
-  const char *s = lua_tostring(L, 2);
-  string script = string(s);
+  if (object != NULL) {
+    const char *s = lua_tostring(L, 2);
+    string script = string(s);
 
-  object->unloadScript();
-  object->setScript(script);
-  object->loadScript(script, L);
+    object->unloadScript();
+    object->setScript(script);
+    object->loadScript(script, L);
+  }
 
   return 0;
 }
@@ -951,8 +953,8 @@ static int set_script(lua_State *L) {
 void enable_always_lit(GameObjectReference);
 #endif
 static int enable_always_lit(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   object->setIsAlwaysLit(true);
   return 0;
 }
@@ -967,8 +969,8 @@ static int enable_always_lit(lua_State *L) {
 void disable_always_lit(GameObjectReference);
 #endif
 static int disable_always_lit(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   object->setIsAlwaysLit(false);
   return 0;
 }
@@ -983,8 +985,8 @@ static int disable_always_lit(lua_State *L) {
 void add_particle_system(GameObjectReference, int);
 #endif
 static int add_particle_system(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   object->setParticleSystem((int)lua_tonumber(L, 2));
 
@@ -1001,8 +1003,8 @@ static int add_particle_system(lua_State *L) {
 void set_type_id(GameObjectReference, int);
 #endif
 static int set_type_id(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   object->setTypeId((int)lua_tonumber(L, 2));
   return 0;
 }
@@ -1016,8 +1018,8 @@ static int set_type_id(lua_State *L) {
 void get_type_id(GameObjectReference);
 #endif
 static int get_type_id(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   lua_pushnumber(L, object->getTypeId());
   return 1;
 }
@@ -1042,8 +1044,8 @@ void set_scale_rate(GameObjectReference, float, float, float);
 void set_scale_rate(GameObjectReference, Vector);
 #endif
 static int set_scale_rate(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Vector scaleRate = object->getScaleRate();
 
@@ -1063,8 +1065,8 @@ static int set_scale_rate(lua_State *L) {
 Vector get_scale(GameObjectReference);
 #endif
 static int get_scale(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Vector scale = object->getScale();
 
@@ -1081,8 +1083,8 @@ static int get_scale(lua_State *L) {
 Vector get_scale_rate(GameObjectReference);
 #endif
 static int get_scale_rate(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   Vector scaleRate = object->getScaleRate();
 
@@ -1099,8 +1101,8 @@ static int get_scale_rate(lua_State *L) {
 void enable_collision_detection(GameObjectReference);
 #endif
 static int enable_collision_detection(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   object->setCollisionDetectionEnabled(true);
   return 0;
 }
@@ -1114,8 +1116,8 @@ static int enable_collision_detection(lua_State *L) {
 void disable_collision_detection(GameObjectReference);
 #endif
 static int disable_collision_detection(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   object->setCollisionDetectionEnabled(false);
   return 0;
 }
@@ -1130,8 +1132,8 @@ static int disable_collision_detection(lua_State *L) {
 void get_collision_detection_enabled(GameObjectReference);
 #endif
 static int get_collision_detection_enabled(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   lua_pushnumber(L, object->getCollisionDetectionEnabled());
   return 1;
 }
@@ -1146,8 +1148,8 @@ static int get_collision_detection_enabled(lua_State *L) {
 void set_active(GameObjectReference);
 #endif
 static int set_active(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   object->setActive(true);
   return 0;
 }
@@ -1162,8 +1164,8 @@ static int set_active(lua_State *L) {
 void set_inactive(GameObjectReference);
 #endif
 static int set_inactive(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   object->setActive(false);
   return 0;
 }
@@ -1178,8 +1180,8 @@ static int set_inactive(lua_State *L) {
 bool get_active(GameObjectReference);
 #endif
 static int get_active(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   lua_pushnumber(L, object->getActive());
   return 1;
 }
@@ -1193,8 +1195,8 @@ static int get_active(lua_State *L) {
 void enable_draw(GameObjectReference);
 #endif
 static int enable_draw(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   object->setDrawEnabled(true);
   return 0;
 }
@@ -1208,8 +1210,8 @@ static int enable_draw(lua_State *L) {
 void disable_draw(GameObjectReference);
 #endif
 static int disable_draw(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   object->setDrawEnabled(false);
   return 0;
 }
@@ -1223,8 +1225,8 @@ static int disable_draw(lua_State *L) {
 void get_draw_enabled(GameObjectReference);
 #endif
 static int get_draw_enabled(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   lua_pushnumber(L, object->getDrawEnabled());
   return 1;
 }
@@ -1238,8 +1240,8 @@ static int get_draw_enabled(lua_State *L) {
 float get_bounding_sphere_radius(GameObjectReference);
 #endif
 static int get_bounding_sphere_radius(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   lua_pushnumber(L, object->getBoundingSphere().getRadius());
   return 1;
 }
@@ -1253,8 +1255,8 @@ static int get_bounding_sphere_radius(lua_State *L) {
 float get_in_view(GameObjectReference);
 #endif
 static int get_in_view(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
   lua_pushnumber(L, object->getInView());
   return 1;
 }
@@ -1272,8 +1274,8 @@ static int get_in_view(lua_State *L) {
 void orient_on_terrain(GameObjectReference, float, float, float);
 #endif
 static int orient_on_terrain(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Model *object = static_cast<Model*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Model *object = static_cast<Model*>(loadObject(L, 1));
 
   Quaternion rotation;
   rotation.buildFromEuler(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
@@ -1295,8 +1297,8 @@ static int orient_on_terrain(lua_State *L) {
 void set_height_from_terrain(GameObjectReference, float);
 #endif
 static int set_height_from_terrain(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Model *object = static_cast<Model*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Model *object = static_cast<Model*>(loadObject(L, 1));
 
   float offset = lua_tonumber(L, 2);
 

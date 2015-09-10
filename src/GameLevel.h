@@ -39,7 +39,7 @@ class GameLevel {
     bool loadLevelFromBuffer(const char* buffer);
     void loadScript(string file);
 
-    Object* findEnemyOfType(int type);
+    int findEnemyOfType(int type);
     float findDistance(Object*, Object*);
 
     void drawSky(void);
@@ -66,10 +66,22 @@ class GameLevel {
     void prepareObjects();
     void animateObjects(float);
 
-    ScriptedObject* addObject(string script, lua_State* luaState) {
-      ScriptedObject *temp = static_cast<ScriptedObject*> (freeObjects_[script].head);
+    int addObject(string script, lua_State* luaState, unsigned int type) {
+      Object *temp = (Object*)freeObjects_[script].head;
 
       if (temp != NULL) {
+        switch (type) {
+          case TYPE_GAME_OBJECT:
+            temp = static_cast<ScriptedObject*>(temp);
+            break;
+          case TYPE_GAME_TEXT:
+            temp = static_cast<ScriptTextType*>(temp);
+            break;
+          default:
+            PRINT_ERROR("Could not add new object of type '%u'.\n", type);
+            return ERROR_TYPE_INVALID;
+        }
+
         temp->initSettings();
         freeObjects_[script].remove(temp);
         PRINT_DEBUG_LVL(
@@ -80,46 +92,35 @@ class GameLevel {
         );
       }
       else {
-        temp = new ScriptedObject();
-        temp->setScript(script);
+        if (numObjects_ < MAX_LEVEL_OBJECTS) {
+          switch (type) {
+            case TYPE_GAME_OBJECT:
+              temp = new ScriptedObject();
+              break;
+            case TYPE_GAME_TEXT:
+              temp = new ScriptTextType();
+              break;
+            default:
+              return ERROR_TYPE_INVALID;
+          }
+          temp->setScript(script);
+          temp->setGameLevelId(numObjects_);
+          idToObjectMap_[numObjects_] = temp;
+          numObjects_++;
 
-        PRINT_DEBUG_LVL(2, "Allocated a new object of type '%s'.\n", script.c_str());
+          PRINT_DEBUG_LVL(2, "Allocated a new object of type '%s' (num objects = %u).\n", script.c_str(), numObjects_);
+        }
+        else {
+          PRINT_ERROR("Could not allocate a new object of type '%s'.\n", script.c_str());
+          return ERROR_MAX_OBJECTS;
+        }
       }
 
       objects_.insertFront(temp);
-      //temp->unloadScript();
 
       temp->loadScript(script, luaState);
 
-      return temp;
-    }
-
-    ScriptTextType* addScriptTextType(string script,  lua_State* luaState) {
-      ScriptTextType *temp = static_cast<ScriptTextType*> (freeObjects_[script].head);
-
-      if (temp != NULL) {
-        temp->initSettings();
-        freeObjects_[script].remove(temp);
-
-        PRINT_DEBUG_LVL(
-          2,
-          "Pulled object of type '%s' from FOM. (FOM size=%d).\n",
-          script.c_str(),
-          freeObjects_[script].size
-        );
-      }
-      else {
-        temp = new ScriptTextType();
-        temp->setScript(script);
-
-        PRINT_DEBUG_LVL(2, "Allocated a new object of type '%s'.\n", script.c_str());
-      }
-
-      objects_.insertFront(temp);
-      //temp->unloadScript();
-      temp->loadScript(script, luaState);
-
-      return temp;
+      return temp->getGameLevelId();
     }
 
     ObjectList* getObjects()       { return &objects_; }

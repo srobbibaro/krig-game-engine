@@ -19,8 +19,8 @@
 void add_rotation(CameraObjectReference, float, float, float);
 #endif
 static int add_rotation(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Camera *object = static_cast<Camera*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Camera *object = static_cast<Camera*>(loadObject(L, 1));
 
   Quaternion qt;
   qt.buildFromEuler(lua_tonumber(L, 2),lua_tonumber(L, 3),lua_tonumber(L, 4));

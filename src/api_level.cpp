@@ -235,8 +235,8 @@ static int set_light_direction(lua_State *L) {
 void set_terrain(TerrainObjectReference, string);
 #endif
 static int set_terrain(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Terrain *terrain = static_cast<Terrain*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Terrain *terrain = static_cast<Terrain*>(loadObject(L, 1));
 
   const char *s = lua_tostring(L, 2);
 
@@ -269,13 +269,9 @@ GameObjectReference find_object_of_type(int);
 #endif
 static int find_object_of_type(lua_State *L) {
   int type = (int)lua_tonumber(L, 1);
-  Object *temp = g_KRIG_ENGINE->getCurrentLevel()->findEnemyOfType(type);
+  int id = g_KRIG_ENGINE->getCurrentLevel()->findEnemyOfType(type);
 
-  if (temp != NULL)
-    lua_pushlightuserdata(L, (void*)temp);
-  else
-    lua_pushnil(L);
-
+  lua_pushnumber(L, id);
   return 1;
 }
 
@@ -292,9 +288,9 @@ static int add_object(lua_State *L) {
   const char *s = lua_tostring(L, 1);
   string script = string(s);
 
-  ScriptedObject * temp = g_KRIG_ENGINE->getCurrentLevel()->addObject(script, L);
+  int id = g_KRIG_ENGINE->getCurrentLevel()->addObject(script, L, TYPE_GAME_OBJECT);
 
-  lua_pushlightuserdata(L, (void*)temp);
+  lua_pushnumber(L, id);
   return 1;
 }
 
@@ -307,8 +303,8 @@ static int add_object(lua_State *L) {
 void remove_object(GameObjectReference);
 #endif
 static int remove_object(lua_State *L) {
-  luaL_checktype(L, 1, LUA_TLIGHTUSERDATA);
-  Object *object = static_cast<Object*>(lua_touserdata(L, 1));
+  luaL_checknumber(L, 1);
+  Object *object = static_cast<Object*>(loadObject(L, 1));
 
   object->setState(DEAD);
   return 0;
@@ -332,10 +328,13 @@ static int add_text(lua_State *L) {
   const char *t = lua_tostring(L, 2);
   string text = string(t);
 
-  ScriptTextType *temp = g_KRIG_ENGINE->getCurrentLevel()->addScriptTextType(script, L);
-  temp->text = text;
+  int id = g_KRIG_ENGINE->getCurrentLevel()->addObject(script, L, TYPE_GAME_TEXT);
+  if (id >= 0) {
+    ScriptTextType *temp = static_cast<ScriptTextType*>(g_KRIG_ENGINE->getCurrentLevel()->getObjectFromId(id));
+    temp->text = text;
+  }
 
-  lua_pushlightuserdata(L, (void*)temp);
+  lua_pushnumber(L, id);
   return 1;
 }
 
