@@ -2,24 +2,25 @@ local shot = require 'scripts/shot'
 
 -- Overridden Engine Callbacks
 function on_load(this)
-  krig.object.set_model(this, "GreenShot.mdl")
-  krig.object.set_type_id(this, 20)
-  krig.object.set_scale(this, 4.0, 4.0, 4.0)
+  this:set_model("GreenShot.mdl")
+  this.type_id = 20
+  this.scale   = {4.0, 4.0, 4.0}
+  this:save()
   shot.on_load(this, options)
 end
 
 function on_update(this, elapsedTime)
-  in_view = krig.object.get_in_view(this)
+  this = this:load()
 
-  if in_view == 0 then
+  if not this.in_view then
     krig.level.remove_object(this)
   end
 end
 
 function on_collision(this, temp)
-  typeId = krig.object.get_type_id(temp)
+  type_id = temp:load().type_id
 
-  if typeId ~= 1 and typeId ~= 3 and typeId ~= 2 then
+  if type_id ~= 1 and type_id ~= 3 and type_id ~= 2 then
     krig.level.remove_object(this)
   end
 end
