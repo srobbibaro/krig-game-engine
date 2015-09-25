@@ -24,9 +24,8 @@ end
 local function handle_debug_controls(elapsedTime)
   -- handle global user control
   cam_id  = krig.level.get_camera_id()
-  camera  = krig.get_camera()
-  player  = krig.get_player()
-  cam_dir = krig.object.get_direction(camera)
+  camera  = krig.get_camera():load()
+  cam_dir = camera.direction
 
   if cam_id == 3 or cam_id == 4 then
     mouse_coords = krig.get_mouse_coordinates()
@@ -52,7 +51,7 @@ local function handle_debug_controls(elapsedTime)
     end
   end
 
-  cam_orth = krig.object.get_orthogonal(camera)
+  cam_orth = camera.orthogonal
 
   if krig.test_key_pressed(string.byte("*", 1)) == 1 then
     swapLevel()
