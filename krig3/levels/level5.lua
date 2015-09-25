@@ -92,73 +92,84 @@ function on_load(terrain)
   krig.level.set_light_direction(0.96, 0.07, 0.13)
 
   player = krig.get_player()
-  krig.object.set_script(player, "./scripts/player1.lua")
-  krig.object.set_position(player, X_START_PLAYER, 20.0, 0.0)
+  player:set_script("./scripts/player1.lua")
+  player.position = {X_START_PLAYER, 20.0, 0.0}
+  player:save()
 
   camera = krig.get_camera()
-  krig.object.set_script(camera, "./scripts/camera1.lua")
-  krig.object.set_position(camera, X_START_CAMERA, 15.0, 27.5)
+  camera:set_script("./scripts/camera1.lua")
+  camera.position = {X_START_CAMERA, 15.0, 27.5}
+  camera:save()
 
-  krig.object.add_particle_system(camera, 1)
+  camera:add_particle_system(1)
 
   for i, v in ipairs(asteroid_wave1) do
-    obj = krig.level.add_object("./scripts/asteroid_space.lua", v)
+    krig.level.add_object("./scripts/asteroid_space.lua", v)
   end
 
   for i, v in ipairs(enemy_ship_wave1) do
-    obj = krig.level.add_object(v.script, v)
+    krig.level.add_object(v.script, v)
   end
 
-  obj = krig.level.add_object("./scripts/redrock.lua")
-  krig.object.set_position(obj, 175.0, 6.0, -30.0)
-  krig.object.set_scale(obj, 25.0, 25.0, 25.0)
+  krig.level.add_object("./scripts/redrock.lua", {
+    position = {175.0, 6.0, -30.0},
+    scale    = {25.0, 25.0, 25.0}
+  })
 
-  obj = krig.level.add_object("./scripts/redrock.lua")
-  krig.object.set_position(obj, 255.0, 9.0, -60.0)
-  krig.object.set_rotation(obj, 3.14, 3.14, 3.14)
-  krig.object.set_scale(obj, 35.0, 35.0, 35.0)
+  krig.level.add_object("./scripts/redrock.lua", {
+    position = {255.0, 9.0, -60.0},
+    rotation = krig.rotation.from_euler({3.14, 3.14, 3.14}),
+    scale    = {35.0, 35.0, 35.0}
+  })
 
-  obj = krig.level.add_object("./scripts/redrock.lua")
-  krig.object.set_position(obj, 295.0, 20.0, -15.0)
-  krig.object.set_rotation(obj, 3.14, 0.0, 1.57)
-  krig.object.set_scale(obj, 15.0, 15.0, 15.0)
+  krig.level.add_object("./scripts/redrock.lua", {
+    position = {295.0, 20.0, -15.0},
+    rotation = krig.rotation.from_euler({3.14, 0.0, 1.57}),
+    scale    = {15.0, 15.0, 15.0}
+  })
 
-  obj = krig.level.add_object("./scripts/redrock.lua")
-  krig.object.set_position(obj, 350.0, -22.0, -80.0)
-  krig.object.set_scale(obj, 25.0, 25.0, 25.0)
+  krig.level.add_object("./scripts/redrock.lua", {
+    position = {350.0, -22.0, -80.0},
+    scale    = {25.0, 25.0, 25.0}
+  })
 
-  obj = krig.level.add_object("./scripts/redrock.lua")
-  krig.object.set_position(obj, 430.0, 42.0, -70.0)
-  krig.object.set_rotation(obj, 3.14, 0.0, 1.57)
-  krig.object.set_scale(obj, 35.0, 35.0, 35.0)
+  krig.level.add_object("./scripts/redrock.lua", {
+    position = {430.0, 42.0, -70.0},
+    rotation = krig.rotation.from_euler({3.14, 0.0, 1.57}),
+    scale    = {35.0, 35.0, 35.0}
+  })
 
-  obj = krig.level.add_object("./scripts/redrock.lua")
-  krig.object.set_position(obj, 400.0, 10.0, -45.0)
-  krig.object.set_rotation(obj, 1.57, 1.57, 1.57)
-  krig.object.set_scale(obj, 15.0, 15.0, 15.0)
+  krig.level.add_object("./scripts/redrock.lua", {
+    position = {400.0, 10.0, -45.0},
+    rotation = krig.rotation.from_euler({1.57, 1.57, 1.57}),
+    scale    = {15.0, 15.0, 15.0}
+  })
 
   krig.level.play_music("./music/level5.ogg", 1)
 end
 
 function on_update(terrain, elapsedTime)
-  camera = krig.get_camera()
-  cam_pos = krig.object.get_position(camera)
+  camera = krig.get_camera():load()
 
   if boss_battle == 0 then
-    if cam_pos[1] >= 800 then
-      krig.object.set_velocity(camera, 0.0, 0.0, 0.0)
+    if camera.position[1] >= 800 then
+      camera.velocity = {0.0, 0.0, 0.0}
+      camera:save()
+
       boss_battle = 1
       boss = krig.level.add_object("./scripts/boss5.lua")
-      krig.object.set_position(boss, cam_pos[1] - 20.0, cam_pos[2], 0.0)
+      boss.position = {camera.position[1] - 20.0, camera.position[2], 0.0}
+      boss:save()
     end
   elseif boss_battle == 1 then
-    next_asteroid = next_asteroid - elapsedTime
+    next_asteroid   = next_asteroid - elapsedTime
     next_background = next_background - elapsedTime
 
     if next_asteroid <= 0.0 then
       obj = krig.level.add_object("./scripts/asteroid3.lua")
-      krig.object.set_rotation(obj, math.random(3), math.random(3), math.random(3))
-      krig.object.set_velocity(obj, -28.0, 0.0, 0.0)
+      obj.rotation = krig.rotation.from_euler({math.random(3), math.random(3), math.random(3)})
+      obj.velocity = {-28.0, 0.0, 0.0}
+      obj:save()
       next_asteroid = 0.1
     end
 

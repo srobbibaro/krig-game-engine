@@ -21,73 +21,28 @@ function on_load(terrain)
   krig.level.set_terrain(terrain, "./terrains/level1.txt")
 
   player = krig.get_player()
-  krig.object.set_script(player, "./scripts/player1.lua")
-  krig.object.set_position(player, X_START_PLAYER, 20.0, 7.5)
+  player:set_script("./scripts/player1.lua")
+  player.position = {X_START_PLAYER, 20.0, 7.5}
+  player:save()
 
   camera = krig.get_camera()
-  krig.object.set_script(camera, "./scripts/camera1.lua")
-  krig.object.set_position(camera, X_START_CAMERA, 15.0, 35.0)
+  camera:set_script("./scripts/camera1.lua")
+  camera.position = {X_START_CAMERA, 15.0, 35.0}
+  camera:save()
 
   -- setup the enemy ships
-  local obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 160, 15, 7.5)
+  enemy_ship_positions = {
+    {160, 15, 7.5}, {180, 20, 7.5}, {200, 10, 7.5}, {220, 15, 7.5}, {240, 20, 7.5},
+    {260, 15, 7.5}, {270, 18, 7.5}, {270, 12, 7.5}, {280, 15, 7.5}, {300, 10, 7.5},
+    {310, 7, 7.5},  {310, 13, 7.5}, {320, 10, 7.5}, {340, 20, 7.5}, {350, 23, 7.5},
+    {350, 17, 7.5}, {360, 20, 7.5}, {390, 15, 7.5}, {390, 22, 7.5}, {390, 8, 7.5}
+  }
 
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 180, 20, 7.5)
-
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 200, 10, 7.5)
-
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 220, 15, 7.5)
-
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 240, 20, 7.5)
-
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 260, 15, 7.5)
-
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 270, 18, 7.5)
-
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 270, 12, 7.5)
-
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 280, 15, 7.5)
-
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 300, 10, 7.5)
-
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 310, 7, 7.5)
-
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 310, 13, 7.5)
-
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 320, 10, 7.5)
-
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 340, 20, 7.5)
-
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 350, 23, 7.5)
-
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 350, 17, 7.5)
-
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 360, 20, 7.5)
-
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 390, 15, 7.5)
-
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 390, 22, 7.5)
-
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 390, 8, 7.5)
+  for i = 1, #enemy_ship_positions do
+    local obj = krig.level.add_object("./scripts/enemy_ship1.lua")
+    obj.position = krig.vector.copy(enemy_ship_positions[i])
+    obj:save()
+  end
 
   --  setup the asteroids --
   level_lib.setAsteroidWave(410.0, 560.0)
@@ -100,52 +55,43 @@ function on_load(terrain)
   level_lib.setAsteroidWave(730.0, 810.0)
 
   -- last wave - crashing ships --
-  obj6 = krig.level.add_object("./scripts/enemy_ship4.lua")
-  krig.object.set_position(obj6, 882, 15, 37.5)
+  enemy_ship_positions = {
+    {882, 15, 37.5}, {880, 10, 37.5}, {890, 12, 37.5}
+  }
 
-  obj5 = krig.level.add_object("./scripts/enemy_ship4.lua")
-  krig.object.set_position(obj5, 880, 10, 37.5)
+  for i = 1, #enemy_ship_positions do
+    obj = krig.level.add_object("./scripts/enemy_ship4.lua")
+    obj.position = krig.vector.copy(enemy_ship_positions[i])
+    obj:save()
+  end
 
-  obj4 = krig.level.add_object("./scripts/enemy_ship4.lua")
-  krig.object.set_position(obj4, 890, 12, 37.5)
+  enemy_ship_positions = {
+    {900, 15, 37.5}, {905, 10, 37.5}, {910, 12, 37.5}
+  }
 
-  obj3 = krig.level.add_object("./scripts/enemy_ship6.lua")
-  krig.object.set_position(obj3, 900, 15, 37.5)
-
-  obj2 = krig.level.add_object("./scripts/enemy_ship6.lua")
-  krig.object.set_position(obj2, 905, 10, 37.5)
-
-  obj1 = krig.level.add_object("./scripts/enemy_ship6.lua")
-  krig.object.set_position(obj1, 910, 12, 37.5)
+  for i = 1, #enemy_ship_positions do
+    obj = krig.level.add_object("./scripts/enemy_ship6.lua")
+    obj.position = krig.vector.copy(enemy_ship_positions[i])
+    obj:save()
+  end
 
   -- scenery --
-  obj = krig.level.add_object("./scripts/building.lua")
-  krig.object.set_position(obj, 160, 20, -75.0)
-  krig.object.set_scale(obj, 10.0, 20.0, 10.0)
+  building_setup = {
+    { position = {160, 20, -75.0},  scale = {10.0, 20.0, 10.0} },
+    { position = {190, 20, -100.0}, scale = {10.0, 30.0, 10.0} },
+    { position = {150, 7, -50.0},   scale = {7.0, 10.0, 7.0} },
+    { position = {175, 7, -50.0},   scale = {7.0, 7.0, 7.0} },
+    { position = {200, 9, -50.0},   scale = {6.0, 9.0, 6.0} },
+    { position = {210, 10, -50.0},  scale = {6.0, 10.0, 6.0} },
+    { position = {230, 8, -50.0},   scale = {6.0, 8.0, 6.0} }
+  }
 
-  obj = krig.level.add_object("./scripts/building.lua")
-  krig.object.set_position(obj, 190, 20, -100.0)
-  krig.object.set_scale(obj, 10.0, 30.0, 10.0)
-
-  obj = krig.level.add_object("./scripts/building.lua")
-  krig.object.set_position(obj, 150, 7, -50.0)
-  krig.object.set_scale(obj, 7.0, 10.0, 7.0)
-
-  obj = krig.level.add_object("./scripts/building.lua")
-  krig.object.set_position(obj, 175, 7, -50.0)
-  krig.object.set_scale(obj, 7.0, 7.0, 7.0)
-
-  obj = krig.level.add_object("./scripts/building.lua")
-  krig.object.set_position(obj, 200, 9, -50.0)
-  krig.object.set_scale(obj, 6.0, 9.0, 6.0)
-
-  obj = krig.level.add_object("./scripts/building.lua")
-  krig.object.set_position(obj, 210, 10, -50.0)
-  krig.object.set_scale(obj, 6.0, 10.0, 6.0)
-
-  obj = krig.level.add_object("./scripts/building.lua")
-  krig.object.set_position(obj, 230, 8, -50.0)
-  krig.object.set_scale(obj, 6.0, 8.0, 6.0)
+  for i = 1, #building_setup do
+    obj = krig.level.add_object("./scripts/building.lua")
+    obj.position = krig.vector.copy(building_setup[i].position)
+    obj.scale    = krig.vector.copy(building_setup[i].scale)
+    obj:save()
+  end
 
   -- place pine trees
   obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 145.0, z_pos = -25.0})
@@ -185,23 +131,24 @@ end
 
 function on_update(terrain, elapsedTime)
   if bossBattle == 0  then
-    camera = krig.get_camera()
-    cam_pos = krig.object.get_position(camera)
+    camera = krig.get_camera():load()
 
-    if cam_pos[1] >= (X_START_BOSS - 25.0) then
+    if camera.position[1] >= (X_START_BOSS - 25.0) then
       bossBattle = 1
 
       -- Set the camera's velocity
-      krig.object.set_velocity(camera, 0.0, 0.0, 0.0)
+      camera.velocity = {0.0, 0.0, 0.0}
+      camera:save()
 
       -- Set the player's velocity
-      player = krig.get_player()
-      plr_vel = krig.object.get_velocity(player)
-      krig.object.set_velocity(player, (plr_vel[1] - 10.0), plr_vel[2], plr_vel[3])
+      player = krig.get_player():load()
+      player.velocity = {(player.velocity[1] - 10.0), player.velocity[2], player.velocity[3]}
+      player:save()
 
       -- Create the boss...
       boss = krig.level.add_object("./scripts/boss1.lua")
-      krig.object.set_position(boss, X_START_BOSS, 15.0, 7.5)
+      boss.position = {X_START_BOSS, 15.0, 7.5}
+      boss:save()
     end
   elseif bossBattle == 1 then
     bossLife = 0

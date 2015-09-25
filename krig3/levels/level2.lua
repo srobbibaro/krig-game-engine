@@ -1,6 +1,7 @@
 local level_lib = require './levels/level_lib'
 
 -- Configuration
+X_START_BOSS   = 1935.0
 X_START_CAMERA = 110.0
 X_START_PLAYER = X_START_CAMERA - 30.0
 
@@ -20,14 +21,16 @@ function on_load(terrain)
   krig.level.set_terrain(terrain, "./terrains/level2.txt")
 
   player = krig.get_player()
-  krig.object.set_script(player, "./scripts/player1.lua")
-  krig.object.set_position(player, X_START_PLAYER, 20.0, 7.5)
+  player:set_script("./scripts/player1.lua")
+  player.position = {X_START_PLAYER, 20.0, 7.5}
+  player:save()
 
   camera = krig.get_camera()
-  krig.object.set_script(camera, "./scripts/camera1.lua")
-  krig.object.set_position(camera, X_START_CAMERA, 15.0, 35.0)
+  camera:set_script("./scripts/camera1.lua")
+  camera.position = {X_START_CAMERA, 15.0, 35.0}
+  camera:save()
 
-  krig.object.add_particle_system(camera, 2)
+  camera:add_particle_system(2)
 
   -- gameplay obstacles (ships, asteroids, etc)
   setupEnemyShips()
@@ -38,23 +41,23 @@ end
 
 function on_update(terrain, elapsedTime)
   if bossBattle == 0  then
-    camera = krig.get_camera()
-    cam_pos = krig.object.get_position(camera)
+    camera = krig.get_camera():load()
 
-    if cam_pos[1] >= 1935.0 then
+    if camera.position[1] >= X_START_BOSS then
       bossBattle = 1
 
       -- Set the camera's velocity
-      krig.object.set_velocity(camera, 0.0, 0.0, 0.0)
+      camera.velocity = {0.0, 0.0, 0.0}
+      camera:save()
 
       -- Set the player's velocity
-      player = krig.get_player()
-      plr_vel = krig.object.get_velocity(player)
-      krig.object.set_velocity(player, (plr_vel[1] - 10.0), plr_vel[2], plr_vel[3])
+      player = krig.get_player():load()
+      plr_vel = player.velocity
+      player.velocity[1] = player.velocity - 10.0
+      player:save()
 
       -- Create the boss...
-      boss = krig.level.add_object("./scripts/boss2.lua")
-      krig.object.set_position(boss, 1960.0, 15.0, 7.5)
+      boss = krig.level.add_object("./scripts/boss2.lua", {position = {X_START_BOSS + 25.0, 15.0, 7.5}})
     end
   elseif bossBattle == 1 then
     bossLife = 0
@@ -78,21 +81,17 @@ end
 -- Helper Functions
 function setupEnemyShips()
   -- Intro ships
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 160, 15, 7.5)
+  enemy_ship_positions = {
+    {160, 15, 7.5}, {180, 22, 7.5}, {200, 20, 7.5}, {220, 10, 7.5},
+    -- The trickster...
+    {260, 17, 7.5}
+  }
 
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 180, 22, 7.5)
-
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 200, 20, 7.5)
-
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 220, 10, 7.5)
-
-  -- The trickster...
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-  krig.object.set_position(obj, 260, 17, 7.5)
+  for i = 1, #enemy_ship_positions do
+    local obj = krig.level.add_object("./scripts/enemy_ship1.lua")
+    obj.position = krig.vector.copy(enemy_ship_positions[i])
+    obj:save()
+  end
 
   -- "V" groups.
   level_lib.buildVGroup(270, 17, 7.5)
@@ -119,22 +118,16 @@ function setupEnemyShips()
 end
 
 function setupFlyingCircleEnemyShips()
-  obj = krig.level.add_object("./scripts/enemy_ship12.lua")
-  krig.object.set_position(obj, 1410.0, 5.0, 7.5)
-  obj = krig.level.add_object("./scripts/enemy_ship12.lua")
-  krig.object.set_position(obj, 1420.0, 8.0, 7.5)
-  obj = krig.level.add_object("./scripts/enemy_ship12.lua")
-  krig.object.set_position(obj, 1430.0, 11.0, 7.5)
-  obj = krig.level.add_object("./scripts/enemy_ship12.lua")
-  krig.object.set_position(obj, 1440.0, 13.0, 7.5)
-  obj = krig.level.add_object("./scripts/enemy_ship12.lua")
-  krig.object.set_position(obj, 1450.0, 13.0, 7.5)
-  obj = krig.level.add_object("./scripts/enemy_ship12.lua")
-  krig.object.set_position(obj, 1460.0, 11.0, 7.5)
-  obj = krig.level.add_object("./scripts/enemy_ship12.lua")
-  krig.object.set_position(obj, 1470.0, 8.0, 7.5)
-  obj = krig.level.add_object("./scripts/enemy_ship12.lua")
-  krig.object.set_position(obj, 1480.0, 5.0, 7.5)
+  enemy_ship_positions = {
+    {1410.0, 5.0, 7.5},  {1420.0, 8.0, 7.5},  {1430.0, 11.0, 7.5}, {1440.0, 13.0, 7.5},
+    {1450.0, 13.0, 7.5}, {1460.0, 11.0, 7.5}, {1470.0, 8.0, 7.5},  {1480.0, 5.0, 7.5}
+  }
+
+  for i = 1, #enemy_ship_positions do
+    local obj = krig.level.add_object("./scripts/enemy_ship12.lua")
+    obj.position = krig.vector.copy(enemy_ship_positions[i])
+    obj:save()
+  end
 
   level_lib.buildFlyingCircleUpGroup(4, 5, 1510.0, 11.0, 7.5)
   level_lib.buildFlyingCircleUpGroup(4, 5, 1555.0, 8.0, 7.5)
