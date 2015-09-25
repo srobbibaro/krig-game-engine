@@ -14,99 +14,100 @@ end
 function on_update(this, elapsedTime)
   shooting_object.update_shots(elapsedTime)
 
-  this_pos = krig.object.get_position(this)
-  camera   = krig.get_camera()
-  cam_pos  = krig.object.get_position(camera)
-  in_view  = krig.object.get_in_view(this)
-  player   = krig.get_player()
-  plr_pos  = krig.object.get_position(player)
+  this   = this:load()
+  camera = krig.get_camera():load()
 
   if state == 0 then
-    if cam_pos[1] + 10.0 > this_pos[1] then
-      this_rotation = krig.object.get_rotation(this)
-      krig.object.set_interpolation_variable_begin_value(this, 0.0)
-      krig.object.set_interpolation_variable_end_value(this, 0.5)
-      krig.object.set_interpolation_variable_current_value(this, 0.0)
-      krig.object.set_interpolation_rotation_start(this, this_rotation)
-
+    if camera.position[1] + 10.0 > this.position[1] then
+      this_rotation = krig.rotation.to_euler(this.rotation)
       this_rotation[3] = 1.57
-      krig.object.set_interpolation_rotation_end(this, this_rotation)
-      krig.object.set_interpolation_enable(this, 1)
+      this:setup_interpolation(
+        this.rotation, 0.0,
+        krig.rotation.from_euler(this_rotation), 0.5
+      )
+      this:update_interpolation_value(0.0)
+      this.interpolation_enabled = true
 
-      krig.object.set_speed(this, 10.0)
+      this.speed = {10.0, 0.0, 0.0}
       state      = 1
       interpTime = 0.0
+
+      this:save()
     end
   elseif state == 1 then
     interpTime = interpTime + elapsedTime
-    krig.object.set_interpolation_variable_current_value(this, interpTime)
+    this:update_interpolation_value(interpTime)
 
     if interpTime >= 0.5 then
-      this_rotation = krig.object.get_rotation(this)
-      krig.object.set_interpolation_variable_begin_value(this, 0.0)
-      krig.object.set_interpolation_variable_end_value(this, 1.0)
-      krig.object.set_interpolation_variable_current_value(this, 0.0)
-      krig.object.set_interpolation_rotation_start(this, this_rotation)
-
+      this_rotation = krig.rotation.to_euler(this.rotation)
       this_rotation[3] = 3.14
-      krig.object.set_interpolation_rotation_end(this, this_rotation)
-      krig.object.set_interpolation_enable(this, 1)
+      this:setup_interpolation(
+        this.rotation, 0.0,
+        krig.rotation.from_euler(this_rotation), 1.0
+      )
+      this:update_interpolation_value(0.0)
+      this.interpolation_enabled = true
 
-      krig.object.set_speed(this, 20.0)
+      this.speed = {20.0, 0.0, 0.0}
       state      = 2
       interpTime = 0.0
+
+      this:save()
     end
   elseif state == 2 then
     interpTime = interpTime + elapsedTime
-    krig.object.set_interpolation_variable_current_value(this, interpTime)
+    this:update_interpolation_value(interpTime)
 
     if interpTime >= 1.0 then
-      this_rotation = krig.object.get_rotation(this)
-      krig.object.set_interpolation_variable_begin_value(this, 0.0)
-      krig.object.set_interpolation_variable_end_value(this, 1.0)
-      krig.object.set_interpolation_variable_current_value(this, 0.0)
-      krig.object.set_interpolation_rotation_start(this, this_rotation)
-
+      this_rotation = krig.rotation.to_euler(this.rotation)
       this_rotation[3] = 4.61
-      krig.object.set_interpolation_rotation_end(this, this_rotation)
-      krig.object.set_interpolation_enable(this, 1)
+      this:setup_interpolation(
+        this.rotation, 0.0,
+        krig.rotation.from_euler(this_rotation), 1.0
+      )
+      this:update_interpolation_value(0.0)
+      this.interpolation_enabled = true
 
-      krig.object.set_speed(this, 20.0)
+      this.speed = {20.0, 0.0, 0.0}
       state      = 3
       interpTime = 0.0
+
+      this:save()
     end
   elseif state == 3 then
     interpTime = interpTime + elapsedTime
-    krig.object.set_interpolation_variable_current_value(this, interpTime)
+    this:update_interpolation_value(interpTime)
 
     if interpTime >= 1.0 then
-      this_rotation = krig.object.get_rotation(this)
-      krig.object.set_interpolation_variable_begin_value(this, 0.0)
-      krig.object.set_interpolation_variable_end_value(this, 0.5)
-      krig.object.set_interpolation_variable_current_value(this, 0.0)
-      krig.object.set_interpolation_rotation_start(this, this_rotation)
-
+      this_rotation = krig.rotation.to_euler(this.rotation)
       this_rotation[3] = 6.28
-      krig.object.set_interpolation_rotation_end(this, this_rotation)
-      krig.object.set_interpolation_enable(this, 1)
+      this:setup_interpolation(
+        this.rotation, 0.0,
+        krig.rotation.from_euler(this_rotation), 0.5
+      )
+      this:update_interpolation_value(0.0)
+      this.interpolation_enabled = true
 
-      krig.object.set_speed(this, 10.0)
+      this.speed = {10.0, 0.0, 0.0}
       state      = 4
       interpTime = 0.0
+
+      this:save()
     end
   elseif state == 4 then
     interpTime = interpTime + elapsedTime
-    krig.object.set_interpolation_variable_current_value(this, interpTime)
+    this:update_interpolation_value(interpTime)
 
     if interpTime >= 0.5 then
-      krig.object.set_interpolation_enable(this, 0)
-      krig.object.set_speed(this, 10.0)
-      state = 5
+      this.interpolation_enabled = false
+      this.speed                 = {10.0, 0.0, 0.0}
+      state                      = 5
+      this:save()
     end
   end
 
-  if in_view == 1 and state > 0 then
-    shooting_object.attemptShot(this, krig.object.get_bounding_sphere_radius(this))
+  if this.in_view and state > 0 then
+    shooting_object.attemptShot(this, this.bounding_sphere_radius)
   end
 end
 

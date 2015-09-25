@@ -11,23 +11,23 @@ end
 function on_update(this, elapsedTime)
   shooting_object.update_shots(elapsedTime)
 
-  plr      = krig.get_player()
-  this_pos = krig.object.get_position(this)
-  plr_pos  = krig.object.get_position(plr)
-  in_view  = krig.object.get_in_view(this)
+  this   = this:load()
+  player = krig.get_player():load()
 
-  if in_view == 0 then return end
+  if not this.in_view then return end
 
-  if plr_pos[2] > this_pos[2] then
-    krig.object.set_velocity(this, 2.0, 3.0, 0.0)
-  elseif plr_pos[2] < this_pos[2] then
-    krig.object.set_velocity(this, 2.0, -3.0, 0.0)
+  if player.position[2] > this.position[2] then
+    this.velocity = {2.0, 3.0, 0.0}
+    this:save()
+  elseif player.position[2] < this.position[2] then
+    this.velocity = {2.0, -3.0, 0.0}
+    this:save()
   end
 
-  if plr_pos[2] < (this_pos[2] + .5) and
-     plr_pos[2] > (this_pos[2] - .5) and
-    in_view == 1 then
-    shooting_object.attemptShot(this, krig.object.get_bounding_sphere_radius(this))
+  if player.position[2] < (this.position[2] + .5) and
+     player.position[2] > (this.position[2] - .5) and
+    this.in_view then
+    shooting_object.attemptShot(this, this.bounding_sphere_radius)
   end
 end
 

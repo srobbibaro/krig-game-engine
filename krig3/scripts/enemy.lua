@@ -1,39 +1,28 @@
 -- Helper Functions
 local function create_score_text(this)
-  camera        = krig.get_camera()
-  cam_vel       = krig.object.get_velocity(camera)
-  this_position = krig.object.get_position(this)
-
-  obj = krig.level.add_text("./scripts/camera1.lua", enemy.score)
-
-  krig.object.set_position(obj, this_position)
-  krig.object.set_scale(obj, 0.25, 0.25, 0.0)
-  krig.object.set_velocity(obj, cam_vel[1], 2.0, cam_vel[3])
-  krig.text.set_fade_rate(obj, -.25)
-  krig.text.set_color(obj, 1.0, 1.0, 1.0)
+  krig.level.add_text("./scripts/points.lua", enemy.score, {position = this.position})
 end
 
 local function create_powerup(this, powerup_num)
   local obj = krig.level.add_object(string.format("./scripts/powerup%d.lua", powerup_num))
 
   if obj ~= nil then
-    this_position = krig.object.get_position(this)
-    krig.object.set_position(obj, this_position)
+    obj.position = krig.vector.copy(this.position)
+    obj:save()
   end
 end
 
 local function create_explosion(this)
-  this_position = krig.object.get_position(this)
-
   obj = krig.level.add_object("./scripts/explosion.lua")
-  krig.object.set_position(obj, this_position)
+  obj.position = this.position
+  obj:save()
 end
 
 local function on_collision(this, temp)
-  typeId     = krig.object.get_type_id(temp)
-  thisTypeId = krig.object.get_type_id(this)
+  this    = this:load()
+  type_id = temp:load().type_id
 
-  if typeId == 2 or (typeId == 4 and thisTypeId ~= 4) then
+  if type_id == 2 or (type_id == 4 and this.type_id ~= 4) then
     krig.play_sound(this, "explosion1.wav")
 
     enemy.life = enemy.life - 1
