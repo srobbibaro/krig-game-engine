@@ -84,7 +84,7 @@ enemy_ship_wave1 = {
 -- Overridden Engine Callbacks
 function on_load(terrain)
   krig.level.set_sky_box(
-    0.0, 0.0, 0.0,
+    0.2, 0.0, 0.2,
     0.0, 0.0, 0.0,
     0.2, 0.0, 0.2
   )
