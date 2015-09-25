@@ -10,13 +10,14 @@
  * and Game (Engine).
  */
 #include "api.h"
+#include "api_camera.h"
 #include "api_engine.h"
 #include "api_level.h"
-#include "api_text.h"
-#include "api_terrain.h"
 #include "api_object.h"
+#include "api_rotation.h"
+#include "api_terrain.h"
+#include "api_text.h"
 #include "api_vector.h"
-#include "api_camera.h"
 
 Vector loadVector(lua_State *L) {
   int index = 2;
@@ -170,14 +171,13 @@ void returnObject(lua_State *L, Object* object) {
     lua_pushnumber(L, object->getGameLevelId()) :
     lua_pushnumber(L, -1);
   lua_rawset(L, -3);
+  luaL_setfuncs(L, krigObjectLib, 0);
 }
 
 void luaopen_krigApi(lua_State *L) {
   luaopen_krigEngine(L);
   luaopen_krigLevel(L);
-  luaopen_krigObject(L);
-  luaopen_krigText(L);
   luaopen_krigTerrain(L);
-  luaopen_krigCamera(L);
   luaopen_krigVector(L);
+  luaopen_krigRotation(L);
 }
