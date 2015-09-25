@@ -5,11 +5,12 @@ local duration = 0.0
 
 -- Overridden Engine Callbacks
 function on_load(this, options)
-  krig.object.set_model(this, "Explosion.mdl")
-  krig.object.set_scale_rate(this, 1.0, 1.0, 1.0)
-  krig.object.disable_collision_detection(this)
-  krig.object.enable_always_lit(this)
+  this:set_model("Explosion.mdl")
+  this.scale_rate                  = {1.0, 1.0, 1.0}
+  this.collision_detection_enabled = false
+  this.always_lit                  = true
   game_object.on_load(this, options)
+  this:save()
 end
 
 function on_update(this, elapsedTime)
