@@ -3,6 +3,8 @@
 //////////////////////////////////////////////////////////////////
 
 #include "Camera.h"
+#include "api.h"
+#include "api_camera.h"
 
 //------------------------------------------------------------------------------
 Camera::Camera(void) : Object() { initialize(); }
@@ -173,4 +175,14 @@ Frustum *Camera::getFrustum() { return &frustum; }
 void Camera::draw(Object* object) {
   if (particleSystem_)
       particleSystem_->draw();
+}
+
+void Camera::buildLuaObjectTable(lua_State *L) {
+  Object::buildLuaObjectTable(L);
+
+  lua_pushstring(L, "world_rotation");
+  returnQuaternion(L, worldRotation);
+  lua_rawset(L, -3);
+
+  luaL_setfuncs(L, krigCameraLib, 0);
 }

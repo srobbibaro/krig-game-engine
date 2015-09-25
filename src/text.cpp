@@ -5,6 +5,7 @@
 #include <GL/glut.h>
 #include "text.h"
 #include "constants.h"
+#include "api.h"
 
 //------------------------------------------------------------------------------
 void render_string(void* font, const char* string) {
@@ -164,4 +165,57 @@ void ScriptTextType::animate(float timeElapsed, Object* camera) {
     color[3] = 1.0f;
   else if (color[3] < 0.0f)
     color[3] = 0.0f;
+}
+
+void ScriptTextType::buildLuaObjectTable(lua_State *L) {
+  Object::buildLuaObjectTable(L);
+
+  lua_pushstring(L, "text");
+  lua_pushstring(L, text.c_str());
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "color");
+  returnArray(L, color, 4);
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "width");
+  lua_pushnumber(L, width);
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "fade_rate");
+  lua_pushnumber(L, fadeRate);
+  lua_rawset(L, -3);
+}
+
+void ScriptTextType::transferLuaObjectTable(lua_State *L) {
+  Object::transferLuaObjectTable(L);
+
+  int index = -1;
+  lua_pushstring(L, "width");
+  lua_gettable(L, 1);
+  if (lua_isnumber(L, index)) {
+    width = lua_tonumber(L, -1);
+  }
+  lua_pop(L, 1);
+
+  index = -1;
+  lua_pushstring(L, "fade_rate");
+  lua_gettable(L, 1);
+  if (lua_isnumber(L, index)) {
+    fadeRate = lua_tonumber(L, -1);
+  }
+  lua_pop(L, 1);
+
+  index = -1;
+  lua_pushstring(L, "color");
+  lua_gettable(L, 1);
+  loadArray(L, color, 4, -1);
+  lua_pop(L, 1);
+  /*
+  index = -1;
+  lua_pushstring(L, "text");
+  lua_gettable(L, 1);
+  text = string(lua_tostring(L, -1));
+  lua_pop(L, 1);
+*/
 }

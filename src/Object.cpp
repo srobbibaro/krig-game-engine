@@ -489,3 +489,193 @@ void Object::copyLuaTableKey(lua_State* srcState, lua_State* destState) {
       break;
   }
 }
+
+void Object::buildLuaObjectTable(lua_State *L) {
+  lua_pushstring(L, "position");
+  returnVector(L, getPosition());
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "velocity");
+  returnVector(L, getVelocity());
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "rotation");
+  returnQuaternion(L, getRotation());
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "rotation_velocity");
+  returnVector(L, getRotationVelocity());
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "speed");
+  returnVector(L, getSpeed());
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "scale");
+  returnVector(L, getScale());
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "scale_rate");
+  returnVector(L, getScaleRate());
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "up");
+  returnVector(L, getUp());
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "direction");
+  returnVector(L, getDirection());
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "orthogonal");
+  returnVector(L, getOrth());
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "type_id");
+  lua_pushnumber(L, getTypeId());
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "bounding_sphere_radius");
+  lua_pushnumber(L, getBoundingSphere().getRadius());
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "in_view");
+  lua_pushboolean(L, getInView());
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "collision_detection_enabled");
+  lua_pushboolean(L, getCollisionDetectionEnabled());
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "active");
+  lua_pushboolean(L, getActive());
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "draw_enabled");
+  lua_pushboolean(L, getDrawEnabled());
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "always_lit");
+  lua_pushboolean(L, getIsAlwaysLit());
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "interpolation_enabled");
+  lua_pushboolean(L, isInterpolationEnabled());
+  lua_rawset(L, -3);
+}
+
+void Object::transferLuaObjectTable(lua_State *L) {
+  Vector tv;
+  Quaternion tq;
+  int index = -2;
+
+  lua_pushstring(L, "scale");
+  lua_gettable(L, 1);
+  if (lua_istable(L, -1)) {
+    tv = loadVector(L, index);
+    setScale(tv);
+  }
+  lua_pop(L, 1);
+
+  index = -2;
+  lua_pushstring(L, "scale_rate");
+  lua_gettable(L, 1);
+  if (lua_istable(L, -1)) {
+    tv = loadVector(L, index);
+    setScaleRate(tv);
+  }
+  lua_pop(L, 1);
+
+  index = -2;
+  lua_pushstring(L, "velocity");
+  lua_gettable(L, 1);
+  if (lua_istable(L, -1)) {
+    tv = loadVector(L, index);
+    setVelocity(tv);
+  }
+  lua_pop(L, 1);
+
+  index = -2;
+  lua_pushstring(L, "rotation_velocity");
+  lua_gettable(L, 1);
+  if (lua_istable(L, -1)) {
+    tv = loadVector(L, index);
+    setRotationVelocity(tv);
+  }
+  lua_pop(L, 1);
+
+  index = -2;
+  lua_pushstring(L, "rotation");
+  lua_gettable(L, 1);
+  if (lua_istable(L, -1)) {
+    tq = loadQuaternion(L, index);
+    setRotation(tq);
+  }
+  lua_pop(L, 1);
+
+  index = -2;
+  lua_pushstring(L, "position");
+  lua_gettable(L, 1);
+  if (lua_istable(L, -1)) {
+    tv = loadVector(L, index);
+    setPosition(tv);
+  }
+  lua_pop(L, 1);
+
+  index = -2;
+  lua_pushstring(L, "speed");
+  lua_gettable(L, 1);
+  if (lua_istable(L, -1)) {
+    tv = loadVector(L, index);
+    setSpeed(tv);
+  }
+  lua_pop(L, 1);
+
+  index = -1;
+  lua_pushstring(L, "type_id");
+  lua_gettable(L, 1);
+  if (lua_isnumber(L, index)) {
+    setTypeId((int)lua_tonumber(L, -1));
+  }
+  lua_pop(L, 1);
+
+  index = -1;
+  lua_pushstring(L, "collision_detection_enabled");
+  lua_gettable(L, 1);
+  if (lua_isboolean(L, index)) {
+    setCollisionDetectionEnabled(lua_toboolean(L, -1));
+  }
+  lua_pop(L, 1);
+
+  index = -1;
+  lua_pushstring(L, "active");
+  lua_gettable(L, 1);
+  if (lua_isboolean(L, index)) {
+    setActive(lua_toboolean(L, -1));
+  }
+  lua_pop(L, 1);
+
+  index = -1;
+  lua_pushstring(L, "draw_enabled");
+  lua_gettable(L, 1);
+  if (lua_isboolean(L, index)) {
+    setDrawEnabled(lua_toboolean(L, -1));
+  }
+  lua_pop(L, 1);
+
+  index = -1;
+  lua_pushstring(L, "always_lit");
+  lua_gettable(L, 1);
+  if (lua_isboolean(L, index)) {
+    setIsAlwaysLit(lua_toboolean(L, -1));
+  }
+  lua_pop(L, 1);
+
+  index = -1;
+  lua_pushstring(L, "interpolation_enabled");
+  lua_gettable(L, 1);
+  if (lua_isboolean(L, index)) {
+    setIsInterpolationEnabled(lua_toboolean(L, -1));
+  }
+  lua_pop(L, 1);
+}

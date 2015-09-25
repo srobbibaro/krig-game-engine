@@ -21,6 +21,7 @@ class Camera : public Object {
     void getRotationMatrix(Matrix &m) const;
 
     void printTypeName(void) { PRINT_DEBUG("Camera\n"); }
+    void buildLuaObjectTable(lua_State *L);
 
     void draw(Object*);
 
