@@ -12,7 +12,7 @@ class ScriptTextType : public Object {
   public:
     ScriptTextType();
 
-    void printTypeName(void) { PRINT_DEBUG("text"); }
+    void printTypeName(void) { PRINT_DEBUG("text\n"); }
 
     void draw(Object*);
     void drawOutline(Object*) {}; // Camera*

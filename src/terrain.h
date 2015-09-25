@@ -32,7 +32,7 @@ class Terrain : public Object {
 
     float getHeight(float, float);
 
-    void printTypeName(void) { PRINT_DEBUG("Terrain"); }
+    void printTypeName(void) { PRINT_DEBUG("Terrain\n"); }
     void drawGrid(void);
 
     void setVertexHeight(int x, int z, float height);

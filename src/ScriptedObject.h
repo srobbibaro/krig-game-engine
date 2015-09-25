@@ -9,7 +9,7 @@ class ScriptedObject : public Model {
     ScriptedObject();
     virtual ~ScriptedObject();
 
-    void printTypeName(void) { PRINT_DEBUG("ScriptedObject"); }
+    void printTypeName(void) { PRINT_DEBUG("ScriptedObject\n"); }
 };
 
 #endif

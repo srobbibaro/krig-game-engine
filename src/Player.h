@@ -8,7 +8,7 @@ class Player : public Model {
     Player();
     virtual ~Player();
 
-    void printTypeName(void) { PRINT_DEBUG("Player"); }
+    void printTypeName(void) { PRINT_DEBUG("Player\n"); }
 };
 
 #endif

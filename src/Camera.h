@@ -20,7 +20,7 @@ class Camera : public Object {
     // accessor functions
     void getRotationMatrix(Matrix &m) const;
 
-    void printTypeName(void) { PRINT_DEBUG("Camera"); }
+    void printTypeName(void) { PRINT_DEBUG("Camera\n"); }
 
     void draw(Object*);
 
