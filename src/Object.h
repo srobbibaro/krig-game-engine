@@ -148,6 +148,7 @@ class Object : public ObjectNode {
     void setScaleChanged(bool scaleChanged_l) { scaleChanged_ = scaleChanged_l; }
 
     void setIsAlwaysLit(bool isAlwaysLit) { isAlwaysLit_ = isAlwaysLit; }
+    bool getIsAlwaysLit() { return isAlwaysLit_; }
 
     void setTypeId (int type_id) { typeId_ = type_id; }
     int getTypeId() { return typeId_; }
