@@ -4,19 +4,18 @@ local asteroid = require 'scripts/asteroid'
 function on_load(this, options)
   asteroid.on_load(this, options)
 
-  camera          = krig.get_camera()
-  camera_position = krig.object.get_position(camera)
+  camera = krig.get_camera():load()
 
-  krig.object.set_position(this, camera_position[1] + 20.0, math.random(30), 0.0)
-  krig.object.set_velocity(this, -30.0, 0.0, 0.0)
+  this.position = {camera.position[1] + 20.0, math.random(30), 0.0}
+  this.velocity = {-30.0, 0.0, 0.0}
+  this:save()
 end
 
 function on_update(this, elapsedTime)
-  camera          = krig.get_camera()
-  this_position   = krig.object.get_position(this)
-  camera_position = krig.object.get_position(camera)
+  this   = this:load()
+  camera = krig.get_camera():load()
 
-  if this_position[1] < camera_position[1] - 20 then
+  if this.position[1] < camera.position[1] - 20 then
     krig.level.remove_object(this)
   end
 end
@@ -24,9 +23,9 @@ end
 function on_collision(this, temp)
   asteroid.on_collision(this, temp)
 
-  tempId = krig.object.get_type_id(temp)
+  temp_id = temp:load().type_id
 
-  if tempId == 1 or tempId == 0 then
+  if temp_id == 1 or temp_id == 0 then
     krig.level.remove_object(this)
   end
 end
