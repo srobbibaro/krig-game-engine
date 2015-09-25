@@ -4,7 +4,6 @@ local shooting_object = require 'scripts/shooting_object'
 -- Overridden Engine Callbacks
 function on_load(this, options)
   enemy_ship.on_load(this, options)
-  krig.object.set_model(this, "Enemy.mdl")
 
   shooting_object.setupShots(this, "./scripts/enemy_shot.lua", 0.25)
 end

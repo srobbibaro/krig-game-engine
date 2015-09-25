@@ -14,8 +14,8 @@ local mouse_x = nil
 local mouse_y = nil
 
 -- Helper Functions
-local function get_terrain_coords(x,z)
-  x = math.floor(x / 5.0)
+local function get_terrain_coords(x, z)
+  x =  math.floor(x / 5.0)
   z = -math.floor(z / 5.0)
 
   return x, z
