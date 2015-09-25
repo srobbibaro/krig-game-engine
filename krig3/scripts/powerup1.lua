@@ -5,10 +5,11 @@ powerup.max_duration = 7.0
 
 -- Overridden Engine Callbacks
 function on_load(this)
-  krig.object.set_model(this, "Powerup.mdl")
-  krig.object.set_scale(this, 2.0, 2.0, 2.0)
-  krig.object.set_rotation_velocity(this, 0.0, 2.0, 0.0);
-  krig.object.set_type_id(this, 5);
+  this:set_model("Powerup.mdl")
+  this.scale             = {2.0, 2.0, 2.0}
+  this.rotation_velocity = {0.0, 2.0, 0.0}
+  this.type_id           = 5
+  this:save()
 end
 
 on_update    = powerup.on_update

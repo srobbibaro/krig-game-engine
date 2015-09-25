@@ -11,8 +11,7 @@ local function on_update(this, elapsedTime)
 end
 
 local function on_collision(this, temp)
-  typeId = krig.object.get_type_id(temp)
-  if typeId == 0 then
+  if temp:load().type_id == 0 then
     krig.play_sound(this, "pause.wav")
     krig.level.remove_object(this)
   end
