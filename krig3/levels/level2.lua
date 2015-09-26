@@ -52,8 +52,7 @@ function on_update(terrain, elapsedTime)
 
       -- Set the player's velocity
       player = krig.get_player():load()
-      plr_vel = player.velocity
-      player.velocity[1] = player.velocity - 10.0
+      player.velocity[1] = player.velocity[1] - 10.0
       player:save()
 
       -- Create the boss...
