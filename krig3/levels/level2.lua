@@ -87,9 +87,9 @@ function setupEnemyShips()
   }
 
   for i = 1, #enemy_ship_positions do
-    local obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-    obj.position = krig.vector.copy(enemy_ship_positions[i])
-    obj:save()
+    krig.level.add_object("./scripts/enemy_ship1.lua", {
+      position = enemy_ship_positions[i]
+    })
   end
 
   -- "V" groups.
@@ -123,9 +123,9 @@ function setupFlyingCircleEnemyShips()
   }
 
   for i = 1, #enemy_ship_positions do
-    local obj = krig.level.add_object("./scripts/enemy_ship12.lua")
-    obj.position = krig.vector.copy(enemy_ship_positions[i])
-    obj:save()
+    krig.level.add_object("./scripts/enemy_ship12.lua", {
+      position = enemy_ship_positions[i]
+    })
   end
 
   level_lib.buildFlyingCircleUpGroup(4, 5, 1510.0, 11.0, 7.5)
