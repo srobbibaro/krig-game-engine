@@ -4,7 +4,7 @@ local shooting_object = require 'scripts/shooting_object'
 -- Configuration
 local state = 0
 
-function on_load(this)
+function on_load(this, options)
   enemy_ship.on_load(this, options)
   shooting_object.setupShots(this, "./scripts/enemy_shot.lua", 0.2)
 end

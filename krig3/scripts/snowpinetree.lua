@@ -5,20 +5,20 @@ state        = 0
 scale_factor = 0.0
 
 -- Overridden Engine Callbacks
-function on_load(this, x_pos, z_pos, temp_scale_factor)
+function on_load(this, options)
   krig.object.set_model(this, "Snowpine.mdl")
   krig.object.set_rotation(this, 0.0, 0.0, 0.0)
 
-  if temp_scale_factor ~= nil then
-    scale_factor = temp_scale_factor
+  if options.scale_factor then
+    scale_factor = options.scale_factor
     krig.object.set_scale(this, scale_factor, scale_factor, scale_factor)
   else
     scale_factor = 2.0
     krig.object.set_scale(this, scale_factor, scale_factor, scale_factor)
   end
 
-  if x_pos ~= nil and z_pos ~= nil then
-    krig.object.set_position(this, x_pos, 0.0, z_pos)
+  if options.x_pos ~= nil and options.z_pos ~= nil then
+    krig.object.set_position(this, options.x_pos, 0.0, options.z_pos)
     krig.object.set_height_from_terrain(this, scale_factor)
   end
 

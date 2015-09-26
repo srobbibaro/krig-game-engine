@@ -8,7 +8,7 @@ enemy.life  = 40
 life        = enemy.life
 
 -- Overridden Engine Callbacks
-function on_load(this)
+function on_load(this, options)
   this:set_model("Boss.mdl")
   this.scale    = {4.0, 4.0, 4.0}
   this.rotation = krig.rotation.from_euler({0.0, -1.5708, 0.0})

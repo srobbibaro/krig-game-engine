@@ -4,7 +4,7 @@ local enemy = require 'scripts/enemy'
 enemy.life = 10
 
 -- Overridden Engine Callbacks
-function on_load(this)
+function on_load(this, options)
   krig.object.set_model(this, "CannonBall.mdl")
   krig.object.set_scale(this, 2.0, 2.0, 2.0)
   krig.object.set_rotation(this, 0.0, 0.0, 0.0)

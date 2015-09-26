@@ -4,7 +4,7 @@ local asteroid = require 'scripts/asteroid'
 local falling = 0
 
 -- Overridden Engine Callbacks
-function on_load(this)
+function on_load(this, options)
   this:set_model("redrock.mdl")
   this.rotation = krig.rotation.from_euler({0.0, 0.0, 0.0})
   this.scale    = {4.0, 4.0, 4.0}

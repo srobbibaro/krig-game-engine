@@ -1,7 +1,7 @@
 local shot = require 'scripts/shot'
 
 -- Overridden Engine Callbacks
-function on_load(this)
+function on_load(this, options)
   this:set_model("GreenShot.mdl")
   this.type_id = 20
   this.scale   = {4.0, 4.0, 4.0}

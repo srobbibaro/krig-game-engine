@@ -17,7 +17,7 @@ collisionRecover = 0
 interpTime       = 0.0
 
 -- Overridden Engine Callbacks
-function on_load(this)
+function on_load(this, options)
   this:set_model("Ship.mdl")
 
   this.rotation = krig.rotation.from_euler({0.0, 1.57, 0.0})
