@@ -32,7 +32,9 @@ class Terrain : public Object {
 
     float getHeight(float, float);
 
-    void printTypeName(void) { PRINT_DEBUG("Terrain"); }
+    void printTypeName(void) { PRINT_DEBUG("Terrain\n"); }
+    virtual void buildLuaObjectTable(lua_State *L);
+    virtual void transferLuaObjectTable(lua_State *L);
     void drawGrid(void);
 
     void setVertexHeight(int x, int z, float height);

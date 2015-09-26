@@ -1,15 +1,18 @@
-local boat = require 'scripts/boat'
+local boat        = require 'scripts/boat'
+local game_object = require 'scripts/game_object'
 
 -- Overridden Engine Callbacks
-function on_load(this)
-  krig.object.set_model(this, "BoatCannon.mdl")
-  krig.object.set_rotation(this, 0.0, -1.57, 0.0)
-  krig.object.disable_collision_detection(this)
-  krig.object.set_scale(this, 10.0, 10.0, 10.0)
+function on_load(this, options)
+  game_object.on_load(this, options)
+  this:set_model("BoatCannon.mdl")
+  this.rotation                    = krig.rotation.from_euler({0.0, -1.57, 0.0})
+  this.collision_detection_enabled = false
+  this.scale                       = {10.0, 10.0, 10.0}
+  this:save()
 end
 
 function on_update(this, elapsedTime)
-  krig.object.orient_on_terrain(this, 0.0, 0.0, 0.0)
+  this:orient_on_terrain(0.0, 0.0, 0.0)
 end
 
 on_collision = boat.on_collision

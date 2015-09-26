@@ -3,13 +3,13 @@ local asteroid = require 'scripts/asteroid'
 -- Overridden Engine Callbacks
 function on_load(this, options)
   asteroid.on_load(this, options)
-  krig.object.set_scale(this, 5.0, 5.0, 5.0)
+  this.scale = {5.0, 5.0, 5.0}
+  this:save()
 end
 
 function on_update(this, elapsedTime)
-  camera          = krig.get_camera()
-  this_position   = krig.object.get_position(this)
-  camera_position = krig.object.get_position(camera)
+  this            = this:load()
+  camera          = krig.get_camera():load()
 
-  asteroid.is_out_of_view(this, this_position, camera_position)
+  asteroid.is_out_of_view(this, this.position, camera.position)
 end

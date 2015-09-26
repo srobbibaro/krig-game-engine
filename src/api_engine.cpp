@@ -2,7 +2,7 @@
  * @file api_engine.cpp
  * @brief Krig Game Engine Lua Scripting API - Game (Engine)
  *
- * Game (engine) focused API functionality.
+ * Game (engine) API functionality.
  */
 #include "api.h"
 #include "api_engine.h"
@@ -262,21 +262,21 @@ static int set_script_value(lua_State *L) {
 }
 
 static const luaL_reg krigEngineLib[] = {
-  {"shutdown", shutdown},
-  {"get_fps", get_fps},
-  {"render_text", render_text},
   {"display_text", display_text},
+  {"get_camera", get_camera},
+  {"get_fps", get_fps},
+  {"get_mouse_coordinates", get_mouse_coordinates},
+  {"get_player", get_player},
+  {"get_script_value", get_script_value},
+  {"play_sound", play_sound},
+  {"render_text", render_text},
+  {"set_script_value", set_script_value},
+  {"shutdown", shutdown},
+  {"test_debug_enabled", test_debug_enabled},
   {"test_key_pressed", test_key_pressed},
   {"test_key_released", test_key_released},
   {"test_special_key_pressed", test_special_key_pressed},
   {"test_special_key_released", test_special_key_released},
-  {"test_debug_enabled", test_debug_enabled},
-  {"get_mouse_coordinates", get_mouse_coordinates},
-  {"play_sound", play_sound},
-  {"get_camera", get_camera},
-  {"get_player", get_player},
-  {"get_script_value", get_script_value},
-  {"set_script_value", set_script_value},
   {NULL, NULL}
 };
 

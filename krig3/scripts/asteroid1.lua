@@ -11,20 +11,16 @@ function on_load(this, options)
 end
 
 function on_update(this, elapsedTime)
-  camera          = krig.get_camera()
-  camera_position = krig.object.get_position(camera)
+  camera = krig.get_camera():load()
+  this   = this:load()
 
-  this_position   = krig.object.get_position(this)
-
-  if active_offset + camera_position[1] > this_position[1] then
-    krig.object.set_velocity(this, math.random(0,3), -math.random(5, 7), 0.0)
-    krig.object.set_rotation_velocity(
-      this,
-      math.random(0, 3), math.random(0, 3), math.random(0, 3)
-    )
+  if active_offset + camera.position[1] > this.position[1] then
+    this.velocity = {math.random(0,3), -math.random(5, 7), 0.0}
+    this.rotation_velocity = {math.random(0, 3), math.random(0, 3), math.random(0, 3)}
+    this:save()
   end
 
-  asteroid.is_out_of_view(this, this_position, camera_position)
+  asteroid.is_out_of_view(this, this.position, camera.position)
 end
 
 on_collision = asteroid.on_collision

@@ -6,12 +6,14 @@ enemy.score = 500
 enemy.life  = 3
 
 local function on_load(this, options)
-  krig.object.set_model(this, "Asteroid.mdl")
-  krig.object.set_scale(this, 2.0, 2.0, 2.0)
-  krig.object.set_rotation(this, 0.0, 0.0, 0.0)
+  this:set_model("Asteroid.mdl")
+  this.scale    = {2.0, 2.0, 2.0}
+  this.rotation = krig.rotation.from_euler({0.0, 0.0, 0.0})
+  this.type_id  = 4
 
-  krig.object.set_type_id(this, 4)
   game_object.on_load(this, options)
+
+  this:save()
 end
 
 local on_collision = enemy.on_collision

@@ -1,5 +1,6 @@
-local enemy      = require 'scripts/enemy'
-local enemy_ship = require 'scripts/enemy_ship'
+local enemy       = require 'scripts/enemy'
+local enemy_ship  = require 'scripts/enemy_ship'
+local game_object = require 'scripts/game_object'
 
 -- Configuration
 local x_min = 0.0
@@ -13,12 +14,11 @@ life        = enemy.life
 
 -- Helper Methods
 function set_window()
-  local camera = krig.get_camera()
-  local camera_position = krig.object.get_position(camera)
-  x_min = camera_position[1] - math.random(20)
-  x_max = camera_position[1] + math.random(20)
-  y_min = camera_position[2] - math.random(20)
-  y_max = camera_position[2] + math.random(20)
+  local camera = krig.get_camera():load()
+  x_min = camera.position[1] - math.random(20)
+  x_max = camera.position[1] + math.random(20)
+  y_min = camera.position[2] - math.random(20)
+  y_max = camera.position[2] + math.random(20)
 end
 
 function calc_speed()
@@ -33,41 +33,43 @@ end
 
 -- Overridden Engine Callbacks
 function on_load(this)
-  krig.object.set_model(this, "snowboss.mdl")
-  krig.object.set_rotation(this, 0.0, -1.57, 0.0)
-  krig.object.set_scale(this, 4.0, 4.0, 4.0)
+  game_object.on_load(this, options)
+
+  this:set_model("snowboss.mdl")
+  this.rotation = krig.rotation.from_euler({0.0, -1.57, 0.0})
+  this.scale    = {4.0, 4.0, 4.0}
 
   math.randomseed(os.time())
   set_window()
   speed = calc_speed()
-  krig.object.set_velocity(this, -speed, 0.0, 0.0)
-
-  krig.object.set_type_id(this, 1)
+  this.velocity = {-speed, 0.0, 0.0}
+  this.type_id  = 1
+  this:save()
 end
 
 function on_update(this, elapsedTime)
-  this_position = krig.object.get_position(this)
-  this_velocity = krig.object.get_velocity(this)
+  this = this:load()
 
-  if this_velocity[1] > 0.0 then
-    if this_position[1] > x_max then
-      speed = calc_speed()
-      krig.object.set_velocity(this, 0.0, speed, 0.0)
+  if this.velocity[1] > 0.0 then
+    if this.position[1] > x_max then
+      this.velocity = {0.0, calc_speed(), 0.0}
+      this:save()
     end
-  elseif this_velocity[1] < 0.0 then
-    if this_position[1] < x_min then
-      speed = calc_speed()
-      krig.object.set_velocity(this, 0.0, speed, 0.0)
+  elseif this.velocity[1] < 0.0 then
+    if this.position[1] < x_min then
+      this.velocity = {0.0, calc_speed(), 0.0}
+      this:save()
     end
-  elseif this_velocity[2] > 0.0 then
-    if this_position[2] > y_max then
+  elseif this.velocity[2] > 0.0 then
+    if this.position[2] > y_max then
       speed = calc_speed()
-      krig.object.set_velocity(this, speed, 0.0, 0.0)
+      this.velocity = {calc_speed(), 0.0, 0.0}
+      this:save()
     end
-  elseif this_velocity[2] < 0.0 then
-    if this_position[2] < y_min then
-      speed = calc_speed()
-      krig.object.set_velocity(this, speed, 0.0, 0.0)
+  elseif this.velocity[2] < 0.0 then
+    if this.position[2] < y_min then
+      this.velocity = {calc_speed(), 0.0, 0.0}
+      this:save()
       set_window()
     end
   end

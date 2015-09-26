@@ -2,24 +2,19 @@ local scenery = require 'scripts/scenery'
 
 -- Overridden Engine Callbacks
 function on_load(this, options)
-  krig.object.set_model(this, "Pinetree.mdl")
-  krig.object.set_rotation(this, 0.0, 0.0, 0.0)
+  this:set_model("Pinetree.mdl")
+  this.rotation = krig.rotation.from_euler({0.0, 0.0, 0.0})
 
-  scale_factor = options.scale_factor
-  x_pos        = options.x_pos
-  z_pos        = options.z_pos
+  scale_factor = options.scale_factor or 2.0
 
-  if scale_factor then
-    krig.object.set_scale(this, scale_factor, scale_factor, scale_factor)
-  else
-    krig.object.set_scale(this, 2.0, 2.0, 2.0)
-    scale_factor = 2.0
-  end
+  this.scale = {scale_factor, scale_factor, scale_factor}
 
-  if x_pos and z_pos then
-    krig.object.set_position(this, x_pos, 0.0, z_pos)
-    krig.object.set_height_from_terrain(this, scale_factor)
+  if options.x_pos and options.z_pos then
+    this.position = {options.x_pos, 0.0, options.z_pos}
   end
 
   scenery.on_load(this, options)
+  this:save()
+
+  this:set_height_from_terrain(scale_factor)
 end

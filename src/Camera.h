@@ -20,7 +20,8 @@ class Camera : public Object {
     // accessor functions
     void getRotationMatrix(Matrix &m) const;
 
-    void printTypeName(void) { PRINT_DEBUG("Camera"); }
+    void printTypeName(void) { PRINT_DEBUG("Camera\n"); }
+    void buildLuaObjectTable(lua_State *L);
 
     void draw(Object*);
 

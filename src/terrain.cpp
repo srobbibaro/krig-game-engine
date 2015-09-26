@@ -846,3 +846,11 @@ Vector Terrain::getVertexColor(int x, int z) {
 
   return color;
 }
+
+void Terrain::buildLuaObjectTable(lua_State *L) {
+  Object::buildLuaObjectTable(L);
+}
+
+void Terrain::transferLuaObjectTable(lua_State *L) {
+  Object::transferLuaObjectTable(L);
+}

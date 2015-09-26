@@ -18,20 +18,23 @@ interpTime       = 0.0
 
 -- Overridden Engine Callbacks
 function on_load(this)
-  krig.object.set_model(this, "Ship.mdl")
+  this:set_model("Ship.mdl")
 
-  krig.object.set_rotation(this, 0.0, 1.57, 0.0)
-  krig.object.set_scale(this, 2.0, 2.0, 2.0)
-  krig.object.set_velocity(this, 40.0, 0.0, 0.0)
-  krig.object.set_rotation_velocity(this, -10.0, 0.0, 0.0)
-  krig.object.set_type_id(this, 0)
+  this.rotation = krig.rotation.from_euler({0.0, 1.57, 0.0})
+  this.scale             = {2.0, 2.0, 2.0}
+  this.velocity          = {40.0, 0.0, 0.0}
+  this.rotation_velocity = {-10.0, 0.0, 0.0}
+  this.type_id           = 0
+  this:save()
 
-  krig.object.suspend(this, 0.25)
+  this:suspend(0.25)
 
   shooting_object.setupShots(this, "./scripts/player_shot.lua", 0.25)
 end
 
 function on_update(this, elapsedTime)
+  this = this:load()
+
   shooting_object.update_shots(elapsedTime)
 
   if nextMissileShot > 0.0 then nextMissileShot = nextMissileShot - elapsedTime end
@@ -39,63 +42,52 @@ function on_update(this, elapsedTime)
 
   -- handle invul --
   if collisionRecover == 1 then
-    isDrawn = krig.object.get_draw_enabled(this)
-
-    if isDrawn == 0 then
-      krig.object.enable_draw(this)
+    if this.draw_enabled then
+      this.draw_enabled = false
     else
-      krig.object.disable_draw(this)
+      this.draw_enabled = true
     end
 
     if invul <= 0.0 then
-      krig.object.enable_draw(this)
-      collisionRecover = 0
+      this.draw_enabled = true
+      collisionRecover  = 0
     end
   end
 
   -- handle individual states
   if progress == 0 then
-    camera = krig.get_camera()
-    this_position = krig.object.get_position(this)
-    camera_position = krig.object.get_position(camera)
-    tx = camera_position[1] - 20.0
-    if this_position[1] >= tx then
-      krig.object.set_velocity(this, 8.0, 0.0, 0.0)
+    camera = krig.get_camera():load()
+    tx     = camera.position[1] - 20.0
+    if this.position[1] >= tx then
+      this.velocity = {8.0, 0.0, 0.0}
       progress = 1
-      krig.object.suspend(this, 1.0)
+      this:suspend(1.0)
     else
-      krig.object.suspend(this, 0.25)
+      this:suspend(0.25)
     end
   elseif progress == 1 then
-    krig.object.set_velocity(this, 10.0, 0.0, 0.0)
-    krig.object.set_rotation_velocity(this, 0.0, 0.0, 0.0)
+    this.velocity = {10.0, 0.0, 0.0}
+    this.rotation_velocity = {0.0, 0.0, 0.0}
     progress = 2
   elseif progress == 2 then
-    this_rotation = krig.object.get_rotation(this)
-    krig.object.set_interpolation_variable_begin_value(this, 0.0)
-    krig.object.set_interpolation_variable_end_value(this, 0.5)
-    krig.object.set_interpolation_variable_current_value(this, 0.0)
-    krig.object.set_interpolation_rotation_start(this, this_rotation)
-    krig.object.set_interpolation_rotation_end(this, 0.0, 1.57, 0.0)
-    krig.object.set_interpolation_enable(this, 1)
+    this:setup_interpolation(this.rotation, 0.0, krig.rotation.from_euler(0.0, 1.57, 0.0), 0.5)
+    this:update_interpolation_value(0.0)
+    this.interpolation_enabled = true
 
     progress = 3
   elseif progress == 3 then
     interpTime = interpTime + elapsedTime
-    krig.object.set_interpolation_variable_current_value(this, interpTime)
+    this:update_interpolation_value(interpTime)
 
     if interpTime > 0.5 then
-      krig.object.set_interpolation_enable(this, 0)
+      this.interpolation_enabled = false
       progress = 4
     end
   elseif progress == 4 then
-    this_position   = krig.object.get_position(this)
-    this_velocity   = krig.object.get_velocity(this)
-    camera          = krig.get_camera()
-    camera_velocity = krig.object.get_velocity(camera)
+    camera = krig.get_camera():load()
 
-    this_velocity[1] = camera_velocity[1]
-    this_velocity[2] = camera_velocity[2]
+    this.velocity[1] = camera.velocity[1]
+    this.velocity[2] = camera.velocity[2]
 
     if krig.test_special_key_pressed(101) == 1 then upDown = 1 end
     if krig.test_special_key_pressed(103) == 1 then downDown = 1 end
@@ -107,62 +99,61 @@ function on_update(this, elapsedTime)
     if krig.test_special_key_released(100) == 1 then leftDown = 0 end
     if krig.test_special_key_released(102) == 1 then rightDown = 0 end
 
-    if upDown == 1 then this_velocity[2] = this_velocity[2] + 10 end
-    if downDown == 1 then this_velocity[2] = this_velocity[2] - 10 end
-    if leftDown == 1 then this_velocity[1] = this_velocity[1] - 10 end
-    if rightDown == 1 then this_velocity[1] = this_velocity[1] + 10 end
+    if upDown == 1 then this.velocity[2] = this.velocity[2] + 10 end
+    if downDown == 1 then this.velocity[2] = this.velocity[2] - 10 end
+    if leftDown == 1 then this.velocity[1] = this.velocity[1] - 10 end
+    if rightDown == 1 then this.velocity[1] = this.velocity[1] + 10 end
 
     -- Ax + By + Cz + D = 0
-    this_pos = krig.object.get_position(this)
-    plane    = krig.camera.get_frustum_plane(1)
-    x        = -(((plane[3] * this_pos[3]) + plane[4]) / plane[1])
+    plane = camera:get_frustum_plane(1)
+    x     = -(((plane[3] * this.position[3]) + plane[4]) / plane[1])
 
-    if this_pos[1] > x - krig.object.get_bounding_sphere_radius(this) then
-      this_pos[1] = x - krig.object.get_bounding_sphere_radius(this)
+    if this.position[1] > x - this.bounding_sphere_radius then
+      this.position[1] = x - this.bounding_sphere_radius
     end
 
-    plane = krig.camera.get_frustum_plane(0)
-    x     = -(((plane[3] * this_pos[3]) + plane[4]) / plane[1])
+    plane = camera:get_frustum_plane(0)
+    x     = -(((plane[3] * this.position[3]) + plane[4]) / plane[1])
 
-    if this_pos[1] < x + krig.object.get_bounding_sphere_radius(this) then
-      this_pos[1] = x + krig.object.get_bounding_sphere_radius(this)
+    if this.position[1] < x + this.bounding_sphere_radius then
+      this.position[1] = x + this.bounding_sphere_radius
     end
 
-    plane = krig.camera.get_frustum_plane(2)
-    y     = -(((plane[3] * this_pos[3]) + plane[4]) / plane[2])
+    plane = camera:get_frustum_plane(2)
+    y     = -(((plane[3] * this.position[3]) + plane[4]) / plane[2])
 
-    if this_pos[2] < y + krig.object.get_bounding_sphere_radius(this) then
-      this_pos[2] = y + krig.object.get_bounding_sphere_radius(this)
+    if this.position[2] < y + this.bounding_sphere_radius then
+      this.position[2] = y + this.bounding_sphere_radius
     end
 
-    plane = krig.camera.get_frustum_plane(3)
-    y     = -(((plane[3] * this_pos[3]) + plane[4]) / plane[2])
+    plane = camera:get_frustum_plane(3)
+    y     = -(((plane[3] * this.position[3]) + plane[4]) / plane[2])
 
-    if this_pos[2] > y - krig.object.get_bounding_sphere_radius(this) then
-      this_pos[2] = y - krig.object.get_bounding_sphere_radius(this)
+    if this.position[2] > y - this.bounding_sphere_radius then
+      this.position[2] = y - this.bounding_sphere_radius
     end
-
-    krig.object.set_velocity(this, this_velocity)
-    krig.object.set_position(this, this_pos)
 
     if krig.test_key_pressed(32) == 1 then
-      shooting_object.attemptShot(this, (krig.object.get_bounding_sphere_radius(this) - 1.0))
+      shooting_object.attemptShot(this, (this.bounding_sphere_radius - 1.0))
     end
 
     if krig.test_key_pressed(string.byte("m", 1)) == 1 and
        nextMissileShot <= 0.0 and
        numMissiles > 0 then
-      obj = shooting_object.setShot(this, "./scripts/player_missile.lua")
+      shot = krig.level.add_object("./scripts/player_missile.lua")
+      obj  = shooting_object.setShot(this, shot)
       nextMissileShot = .75
       numMissiles = numMissiles - 1
     end
   end
+
+  this:save()
 end
 
-function on_collision(this,temp)
-  tempId = krig.object.get_type_id(temp)
+function on_collision(this, temp)
+  temp_id = temp:load().type_id
 
-  if collisionRecover == 0 and (tempId == 1 or tempId == 10 or tempId == 4) then
+  if collisionRecover == 0 and (temp_id == 1 or temp_id == 10 or temp_id == 4) then
     life             = life - 1
     collisionRecover = 1
     invul            = 1.0
@@ -171,7 +162,7 @@ function on_collision(this,temp)
       life = 10
       if lives > 0 then lives = lives - 1 end
     end
-  elseif collisionRecover == 0 and tempId == 20 then
+  elseif collisionRecover == 0 and temp_id == 20 then
     life             = life - 2
     collisionRecover = 1
     invul            = 1.0
@@ -179,13 +170,13 @@ function on_collision(this,temp)
       life = 10
       if lives > 0 then lives = lives - 1 end
     end
-  elseif tempId == 5 then
+  elseif temp_id == 5 then
     numMissiles = numMissiles + 5
     if numMissiles > 30 then numMissiles = 30 end
-  elseif tempId == 6 then
+  elseif temp_id == 6 then
     life = life + 5
     if life > 10 then life = 10 end
-  elseif tempId == 7 then
+  elseif temp_id == 7 then
     lives = lives + 1
     if lives > 99 then lives = 99 end
   end

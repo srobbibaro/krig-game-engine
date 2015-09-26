@@ -12,7 +12,9 @@ class ScriptTextType : public Object {
   public:
     ScriptTextType();
 
-    void printTypeName(void) { PRINT_DEBUG("text"); }
+    void printTypeName(void) { PRINT_DEBUG("text\n"); }
+    void buildLuaObjectTable(lua_State *L);
+    void transferLuaObjectTable(lua_State *L);
 
     void draw(Object*);
     void drawOutline(Object*) {}; // Camera*

@@ -2,7 +2,7 @@
  * @file api_terrain.cpp
  * @brief Krig Game Engine Lua Scripting API - Terrain
  *
- * Terrain focused API functionality.
+ * Terrain API functionality.
  */
 #include "api.h"
 #include "api_terrain.h"
@@ -10,14 +10,14 @@
 
 #if DOXYGEN_ONLY
 /**
- * Get height of terrain at specified x,z coordinates.
+ * Get height of terrain at specified x,z grid coordinates.
  * @param int x coordinate.
  * @param int z coordinate.
- * @return Vector
+ * @return float
  */
-Vector get_vertex_height(int, int);
+float get_vertex_height(int, int);
 #endif
-int get_vertex_height(lua_State *L) {
+static int get_vertex_height(lua_State *L) {
   int x = lua_tonumber(L, 1);
   int z = lua_tonumber(L, 2);
 
@@ -29,15 +29,15 @@ int get_vertex_height(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Set height of terrain at specified x,z coordinates.
+ * Set height of terrain at specified x,z grid coordinates.
  * @param int x coordinate.
  * @param int z coordinate.
  * @param float height
  * @return n/a.
  */
-void set_vertex_height(int, int, Vector);
+void set_vertex_height(int, int, float);
 #endif
-int set_vertex_height(lua_State *L) {
+static int set_vertex_height(lua_State *L) {
   int x = lua_tonumber(L, 1);
   int z = lua_tonumber(L, 2);
   float height = lua_tonumber(L, 3);
@@ -48,14 +48,14 @@ int set_vertex_height(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Get color of terrain at specified x,z coordinates.
+ * Get color of terrain at specified x,z grid coordinates.
  * @param int x coordinate.
  * @param int z coordinate.
- * @return Vector
+ * @return Vector3
  */
-Vector get_vertex_color(int, int);
+Vector3 get_vertex_color(int, int);
 #endif
-int get_vertex_color(lua_State *L) {
+static int get_vertex_color(lua_State *L) {
   int x = lua_tonumber(L, 1);
   int z = lua_tonumber(L, 2);
 
@@ -67,15 +67,15 @@ int get_vertex_color(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Set type of terrain at specified x,z coordinates.
+ * Set type of terrain at specified x,z grid coordinates.
  * @param int x coordinate.
  * @param int z coordinate.
- * @param Vector containing r,g,b values.
+ * @param Vector3 containing r,g,b values.
  * @return n/a.
  */
-void set_vertex_color(int, int, Vector);
+void set_vertex_color(int, int, Vector3);
 #endif
-int set_vertex_color(lua_State *L) {
+static int set_vertex_color(lua_State *L) {
   int x = lua_tonumber(L, 1);
   int z = lua_tonumber(L, 2);
   int index = 3;
@@ -87,14 +87,14 @@ int set_vertex_color(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Get type of terrain at specified x,z coordinates.
+ * Get type of terrain at specified x,z grid coordinates.
  * @param int x coordinate.
  * @param int z coordinate.
  * @return float - type.
  */
 float get_vertex_type(int, int);
 #endif
-int get_vertex_type(lua_State *L) {
+static int get_vertex_type(lua_State *L) {
   int x = lua_tonumber(L, 1);
   int z = lua_tonumber(L, 2);
 
@@ -106,15 +106,15 @@ int get_vertex_type(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Set type of terrain at specified x,z coordinates.
+ * Set type of terrain at specified x,z grid coordinates.
  * @param int x coordinate.
  * @param int z coordinate.
- * @param int type
+ * @param int type.
  * @return n/a.
  */
 void set_vertex_type(int, int, int);
 #endif
-int set_vertex_type(lua_State *L) {
+static int set_vertex_type(lua_State *L) {
   int x = lua_tonumber(L, 1);
   int z = lua_tonumber(L, 2);
   int type = lua_tonumber(L,3);
@@ -125,14 +125,14 @@ int set_vertex_type(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Get height of terrain at specified x,z coordinates.
+ * Get height of terrain at specified x,z world coordinates.
  * @param float x coordinate.
  * @param float z coordinate.
  * @return float - height.
  */
 float get_height(float, float);
 #endif
-int get_height(lua_State *L) {
+static int get_height(lua_State *L) {
   float x = lua_tonumber(L, 1);
   float z = lua_tonumber(L, 2);
 
@@ -143,13 +143,13 @@ int get_height(lua_State *L) {
 }
 
 static const luaL_reg krigTerrainLib[] = {
-  {"get_vertex_height", get_vertex_height},
-  {"set_vertex_height", set_vertex_height},
-  {"get_vertex_color", get_vertex_color},
-  {"set_vertex_color", set_vertex_color},
-  {"get_vertex_type", get_vertex_type},
-  {"set_vertex_type", set_vertex_type},
   {"get_height", get_height},
+  {"get_vertex_color", get_vertex_color},
+  {"get_vertex_height", get_vertex_height},
+  {"get_vertex_type", get_vertex_type},
+  {"set_vertex_color", set_vertex_color},
+  {"set_vertex_height", set_vertex_height},
+  {"set_vertex_type", set_vertex_type},
   {NULL, NULL}
 };
 

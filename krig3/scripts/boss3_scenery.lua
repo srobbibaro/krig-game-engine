@@ -1,47 +1,50 @@
+local scenery = require 'scripts/scenery'
+
 -- Configuration
 local state = 0
 
 -- Overridden Engine Callbacks
-function on_load(this)
-  krig.object.set_model(this, "FishBoss.mdl")
-  krig.object.set_scale(this, 16.0, 16.0, 16.0)
-  krig.object.set_rotation(this, 0.0, 1.5708, 1.2)
+function on_load(this, options)
+  this:set_model("FishBoss.mdl")
+  this.scale    = {16.0, 16.0, 16.0}
+  this.rotation = krig.rotation.from_euler({0.0, 1.5708, 1.2})
+  this.type_id  = 3
 
-  krig.object.set_type_id(this, 3)
+  scenery.on_load(this, options)
 
-  krig.object.disable_collision_detection(this)
+  this:save()
 end
 
 function on_update(this, elapsedTime)
-  this_pos = krig.object.get_position(this)
-  camera   = krig.get_camera()
-  cam_pos  = krig.object.get_position(camera)
+  this   = this:load()
+  camera = krig.get_camera():load()
 
   if state == 0 then
-    if cam_pos[1] - 50.0 > this_pos[1] then
-      this_rotation = krig.object.get_rotation(this)
-      krig.object.set_interpolation_variable_begin_value(this, 0.0)
-      krig.object.set_interpolation_variable_end_value(this, 4.0)
-      krig.object.set_interpolation_variable_current_value(this, 0.0)
-      krig.object.set_interpolation_rotation_start(this, this_rotation)
-
+    if camera.position[1] - 50.0 > this.position[1] then
+      this_rotation = krig.rotation.to_euler(this.rotation)
       this_rotation[3] = -2.0
-      krig.object.set_interpolation_rotation_end(this, this_rotation)
-      krig.object.set_interpolation_enable(this, 1)
+      this:setup_interpolation(
+        this.rotation, 0.0,
+        krig.rotation.from_euler(this_rotation), 4.0
+      )
+      this:update_interpolation_value(0.0)
+      this.interpolation_enabled = true
 
-      krig.object.set_speed(this, 40.0)
+      this.speed = {40.0, 0.0, 0.0}
       state      = 1
       interpTime = 0.0
+
+      this:save()
     end
   elseif state == 1 then
     interpTime = interpTime + elapsedTime
-    krig.object.set_interpolation_variable_current_value(this, interpTime)
+    this:update_interpolation_value(interpTime)
 
     if interpTime >= 4.0 then
       state = 2
     end
   elseif state == 2 then
-    if this_pos[2] < -10.0 then
+    if this.position[2] < -10.0 then
       krig.level.remove_object(this)
     end
   end

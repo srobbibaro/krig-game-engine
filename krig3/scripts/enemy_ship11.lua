@@ -15,38 +15,39 @@ end
 function on_update(this, elapsedTime)
   shooting_object.update_shots(elapsedTime)
 
-  plr      = krig.get_player()
-  this_pos = krig.object.get_position(this)
-  plr_pos  = krig.object.get_position(plr)
-  in_view  = krig.object.get_in_view(this)
+  this   = this:load()
+  player = krig.get_player():load()
 
   if state == 1 then
-    if plr_pos[1] > this_pos[1] - 25.0 then
-      krig.object.set_velocity(this, 0.0, 5.0, 0.0)
-      orig_height = this_pos[2]
-      state = 2
+    if player.position[1] > this.position[1] - 25.0 then
+      this.velocity = {0.0, 5.0, 0.0}
+      orig_height   = this.position[2]
+      state         = 2
+      this:save()
     end
   elseif state == 2 then
-    if this_pos[2] >= orig_height + 3.0 then
-      krig.object.set_velocity(this, 0.0, 0.0, 0.0)
-      krig.object.set_speed(this, 40.0, 0.0, 0.0)
-      state = 3
+    if this.position[2] >= orig_height + 3.0 then
+      this.velocity = {0.0, 0.0, 0.0}
+      this.speed    = {40.0, 0.0, 0.0}
+      state         = 3
+      this:save()
     end
   elseif state == 3 then
     totalTime = totalTime + elapsedTime
 
-    if totalTime > 2.0 then
-      state = 4
-    end
-    this_dir = krig.object.get_direction(this)
-    this_dir = {0.0, 0.0, 1.0}
-    dir_to_player = {this_pos[1] - plr_pos[1] - 2.0, this_pos[2] - plr_pos[2], this_pos[3] - plr_pos[3]}
-    dir_to_player = krig.vector.normalize(dir_to_player)
+    if totalTime > 2.0 then state = 4 end
+    this_dir      = {0.0, 0.0, 1.0}
+    dir_to_player = krig.vector.normalize({
+      this.position[1] - player.position[1] - 2.0,
+      this.position[2] - player.position[2],
+      this.position[3] - player.position[3]
+    })
 
-    rot_axis = krig.vector.cross_product(dir_to_player, this_dir)
-    rot_angle = -krig.vector.dot_product(dir_to_player, this_dir)
+    rot_axis      = krig.vector.cross_product(dir_to_player, this_dir)
+    rot_angle     = -krig.vector.dot_product(dir_to_player, this_dir)
+    this.rotation = krig.rotation.from_axis(rot_axis, rot_angle)
 
-    krig.object.set_rotation_axis(this, rot_axis[1], rot_axis[2], rot_axis[3], rot_angle)
+    this:save()
   end
 end
 

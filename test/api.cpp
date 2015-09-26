@@ -50,7 +50,7 @@ SCENARIO( "Using Lua API", "[API]" ) {
     }
 
     WHEN( "vector_get_scalar is called" ) {
-      const char* buffer = "v = krig.vector.get_scalar({1,2,3}, {4,5,6})\n";
+      const char* buffer = "v = krig.vector.scalar({1,2,3}, {4,5,6})\n";
       luaL_loadbuffer(L, buffer, strlen(buffer), "tests") ||
       lua_pcall(L, 0, 0, 0);
       THEN( "It returns scalar value between two vectors" ) {

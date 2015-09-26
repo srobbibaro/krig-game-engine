@@ -73,10 +73,11 @@ function on_load(terrain)
   krig.level.set_terrain(terrain, "./terrains/level4.txt")
 
   camera = krig.get_camera()
-  krig.object.set_script(camera, "./scripts/camera_free.lua")
-  krig.object.set_position(camera, x_start_camera, 55.0, 105.0)
+  camera:set_script("./scripts/camera_free.lua")
+  camera.position = {x_start_camera, 55.0, 105.0}
+  camera:save()
 
-  krig.object.add_particle_system(camera, 1)
+  camera:add_particle_system(1)
 
   krig.level.play_music("./music/credits.ogg", 0)
 end

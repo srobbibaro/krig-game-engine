@@ -6,7 +6,7 @@ local duration = 0.0
 -- Overridden Engine Callbacks
 local function on_load(this, options)
   game_object.on_load(this, options)
-  krig.object.enable_always_lit(this)
+  this.always_lit = true
 
   krig.play_sound(this, "laser.wav")
 end

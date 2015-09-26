@@ -38,6 +38,8 @@ class Object : public ObjectNode {
     virtual void drawShadow (Vector*) {}
     virtual void orientOnTerrain(Terrain *temp, Quaternion baseRotation) {}
     virtual void setHeightFromTerrain(Terrain *temp, float offset){}
+    virtual void buildLuaObjectTable(lua_State *L);
+    virtual void transferLuaObjectTable(lua_State *L);
     ////////////////////////////////////////////
 
     void showCollisionBox();
@@ -148,6 +150,7 @@ class Object : public ObjectNode {
     void setScaleChanged(bool scaleChanged_l) { scaleChanged_ = scaleChanged_l; }
 
     void setIsAlwaysLit(bool isAlwaysLit) { isAlwaysLit_ = isAlwaysLit; }
+    bool getIsAlwaysLit() { return isAlwaysLit_; }
 
     void setTypeId (int type_id) { typeId_ = type_id; }
     int getTypeId() { return typeId_; }
