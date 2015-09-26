@@ -16,7 +16,6 @@
 #include "api_object.h"
 #include "api_rotation.h"
 #include "api_terrain.h"
-#include "api_text.h"
 #include "api_vector.h"
 
 Vector loadVector(lua_State *L) {
