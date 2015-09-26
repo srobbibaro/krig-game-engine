@@ -1,20 +1,20 @@
 /**
  * @file api_vector.cpp
- * @brief Krig Game Engine Lua Scripting API - Vector
+ * @brief Krig Game Engine Lua Scripting API - Rotation Library.
  *
- * Vector focused API functionality.
+ * Quaternion-based (4-D vector) rotation API functionality.
  */
 #include "api.h"
 #include "api_rotation.h"
 
 #if DOXYGEN_ONLY
 /**
- * Calculate scalar value between two vectors.
- * @param Vector
- * @param Vector
- * @return float
+ * Add two rotations represented as quaternions.
+ * @param Vector4
+ * @param Vector4
+ * @return Vector4
  */
-float add(Vector, Vector);
+Vector4 add(Vector4, Vector4);
 #endif
 static int add(lua_State *L) {
   Quaternion t = loadQuaternion(L, 1);
@@ -28,12 +28,11 @@ static int add(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Calculate scalar value between two vectors.
- * @param Vector
- * @param Vector
- * @return float
+ * Copy a quaternion.
+ * @param Vector4
+ * @return Vector4
  */
-float copy(Vector, Vector);
+Vector4 copy(Vector4);
 #endif
 static int copy(lua_State *L) {
   Quaternion t = loadQuaternion(L, 1);
@@ -43,12 +42,12 @@ static int copy(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Calculate scalar value between two vectors.
- * @param Vector
- * @param Vector
- * @return float
+ * Convert rotation represented as an axis and an angle into a quaternion.
+ * @param Vector3
+ * @param float
+ * @return Vector4
  */
-float from_axis(Vector, Vector);
+Vector4 from_axis(Vector3, float);
 #endif
 static int from_axis(lua_State *L) {
   int index = 1;
@@ -64,16 +63,15 @@ static int from_axis(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Calculate scalar value between two vectors.
- * @param Vector
- * @param Vector
- * @return float
+ * Convert rotation represented as euler angles into a quaternion.
+ * @param Vector3
+ * @return Vector4
  */
-float from_euler(Vector, Vector);
+Vector4 from_euler(Vector3);
 #endif
 static int from_euler(lua_State *L) {
   int index = 1;
-  Vector t = loadVector(L, index);
+  Vector t  = loadVector(L, index);
 
   Quaternion qt;
   qt.buildFromEuler(t);
@@ -84,12 +82,11 @@ static int from_euler(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Calculate scalar value between two vectors.
- * @param Vector
- * @param Vector
- * @return float
+ * Convert quaternion to euler angles.
+ * @param Vector4
+ * @return Vector3
  */
-float to_euler(Vector, Vector);
+Vector3 to_euler(Vector4);
 #endif
 static int to_euler(lua_State *L) {
   Quaternion t = loadQuaternion(L, 1);

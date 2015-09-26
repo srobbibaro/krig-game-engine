@@ -1,8 +1,8 @@
 /**
  * @file api_vector.cpp
- * @brief Krig Game Engine Lua Scripting API - Vector
+ * @brief Krig Game Engine Lua Scripting API - Vector Library
  *
- * Vector focused API functionality.
+ * 3-D Vector math API functionality.
  */
 #include "api.h"
 #include "api_vector.h"
@@ -10,11 +10,11 @@
 #if DOXYGEN_ONLY
 /**
  * Calculate scalar value between two vectors.
- * @param Vector
- * @param Vector
+ * @param Vector3
+ * @param Vector3
  * @return float
  */
-float scalar(Vector, Vector);
+float scalar(Vector3, Vector3);
 #endif
 static int scalar(lua_State *L) {
   int index = 1;
@@ -26,11 +26,11 @@ static int scalar(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Normalize vector.
- * @param Vector
- * @return Vector
+ * Normalize the vector.
+ * @param Vector3
+ * @return Vector3
  */
-Vector normalize(Vector);
+Vector3 normalize(Vector3);
 #endif
 static int normalize(lua_State *L) {
   int index = 1;
@@ -43,11 +43,11 @@ static int normalize(lua_State *L) {
 #if DOXYGEN_ONLY
 /**
  * Calculate dot product between two vectors.
- * @param Vector
- * @param Vector
- * @return float - dot product.
+ * @param Vector3
+ * @param Vector3
+ * @return float
  */
-float dot_product(Vector, Vector);
+float dot_product(Vector3, Vector3);
 #endif
 static int dot_product(lua_State *L) {
   int index = 1;
@@ -61,11 +61,11 @@ static int dot_product(lua_State *L) {
 #if DOXYGEN_ONLY
 /**
  * Calculate cross product between two vectors.
- * @param Vector
- * @param Vector
- * @return Vector
+ * @param Vector3
+ * @param Vector3
+ * @return Vector3
  */
-Vector cross_product(Vector, Vector);
+Vector3 cross_product(Vector3, Vector3);
 #endif
 static int cross_product(lua_State *L) {
   int index = 1;
@@ -79,12 +79,12 @@ static int cross_product(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Calculate cross product between two vectors.
- * @param Vector
- * @param Vector
- * @return Vector
+ * Calculate average of two vectors.
+ * @param Vector3
+ * @param Vector3
+ * @return Vector3
  */
-Vector average(Vector, Vector);
+Vector3 average(Vector3, Vector3);
 #endif
 static int average(lua_State *L) {
   int index = 1;
@@ -98,12 +98,12 @@ static int average(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Calculate cross product between two vectors.
- * @param Vector
- * @param Vector
- * @return Vector
+ * Add two vectors.
+ * @param Vector3
+ * @param Vector3
+ * @return Vector3
  */
-Vector add(Vector, Vector);
+Vector3 add(Vector3, Vector3);
 #endif
 static int add(lua_State *L) {
   int index = 1;
@@ -116,12 +116,12 @@ static int add(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Calculate cross product between two vectors.
- * @param Vector
- * @param Vector
- * @return Vector
+ * Subtract two vectors.
+ * @param Vector3
+ * @param Vector3
+ * @return Vector3
  */
-Vector subtract(Vector, Vector);
+Vector3 subtract(Vector3, Vector3);
 #endif
 static int subtract(lua_State *L) {
   int index = 1;
@@ -134,12 +134,12 @@ static int subtract(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Calculate cross product between two vectors.
- * @param Vector
- * @param Vector
- * @return Vector
+ * Scale a vector.
+ * @param Vector3
+ * @param float
+ * @return Vector3
  */
-Vector scale(Vector, float);
+Vector3 scale(Vector3, float);
 #endif
 static int scale(lua_State *L) {
   int index = 1;
@@ -152,12 +152,11 @@ static int scale(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Calculate cross product between two vectors.
- * @param Vector
- * @param Vector
- * @return Vector
+ * Copy a vector.
+ * @param Vector3
+ * @return Vector3
  */
-Vector copy(Vector);
+Vector3 copy(Vector3);
 #endif
 static int copy(lua_State *L) {
   int index = 1;
@@ -168,12 +167,12 @@ static int copy(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Calculate cross product between two vectors.
- * @param Vector
- * @param Vector
- * @return Vector
+ * Calculate distance between two vectors.
+ * @param Vector3
+ * @param Vector3
+ * @return float
  */
-float distance(Vector, Vector);
+float distance(Vector3, Vector3);
 #endif
 static int distance(lua_State *L) {
   int index = 1;
@@ -186,12 +185,11 @@ static int distance(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Calculate scalar value between two vectors.
- * @param Vector
- * @param Vector
+ * Add vector components.
+ * @param Vector3
  * @return float
  */
-float sum(Vector, Vector);
+float sum(Vector3);
 #endif
 static int sum(lua_State *L) {
   int index = 1;

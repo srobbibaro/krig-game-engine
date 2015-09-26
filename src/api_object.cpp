@@ -2,21 +2,21 @@
  * @file api_object.cpp
  * @brief Krig Game Engine Lua Scripting API - Game Object
  *
- * Game object focused API functionality.
+ * Game object API functionality.
  */
 #include "api.h"
 #include "api_object.h"
-#include <stdio.h>
 
 #if DOXYGEN_ONLY
 /**
  * Set the end rotation (by axis) for the specified game object's interpolation.
- * @param GameObjectReference
- * @param Vector axis.
- * @param float degrees.
+ * @param Vector4 - start rotation.
+ * @param float - start interpolation value.
+ * @param Vector4 - end rotation.
+ * @param float - end interpolation value.
  * @return n/a
  */
-void setup_interpolation(GameObjectReference, Vector, float);
+void setup_interpolation(Vector4, float, Vector4, float);
 #endif
 static int setup_interpolation(lua_State *L) {
   luaL_checktype(L, 1, LUA_TTABLE);
@@ -37,12 +37,11 @@ static int setup_interpolation(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Set current value of interpolation variable's value range.
- * @param GameObjectReference
+ * Set current value of the interpolation variable.
  * @param float value.
  * @return n/a
  */
-void set_interpolation_value(GameObjectReference, float);
+void set_interpolation_value(float);
 #endif
 static int update_interpolation_value(lua_State *L) {
   luaL_checktype(L, 1, LUA_TTABLE);
@@ -53,12 +52,11 @@ static int update_interpolation_value(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Suspend running the specified game object's script until the suspend time has elapsed.
- * @param GameObjectReference
- * @param float -
+ * Suspend running the game object's script until the suspend time has elapsed.
+ * @param float
  * @return n/a
  */
-void suspend(GameObjectReference, float);
+void suspend(float);
 #endif
 static int suspend(lua_State *L) {
   luaL_checktype(L, 1, LUA_TTABLE);
@@ -69,12 +67,11 @@ static int suspend(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Specify the model to render for this game object.
- * @param GameObjectReference
+ * Specify the model to render for the game object.
  * @string file containing the model to load.
  * @return n/a
  */
-void set_model(GameObjectReference, string);
+void set_model(string);
 #endif
 static int set_model(lua_State *L) {
   luaL_checktype(L, 1, LUA_TTABLE);
@@ -89,12 +86,11 @@ static int set_model(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Set lua script for specified game object.
- * @param GameObjectReference
+ * Set lua script for game object.
  * @param string lua script file name.
  * @return n/a
  */
-void set_script(GameObjectReference, string);
+void set_script(string);
 #endif
 static int set_script(lua_State *L) {
   luaL_checktype(L, 1, LUA_TTABLE);
@@ -114,8 +110,7 @@ static int set_script(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Add a particle system to the specified object.
- * @param GameObjectReference
+ * Add a particle system to the game object.
  * @param int - number representing the particle system to load.
  * @return n/a
  */
@@ -132,15 +127,15 @@ static int add_particle_system(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Rotate the specified object such that it appears to be resting on the terrain.
- * Additionally, the specified rotation will be used as the base rotation of the game object.
- * @param GameObjectReference
+ * Rotate the game object such that it appears to be resting on the terrain.
+ * Additionally, the specified rotation will be used as the base rotation of 
+ * the game object.
  * @param x rotation around x axis
  * @param y rotation around y axis
  * @param z rotation around z axis
  * @return n/a
  */
-void orient_on_terrain(GameObjectReference, float, float, float);
+void orient_on_terrain(float, float, float);
 #endif
 static int orient_on_terrain(lua_State *L) {
   luaL_checktype(L, 1, LUA_TTABLE);
@@ -156,10 +151,9 @@ static int orient_on_terrain(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Determine the height of the terrain beneath the specified game object and
+ * Determine the height of the terrain beneath the game object and
  * set its height to match the terrain's height at this location. The offset
  * is used to adjust the object's height along the y axis.
- * @param GameObjectReference
  * @param float - height offset
  * @return n/a
  */
@@ -178,10 +172,10 @@ static int set_height_from_terrain(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Load properties for the calling game object.
+ * Load properties for game object.
  * @return GameObject
  */
-void load();
+GameObject load();
 #endif
 static int load(lua_State *L) {
   luaL_checktype(L, 1, LUA_TTABLE);
@@ -195,7 +189,7 @@ static int load(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Save properties for the calling game object.
+ * Save game object properties.
  * @return n/a
  */
 void save();

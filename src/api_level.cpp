@@ -2,7 +2,7 @@
  * @file api_level.cpp
  * @brief Krig Game Engine Lua Scripting API - Game Level
  *
- * Game level focused API functionality.
+ * Game level API functionality.
  */
 #include "api.h"
 #include "api_level.h"
@@ -344,26 +344,26 @@ static int add_text(lua_State *L) {
 }
 
 static const luaL_reg krigLevelLib[] = {
+  {"add_object", add_object},
+  {"add_text", add_text},
+  {"find_object_of_type", find_object_of_type},
+  {"get_camera_id", get_camera_id},
+  {"get_complete", get_complete},
+  {"get_id", get_id},
+  {"get_light_direction", get_light_direction},
   {"load", load},
   {"load_from_buffer", load_from_buffer},
   {"pause", pause},
-  {"get_id", get_id},
-  {"set_id", set_id},
-  {"swap", swap},
-  {"get_complete", get_complete},
-  {"set_complete", set_complete},
-  {"play_music", play_music},
-  {"stop_music", stop_music},
   {"pause_music", pause_music},
-  {"set_sky_box", set_sky_box},
-  {"get_light_direction", get_light_direction},
-  {"set_light_direction", set_light_direction},
-  {"set_terrain", set_terrain},
-  {"get_camera_id", get_camera_id},
-  {"find_object_of_type", find_object_of_type},
-  {"add_object", add_object},
+  {"play_music", play_music},
   {"remove_object", remove_object},
-  {"add_text", add_text},
+  {"set_complete", set_complete},
+  {"set_id", set_id},
+  {"set_light_direction", set_light_direction},
+  {"set_sky_box", set_sky_box},
+  {"set_terrain", set_terrain},
+  {"stop_music", stop_music},
+  {"swap", swap},
   {NULL, NULL}
 };
 

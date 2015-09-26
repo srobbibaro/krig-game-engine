@@ -7,6 +7,8 @@ extern "C" {
   #include "lua5.1/lauxlib.h"
 }
 
+static int get_frustum_plane(lua_State *L);
+
 extern const luaL_reg krigCameraLib[];
 
 #endif

@@ -9,12 +9,12 @@
 
 #if DOXYGEN_ONLY
 /**
- * Return the definition of he specified plane, a list containing A, B, C and D, where: Ax + By + Cz + D = 0.
- * @param GameObjectReference
+ * Return the definition of the specified plane as a list containing:
+ * A, B, C and D, where: Ax + By + Cz + D = 0.
  * @param int plane number (0-6), where: 0 - left, 1 - right, 2 - down, 3 - up, 4 - far, and 5 - near.
- * @return array - definition of plane.
+ * @return Vector4 - definition of plane.
  */
-array get_frustum_plane(int);
+Vector4 get_frustum_plane(int);
 #endif
 static int get_frustum_plane(lua_State *L) {
   luaL_checktype(L, 1, LUA_TTABLE);
