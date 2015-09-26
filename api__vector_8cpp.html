@@ -68,7 +68,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -90,41 +90,146 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>Krig Game <a class="el" href="classEngine.html">Engine</a> Lua Scripting API - <a class="el" href="structVector.html">Vector</a>.  
+<p>Krig Game <a class="el" href="classEngine.html">Engine</a> Lua Scripting API - <a class="el" href="structVector.html">Vector</a> Library.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8c081d3fbac4eb119907a66e7e53b68c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="api__vector_8cpp.html#a8c081d3fbac4eb119907a66e7e53b68c">get_scalar</a> (<a class="el" href="structVector.html">Vector</a>, <a class="el" href="structVector.html">Vector</a>)</td></tr>
-<tr class="separator:a8c081d3fbac4eb119907a66e7e53b68c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbfb6d9aa1866444468f407cd66b1f36"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structVector.html">Vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="api__vector_8cpp.html#adbfb6d9aa1866444468f407cd66b1f36">normalize</a> (<a class="el" href="structVector.html">Vector</a>)</td></tr>
-<tr class="separator:adbfb6d9aa1866444468f407cd66b1f36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55e55ffce426ad872b5854dfb9f94b1e"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="api__vector_8cpp.html#a55e55ffce426ad872b5854dfb9f94b1e">dot_product</a> (<a class="el" href="structVector.html">Vector</a>, <a class="el" href="structVector.html">Vector</a>)</td></tr>
-<tr class="separator:a55e55ffce426ad872b5854dfb9f94b1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79d89ba2ce49487353cf1580878e1906"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structVector.html">Vector</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="api__vector_8cpp.html#a79d89ba2ce49487353cf1580878e1906">cross_product</a> (<a class="el" href="structVector.html">Vector</a>, <a class="el" href="structVector.html">Vector</a>)</td></tr>
-<tr class="separator:a79d89ba2ce49487353cf1580878e1906"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1c794dce95f2877c280a18ea4db6967"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="api__vector_8cpp.html#ae1c794dce95f2877c280a18ea4db6967">scalar</a> (Vector3, Vector3)</td></tr>
+<tr class="separator:ae1c794dce95f2877c280a18ea4db6967"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac673b6629ac6064fc3f62144272d5167"><td class="memItemLeft" align="right" valign="top">Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="api__vector_8cpp.html#ac673b6629ac6064fc3f62144272d5167">normalize</a> (Vector3)</td></tr>
+<tr class="separator:ac673b6629ac6064fc3f62144272d5167"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d51c46b253c5e4e5842a90a377b84bf"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="api__vector_8cpp.html#a7d51c46b253c5e4e5842a90a377b84bf">dot_product</a> (Vector3, Vector3)</td></tr>
+<tr class="separator:a7d51c46b253c5e4e5842a90a377b84bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae77dece9aa160ac04c862437a7234044"><td class="memItemLeft" align="right" valign="top">Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="api__vector_8cpp.html#ae77dece9aa160ac04c862437a7234044">cross_product</a> (Vector3, Vector3)</td></tr>
+<tr class="separator:ae77dece9aa160ac04c862437a7234044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ee06c6c752211c0153da67d83ff5d19"><td class="memItemLeft" align="right" valign="top">Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="api__vector_8cpp.html#a8ee06c6c752211c0153da67d83ff5d19">average</a> (Vector3, Vector3)</td></tr>
+<tr class="separator:a8ee06c6c752211c0153da67d83ff5d19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d7bfd969428f5326207f8b9ae367a3a"><td class="memItemLeft" align="right" valign="top">Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="api__vector_8cpp.html#a9d7bfd969428f5326207f8b9ae367a3a">add</a> (Vector3, Vector3)</td></tr>
+<tr class="separator:a9d7bfd969428f5326207f8b9ae367a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a4871ee98424c65d040457c62a13362"><td class="memItemLeft" align="right" valign="top">Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="api__vector_8cpp.html#a4a4871ee98424c65d040457c62a13362">subtract</a> (Vector3, Vector3)</td></tr>
+<tr class="separator:a4a4871ee98424c65d040457c62a13362"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a364328fb4379a5d2931ebd0e67d68490"><td class="memItemLeft" align="right" valign="top">Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="api__vector_8cpp.html#a364328fb4379a5d2931ebd0e67d68490">scale</a> (Vector3, float)</td></tr>
+<tr class="separator:a364328fb4379a5d2931ebd0e67d68490"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58c7c628e2bac24f9265f11c87bd6ff9"><td class="memItemLeft" align="right" valign="top">Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="api__vector_8cpp.html#a58c7c628e2bac24f9265f11c87bd6ff9">copy</a> (Vector3)</td></tr>
+<tr class="separator:a58c7c628e2bac24f9265f11c87bd6ff9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae28918cf74f024a3616bea8a96d89f41"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="api__vector_8cpp.html#ae28918cf74f024a3616bea8a96d89f41">distance</a> (Vector3, Vector3)</td></tr>
+<tr class="separator:ae28918cf74f024a3616bea8a96d89f41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91cec7959d3bc859a8a8b8c04fd57ed5"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="api__vector_8cpp.html#a91cec7959d3bc859a8a8b8c04fd57ed5">sum</a> (Vector3)</td></tr>
+<tr class="separator:a91cec7959d3bc859a8a8b8c04fd57ed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a580dd381e573777710e751debf28306b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a580dd381e573777710e751debf28306b"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>luaopen_krigVector</b> (lua_State *L)</td></tr>
 <tr class="separator:a580dd381e573777710e751debf28306b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Krig Game <a class="el" href="classEngine.html">Engine</a> Lua Scripting API - <a class="el" href="structVector.html">Vector</a>. </p>
-<p><a class="el" href="structVector.html">Vector</a> focused API functionality. </p>
+<div class="textblock"><p>Krig Game <a class="el" href="classEngine.html">Engine</a> Lua Scripting API - <a class="el" href="structVector.html">Vector</a> Library. </p>
+<p>3-D <a class="el" href="structVector.html">Vector</a> math API functionality. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a79d89ba2ce49487353cf1580878e1906"></a>
+<a class="anchor" id="a9d7bfd969428f5326207f8b9ae367a3a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structVector.html">Vector</a> cross_product </td>
+          <td class="memname">Vector3 add </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramtype">Vector3&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramtype">Vector3&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add two vectors. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Vector3</td><td></td></tr>
+    <tr><td class="paramname">Vector3</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector3 </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a8ee06c6c752211c0153da67d83ff5d19"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Vector3 average </td>
+          <td>(</td>
+          <td class="paramtype">Vector3&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Vector3&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Calculate average of two vectors. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Vector3</td><td></td></tr>
+    <tr><td class="paramname">Vector3</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector3 </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a58c7c628e2bac24f9265f11c87bd6ff9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Vector3 copy </td>
+          <td>(</td>
+          <td class="paramtype">Vector3&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Copy a vector. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Vector3</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector3 </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae77dece9aa160ac04c862437a7234044"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Vector3 cross_product </td>
+          <td>(</td>
+          <td class="paramtype">Vector3&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Vector3&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -136,29 +241,63 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>luaopen_krigVector</b>
 </div><div class="memdoc">
 <p>Calculate cross product between two vectors. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td></td></tr>
-    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td></td></tr>
+    <tr><td class="paramname">Vector3</td><td></td></tr>
+    <tr><td class="paramname">Vector3</td><td></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structVector.html">Vector</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector3 </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a55e55ffce426ad872b5854dfb9f94b1e"></a>
+<a class="anchor" id="ae28918cf74f024a3616bea8a96d89f41"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float distance </td>
+          <td>(</td>
+          <td class="paramtype">Vector3&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Vector3&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Calculate distance between two vectors. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Vector3</td><td></td></tr>
+    <tr><td class="paramname">Vector3</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>float </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7d51c46b253c5e4e5842a90a377b84bf"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">float dot_product </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramtype">Vector3&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramtype">Vector3&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -170,29 +309,52 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>luaopen_krigVector</b>
 </div><div class="memdoc">
 <p>Calculate dot product between two vectors. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td></td></tr>
-    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td></td></tr>
+    <tr><td class="paramname">Vector3</td><td></td></tr>
+    <tr><td class="paramname">Vector3</td><td></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>float - dot product. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>float </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a8c081d3fbac4eb119907a66e7e53b68c"></a>
+<a class="anchor" id="ac673b6629ac6064fc3f62144272d5167"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float get_scalar </td>
+          <td class="memname">Vector3 normalize </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramtype">Vector3&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Normalize the vector. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Vector3</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector3 </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae1c794dce95f2877c280a18ea4db6967"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float scalar </td>
+          <td>(</td>
+          <td class="paramtype">Vector3&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramtype">Vector3&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -204,8 +366,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>luaopen_krigVector</b>
 </div><div class="memdoc">
 <p>Calculate scalar value between two vectors. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td></td></tr>
-    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td></td></tr>
+    <tr><td class="paramname">Vector3</td><td></td></tr>
+    <tr><td class="paramname">Vector3</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -213,33 +375,101 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>luaopen_krigVector</b>
 
 </div>
 </div>
-<a class="anchor" id="adbfb6d9aa1866444468f407cd66b1f36"></a>
+<a class="anchor" id="a364328fb4379a5d2931ebd0e67d68490"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structVector.html">Vector</a> normalize </td>
+          <td class="memname">Vector3 scale </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structVector.html">Vector</a>&#160;</td>
+          <td class="paramtype">Vector3&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Scale a vector. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Vector3</td><td></td></tr>
+    <tr><td class="paramname">float</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector3 </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4a4871ee98424c65d040457c62a13362"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Vector3 subtract </td>
+          <td>(</td>
+          <td class="paramtype">Vector3&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Vector3&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Subtract two vectors. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Vector3</td><td></td></tr>
+    <tr><td class="paramname">Vector3</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector3 </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a91cec7959d3bc859a8a8b8c04fd57ed5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float sum </td>
+          <td>(</td>
+          <td class="paramtype">Vector3&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Normalize vector. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Add vector components. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname"><a class="el" href="structVector.html">Vector</a></td><td></td></tr>
+    <tr><td class="paramname">Vector3</td><td></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structVector.html">Vector</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>float </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Sep 10 2015 23:49:51 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 26 2015 04:45:15 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

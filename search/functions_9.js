@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['pause',['pause',['../api__level_8cpp.html#a7167f5c196fc5e167bfabde1a730e81d',1,'api_level.cpp']]],
-  ['pause_5fmusic',['pause_music',['../api__level_8cpp.html#a49ffe3e49efa56df4042a4494a0ab5aa',1,'api_level.cpp']]],
-  ['play_5fmusic',['play_music',['../api__level_8cpp.html#af7e9512cfcb758053093ab7c8952960a',1,'api_level.cpp']]],
-  ['play_5fsound',['play_sound',['../api__engine_8cpp.html#afddcb004e24b3f4e5209237bd7c0f48a',1,'api_engine.cpp']]]
+  ['remove_5fobject',['remove_object',['../api__level_8cpp.html#a3e4f5488c971cb6f4fd99e4e8a06bd51',1,'api_level.cpp']]],
+  ['render_5ftext',['render_text',['../api__engine_8cpp.html#acf8d3fe0ba7f6913a187b1b2061064a2',1,'api_engine.cpp']]]
 ];

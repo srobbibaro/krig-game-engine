@@ -69,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -102,6 +102,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad0c8b44f8e0af9efbe90ae76c61a7fc0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad0c8b44f8e0af9efbe90ae76c61a7fc0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>printTypeName</b> (void)</td></tr>
 <tr class="separator:ad0c8b44f8e0af9efbe90ae76c61a7fc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac23650dedd686dea812b01bad03de5e2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac23650dedd686dea812b01bad03de5e2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>buildLuaObjectTable</b> (lua_State *L)</td></tr>
+<tr class="separator:ac23650dedd686dea812b01bad03de5e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e08ebbdea098eecb22ccd81e41a17da"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1e08ebbdea098eecb22ccd81e41a17da"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>transferLuaObjectTable</b> (lua_State *L)</td></tr>
+<tr class="separator:a1e08ebbdea098eecb22ccd81e41a17da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24085a4d7e821dbbdfd255e073cef16e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a24085a4d7e821dbbdfd255e073cef16e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>draw</b> (Object *)</td></tr>
 <tr class="separator:a24085a4d7e821dbbdfd255e073cef16e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -146,7 +152,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>fadeRate</b></td></t
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Sep 10 2015 23:49:51 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 26 2015 04:45:15 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

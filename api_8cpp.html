@@ -68,7 +68,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -101,9 +101,21 @@ Functions</h2></td></tr>
 <tr class="memitem:a60eb09e95ac26533ea55a896ac908223"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a60eb09e95ac26533ea55a896ac908223"></a>
 <a class="el" href="structVector.html">Vector</a>&#160;</td><td class="memItemRight" valign="bottom"><b>loadVector</b> (lua_State *L, int &amp;index)</td></tr>
 <tr class="separator:a60eb09e95ac26533ea55a896ac908223"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acbeb296afe43789ba0345c91d93dd300"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acbeb296afe43789ba0345c91d93dd300"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>returnVector</b> (lua_State *L, <a class="el" href="structVector.html">Vector</a> &amp;t)</td></tr>
-<tr class="separator:acbeb296afe43789ba0345c91d93dd300"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a490bbe8cda657d957fc8b417b9065c36"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a490bbe8cda657d957fc8b417b9065c36"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>returnVector</b> (lua_State *L, const <a class="el" href="structVector.html">Vector</a> &amp;t)</td></tr>
+<tr class="separator:a490bbe8cda657d957fc8b417b9065c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b6edbfd8701181ed9d454a6d70cbed5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2b6edbfd8701181ed9d454a6d70cbed5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>loadArray</b> (lua_State *L, float array[], int len, int index)</td></tr>
+<tr class="separator:a2b6edbfd8701181ed9d454a6d70cbed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acafcf029d8e4c53aeb9ef09fcfa4118d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acafcf029d8e4c53aeb9ef09fcfa4118d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>returnArray</b> (lua_State *L, float array[], int len)</td></tr>
+<tr class="separator:acafcf029d8e4c53aeb9ef09fcfa4118d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf68d28f214468e58689c43fe9e0df26"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaf68d28f214468e58689c43fe9e0df26"></a>
+<a class="el" href="classQuaternion.html">Quaternion</a>&#160;</td><td class="memItemRight" valign="bottom"><b>loadQuaternion</b> (lua_State *L, const int &amp;index)</td></tr>
+<tr class="separator:aaf68d28f214468e58689c43fe9e0df26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d9d49c327299fa95890e51173e0578a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6d9d49c327299fa95890e51173e0578a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>returnQuaternion</b> (lua_State *L, const <a class="el" href="classQuaternion.html">Quaternion</a> &amp;t)</td></tr>
+<tr class="separator:a6d9d49c327299fa95890e51173e0578a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a8192ec7c6602ccaa6185dcfd95e847"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1a8192ec7c6602ccaa6185dcfd95e847"></a>
 Object *&#160;</td><td class="memItemRight" valign="bottom"><b>loadObject</b> (lua_State *L, const int &amp;index)</td></tr>
 <tr class="separator:a1a8192ec7c6602ccaa6185dcfd95e847"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,7 +132,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>luaopen_krigApi</b> (
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Sep 10 2015 23:49:51 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 26 2015 04:45:15 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>
