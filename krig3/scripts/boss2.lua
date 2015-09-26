@@ -1,5 +1,4 @@
 local enemy       = require 'scripts/enemy'
-local enemy_ship  = require 'scripts/enemy_ship'
 local game_object = require 'scripts/game_object'
 
 -- Configuration

@@ -1,5 +1,4 @@
-local enemy      = require 'scripts/enemy'
-local enemy_ship = require 'scripts/enemy_ship'
+local enemy = require 'scripts/enemy'
 
 -- Configuration
 x_min = 0.0
