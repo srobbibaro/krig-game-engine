@@ -2,7 +2,7 @@ local level_lib = require './levels/level_lib'
 
 -- Configuration
 X_START_CAMERA = 0.0
-X_START_PLAYER = X_START_CAMERA - 20.0
+X_START_PLAYER = X_START_CAMERA - 15.0
 
 boss_battle     = 0
 boss            = nil
