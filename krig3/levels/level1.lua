@@ -39,9 +39,9 @@ function on_load(terrain)
   }
 
   for i = 1, #enemy_ship_positions do
-    local obj = krig.level.add_object("./scripts/enemy_ship1.lua")
-    obj.position = krig.vector.copy(enemy_ship_positions[i])
-    obj:save()
+    krig.level.add_object("./scripts/enemy_ship1.lua", {
+      position = enemy_ship_positions[i]
+    })
   end
 
   --  setup the asteroids --
@@ -55,24 +55,20 @@ function on_load(terrain)
   level_lib.setAsteroidWave(730.0, 810.0)
 
   -- last wave - crashing ships --
-  enemy_ship_positions = {
-    {882, 15, 37.5}, {880, 10, 37.5}, {890, 12, 37.5}
-  }
+  enemy_ship_positions = { {882, 15, 37.5}, {880, 10, 37.5}, {890, 12, 37.5} }
 
   for i = 1, #enemy_ship_positions do
-    obj = krig.level.add_object("./scripts/enemy_ship4.lua")
-    obj.position = krig.vector.copy(enemy_ship_positions[i])
-    obj:save()
+    krig.level.add_object("./scripts/enemy_ship4.lua", {
+      position = enemy_ship_positions[i]
+    })
   end
 
-  enemy_ship_positions = {
-    {900, 15, 37.5}, {905, 10, 37.5}, {910, 12, 37.5}
-  }
+  enemy_ship_positions = { {900, 15, 37.5}, {905, 10, 37.5}, {910, 12, 37.5} }
 
   for i = 1, #enemy_ship_positions do
-    obj = krig.level.add_object("./scripts/enemy_ship6.lua")
-    obj.position = krig.vector.copy(enemy_ship_positions[i])
-    obj:save()
+    krig.level.add_object("./scripts/enemy_ship6.lua", {
+      position = enemy_ship_positions[i]
+    })
   end
 
   -- scenery --
@@ -87,44 +83,44 @@ function on_load(terrain)
   }
 
   for i = 1, #building_setup do
-    obj = krig.level.add_object("./scripts/building.lua")
-    obj.position = krig.vector.copy(building_setup[i].position)
-    obj.scale    = krig.vector.copy(building_setup[i].scale)
-    obj:save()
+    krig.level.add_object("./scripts/building.lua", {
+      position = building_setup[i].position,
+      scale    = building_setup[i].scale
+    })
   end
 
   -- place pine trees
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 145.0, z_pos = -25.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 150.0, z_pos = -25.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 185.0, z_pos = -20.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 190.0, z_pos = -15.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 210.0, z_pos = -15.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 213.0, z_pos = -12.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 216.0, z_pos = -13.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 255.0, z_pos = -15.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 265.0, z_pos = -20.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 280.0, z_pos = -20.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 285.0, z_pos = -15.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 300.0, z_pos = -15.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 310.0, z_pos = -25.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 313.0, z_pos = -28.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 315.0, z_pos = -24.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 355.0, z_pos = -10.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 365.0, z_pos = -15.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 370.0, z_pos = -20.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 370.0, z_pos = -65.0, scale_factor = 4.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 375.0, z_pos = -60.0, scale_factor = 4.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 380.0, z_pos = -55.0, scale_factor = 4.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 705.0, z_pos = -45.0, scale_factor = 4.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 708.0, z_pos = -42.0, scale_factor = 4.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 715.0, z_pos = -45.0, scale_factor = 4.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 725.0, z_pos = -40.0, scale_factor = 4.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 735.0, z_pos = -45.0, scale_factor = 4.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 740.0, z_pos = -42.0, scale_factor = 4.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 980.0, z_pos = -75.0, scale_factor = 4.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 985.0, z_pos = -70.0, scale_factor = 4.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 990.0, z_pos = -80.0, scale_factor = 4.0})
-  obj = krig.level.add_object("./scripts/pinetree.lua", {x_pos = 995.0, z_pos = -75.0, scale_factor = 4.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 145.0, z_pos = -25.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 150.0, z_pos = -25.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 185.0, z_pos = -20.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 190.0, z_pos = -15.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 210.0, z_pos = -15.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 213.0, z_pos = -12.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 216.0, z_pos = -13.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 255.0, z_pos = -15.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 265.0, z_pos = -20.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 280.0, z_pos = -20.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 285.0, z_pos = -15.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 300.0, z_pos = -15.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 310.0, z_pos = -25.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 313.0, z_pos = -28.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 315.0, z_pos = -24.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 355.0, z_pos = -10.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 365.0, z_pos = -15.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 370.0, z_pos = -20.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 370.0, z_pos = -65.0, scale_factor = 4.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 375.0, z_pos = -60.0, scale_factor = 4.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 380.0, z_pos = -55.0, scale_factor = 4.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 705.0, z_pos = -45.0, scale_factor = 4.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 708.0, z_pos = -42.0, scale_factor = 4.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 715.0, z_pos = -45.0, scale_factor = 4.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 725.0, z_pos = -40.0, scale_factor = 4.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 735.0, z_pos = -45.0, scale_factor = 4.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 740.0, z_pos = -42.0, scale_factor = 4.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 980.0, z_pos = -75.0, scale_factor = 4.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 985.0, z_pos = -70.0, scale_factor = 4.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 990.0, z_pos = -80.0, scale_factor = 4.0})
+  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 995.0, z_pos = -75.0, scale_factor = 4.0})
 
   krig.level.play_music("./music/level1.ogg", 1)
 end
