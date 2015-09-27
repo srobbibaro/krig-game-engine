@@ -1,4 +1,5 @@
-local enemy = require 'scripts/enemy'
+local game_object = require 'scripts/game_object'
+local enemy       = require 'scripts/enemy'
 
 -- Configuration
 x_min = 0.0
@@ -13,7 +14,9 @@ life        = enemy.life
 
 -- Overridden Engine Callbacks
 function on_load(this, options)
-  this.set_model(this, "snowboss.mdl")
+  game_object.on_load(this, options)
+
+  this:set_model("snowboss.mdl")
   this.rotation = krig.rotation.from_euler({0.0, 1.57, 0.0})
   this.scale    = {4.0, 4.0, 4.0}
   this.type_id  = 1

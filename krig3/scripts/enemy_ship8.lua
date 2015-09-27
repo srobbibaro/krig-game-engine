@@ -48,7 +48,7 @@ function on_update(this, elapsedTime)
   if player.position[2] < (this.position[2] + .5) and
      player.position[2] > (this.position[2] - .5) and
      this.in_view then
-    attemptShot(this, krig.object.get_bounding_sphere_radius(this))
+    shooting_object.attemptShot(this, this.bounding_sphere_radius)
   end
 end
 

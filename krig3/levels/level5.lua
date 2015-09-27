@@ -1,6 +1,7 @@
 local level_lib = require './levels/level_lib'
 
 -- Configuration
+X_START_BOSS   = 800
 X_START_CAMERA = 0.0
 X_START_PLAYER = X_START_CAMERA - 15.0
 
@@ -149,27 +150,30 @@ function on_load(terrain)
 end
 
 function on_update(terrain, elapsedTime)
-  camera = krig.get_camera():load()
-
   if boss_battle == 0 then
-    if camera.position[1] >= 800 then
+    camera = krig.get_camera():load()
+
+    if camera.position[1] >= X_START_BOSS then
+      boss_battle = 1
+
+      -- Set the camera's velocity
       camera.velocity = {0.0, 0.0, 0.0}
       camera:save()
 
-      boss_battle = 1
-      boss = krig.level.add_object("./scripts/boss5.lua")
-      boss.position = {camera.position[1] - 20.0, camera.position[2], 0.0}
-      boss:save()
+      -- Create the boss
+      boss = krig.level.add_object("./scripts/boss5.lua", {
+        position = {camera.position[1] - 20.0, camera.position[2], 0.0}
+      })
     end
   elseif boss_battle == 1 then
     next_asteroid   = next_asteroid - elapsedTime
     next_background = next_background - elapsedTime
 
     if next_asteroid <= 0.0 then
-      obj = krig.level.add_object("./scripts/asteroid3.lua")
-      obj.rotation = krig.rotation.from_euler({math.random(3), math.random(3), math.random(3)})
-      obj.velocity = {-28.0, 0.0, 0.0}
-      obj:save()
+      krig.level.add_object("./scripts/asteroid3.lua", {
+        rotation = krig.rotation.from_euler({math.random(3), math.random(3), math.random(3)}),
+        velocity = {-28.0, 0.0, 0.0}
+      })
       next_asteroid = 0.1
     end
 
