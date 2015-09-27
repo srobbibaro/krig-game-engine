@@ -31,17 +31,17 @@ function calc_speed()
 end
 
 -- Overridden Engine Callbacks
-function on_load(this)
+function on_load(this, options)
+  math.randomseed(os.time())
+  set_window()
+
   game_object.on_load(this, options)
 
   this:set_model("snowboss.mdl")
   this.rotation = krig.rotation.from_euler({0.0, -1.57, 0.0})
   this.scale    = {4.0, 4.0, 4.0}
 
-  math.randomseed(os.time())
-  set_window()
-  speed = calc_speed()
-  this.velocity = {-speed, 0.0, 0.0}
+  this.velocity = {-calc_speed(), 0.0, 0.0}
   this.type_id  = 1
   this:save()
 end
