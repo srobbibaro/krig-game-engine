@@ -17,7 +17,6 @@ The following configurations are known to work:
 * Mac OSX Yosemite
 
 Other distributions and configurations should work, but have not been verified.
-Code::Blocks is used to build the Krig executable.
 
 ### Setup
 
@@ -88,6 +87,12 @@ For example:
 
 ```bash
 $ brew install freeglut freealut libvorbis lua51
+```
+
+If freeglut cannot be installed, you may need to install it like so:
+
+```bash
+$ brew install homebrew/x11/freeglut
 ```
 
 Install GCC:
