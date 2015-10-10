@@ -21,7 +21,11 @@ debugEnabled = false
 -- Overridden Engine Callbacks
 function on_load()
   krig.level.load(levels[levelNum])
-  krig.level.set_id(levelNum)
+  -- level = krig.load_level(levels[levelNum])
+  krig.level.set_id(0)
+  -- level.id = levelNum
+  -- level:save()
+  -- krig:play_level(level)
 
   debugEnabled = krig.test_debug_enabled()
 end
@@ -36,7 +40,12 @@ function on_update(elapsedTime)
   -- handle global user control
   if krig.test_key_pressed(27) == 1 then
     krig.level.load(levels[1])
-    krig.level.set_id(levelNum)
+    -- prevLevel = level 
+    -- level = krig.load_level(levels[1])
+    -- level.id = levelNum
+    -- level:save()
+    -- krig.play_level(level)
+    krig.level.set_id(0)
     prevLevelNum = levelNum
     levelNum = 1
   end
@@ -63,15 +72,20 @@ function on_update(elapsedTime)
   end
 
   if krig.level.get_complete() == 1 then
+  -- if level.complete then
     levelId = krig.level.get_id()
+    -- levelId = level.id
 
-    if levelNum == 1 then
+    if levelId == 1 then
       levelNum = prevLevelNum
     else
       inc_level(1)
     end
 
     krig.level.load(levels[levelNum])
+    --  krig.unload_level(level)
+    --  level = krig.load(level(levels[levelNum])
+    --  krig.play_level(level)
   end
 end
 

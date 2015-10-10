@@ -9,6 +9,8 @@ extern "C" {
 
 using namespace std;
 
+#define MAX_GAME_LEVELS 4
+
 #ifndef _ENGINE_H_
 #define _ENGINE_H_
 
@@ -33,8 +35,9 @@ class Engine {
     float getMouseX() { return mouseX_; }
     float getMouseY() { return mouseY_; }
 
-    void loadLevel(const char*);
+    void loadLevel(const char*, int);
     void loadLevelFromBuffer(const char*);
+    void playLevel(int);
 
     bool loadGame(string);
     bool loadIntroCredits();
@@ -61,10 +64,8 @@ class Engine {
       return currentLevel_;
     }
 
-    void swapLevel() {
-      GameLevel *temp = currentLevel_;
-      currentLevel_ = storedLevel_;
-      storedLevel_ = temp;
+    GameLevel* getGameLevelFromId(int id) {
+      return (id >= 0 && id < MAX_GAME_LEVELS ? idToGameLevelMap_[id] : NULL);
     }
 
 #if EDIT
@@ -78,7 +79,7 @@ class Engine {
 #endif
 
   private:
-    GameLevel *currentLevel_, *storedLevel_;
+    GameLevel *currentLevel_;
     Camera *mainCamera_, *c1_, *c2_, *c3_, *c4_;
     KeyState keyState_, specialKeyState_;
     SoundFX soundFx_;
@@ -97,7 +98,9 @@ class Engine {
     GLuint shaderTexture_[1];
     unsigned int lists_; // lists used for rendering
 
-    void prepLevelLoad();
+    void prepLevelLoad(int);
+
+    GameLevel* idToGameLevelMap_[MAX_GAME_LEVELS];
 
 #if EDIT
     // Mouse control values

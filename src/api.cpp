@@ -152,6 +152,10 @@ void returnQuaternion(lua_State *L, const Quaternion &t) {
 }
 
 Object* loadObject(lua_State *L, const int &index) {
+  return loadObject(L, g_KRIG_ENGINE->getCurrentLevel(), index);
+}
+
+Object* loadObject(lua_State *L, GameLevel *gameLevel, const int &index) {
   int id = -1;
   if (lua_istable(L, index)) {
     lua_pushstring(L, "id");
@@ -159,7 +163,18 @@ Object* loadObject(lua_State *L, const int &index) {
     id = lua_tonumber(L, -1);
     lua_pop(L, 1);
   }
-  return g_KRIG_ENGINE->getCurrentLevel()->getObjectFromId(id);
+  return gameLevel->getObjectFromId(id);
+}
+
+GameLevel* loadGameLevel(lua_State *L, const int &index) {
+  int id = -1;
+  if (lua_istable(L, index)) {
+    lua_pushstring(L, "id");
+    lua_gettable(L, index);
+    id = lua_tonumber(L, -1);
+    lua_pop(L, 1);
+  }
+  return g_KRIG_ENGINE->getGameLevelFromId(id);
 }
 
 void returnObject(lua_State *L, Object* object) {
@@ -171,6 +186,17 @@ void returnObject(lua_State *L, Object* object) {
     lua_pushnumber(L, -1);
   lua_rawset(L, -3);
   luaL_setfuncs(L, krigObjectLib, 0);
+}
+
+void returnGameLevel(lua_State *L, GameLevel* gameLevel) {
+  lua_newtable(L);
+
+  lua_pushstring(L, "id");
+  gameLevel != NULL ?
+    lua_pushnumber(L, gameLevel->getId()) :
+    lua_pushnumber(L, -1);
+  lua_rawset(L, -3);
+  luaL_setfuncs(L, krigLevelLib, 0);
 }
 
 void luaopen_krigApi(lua_State *L) {

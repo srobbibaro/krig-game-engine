@@ -109,17 +109,17 @@ function update_level(timeElapsed, bossLife)
   end
 end
 
-local function buildCircleGroup(num, x, y, z)
+local function buildCircleGroup(level, num, x, y, z)
   for i = 0, num, 1 do
-    local obj = krig.level.add_object("./scripts/enemy_ship10.lua")
+    local obj = level:add_object("./scripts/enemy_ship10.lua")
     obj.position = {x + (i * 5.0), y, z}
     obj:save()
   end
 end
 
-local function buildVGroup(x, y, z)
+local function buildVGroup(level, x, y, z)
   -- Leader
-  local obj = krig.level.add_object("./scripts/enemy_ship1.lua")
+  local obj = level:add_object("./scripts/enemy_ship1.lua")
   obj.position = {x, y, z}
   obj:save()
 
@@ -128,11 +128,11 @@ local function buildVGroup(x, y, z)
   y1 = y + 2
   y2 = y - 2
 
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
+  obj = level:add_object("./scripts/enemy_ship1.lua")
   obj.position = {x, y1, z}
   obj:save()
 
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
+  obj = level:add_object("./scripts/enemy_ship1.lua")
   obj.position = {x, y2, z}
   obj:save()
 
@@ -141,92 +141,92 @@ local function buildVGroup(x, y, z)
   y1 = y1 + 2
   y2 = y2 - 2
 
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
+  obj = level:add_object("./scripts/enemy_ship1.lua")
   obj.position = {x, y1, z}
   obj:save()
 
-  obj = krig.level.add_object("./scripts/enemy_ship1.lua")
+  obj = level:add_object("./scripts/enemy_ship1.lua")
   obj.position = {x, y2, z}
   obj:save()
 end
 
-local function setup_volcano(xpos, zpos)
-  krig.level.add_object("./scripts/volcano.lua", {
+local function setup_volcano(level, xpos, zpos)
+  level:add_object("./scripts/volcano.lua", {
     position = {xpos, 20.0, zpos}
   })
 
   for i = -15.0, 25.0, 10 do
-    obj = krig.level.add_object("./scripts/lavarock1.lua", {
+    obj = level:add_object("./scripts/lavarock1.lua", {
       position    = {xpos, i, zpos},
       final_x_vel = 5.0
     })
   end
 
   for i = -20.0, 20.0, 10 do
-    krig.level.add_object("./scripts/lavarock1.lua", {
+    level:add_object("./scripts/lavarock1.lua", {
       position    = {xpos, i, zpos},
       final_x_vel = -5.0
     })
   end
 end
 
-local function setAsteroidWave(x_start, x_end)
+local function setAsteroidWave(level, x_start, x_end)
   for i = x_start, x_end, 15 do
-    local obj = krig.level.add_object("./scripts/asteroid1.lua")
+    local obj = level:add_object("./scripts/asteroid1.lua")
     obj.position = {i, 30.0, 7.5}
     obj:save()
 
-    obj = krig.level.add_object("./scripts/asteroid1.lua")
+    obj = level:add_object("./scripts/asteroid1.lua")
     obj.position = {(i + 5.0), 30.0, 7.5}
     obj:save()
 
-    obj = krig.level.add_object("./scripts/asteroid1.lua")
+    obj = level:add_object("./scripts/asteroid1.lua")
     obj.position = {(i + 10.0), 30.0, 7.5}
     obj:save()
   end
 end
 
-local function setSweepingFromAboveEnemyShips(x_start, x_end, x_step, y, z)
+local function setSweepingFromAboveEnemyShips(level, x_start, x_end, x_step, y, z)
   for i = x_start, x_end, x_step do
-    local obj = krig.level.add_object("./scripts/enemy_ship2.lua")
+    local obj = level:add_object("./scripts/enemy_ship2.lua")
     obj.position = {i, y, z}
     obj:save()
   end
 end
 
-local function setSweepingFromBelowEnemyShips(x_start, x_end, x_step, y, z)
+local function setSweepingFromBelowEnemyShips(level, x_start, x_end, x_step, y, z)
   for i = x_start, x_end, x_step do
-    local obj = krig.level.add_object("./scripts/enemy_ship3.lua")
+    local obj = level:add_object("./scripts/enemy_ship3.lua")
     obj.position = {i, y, z}
     obj:save()
   end
 end
 
-local function buildDockedGroup(x_start, x_end, x_step, y, z)
+local function buildDockedGroup(level, x_start, x_end, x_step, y, z)
   for i = x_start, x_end, x_step do
-    local obj = krig.level.add_object("./scripts/enemy_ship11.lua")
+    local obj = level:add_object("./scripts/enemy_ship11.lua")
     obj.position = {i, y, z}
     obj.rotation = {0.2, 0.0, 0.0}
     obj:save()
 
-    obj = krig.level.add_object("./scripts/enemy_ship11.lua")
+    obj = level:add_object("./scripts/enemy_ship11.lua")
     obj.position = {i + 5.0, y, z}
     obj.rotation = {0.2, 0.0, 0.0}
     obj:save()
   end
 end
 
-local function buildFlyingCircleUpGroup(num, space, x_start, y, z)
+local function buildFlyingCircleUpGroup(level, num, space, x_start, y, z)
   for i = 0, num, 1 do
-    obj = krig.level.add_object("./scripts/enemy_ship12.lua")
+    obj = level:add_object("./scripts/enemy_ship12.lua")
     obj.position = {x_start + (i * space), y, z}
     obj:save()
   end
 end
 
-local function buildFlyingCircleDownGroup(num, space, x_start, y, z)
+local function buildFlyingCircleDownGroup(level, num, space, x_start, y, z)
   for i = 0, num, 1 do
-    local obj = krig.level.add_object("./scripts/enemy_ship13.lua")
+    local obj = level:add_object("./scripts/enemy_ship13.lua")
     obj.position = {x_start + (i * space), y, z}
     obj:save()
   end

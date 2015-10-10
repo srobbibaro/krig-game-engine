@@ -5,11 +5,11 @@ local alphaChange = 0.01
 local updown      = 0
 
 -- Overridden Engine Callbacks
-function on_load()
+function on_load(this)
   krig.level.play_music("./music/menu.ogg", 0)
 end
 
-function on_update(this)
+function on_update(this, elapsed_time)
   if krig.test_special_key_pressed(101) == 1 then
     updown = updown + 1
     krig.play_sound(this, "menu.wav")
@@ -34,7 +34,7 @@ function on_update(this)
   end
 end
 
-function on_draw_screen(elapsedTime)
+function on_draw_screen(this, elapsedTime)
   gl.Translate (0.0, 0.0, -2.0)
 
   gl.PushMatrix()

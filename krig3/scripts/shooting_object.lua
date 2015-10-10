@@ -10,7 +10,7 @@ end
 
 local function attemptShot(this, dir_offset, up_offset)
   if shooting_object.next_shot_time <= 0.0 then
-    shot = krig.level.add_object(shooting_object.script)
+    shot = krig.get_active_level():add_object(shooting_object.script)
     setShot(this, shot, dir_offset, up_offset)
     shooting_object.next_shot_time = shooting_object.initial_next_shot_time
   end
@@ -21,7 +21,7 @@ local function attemptShots(this, num_shots, dir_offset, up_offset)
 
   if shooting_object.next_shot_time <= 0.0 then
     for i = 1, num_shots do
-      shot = krig.level.add_object(shooting_object.script)
+      shot = krig.get_active_level():add_object(shooting_object.script)
       setShot(this, shot, dir_offset[i], up_offset[i])
     end
     shooting_object.next_shot_time = shooting_object.initial_next_shot_time

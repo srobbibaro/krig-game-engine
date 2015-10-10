@@ -29,7 +29,7 @@ static int shutdown(lua_State *L) {
  */
 float get_fps();
 #endif
-static int get_fps(lua_State *L) { 
+static int get_fps(lua_State *L) {
   lua_pushnumber(L, g_KRIG_ENGINE->getFps());
   return 1;
 }
@@ -227,6 +227,20 @@ static int get_player(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
+ * Set variable value in specified game object's script.
+ * @param GameObjectReference
+ * @param float value.
+ * @return string - variable name.
+ */
+void get_active_level();
+#endif
+static int get_active_level(lua_State *L) {
+  returnGameLevel(L, g_KRIG_ENGINE->getCurrentLevel());
+  return 1;
+}
+
+#if DOXYGEN_ONLY
+/**
  * Fetch variable value from specified game object's script.
  * @param GameObjectReference
  * @return string - variable name.
@@ -267,6 +281,7 @@ static const luaL_reg krigEngineLib[] = {
   {"get_fps", get_fps},
   {"get_mouse_coordinates", get_mouse_coordinates},
   {"get_player", get_player},
+  {"get_active_level", get_active_level},
   {"get_script_value", get_script_value},
   {"play_sound", play_sound},
   {"render_text", render_text},

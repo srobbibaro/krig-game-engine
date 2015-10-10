@@ -9,7 +9,7 @@ boss     = nil
 bossLife = 0
 
 -- Overridden Engine Callbacks
-function on_load(terrain)
+function on_load(this)
   krig.level.set_sky_box(
     0.0, 0.0, 0.3,
     0.4, 0.4, 1.0,
@@ -18,14 +18,14 @@ function on_load(terrain)
 
   krig.level.set_light_direction(0.7723, 0.1792, 0.6094)
 
-  krig.level.set_terrain(terrain, "./terrains/level1.txt")
+  this:set_terrain("./terrains/level1.txt")
 
-  player = krig.get_player()
+  player = this:get_player()
   player:set_script("./scripts/player1.lua")
   player.position = {X_START_PLAYER, 20.0, 7.5}
   player:save()
 
-  camera = krig.get_camera()
+  camera = this:get_camera()
   camera:set_script("./scripts/camera1.lua")
   camera.position = {X_START_CAMERA, 15.0, 35.0}
   camera:save()
@@ -39,26 +39,26 @@ function on_load(terrain)
   }
 
   for i = 1, #enemy_ship_positions do
-    krig.level.add_object("./scripts/enemy_ship1.lua", {
+    this:add_object("./scripts/enemy_ship1.lua", {
       position = enemy_ship_positions[i]
     })
   end
 
   --  setup the asteroids --
-  level_lib.setAsteroidWave(410.0, 560.0)
+  level_lib.setAsteroidWave(this, 410.0, 560.0)
 
   --  sweeping enemy ships
-  level_lib.setSweepingFromAboveEnemyShips(610, 635, 5, 22.0, 7.5)
-  level_lib.setSweepingFromBelowEnemyShips(675, 700, 5, 8.0, 7.5)
+  level_lib.setSweepingFromAboveEnemyShips(this, 610, 635, 5, 22.0, 7.5)
+  level_lib.setSweepingFromBelowEnemyShips(this, 675, 700, 5, 8.0, 7.5)
 
   -- 2nd wave of asteroids --
-  level_lib.setAsteroidWave(730.0, 810.0)
+  level_lib.setAsteroidWave(this, 730.0, 810.0)
 
   -- last wave - crashing ships --
   enemy_ship_positions = { {882, 15, 37.5}, {880, 10, 37.5}, {890, 12, 37.5} }
 
   for i = 1, #enemy_ship_positions do
-    krig.level.add_object("./scripts/enemy_ship4.lua", {
+    this:add_object("./scripts/enemy_ship4.lua", {
       position = enemy_ship_positions[i]
     })
   end
@@ -66,7 +66,7 @@ function on_load(terrain)
   enemy_ship_positions = { {900, 15, 37.5}, {905, 10, 37.5}, {910, 12, 37.5} }
 
   for i = 1, #enemy_ship_positions do
-    krig.level.add_object("./scripts/enemy_ship6.lua", {
+    this:add_object("./scripts/enemy_ship6.lua", {
       position = enemy_ship_positions[i]
     })
   end
@@ -83,49 +83,49 @@ function on_load(terrain)
   }
 
   for i = 1, #building_setup do
-    krig.level.add_object("./scripts/building.lua", {
+    this:add_object("./scripts/building.lua", {
       position = building_setup[i].position,
       scale    = building_setup[i].scale
     })
   end
 
   -- place pine trees
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 145.0, z_pos = -25.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 150.0, z_pos = -25.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 185.0, z_pos = -20.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 190.0, z_pos = -15.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 210.0, z_pos = -15.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 213.0, z_pos = -12.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 216.0, z_pos = -13.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 255.0, z_pos = -15.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 265.0, z_pos = -20.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 280.0, z_pos = -20.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 285.0, z_pos = -15.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 300.0, z_pos = -15.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 310.0, z_pos = -25.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 313.0, z_pos = -28.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 315.0, z_pos = -24.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 355.0, z_pos = -10.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 365.0, z_pos = -15.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 370.0, z_pos = -20.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 370.0, z_pos = -65.0, scale_factor = 4.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 375.0, z_pos = -60.0, scale_factor = 4.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 380.0, z_pos = -55.0, scale_factor = 4.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 705.0, z_pos = -45.0, scale_factor = 4.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 708.0, z_pos = -42.0, scale_factor = 4.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 715.0, z_pos = -45.0, scale_factor = 4.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 725.0, z_pos = -40.0, scale_factor = 4.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 735.0, z_pos = -45.0, scale_factor = 4.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 740.0, z_pos = -42.0, scale_factor = 4.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 980.0, z_pos = -75.0, scale_factor = 4.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 985.0, z_pos = -70.0, scale_factor = 4.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 990.0, z_pos = -80.0, scale_factor = 4.0})
-  krig.level.add_object("./scripts/pinetree.lua", {x_pos = 995.0, z_pos = -75.0, scale_factor = 4.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 145.0, z_pos = -25.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 150.0, z_pos = -25.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 185.0, z_pos = -20.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 190.0, z_pos = -15.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 210.0, z_pos = -15.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 213.0, z_pos = -12.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 216.0, z_pos = -13.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 255.0, z_pos = -15.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 265.0, z_pos = -20.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 280.0, z_pos = -20.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 285.0, z_pos = -15.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 300.0, z_pos = -15.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 310.0, z_pos = -25.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 313.0, z_pos = -28.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 315.0, z_pos = -24.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 355.0, z_pos = -10.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 365.0, z_pos = -15.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 370.0, z_pos = -20.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 370.0, z_pos = -65.0, scale_factor = 4.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 375.0, z_pos = -60.0, scale_factor = 4.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 380.0, z_pos = -55.0, scale_factor = 4.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 705.0, z_pos = -45.0, scale_factor = 4.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 708.0, z_pos = -42.0, scale_factor = 4.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 715.0, z_pos = -45.0, scale_factor = 4.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 725.0, z_pos = -40.0, scale_factor = 4.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 735.0, z_pos = -45.0, scale_factor = 4.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 740.0, z_pos = -42.0, scale_factor = 4.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 980.0, z_pos = -75.0, scale_factor = 4.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 985.0, z_pos = -70.0, scale_factor = 4.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 990.0, z_pos = -80.0, scale_factor = 4.0})
+  this:add_object("./scripts/pinetree.lua", {x_pos = 995.0, z_pos = -75.0, scale_factor = 4.0})
 
   krig.level.play_music("./music/level1.ogg", 1)
 end
 
-function on_update(terrain, elapsedTime)
+function on_update(this, elapsedTime)
   if bossBattle == 0  then
     camera = krig.get_camera():load()
 
@@ -142,7 +142,7 @@ function on_update(terrain, elapsedTime)
       player:save()
 
       -- Create the boss...
-      boss = krig.level.add_object("./scripts/boss1.lua")
+      boss = this:add_object("./scripts/boss1.lua")
       boss.position = {X_START_BOSS, 15.0, 7.5}
       boss:save()
     end

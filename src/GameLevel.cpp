@@ -79,8 +79,8 @@ void GameLevel::drawLevel() {
   lua_getglobal(luaState_, SCRIPT_CALLBACK_ON_DRAW);
 
   if (lua_isfunction(luaState_, -1)) {
-    // Push a pointer to the current object for use within the lua function
-    returnObject(luaState_, terrain_);
+    // Push a pointer to the current level for use within the lua function
+    returnGameLevel(luaState_, this);
 
     // Push the time passed since the last iteration of the game loop
     lua_pushnumber(luaState_, elapsedTime_);
@@ -104,8 +104,8 @@ void GameLevel::postDraw() {
   lua_getglobal(luaState_, SCRIPT_CALLBACK_ON_DRAW_SCREEN);
 
   if (lua_isfunction(luaState_, -1)) {
-    // Push a pointer to the current object for use within the lua function
-    returnObject(luaState_, terrain_);
+    // Push a pointer to the current level for use within the lua function
+    returnGameLevel(luaState_, this);
 
     // Push the time passed since the last iteration of the game loop
     lua_pushnumber(luaState_, elapsedTime_);
@@ -129,8 +129,8 @@ void GameLevel::updateLevel() {
   lua_getglobal(luaState_, SCRIPT_CALLBACK_ON_UPDATE);
 
   if (lua_isfunction(luaState_, -1)) {
-    // Push a pointer to the current object for use within the lua function
-    returnObject(luaState_, terrain_);
+    // Push a pointer to the current level for use within the lua function
+    returnGameLevel(luaState_, this);
 
     // Push the time passed since the last iteration of the game loop
     lua_pushnumber(luaState_, elapsedTime_);
@@ -217,8 +217,8 @@ bool GameLevel::finishLevelLoad() {
   lua_getglobal(luaState_, SCRIPT_CALLBACK_ON_LOAD);
 
   if (lua_isfunction(luaState_, -1)) {
-    // Push a pointer to the current object for use within the lua function
-    returnObject(luaState_, terrain_);
+    // Push a pointer to the current level for use within the lua function
+    returnGameLevel(luaState_, this);
     lua_call(luaState_, 1, 0);
   }
   else {
@@ -432,8 +432,8 @@ void GameLevel::unloadLevel() {
     lua_getglobal(luaState_, SCRIPT_CALLBACK_ON_UNLOAD);
 
     if (lua_isfunction(luaState_, -1)) {
-      // Push a pointer to the current object for use within the lua function
-      returnObject(luaState_, terrain_);
+      // Push a pointer to the current level for use within the lua function
+      returnGameLevel(luaState_, this);
 
       lua_call(luaState_, 1, 0);
     }
@@ -664,4 +664,70 @@ Object* GameLevel::addObject(string script, lua_State* luaState, unsigned int ty
   temp->loadScript(script, luaState);
 
   return temp;
+}
+
+void GameLevel::buildLuaObjectTable(lua_State *L) {
+  lua_pushstring(L, "id");
+  lua_pushnumber(L, id_);
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "complete");
+  lua_pushboolean(L, isComplete_);
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "show_grid_enabled");
+  lua_pushboolean(L, grid_);
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "show_bounding_boxes_enabled");
+  lua_pushboolean(L, bboxes_);
+  lua_rawset(L, -3);
+
+  lua_pushstring(L, "show_control_triangles_enabled");
+  lua_pushboolean(L, controlTriangles_);
+  lua_rawset(L, -3);
+}
+
+void GameLevel::transferLuaObjectTable(lua_State *L) {
+  lua_pushstring(L, "id");
+  lua_gettable(L, 1);
+  if (lua_isnumber(L, -1)) {
+    setId((int)lua_tonumber(L, -1));
+  }
+  lua_pop(L, 1);
+
+  lua_pushstring(L, "complete");
+  lua_gettable(L, 1);
+  if (lua_isboolean(L, -1)) {
+    setComplete(lua_toboolean(L, -1));
+  }
+  lua_pop(L, 1);
+
+  lua_pushstring(L, "complete");
+  lua_gettable(L, 1);
+  if (lua_isboolean(L, -1)) {
+    setComplete(lua_toboolean(L, -1));
+  }
+  lua_pop(L, 1);
+
+  lua_pushstring(L, "show_grid_enabled");
+  lua_gettable(L, 1);
+  if (lua_isboolean(L, -1)) {
+    grid_ = lua_toboolean(L, -1);
+  }
+  lua_pop(L, 1);
+
+  lua_pushstring(L, "show_bounding_boxes_enabled");
+  lua_gettable(L, 1);
+  if (lua_isboolean(L, -1)) {
+    bboxes_ = lua_toboolean(L, -1);
+  }
+  lua_pop(L, 1);
+
+  lua_pushstring(L, "show_control_triangles_enabled");
+  lua_gettable(L, 1);
+  if (lua_isboolean(L, -1)) {
+    controlTriangles_ = lua_toboolean(L, -1);
+  }
+  lua_pop(L, 1);
 }

@@ -97,6 +97,9 @@ class GameLevel {
       return (id >= 0 && id < MAX_LEVEL_OBJECTS ? idToObjectMap_[id] : NULL);
     }
 
+    void buildLuaObjectTable(lua_State *L);
+    void transferLuaObjectTable(lua_State *L);
+
   private:
     unsigned int lists_;  // display lists used for rendering
 

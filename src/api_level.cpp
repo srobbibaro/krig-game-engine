@@ -17,7 +17,7 @@ void load(string);
 #endif
 static int load(lua_State *L) {
   const char *s = lua_tostring(L, 1);
-  g_KRIG_ENGINE->loadLevel(s);
+  g_KRIG_ENGINE->loadLevel(s, 0);
 
   return 0;
 }
@@ -72,18 +72,6 @@ int set_id(int);
 #endif
 static int set_id(lua_State *L) {
   g_KRIG_ENGINE->getCurrentLevel()->setId((int)lua_tonumber(L, 1));
-  return 0;
-}
-
-#if DOXYGEN_ONLY
-/**
- * TODO: Undefined
- * @return n/a
- */
-void swap();
-#endif
-static int swap(lua_State *L) {
-  g_KRIG_ENGINE->swapLevel();
   return 0;
 }
 
@@ -236,11 +224,13 @@ void set_terrain(TerrainObjectReference, string);
 #endif
 static int set_terrain(lua_State *L) {
   luaL_checktype(L, 1, LUA_TTABLE);
-  Terrain *terrain = static_cast<Terrain*>(loadObject(L, 1));
+  GameLevel *level = (loadGameLevel(L, 1));
+
+  Terrain *terrain = level->getTerrain();
 
   const char *s = lua_tostring(L, 2);
 
-  Vector *lightDirection = g_KRIG_ENGINE->getCurrentLevel()->getLightDirection();
+  Vector *lightDirection = level->getLightDirection();
   terrain->load(s, lightDirection);
   return 0;
 }
@@ -287,11 +277,14 @@ static int find_object_of_type(lua_State *L) {
 GameObjectReference add_object(string, options);
 #endif
 static int add_object(lua_State *L) {
-  const char *s = lua_tostring(L, 1);
+  luaL_checktype(L, 1, LUA_TTABLE);
+  GameLevel *level = (loadGameLevel(L, 1));
+
+  const char *s = lua_tostring(L, 2);
   string script = string(s);
 
   ScriptedObject *temp = static_cast<ScriptedObject*>(
-    g_KRIG_ENGINE->getCurrentLevel()->addObject(script, L, TYPE_GAME_OBJECT)
+    level->addObject(script, L, TYPE_GAME_OBJECT)
   );
 
   returnObject(L, temp);
@@ -308,7 +301,10 @@ void remove_object(GameObjectReference);
 #endif
 static int remove_object(lua_State *L) {
   luaL_checktype(L, 1, LUA_TTABLE);
-  Object *object = static_cast<Object*>(loadObject(L, 1));
+  GameLevel *level = (loadGameLevel(L, 1));
+
+  luaL_checktype(L, 2, LUA_TTABLE);
+  Object *object = static_cast<Object*>(loadObject(L, level, 2));
 
   object->setState(DEAD);
   return 0;
@@ -326,14 +322,17 @@ static int remove_object(lua_State *L) {
 TextObjectReference add_text(string, string, options);
 #endif
 static int add_text(lua_State *L) {
-  const char *s = lua_tostring(L, 1);
+  luaL_checktype(L, 1, LUA_TTABLE);
+  GameLevel *level = (loadGameLevel(L, 1));
+
+  const char *s = lua_tostring(L, 2);
   string script = string(s);
 
-  const char *t = lua_tostring(L, 2);
+  const char *t = lua_tostring(L, 3);
   string text   = string(t);
 
   ScriptTextType *temp = static_cast<ScriptTextType*>(
-    g_KRIG_ENGINE->getCurrentLevel()->addObject(script, L, TYPE_GAME_TEXT)
+    level->addObject(script, L, TYPE_GAME_TEXT)
   );
   if (temp != NULL) {
     temp->text = text;
@@ -343,7 +342,35 @@ static int add_text(lua_State *L) {
   return 1;
 }
 
-static const luaL_reg krigLevelLib[] = {
+#if DOXYGEN_ONLY
+/**
+ * Get a game object reference to the active camera object.
+ * @return GameObjectReference
+ */
+GameObjectReference get_camera();
+#endif
+static int get_camera(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TTABLE);
+  GameLevel *level = (loadGameLevel(L, 1));
+  returnObject(L, level->getCamera());
+  return 1;
+}
+
+#if DOXYGEN_ONLY
+/**
+ * Get a game object reference to the player object.
+ * @return GameObjectReference
+ */
+GameObjectReference get_player();
+#endif
+static int get_player(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TTABLE);
+  GameLevel *level = (loadGameLevel(L, 1));
+  returnObject(L, level->getPlayer());
+  return 1;
+}
+
+const luaL_reg krigLevelLib[] = {
   {"add_object", add_object},
   {"add_text", add_text},
   {"find_object_of_type", find_object_of_type},
@@ -363,7 +390,8 @@ static const luaL_reg krigLevelLib[] = {
   {"set_sky_box", set_sky_box},
   {"set_terrain", set_terrain},
   {"stop_music", stop_music},
-  {"swap", swap},
+  {"get_camera", get_camera},
+  {"get_player", get_player},
   {NULL, NULL}
 };
 

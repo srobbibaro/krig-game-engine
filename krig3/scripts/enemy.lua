@@ -1,10 +1,10 @@
 -- Helper Functions
 local function create_score_text(this)
-  krig.level.add_text("./scripts/points.lua", enemy.score, {position = this.position})
+  krig.get_active_level():add_text("./scripts/points.lua", enemy.score, {position = this.position})
 end
 
 local function create_powerup(this, powerup_num)
-  local obj = krig.level.add_object(string.format("./scripts/powerup%d.lua", powerup_num))
+  local obj = krig.get_active_level():add_object(string.format("./scripts/powerup%d.lua", powerup_num))
 
   if obj ~= nil then
     obj.position = krig.vector.copy(this.position)
@@ -13,7 +13,7 @@ local function create_powerup(this, powerup_num)
 end
 
 local function create_explosion(this)
-  obj = krig.level.add_object("./scripts/explosion.lua")
+  obj = krig.get_active_level():add_object("./scripts/explosion.lua")
   obj.position = this.position
   obj:save()
 end

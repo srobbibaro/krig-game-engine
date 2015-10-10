@@ -15,7 +15,9 @@ Engine::Engine() {
   loadModels();
 
   currentLevel_ = NULL;
-  storedLevel_  = NULL;
+
+  for (int i = 0; i < MAX_GAME_LEVELS; ++i)
+    idToGameLevelMap_[i] = NULL;
 
   // setup game timer /////////////////////////
   if(!timer_.init()) {
@@ -382,10 +384,14 @@ void Engine::processNormalKeyDown(unsigned char key) {
 #endif
 }
 
+void Engine::playLevel(int number) {
+  currentLevel_ = idToGameLevelMap_[number];
+}
+
 //------------------------------------------------------------------------------
-void Engine::prepLevelLoad() {
-  if (currentLevel_)
-    delete currentLevel_;
+void Engine::prepLevelLoad(int number) {
+  if (idToGameLevelMap_[number])
+    delete idToGameLevelMap_[number];
 
   if (!mainCamera_) {
     // setup camera(s) for the current level
@@ -405,22 +411,29 @@ void Engine::prepLevelLoad() {
   mainCamera_->init();
   mainCamera_->unloadScript();
 
-  currentLevel_ = new GameLevel(lists_);
-  currentLevel_->setCamera(mainCamera_);
+  idToGameLevelMap_[number] = new GameLevel(lists_);
+  idToGameLevelMap_[number]->setCamera(mainCamera_);
 }
 
 //------------------------------------------------------------------------------
-void Engine::loadLevel(const char* levelFile) {
-  prepLevelLoad();
-  currentLevel_->loadLevel(levelFile);
+void Engine::loadLevel(const char* levelFile, int number) {
+  if (number >= MAX_GAME_LEVELS || number < 0) {
+    PRINT_ERROR("Could not load specified level %d: Out of range (max = %d).\n", number, MAX_GAME_LEVELS);
+    return;
+  }
+
+  prepLevelLoad(number);
+  idToGameLevelMap_[number]->loadLevel(levelFile);
   timeElapsed_ = timer_.getElapsedSeconds();
+  playLevel(0);
 }
 
 //------------------------------------------------------------------------------
 void Engine::loadLevelFromBuffer(const char* buffer) {
-  prepLevelLoad();
-  currentLevel_->loadLevelFromBuffer(buffer);
+  prepLevelLoad(0);
+  idToGameLevelMap_[0]->loadLevelFromBuffer(buffer);
   timeElapsed_ = timer_.getElapsedSeconds();
+  playLevel(0);
 }
 
 //------------------------------------------------------------------------------
@@ -482,9 +495,6 @@ Engine::~Engine() {
   if (currentLevel_)
     delete currentLevel_;
 
-  if (storedLevel_)
-    delete storedLevel_;
-
   if (mainCamera_) {
     delete c1_;
     delete c2_;
@@ -492,7 +502,7 @@ Engine::~Engine() {
     delete c4_;
   }
 
-  currentLevel_ = storedLevel_ = NULL;
+  currentLevel_ = NULL;
   c1_ = c2_ = c3_ = c4_ = mainCamera_ = NULL;
 }
 

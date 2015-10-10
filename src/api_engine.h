@@ -12,6 +12,7 @@ static int get_camera(lua_State *L);
 static int get_fps(lua_State *L);
 static int get_mouse_coordinates(lua_State *L);
 static int get_player(lua_State *L);
+static int get_active_level(lua_State *L);
 static int get_script_value(lua_State *L);
 static int play_sound(lua_State *L);
 static int render_text(lua_State *L);

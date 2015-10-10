@@ -27,11 +27,14 @@ extern Engine* g_KRIG_ENGINE;
 Vector loadVector(lua_State *L);
 Vector loadVector(lua_State *L, int &index);
 Quaternion loadQuaternion(lua_State *L, const int &index);
+Object* loadObject(lua_State *L, GameLevel* gameLevel, const int &index);
 Object* loadObject(lua_State *L, const int &index);
+GameLevel* loadGameLevel(lua_State *L, const int &index);
 void loadArray(lua_State *L, float array[], int len, int index);
 void returnVector(lua_State *L, const Vector &t);
 void returnQuaternion(lua_State *L, const Quaternion &t);
 void returnObject(lua_State *L, Object* object);
+void returnGameLevel(lua_State *L, GameLevel* gameLevel);
 void returnArray(lua_State *L, float array[], int len);
 void luaopen_krigApi(lua_State *L);
 
