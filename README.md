@@ -14,7 +14,7 @@ The following configurations are known to work:
 * 32/64-bit Debian-based Linux distributions with GNOME or XFCE (native)
 * 32-bit Debian-based Linux distributions with GNOME or XFCE (VM with hardware acceleration)
 * 64-bit Debian-based Linux distributions with GNOME or XFCE (VM without hardware acceleration)
-* Mac OSX Yosemite
+* Mac OSX Yosemite and El Capitan
 
 Other distributions and configurations should work, but have not been verified.
 
@@ -99,7 +99,7 @@ Install GCC:
 
 ```bash
 $ brew tap homebrew/versions
-$ brew install gcc46
+$ brew install gcc48
 ```
 
 Create links to required header files:
@@ -112,9 +112,9 @@ $ ln -s /System/Library/Frameworks/OpenGL.framework/Headers/ src/GL
 Create links to required library files:
 
 ```bash
-$ sudo ln -s /System/Library/Frameworks/OpenAL.framework/OpenAL /usr/lib/libopenal.a
-$ sudo ln -s /System/Library/Frameworks/OpenGL.framework/OpenGL /usr/lib/libGL.a
-$ sudo ln -s /System/Library/Frameworks/OpenGL.framework/Libraries/libGLU.dylib /usr/lib/libGLU.a
+$ sudo ln -s /System/Library/Frameworks/OpenAL.framework/OpenAL /usr/local/lib/libopenal.a
+$ sudo ln -s /System/Library/Frameworks/OpenGL.framework/OpenGL /usr/local/lib/libGL.a
+$ sudo ln -s /System/Library/Frameworks/OpenGL.framework/Libraries/libGLU.dylib /usr/local/lib/libGLU.a
 ```
 
 ### Compile
