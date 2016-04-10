@@ -81,8 +81,6 @@
 		<Unit filename="src/ParticleSystem.h" />
 		<Unit filename="src/Plane.cpp" />
 		<Unit filename="src/Plane.h" />
-		<Unit filename="src/Player.cpp" />
-		<Unit filename="src/Player.h" />
 		<Unit filename="src/QuadTree.cpp" />
 		<Unit filename="src/QuadTree.h" />
 		<Unit filename="src/QuadTreeNode.cpp" />
