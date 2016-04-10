@@ -147,7 +147,7 @@ static int add_particle_system(lua_State *L) {
 #if DOXYGEN_ONLY
 /**
  * Rotate the game object such that it appears to be resting on the terrain.
- * Additionally, the specified rotation will be used as the base rotation of 
+ * Additionally, the specified rotation will be used as the base rotation of
  * the game object.
  * @param x rotation around x axis
  * @param y rotation around y axis
