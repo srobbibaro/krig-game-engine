@@ -48,6 +48,7 @@ class Engine {
     float getFps() { return fps_; }
 
     void loadModels(void);
+    void loadTextures();
 
     void renderText(const char* s, float x, float y) {
       glRasterPos2f (x, y);

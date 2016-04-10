@@ -12,6 +12,9 @@
 GLint numObjects;
 Object* object;
 
+unsigned int Object::textureIds[MAX_TEXTURES];
+std::map <std::string, unsigned int> Object::textureHash;
+
 //------------------------------------------------------------------------------
 Object::Object() : ObjectNode() {
   scriptName_     = "";

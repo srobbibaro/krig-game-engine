@@ -18,6 +18,8 @@ extern "C" {
 #ifndef _OBJECT_H_
 #define _OBJECT_H_
 
+#define MAX_TEXTURES  32
+
 class ParticleSystem;
 class Terrain;
 
@@ -172,6 +174,9 @@ class Object : public ObjectNode {
 
     void setGameLevelId(unsigned int gameLevelId) { gameLevelId_ = gameLevelId; }
     unsigned int getGameLevelId() { return gameLevelId_; }
+
+    static unsigned int textureIds[MAX_TEXTURES];
+    static std::map <std::string, unsigned int> textureHash;
 
   protected:
     // orientation //

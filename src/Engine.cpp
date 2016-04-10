@@ -254,6 +254,12 @@ void Engine::initGL() {
   glTexImage1D(GL_TEXTURE_1D, 0, 1, 16, 0, GL_LUMINANCE, GL_FLOAT, shaderData);
   /////////////////////////////////////////////
 
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+  glGenTextures(MAX_TEXTURES, Object::textureIds);
+  loadTextures();
+
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glFrontFace(GL_CCW);
   glEnable(GL_CULL_FACE);
@@ -263,7 +269,7 @@ void Engine::initGL() {
   // setup projection matrix //////////////////
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluPerspective (45.0 , (800.0f / 600.0f) , 0.001f, 300.0f);
+  gluPerspective (45.0, (800.0f / 600.0f), 0.001f, 300.0f);
   glMatrixMode(GL_MODELVIEW);
 
   glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
@@ -459,6 +465,61 @@ void Engine::loadModels() {
       // insert model file into model hash //
       hashKey = string(de->d_name);
       Model::modelHash[hashKey] = model;
+
+      PRINT_DEBUG("done.\n");
+    }
+  }
+
+  closedir(dir);
+}
+
+//------------------------------------------------------------------------------
+void Engine::loadTextures() {
+  DIR *dir = opendir("./textures/");
+
+  if (dir == NULL) {
+    PRINT_DEBUG_LVL(2, "'textures' directory not present; no textures will be loaded.\n");
+    return;
+  }
+
+  dirent *de;
+  char filePath[MAX_PATH_LEN];
+  string hashKey;
+  int textureId = 0;
+
+  while ((de = readdir(dir)) != NULL) {
+    glBindTexture (GL_TEXTURE_2D, Object::textureIds[textureId]);
+    // only load texture files with the .png extension //
+    if (strstr(de->d_name, ".png") != NULL) {
+      // build full path to load //
+      strcpy(filePath, "./textures/");
+      strcat(filePath, de->d_name);
+
+      // load texture into storage
+      PRINT_DEBUG("Loading texture file '%s'...\n", filePath);
+
+      unsigned char* pixels = NULL;
+      unsigned int format   = 0;
+      unsigned int height   = 0;
+      unsigned int width    = 0;
+
+      if (!loadPng(filePath, &pixels, &format, &height, &width)) {
+        PRINT_DEBUG("Error loading texture. Skipping...\n");
+        if (pixels != NULL) {
+          delete[] pixels;
+        }
+        continue;
+      }
+
+      if (pixels != NULL) {
+        gluBuild2DMipmaps( GL_TEXTURE_2D, 3, width, height,
+                     format, GL_UNSIGNED_BYTE, pixels );
+
+        delete[] pixels;
+      }
+
+      hashKey = string(de->d_name);
+      Object::textureHash[hashKey] = textureId++;
 
       PRINT_DEBUG("done.\n");
     }
