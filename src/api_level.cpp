@@ -342,9 +342,31 @@ static int add_text(lua_State *L) {
   return 1;
 }
 
+#if DOXYGEN_ONLY
+/**
+ * Add a 2D bitmapped game object to the current level.
+ * @param string - path to lua script for new object to load.
+ * @param table - options table to be passed into the "on_load" method for the object.
+ * @return TextObjectReference
+ */
+TextObjectReference add_sprite(string, options);
+#endif
+static int add_sprite(lua_State *L) {
+  const char *s = lua_tostring(L, 1);
+  string script = string(s);
+
+  Sprite *temp = static_cast<Sprite*>(
+    g_KRIG_ENGINE->getCurrentLevel()->addObject(script, L, TYPE_GAME_SPRITE)
+  );
+
+  returnObject(L, temp);
+  return 1;
+}
+
 static const luaL_reg krigLevelLib[] = {
   {"add_object", add_object},
   {"add_text", add_text},
+  {"add_sprite", add_sprite},
   {"find_object_of_type", find_object_of_type},
   {"get_camera_id", get_camera_id},
   {"get_complete", get_complete},

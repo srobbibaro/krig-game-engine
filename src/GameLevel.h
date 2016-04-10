@@ -4,6 +4,7 @@
 #include "terrain.h"
 #include "Camera.h"
 #include "text.h"
+#include "Sprite.h"
 #include "QuadTree.h"
 #include "Music.h"
 #include "ObjectList.h"
@@ -21,6 +22,7 @@ extern "C" {
 
 #define TYPE_GAME_OBJECT 1
 #define TYPE_GAME_TEXT   2
+#define TYPE_GAME_SPRITE 3
 
 class GameLevel {
   public:

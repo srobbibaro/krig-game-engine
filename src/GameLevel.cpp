@@ -619,6 +619,9 @@ Object* GameLevel::addObject(string script, lua_State* luaState, unsigned int ty
       case TYPE_GAME_TEXT:
         temp = static_cast<ScriptTextType*>(temp);
         break;
+      case TYPE_GAME_SPRITE:
+        temp = static_cast<Sprite*>(temp);
+        break;
       default:
         PRINT_ERROR("Could not add new object of type '%u'.\n", type);
         return NULL;
@@ -641,6 +644,9 @@ Object* GameLevel::addObject(string script, lua_State* luaState, unsigned int ty
           break;
         case TYPE_GAME_TEXT:
           temp = new ScriptTextType();
+          break;
+        case TYPE_GAME_SPRITE:
+          temp = new Sprite();
           break;
         default:
           PRINT_ERROR("Could not add new object of type '%u'.\n", type);

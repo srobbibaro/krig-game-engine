@@ -86,6 +86,25 @@ static int set_model(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
+ * Specify the texture to render for the sprite.
+ * @string file containing the texture to load (in png format).
+ * @return n/a
+ */
+void set_texture(string);
+#endif
+static int set_texture(lua_State *L) {
+  luaL_checktype(L, 1, LUA_TTABLE);
+  Sprite *object = static_cast<Sprite*>(loadObject(L, 1));
+
+  const char *s = lua_tostring(L, 2);
+  string texture = string(s);
+
+  object->setTexture(texture);
+  return 0;
+}
+
+#if DOXYGEN_ONLY
+/**
  * Set lua script for game object.
  * @param string lua script file name.
  * @return n/a
@@ -210,6 +229,7 @@ const luaL_reg krigObjectLib[] = {
   {"save", save},
   {"set_height_from_terrain", set_height_from_terrain},
   {"set_model", set_model},
+  {"set_texture", set_texture},
   {"set_script", set_script},
   {"setup_interpolation", setup_interpolation},
   {"suspend", suspend},
