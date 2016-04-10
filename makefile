@@ -2,7 +2,7 @@ CC            := g++
 CFLAGS        := -O3 -O2 -O1 -O -fpermissive -O3 -O2 -O1 -O
 INCLUDES      := -I./src/ -I/usr/include/ -I/usr/include/malloc
 TEST_INCLUDES := -I./src/ -I/usr/include/ -I/usr/include/malloc
-LIBS          := -llua5.1 -lvorbisfile -lvorbisenc -lvorbis -lalut -logg -lopenal -lglut -lGL -lGLU
+LIBS          := -llua5.1 -lvorbisfile -lvorbisenc -lvorbis -lalut -logg -lopenal -lpng -lglut -lGL -lGLU
 DEFINES        = -DGL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED
 
 SRC_DIR        := ./src/

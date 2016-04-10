@@ -1,10 +1,13 @@
 #include <cstdlib>
 #include <string.h>
 #include <dirent.h>
+#include <png.h>
 
 #include "Engine.h"
 #include "api.h"
 #include "buffer.h"
+
+#define PNG_HEADER_SIZE 8
 
 //------------------------------------------------------------------------------
 Engine::Engine() {
@@ -499,6 +502,117 @@ Engine::~Engine() {
 //------------------------------------------------------------------------------
 void Engine::pause() {
   isPaused_ = !isPaused_;
+}
+
+//------------------------------------------------------------------------------
+bool Engine::loadPng(const char* filePath, unsigned char** pixels, unsigned int* format, unsigned int* height, unsigned int* width) {
+  FILE *fp = fopen(filePath, "rb");
+  if (!fp) {
+    return false;
+  }
+
+  unsigned char header[PNG_HEADER_SIZE];
+
+  if (fread(header, 1, PNG_HEADER_SIZE, fp) != PNG_HEADER_SIZE) {
+    fclose(fp);
+    return false;
+  }
+
+  if (png_sig_cmp(header, 0, PNG_HEADER_SIZE)) {
+    fclose(fp);
+    return false;
+  }
+
+  png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+
+  if (!png_ptr) {
+    fclose(fp);
+    return false;
+  }
+
+  png_infop info_ptr = png_create_info_struct(png_ptr);
+
+  if (!info_ptr) {
+    png_destroy_read_struct(&png_ptr, NULL, NULL);
+    fclose(fp);
+    return false;
+  }
+
+  if (setjmp(png_jmpbuf(png_ptr))) {
+    png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
+    fclose(fp);
+    return false;
+  }
+
+  png_init_io(png_ptr, fp);
+  png_set_sig_bytes(png_ptr, PNG_HEADER_SIZE);
+
+  png_read_info(png_ptr, info_ptr);
+  *width  = png_get_image_width(png_ptr, info_ptr);
+  *height = png_get_image_height(png_ptr, info_ptr);
+
+  if (png_get_bit_depth(png_ptr, info_ptr) < 8) {
+    png_set_packing(png_ptr);
+  }
+
+  if (png_get_valid(png_ptr, info_ptr, PNG_INFO_tRNS)) {
+    png_set_tRNS_to_alpha(png_ptr);
+  }
+
+  *format = 0;
+  switch(png_get_color_type(png_ptr, info_ptr)) {
+    case PNG_COLOR_TYPE_GRAY:
+      png_set_gray_to_rgb(png_ptr);
+      *format = GL_RGB;
+      break;
+    case PNG_COLOR_TYPE_GRAY_ALPHA:
+      png_set_gray_to_rgb(png_ptr);
+      *format = GL_RGBA;
+      break;
+    case PNG_COLOR_TYPE_PALETTE:
+      *format = GL_RGB;
+      png_set_expand(png_ptr);
+      break;
+    case PNG_COLOR_TYPE_RGB:
+      *format = GL_RGB;
+      break;
+    case PNG_COLOR_TYPE_RGB_ALPHA:
+      *format = GL_RGBA;
+      break;
+    default:
+      *format = -1;
+  }
+
+  if (*format == -1) {
+    png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
+    fclose(fp);
+    return false;
+  }
+
+  unsigned int bpp = (unsigned int)png_get_rowbytes(png_ptr, info_ptr) / *width;
+
+  png_set_interlace_handling(png_ptr);
+
+  png_read_update_info(png_ptr, info_ptr);
+
+  int totalPixels = *width * *height * bpp;
+  *pixels = new unsigned char [totalPixels];
+  memset(*pixels, 0, totalPixels);
+
+  png_bytep rows[*height];
+
+  unsigned char* p = *pixels;
+  for (int i = 0; i < *height; ++i) {
+    rows[i] = p;
+    p += (*width * bpp);
+  }
+
+  png_read_image(png_ptr, rows);
+  png_read_end(png_ptr, NULL);
+  png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
+  fclose(fp);
+
+  return true;
 }
 
 #if EDIT

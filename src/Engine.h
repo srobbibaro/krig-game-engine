@@ -67,6 +67,8 @@ class Engine {
       storedLevel_ = temp;
     }
 
+    bool loadPng(const char*, unsigned char**, unsigned int*, unsigned int*, unsigned int*);
+
 #if EDIT
     void getTerrainInfo(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
     void updateTerrain(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
