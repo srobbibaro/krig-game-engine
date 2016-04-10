@@ -15,6 +15,7 @@ var searchData=
   ['set_5fscript_5fvalue',['set_script_value',['../api__engine_8cpp.html#a4f7f82db8ec93fad2795c000b69b967e',1,'api_engine.cpp']]],
   ['set_5fsky_5fbox',['set_sky_box',['../api__level_8cpp.html#a1c48802b457ee0c3f8e3b256aed0900e',1,'api_level.cpp']]],
   ['set_5fterrain',['set_terrain',['../api__level_8cpp.html#a04e65aa0d520cce8e772fb4c0b100c50',1,'api_level.cpp']]],
+  ['set_5ftexture',['set_texture',['../api__object_8cpp.html#a371b04321c25f3aa47aca820bfe5c369',1,'api_object.cpp']]],
   ['set_5fvertex_5fcolor',['set_vertex_color',['../api__terrain_8cpp.html#a39ef996f4f2df955a5d84149fd526137',1,'api_terrain.cpp']]],
   ['set_5fvertex_5fheight',['set_vertex_height',['../api__terrain_8cpp.html#a43488e4b34850581c90e29682149fe98',1,'api_terrain.cpp']]],
   ['set_5fvertex_5ftype',['set_vertex_type',['../api__terrain_8cpp.html#a731f3201604c25b8dbf7aa221a38e509',1,'api_terrain.cpp']]],

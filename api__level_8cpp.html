@@ -137,6 +137,8 @@ Functions</h2></td></tr>
 <tr class="separator:a3e4f5488c971cb6f4fd99e4e8a06bd51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2acc2040de52b27d1539e65c4f2b742c"><td class="memItemLeft" align="right" valign="top">TextObjectReference&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="api__level_8cpp.html#a2acc2040de52b27d1539e65c4f2b742c">add_text</a> (string, string, options)</td></tr>
 <tr class="separator:a2acc2040de52b27d1539e65c4f2b742c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d71b787cbac89998dd1d1b0e1585b54"><td class="memItemLeft" align="right" valign="top">TextObjectReference&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="api__level_8cpp.html#a8d71b787cbac89998dd1d1b0e1585b54">add_sprite</a> (string, options)</td></tr>
+<tr class="separator:a8d71b787cbac89998dd1d1b0e1585b54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e0e07412094d0ddc45afb3d200e1051"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6e0e07412094d0ddc45afb3d200e1051"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>luaopen_krigLevel</b> (lua_State *L)</td></tr>
 <tr class="separator:a6e0e07412094d0ddc45afb3d200e1051"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -179,6 +181,40 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>luaopen_krigLevel</b> 
 
 </div>
 </div>
+<a class="anchor" id="a8d71b787cbac89998dd1d1b0e1585b54"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TextObjectReference add_sprite </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">options&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add a 2D bitmapped game object to the current level. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>- path to lua script for new object to load. </td></tr>
+    <tr><td class="paramname">table</td><td>- options table to be passed into the "on_load" method for the object. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>TextObjectReference </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a2acc2040de52b27d1539e65c4f2b742c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -210,7 +246,6 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>luaopen_krigLevel</b> 
 </div><div class="memdoc">
 <p>Add a game object to the current level. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">TerrainReference</td><td></td></tr>
     <tr><td class="paramname">string</td><td>- path to lua script for new text object to load. </td></tr>
     <tr><td class="paramname">string</td><td>- text. </td></tr>
     <tr><td class="paramname">table</td><td>- options table to be passed into the "on_load" method for the text object. </td></tr>
@@ -705,7 +740,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>luaopen_krigLevel</b> 
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Apr 2 2016 02:37:27 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Apr 10 2016 18:50:37 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>
