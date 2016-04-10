@@ -1,15 +1,15 @@
 #include <GL/glut.h>
-#include "Sprite.h"
+#include "SpriteGameObject.h"
 #include "constants.h"
 #include "api.h"
 
 //------------------------------------------------------------------------------
-Sprite::Sprite() : Object() {
+SpriteGameObject::SpriteGameObject() : Object() {
   textureId = -1;
 }
 
 //------------------------------------------------------------------------------
-void Sprite::draw(Object* camera) {
+void SpriteGameObject::draw(Object* camera) {
 
   glPushMatrix();
     glColor3f(1.0f, 1.0f, 1.0f);
@@ -40,6 +40,6 @@ void Sprite::draw(Object* camera) {
 }
 
 //------------------------------------------------------------------------------
-void Sprite::setTexture(string textureKey) {
+void SpriteGameObject::setTexture(string textureKey) {
   textureId = textureHash[textureKey];
 }

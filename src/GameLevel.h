@@ -4,7 +4,7 @@
 #include "terrain.h"
 #include "Camera.h"
 #include "TextGameObject.h"
-#include "Sprite.h"
+#include "SpriteGameObject.h"
 #include "QuadTree.h"
 #include "Music.h"
 #include "ObjectList.h"

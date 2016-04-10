@@ -355,7 +355,7 @@ static int add_sprite(lua_State *L) {
   const char *s = lua_tostring(L, 1);
   string script = string(s);
 
-  Sprite *temp = static_cast<Sprite*>(
+  SpriteGameObject *temp = static_cast<SpriteGameObject*>(
     g_KRIG_ENGINE->getCurrentLevel()->addObject(script, L, TYPE_GAME_SPRITE)
   );
 

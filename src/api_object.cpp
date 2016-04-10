@@ -94,7 +94,7 @@ void set_texture(string);
 #endif
 static int set_texture(lua_State *L) {
   luaL_checktype(L, 1, LUA_TTABLE);
-  Sprite *object = static_cast<Sprite*>(loadObject(L, 1));
+  SpriteGameObject *object = static_cast<SpriteGameObject*>(loadObject(L, 1));
 
   const char *s = lua_tostring(L, 2);
   string texture = string(s);

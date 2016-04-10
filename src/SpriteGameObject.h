@@ -1,11 +1,11 @@
 #include "constants.h"
 #include "Object.h"
 
-#ifndef _SPRITE_H_
-#define _SPRITE_H_
-class Sprite : public Object {
+#ifndef _SPRITE_GAME_OBJECT_H_
+#define _SPRITE_GAME_OBJECT_H_
+class SpriteGameObject : public Object {
   public:
-    Sprite();
+    SpriteGameObject();
 
     void printTypeName(void) { PRINT_DEBUG("sprite\n"); }
 
