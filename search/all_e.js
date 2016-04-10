@@ -3,7 +3,6 @@ var searchData=
   ['save',['save',['../api__object_8cpp.html#aae2c382151ef7c9aa913361172b30db6',1,'api_object.cpp']]],
   ['scalar',['scalar',['../api__vector_8cpp.html#ae1c794dce95f2877c280a18ea4db6967',1,'api_vector.cpp']]],
   ['scale',['scale',['../api__vector_8cpp.html#a364328fb4379a5d2931ebd0e67d68490',1,'api_vector.cpp']]],
-  ['scriptedobject',['ScriptedObject',['../classScriptedObject.html',1,'']]],
   ['set_5fcomplete',['set_complete',['../api__level_8cpp.html#afebc36cdede82e5ababd3ffd10485c2c',1,'api_level.cpp']]],
   ['set_5fheight_5ffrom_5fterrain',['set_height_from_terrain',['../api__object_8cpp.html#a7a142e809b0f6be5455647a7b1b52677',1,'api_object.cpp']]],
   ['set_5fid',['set_id',['../api__level_8cpp.html#a314e9e44e5e02f8b4659d62d3a05e317',1,'api_level.cpp']]],
