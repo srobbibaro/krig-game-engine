@@ -1,32 +1,10 @@
-//////////////////////////////////////////////////////////////////
-// Description : Functions for displaying stroke fonts and      //
-//               bitmap fonts.                                  //
-//////////////////////////////////////////////////////////////////
 #include <GL/glut.h>
-#include "text.h"
+#include "TextGameObject.h"
 #include "constants.h"
 #include "api.h"
 
 //------------------------------------------------------------------------------
-void render_string(void* font, const char* string) {
-  // Renders a bitmap font string
-  char* p = (char*) string;
-  while (*p != '\0') glutBitmapCharacter(font, *p++);
-}
-
-//------------------------------------------------------------------------------
-void displayText(char *text, float x, float y, float z, float scaleX, float scaleY) {
-  // Renders a stroke font string
-  glPushMatrix();
-    glTranslatef (x, y, z);
-    glScalef (scaleX, scaleY, 0.0f);
-    for (char* p = text; *p; p++)
-      glutStrokeCharacter(GLUT_STROKE_ROMAN, *p);
-  glPopMatrix();
-}
-
-//------------------------------------------------------------------------------
-ScriptTextType::ScriptTextType() : Object() {
+TextGameObject::TextGameObject() : Object() {
   text     = "";
   color[0] = 0.0f; color[1] = 0.0f; color[2] = 0.0f; color[3] = 1.0f;
   width    = 10.0f;
@@ -34,7 +12,7 @@ ScriptTextType::ScriptTextType() : Object() {
 }
 
 //------------------------------------------------------------------------------
-void ScriptTextType::draw(Object* camera) {
+void TextGameObject::draw(Object* camera) {
   if (isInView_) {
     glEnable(GL_BLEND);
 
@@ -55,7 +33,7 @@ void ScriptTextType::draw(Object* camera) {
 }
 
 //------------------------------------------------------------------------------
-void ScriptTextType::animate(float timeElapsed, Object* camera) {
+void TextGameObject::animate(float timeElapsed, Object* camera) {
   Object::animate(timeElapsed, camera);
 
   color[3] += timeElapsed * fadeRate;
@@ -66,7 +44,7 @@ void ScriptTextType::animate(float timeElapsed, Object* camera) {
     color[3] = 0.0f;
 }
 
-void ScriptTextType::buildLuaObjectTable(lua_State *L) {
+void TextGameObject::buildLuaObjectTable(lua_State *L) {
   Object::buildLuaObjectTable(L);
 
   lua_pushstring(L, "text");
@@ -86,7 +64,7 @@ void ScriptTextType::buildLuaObjectTable(lua_State *L) {
   lua_rawset(L, -3);
 }
 
-void ScriptTextType::transferLuaObjectTable(lua_State *L) {
+void TextGameObject::transferLuaObjectTable(lua_State *L) {
   Object::transferLuaObjectTable(L);
 
   int index = -1;
@@ -117,4 +95,22 @@ void ScriptTextType::transferLuaObjectTable(lua_State *L) {
   text = string(lua_tostring(L, -1));
   lua_pop(L, 1);
 */
+}
+
+//------------------------------------------------------------------------------
+void TextGameObject::render_string(void* font, const char* string) {
+  // Renders a bitmap font string
+  char* p = (char*) string;
+  while (*p != '\0') glutBitmapCharacter(font, *p++);
+}
+
+//------------------------------------------------------------------------------
+void TextGameObject::displayText(char *text, float x, float y, float z, float scaleX, float scaleY) {
+  // Renders a stroke font string
+  glPushMatrix();
+    glTranslatef (x, y, z);
+    glScalef (scaleX, scaleY, 0.0f);
+    for (char* p = text; *p; p++)
+      glutStrokeCharacter(GLUT_STROKE_ROMAN, *p);
+  glPopMatrix();
 }

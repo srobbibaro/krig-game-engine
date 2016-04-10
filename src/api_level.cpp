@@ -331,7 +331,7 @@ static int add_text(lua_State *L) {
   const char *t = lua_tostring(L, 2);
   string text   = string(t);
 
-  ScriptTextType *temp = static_cast<ScriptTextType*>(
+  TextGameObject *temp = static_cast<TextGameObject*>(
     g_KRIG_ENGINE->getCurrentLevel()->addObject(script, L, TYPE_GAME_TEXT)
   );
   if (temp != NULL) {

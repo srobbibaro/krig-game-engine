@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "terrain.h"
 #include "Camera.h"
-#include "text.h"
+#include "TextGameObject.h"
 #include "Sprite.h"
 #include "QuadTree.h"
 #include "Music.h"

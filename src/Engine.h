@@ -52,7 +52,7 @@ class Engine {
 
     void renderText(const char* s, float x, float y) {
       glRasterPos2f (x, y);
-      render_string(GLUT_BITMAP_HELVETICA_18, s);
+      TextGameObject::render_string(GLUT_BITMAP_HELVETICA_18, s);
     }
 
     SoundFX* getSoundFxClass() { return &soundFx_; }

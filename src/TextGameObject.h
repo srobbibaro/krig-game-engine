@@ -1,16 +1,12 @@
-//////////////////////////////////////////////////////////////////
-// Description : Functions for displaying stroke fonts and      //
-//               bitmap fonts.                                  //
-//////////////////////////////////////////////////////////////////
 #include "constants.h"
 #include "Object.h"
 #include <string>
 
-#ifndef _TEXT_H_
-#define _TEXT_H_
-class ScriptTextType : public Object {
+#ifndef _TEXT_GAME_OBJECT_H_
+#define _TEXT_GAME_OBJECT_H_
+class TextGameObject : public Object {
   public:
-    ScriptTextType();
+    TextGameObject();
 
     void printTypeName(void) { PRINT_DEBUG("text\n"); }
     void buildLuaObjectTable(lua_State *L);
@@ -29,9 +25,9 @@ class ScriptTextType : public Object {
     float color[4];
     float width;
     float fadeRate;
-};
 
-void render_string(void* font, const char* string);
-void displayText(char *text, float x, float y, float z, float, float);
+    static void render_string(void* font, const char* string);
+    static void displayText(char *text, float x, float y, float z, float, float);
+};
 
 #endif

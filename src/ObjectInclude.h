@@ -2,4 +2,4 @@
 #include "terrain.h"
 #include "Camera.h"
 #include "ParticleSystem.h"
-#include "text.h"
+#include "TextGameObject.h"

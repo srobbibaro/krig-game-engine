@@ -117,8 +117,8 @@
 		<Unit filename="src/model.h" />
 		<Unit filename="src/terrain.cpp" />
 		<Unit filename="src/terrain.h" />
-		<Unit filename="src/text.cpp" />
-		<Unit filename="src/text.h" />
+		<Unit filename="src/TextGameObject.cpp" />
+		<Unit filename="src/TextGameObject.h" />
 		<Unit filename="test/catch.cpp">
 			<Option target="unit_test" />
 		</Unit>

@@ -76,7 +76,7 @@ static int display_text(lua_State *L) {
   float sx = lua_tonumber(L, 5);
   float sy = lua_tonumber(L, 6);
 
-  displayText(t, x, y, z, sx, sy);
+  TextGameObject::displayText(t, x, y, z, sx, sy);
 
   return 0;
 }

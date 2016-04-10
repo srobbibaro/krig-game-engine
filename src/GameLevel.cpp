@@ -617,7 +617,7 @@ Object* GameLevel::addObject(string script, lua_State* luaState, unsigned int ty
         temp = static_cast<ScriptedObject*>(temp);
         break;
       case TYPE_GAME_TEXT:
-        temp = static_cast<ScriptTextType*>(temp);
+        temp = static_cast<TextGameObject*>(temp);
         break;
       case TYPE_GAME_SPRITE:
         temp = static_cast<Sprite*>(temp);
@@ -643,7 +643,7 @@ Object* GameLevel::addObject(string script, lua_State* luaState, unsigned int ty
           temp = new ScriptedObject();
           break;
         case TYPE_GAME_TEXT:
-          temp = new ScriptTextType();
+          temp = new TextGameObject();
           break;
         case TYPE_GAME_SPRITE:
           temp = new Sprite();
