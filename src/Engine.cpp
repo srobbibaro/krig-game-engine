@@ -464,7 +464,7 @@ void Engine::loadModels() {
 
       // insert model file into model hash //
       hashKey = string(de->d_name);
-      Model::modelHash[hashKey] = model;
+      ModelGameObject::modelHash[hashKey] = model;
 
       PRINT_DEBUG("done.\n");
     }

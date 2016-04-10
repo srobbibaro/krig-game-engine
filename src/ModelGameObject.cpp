@@ -1,25 +1,25 @@
 #include "constants.h"
-#include "model.h"
+#include "ModelGameObject.h"
 #include "terrain.h"
 #include "api.h"
 using namespace std;
 
-std::map <std::string, ModelStorage*> Model::modelHash;
+std::map <std::string, ModelStorage*> ModelGameObject::modelHash;
 
 //------------------------------------------------------------------------------
-Model::Model() : Object() {
+ModelGameObject::ModelGameObject() : Object() {
   updatedVertex  = NULL;
   lightIntensity = NULL;
   modelKey_      = "";
 }
 
 //------------------------------------------------------------------------------
-Model::~Model() {
+ModelGameObject::~ModelGameObject() {
   unload();
 }
 
 //------------------------------------------------------------------------------
-void Model::load(string modelKey) {
+void ModelGameObject::load(string modelKey) {
   // don't load the model if it's already loaded
   if (modelKey_ == modelKey) {
     int numVertices = modelHash[modelKey_]->numVertices;
@@ -65,7 +65,7 @@ void Model::load(string modelKey) {
 }
 
 //------------------------------------------------------------------------------
-void Model::unload() {
+void ModelGameObject::unload() {
   // delete old transforemed data /////////////
   if (updatedVertex) {
     for (int r = 0; r < modelHash[modelKey_]->numVertices; ++r) {
@@ -85,7 +85,7 @@ void Model::unload() {
 }
 
 //------------------------------------------------------------------------------
-void Model::draw(Object* c) {
+void ModelGameObject::draw(Object* c) {
   // model must be loaded
   if (!lightIntensity || !updatedVertex)
     return;
@@ -111,7 +111,7 @@ void Model::draw(Object* c) {
 }
 
 //------------------------------------------------------------------------------
-void Model::drawOutline(Object* c) {
+void ModelGameObject::drawOutline(Object* c) {
   // model must first be loaded
   if (!lightIntensity || !updatedVertex)
     return;
@@ -134,7 +134,7 @@ void Model::drawOutline(Object* c) {
 }
 
 //------------------------------------------------------------------------------
-void Model::drawShadow (Vector* light) {
+void ModelGameObject::drawShadow (Vector* light) {
   int p1, p2;
   Vector v1, v2;
 
@@ -173,7 +173,7 @@ void Model::drawShadow (Vector* light) {
 }
 
 //------------------------------------------------------------------------------
-void Model::handleCollision(Object* temp) {
+void ModelGameObject::handleCollision(Object* temp) {
   // Attempt to execute the script only if the lua state has already been
   // initialized with a script
   if (!L_)
@@ -196,7 +196,7 @@ void Model::handleCollision(Object* temp) {
 }
 
 //------------------------------------------------------------------------------
-void Model::update(Vector* light) {
+void ModelGameObject::update(Vector* light) {
   // model must first be loaded
   if (!lightIntensity || !updatedVertex)
     return;
@@ -357,7 +357,7 @@ void Model::update(Vector* light) {
 }
 
 //------------------------------------------------------------------------------
-void Model::animate(float timeElapsed, Object* c) {
+void ModelGameObject::animate(float timeElapsed, Object* c) {
   // determine whether or not the current object is in the camera's view
   int r =  dynamic_cast<Camera*>(c)->frustum.testSphere(boundingSphere_);
   isInView_ = (r != -1);
@@ -416,7 +416,7 @@ void ModelStorage::load(char fileName[]) {
 }
 
 //------------------------------------------------------------------------------
-void Model::buildEdges()
+void ModelGameObject::buildEdges()
 {
   // TODO: This code is from shadows; address at that time
   /*
@@ -503,7 +503,7 @@ numEdges = edgeCount;
 }
 
 //------------------------------------------------------------------------------
-void Model::orientOnTerrain(Terrain *temp, Quaternion baseRotation) {
+void ModelGameObject::orientOnTerrain(Terrain *temp, Quaternion baseRotation) {
   if (temp == NULL)
     return;
 
@@ -544,7 +544,7 @@ void Model::orientOnTerrain(Terrain *temp, Quaternion baseRotation) {
 }
 
 //------------------------------------------------------------------------------
-void Model::setHeightFromTerrain(Terrain *temp, float offset) {
+void ModelGameObject::setHeightFromTerrain(Terrain *temp, float offset) {
   if (temp == NULL)
     return;
 

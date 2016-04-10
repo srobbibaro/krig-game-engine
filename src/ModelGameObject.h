@@ -3,8 +3,8 @@
 
 #include "Object.h"
 
-#ifndef _MODEL_H_
-#define _MODEL_H_
+#ifndef _MODEL_GAME_OBJECT_H_
+#define _MODEL_GAME_OBJECT_H_
 
 class Terrain;
 
@@ -33,11 +33,11 @@ struct ModelStorage {
   void load(char[]);
 };
 
-class Model : public Object {
+class ModelGameObject : public Object {
   public:
-    Model();
-    virtual ~Model();
-    void load(string);
+    ModelGameObject();
+    virtual ~ModelGameObject();
+    void load(std::string);
     void unload(void);
 
     void draw(Object*);
@@ -71,5 +71,4 @@ class Model : public Object {
     TransformedEdge *sEdge;
     int numSEdge;
 };
-
 #endif

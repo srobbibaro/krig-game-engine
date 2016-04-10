@@ -75,7 +75,7 @@ void set_model(string);
 #endif
 static int set_model(lua_State *L) {
   luaL_checktype(L, 1, LUA_TTABLE);
-  ScriptedObject *object = static_cast<ScriptedObject*>(loadObject(L, 1));
+  ModelGameObject *object = static_cast<ModelGameObject*>(loadObject(L, 1));
 
   const char *s = lua_tostring(L, 2);
   string model = string(s);
@@ -180,7 +180,7 @@ void set_height_from_terrain(GameObjectReference, float);
 #endif
 static int set_height_from_terrain(lua_State *L) {
   luaL_checktype(L, 1, LUA_TTABLE);
-  Model *object = static_cast<Model*>(loadObject(L, 1));
+  ModelGameObject *object = static_cast<ModelGameObject*>(loadObject(L, 1));
 
   float offset = lua_tonumber(L, 2);
 

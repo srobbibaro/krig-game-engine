@@ -1,9 +1,9 @@
-#include "model.h"
+#include "ModelGameObject.h"
 
 #ifndef _PLAYER_H_
 #define _PLAYER_H_
 
-class Player : public Model {
+class Player : public ModelGameObject {
   public:
     Player();
     virtual ~Player();

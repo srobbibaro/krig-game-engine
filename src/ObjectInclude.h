@@ -3,3 +3,4 @@
 #include "Camera.h"
 #include "ParticleSystem.h"
 #include "TextGameObject.h"
+#include "ModelGameObject.h"

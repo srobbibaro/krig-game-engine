@@ -2,7 +2,6 @@
 #include <cstring>
 
 #include "GameLevel.h"
-#include "ScriptedObject.h"
 #include "api.h"
 
 #include "LuaGL.h"
@@ -614,7 +613,7 @@ Object* GameLevel::addObject(string script, lua_State* luaState, unsigned int ty
   if (temp != NULL) {
     switch (type) {
       case TYPE_GAME_OBJECT:
-        temp = static_cast<ScriptedObject*>(temp);
+        temp = static_cast<ModelGameObject*>(temp);
         break;
       case TYPE_GAME_TEXT:
         temp = static_cast<TextGameObject*>(temp);
@@ -640,7 +639,7 @@ Object* GameLevel::addObject(string script, lua_State* luaState, unsigned int ty
     if (numObjects_ < MAX_LEVEL_OBJECTS) {
       switch (type) {
         case TYPE_GAME_OBJECT:
-          temp = new ScriptedObject();
+          temp = new ModelGameObject();
           break;
         case TYPE_GAME_TEXT:
           temp = new TextGameObject();

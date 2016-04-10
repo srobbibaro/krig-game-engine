@@ -269,7 +269,7 @@ GameObjectReference find_object_of_type(int);
 #endif
 static int find_object_of_type(lua_State *L) {
   int type = (int)lua_tonumber(L, 1);
-  ScriptedObject *temp = static_cast<ScriptedObject*>(
+  ModelGameObject *temp = static_cast<ModelGameObject*>(
     g_KRIG_ENGINE->getCurrentLevel()->findEnemyOfType(type)
   );
 
@@ -290,7 +290,7 @@ static int add_object(lua_State *L) {
   const char *s = lua_tostring(L, 1);
   string script = string(s);
 
-  ScriptedObject *temp = static_cast<ScriptedObject*>(
+  ModelGameObject *temp = static_cast<ModelGameObject*>(
     g_KRIG_ENGINE->getCurrentLevel()->addObject(script, L, TYPE_GAME_OBJECT)
   );
 

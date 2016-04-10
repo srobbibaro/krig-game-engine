@@ -89,8 +89,6 @@
 		<Unit filename="src/QuadTreeNode.h" />
 		<Unit filename="src/Quaternion.cpp" />
 		<Unit filename="src/Quaternion.h" />
-		<Unit filename="src/ScriptedObject.cpp" />
-		<Unit filename="src/ScriptedObject.h" />
 		<Unit filename="src/Scripting.h" />
 		<Unit filename="src/Snow.cpp" />
 		<Unit filename="src/Snow.h" />
@@ -113,8 +111,8 @@
 		</Unit>
 		<Unit filename="src/matrix.cpp" />
 		<Unit filename="src/matrix.h" />
-		<Unit filename="src/model.cpp" />
-		<Unit filename="src/model.h" />
+		<Unit filename="src/ModelGameObject.cpp" />
+		<Unit filename="src/ModelGameObject.h" />
 		<Unit filename="src/terrain.cpp" />
 		<Unit filename="src/terrain.h" />
 		<Unit filename="src/TextGameObject.cpp" />

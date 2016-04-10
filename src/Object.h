@@ -1,13 +1,12 @@
-//////////////////////////////////////////////////////////////////
-// Description : Class for managing model data.                 //
-//////////////////////////////////////////////////////////////////
-
 #include "ObjectNode.h"
-#include "ScriptedObject.h"
 #include "ParticleSystem.h"
 #include "Sphere.h"
-
+#include "Quaternion.h"
 #include "Camera.h"
+#include "constants.h"
+
+#include <string>
+#include <map>
 
 extern "C" {
   #include "lua5.1/lua.h"
@@ -53,7 +52,7 @@ class Object : public ObjectNode {
     void initSettings(void);
     void cleanup(void);
 
-    void loadScript(string file, lua_State* luaState);
+    void loadScript(std::string file, lua_State* luaState);
     void animateScript(float elapsedTime);
     void unloadScript();
 
@@ -100,7 +99,7 @@ class Object : public ObjectNode {
     }
 
     void setState(unsigned char);
-    void setScript(string name);
+    void setScript(std::string name);
 
     void setSpeed(GLfloat, GLfloat, GLfloat);
     void setSpeed(const Vector &v);
@@ -159,7 +158,7 @@ class Object : public ObjectNode {
 
     Sphere getBoundingSphere() { return boundingSphere_; }
 
-    string getScriptName() { return scriptName_; }
+    std::string getScriptName() { return scriptName_; }
 
     Vector getOrth() { return orth_; }
 
@@ -218,7 +217,7 @@ class Object : public ObjectNode {
 
     // Necessary for the Lua implementation
     lua_State* L_;
-    string scriptName_;
+    std::string scriptName_;
     int scriptIndex_;
 
     float suspendTime_;
