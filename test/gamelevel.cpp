@@ -45,7 +45,7 @@ SCENARIO( "GameLevel", "[GameLevel]" ) {
       l.setCamera(&c);
       bool result = l.loadLevelFromBuffer("test=1");
 
-      THEN( "it will oad" ) {
+      THEN( "it will load" ) {
         REQUIRE(result == true);
       }
 
