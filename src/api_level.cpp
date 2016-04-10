@@ -317,7 +317,6 @@ static int remove_object(lua_State *L) {
 #if DOXYGEN_ONLY
 /**
  * Add a game object to the current level.
- * @param TerrainReference
  * @param string - path to lua script for new text object to load.
  * @param string - text.
  * @param table - options table to be passed into the "on_load" method for the text object.
