@@ -679,3 +679,109 @@ void Object::transferLuaObjectTable(lua_State *L) {
   }
   lua_pop(L, 1);
 }
+
+//-----------------------------------------------------------------------------
+void Object::animate(float timeElapsed, Object* camera) {
+  // exectue the current object's update function
+  animateScript(timeElapsed);
+
+  // calculate new position using speed
+  if (speed_.x != 0.0f) {
+    direction_.scale(speed_.x * timeElapsed);
+    position_.x += direction_.x;
+    position_.y += direction_.y;
+    position_.z += direction_.z;
+    direction_.normalize();
+  }
+
+  if (speed_.y != 0.0f) {
+    up_.scale(speed_.y * timeElapsed);
+    position_.x += up_.x;
+    position_.y += up_.y;
+    position_.z += up_.z;
+    direction_.normalize();
+  }
+
+  if (speed_.z != 0.0f) {
+    Vector rotationAxis;
+
+    rotationAxis.crossProduct(up_, direction_);
+    rotationAxis.normalize();
+
+    rotationAxis.scale(speed_.z * timeElapsed);
+    position_.x += rotationAxis.x;
+    position_.y += rotationAxis.y;
+    position_.z += rotationAxis.z;
+  }
+
+  // update position using velocity
+  if (velocity_.x != 0.0f)
+    position_.x += velocity_.x * timeElapsed;
+
+  if (velocity_.y != 0.0f)
+    position_.y += velocity_.y * timeElapsed;
+
+  if (velocity_.z != 0.0f)
+    position_.z += velocity_.z * timeElapsed;
+
+  // update scale
+  if (scaleRate_.x != 0.0f) {
+    scale_.x += scaleRate_.x * timeElapsed;
+    scaleChanged_ = true;
+  }
+
+  if (scaleRate_.y != 0.0f) {
+    scale_.y += scaleRate_.y * timeElapsed;
+    scaleChanged_ = true;
+  }
+
+  if (scaleRate_.z != 0.0f) {
+    scale_.z += scaleRate_.z * timeElapsed;
+    scaleChanged_ = true;
+  }
+
+  if (!isInterpolationEnabled_) {
+    if (rotationVelocity_.x != 0.0f ||
+        rotationVelocity_.y != 0.0f ||
+        rotationVelocity_.z != 0.0f) {
+      rotationChanged_ = true;
+
+      Vector tempV;
+      Quaternion tempQ;
+
+      tempV.x = rotationVelocity_.x * timeElapsed;
+      tempV.y = rotationVelocity_.y * timeElapsed;
+      tempV.z = rotationVelocity_.z * timeElapsed;
+
+      tempQ.buildFromEuler(tempV);
+      rotation_ = rotation_ * tempQ;
+    }
+  }
+  else {
+    rotationChanged_ = true;
+
+    float endVal = valInterpEnd_ - valInterpBegin_;
+    float curVal = valInterpCurrent_ - valInterpBegin_;
+
+    float t = 0.0f;
+
+    if (endVal > 0) {
+      if (curVal > endVal)
+        t = 1.0f;
+      else if (curVal < 0.0f)
+        t = 0.0f;
+      else
+        t = curVal / endVal;
+    }
+    else if (endVal < 0) {
+      if (curVal < endVal)
+        t = 1.0f;
+      else if (curVal > 0.0f)
+        t = 0.0f;
+      else
+        t = curVal / endVal;
+    }
+
+    rotation_.slerp(rInterpStart_, t, rInterpEnd_);
+  }
+}

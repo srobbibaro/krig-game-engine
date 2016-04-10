@@ -33,9 +33,9 @@ class Object : public ObjectNode {
     virtual void drawOutline(Object*) = 0;
     virtual void handleCollision(Object*) = 0;
     virtual void update(Vector*) = 0;
-    virtual void animate(float, Object*) = 0;
     virtual void printTypeName(void) = 0;
-    virtual void drawShadow (Vector*) {}
+    virtual void drawShadow(Vector*) {}
+    virtual void animate(float, Object*);
     virtual void orientOnTerrain(Terrain *temp, Quaternion baseRotation) {}
     virtual void setHeightFromTerrain(Terrain *temp, float offset){}
     virtual void buildLuaObjectTable(lua_State *L);
