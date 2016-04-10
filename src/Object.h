@@ -17,6 +17,10 @@ extern "C" {
 #ifndef _OBJECT_H_
 #define _OBJECT_H_
 
+// States
+#define DEAD          0
+#define NORMAL        1
+
 #define MAX_TEXTURES  32
 
 class ParticleSystem;

@@ -6,6 +6,8 @@
 
 #include "constants.h"
 
+#define BUFFER_SIZE   65536
+
 class Music {
   public:
     Music();
