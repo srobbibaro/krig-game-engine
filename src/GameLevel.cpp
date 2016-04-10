@@ -188,7 +188,7 @@ bool GameLevel::prepLevelLoad(const char* luaCode) {
 }
 
 bool GameLevel::finishLevelLoad() {
-  player_  = new Player();
+  player_  = new ModelGameObject();
   terrain_ = new Terrain();
 
   idToObjectMap_[1] = (Object*)player_;

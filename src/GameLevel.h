@@ -1,6 +1,5 @@
 #include "constants.h"
 #include "Object.h"
-#include "Player.h"
 #include "terrain.h"
 #include "Camera.h"
 #include "TextGameObject.h"
@@ -8,6 +7,7 @@
 #include "QuadTree.h"
 #include "Music.h"
 #include "ObjectList.h"
+#include "ModelGameObject.h"
 
 extern "C" {
   #include "lua5.1/lua.h"
@@ -67,12 +67,12 @@ class GameLevel {
 
     Object* addObject(string script, lua_State* luaState, unsigned int type);
 
-    ObjectList* getObjects()       { return &objects_; }
-    Terrain* getTerrain(void)      { return((Terrain*)terrain_); }
-    Camera* getCamera(void)        { return((Camera*)camera_); }
-    Player* getPlayer(void)        { return((Player*)player_); }
-    Music* getMusic()              { return &music_; }
-    void setCamera(Camera* camera) {
+    ObjectList* getObjects()         { return &objects_; }
+    Terrain* getTerrain(void)        { return((Terrain*)terrain_); }
+    Camera* getCamera(void)          { return((Camera*)camera_); }
+    ModelGameObject* getPlayer(void) { return((ModelGameObject*)player_); }
+    Music* getMusic()                { return &music_; }
+    void setCamera(Camera* camera)   {
       camera_           = camera;
       idToObjectMap_[0] = (Object*)camera_;
       camera_->setGameLevelId(0);
@@ -100,13 +100,13 @@ class GameLevel {
     }
 
   private:
-    unsigned int lists_;  // display lists used for rendering
+    unsigned int lists_;      // display lists used for rendering
 
     Vector lightDirection_;
 
-    Player* player_;     // player object
-    Object* camera_;     // camera
-    Terrain *terrain_;   // Terrain for this level (if one is loaded)
+    ModelGameObject* player_; // player object
+    Object* camera_;          // camera
+    Terrain *terrain_;        // Terrain for this level (if one is loaded)
 
     Music music_;
 
