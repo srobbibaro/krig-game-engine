@@ -89,14 +89,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;constants.h&quot;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;Object.h&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;Player.h&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;terrain.h&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;Camera.h&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;TextGameObject.h&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;SpriteGameObject.h&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;QuadTree.h&quot;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;Music.h&quot;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;ObjectList.h&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;terrain.h&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;Camera.h&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;TextGameObject.h&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;SpriteGameObject.h&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;QuadTree.h&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;Music.h&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;ObjectList.h&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;ModelGameObject.h&quot;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">  #include &quot;lua5.1/lua.h&quot;</span></div>
@@ -156,12 +156,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    Object* addObject(<span class="keywordtype">string</span> script, lua_State* luaState, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> type);</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="classObjectList.html">ObjectList</a>* getObjects()       { <span class="keywordflow">return</span> &amp;objects_; }</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="classTerrain.html">Terrain</a>* getTerrain(<span class="keywordtype">void</span>)      { <span class="keywordflow">return</span>((<a class="code" href="classTerrain.html">Terrain</a>*)terrain_); }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="classCamera.html">Camera</a>* getCamera(<span class="keywordtype">void</span>)        { <span class="keywordflow">return</span>((<a class="code" href="classCamera.html">Camera</a>*)camera_); }</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="classPlayer.html">Player</a>* getPlayer(<span class="keywordtype">void</span>)        { <span class="keywordflow">return</span>((<a class="code" href="classPlayer.html">Player</a>*)player_); }</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="classMusic.html">Music</a>* getMusic()              { <span class="keywordflow">return</span> &amp;music_; }</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> setCamera(<a class="code" href="classCamera.html">Camera</a>* camera) {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="classObjectList.html">ObjectList</a>* getObjects()         { <span class="keywordflow">return</span> &amp;objects_; }</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="classTerrain.html">Terrain</a>* getTerrain(<span class="keywordtype">void</span>)        { <span class="keywordflow">return</span>((<a class="code" href="classTerrain.html">Terrain</a>*)terrain_); }</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="classCamera.html">Camera</a>* getCamera(<span class="keywordtype">void</span>)          { <span class="keywordflow">return</span>((<a class="code" href="classCamera.html">Camera</a>*)camera_); }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    ModelGameObject* getPlayer(<span class="keywordtype">void</span>) { <span class="keywordflow">return</span>((ModelGameObject*)player_); }</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="classMusic.html">Music</a>* getMusic()                { <span class="keywordflow">return</span> &amp;music_; }</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> setCamera(<a class="code" href="classCamera.html">Camera</a>* camera)   {</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      camera_           = camera;</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;      idToObjectMap_[0] = (Object*)camera_;</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      camera_-&gt;setGameLevelId(0);</div>
@@ -189,13 +189,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    }</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> lists_;  <span class="comment">// display lists used for rendering</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> lists_;      <span class="comment">// display lists used for rendering</span></div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <a class="code" href="structVector.html">Vector</a> lightDirection_;</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="classPlayer.html">Player</a>* player_;     <span class="comment">// player object</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    Object* camera_;     <span class="comment">// camera</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="classTerrain.html">Terrain</a> *terrain_;   <span class="comment">// Terrain for this level (if one is loaded)</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    ModelGameObject* player_; <span class="comment">// player object</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    Object* camera_;          <span class="comment">// camera</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="classTerrain.html">Terrain</a> *terrain_;        <span class="comment">// Terrain for this level (if one is loaded)</span></div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <a class="code" href="classMusic.html">Music</a> music_;</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
@@ -236,12 +236,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="classObjectList_html"><div class="ttname"><a href="classObjectList.html">ObjectList</a></div><div class="ttdef"><b>Definition:</b> ObjectList.h:7</div></div>
 <div class="ttc" id="classGameLevel_html"><div class="ttname"><a href="classGameLevel.html">GameLevel</a></div><div class="ttdef"><b>Definition:</b> GameLevel.h:27</div></div>
 <div class="ttc" id="classCamera_html"><div class="ttname"><a href="classCamera.html">Camera</a></div><div class="ttdef"><b>Definition:</b> Camera.h:10</div></div>
-<div class="ttc" id="classPlayer_html"><div class="ttname"><a href="classPlayer.html">Player</a></div><div class="ttdef"><b>Definition:</b> Player.h:6</div></div>
 <div class="ttc" id="classMusic_html"><div class="ttname"><a href="classMusic.html">Music</a></div><div class="ttdef"><b>Definition:</b> Music.h:9</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Apr 10 2016 20:49:00 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Apr 10 2016 21:06:20 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>
