@@ -122,6 +122,22 @@ function on_load(terrain)
   krig.level.add_object("./scripts/pinetree.lua", {x_pos = 990.0, z_pos = -80.0, scale_factor = 4.0})
   krig.level.add_object("./scripts/pinetree.lua", {x_pos = 995.0, z_pos = -75.0, scale_factor = 4.0})
 
+  -- cloud scenery
+  cloud_positions = {
+    { position = {X_START_CAMERA - 130, 50, -200.1}, scale = {17.0, 14.0, 1.0} },
+    { position = {X_START_CAMERA + 50, 80, -200.3},  scale = {10.0,  8.0, 1.0} },
+    { position = {X_START_CAMERA - 110, 20, -200.5}, scale = {18.0, 13.0, 1.0} },
+    { position = {X_START_CAMERA - 30, 60, -200.6},  scale = {12.0, 10.0, 1.0} },
+    { position = {X_START_CAMERA + 100, 40, -200.7}, scale = {16.0, 12.0, 1.0} },
+  }
+
+  for i = 1, #cloud_positions do
+    krig.level.add_sprite("./scripts/cloud.lua", {
+      position = cloud_positions[i].position,
+      scale    = cloud_positions[i].scale
+    })
+  end
+
   krig.level.play_music("./music/level1.ogg", 1)
 end
 
