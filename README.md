@@ -11,9 +11,9 @@ Krig is a cross-platform, open source game engine with accompanying demo game
 At this time, Krig is known to build and run on a number of *nix operating systems.
 
 The following configurations are known to work:
-* 32/64-bit Debian-based Linux distributions with GNOME or XFCE (native)
-* 32-bit Debian-based Linux distributions with GNOME or XFCE (VM with hardware acceleration)
-* 64-bit Debian-based Linux distributions with GNOME or XFCE (VM without hardware acceleration)
+* 32/64-bit Debian-based Linux distributions
+* 32-bit Debian-based Linux distributions (VM with hardware acceleration)
+* 64-bit Debian-based Linux distributions (VM without hardware acceleration)
 * Mac OSX Yosemite and El Capitan
 
 Other distributions and configurations should work, but have not been verified.
@@ -36,6 +36,7 @@ Install the following packages:
 * libalut-dev
 * libvorbis-dev
 * libglu1-mesa-dev
+* libpng-dev
 * freeglut3
 * freeglut3-dev
 * g++
@@ -43,7 +44,7 @@ Install the following packages:
 For example:
 
 ```bash
-$ apt-get install lua5.1 lua5.1-dev libalut-dev libvorbis-dev libglu1-mesa-dev freeglut3 freeglut3-dev g++
+$ apt-get install lua5.1 lua5.1-dev libalut-dev libvorbis-dev libglu1-mesa-dev libpng-dev freeglut3 freeglut3-dev g++
 ```
 
 If you prefer to work with an IDE, you can optionally install CodeBlocks:
