@@ -174,7 +174,7 @@ function on_draw_screen(elapsedTime)
 
   -- TODO: Use a real highscore
   gl.Color(1.0, 0.0, 0.0)
-  krig.render_text("HighScore: 1000250", -0.25, .8)
+  krig.render_text("HighScore: 0", -0.25, .8)
 
   gl.PopMatrix()
 
