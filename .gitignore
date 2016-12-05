@@ -16,6 +16,9 @@ krig.layout
 # documentation
 html/
 
+# demos repo
+krig-game-demos/
+
 # library headers
 src/AL
 src/GL
