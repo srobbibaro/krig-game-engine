@@ -512,7 +512,7 @@ void Engine::loadTextures() {
       }
 
       if (pixels != NULL) {
-        gluBuild2DMipmaps( GL_TEXTURE_2D, 3, width, height,
+        gluBuild2DMipmaps( GL_TEXTURE_2D, 4, width, height,
                      format, GL_UNSIGNED_BYTE, pixels );
 
         delete[] pixels;
