@@ -7,6 +7,53 @@ local updown      = 0
 -- Overridden Engine Callbacks
 function on_load()
   krig.level.play_music("./music/menu.ogg", 0)
+
+  krig.level.set_sky_box(
+    0.7, 0.0, 0.2,
+    0.2, 0.0, 0.2,
+    0.0, 0.0, 0.3
+  )
+
+  krig.level.set_light_direction(0.96, 0.07, 0.13)
+
+  obj = krig.level.add_object("./scripts/scenery.lua")
+  obj:set_model("Ship.mdl")
+  obj.position = {-5.0, -1.0, -50.0}
+  obj.scale    = {5.0, 5.0, 5.0}
+  obj.rotation = krig.rotation.from_euler({0.2, .5, 0.5})
+  obj:save()
+
+  obj = krig.level.add_object("./scripts/scenery.lua")
+  obj:set_model("Enemy.mdl")
+  obj.position = {7.5, -1.5, -20.0}
+  obj.scale    = {5.0, 5.0, 5.0}
+  obj.rotation = krig.rotation.from_euler({-0.1, -.1, -0.1})
+  obj:save()
+
+  obj = krig.level.add_object("./scripts/scenery.lua")
+  obj:set_model("blueshot.mdl")
+  obj.position = {2.5, -4.5, -15.0}
+  obj.scale    = {3.0, 3.0, 3.0}
+  obj.rotation = krig.rotation.from_euler({0.3, .2, 0.8})
+  obj.always_lit = true
+  obj:save()
+
+  obj = krig.level.add_object("./scripts/scenery.lua")
+  obj:set_model("blueshot.mdl")
+  obj.position = {1.5, -1.5, -25.0}
+  obj.scale    = {3.0, 3.0, 3.0}
+  obj.rotation = krig.rotation.from_euler({0.3, .4, 0.8})
+  obj.always_lit = true
+  obj:save()
+
+  camera = krig.get_camera()
+  camera:add_particle_system(1)
+
+  obj = krig.level.add_sprite("./scripts/krig3.lua", {
+    position = {0.0, 13.0, -60.0},
+    scale    = {30.0, 10.0, 1.0}
+  })
+  obj:save()
 end
 
 function on_update(this)
@@ -37,44 +84,8 @@ end
 function on_draw_screen(elapsedTime)
   gl.Translate (0.0, 0.0, -2.0)
 
-  gl.PushMatrix()
-  gl.Translate (0.0, 0.0, -4.0)
-  gl.Begin("TRIANGLES")
-  gl.Color (1.0, 1.0, 1.0)
-  gl.Vertex (-4.0, 3.0, 0.0)
-  gl.Color (0.0, 0.0, 0.0)
-  gl.Vertex (0.0, 0.0, 0.0)
-  gl.Color (1.0, 1.0, 1.0)
-  gl.Vertex (4.0, 3.0, 0.0)
-
-  gl.Vertex (-4.0, 3.0, 0.0)
-  gl.Vertex (-4.0, -3.0, 0.0)
-  gl.Color (0.0, 0.0, 0.0)
-  gl.Vertex (0.0, 0.0, 0.0)
-
-  gl.Color (1.0, 1.0, 1.0)
-  gl.Vertex (-4.0, -3.0, 0.0)
-  gl.Vertex (4.0, -3.0, 0.0)
-  gl.Color (0.0, 0.0, 0.0)
-  gl.Vertex (0.0, 0.0, 0.0)
-
-  gl.Color (1.0, 1.0, 1.0)
-  gl.Vertex (4.0, -3.0, 0.0)
-  gl.Vertex (4.0, 3.0, 0.0)
-  gl.Color (0.0, 0.0, 0.0)
-  gl.Vertex (0.0, 0.0, 0.0)
-  gl.End()
-  gl.PopMatrix()
-
   gl.Enable("BLEND")
 
-  gl.LineWidth(15.0)
-  gl.Color(0.0, 0.0, 0.0)
-  krig.display_text("KRIG", -0.69, 0.5, -0.01, 0.005, 0.003)
-
-  gl.LineWidth(3.0)
-  gl.Color(0.0, 0.0, 1.0)
-  krig.display_text("KRIG", -0.69, 0.5, -0.01, 0.005, 0.003)
   gl.PushMatrix()
   gl.Rotate(50.0, 0.0, 1.0, 0.0)
   gl.Translate (-0.9, -0.2, 0.0)
@@ -140,43 +151,6 @@ function on_draw_screen(elapsedTime)
   gl.PopMatrix()
   gl.PopMatrix()
   gl.Disable("BLEND")
-
-  -- Displays text for the game instructions
-  gl.PushMatrix()
-  gl.Translate(0.0, -0.4, 0.0)
-  gl.Color(1.0, 0.0, 0.0)
-  krig.render_text("Controls:", 0.0, 0.2)
-
-  gl.Color(0.0, 0.0, 0.0)
-  krig.render_text("Arrow Keys", 0.1, 0.15)
-  krig.render_text("Enter", 0.1, 0.1)
-  krig.render_text("Spacebar", 0.1, 0.05)
-  krig.render_text("m", 0.1, 0.0)
-  krig.render_text("Escape", 0.1, -0.05)
-
-  krig.render_text(": Move Ship/Menu", 0.4, 0.15)
-  krig.render_text(": Choose Option", 0.4, 0.1)
-  krig.render_text(": Fire Weapon", 0.4, 0.05)
-  krig.render_text(": Fire Missile", 0.4, 0.0)
-  krig.render_text(": Pause Menu", 0.4, -0.05)
-
-  gl.Color(1.0, 0.0, 0.0)
-  krig.render_text("Game Description:", 0.0, -0.1)
-
-  gl.Color(0.0, 0.0, 0.0)
-  krig.render_text("An alien army, the Krig, has come", 0.1, -0.15)
-  krig.render_text("to destroy the planet! Shoot down", 0.1, -0.2)
-  krig.render_text("their fighters and avoid asteroids", 0.1, -0.25)
-  krig.render_text("to stop the full scale invasion", 0.1, -0.3)
-  krig.render_text("of the Krig!!!", 0.1, -0.35)
-
-  krig.render_text("v 3.0", 0.6, .87)
-
-  -- TODO: Use a real highscore
-  gl.Color(1.0, 0.0, 0.0)
-  krig.render_text("HighScore: 0", -0.25, .8)
-
-  gl.PopMatrix()
 
   if alph >= 0.5 then
     alphaChange = -0.01
