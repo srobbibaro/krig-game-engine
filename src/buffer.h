@@ -3,6 +3,10 @@
 const char *intro_level_script_buffer =
   "local alpha = 0.0\n"
 
+  "function on_load()\n"
+    "krig.level.set_sky_box(0.0, 0.0, 0.2, 0.2, 0.0, 0.2, 0.0, 0.0, 0.3)\n"
+  "end\n"
+
   "function on_draw_screen(this, elapsedTime)\n"
     "alpha = alpha + (elapsedTime / 2.0)\n"
     "if alpha >= 2.0 then\n"
