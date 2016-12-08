@@ -89,9 +89,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>loadLevel</b> (const 
 <tr class="memitem:ac58d10da58e67f7f9aa2c5bf7927c5c3"><td class="memItemLeft" align="right" valign="top"><a id="ac58d10da58e67f7f9aa2c5bf7927c5c3"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>loadLevelFromBuffer</b> (const char *buffer)</td></tr>
 <tr class="separator:ac58d10da58e67f7f9aa2c5bf7927c5c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10284cee415d424ee23af55e8c28f979"><td class="memItemLeft" align="right" valign="top"><a id="a10284cee415d424ee23af55e8c28f979"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>loadScript</b> (string file)</td></tr>
-<tr class="separator:a10284cee415d424ee23af55e8c28f979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a258e30e35f04b3147ea26d0d300886bd"><td class="memItemLeft" align="right" valign="top"><a id="a258e30e35f04b3147ea26d0d300886bd"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>loadScript</b> (std::string file)</td></tr>
+<tr class="separator:a258e30e35f04b3147ea26d0d300886bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad34423917b55e15a98338b2678c6bef9"><td class="memItemLeft" align="right" valign="top"><a id="ad34423917b55e15a98338b2678c6bef9"></a>
 Object *&#160;</td><td class="memItemRight" valign="bottom"><b>findEnemyOfType</b> (int type)</td></tr>
 <tr class="separator:ad34423917b55e15a98338b2678c6bef9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -152,9 +152,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>prepareObjects</b> ()
 <tr class="memitem:a24d1c48c293ab15582e1f7d8abdb9183"><td class="memItemLeft" align="right" valign="top"><a id="a24d1c48c293ab15582e1f7d8abdb9183"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>animateObjects</b> (float)</td></tr>
 <tr class="separator:a24d1c48c293ab15582e1f7d8abdb9183"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a560ebff141f156c77b79fa33cdcf2e69"><td class="memItemLeft" align="right" valign="top"><a id="a560ebff141f156c77b79fa33cdcf2e69"></a>
-Object *&#160;</td><td class="memItemRight" valign="bottom"><b>addObject</b> (string script, lua_State *luaState, unsigned int type)</td></tr>
-<tr class="separator:a560ebff141f156c77b79fa33cdcf2e69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f7f4f06ae2f5734b56de684b5c4d8d1"><td class="memItemLeft" align="right" valign="top"><a id="a9f7f4f06ae2f5734b56de684b5c4d8d1"></a>
+Object *&#160;</td><td class="memItemRight" valign="bottom"><b>addObject</b> (std::string script, lua_State *luaState, unsigned int type)</td></tr>
+<tr class="separator:a9f7f4f06ae2f5734b56de684b5c4d8d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c182ed073f237d3ee1b64c488efe1cd"><td class="memItemLeft" align="right" valign="top"><a id="a9c182ed073f237d3ee1b64c488efe1cd"></a>
 <a class="el" href="classObjectList.html">ObjectList</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getObjects</b> ()</td></tr>
 <tr class="separator:a9c182ed073f237d3ee1b64c488efe1cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -188,12 +188,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setElapsedTime</b> (f
 <tr class="memitem:a1048fb1063a4fe3cd4cd2addca362e3c"><td class="memItemLeft" align="right" valign="top"><a id="a1048fb1063a4fe3cd4cd2addca362e3c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setComplete</b> (bool isComplete)</td></tr>
 <tr class="separator:a1048fb1063a4fe3cd4cd2addca362e3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09d4f9391c6e35636c245c00524e026d"><td class="memItemLeft" align="right" valign="top"><a id="a09d4f9391c6e35636c245c00524e026d"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>getMusicPath</b> ()</td></tr>
-<tr class="separator:a09d4f9391c6e35636c245c00524e026d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a542e2e42af598630405098ce18cca54b"><td class="memItemLeft" align="right" valign="top"><a id="a542e2e42af598630405098ce18cca54b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setMusicPath</b> (string musicPath)</td></tr>
-<tr class="separator:a542e2e42af598630405098ce18cca54b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4192758440ceb7dadebb632c32679d76"><td class="memItemLeft" align="right" valign="top"><a id="a4192758440ceb7dadebb632c32679d76"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getMusicPath</b> ()</td></tr>
+<tr class="separator:a4192758440ceb7dadebb632c32679d76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56609261abc4a018b58d28ba59ef93ed"><td class="memItemLeft" align="right" valign="top"><a id="a56609261abc4a018b58d28ba59ef93ed"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setMusicPath</b> (std::string musicPath)</td></tr>
+<tr class="separator:a56609261abc4a018b58d28ba59ef93ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f52d7d63ee8a4dc932bed9731034d4a"><td class="memItemLeft" align="right" valign="top"><a id="a9f52d7d63ee8a4dc932bed9731034d4a"></a>
 <a class="el" href="structVector.html">Vector</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getLightDirection</b> ()</td></tr>
 <tr class="separator:a9f52d7d63ee8a4dc932bed9731034d4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -214,7 +214,7 @@ Object *&#160;</td><td class="memItemRight" valign="bottom"><b>getObjectFromId</
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 6 2016 04:49:55 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 8 2016 02:22:15 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.12
 </small></address>
