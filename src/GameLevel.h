@@ -36,7 +36,7 @@ class GameLevel {
 
     bool loadLevel(const char* file);
     bool loadLevelFromBuffer(const char* buffer);
-    void loadScript(string file);
+    void loadScript(std::string file);
 
     Object* findEnemyOfType(int type);
     float findDistance(Object*, Object*);
@@ -65,7 +65,7 @@ class GameLevel {
     void prepareObjects();
     void animateObjects(float);
 
-    Object* addObject(string script, lua_State* luaState, unsigned int type);
+    Object* addObject(std::string script, lua_State* luaState, unsigned int type);
 
     ObjectList* getObjects()         { return &objects_; }
     Terrain* getTerrain(void)        { return((Terrain*)terrain_); }
@@ -85,8 +85,8 @@ class GameLevel {
     void setElapsedTime(float elapsedTime) { elapsedTime_ = elapsedTime; }
 
     void setComplete(bool isComplete) { isComplete_ = isComplete; }
-    string getMusicPath() { return musicPath_; }
-    void setMusicPath(string musicPath) { musicPath_ = musicPath; }
+    std::string getMusicPath() { return musicPath_; }
+    void setMusicPath(std::string musicPath) { musicPath_ = musicPath; }
     Vector* getLightDirection() { return &lightDirection_; }
 
     void setSkyBox(float[][3], int, int);
@@ -111,7 +111,7 @@ class GameLevel {
     Music music_;
 
     ObjectList objects_;
-    map <string, ObjectList> freeObjects_;
+    std::map <std::string, ObjectList> freeObjects_;
     Object* idToObjectMap_[MAX_LEVEL_OBJECTS];
     unsigned int numObjects_;
 
@@ -129,7 +129,7 @@ class GameLevel {
     bool bboxes_;
     bool controlTriangles_;
 
-    string musicPath_;
+    std::string musicPath_;
 
     int id_;
 

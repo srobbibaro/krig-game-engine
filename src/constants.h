@@ -11,8 +11,6 @@
 #include "gametimer.h"
 #include "KeyState.h"
 
-using namespace std;
-
 #ifndef _CONSTANTS_H_
 #define _CONSTANTS_H_
 

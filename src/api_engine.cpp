@@ -191,7 +191,7 @@ static int play_sound(lua_State *L) {
   Object *object = static_cast<Object*>(loadObject(L, 1));
 
   const char *s = lua_tostring(L, 2);
-  string sound = string(s);
+  std::string sound = std::string(s);
 
   SoundFX *soundFx = g_KRIG_ENGINE->getSoundFxClass();
 

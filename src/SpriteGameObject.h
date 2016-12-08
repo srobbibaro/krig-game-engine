@@ -17,7 +17,7 @@ class SpriteGameObject : public Object {
     void update(Vector*) {};
     void prepare(void) {};
 
-    void setTexture(string);
+    void setTexture(std::string);
 
   private:
     int textureId;

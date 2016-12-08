@@ -12,9 +12,9 @@ class SoundFX {
     SoundFX();
     ~SoundFX();
 
-    void PlaySFX(string);
+    void PlaySFX(std::string);
     void SetSFX(
-      string,
+      std::string,
       ALfloat, ALfloat, ALfloat,
       ALfloat, ALfloat, ALfloat,
       ALboolean
@@ -30,7 +30,7 @@ class SoundFX {
     ALuint *Buffers;
 
     int Num_of_SFX;
-    map <string, int> File_Hash;
+    std::map <std::string, int> File_Hash;
 };
 
 #endif

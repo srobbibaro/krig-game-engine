@@ -60,7 +60,7 @@ Engine::Engine() {
 }
 
 //------------------------------------------------------------------------------
-bool Engine::loadGame(string file) {
+bool Engine::loadGame(std::string file) {
   // If the lua state has not been initialized for this object, attempt to
   // initialize it.
   if (file == "" || luaState_ != NULL)
@@ -444,7 +444,7 @@ void Engine::loadModels() {
   dirent *de;
   ModelStorage *model;
   char filePath[MAX_PATH_LEN];
-  string hashKey;
+  std::string hashKey;
 
   while ((de = readdir(dir)) != NULL) {
     // only consider model files with the .mdl extension //
@@ -463,7 +463,7 @@ void Engine::loadModels() {
       //model->buildEdges();
 
       // insert model file into model hash //
-      hashKey = string(de->d_name);
+      hashKey = std::string(de->d_name);
       ModelGameObject::modelHash[hashKey] = model;
 
       PRINT_DEBUG("done.\n");
@@ -484,7 +484,7 @@ void Engine::loadTextures() {
 
   dirent *de;
   char filePath[MAX_PATH_LEN];
-  string hashKey;
+  std::string hashKey;
   int textureId = 0;
 
   while ((de = readdir(dir)) != NULL) {
@@ -518,7 +518,7 @@ void Engine::loadTextures() {
         delete[] pixels;
       }
 
-      hashKey = string(de->d_name);
+      hashKey = std::string(de->d_name);
       Object::textureHash[hashKey] = textureId++;
 
       PRINT_DEBUG("done.\n");

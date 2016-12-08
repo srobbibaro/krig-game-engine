@@ -125,7 +125,7 @@ void play_music(string, int);
 static int play_music(lua_State *L) {
   const char *s = lua_tostring(L, 1);
   int repeat = (int)lua_tonumber(L, 2);
-  g_KRIG_ENGINE->getCurrentLevel()->setMusicPath(string(s));
+  g_KRIG_ENGINE->getCurrentLevel()->setMusicPath(std::string(s));
   g_KRIG_ENGINE->getCurrentLevel()->getMusic()->StopSong();
   g_KRIG_ENGINE->getCurrentLevel()->getMusic()->PlaySong(s, repeat);
   return 0;
@@ -288,7 +288,7 @@ GameObjectReference add_object(string, options);
 #endif
 static int add_object(lua_State *L) {
   const char *s = lua_tostring(L, 1);
-  string script = string(s);
+  std::string script = std::string(s);
 
   ModelGameObject *temp = static_cast<ModelGameObject*>(
     g_KRIG_ENGINE->getCurrentLevel()->addObject(script, L, TYPE_GAME_OBJECT)
@@ -325,11 +325,11 @@ static int remove_object(lua_State *L) {
 TextObjectReference add_text(string, string, options);
 #endif
 static int add_text(lua_State *L) {
-  const char *s = lua_tostring(L, 1);
-  string script = string(s);
+  const char *s      = lua_tostring(L, 1);
+  std::string script = std::string(s);
 
-  const char *t = lua_tostring(L, 2);
-  string text   = string(t);
+  const char *t    = lua_tostring(L, 2);
+  std::string text = std::string(t);
 
   TextGameObject *temp = static_cast<TextGameObject*>(
     g_KRIG_ENGINE->getCurrentLevel()->addObject(script, L, TYPE_GAME_TEXT)
@@ -352,8 +352,8 @@ static int add_text(lua_State *L) {
 TextObjectReference add_sprite(string, options);
 #endif
 static int add_sprite(lua_State *L) {
-  const char *s = lua_tostring(L, 1);
-  string script = string(s);
+  const char *s      = lua_tostring(L, 1);
+  std::string script = std::string(s);
 
   SpriteGameObject *temp = static_cast<SpriteGameObject*>(
     g_KRIG_ENGINE->getCurrentLevel()->addObject(script, L, TYPE_GAME_SPRITE)

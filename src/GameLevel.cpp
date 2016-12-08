@@ -607,7 +607,7 @@ void GameLevel::animateObjects(float timeElapsed) {
 }
 
 //------------------------------------------------------------------------------
-Object* GameLevel::addObject(string script, lua_State* luaState, unsigned int type) {
+Object* GameLevel::addObject(std::string script, lua_State* luaState, unsigned int type) {
   Object *temp = (Object*)freeObjects_[script].head;
 
   if (temp != NULL) {

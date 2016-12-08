@@ -631,7 +631,7 @@ void Terrain::load(const char* filePath, Vector* light) {
 
   light_ = light;
 
-  ifstream fin;
+  std::ifstream fin;
   fin.open(filePath);
   fin >> xSize_;
   fin >> zSize_;
@@ -759,19 +759,19 @@ void Terrain::save(const char* filePath, Vector* light) {
     return;
   }
 
-  ofstream fin;
+  std::ofstream fin;
   fin.open(filePath);
-  fin << xSize_ << endl;
-  fin << zSize_ << endl;
-  fin << scaleFactor_ << endl;
+  fin << xSize_ << std::endl;
+  fin << zSize_ << std::endl;
+  fin << scaleFactor_ << std::endl;
 
   for (int z = 0; z < zSize_; z++) {
     for (int x = 0; x < xSize_; x++) {
-      fin << vertex_[x][z][1] << endl;
+      fin << vertex_[x][z][1] << std::endl;
 
-      fin << color_[x][z][0] <<  "\t" << color_[x][z][1]<< "\t" << color_[x][z][2] << endl;
+      fin << color_[x][z][0] <<  "\t" << color_[x][z][1]<< "\t" << color_[x][z][2] << std::endl;
       int type = type_[x][z] == 0 ? 0 : 1;
-      fin << type << endl;
+      fin << type << std::endl;
     }
   }
 

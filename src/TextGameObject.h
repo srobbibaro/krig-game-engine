@@ -21,7 +21,7 @@ class TextGameObject : public Object {
     void prepare(void) {};
     void animate(float, Object*); // Camera*
 
-    string text;
+    std::string text;
     float color[4];
     float width;
     float fadeRate;

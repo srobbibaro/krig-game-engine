@@ -7,8 +7,6 @@ extern "C" {
   #include "lua5.1/lauxlib.h"
 }
 
-using namespace std;
-
 #ifndef _ENGINE_H_
 #define _ENGINE_H_
 
@@ -36,7 +34,7 @@ class Engine {
     void loadLevel(const char*);
     void loadLevelFromBuffer(const char*);
 
-    bool loadGame(string);
+    bool loadGame(std::string);
     bool loadIntroCredits();
 
     void updateGame(float);

@@ -41,6 +41,6 @@ void SpriteGameObject::draw(Object* camera) {
 }
 
 //------------------------------------------------------------------------------
-void SpriteGameObject::setTexture(string textureKey) {
+void SpriteGameObject::setTexture(std::string textureKey) {
   textureId = textureHash[textureKey];
 }

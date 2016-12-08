@@ -98,7 +98,7 @@ void Object::initSettings() {
 }
 
 //------------------------------------------------------------------------------
-void Object::setScript( string name ) {
+void Object::setScript(std::string name) {
   scriptName_ = name;
 
   // If the lua state has not been initialized for this object, attempt to
@@ -126,7 +126,7 @@ void Object::setScript( string name ) {
 }
 
 //------------------------------------------------------------------------------
-void Object::loadScript(string name, lua_State* luaState) {
+void Object::loadScript(std::string name, lua_State* luaState) {
   if (scriptIndex_ == -1)
     return;
 

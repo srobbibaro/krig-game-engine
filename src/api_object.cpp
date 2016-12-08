@@ -77,8 +77,8 @@ static int set_model(lua_State *L) {
   luaL_checktype(L, 1, LUA_TTABLE);
   ModelGameObject *object = static_cast<ModelGameObject*>(loadObject(L, 1));
 
-  const char *s = lua_tostring(L, 2);
-  string model = string(s);
+  const char *s     = lua_tostring(L, 2);
+  std::string model = std::string(s);
 
   object->load(model);
   return 0;
@@ -96,8 +96,8 @@ static int set_texture(lua_State *L) {
   luaL_checktype(L, 1, LUA_TTABLE);
   SpriteGameObject *object = static_cast<SpriteGameObject*>(loadObject(L, 1));
 
-  const char *s = lua_tostring(L, 2);
-  string texture = string(s);
+  const char *s       = lua_tostring(L, 2);
+  std::string texture = std::string(s);
 
   object->setTexture(texture);
   return 0;
@@ -116,8 +116,8 @@ static int set_script(lua_State *L) {
   Object *object = static_cast<Object*>(loadObject(L, 1));
 
   if (object != NULL) {
-    const char *s = lua_tostring(L, 2);
-    string script = string(s);
+    const char *s      = lua_tostring(L, 2);
+    std::string script = std::string(s);
 
     object->unloadScript();
     object->setScript(script);

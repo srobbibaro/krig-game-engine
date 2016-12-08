@@ -18,7 +18,7 @@ SoundFX::SoundFX() {
   }
 
   dirent *de;
-  string files[256];
+  std::string files[256];
 
   /* TODO: Instead of holding all of the sound effects in memory in wav format,
    * it would be great to switch to compressed audio files.  It would
@@ -27,8 +27,8 @@ SoundFX::SoundFX() {
   if (SFXDir != NULL) {
     Num_of_SFX = 0;
     while ((de = readdir(SFXDir)) != NULL) {
-      if ( strstr( de->d_name, ".wav" ) ) {
-        files[Num_of_SFX] = string( de->d_name );
+      if ( std::strstr( de->d_name, ".wav" ) ) {
+        files[Num_of_SFX] = std::string( de->d_name );
         Num_of_SFX++;
       }
     }
@@ -81,7 +81,7 @@ SoundFX::~SoundFX() {
 // PlaySFX()
 //
 // Plays a specified sound file.  Accepts a file name (not the complete path).
-void SoundFX::PlaySFX( string sfx ) {
+void SoundFX::PlaySFX( std::string sfx ) {
   if (Sources == NULL)
     return;
 
@@ -94,7 +94,7 @@ void SoundFX::PlaySFX( string sfx ) {
 // eight parameters: The name of the wav file; X, Y, and Z locational
 // coordinates; X, Y, and Z velocity values; and a boolean representing whether
 // or not the sound should be looped.
-void SoundFX::SetSFX( string sfx,
+void SoundFX::SetSFX( std::string sfx,
                       ALfloat PosX, ALfloat PosY, ALfloat PosZ,
                       ALfloat VelX, ALfloat VelY, ALfloat VelZ,
                       ALboolean repeat ) {

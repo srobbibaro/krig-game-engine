@@ -2,7 +2,6 @@
 #include "ModelGameObject.h"
 #include "terrain.h"
 #include "api.h"
-using namespace std;
 
 std::map <std::string, ModelStorage*> ModelGameObject::modelHash;
 
@@ -19,7 +18,7 @@ ModelGameObject::~ModelGameObject() {
 }
 
 //------------------------------------------------------------------------------
-void ModelGameObject::load(string modelKey) {
+void ModelGameObject::load(std::string modelKey) {
   // don't load the model if it's already loaded
   if (modelKey_ == modelKey) {
     int numVertices = modelHash[modelKey_]->numVertices;
@@ -373,7 +372,7 @@ void ModelGameObject::animate(float timeElapsed, Object* c) {
 void ModelStorage::load(char fileName[]) {
   GLfloat temp;
 
-  ifstream fin(fileName);
+  std::ifstream fin(fileName);
   fin >> initalScale;
   fin >> numVertices;
   baseVertex = new GLfloat* [ numVertices ];
