@@ -159,7 +159,7 @@ Object* loadObject(lua_State *L, const int &index) {
     id = lua_tonumber(L, -1);
     lua_pop(L, 1);
   }
-  return g_KRIG_ENGINE->getCurrentLevel()->getObjectFromId(id);
+  return g_KRIG_ENGINE.getCurrentLevel()->getObjectFromId(id);
 }
 
 void returnObject(lua_State *L, Object* object) {

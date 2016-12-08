@@ -17,7 +17,7 @@ void load(string);
 #endif
 static int load(lua_State *L) {
   const char *s = lua_tostring(L, 1);
-  g_KRIG_ENGINE->loadLevel(s);
+  g_KRIG_ENGINE.loadLevel(s);
 
   return 0;
 }
@@ -32,7 +32,7 @@ void load_from_buffer(string);
 #endif
 static int load_from_buffer(lua_State *L) {
   const char *s = lua_tostring(L, 1);
-  g_KRIG_ENGINE->loadLevelFromBuffer(s);
+  g_KRIG_ENGINE.loadLevelFromBuffer(s);
 
   return 0;
 }
@@ -45,7 +45,7 @@ static int load_from_buffer(lua_State *L) {
 void pause();
 #endif
 static int pause(lua_State *L) {
-  g_KRIG_ENGINE->pause();
+  g_KRIG_ENGINE.pause();
 
   return 0;
 }
@@ -58,7 +58,7 @@ static int pause(lua_State *L) {
 int get_id();
 #endif
 static int get_id(lua_State *L) {
-  lua_pushnumber(L, g_KRIG_ENGINE->getCurrentLevel()->getId());
+  lua_pushnumber(L, g_KRIG_ENGINE.getCurrentLevel()->getId());
   return 1;
 }
 
@@ -71,7 +71,7 @@ static int get_id(lua_State *L) {
 int set_id(int);
 #endif
 static int set_id(lua_State *L) {
-  g_KRIG_ENGINE->getCurrentLevel()->setId((int)lua_tonumber(L, 1));
+  g_KRIG_ENGINE.getCurrentLevel()->setId((int)lua_tonumber(L, 1));
   return 0;
 }
 
@@ -83,7 +83,7 @@ static int set_id(lua_State *L) {
 void swap();
 #endif
 static int swap(lua_State *L) {
-  g_KRIG_ENGINE->swapLevel();
+  g_KRIG_ENGINE.swapLevel();
   return 0;
 }
 
@@ -95,7 +95,7 @@ static int swap(lua_State *L) {
 bool get_complete();
 #endif
 static int get_complete(lua_State *L) {
-  lua_pushnumber(L, g_KRIG_ENGINE->getCurrentLevel()->checkComplete());
+  lua_pushnumber(L, g_KRIG_ENGINE.getCurrentLevel()->checkComplete());
   return 1;
 }
 
@@ -109,7 +109,7 @@ static int get_complete(lua_State *L) {
 void set_complete(bool);
 #endif
 static int set_complete(lua_State *L) {
-  g_KRIG_ENGINE->getCurrentLevel()->setComplete(lua_tonumber(L, 1));
+  g_KRIG_ENGINE.getCurrentLevel()->setComplete(lua_tonumber(L, 1));
   return 0;
 }
 
@@ -125,9 +125,9 @@ void play_music(string, int);
 static int play_music(lua_State *L) {
   const char *s = lua_tostring(L, 1);
   int repeat = (int)lua_tonumber(L, 2);
-  g_KRIG_ENGINE->getCurrentLevel()->setMusicPath(std::string(s));
-  g_KRIG_ENGINE->getCurrentLevel()->getMusic()->StopSong();
-  g_KRIG_ENGINE->getCurrentLevel()->getMusic()->PlaySong(s, repeat);
+  g_KRIG_ENGINE.getCurrentLevel()->setMusicPath(std::string(s));
+  g_KRIG_ENGINE.getCurrentLevel()->getMusic()->StopSong();
+  g_KRIG_ENGINE.getCurrentLevel()->getMusic()->PlaySong(s, repeat);
   return 0;
 }
 
@@ -139,7 +139,7 @@ static int play_music(lua_State *L) {
 void stop_music();
 #endif
 static int stop_music(lua_State *L) {
-  g_KRIG_ENGINE->getCurrentLevel()->getMusic()->StopSong();
+  g_KRIG_ENGINE.getCurrentLevel()->getMusic()->StopSong();
   return 0;
 }
 
@@ -151,7 +151,7 @@ static int stop_music(lua_State *L) {
 void pause_music();
 #endif
 static int pause_music(lua_State *L) {
-  g_KRIG_ENGINE->getCurrentLevel()->getMusic()->PauseSong();
+  g_KRIG_ENGINE.getCurrentLevel()->getMusic()->PauseSong();
   return 0;
 }
 
@@ -182,7 +182,7 @@ static int set_sky_box(lua_State *L) {
     }
   }
 
-  g_KRIG_ENGINE->getCurrentLevel()->setSkyBox(skyColors, 3, 3);
+  g_KRIG_ENGINE.getCurrentLevel()->setSkyBox(skyColors, 3, 3);
   return 0;
 }
 
@@ -194,7 +194,7 @@ static int set_sky_box(lua_State *L) {
 Vector get_light_direction();
 #endif
 static int get_light_direction(lua_State *L) {
-  returnVector(L, *g_KRIG_ENGINE->getCurrentLevel()->getLightDirection());
+  returnVector(L, *g_KRIG_ENGINE.getCurrentLevel()->getLightDirection());
   return 1;
 }
 
@@ -221,7 +221,7 @@ void set_light_direction(float, float, float);
 static int set_light_direction(lua_State *L) {
   int index = 1;
   Vector t = loadVector(L, index);
-  g_KRIG_ENGINE->getCurrentLevel()->setLightDirection(t.x, t.y, t.z);
+  g_KRIG_ENGINE.getCurrentLevel()->setLightDirection(t.x, t.y, t.z);
   return 0;
 }
 
@@ -240,7 +240,7 @@ static int set_terrain(lua_State *L) {
 
   const char *s = lua_tostring(L, 2);
 
-  Vector *lightDirection = g_KRIG_ENGINE->getCurrentLevel()->getLightDirection();
+  Vector *lightDirection = g_KRIG_ENGINE.getCurrentLevel()->getLightDirection();
   terrain->load(s, lightDirection);
   return 0;
 }
@@ -255,7 +255,7 @@ static int set_terrain(lua_State *L) {
 int get_camera_id();
 #endif
 static int get_camera_id(lua_State *L) {
-  lua_pushnumber(L, g_KRIG_ENGINE->getCurrentLevel()->getCamera()->id_);
+  lua_pushnumber(L, g_KRIG_ENGINE.getCurrentLevel()->getCamera()->id_);
   return 1;
 }
 
@@ -270,7 +270,7 @@ GameObjectReference find_object_of_type(int);
 static int find_object_of_type(lua_State *L) {
   int type = (int)lua_tonumber(L, 1);
   ModelGameObject *temp = static_cast<ModelGameObject*>(
-    g_KRIG_ENGINE->getCurrentLevel()->findEnemyOfType(type)
+    g_KRIG_ENGINE.getCurrentLevel()->findEnemyOfType(type)
   );
 
   returnObject(L, temp);
@@ -291,7 +291,7 @@ static int add_object(lua_State *L) {
   std::string script = std::string(s);
 
   ModelGameObject *temp = static_cast<ModelGameObject*>(
-    g_KRIG_ENGINE->getCurrentLevel()->addObject(script, L, TYPE_GAME_OBJECT)
+    g_KRIG_ENGINE.getCurrentLevel()->addObject(script, L, TYPE_GAME_OBJECT)
   );
 
   returnObject(L, temp);
@@ -332,7 +332,7 @@ static int add_text(lua_State *L) {
   std::string text = std::string(t);
 
   TextGameObject *temp = static_cast<TextGameObject*>(
-    g_KRIG_ENGINE->getCurrentLevel()->addObject(script, L, TYPE_GAME_TEXT)
+    g_KRIG_ENGINE.getCurrentLevel()->addObject(script, L, TYPE_GAME_TEXT)
   );
   if (temp != NULL) {
     temp->text = text;
@@ -356,7 +356,7 @@ static int add_sprite(lua_State *L) {
   std::string script = std::string(s);
 
   SpriteGameObject *temp = static_cast<SpriteGameObject*>(
-    g_KRIG_ENGINE->getCurrentLevel()->addObject(script, L, TYPE_GAME_SPRITE)
+    g_KRIG_ENGINE.getCurrentLevel()->addObject(script, L, TYPE_GAME_SPRITE)
   );
 
   returnObject(L, temp);

@@ -7,10 +7,8 @@ extern "C" {
   #include "lua5.1/lauxlib.h"
 }
 
-#include "Engine.h"
-#include "GameLevel.h"
+#include "krig_game_engine.h"
 #include "Object.h"
-#include "matrix.h"
 
 // Macros /////////////////////////////////////////////////////////////////////
 #define SCRIPT_CALLBACK_ON_LOAD        "on_load"
@@ -19,9 +17,6 @@ extern "C" {
 #define SCRIPT_CALLBACK_ON_DRAW_SCREEN "on_draw_screen"
 #define SCRIPT_CALLBACK_ON_COLLISION   "on_collision"
 #define SCRIPT_CALLBACK_ON_UNLOAD      "on_unload"
-
-// Global variables ///////////////////////////////////////////////////////////
-extern Engine* g_KRIG_ENGINE;
 
 // Functions /////// ///////////////////////////////////////////////////////////
 Vector loadVector(lua_State *L);

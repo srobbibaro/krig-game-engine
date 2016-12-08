@@ -39,6 +39,7 @@ class Engine {
 
     void updateGame(float);
     void unloadGame();
+    void unload();
 
     void shutdown();
     void pause();

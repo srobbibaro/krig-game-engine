@@ -15,8 +15,6 @@ Engine::Engine() {
   keyState_.initKeyState();
   specialKeyState_.initKeyState();
 
-  loadModels();
-
   currentLevel_ = NULL;
   storedLevel_  = NULL;
 
@@ -233,6 +231,8 @@ void Engine::prepare() {
 
 //------------------------------------------------------------------------------
 void Engine::initGL() {
+  loadModels();
+
   GLfloat shaderData[16] = {
     0.4f, 0.4f, 0.4f, 0.7f, 0.7f, 0.7f, 1.0f, 1.0f,
     1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f
@@ -542,7 +542,11 @@ void Engine::shutdown() {
 //------------------------------------------------------------------------------
 Engine::~Engine() {
   unloadGame();
+  unload();
+}
 
+//------------------------------------------------------------------------------
+void Engine::unload() {
   if (currentLevel_)
     delete currentLevel_;
 

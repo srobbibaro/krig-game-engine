@@ -17,7 +17,7 @@
 void shutdown();
 #endif
 static int shutdown(lua_State *L) {
-  g_KRIG_ENGINE->shutdown();
+  g_KRIG_ENGINE.shutdown();
   return 0;
 }
 
@@ -30,7 +30,7 @@ static int shutdown(lua_State *L) {
 float get_fps();
 #endif
 static int get_fps(lua_State *L) { 
-  lua_pushnumber(L, g_KRIG_ENGINE->getFps());
+  lua_pushnumber(L, g_KRIG_ENGINE.getFps());
   return 1;
 }
 
@@ -49,7 +49,7 @@ static int render_text(lua_State *L) {
   float x = lua_tonumber(L, 2);
   float y = lua_tonumber(L, 3);
 
-  g_KRIG_ENGINE->renderText(s, x, y);
+  g_KRIG_ENGINE.renderText(s, x, y);
 
   return 0;
 }
@@ -91,7 +91,7 @@ bool test_key_pressed(int);
 #endif
 static int test_key_pressed(lua_State *L) {
   int key = (int)lua_tonumber(L, 1);
-  int result = (int)(g_KRIG_ENGINE->getKeyState()->testKeyPressed(key));
+  int result = (int)(g_KRIG_ENGINE.getKeyState()->testKeyPressed(key));
   lua_pushnumber(L, result);
 
   return 1;
@@ -107,7 +107,7 @@ bool test_key_released(int);
 #endif
 static int test_key_released(lua_State *L) {
   int key = (int)lua_tonumber(L, 1);
-  int result = (int)(g_KRIG_ENGINE->getKeyState()->testKeyReleased(key));
+  int result = (int)(g_KRIG_ENGINE.getKeyState()->testKeyReleased(key));
   lua_pushnumber(L, result);
   return 1;
 }
@@ -122,7 +122,7 @@ bool test_special_key_pressed(int);
 #endif
 static int test_special_key_pressed(lua_State *L) {
   int key = (int)lua_tonumber(L, 1);
-  int result = (int)(g_KRIG_ENGINE->getSpecialKeyState()->testKeyPressed(key));
+  int result = (int)(g_KRIG_ENGINE.getSpecialKeyState()->testKeyPressed(key));
   lua_pushnumber(L, result);
   return 1;
 }
@@ -137,7 +137,7 @@ bool test_special_key_release(int);
 #endif
 static int test_special_key_released(lua_State *L) {
   int key = (int)lua_tonumber(L, 1);
-  int result = (int)(g_KRIG_ENGINE->getSpecialKeyState()->testKeyReleased(key));
+  int result = (int)(g_KRIG_ENGINE.getSpecialKeyState()->testKeyReleased(key));
   lua_pushnumber(L, result);
   return 1;
 }
@@ -162,8 +162,8 @@ static int test_debug_enabled(lua_State *L) {
 Vertex2 get_mouse_coordinates();
 #endif
 static int get_mouse_coordinates(lua_State *L) {
-  float x = g_KRIG_ENGINE->getMouseX();
-  float y = g_KRIG_ENGINE->getMouseY();
+  float x = g_KRIG_ENGINE.getMouseX();
+  float y = g_KRIG_ENGINE.getMouseY();
 
   lua_newtable(L);
 
@@ -193,7 +193,7 @@ static int play_sound(lua_State *L) {
   const char *s = lua_tostring(L, 2);
   std::string sound = std::string(s);
 
-  SoundFX *soundFx = g_KRIG_ENGINE->getSoundFxClass();
+  SoundFX *soundFx = g_KRIG_ENGINE.getSoundFxClass();
 
   if (soundFx != NULL)
     soundFx->PlaySFX(sound);
@@ -209,7 +209,7 @@ static int play_sound(lua_State *L) {
 GameObjectReference get_camera();
 #endif
 static int get_camera(lua_State *L) {
-  returnObject(L, g_KRIG_ENGINE->getCurrentLevel()->getCamera());
+  returnObject(L, g_KRIG_ENGINE.getCurrentLevel()->getCamera());
   return 1;
 }
 
@@ -221,7 +221,7 @@ static int get_camera(lua_State *L) {
 GameObjectReference get_player();
 #endif
 static int get_player(lua_State *L) {
-  returnObject(L, g_KRIG_ENGINE->getCurrentLevel()->getPlayer());
+  returnObject(L, g_KRIG_ENGINE.getCurrentLevel()->getPlayer());
   return 1;
 }
 

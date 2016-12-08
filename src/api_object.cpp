@@ -163,7 +163,7 @@ static int orient_on_terrain(lua_State *L) {
   Quaternion rotation;
   rotation.buildFromEuler(lua_tonumber(L,2),lua_tonumber(L,3),lua_tonumber(L,4));
 
-  object->orientOnTerrain(g_KRIG_ENGINE->getCurrentLevel()->getTerrain(), rotation);
+  object->orientOnTerrain(g_KRIG_ENGINE.getCurrentLevel()->getTerrain(), rotation);
 
   return 0;
 }
@@ -184,7 +184,7 @@ static int set_height_from_terrain(lua_State *L) {
 
   float offset = lua_tonumber(L, 2);
 
-  object->setHeightFromTerrain(g_KRIG_ENGINE->getCurrentLevel()->getTerrain(), offset);
+  object->setHeightFromTerrain(g_KRIG_ENGINE.getCurrentLevel()->getTerrain(), offset);
 
   return 0;
 }

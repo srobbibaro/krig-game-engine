@@ -11,14 +11,11 @@
 #include <ctype.h>
 #include <cmath>
 #include <ctime>
-#include "Engine.h"
+#include "krig_game_engine.h"
 #include "TerrainEditor.h"
 #include "constants.h"
 #include <cstdlib>
 #include <unistd.h>
-
-// global variables /////////////////////////////
-Engine *g_KRIG_ENGINE;
 
 #if EDIT
 TerrainEditor *terrainEditor;
@@ -26,7 +23,7 @@ int mainWin, colorWin;
 
 //------------------------------------------------------------------------------
 void displayPalette(void) {
-  terrainEditor->displayPalette(g_KRIG_ENGINE);
+  terrainEditor->displayPalette(&g_KRIG_ENGINE);
   glutSwapBuffers();
   glutSetWindow(mainWin);
 }
@@ -38,7 +35,7 @@ void reshapePalette(int w, int h) {
 
 //------------------------------------------------------------------------------
 void mousePalette(int btn, int state, int x, int y) {
-  terrainEditor->mousePalette(g_KRIG_ENGINE, btn, state, x, y);
+  terrainEditor->mousePalette(&g_KRIG_ENGINE, btn, state, x, y);
   glutPostRedisplay();
 }
 #endif
@@ -48,14 +45,14 @@ void display() {
 #if EDIT
   glutSetWindow(mainWin);
 #endif
-  if (!g_KRIG_ENGINE->getIsRunning()) {
+  if (!g_KRIG_ENGINE.getIsRunning()) {
     PRINT_DEBUG("Shutting down...\n");
 
 #if EDIT
     delete terrainEditor;
 #endif
 
-    delete g_KRIG_ENGINE;
+    g_KRIG_ENGINE.unload();
     alutExit();
 
     PRINT_DEBUG("Finished shutting down.\n");
@@ -63,7 +60,7 @@ void display() {
     exit(0);
   }
 
-  g_KRIG_ENGINE->gameCycle();
+  g_KRIG_ENGINE.gameCycle();
 
 #if EDIT
   glutSetWindow(colorWin);
@@ -95,27 +92,27 @@ void reshape(GLint width, GLint height) {
 }
 //------------------------------------------------------------------------------
 void mouseMove(int x, int y) {
-  g_KRIG_ENGINE->processMouseMove(x, y);
+  g_KRIG_ENGINE.processMouseMove(x, y);
 }
 
 //------------------------------------------------------------------------------
 void pressNormalKey(unsigned char key, GLint mouse_x, GLint mouse_y) {
-  g_KRIG_ENGINE->processNormalKeyDown(key);
+  g_KRIG_ENGINE.processNormalKeyDown(key);
 }
 
 //------------------------------------------------------------------------------
 void releaseNormalKey(unsigned char key, GLint mouse_x, GLint mouse_y) {
-  g_KRIG_ENGINE->processNormalKeyUp(key);
+  g_KRIG_ENGINE.processNormalKeyUp(key);
 }
 
 //------------------------------------------------------------------------------
 void pressKey(GLint key, GLint mouse_x, GLint mouse_y) {
-  g_KRIG_ENGINE->processKeyDown(key);
+  g_KRIG_ENGINE.processKeyDown(key);
 }
 
 //------------------------------------------------------------------------------
 void releaseKey(int key, GLint mouse_x, GLint mouse_y) {
-  g_KRIG_ENGINE->processKeyUp(key);
+  g_KRIG_ENGINE.processKeyUp(key);
 }
 
 //------------------------------------------------------------------------------
@@ -156,8 +153,6 @@ int main(int argc, char *argv[]) {
 
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 
-  g_KRIG_ENGINE = new Engine();
-
   // setup window /////////////////////////////
   glutInitWindowSize(800, 600);
 
@@ -167,7 +162,7 @@ int main(int argc, char *argv[]) {
   mainWin = glutCreateWindow("KRIG Game Engine - Editor Mode");
   glutSetWindow(mainWin);
 
-  g_KRIG_ENGINE->initGL();
+  g_KRIG_ENGINE.initGL();
   glutInit();
 
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
@@ -203,11 +198,11 @@ int main(int argc, char *argv[]) {
   glutCreateWindow("KRIG Game Engine");
 #endif
 
-  g_KRIG_ENGINE->initGL();
+  g_KRIG_ENGINE.initGL();
   glutInit();
 #endif
 
-  g_KRIG_ENGINE->loadIntroCredits();
+  g_KRIG_ENGINE.loadIntroCredits();
 
   glutMainLoop();
   return 0;
