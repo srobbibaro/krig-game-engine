@@ -1,18 +1,21 @@
 #include "QuadTree.h"
 
 //------------------------------------------------------------------------------
-QuadTree::QuadTree(void)
+QuadTree::QuadTree()
 { root = NULL; }
 
 //------------------------------------------------------------------------------
-QuadTree::~QuadTree(void) {}
+QuadTree::~QuadTree() {}
 
 //------------------------------------------------------------------------------
 void QuadTree::buildTree(Terrain* t) {
   buildTree(root, 0.0f, ((t->getXSize() - 1.0f) * t->getScaleFactor()), 0.0f, ((t->getZSize() - 1.0f) * t->getScaleFactor()), t->getScaleFactor());
 }
 //------------------------------------------------------------------------------
-int QuadTree::buildTree(QuadTreeNode* &p, float xMin, float xMax, float zMin, float zMax, float scaleFactor) {
+int QuadTree::buildTree(
+    QuadTreeNode* &p, const float &xMin, const float &xMax, const float &zMin,
+    const float &zMax, const float &scaleFactor
+) {
   PRINT_DEBUG_LVL(5, "Leaf:\n");
   PRINT_DEBUG_LVL(5, "x=%f\n", (((xMax - xMin)/ 2.0f) + xMin));
   PRINT_DEBUG_LVL(5, "z=%f\n", (-(((zMax - zMin)/ 2.0f) + zMin)));
@@ -62,7 +65,7 @@ int QuadTree::buildTree(QuadTreeNode* &p, float xMin, float xMax, float zMin, fl
 }
 
 //------------------------------------------------------------------------------
-void QuadTree::traverseTree(void) {
+void QuadTree::traverseTree() {
   traverseTree(root);
 }
 

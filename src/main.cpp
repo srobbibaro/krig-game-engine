@@ -22,7 +22,7 @@ TerrainEditor *terrainEditor;
 int mainWin, colorWin;
 
 //------------------------------------------------------------------------------
-void displayPalette(void) {
+void displayPalette() {
   terrainEditor->displayPalette(&g_KRIG_ENGINE);
   glutSwapBuffers();
   glutSetWindow(mainWin);

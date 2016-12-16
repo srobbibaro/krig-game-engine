@@ -18,19 +18,19 @@ Snow::Snow(Object* tOrigin) {
 }
 
 //------------------------------------------------------------------------------
-Snow::~Snow(void) {
+Snow::~Snow() {
   delete[] particles;
 }
 
 //------------------------------------------------------------------------------
-void Snow::init(void) {
+void Snow::init() {
   for (int i = 0; i < numParticles; ++i) {
     initParticle(i);
   }
 }
 
 //------------------------------------------------------------------------------
-void Snow::draw(void) {
+void Snow::draw() {
   glColor3f( 1.0f, 1.0f, 1.0f );
 
   for (int i = 0; i < numParticles; ++i) {
@@ -97,7 +97,7 @@ void Snow::draw(void) {
 }
 
 //------------------------------------------------------------------------------
-void Snow::initParticle(int index) {
+void Snow::initParticle(const int &index) {
   Vector originPosition = origin->getPosition();
 
   particles[index].position.setVector(
@@ -117,7 +117,7 @@ void Snow::initParticle(int index) {
 }
 
 //------------------------------------------------------------------------------
-void Snow::update(float elapsedTime) {
+void Snow::update(const float &elapsedTime) {
   Vector originPosition = origin->getPosition();
 
   for (int i = 0; i < numParticles; ++i) {

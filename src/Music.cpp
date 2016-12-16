@@ -32,7 +32,7 @@ Music::~Music() {
 //
 // Plays a specified song file.  Accepts a file path to the song and
 // a boolean representing whether or not the song should be looped.
-void Music::PlaySong( const char* file_path, bool rep ) {
+void Music::PlaySong(const char* file_path, const bool &rep) {
   // Open binary file and set up the ov_open function for reading.
   Music_File = fopen( file_path, "rb" );
 
@@ -148,9 +148,10 @@ void Music::Update() {
 // Sets the position and velocity of the listener.  Takes six parameters.  The
 // first three represent the listener's X, Y, and Z position, and the second
 // three represent the relative X, Y, and Z velocity.
-void Music::SetMusicListener( ALfloat PosX, ALfloat PosY, ALfloat PosZ,
-                              ALfloat VelX, ALfloat VelY, ALfloat VelZ ) {
-
+void Music::SetMusicListener(
+    const ALfloat &PosX, const ALfloat &PosY, const ALfloat &PosZ,
+    const ALfloat &VelX, const ALfloat &VelY, const ALfloat &VelZ
+) {
   ALfloat ListenerPos[3] = { PosX, PosY, PosZ };
   ALfloat ListenerVel[3] = { VelX, VelY, VelZ };
   ALfloat ListenerOri[6] = { 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f };

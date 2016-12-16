@@ -183,7 +183,7 @@ void TerrainEditor::displayPalette(Engine *engine) {
 }
 
 //------------------------------------------------------------------------------
-void TerrainEditor::initPalette(void) {
+void TerrainEditor::initPalette() {
   glClearColor(1.0, 1.0, 1.0, 0.0);
 
   glMatrixMode(GL_PROJECTION);
@@ -194,7 +194,7 @@ void TerrainEditor::initPalette(void) {
 }
 
 //------------------------------------------------------------------------------
-void TerrainEditor::reshapePalette(int w, int h) {
+void TerrainEditor::reshapePalette(const int &w, const int &h) {
   glViewport(0, 0, (GLsizei) w, (GLsizei) h);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
@@ -202,7 +202,7 @@ void TerrainEditor::reshapePalette(int w, int h) {
 }
 
 //------------------------------------------------------------------------------
-void TerrainEditor::mousePalette(Engine *engine, int btn, int state, int x, int y) {
+void TerrainEditor::mousePalette(Engine *engine, const int &btn, const int &state, const int &x, const int &y) {
   int skip = 0;
   int xpos, zpos, type;
   float height, red, green, blue;
@@ -266,14 +266,14 @@ void TerrainEditor::displayPalette(Engine *engine) {}
 void TerrainEditor::initPalette(void) {}
 
 //------------------------------------------------------------------------------
-void TerrainEditor::reshapePalette(int w, int h) {}
+void TerrainEditor::reshapePalette(const int &w, const int &h) {}
 
 //------------------------------------------------------------------------------
-void TerrainEditor::mousePalette(Engine *engine, int btn, int state, int x, int y) {}
+void TerrainEditor::mousePalette(Engine *engine, const int &btn, const int &state, const int &x, const int &y) {}
 #endif
 
 //------------------------------------------------------------------------------
-void TerrainEditor::printString(char* str, float x, float y) {
+void TerrainEditor::printString(char* str, const float &x, const float &y) {
   glRasterPos2d(x, y);
 
   int i = 0;

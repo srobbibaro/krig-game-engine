@@ -18,10 +18,10 @@ struct Vector {
   float dotProduct(const Vector &);
   void crossProduct(const Vector &, const Vector &);
   float getDistance(const Vector &);
-  float getLength(void);
+  float getLength();
   float getScaler(const Vector &);
-  float getSum(void);
-  void scale(float);
+  float getSum();
+  void scale(const float&);
   void average(const Vector &, const Vector &);
   void calcNorm(const Vector &, const Vector &, const Vector &);
 

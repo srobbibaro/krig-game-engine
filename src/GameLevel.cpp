@@ -7,7 +7,7 @@
 #include "LuaGL.h"
 
 //------------------------------------------------------------------------------
-GameLevel::GameLevel(unsigned int lists) {
+GameLevel::GameLevel(const unsigned int &lists) {
   lists_      = lists;
   isComplete_ = false;
 
@@ -387,7 +387,7 @@ void GameLevel::drawSky() {
 }
 
 //------------------------------------------------------------------------------
-Object* GameLevel::findEnemyOfType(int type) {
+Object* GameLevel::findEnemyOfType(const int &type) {
   float closest  = 1000, temp;
   Object* obj    = static_cast <Object*>(objects_.head);
   Object* ret    = NULL;
@@ -419,7 +419,7 @@ float GameLevel::findDistance (Object* obj1, Object* obj2) {
 }
 
 //------------------------------------------------------------------------------
-bool GameLevel::checkComplete(void)
+bool GameLevel::checkComplete()
 { return isComplete_; }
 
 //------------------------------------------------------------------------------
@@ -507,16 +507,16 @@ void GameLevel::saveTerrain(const char* filePath) {
 }
 
 //------------------------------------------------------------------------------
-void GameLevel::toggleGrid(void) { grid_ = !grid_; }
+void GameLevel::toggleGrid() { grid_ = !grid_; }
 
 //------------------------------------------------------------------------------
-void GameLevel::toggleBoundingBoxes(void) { bboxes_ = !bboxes_; }
+void GameLevel::toggleBoundingBoxes() { bboxes_ = !bboxes_; }
 
 //------------------------------------------------------------------------------
-void GameLevel::toggleControlTriangles(void) { controlTriangles_ = !controlTriangles_; }
+void GameLevel::toggleControlTriangles() { controlTriangles_ = !controlTriangles_; }
 
 //------------------------------------------------------------------------------
-void GameLevel::setSkyBox(float bgcolor[][3], int x, int y) {
+void GameLevel::setSkyBox(float bgcolor[][3], const int &x, const int &y) {
   for (int i = 0; i < y; ++i) {
     for (int j = 0; j < x; ++j) {
       bgcolor_[i][j] = bgcolor[i][j];
@@ -596,7 +596,7 @@ void GameLevel::prepareObjects() {
 }
 
 //------------------------------------------------------------------------------
-void GameLevel::animateObjects(float timeElapsed) {
+void GameLevel::animateObjects(const float &timeElapsed) {
   for (Object *object = static_cast<Object*>(objects_.head);
       object != NULL;
       object = static_cast<Object*>(object->next)) {
@@ -607,7 +607,7 @@ void GameLevel::animateObjects(float timeElapsed) {
 }
 
 //------------------------------------------------------------------------------
-Object* GameLevel::addObject(std::string script, lua_State* luaState, unsigned int type) {
+Object* GameLevel::addObject(const std::string &script, lua_State* luaState, const unsigned int &type) {
   Object *temp = (Object*)freeObjects_[script].head;
 
   if (temp != NULL) {

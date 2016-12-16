@@ -38,11 +38,11 @@ class Object : public ObjectNode {
     virtual void drawOutline(Object*) = 0;
     virtual void handleCollision(Object*) = 0;
     virtual void update(Vector*) = 0;
-    virtual void printTypeName(void) = 0;
+    virtual void printTypeName() = 0;
     virtual void drawShadow(Vector*) {}
-    virtual void animate(float, Object*);
-    virtual void orientOnTerrain(Terrain *temp, Quaternion baseRotation) {}
-    virtual void setHeightFromTerrain(Terrain *temp, float offset){}
+    virtual void animate(const float&, Object*);
+    virtual void orientOnTerrain(Terrain *temp, const Quaternion &baseRotation) {}
+    virtual void setHeightFromTerrain(Terrain *temp, const float &offset){}
     virtual void buildLuaObjectTable(lua_State *L);
     virtual void transferLuaObjectTable(lua_State *L);
     ////////////////////////////////////////////
@@ -50,38 +50,38 @@ class Object : public ObjectNode {
     void showCollisionBox();
     void showControlTriangle();
 
-    float calcTriangleCenter(float, float, float);
+    float calcTriangleCenter(const float&, const float&, const float&);
 
-    void init(void);
-    void initSettings(void);
-    void cleanup(void);
+    void init();
+    void initSettings();
+    void cleanup();
 
-    void loadScript(std::string file, lua_State* luaState);
-    void animateScript(float elapsedTime);
+    void loadScript(const std::string&, lua_State* luaState);
+    void animateScript(const float&);
     void unloadScript();
 
     void setPosition(const GLfloat&, const GLfloat&, const GLfloat&);
     void setPosition(const Vector&);
-    void setRotationAxis(const GLfloat &vx, const GLfloat &vy, const GLfloat &vz, const GLfloat &vw);
-    void setRotationAxis(const Vector &v, GLfloat a);
+    void setRotationAxis(const GLfloat&, const GLfloat&, const GLfloat&, const GLfloat&);
+    void setRotationAxis(const Vector&, const GLfloat&);
     void setRotationEuler(const GLfloat&, const GLfloat&, const GLfloat&);
-    void setRotationEuler(const Vector &v);
-    void setRotationQuaternion(const Quaternion &q);
-    void setVelocity(GLfloat, GLfloat, GLfloat);
-    void setVelocity(const Vector &v);
-    void setRotationVelocity(GLfloat xAngle, GLfloat yAngle, GLfloat zAngle);
-    void setRotationVelocity(const Vector &v);
+    void setRotationEuler(const Vector&);
+    void setRotationQuaternion(const Quaternion&);
+    void setVelocity(const GLfloat&, const GLfloat&, const GLfloat&);
+    void setVelocity(const Vector&);
+    void setRotationVelocity(const GLfloat&, const GLfloat&, const GLfloat&);
+    void setRotationVelocity(const Vector&);
 
-    void setScale(GLfloat, GLfloat, GLfloat);
-    void setScale(const Vector &v);
-    void setScaleRate(GLfloat, GLfloat, GLfloat);
-    void setScaleRate(const Vector &v);
+    void setScale(const GLfloat&, const GLfloat&, const GLfloat&);
+    void setScale(const Vector&);
+    void setScaleRate(const GLfloat&, const GLfloat&, const GLfloat&);
+    void setScaleRate(const Vector&);
 
-    void setDrawEnabled(bool isDrawEnabled) { isDrawEnabled_ = isDrawEnabled; }
-    bool getDrawEnabled() { return isDrawEnabled_; }
+    void setDrawEnabled(const bool &isDrawEnabled) { isDrawEnabled_ = isDrawEnabled; }
+    bool getDrawEnabled()                          { return isDrawEnabled_; }
 
     bool getInView() { return isInView_; }
-    void setParticleSystem(int particleSystemNumber);
+    void setParticleSystem(const int&);
 
     float getScriptValue(const char* s) {
       float value = 0.0f;
@@ -95,70 +95,72 @@ class Object : public ObjectNode {
       return value;
     }
 
-    void setScriptValue(const char* s, float value) {
+    void setScriptValue(const char* s, const float &value) {
       if (L_ != NULL) {
         lua_pushnumber(L_, value);
         lua_setglobal(L_, s);
       }
     }
 
-    void setState(unsigned char);
-    void setScript(std::string name);
+    void setState(const unsigned char&);
+    void setScript(const std::string&);
 
-    void setSpeed(GLfloat, GLfloat, GLfloat);
-    void setSpeed(const Vector &v);
+    void setSpeed(const GLfloat&, const GLfloat&, const GLfloat&);
+    void setSpeed(const Vector&);
 
-    void setCollisionDetectionEnabled(bool isCollisionDetectionEnabled) {
+    void setCollisionDetectionEnabled(const bool &isCollisionDetectionEnabled) {
       isCollisionDetectionEnabled_ = isCollisionDetectionEnabled;
     }
 
     bool getCollisionDetectionEnabled() { return isCollisionDetectionEnabled_; }
 
-    void setActive(bool new_active) { active_ = new_active; }
-    bool getActive() { return active_; }
+    void setActive(const bool &new_active) { active_ = new_active; }
+    bool getActive()                       { return active_; }
 
-    Vector getPosition() { return position_; }
-    Vector getVelocity() { return velocity_; }
+    Vector getPosition()         { return position_; }
+    Vector getVelocity()         { return velocity_; }
     Vector getRotationVelocity() { return rotationVelocity_; }
-    Vector getScaleRate() { return scaleRate_; }
-    Vector getSpeed() { return speed_; }
+    Vector getScaleRate()        { return scaleRate_; }
+    Vector getSpeed()            { return speed_; }
 
-    bool isRotationChanged() { return rotationChanged_; }
-    void setRotationChanged(bool rotationChanged_l) { rotationChanged_ = rotationChanged_l; }
-    Quaternion getRotation() { return rotation_; }
-    void setRotation(Quaternion rotation) { rotation_ = rotation; rotationChanged_ = true;}
-    Vector getDirection() { return direction_; }
-    Vector getUp() { return up_; }
-    Vector getScale() { return scale_; }
+    bool isRotationChanged()                               { return rotationChanged_; }
+    void setRotationChanged(const bool &rotationChanged_l) { rotationChanged_ = rotationChanged_l; }
+    Quaternion getRotation()                               { return rotation_; }
+    void setRotation(const Quaternion &rotation)           { rotation_ = rotation; rotationChanged_ = true;}
+    Vector getDirection()                                  { return direction_; }
+    Vector getUp()                                         { return up_; }
+    Vector getScale()                                      { return scale_; }
 
-    Quaternion getRInterpStart() { return rInterpStart_; }
-    Quaternion getRInterpEnd() { return rInterpEnd_; }
-    void setRInterpStart(Quaternion rInterpStart_l) { rInterpStart_ = rInterpStart_l;}
-    void setRInterpEnd(Quaternion rInterpEnd_l) { rInterpEnd_= rInterpEnd_l;}
+    Quaternion getRInterpStart()                           { return rInterpStart_; }
+    Quaternion getRInterpEnd()                             { return rInterpEnd_; }
+    void setRInterpStart(const Quaternion &rInterpStart_l) { rInterpStart_ = rInterpStart_l;}
+    void setRInterpEnd(const Quaternion &rInterpEnd_l)     { rInterpEnd_= rInterpEnd_l;}
 
     bool isInterpolationEnabled() { return isInterpolationEnabled_; }
-    void setIsInterpolationEnabled(bool isInterpolationEnabled_l) { isInterpolationEnabled_ = isInterpolationEnabled_l; }
+    void setIsInterpolationEnabled(const bool &isInterpolationEnabled_l) {
+      isInterpolationEnabled_ = isInterpolationEnabled_l;
+    }
 
-    float getValInterpBegin() { return valInterpBegin_; }
+    float getValInterpBegin()   { return valInterpBegin_; }
     float getValInterpCurrent() { return valInterpCurrent_; }
-    float getValInterpEnd() { return valInterpEnd_; }
+    float getValInterpEnd()     { return valInterpEnd_; }
 
-    void setValInterpBegin(float valInterpBegin) { valInterpBegin_ = valInterpBegin; }
-    void setValInterpCurrent(float valInterpCurrent) { valInterpCurrent_ = valInterpCurrent; }
-    void setValInterpEnd(float valInterpEnd) { valInterpEnd_ = valInterpEnd; }
+    void setValInterpBegin(const float &valInterpBegin)     { valInterpBegin_ = valInterpBegin; }
+    void setValInterpCurrent(const float &valInterpCurrent) { valInterpCurrent_ = valInterpCurrent; }
+    void setValInterpEnd(const float &valInterpEnd)         { valInterpEnd_ = valInterpEnd; }
 
-    void setSuspendTime(float time) { suspendTime_ = time; }
+    void setSuspendTime(const float &time) { suspendTime_ = time; }
 
-    void setState(int state_l) {state_ = state_l; }
-    int  getState() { return state_; }
+    void setState(const int &state_l) {state_ = state_l; }
+    int  getState()                   { return state_; }
 
-    void setScaleChanged(bool scaleChanged_l) { scaleChanged_ = scaleChanged_l; }
+    void setScaleChanged(const bool &scaleChanged_l) { scaleChanged_ = scaleChanged_l; }
 
-    void setIsAlwaysLit(bool isAlwaysLit) { isAlwaysLit_ = isAlwaysLit; }
+    void setIsAlwaysLit(const bool &isAlwaysLit) { isAlwaysLit_ = isAlwaysLit; }
     bool getIsAlwaysLit() { return isAlwaysLit_; }
 
-    void setTypeId (int type_id) { typeId_ = type_id; }
-    int getTypeId() { return typeId_; }
+    void setTypeId (const int &type_id) { typeId_ = type_id; }
+    int getTypeId()                     { return typeId_; }
 
     Sphere getBoundingSphere() { return boundingSphere_; }
 
@@ -168,15 +170,15 @@ class Object : public ObjectNode {
 
     bool getEnableSphereTest() { return enableSphereTest_; }
 
-    bool isDrawable(void) {
+    bool isDrawable() {
       return getActive() &&
              getInView() &&
              getDrawEnabled() &&
              getState() != DEAD;
     }
 
-    void setGameLevelId(unsigned int gameLevelId) { gameLevelId_ = gameLevelId; }
-    unsigned int getGameLevelId() { return gameLevelId_; }
+    void setGameLevelId(const unsigned int& gameLevelId) { gameLevelId_ = gameLevelId; }
+    unsigned int getGameLevelId()                        { return gameLevelId_; }
 
     static unsigned int textureIds[MAX_TEXTURES];
     static std::map <std::string, unsigned int> textureHash;
@@ -240,8 +242,8 @@ class Object : public ObjectNode {
     bool enableSphereTest_;
 
   private:
-    void traverseAndCopyLuaTable(lua_State* srcState, lua_State* destState, int index);
-    void copyLuaTableKey(lua_State* srcState, lua_State* destState);
+    void traverseAndCopyLuaTable(lua_State*, lua_State*, const int&);
+    void copyLuaTableKey(lua_State*, lua_State*);
 };
 
 #endif

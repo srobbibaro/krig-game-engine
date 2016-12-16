@@ -14,11 +14,11 @@ class Music {
     ~Music();
 
     void SetMusicListener(
-      ALfloat, ALfloat, ALfloat,
-      ALfloat, ALfloat, ALfloat
+      const ALfloat&, const ALfloat&, const ALfloat&,
+      const ALfloat&, const ALfloat&, const ALfloat&
     );
 
-    void PlaySong(const char*, bool);
+    void PlaySong(const char*, const bool&);
     void Update();
     void StopSong();
     void PauseSong();

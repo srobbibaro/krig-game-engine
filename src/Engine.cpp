@@ -58,7 +58,7 @@ Engine::Engine() {
 }
 
 //------------------------------------------------------------------------------
-bool Engine::loadGame(std::string file) {
+bool Engine::loadGame(const std::string &file) {
   // If the lua state has not been initialized for this object, attempt to
   // initialize it.
   if (file == "" || luaState_ != NULL)
@@ -109,7 +109,7 @@ bool Engine::loadIntroCredits() {
 }
 
 //------------------------------------------------------------------------------
-void Engine::updateGame(float elapsedTime) {
+void Engine::updateGame(const float &elapsedTime) {
   // Attempt to execute the script only if the lua state has already been
   // initialized with a script
   if (!luaState_)
@@ -315,13 +315,13 @@ void Engine::initGL() {
 }
 
 //------------------------------------------------------------------------------
-void Engine::processKeyUp(int key) {
+void Engine::processKeyUp(const int &key) {
   PRINT_DEBUG_LVL(1, "special key up (%d)\n", key);
   specialKeyState_.keys[key] = KEY_STATE_RELEASED;
 }
 
 //------------------------------------------------------------------------------
-void Engine::processKeyDown(int key) {
+void Engine::processKeyDown(const int &key) {
   PRINT_DEBUG_LVL(1, "special key down (%d)\n", key);
   specialKeyState_.keys[key] = KEY_STATE_PRESSED;
 }
@@ -333,13 +333,13 @@ void Engine::processCommands() {
 }
 
 //------------------------------------------------------------------------------
-void Engine::processNormalKeyUp(unsigned char key) {
+void Engine::processNormalKeyUp(const unsigned char &key) {
   PRINT_DEBUG_LVL(1, "normal key up (%d)\n", key);
   keyState_.keys[key] = KEY_STATE_RELEASED;
 }
 
 //------------------------------------------------------------------------------
-void Engine::processNormalKeyDown(unsigned char key) {
+void Engine::processNormalKeyDown(const unsigned char &key) {
   PRINT_DEBUG_LVL(1, "normal key down (%d)\n", key);
   keyState_.keys[key] = KEY_STATE_PRESSED;
 
@@ -529,7 +529,7 @@ void Engine::loadTextures() {
 }
 
 //------------------------------------------------------------------------------
-void Engine::processMouseMove(int x, int y) {
+void Engine::processMouseMove(const int &x, const int &y) {
   mouseX_ = x;
   mouseY_ = y;
 }

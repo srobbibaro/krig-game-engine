@@ -6,15 +6,15 @@
 
 class Plane {
   public:
-    Plane(void);
-    ~Plane(void);
+    Plane();
+    ~Plane();
 
-    void setPlane(float a, float b, float c, float d);
-    void normalize(void);
-    float distanceToPoint(const float &x, const float &y, const float &z);
-    int classifyPoint(const float &x, const float &y, const float &z);
-    void getNormalVector(Vector &v);
-    void getDefinition(float &a, float &b, float &c, float &d);
+    void setPlane(const float&, const float&, const float&, const float&);
+    void normalize();
+    float distanceToPoint(const float&, const float&, const float&);
+    int classifyPoint(const float&, const float&, const float&);
+    void getNormalVector(Vector &);
+    void getDefinition(float&, float&, float&, float&);
 
   private:
     float a_, b_, c_, d_;

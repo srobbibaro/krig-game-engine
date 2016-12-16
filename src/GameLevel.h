@@ -26,25 +26,25 @@ extern "C" {
 
 class GameLevel {
   public:
-    GameLevel(unsigned int);
+    GameLevel(const unsigned int&);
     ~GameLevel();
 
     void updateLevel();
     void animateLevel();
-    void prepareLevel(void);
-    void drawLevel(void);
+    void prepareLevel();
+    void drawLevel();
 
-    bool loadLevel(const char* file);
-    bool loadLevelFromBuffer(const char* buffer);
-    void loadScript(std::string file);
+    bool loadLevel(const char*);
+    bool loadLevelFromBuffer(const char*);
+    void loadScript(const std::string &);
 
-    Object* findEnemyOfType(int type);
+    Object* findEnemyOfType(const int&);
     float findDistance(Object*, Object*);
 
-    void drawSky(void);
-    bool checkComplete(void);
-    void unloadLevel(void);
-    void removeObjects(void);
+    void drawSky();
+    bool checkComplete();
+    void unloadLevel();
+    void removeObjects();
 
     void postDraw();
 
@@ -53,9 +53,9 @@ class GameLevel {
 
     void getTerrainInfo(int &x, int &z, float &height, int &type, float &red, float &green, float &blue);
     void saveTerrain(const char*);
-    void toggleGrid(void);
-    void toggleBoundingBoxes(void);
-    void toggleControlTriangles(void);
+    void toggleGrid();
+    void toggleBoundingBoxes();
+    void toggleControlTriangles();
 
     void drawObjects();
     void drawObjectOutlines();
@@ -63,14 +63,14 @@ class GameLevel {
 
     void updateObjects(Vector*);
     void prepareObjects();
-    void animateObjects(float);
+    void animateObjects(const float&);
 
-    Object* addObject(std::string script, lua_State* luaState, unsigned int type);
+    Object* addObject(const std::string&, lua_State*, const unsigned int&);
 
     ObjectList* getObjects()         { return &objects_; }
-    Terrain* getTerrain(void)        { return((Terrain*)terrain_); }
-    Camera* getCamera(void)          { return((Camera*)camera_); }
-    ModelGameObject* getPlayer(void) { return((ModelGameObject*)player_); }
+    Terrain* getTerrain()            { return((Terrain*)terrain_); }
+    Camera* getCamera()              { return((Camera*)camera_); }
+    ModelGameObject* getPlayer()     { return((ModelGameObject*)player_); }
     Music* getMusic()                { return &music_; }
     void setCamera(Camera* camera)   {
       camera_           = camera;
@@ -78,24 +78,24 @@ class GameLevel {
       camera_->setGameLevelId(0);
     }
 
-    void setId(int id) { id_ = id; }
-    int getId() { return id_; }
+    void setId(const int &id) { id_ = id; }
+    int getId()               { return id_; }
 
-    float getElapsedTime() { return elapsedTime_; }
-    void setElapsedTime(float elapsedTime) { elapsedTime_ = elapsedTime; }
+    float getElapsedTime()                        { return elapsedTime_; }
+    void setElapsedTime(const float &elapsedTime) { elapsedTime_ = elapsedTime; }
 
-    void setComplete(bool isComplete) { isComplete_ = isComplete; }
-    std::string getMusicPath() { return musicPath_; }
-    void setMusicPath(std::string musicPath) { musicPath_ = musicPath; }
-    Vector* getLightDirection() { return &lightDirection_; }
+    void setComplete(const bool &isComplete)        { isComplete_ = isComplete; }
+    std::string getMusicPath()                      { return musicPath_; }
+    void setMusicPath(const std::string &musicPath) { musicPath_ = musicPath; }
+    Vector* getLightDirection()                     { return &lightDirection_; }
 
-    void setSkyBox(float[][3], int, int);
-    void setLightDirection(float x, float y, float z) {
+    void setSkyBox(float[][3], const int&, const int&);
+    void setLightDirection(const float &x, const float &y, const float &z) {
       lightDirection_.setVector(x, y, z);
       lightDirection_.normalize();
     }
 
-    Object* getObjectFromId(int id) {
+    Object* getObjectFromId(const int &id) {
       return (id >= 0 && id < MAX_LEVEL_OBJECTS ? idToObjectMap_[id] : NULL);
     }
 

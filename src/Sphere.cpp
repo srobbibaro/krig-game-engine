@@ -1,15 +1,15 @@
 #include "Sphere.h"
 
 //------------------------------------------------------------------------------
-Sphere::Sphere(void) {
+Sphere::Sphere() {
   x = y = z = radius = 0.0f;
 }
 
 //------------------------------------------------------------------------------
-Sphere::~Sphere(void) {}
+Sphere::~Sphere() {}
 
 //------------------------------------------------------------------------------
-void Sphere::setSphere(float tX, float tY, float tZ, float tRadius) {
+void Sphere::setSphere(const float &tX, const float &tY, const float &tZ, const float &tRadius) {
   x = tX;
   y = tY;
   z = tZ;
@@ -18,11 +18,11 @@ void Sphere::setSphere(float tX, float tY, float tZ, float tRadius) {
 }
 
 //------------------------------------------------------------------------------
-void Sphere::getOriginVector(Vector &v) {
+void Sphere::getOriginVector(Vector &v) const {
   v.setVector(x, y, z);
 }
 
 //------------------------------------------------------------------------------
-float Sphere::getRadius(void) const {
+float Sphere::getRadius() const {
   return (radius);
 }

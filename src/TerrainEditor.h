@@ -10,11 +10,11 @@ class TerrainEditor {
     ~TerrainEditor() {};
 
     void displayPalette(Engine *engine);
-    void initPalette(void);
-    void reshapePalette(int w, int h);
-    void mousePalette(Engine* engine, int btn, int state, int x, int y);
+    void initPalette();
+    void reshapePalette(const int&, const int&);
+    void mousePalette(Engine* engine, const int&, const int&, const int&, const int&);
 
   private:
-    void printString(char* str, float x, float y);
+    void printString(char* str, const float&, const float&);
 };
 #endif

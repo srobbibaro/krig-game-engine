@@ -10,17 +10,17 @@
 class Camera : public Object {
   public:
     Camera();
-    Camera(int tid);
+    Camera(const int&);
     virtual ~Camera();
 
-    void update(float);
+    void update(const float&);
     void setCamera(const Vector&, const Vector&, const Quaternion&, const Vector&);
-    void prepareGLView( void );
+    void prepareGLView();
 
     // accessor functions
     void getRotationMatrix(Matrix &m) const;
 
-    void printTypeName(void) { PRINT_DEBUG("Camera\n"); }
+    void printTypeName() { PRINT_DEBUG("Camera\n"); }
     void buildLuaObjectTable(lua_State *L);
 
     void draw(Object*);
@@ -28,14 +28,14 @@ class Camera : public Object {
     Frustum *getFrustum();
 
     void drawOutline(Object*) {}; // Camera*
-    void drawShadow (Vector*) {}
+    void drawShadow(Vector*) {}
 
     void handleCollision(Object*) {};
     void update(Vector*) {};
-    void prepare(void) {};
-    void animate(float, Object*) {}; // Camera*
+    void prepare() {};
+    void animate(const float&, Object*) {}; // Camera*
 
-    void setProjectionMatrix(void);
+    void setProjectionMatrix();
 
     Matrix rotationMatrix; // send to rendering library
     Frustum frustum;
@@ -48,7 +48,7 @@ class Camera : public Object {
     int id_;
 
   private:
-    void initialize(void);
+    void initialize();
 };
 
 #endif

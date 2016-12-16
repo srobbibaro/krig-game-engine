@@ -1,10 +1,10 @@
 #include "Frustum.h"
 
 //------------------------------------------------------------------------------
-Frustum::Frustum(void) {}
+Frustum::Frustum() {}
 
 //------------------------------------------------------------------------------
-Frustum::~Frustum(void) {}
+Frustum::~Frustum() {}
 
 //------------------------------------------------------------------------------
 void Frustum::extractFromProjectionMatrix(const Matrix &m) {
@@ -62,7 +62,7 @@ void Frustum::extractFromProjectionMatrix(const Matrix &m) {
 }
 
 //------------------------------------------------------------------------------
-int Frustum::testSphere(Sphere sphere) {
+int Frustum::testSphere(const Sphere &sphere) {
   float distance;
   Vector origin;
 
@@ -86,10 +86,10 @@ int Frustum::testSphere(Sphere sphere) {
 }
 
 //------------------------------------------------------------------------------
-int Frustum::testBoundingBox(void) { return 0; }
+int Frustum::testBoundingBox() { return 0; }
 
 //------------------------------------------------------------------------------
-void Frustum::getPlaneDefinition(int num, float &a, float &b, float &c, float &d) {
+void Frustum::getPlaneDefinition(const int &num, float &a, float &b, float &c, float &d) {
   if (num >= 0 && num < NUM_PLANES) {
     planes[num].getDefinition(a, b, c, d);
   }

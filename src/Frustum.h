@@ -8,14 +8,14 @@
 
 class Frustum {
   public:
-    Frustum(void);
-    ~Frustum(void);
+    Frustum();
+    ~Frustum();
 
-    void extractFromProjectionMatrix(const Matrix &m);
-    void getPlaneDefinition(int num, float &a, float &b, float &c, float &d);
+    void extractFromProjectionMatrix(const Matrix&);
+    void getPlaneDefinition(const int&, float&, float&, float&, float&);
 
-    int testSphere(Sphere sphere);
-    int testBoundingBox(void);
+    int testSphere(const Sphere &sphere);
+    int testBoundingBox();
 
   private:
     // 0 - left, 1 - right, 2 - down, 3 - up, 4 - far, 5 - near

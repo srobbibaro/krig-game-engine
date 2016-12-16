@@ -6,40 +6,40 @@
 
 class Quaternion {
   public:
-    Quaternion(void);
-    Quaternion(Vector &v);
-    Quaternion(float x, float y, float z);
-    Quaternion(const Vector &axis, float angle);
-    Quaternion(float qX, float qY, float qZ, float qW);
-    Quaternion(const Quaternion &t);
-    ~Quaternion(void) {}
+    Quaternion();
+    Quaternion(const Vector&);
+    Quaternion(const float&, const float&, const float&);
+    Quaternion(const Vector&, const float&);
+    Quaternion(const float&, const float&, const float&, const float&);
+    Quaternion(const Quaternion &);
+    ~Quaternion() {}
 
-    void normalize( void );
+    void normalize();
 
-    void buildFromEuler(const Vector &v);
-    void buildFromEuler(float angleX, float angleY, float angleZ);
-    void buildFromAxis(const Vector &v, float angle);
-    void buildFromAxis(float x, float y, float z);
+    void buildFromEuler(const Vector&);
+    void buildFromEuler(const float&, const float&, const float&);
+    void buildFromAxis(const Vector&, const float&);
+    void buildFromAxis(const float&, const float&, const float&);
 
-    void loadMultIdentity(void);
-    void loadAddIdentity(void);
+    void loadMultIdentity();
+    void loadAddIdentity();
 
-    void getEulerAngles(Vector &v);
+    void getEulerAngles(Vector&);
 
-    void buildRotationMatrix(Matrix &m);
-    void rotate(float angle);
-    void slerp (const Quaternion &sQ, float t, const Quaternion &eQ);
+    void buildRotationMatrix(Matrix&);
+    void rotate(const float&);
+    void slerp (const Quaternion &, const float&, const Quaternion&);
 
     // accessor functions
-    float getX(void) const { return(x); }
-    float getY(void) const { return(y); }
-    float getZ(void) const { return(z); }
-    float getW(void) const { return(w); }
+    float getX() const { return(x); }
+    float getY() const { return(y); }
+    float getZ() const { return(z); }
+    float getW() const { return(w); }
 
     // overloaded operators
-    Quaternion operator+(const Quaternion &q);
-    Quaternion operator*(const Quaternion &q);
-    Quaternion&	operator=(const Quaternion &q);
+    Quaternion operator+(const Quaternion&);
+    Quaternion operator*(const Quaternion&);
+    Quaternion&	operator=(const Quaternion&);
 
   private:
     float x, y, z, w;

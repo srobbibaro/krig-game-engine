@@ -1,7 +1,7 @@
 #include "Plane.h"
 
 //------------------------------------------------------------------------------
-Plane::Plane(void) {
+Plane::Plane() {
   a_ = 1.0f;
   b_ = 0.0f;
   c_ = 0.0f;
@@ -9,18 +9,15 @@ Plane::Plane(void) {
 }
 
 //------------------------------------------------------------------------------
-Plane::~Plane(void) {}
+Plane::~Plane() {}
 
 //------------------------------------------------------------------------------
-void Plane::setPlane(float a, float b, float c, float d) {
-  a_ = a;
-  b_ = b;
-  c_ = c;
-  d_ = d;
+void Plane::setPlane(const float &a, const float &b, const float &c, const float &d) {
+  a_ = a; b_ = b; c_ = c; d_ = d;
 }
 
 //------------------------------------------------------------------------------
-void Plane::normalize(void) {
+void Plane::normalize() {
   float len = sqrt((a_ * a_) + (b_ * b_) + (c_ * c_));
 
   if (len != 0.0f) {

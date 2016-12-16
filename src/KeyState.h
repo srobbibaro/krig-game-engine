@@ -9,8 +9,8 @@
 class KeyState {
   public:
     void initKeyState();
-    bool testKeyReleased(int key);
-    bool testKeyPressed(int key);
+    bool testKeyReleased(const int&);
+    bool testKeyPressed(const int&);
 
     int keys[MAX_KEYS];
 };

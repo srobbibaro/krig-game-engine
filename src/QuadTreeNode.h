@@ -5,8 +5,8 @@
 
 class QuadTreeNode {
   public:
-    QuadTreeNode(void);
-    ~QuadTreeNode(void);
+    QuadTreeNode();
+    ~QuadTreeNode();
 
     QuadTreeNode* child[4];
 

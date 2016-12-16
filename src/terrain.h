@@ -18,8 +18,8 @@ class Terrain : public Object {
     void drawOutline(Object*);
 
     void handleCollision(Object* temp) {}
-    void animate(float, Object*);
-    void generate(void);
+    void animate(const float&, Object*);
+    void generate();
 
     void calcTerrainNorm(Vector*);
     void calcViewableTerrainNorm();
@@ -30,33 +30,33 @@ class Terrain : public Object {
     void save(const char*, Vector*);
     void unload();
 
-    float getHeight(float, float);
+    float getHeight(const float&, const float&);
 
-    void printTypeName(void) { PRINT_DEBUG("Terrain\n"); }
+    void printTypeName() { PRINT_DEBUG("Terrain\n"); }
     virtual void buildLuaObjectTable(lua_State *L);
     virtual void transferLuaObjectTable(lua_State *L);
-    void drawGrid(void);
+    void drawGrid();
 
-    void setVertexHeight(int x, int z, float height);
-    void setVertexType(int x, int z, int type);
-    void setVertexColor(int x, int z, Vector color);
-    float getVertexHeight(int x, int z);
-    int getVertexType(int x, int z);
-    Vector getVertexColor(int x, int z);
+    void setVertexHeight(const int&, const int&, const float&);
+    void setVertexType(const int&, const int&, const int&);
+    void setVertexColor(const int&, const int&, const Vector&);
+    float getVertexHeight(const int&, const int&);
+    int getVertexType(const int&, const int&);
+    Vector getVertexColor(const int&, const int&);
 
-    DisplayList* getDisplayList() { return displayList_; }
+    DisplayList* getDisplayList()                 { return displayList_; }
     void setDisplayList(DisplayList* displayList) { displayList_ = displayList; }
 
-    int getXSize() { return xSize_; }
-    int getZSize() { return zSize_; }
+    int getXSize()       { return xSize_; }
+    int getZSize()       { return zSize_; }
     int getScaleFactor() { return scaleFactor_; }
 
-    void setCurveDistance(GLfloat curveDistance) { curveDistance_ = curveDistance; }
-    void setCurveRate(GLfloat curveRate) { curveRate_ = curveRate; }
-    void setIsCurveEnabled(bool isCurveEnabled) { isCurveEnabled_ = isCurveEnabled; }
-    GLfloat getCurveDistance() { return curveDistance_; };
-    GLfloat getCurveRate() { return curveRate_; };
-    GLfloat getIsCurveEnabled() { return isCurveEnabled_; }
+    void setCurveDistance(const GLfloat &curveDistance) { curveDistance_ = curveDistance; }
+    void setCurveRate(const GLfloat &curveRate)         { curveRate_ = curveRate; }
+    void setIsCurveEnabled(const bool &isCurveEnabled)  { isCurveEnabled_ = isCurveEnabled; }
+    GLfloat getCurveDistance()                          { return curveDistance_; };
+    GLfloat getCurveRate()                              { return curveRate_; };
+    GLfloat getIsCurveEnabled()                         { return isCurveEnabled_; }
 
   private:
     DisplayList* displayList_;

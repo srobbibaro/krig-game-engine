@@ -6,13 +6,13 @@
 
 class DisplayList {
   public:
-    DisplayList(void);
-    ~DisplayList(void);
+    DisplayList();
+    ~DisplayList();
 
-    void traverseList(void);
+    void traverseList();
 
     void insertLast(QuadTreeNode* n);
-    void clearList(void);
+    void clearList();
 
     QuadTreeNode* head;
     QuadTreeNode* tail;

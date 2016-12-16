@@ -9,7 +9,7 @@
 #include "gametimer.h"
 
 //------------------------------------------------------------------------------
-bool GameTimer::init(void) {
+bool GameTimer::init() {
 #ifdef _WIN32
   if (!QueryPerformanceFrequency(&m_ticksPerSecond)) {
     // system doesn't support high-res timer
@@ -30,7 +30,7 @@ bool GameTimer::init(void) {
 }
 
 //------------------------------------------------------------------------------
-float GameTimer::getElapsedSeconds(void) {
+float GameTimer::getElapsedSeconds() {
 #ifdef _WIN32
   static LARGE_INTEGER s_lastTime = m_startTime;
   LARGE_INTEGER currentTime;
@@ -71,7 +71,7 @@ float GameTimer::getElapsedSeconds(void) {
 }
 
 //------------------------------------------------------------------------------
-float GameTimer::getFPS(void) {
+float GameTimer::getFPS() {
 #ifdef _WIN32
   unsigned long elapsedFrames = 1;
   static LARGE_INTEGER s_lastTime = m_startTime;

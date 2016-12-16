@@ -252,7 +252,7 @@ void Terrain::drawOutline(Object* c) {
 }
 
 //------------------------------------------------------------------------------
-void Terrain::generate(void) {}
+void Terrain::generate() {}
 
 //------------------------------------------------------------------------------
 void Terrain::calcViewableTerrainNorm() {
@@ -493,18 +493,16 @@ void Terrain::update(Vector* light) {
 }
 
 //------------------------------------------------------------------------------
-float Terrain::getHeight(float x, float z) {
+float Terrain::getHeight(const float &x, const float &z) {
   if (vertex_ == NULL || lightIntensity_ == NULL || color_ == NULL || type_ == NULL) {
     return 0.0f;
   }
 
   float terX, terZ;
 
-  z = -z;
-
   // x and z value in terms of the terrain
   terX = x / scaleFactor_;
-  terZ = z / scaleFactor_;
+  terZ = -z / scaleFactor_;
 
   // calculate cell row and column into array
   int row, col1, col2;
@@ -513,7 +511,7 @@ float Terrain::getHeight(float x, float z) {
   col2 = col1 + 1;
 
   if (col1 < 0 || col2 < 0 || row < 0) {
-    PRINT_DEBUG("Error: x=%f, z=%f, row=%d, col1=%d, col2=%d\n", x, z, row, col1, col2);
+    PRINT_DEBUG("Error: x=%f, z=%f, row=%d, col1=%d, col2=%d\n", x, -z, row, col1, col2);
     return 0.0f;
   }
 
@@ -549,7 +547,7 @@ float Terrain::getHeight(float x, float z) {
 }
 
 //------------------------------------------------------------------------------
-void Terrain::animate(float elapsedTime, Object* c) {
+void Terrain::animate(const float &elapsedTime, Object* c) {
   if (vertex_ == NULL || lightIntensity_ == NULL || color_ == NULL || type_ == NULL) {
     return;
   }
@@ -732,7 +730,7 @@ void Terrain::unload() {
 }
 
 //------------------------------------------------------------------------------
-void Terrain::drawGrid(void) {
+void Terrain::drawGrid() {
   glPushMatrix();
   //glDepthFunc( GL_ALWAYS );
   glColor3f(1.0f, 0.0f, 0.0f);
@@ -778,7 +776,7 @@ void Terrain::save(const char* filePath, Vector* light) {
   fin.close();
 }
 
-void Terrain::setVertexHeight(int x, int z, float height) {
+void Terrain::setVertexHeight(const int &x, const int &z, const float &height) {
   if (!vertex_)
     return;
 
@@ -787,7 +785,7 @@ void Terrain::setVertexHeight(int x, int z, float height) {
   }
 }
 
-void Terrain::setVertexType(int x, int z, int type) {
+void Terrain::setVertexType(const int &x, const int &z, const int &type) {
   if (!type_)
     return;
 
@@ -796,7 +794,7 @@ void Terrain::setVertexType(int x, int z, int type) {
   }
 }
 
-void Terrain::setVertexColor(int x, int z, Vector color) {
+void Terrain::setVertexColor(const int &x, const int &z, const Vector &color) {
   if (!color_)
     return;
 
@@ -808,7 +806,7 @@ void Terrain::setVertexColor(int x, int z, Vector color) {
 }
 
 //------------------------------------------------------------------------------
-float Terrain::getVertexHeight(int x, int z) {
+float Terrain::getVertexHeight(const int &x, const int &z) {
   if (!vertex_)
     return 0.0f;
 
@@ -820,7 +818,7 @@ float Terrain::getVertexHeight(int x, int z) {
 }
 
 //------------------------------------------------------------------------------
-int Terrain::getVertexType(int x, int z) {
+int Terrain::getVertexType(const int &x, const int &z) {
   if (!type_)
     return 0;
 
@@ -832,7 +830,7 @@ int Terrain::getVertexType(int x, int z) {
 }
 
 //------------------------------------------------------------------------------
-Vector Terrain::getVertexColor(int x, int z) {
+Vector Terrain::getVertexColor(const int &x, const int &z) {
   Vector color;
   color.setVector(0.0f, 0.0f, 0.0f);
 

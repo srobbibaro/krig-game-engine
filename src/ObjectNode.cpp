@@ -3,7 +3,7 @@
 #include "constants.h"
 
 //------------------------------------------------------------------------------
-ObjectNode::ObjectNode(void) {
+ObjectNode::ObjectNode() {
   next = prev = NULL;
 }
 

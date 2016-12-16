@@ -30,7 +30,7 @@ Matrix::Matrix(
 }
 
 //------------------------------------------------------------------------------
-void Matrix::loadIdentity(void) {
+void Matrix::loadIdentity() {
   for ( int i = 0; i < NUM_CELLS; ++i )
     data[i] = 0;
 
@@ -41,7 +41,7 @@ void Matrix::loadIdentity(void) {
 }
 
 //------------------------------------------------------------------------------
-void Matrix::loadZero(void) {
+void Matrix::loadZero() {
   for ( int i = 0; i < NUM_CELLS; ++i )
     data[i] = 0;
 }
@@ -68,7 +68,7 @@ Matrix Matrix::operator *(const Matrix &p) {
 }
 
 //------------------------------------------------------------------------------
-void Matrix::setRotation(float angle, float x, float y, float z) {
+void Matrix::setRotation(const float &angle, const float &x, const float &y, const float &z) {
   float t = 1 - cos(angle);
   float s = sin(angle);
   float c = cos(angle);
@@ -89,7 +89,7 @@ void Matrix::setRotation(float angle, float x, float y, float z) {
 }
 
 //------------------------------------------------------------------------------
-void Matrix::setTranslation(float x, float y, float z) {
+void Matrix::setTranslation(const float &x, const float &y, const float &z) {
   loadIdentity();
 
   data[12] = x;
@@ -98,7 +98,7 @@ void Matrix::setTranslation(float x, float y, float z) {
 }
 
 //------------------------------------------------------------------------------
-void Matrix::setScale(float x, float y, float z) {
+void Matrix::setScale(const float &x, const float &y, const float &z) {
   loadIdentity();
 
   data[0]  = x;
@@ -117,7 +117,7 @@ void Matrix::transpose(Matrix &m) {
 }
 
 //------------------------------------------------------------------------------
-void Matrix::transformVertex(float *v , float *newVertex) {
+void Matrix::transformVertex(float *v, float *newVertex) {
   float h, x, y, z;
 
   x = ( v[0] * data[0] ) + ( v[1] * data[4] ) + ( v[2] * data[8] ) + data[12];
@@ -161,7 +161,7 @@ void Matrix::setShadow(float lightPos[4], float plane[4]) {
 }
 
 //------------------------------------------------------------------------------
-void Matrix::display(void) {
+void Matrix::display() {
 #if DEBUG
   PRINT_DEBUG("Matrix dump:\n");
   for ( int i = 0; i < NUM_CELLS; ++i ) {
@@ -173,7 +173,7 @@ void Matrix::display(void) {
 }
 
 //------------------------------------------------------------------------------
-void Matrix::setRotation2(float x, float y, float z) {
+void Matrix::setRotation2(const float &x, const float &y, const float &z) {
   // simplify math for later //
   float cosX = cos(x/2);
   float cosY = cos(y/2);

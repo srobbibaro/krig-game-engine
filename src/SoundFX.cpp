@@ -81,7 +81,7 @@ SoundFX::~SoundFX() {
 // PlaySFX()
 //
 // Plays a specified sound file.  Accepts a file name (not the complete path).
-void SoundFX::PlaySFX( std::string sfx ) {
+void SoundFX::PlaySFX( const std::string &sfx ) {
   if (Sources == NULL)
     return;
 
@@ -94,10 +94,12 @@ void SoundFX::PlaySFX( std::string sfx ) {
 // eight parameters: The name of the wav file; X, Y, and Z locational
 // coordinates; X, Y, and Z velocity values; and a boolean representing whether
 // or not the sound should be looped.
-void SoundFX::SetSFX( std::string sfx,
-                      ALfloat PosX, ALfloat PosY, ALfloat PosZ,
-                      ALfloat VelX, ALfloat VelY, ALfloat VelZ,
-                      ALboolean repeat ) {
+void SoundFX::SetSFX(
+    const std::string &sfx,
+    const ALfloat &PosX, const ALfloat &PosY, const ALfloat &PosZ,
+    const ALfloat &VelX, const ALfloat &VelY, const ALfloat &VelZ,
+    const ALboolean &repeat
+) {
   if (Buffers == NULL || Sources == NULL)
     return;
 
@@ -118,9 +120,10 @@ void SoundFX::SetSFX( std::string sfx,
 // Sets the position and velocity of the listener.  Takes six parameters.  The
 // first three represent the listener's X, Y, and Z position, and the second
 // three represent the relative X, Y, and Z velocity.
-void SoundFX::SetSFXListener( ALfloat PosX, ALfloat PosY, ALfloat PosZ,
-                              ALfloat VelX, ALfloat VelY, ALfloat VelZ ) {
-
+void SoundFX::SetSFXListener(
+    const ALfloat &PosX, const ALfloat &PosY, const ALfloat &PosZ,
+    const ALfloat &VelX, const ALfloat &VelY, const ALfloat &VelZ
+) {
   ALfloat ListenerPos[3] = { PosX, PosY, PosZ };
   ALfloat ListenerVel[3] = { VelX, VelY, VelZ };
   ALfloat ListenerOri[6] = { 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f };

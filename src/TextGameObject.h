@@ -8,26 +8,26 @@ class TextGameObject : public Object {
   public:
     TextGameObject();
 
-    void printTypeName(void) { PRINT_DEBUG("text\n"); }
+    void printTypeName() { PRINT_DEBUG("text\n"); }
     void buildLuaObjectTable(lua_State *L);
     void transferLuaObjectTable(lua_State *L);
 
     void draw(Object*);
-    void drawOutline(Object*) {}; // Camera*
-    void drawShadow (Vector*) {}
+    void drawOutline(Object*) {};
+    void drawShadow(Vector*) {};
 
     void handleCollision(Object*) {};
     void update(Vector*) {};
-    void prepare(void) {};
-    void animate(float, Object*); // Camera*
+    void prepare() {};
+    void animate(const float&, Object*); // Camera*
 
     std::string text;
     float color[4];
     float width;
     float fadeRate;
 
-    static void render_string(void* font, const char* string);
-    static void displayText(char *text, float x, float y, float z, float, float);
+    static void render_string(void*, const char*);
+    static void displayText(char *, const float&, const float&, const float&, const float&, const float&);
 };
 
 #endif

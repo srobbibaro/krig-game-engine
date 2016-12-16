@@ -8,16 +8,16 @@
 
 class QuadTree {
   public:
-    QuadTree(void);
-    ~QuadTree(void);
+    QuadTree();
+    ~QuadTree();
 
     void buildTree(Terrain* t);
     int buildDisplayList(DisplayList* l, Camera* c);
     int buildLeafList(DisplayList* l);
 
-    void traverseTree(void);
+    void traverseTree();
 
-    int buildTree(QuadTreeNode* &p, float xMin, float xMax, float zMin, float zMax, float scaleFactor);
+    int buildTree(QuadTreeNode* &, const float&, const float&, const float&, const float&, const float&);
     void traverseTree(QuadTreeNode* n);
     int buildDisplayList(QuadTreeNode* n, DisplayList* l, Camera* c);
     int buildLeafList(QuadTreeNode* n, DisplayList* l);

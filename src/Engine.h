@@ -15,29 +15,30 @@ class Engine {
     Engine();
     ~Engine();
 
-    void gameCycle(void); // physics, animation, collision, draw
-    void prepare(void);
-    void initGL(void);
+    void gameCycle();
+    void prepare();
+    void initGL();
 
-    void processKeyUp(int);
-    void processKeyDown(int);
+    void processKeyUp(const int&);
+    void processKeyDown(const int&);
     void processCommands();
-    void processNormalKeyUp(unsigned char);
-    void processNormalKeyDown(unsigned char);
-    KeyState* getKeyState() { return &keyState_; }
+    void processNormalKeyUp(const unsigned char&);
+    void processNormalKeyDown(const unsigned char&);
+
+    KeyState* getKeyState()        { return &keyState_; }
     KeyState* getSpecialKeyState() { return &specialKeyState_; }
 
-    void processMouseMove(int x, int y);
+    void processMouseMove(const int&, const int&);
     float getMouseX() { return mouseX_; }
     float getMouseY() { return mouseY_; }
 
     void loadLevel(const char*);
     void loadLevelFromBuffer(const char*);
 
-    bool loadGame(std::string);
+    bool loadGame(const std::string&);
     bool loadIntroCredits();
 
-    void updateGame(float);
+    void updateGame(const float&);
     void unloadGame();
     void unload();
 
@@ -46,25 +47,23 @@ class Engine {
 
     float getFps() { return fps_; }
 
-    void loadModels(void);
+    void loadModels();
     void loadTextures();
 
-    void renderText(const char* s, float x, float y) {
+    void renderText(const char* s, const float &x, const float &y) {
       glRasterPos2f (x, y);
       TextGameObject::render_string(GLUT_BITMAP_HELVETICA_18, s);
     }
 
     SoundFX* getSoundFxClass() { return &soundFx_; }
-    bool getIsRunning() { return isRunning_; }
+    bool getIsRunning()        { return isRunning_; }
 
-    GameLevel* getCurrentLevel(void) {
-      return currentLevel_;
-    }
+    GameLevel* getCurrentLevel() { return currentLevel_; }
 
     void swapLevel() {
       GameLevel *temp = currentLevel_;
-      currentLevel_ = storedLevel_;
-      storedLevel_ = temp;
+      currentLevel_   = storedLevel_;
+      storedLevel_    = temp;
     }
 
     bool loadPng(const char*, unsigned char**, unsigned int*, unsigned int*, unsigned int*);

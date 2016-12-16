@@ -1,7 +1,7 @@
 #include "QuadTreeNode.h"
 
 //------------------------------------------------------------------------------
-QuadTreeNode::QuadTreeNode(void) {
+QuadTreeNode::QuadTreeNode() {
   for (int i = 0; i < 4; i++) {
     child[i] = NULL;
   }
@@ -12,4 +12,4 @@ QuadTreeNode::QuadTreeNode(void) {
 }
 
 //------------------------------------------------------------------------------
-QuadTreeNode::~QuadTreeNode(void) {}
+QuadTreeNode::~QuadTreeNode() {}

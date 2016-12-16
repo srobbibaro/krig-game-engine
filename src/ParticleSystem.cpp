@@ -1,7 +1,7 @@
 #include "ParticleSystem.h"
 
 //------------------------------------------------------------------------------
-ParticleSystem::ParticleSystem(void) {}
+ParticleSystem::ParticleSystem() {}
 
 //------------------------------------------------------------------------------
-ParticleSystem::~ParticleSystem(void) {}
+ParticleSystem::~ParticleSystem() {}

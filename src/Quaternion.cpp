@@ -1,27 +1,27 @@
 #include "Quaternion.h"
 
 //------------------------------------------------------------------------------
-Quaternion::Quaternion(void) {
+Quaternion::Quaternion() {
   x = y = z = w = 0.0f;
 }
 
 //------------------------------------------------------------------------------
-Quaternion::Quaternion(Vector &v) {
+Quaternion::Quaternion(const Vector &v) {
   buildFromEuler(v);
 }
 
 //------------------------------------------------------------------------------
-Quaternion::Quaternion(float x, float y, float z) {
+Quaternion::Quaternion(const float &x, const float &y, const float &z) {
   buildFromEuler(x, y, z);
 }
 
 //------------------------------------------------------------------------------
-Quaternion::Quaternion(const Vector &axis, float angle) {
+Quaternion::Quaternion(const Vector &axis, const float &angle) {
   buildFromAxis(axis, angle);
 }
 
 //------------------------------------------------------------------------------
-Quaternion::Quaternion(float qX, float qY, float qZ, float qW) {
+Quaternion::Quaternion(const float &qX, const float &qY, const float &qZ, const float &qW) {
   x = qX;
   y = qY;
   z = qZ;
@@ -58,7 +58,7 @@ void Quaternion::buildFromEuler(const Vector &v) {
 }
 
 //------------------------------------------------------------------------------
-void Quaternion::buildFromEuler(float angleX, float angleY, float angleZ) {
+void Quaternion::buildFromEuler(const float &angleX, const float &angleY, const float &angleZ) {
   // calculate trig identities ONCE
   float cosX = cos(angleX / 2.0f);
   float cosY = cos(angleY / 2.0f);
@@ -79,7 +79,7 @@ void Quaternion::buildFromEuler(float angleX, float angleY, float angleZ) {
 }
 
 //------------------------------------------------------------------------------
-void Quaternion::buildFromAxis(const Vector &v, float angle) {
+void Quaternion::buildFromAxis(const Vector &v, const float &angle) {
   // this function currently assumes a valid unit vector is passed in Vector v
   float scale	= sin( angle / 2.0f );
 
@@ -104,7 +104,7 @@ void Quaternion::normalize() {
 }
 
 //------------------------------------------------------------------------------
-void Quaternion::loadMultIdentity(void) {
+void Quaternion::loadMultIdentity() {
   x = 0.0f;
   y = 0.0f;
   z = 0.0f;
@@ -112,7 +112,7 @@ void Quaternion::loadMultIdentity(void) {
 }
 
 //------------------------------------------------------------------------------
-void Quaternion::loadAddIdentity(void) {
+void Quaternion::loadAddIdentity() {
   x = 0.0f;
   y = 0.0f;
   z = 0.0f;
@@ -182,13 +182,13 @@ void Quaternion::buildRotationMatrix(Matrix &m) {
 }
 
 //------------------------------------------------------------------------------
-void Quaternion::rotate(float angle) {
+void Quaternion::rotate(const float &angle) {
   // TODO: work in progress
   // dQ/ dt + 0.5 * quat(angle) * Q;
 }
 
 //------------------------------------------------------------------------------
-void Quaternion::slerp(const Quaternion &sQ, float t, const Quaternion &eQ) {
+void Quaternion::slerp(const Quaternion &sQ, const float &t, const Quaternion &eQ) {
   // first make sure t is within tolerance
   if (t >= 0.0f || t <+ 1.0f) {
     float tx, ty, tz, tw;

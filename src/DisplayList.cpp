@@ -1,16 +1,16 @@
 #include "DisplayList.h"
 
 //------------------------------------------------------------------------------
-DisplayList::DisplayList(void) {
+DisplayList::DisplayList() {
   head = NULL;
   tail = NULL;
 }
 
 //------------------------------------------------------------------------------
-DisplayList::~DisplayList(void) {}
+DisplayList::~DisplayList() {}
 
 //------------------------------------------------------------------------------
-void DisplayList::traverseList(void) {
+void DisplayList::traverseList() {
   QuadTreeNode *n = head;
 
   while (n != NULL) {
@@ -39,7 +39,7 @@ void DisplayList::insertLast(QuadTreeNode* n) {
 }
 
 //------------------------------------------------------------------------------
-void DisplayList::clearList(void) {
+void DisplayList::clearList() {
   head = NULL;
   tail = NULL;
 }

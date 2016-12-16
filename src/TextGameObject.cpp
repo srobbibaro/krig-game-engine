@@ -33,7 +33,7 @@ void TextGameObject::draw(Object* camera) {
 }
 
 //------------------------------------------------------------------------------
-void TextGameObject::animate(float timeElapsed, Object* camera) {
+void TextGameObject::animate(const float &timeElapsed, Object* camera) {
   Object::animate(timeElapsed, camera);
 
   color[3] += timeElapsed * fadeRate;
@@ -105,7 +105,10 @@ void TextGameObject::render_string(void* font, const char* string) {
 }
 
 //------------------------------------------------------------------------------
-void TextGameObject::displayText(char *text, float x, float y, float z, float scaleX, float scaleY) {
+void TextGameObject::displayText(
+    char *text, const float &x, const float &y, const float &z,
+    const float &scaleX, const float &scaleY
+) {
   // Renders a stroke font string
   glPushMatrix();
     glTranslatef (x, y, z);

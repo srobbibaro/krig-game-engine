@@ -6,14 +6,14 @@
 
 class Sphere {
   public:
-    Sphere(void);
-    ~Sphere(void);
+    Sphere();
+    ~Sphere();
 
-    void setSphere(float tX, float tY, float tZ, float tRadius);
+    void setSphere(const float&, const float&, const float&, const float&);
 
-    void getOriginVector(Vector &v);
-    float getRadius(void) const;
-    void setOriginVector(Vector &v) { x = v.x; y = v.y; z = v.z; }
+    void getOriginVector(Vector&) const;
+    float getRadius() const;
+    void setOriginVector(const Vector &v) { x = v.x; y = v.y; z = v.z; }
 
   private:
     float x, y, z;  // origin

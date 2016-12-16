@@ -7,10 +7,10 @@
 
 class ObjectNode {
   public:
-    ObjectNode(void);
+    ObjectNode();
     virtual ~ObjectNode();
 
-    virtual void printTypeName(void) = 0;
+    virtual void printTypeName() = 0;
 
     ObjectNode* next;
     ObjectNode* prev;

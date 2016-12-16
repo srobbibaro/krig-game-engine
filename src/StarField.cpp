@@ -15,19 +15,19 @@ StarField::StarField(Object* tOrigin) {
 }
 
 //------------------------------------------------------------------------------
-StarField::~StarField(void) {
+StarField::~StarField() {
   delete[] particles;
 }
 
 //------------------------------------------------------------------------------
-void StarField::init(void) {
+void StarField::init() {
   for (int i = 0; i < numParticles; ++i) {
     initParticle(i);
   }
 }
 
 //------------------------------------------------------------------------------
-void StarField::draw(void) {
+void StarField::draw() {
   Vector originPosition = origin->getPosition();
 
   for (int i = 0; i < numParticles; ++i) {
@@ -65,7 +65,7 @@ void StarField::draw(void) {
 }
 
 //------------------------------------------------------------------------------
-void StarField::initParticle(int index) {
+void StarField::initParticle(const int &index) {
   particles[index].position.setVector(
     -200.0f + rand() % 400,
     -150.0f + rand() % 300,
@@ -88,7 +88,7 @@ void StarField::initParticle(int index) {
 }
 
 //------------------------------------------------------------------------------
-void StarField::update(float elapsedTime) {
+void StarField::update(const float &elapsedTime) {
   for (int i = 0; i < numParticles; ++i) {
     Vector attributes = particles[i].velocity;
 

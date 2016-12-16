@@ -21,23 +21,23 @@ struct Matrix {
     const float &, const float &, const float &, const float &
   );
 
-  void loadIdentity(void);
-  void loadZero(void);
+  void loadIdentity();
+  void loadZero();
 
   void operator =(const Matrix &);
   Matrix operator *(const Matrix &);
 
   void transpose(Matrix&);
-  void setRotation(float, float, float, float);
-  void setRotation2(float, float, float);
-  void setTranslation(float, float, float);
-  void setScale(float, float, float);
+  void setRotation(const float &, const float &, const float &, const float &);
+  void setRotation2(const float &, const float &, const float &);
+  void setTranslation(const float &, const float &, const float &);
+  void setScale(const float &, const float &, const float &);
   void setShadow(float lightPos[4], float plane[4]);
   void transformVertex(float* , float*);
-  void display(void);
+  void display();
 
-  void CreateFromAxisAngle(float x, float y, float z, float angle);
-  void CreateFromAxisAngles(float x, float y, float z, float angle);
+  void CreateFromAxisAngle(const float &, const float &, const float &, const float &);
+  void CreateFromAxisAngles(const float &, const float &, const float &, const float &);
 
   void fix();
 };

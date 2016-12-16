@@ -30,7 +30,7 @@ Object::~Object() {
 }
 
 //------------------------------------------------------------------------------
-void Object::cleanup(void) {
+void Object::cleanup() {
   if (L_)
     lua_close(L_);
 
@@ -45,7 +45,7 @@ void Object::cleanup(void) {
 }
 
 //------------------------------------------------------------------------------
-void Object::init(void) {
+void Object::init() {
   cleanup();
   initSettings();
 }
@@ -98,7 +98,7 @@ void Object::initSettings() {
 }
 
 //------------------------------------------------------------------------------
-void Object::setScript(std::string name) {
+void Object::setScript(const std::string &name) {
   scriptName_ = name;
 
   // If the lua state has not been initialized for this object, attempt to
@@ -126,7 +126,7 @@ void Object::setScript(std::string name) {
 }
 
 //------------------------------------------------------------------------------
-void Object::loadScript(std::string name, lua_State* luaState) {
+void Object::loadScript(const std::string &name, lua_State* luaState) {
   if (scriptIndex_ == -1)
     return;
 
@@ -179,7 +179,7 @@ void Object::unloadScript() {
 }
 
 //------------------------------------------------------------------------------
-void Object::animateScript(float elapsedTime) {
+void Object::animateScript(const float &elapsedTime) {
   // Attempt to execute the script only if the lua state has already been
   // initialized with a script
   if (!L_)
@@ -212,7 +212,7 @@ void Object::animateScript(float elapsedTime) {
 }
 
 //------------------------------------------------------------------------------
-void Object::processCollisions( Object* temp ) {
+void Object::processCollisions(Object* temp) {
   if (this != temp && active_ && temp->active_ && state_ == NORMAL &&
       temp->state_ == NORMAL && isCollisionDetectionEnabled_ &&
       temp->isCollisionDetectionEnabled_ && this != NULL && temp != NULL) {
@@ -262,7 +262,7 @@ void Object::processCollisions( Object* temp ) {
 }
 
 //------------------------------------------------------------------------------
-float Object::calcTriangleCenter(float p1, float p2, float p3) {
+float Object::calcTriangleCenter(const float &p1, const float &p2, const float &p3) {
   float th1 = (.5) * p1 + (.5 * p2);
   float finalHeight = (.5) * th1 + (.5 * p3);
 
@@ -270,7 +270,7 @@ float Object::calcTriangleCenter(float p1, float p2, float p3) {
 }
 
 //------------------------------------------------------------------------------
-void Object::showCollisionBox(void) {
+void Object::showCollisionBox() {
   glDisable(GL_CULL_FACE);
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -367,7 +367,7 @@ void Object::setRotationAxis(const GLfloat &vx, const GLfloat &vy, const GLfloat
 { rotation_.buildFromAxis(Vector(vx, vy, vz), vw); }
 
 //------------------------------------------------------------------------------
-void Object::setRotationAxis(const Vector &v, GLfloat a)
+void Object::setRotationAxis(const Vector &v, const GLfloat &a)
 { rotation_.buildFromAxis(v, a); }
 
 //------------------------------------------------------------------------------
@@ -383,15 +383,16 @@ void Object::setRotationQuaternion(const Quaternion &q)
 { rotation_ = q; }
 
 //------------------------------------------------------------------------------
-void Object::setRotationVelocity(GLfloat xAngle, GLfloat yAngle, GLfloat zAngle)
-{ rotationVelocity_.setVector(xAngle, yAngle, zAngle); }
+void Object::setRotationVelocity(
+    const GLfloat &xAngle, const GLfloat &yAngle, const GLfloat &zAngle
+) { rotationVelocity_.setVector(xAngle, yAngle, zAngle); }
 
 //------------------------------------------------------------------------------
 void Object::setRotationVelocity(const Vector &v)
 { rotationVelocity_ = v; }
 
 //------------------------------------------------------------------------------
-void Object::setVelocity(GLfloat x, GLfloat y, GLfloat z)
+void Object::setVelocity(const GLfloat &x, const GLfloat &y, const GLfloat &z)
 { velocity_.setVector(x, y, z); }
 
 //------------------------------------------------------------------------------
@@ -399,7 +400,7 @@ void Object::setVelocity(const Vector &v)
 { velocity_ = v; }
 
 //------------------------------------------------------------------------------
-void Object::setSpeed(GLfloat x, GLfloat y, GLfloat z)
+void Object::setSpeed(const GLfloat &x, const GLfloat &y, const GLfloat &z)
 { speed_.setVector(x, y, z); }
 
 //------------------------------------------------------------------------------
@@ -407,7 +408,7 @@ void Object::setSpeed(const Vector &v)
 { speed_ = v; }
 
 //------------------------------------------------------------------------------
-void Object::setParticleSystem(int particleSystemNumber) {
+void Object::setParticleSystem(const int &particleSystemNumber) {
   if (particleSystem_) {
     // We won't allow updating a particle system for now
     return;
@@ -429,7 +430,7 @@ void Object::setParticleSystem(int particleSystemNumber) {
 }
 
 //------------------------------------------------------------------------------
-void Object::setScale(GLfloat x, GLfloat y, GLfloat z)
+void Object::setScale(const GLfloat &x, const GLfloat &y, const GLfloat &z)
 { scale_.setVector(x, y, z); }
 
 //------------------------------------------------------------------------------
@@ -437,11 +438,11 @@ void Object::setScale(const Vector &v)
 { scale_ = v; }
 
 //------------------------------------------------------------------------------
-void Object::setState(unsigned char tState)
+void Object::setState(const unsigned char &tState)
 { state_ = tState; }
 
 //------------------------------------------------------------------------------
-void Object::setScaleRate(GLfloat x, GLfloat y, GLfloat z)
+void Object::setScaleRate(const GLfloat &x, const GLfloat &y, const GLfloat &z)
 { scaleRate_.setVector(x, y, z); }
 
 //------------------------------------------------------------------------------
@@ -449,7 +450,7 @@ void Object::setScaleRate(const Vector &v)
 { scaleRate_ = v; }
 
 //------------------------------------------------------------------------------
-void Object::traverseAndCopyLuaTable(lua_State* srcState, lua_State* destState, int index) {
+void Object::traverseAndCopyLuaTable(lua_State* srcState, lua_State* destState, const int &index) {
   lua_pushnil(srcState);
 
   while (lua_next(srcState, index) != 0) {
@@ -684,7 +685,7 @@ void Object::transferLuaObjectTable(lua_State *L) {
 }
 
 //-----------------------------------------------------------------------------
-void Object::animate(float timeElapsed, Object* camera) {
+void Object::animate(const float &timeElapsed, Object* camera) {
   // exectue the current object's update function
   animateScript(timeElapsed);
 

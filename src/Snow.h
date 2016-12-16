@@ -8,14 +8,14 @@
 class Snow : public ParticleSystem {
   public:
     Snow(Object* tOrigin);
-    ~Snow(void);
+    ~Snow();
 
-    void update(float elapsedTime);
-    void draw(void);
-    void init(void);
+    void update(const float&);
+    void draw();
+    void init();
 
   private:
-    void initParticle(int index);
+    void initParticle(const int&);
 };
 
 #endif

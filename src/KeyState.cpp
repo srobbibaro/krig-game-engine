@@ -5,10 +5,10 @@ void KeyState::initKeyState() {
     keys[i] = KEY_STATE_INIT;
 }
 
-bool KeyState::testKeyReleased(int key) {
+bool KeyState::testKeyReleased(const int &key) {
   return key >= 0 && key < MAX_KEYS && keys[key] == KEY_STATE_RELEASED;
 }
 
-bool KeyState::testKeyPressed(int key) {
+bool KeyState::testKeyPressed(const int &key) {
   return key >= 0 && key < MAX_KEYS && keys[key] == KEY_STATE_PRESSED;
 }

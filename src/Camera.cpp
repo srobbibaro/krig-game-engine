@@ -7,13 +7,13 @@
 #include "api_camera.h"
 
 //------------------------------------------------------------------------------
-Camera::Camera(void) : Object() { initialize(); }
+Camera::Camera() : Object() { initialize(); }
 
 //------------------------------------------------------------------------------
-Camera::Camera(int id) : Object() { initialize(); id_ = id; }
+Camera::Camera(const int &id) : Object() { initialize(); id_ = id; }
 
 //------------------------------------------------------------------------------
-void Camera::initialize(void) {
+void Camera::initialize() {
   // default camera settings
   baseDirection_.setVector(0.0f, 0.0f, 1.0f);
   direction_.setVector(0.0f, 0.0f, 1.0f);
@@ -26,10 +26,10 @@ void Camera::setProjectionMatrix() {
 }
 
 //------------------------------------------------------------------------------
-Camera::~Camera(void) {}
+Camera::~Camera() {}
 
 //------------------------------------------------------------------------------
-void Camera::update(float timeElapsed) {
+void Camera::update(const float &timeElapsed) {
   // exectue the current object's update function
   animateScript(timeElapsed);
 
@@ -156,7 +156,7 @@ void Camera::setCamera(
 }
 
 //------------------------------------------------------------------------------
-void Camera::prepareGLView(void) {
+void Camera::prepareGLView() {
   Quaternion tempQ = rotation_ * worldRotation;
   Matrix m;
   tempQ.buildRotationMatrix(m);

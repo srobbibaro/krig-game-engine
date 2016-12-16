@@ -8,14 +8,14 @@
 class StarField: public ParticleSystem {
   public:
     StarField(Object* tOrigin);
-    ~StarField(void);
+    ~StarField();
 
-    void update(float elapsedTime);
-    void draw(void);
-    void init(void);
+    void update(const float&);
+    void draw();
+    void init();
 
   private:
-    void initParticle(int index);
+    void initParticle(const int&);
 };
 
 #endif

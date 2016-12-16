@@ -16,12 +16,12 @@ class ParticleSystem {
     ParticleSystem();
     virtual ~ParticleSystem();
 
-    virtual void update(float elapsedTime) = 0;
-    virtual void draw(void) = 0;
-    virtual void init(void) = 0;
+    virtual void update(const float&) = 0;
+    virtual void draw() = 0;
+    virtual void init() = 0;
 
   protected:
-    virtual void initParticle(int index) = 0;
+    virtual void initParticle(const int&) = 0;
 
     int maxParticles;
     int numParticles;

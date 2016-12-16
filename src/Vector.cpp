@@ -87,7 +87,7 @@ void Vector::average(const Vector &a, const Vector &b) {
 }
 
 //------------------------------------------------------------------------------
-void Vector::scale(float m) {
+void Vector::scale(const float &m) {
   x *= m; y *= m; z *= m;
 }
 

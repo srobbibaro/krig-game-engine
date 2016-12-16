@@ -12,17 +12,17 @@ class SoundFX {
     SoundFX();
     ~SoundFX();
 
-    void PlaySFX(std::string);
+    void PlaySFX(const std::string&);
     void SetSFX(
-      std::string,
-      ALfloat, ALfloat, ALfloat,
-      ALfloat, ALfloat, ALfloat,
-      ALboolean
+      const std::string&,
+      const ALfloat&, const ALfloat&, const ALfloat&,
+      const ALfloat&, const ALfloat&, const ALfloat&,
+      const ALboolean&
     );
 
     void SetSFXListener(
-      ALfloat, ALfloat, ALfloat,
-      ALfloat, ALfloat, ALfloat
+      const ALfloat&, const ALfloat&, const ALfloat&,
+      const ALfloat&, const ALfloat&, const ALfloat&
     );
 
   private:
