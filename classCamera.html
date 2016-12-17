@@ -77,24 +77,24 @@ Inheritance diagram for Camera:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2c4a0febd6940434b60cc94658700c4c"><td class="memItemLeft" align="right" valign="top"><a id="a2c4a0febd6940434b60cc94658700c4c"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Camera</b> (int tid)</td></tr>
-<tr class="separator:a2c4a0febd6940434b60cc94658700c4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67d29b1d2ed527476920a81a5e3ba7a0"><td class="memItemLeft" align="right" valign="top"><a id="a67d29b1d2ed527476920a81a5e3ba7a0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (float)</td></tr>
-<tr class="separator:a67d29b1d2ed527476920a81a5e3ba7a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d4114d24348303ecafd87ca5dab517c"><td class="memItemLeft" align="right" valign="top"><a id="a1d4114d24348303ecafd87ca5dab517c"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Camera</b> (const int &amp;)</td></tr>
+<tr class="separator:a1d4114d24348303ecafd87ca5dab517c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9231490a08f97ab50554089f6f797a3"><td class="memItemLeft" align="right" valign="top"><a id="ab9231490a08f97ab50554089f6f797a3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (const float &amp;)</td></tr>
+<tr class="separator:ab9231490a08f97ab50554089f6f797a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8cbf3c1a37cb420e3ff47b704d572db"><td class="memItemLeft" align="right" valign="top"><a id="ab8cbf3c1a37cb420e3ff47b704d572db"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setCamera</b> (const <a class="el" href="structVector.html">Vector</a> &amp;, const <a class="el" href="structVector.html">Vector</a> &amp;, const <a class="el" href="classQuaternion.html">Quaternion</a> &amp;, const <a class="el" href="structVector.html">Vector</a> &amp;)</td></tr>
 <tr class="separator:ab8cbf3c1a37cb420e3ff47b704d572db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0683b0c8d765da71794e1b518033ccb"><td class="memItemLeft" align="right" valign="top"><a id="aa0683b0c8d765da71794e1b518033ccb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>prepareGLView</b> (void)</td></tr>
-<tr class="separator:aa0683b0c8d765da71794e1b518033ccb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a908ce1cd3b05a40c2cba299f722e4e6c"><td class="memItemLeft" align="right" valign="top"><a id="a908ce1cd3b05a40c2cba299f722e4e6c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>prepareGLView</b> ()</td></tr>
+<tr class="separator:a908ce1cd3b05a40c2cba299f722e4e6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa16779a2bf0ce536dbd144077fd0d140"><td class="memItemLeft" align="right" valign="top"><a id="aa16779a2bf0ce536dbd144077fd0d140"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>getRotationMatrix</b> (<a class="el" href="structMatrix.html">Matrix</a> &amp;m) const</td></tr>
 <tr class="separator:aa16779a2bf0ce536dbd144077fd0d140"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c37a396c558c8a7bd47610f0cc33961"><td class="memItemLeft" align="right" valign="top"><a id="a8c37a396c558c8a7bd47610f0cc33961"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>printTypeName</b> (void)</td></tr>
-<tr class="separator:a8c37a396c558c8a7bd47610f0cc33961"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca6052872f92f2848be929a068ff06f3"><td class="memItemLeft" align="right" valign="top"><a id="aca6052872f92f2848be929a068ff06f3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>printTypeName</b> ()</td></tr>
+<tr class="separator:aca6052872f92f2848be929a068ff06f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adbda03d2c95c132a40a96de47ecf8c1c"><td class="memItemLeft" align="right" valign="top"><a id="adbda03d2c95c132a40a96de47ecf8c1c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>buildLuaObjectTable</b> (lua_State *L)</td></tr>
 <tr class="separator:adbda03d2c95c132a40a96de47ecf8c1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -116,15 +116,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>handleCollision</b> (
 <tr class="memitem:a9e69505aa771425a3ec460ac173a2ff7"><td class="memItemLeft" align="right" valign="top"><a id="a9e69505aa771425a3ec460ac173a2ff7"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (<a class="el" href="structVector.html">Vector</a> *)</td></tr>
 <tr class="separator:a9e69505aa771425a3ec460ac173a2ff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10232b098d3af6dbbc34e59ab3dc48c1"><td class="memItemLeft" align="right" valign="top"><a id="a10232b098d3af6dbbc34e59ab3dc48c1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>prepare</b> (void)</td></tr>
-<tr class="separator:a10232b098d3af6dbbc34e59ab3dc48c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69d3f36bd3050b155a218e9d248e1d58"><td class="memItemLeft" align="right" valign="top"><a id="a69d3f36bd3050b155a218e9d248e1d58"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>animate</b> (float, Object *)</td></tr>
-<tr class="separator:a69d3f36bd3050b155a218e9d248e1d58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69aba57188814ea809351079ecc626bc"><td class="memItemLeft" align="right" valign="top"><a id="a69aba57188814ea809351079ecc626bc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setProjectionMatrix</b> (void)</td></tr>
-<tr class="separator:a69aba57188814ea809351079ecc626bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cd5e0b37ef11f0a645f8ff2ce10c73d"><td class="memItemLeft" align="right" valign="top"><a id="a3cd5e0b37ef11f0a645f8ff2ce10c73d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>prepare</b> ()</td></tr>
+<tr class="separator:a3cd5e0b37ef11f0a645f8ff2ce10c73d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2822fd4326a97235ae5373cdd44d3187"><td class="memItemLeft" align="right" valign="top"><a id="a2822fd4326a97235ae5373cdd44d3187"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>animate</b> (const float &amp;, Object *)</td></tr>
+<tr class="separator:a2822fd4326a97235ae5373cdd44d3187"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0591f6c269e29934f89b3040214f72f"><td class="memItemLeft" align="right" valign="top"><a id="ae0591f6c269e29934f89b3040214f72f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setProjectionMatrix</b> ()</td></tr>
+<tr class="separator:ae0591f6c269e29934f89b3040214f72f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -157,7 +157,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>id_</b></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Dec 8 2016 04:29:01 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 17 2016 00:01:11 for Krig Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.12
 </small></address>
