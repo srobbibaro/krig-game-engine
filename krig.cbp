@@ -107,12 +107,12 @@
 		<Unit filename="src/main.cpp">
 			<Option target="default" />
 		</Unit>
-		<Unit filename="src/matrix.cpp" />
-		<Unit filename="src/matrix.h" />
+		<Unit filename="src/Matrix.cpp" />
+		<Unit filename="src/Matrix.h" />
 		<Unit filename="src/ModelGameObject.cpp" />
 		<Unit filename="src/ModelGameObject.h" />
-		<Unit filename="src/terrain.cpp" />
-		<Unit filename="src/terrain.h" />
+		<Unit filename="src/Terrain.cpp" />
+		<Unit filename="src/Terrain.h" />
 		<Unit filename="src/TextGameObject.cpp" />
 		<Unit filename="src/TextGameObject.h" />
 		<Unit filename="test/catch.cpp">
