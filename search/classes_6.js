@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['matrix',['Matrix',['../structMatrix.html',1,'']]],
+  ['matrix',['Matrix',['../classMatrix.html',1,'']]],
   ['music',['Music',['../classMusic.html',1,'']]]
 ];
