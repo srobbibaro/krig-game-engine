@@ -1,3 +1,10 @@
+/**
+ * @file ParticleSystem.h
+ * @brief Base class from which all concrete particle systems are derived.
+ *
+ * Base particle system class which allows for a specialized class to create
+ * a basic particle system to be used in a game level.
+ */
 #ifndef _PARTICLE_SYSTEM_H_
 #define _PARTICLE_SYSTEM_H_
 

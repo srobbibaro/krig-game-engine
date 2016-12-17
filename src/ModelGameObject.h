@@ -1,3 +1,9 @@
+/**
+ * @file ModelGameObject.h
+ * @brief A game object represented by a model.
+ *
+ * Game object model.
+ */
 #ifndef _MODEL_GAME_OBJECT_H_
 #define _MODEL_GAME_OBJECT_H_
 

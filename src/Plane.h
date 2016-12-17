@@ -1,3 +1,9 @@
+/**
+ * @file Plane.h
+ * @brief Representation of a plane.
+ *
+ * Store and perform operations on a plane.
+ */
 #ifndef _PLANE_H_
 #define _PLANE_H_
 

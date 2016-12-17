@@ -1,3 +1,10 @@
+/**
+ * @file KeyState.h
+ * @brief Lookup state of all keyboard keys.
+ *
+ * Determine whether a given keyboard key is being pressed, has been released,
+ * or has not been pressed at all.
+ */
 #ifndef _KEY_STATE_H_
 #define _KEY_STATE_H_
 

@@ -1,3 +1,9 @@
+/**
+ * @file DisplayList.h
+ * @brief Maintains a list of viewable QuadTreeNodes.
+ *
+ * List of viewable QuadTreeNodes.
+ */
 #ifndef _DISPLAY_LIST_H_
 #define _DISPLAY_LIST_H_
 

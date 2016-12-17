@@ -1,3 +1,9 @@
+/**
+ * @file Frustum.h
+ * @brief Representation of the view's Frustum.
+ *
+ * Used for testing whether game objects are viewable.
+ */
 #ifndef _FRUSTUM_H_
 #define _FRUSTUM_H_
 

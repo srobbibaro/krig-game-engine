@@ -1,3 +1,9 @@
+/**
+ * @file GameLevel.h
+ * @brief Representation of a game level or scene.
+ *
+ * A game level manages and displays a collection of game objects.
+ */
 #ifndef _GAME_LEVEL_H_
 #define _GAME_LEVEL_H_
 

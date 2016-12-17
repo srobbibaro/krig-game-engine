@@ -1,6 +1,9 @@
-//////////////////////////////////////////////////////////////////
-// Description : Calls for managing camera position.            //
-//////////////////////////////////////////////////////////////////
+/**
+ * @file Camera.h
+ * @brief Camera management.
+ *
+ * Camera game object.
+ */
 #ifndef _CAMERA_H_
 #define _CAMERA_H_
 

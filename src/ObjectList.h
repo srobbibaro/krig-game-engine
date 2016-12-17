@@ -1,3 +1,9 @@
+/**
+ * @file ObjectList.h
+ * @brief Create a linked list of game objects.
+ *
+ * Game object management through linked list.
+ */
 #ifndef _OBJECT_LIST_H_
 #define _OBJECT_LIST_H_
 

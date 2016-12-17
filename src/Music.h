@@ -1,3 +1,9 @@
+/**
+ * @file Music.h
+ * @brief Load and play songs.
+ *
+ * Wrapper for OpenAl/vorbis music functionality.
+ */
 #ifndef _MUSIC_H_
 #define _MUSIC_H_
 

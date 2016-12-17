@@ -1,6 +1,8 @@
 /**
  * @file Matrix.h
  * @brief Representation of 4x4 matrix with common matrix operations.
+ *
+ * Matrix math.
  */
 #ifndef _MATRIX_H_
 #define _MATRIX_H_
