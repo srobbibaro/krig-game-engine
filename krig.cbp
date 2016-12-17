@@ -72,7 +72,6 @@
 		<Unit filename="src/Music.h" />
 		<Unit filename="src/Object.cpp" />
 		<Unit filename="src/Object.h" />
-		<Unit filename="src/ObjectInclude.h" />
 		<Unit filename="src/ObjectList.cpp" />
 		<Unit filename="src/ObjectList.h" />
 		<Unit filename="src/ObjectNode.cpp" />
