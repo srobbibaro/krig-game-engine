@@ -1,7 +1,7 @@
 #ifndef _QUATERNION_H_
 #define _QUATERNION_H_
 
-#include "matrix.h"
+#include "Matrix.h"
 #include "Vector.h"
 
 class Quaternion {

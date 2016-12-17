@@ -2,7 +2,7 @@
 #define _PARTICLE_SYSTEM_H_
 
 #include <GL/glut.h>
-#include "matrix.h"
+#include "Matrix.h"
 #include "Object.h"
 
 struct Particle {

@@ -3,7 +3,7 @@
 
 #include "QuadTreeNode.h"
 #include "DisplayList.h"
-#include "terrain.h"
+#include "Terrain.h"
 #include "Camera.h"
 
 class QuadTree {

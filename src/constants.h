@@ -5,7 +5,7 @@
 #include <fstream>
 #include <stdio.h>
 
-#include "matrix.h"
+#include "Matrix.h"
 #include "Quaternion.h"
 #include "SoundFX.h"
 #include "gametimer.h"

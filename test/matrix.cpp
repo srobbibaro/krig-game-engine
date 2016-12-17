@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "matrix.h"
+#include "Matrix.h"
 
 void validate_identity_matrix(Matrix &m) {
   for (int i = 0; i < NUM_CELLS; ++i) {

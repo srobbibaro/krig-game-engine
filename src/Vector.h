@@ -4,7 +4,7 @@
 #include <math.h>
 #include <stdio.h>
 
-#include "matrix.h"
+#include "Matrix.h"
 
 #ifndef _VECTOR_H_
 #define _VECTOR_H_

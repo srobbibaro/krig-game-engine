@@ -1,6 +1,6 @@
 #include "constants.h"
 #include "ModelGameObject.h"
-#include "terrain.h"
+#include "Terrain.h"
 #include "api.h"
 
 std::map <std::string, ModelStorage*> ModelGameObject::modelHash;

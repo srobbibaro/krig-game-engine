@@ -1,7 +1,7 @@
 #ifndef _SPHERE_H_
 #define _SPHERE_H_
 
-#include "matrix.h"
+#include "Matrix.h"
 #include "Vector.h"
 
 class Sphere {

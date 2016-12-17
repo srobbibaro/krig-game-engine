@@ -1,7 +1,7 @@
 #ifndef _PLANE_H_
 #define _PLANE_H_
 
-#include "matrix.h"
+#include "Matrix.h"
 #include "Vector.h"
 
 class Plane {

@@ -1,6 +1,6 @@
 #include "constants.h"
 #include "Object.h"
-#include "terrain.h"
+#include "Terrain.h"
 #include "Camera.h"
 #include "TextGameObject.h"
 #include "SpriteGameObject.h"

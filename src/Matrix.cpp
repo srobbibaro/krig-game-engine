@@ -2,7 +2,7 @@
 // Description : Functions to handle matrix multiplication for  //
 //               object transformations.                        //
 //////////////////////////////////////////////////////////////////
-#include "matrix.h"
+#include "Matrix.h"
 #include "constants.h"
 
 //------------------------------------------------------------------------------
