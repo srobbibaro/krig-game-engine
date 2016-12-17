@@ -2,7 +2,7 @@
 // Description : Functions for displaying models and storing    //
 //               their transformation data                      //
 //////////////////////////////////////////////////////////////////
-#include <stdlib.h>
+#include <cstdlib>
 
 #include "Object.h"
 #include "api.h"

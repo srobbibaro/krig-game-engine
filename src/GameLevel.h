@@ -1,22 +1,19 @@
-#include "constants.h"
+#ifndef _GAME_LEVEL_H_
+#define _GAME_LEVEL_H_
+
+#include "ObjectList.h"
 #include "Object.h"
+#include "ModelGameObject.h"
 #include "Terrain.h"
 #include "Camera.h"
-#include "TextGameObject.h"
-#include "SpriteGameObject.h"
 #include "QuadTree.h"
 #include "Music.h"
-#include "ObjectList.h"
-#include "ModelGameObject.h"
 
 extern "C" {
   #include "lua5.1/lua.h"
   #include "lua5.1/lualib.h"
   #include "lua5.1/lauxlib.h"
 }
-
-#ifndef _GAME_LEVEL_H_
-#define _GAME_LEVEL_H_
 
 #define MAX_LEVEL_OBJECTS 1024
 

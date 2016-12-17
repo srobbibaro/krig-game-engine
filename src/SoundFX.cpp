@@ -1,4 +1,5 @@
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 
 #include "SoundFX.h"
 

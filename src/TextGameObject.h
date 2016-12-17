@@ -1,9 +1,10 @@
+#ifndef _TEXT_GAME_OBJECT_H_
+#define _TEXT_GAME_OBJECT_H_
+
 #include "constants.h"
 #include "Object.h"
 #include <string>
 
-#ifndef _TEXT_GAME_OBJECT_H_
-#define _TEXT_GAME_OBJECT_H_
 class TextGameObject : public Object {
   public:
     TextGameObject();

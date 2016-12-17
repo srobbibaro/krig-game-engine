@@ -1,14 +1,26 @@
-#include "constants.h"
+/**
+ * @file Engine.h
+ * @brief Containing class for all game engine management.
+ *
+ * Game engine management.
+ */
+#ifndef _ENGINE_H_
+#define _ENGINE_H_
+
+#include <GL/glut.h>
+#include <string>
+
+#include "SoundFX.h"
+#include "gametimer.h"
+#include "KeyState.h"
 #include "GameLevel.h"
+#include "TextGameObject.h"
 
 extern "C" {
   #include "lua5.1/lua.h"
   #include "lua5.1/lualib.h"
   #include "lua5.1/lauxlib.h"
 }
-
-#ifndef _ENGINE_H_
-#define _ENGINE_H_
 
 class Engine {
   public:

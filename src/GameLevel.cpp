@@ -3,6 +3,7 @@
 
 #include "GameLevel.h"
 #include "api.h"
+#include "SpriteGameObject.h"
 
 #include "LuaGL.h"
 

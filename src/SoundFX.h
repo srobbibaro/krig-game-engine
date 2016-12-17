@@ -3,6 +3,7 @@
 
 #include <AL/al.h>
 #include <AL/alut.h>
+#include <string>
 #include <map>
 #include <dirent.h>
 #include "constants.h"

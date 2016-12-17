@@ -4,6 +4,7 @@
 #include "Terrain.h"
 
 #include <cstdlib>
+#include <fstream>
 
 //------------------------------------------------------------------------------
 Terrain::Terrain() : Object() {

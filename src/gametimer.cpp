@@ -6,6 +6,7 @@
 #endif
 
 #include <sys/time.h>
+#include <cstdio>
 #include "gametimer.h"
 
 //------------------------------------------------------------------------------

@@ -1,13 +1,14 @@
-//////////////////////////////////////////////////////////////////
-// Description : Class for handling matrix math.                //
-//////////////////////////////////////////////////////////////////
+/**
+ * @file Matrix.h
+ * @brief Representation of 4x4 matrix with common matrix operations.
+ */
+#ifndef _MATRIX_H_
+#define _MATRIX_H_
+
 #include <math.h>
 #include <stdio.h>
 
 #define NUM_CELLS 16 // 4 X 4
-
-#ifndef _MATRIX_H_
-#define _MATRIX_H_
 
 class Matrix {
   public:

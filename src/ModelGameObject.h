@@ -1,10 +1,11 @@
+#ifndef _MODEL_GAME_OBJECT_H_
+#define _MODEL_GAME_OBJECT_H_
+
+#include <GL/glut.h>
 #include <map>
 #include <string>
 
 #include "Object.h"
-
-#ifndef _MODEL_GAME_OBJECT_H_
-#define _MODEL_GAME_OBJECT_H_
 
 class Terrain;
 

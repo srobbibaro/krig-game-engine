@@ -2,7 +2,6 @@
 #define _DISPLAY_LIST_H_
 
 #include "QuadTreeNode.h"
-#include "constants.h"
 
 class DisplayList {
   public:
@@ -17,6 +16,5 @@ class DisplayList {
     QuadTreeNode* head;
     QuadTreeNode* tail;
 };
-
 
 #endif

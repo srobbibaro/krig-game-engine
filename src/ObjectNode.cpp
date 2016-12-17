@@ -1,6 +1,5 @@
 #include "ObjectNode.h"
-
-#include "constants.h"
+#include <cstddef>
 
 //------------------------------------------------------------------------------
 ObjectNode::ObjectNode() {

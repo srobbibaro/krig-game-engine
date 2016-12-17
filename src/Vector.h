@@ -1,13 +1,13 @@
 //////////////////////////////////////////////////////////////////
 // Description : Class for handling vector math.                //
 //////////////////////////////////////////////////////////////////
-#include <math.h>
-#include <stdio.h>
-
-#include "Matrix.h"
-
 #ifndef _VECTOR_H_
 #define _VECTOR_H_
+
+#include <cmath>
+#include <cstdio>
+
+#include "Matrix.h"
 
 struct Vector {
   Vector();

@@ -1,18 +1,7 @@
-#include <GL/glut.h>
-
-#include <string>
-#include <cstring>
-#include <fstream>
-#include <stdio.h>
-
-#include "Matrix.h"
-#include "Quaternion.h"
-#include "SoundFX.h"
-#include "gametimer.h"
-#include "KeyState.h"
-
 #ifndef _CONSTANTS_H_
 #define _CONSTANTS_H_
+
+#include <cstring>
 
 // Switches ///////////////////////////////////////////////////////////////////
 /*

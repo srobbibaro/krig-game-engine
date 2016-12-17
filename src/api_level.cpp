@@ -6,6 +6,7 @@
  */
 #include "api.h"
 #include "api_level.h"
+#include "SpriteGameObject.h"
 
 #if DOXYGEN_ONLY
 /**

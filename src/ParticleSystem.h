@@ -3,7 +3,9 @@
 
 #include <GL/glut.h>
 #include "Matrix.h"
-#include "Object.h"
+#include "Vector.h"
+
+class Object;
 
 struct Particle {
   Vector position;

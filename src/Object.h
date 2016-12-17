@@ -1,12 +1,21 @@
-#include "ObjectNode.h"
-#include "ParticleSystem.h"
-#include "Sphere.h"
-#include "Quaternion.h"
-#include "Camera.h"
-#include "constants.h"
+/**
+ * @file Object.h
+ * @brief Base game object from which all concrete types are defined.
+ *
+ * Base game object.
+ */
+#ifndef _OBJECT_H_
+#define _OBJECT_H_
 
+#include <GL/glut.h>
 #include <string>
 #include <map>
+
+#include "ObjectNode.h"
+#include "Sphere.h"
+#include "Quaternion.h"
+#include "ParticleSystem.h"
+#include "constants.h"
 
 extern "C" {
   #include "lua5.1/lua.h"
@@ -14,17 +23,14 @@ extern "C" {
   #include "lua5.1/lauxlib.h"
 }
 
-#ifndef _OBJECT_H_
-#define _OBJECT_H_
-
 // States
 #define DEAD          0
 #define NORMAL        1
 
 #define MAX_TEXTURES  32
 
-class ParticleSystem;
 class Terrain;
+class Camera;
 
 class Object : public ObjectNode {
   public:
