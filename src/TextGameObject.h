@@ -1,3 +1,9 @@
+/**
+ * @file TextGameObject.h
+ * @brief text based game object.
+ *
+ * Text game object.
+ */
 #ifndef _TEXT_GAME_OBJECT_H_
 #define _TEXT_GAME_OBJECT_H_
 

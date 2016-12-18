@@ -1,6 +1,9 @@
-//////////////////////////////////////////////////////////////////
-// Description : Class for handling vector math.                //
-//////////////////////////////////////////////////////////////////
+/**
+ * @file Vector.h
+ * @brief Represent and operate on vectors.
+ *
+ * Vector math.
+ */
 #ifndef _VECTOR_H_
 #define _VECTOR_H_
 

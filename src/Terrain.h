@@ -1,7 +1,9 @@
-//////////////////////////////////////////////////////////////////
-// Description : Class for handling terrain display and         //
-//               generation.                                    //
-//////////////////////////////////////////////////////////////////
+/**
+ * @file Terrain.h
+ * @brief generate and manage terrain game objects.
+ *
+ * Terrain game object.
+ */
 #ifndef _TERRAIN_H_
 #define _TERRAIN_H_
 
