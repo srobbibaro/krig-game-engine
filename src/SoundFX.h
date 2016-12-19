@@ -1,3 +1,9 @@
+/**
+ * @file SoundFX.h
+ * @brief Load and play sounds.
+ *
+ * Wrapper for OpenAl sound functionality.
+ */
 #ifndef _SOUNDFX_H_
 #define _SOUNDFX_H_
 

@@ -1,3 +1,12 @@
+/**
+ * @file QuadTree.h
+ * @brief representation of a quadtree.
+ *
+ * The quadtree is a simplified version of of an octtree used to partition the
+ * viewable scene.
+ *
+ * See: https://en.wikipedia.org/wiki/Quadtree
+ */
 #ifndef QUAD_TREE_H_
 #define QUAD_TREE_H_
 

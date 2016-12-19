@@ -1,3 +1,9 @@
+/**
+ * @file SpriteGameObject.h
+ * @brief manage 2D sprite (texture)-based game objects.
+ *
+ * Sprite game object.
+ */
 #ifndef _SPRITE_GAME_OBJECT_H_
 #define _SPRITE_GAME_OBJECT_H_
 

@@ -1,3 +1,9 @@
+/**
+ * @file TerrainEditor.h
+ * @brief operations for displaying and interfacing with the terrain editor.
+ *
+ * Generate, modify, and store terrains.
+ */
 #ifndef _TERRAIN_EDITOR_H_
 #define _TERRAIN_EDITOR_H_
 

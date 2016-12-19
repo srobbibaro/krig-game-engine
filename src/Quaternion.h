@@ -1,3 +1,10 @@
+/**
+ * @file Quaternion.h
+ * @brief representation of a quaternion.
+ *
+ * Quaternions are used to simplify 3D rotations.
+ * See: https://en.wikipedia.org/wiki/Quaternion
+ */
 #ifndef _QUATERNION_H_
 #define _QUATERNION_H_
 

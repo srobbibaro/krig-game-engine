@@ -1,8 +1,7 @@
-//////////////////////////////////////////////////////////////////
-// Description : Handles basic game logic and windowing.        //
-//////////////////////////////////////////////////////////////////
-
-// included files ///////////////////////////////
+/**
+ * @file main.cpp
+ * @brief Engine initialization, IO, and window setup.
+ */
 #include <GL/glut.h>
 #include <AL/al.h>
 #include <AL/alut.h>
