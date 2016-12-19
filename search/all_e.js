@@ -22,6 +22,7 @@ var searchData=
   ['snow',['Snow',['../classSnow.html',1,'']]],
   ['snow_2eh',['Snow.h',['../Snow_8h.html',1,'']]],
   ['soundfx',['SoundFX',['../classSoundFX.html',1,'']]],
+  ['soundfx_2eh',['SoundFX.h',['../SoundFX_8h.html',1,'']]],
   ['sphere',['Sphere',['../classSphere.html',1,'']]],
   ['sphere_2eh',['Sphere.h',['../Sphere_8h.html',1,'']]],
   ['starfield',['StarField',['../classStarField.html',1,'']]],
