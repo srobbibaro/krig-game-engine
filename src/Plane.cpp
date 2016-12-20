@@ -46,11 +46,11 @@ int Plane::classifyPoint(const float &x, const float &y, const float &z) {
 }
 
 //------------------------------------------------------------------------------
-void Plane::getNormalVector(Vector &v) {
+void Plane::getNormalVector(Vector &v) const {
   v.setVector(a_, b_, c_);
 }
 
 //------------------------------------------------------------------------------
-void Plane::getDefinition(float &a, float &b, float &c, float &d) {
+void Plane::getDefinition(float &a, float &b, float &c, float &d) const {
   a = a_; b = b_; c = c_; d = d_;
 }

@@ -19,8 +19,8 @@ class Plane {
     void normalize();
     float distanceToPoint(const float&, const float&, const float&);
     int classifyPoint(const float&, const float&, const float&);
-    void getNormalVector(Vector &);
-    void getDefinition(float&, float&, float&, float&);
+    void getNormalVector(Vector &) const;
+    void getDefinition(float&, float&, float&, float&) const;
 
   private:
     float a_, b_, c_, d_;
