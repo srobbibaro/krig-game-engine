@@ -6,6 +6,9 @@ Krig is a cross-platform, open source game engine with accompanying demo game
 
 [![Build Status](https://travis-ci.org/srobbibaro/krig-game-engine.svg?branch=master)](https://travis-ci.org/srobbibaro/krig-game-engine)
 
+Original game music created and provided by Shawn Zabel (https://github.com/zabelsr).
+All music created from the original song `Beyond Compare`: https://github.com/srobbibaro/krig-assets/blob/master/krig3/music/beyond_compare_full.ogg
+
 ## Getting Started
 
 At this time, Krig is known to build and run on a number of *nix operating systems.
