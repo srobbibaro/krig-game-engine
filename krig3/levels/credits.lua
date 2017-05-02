@@ -12,8 +12,7 @@ creds = {
   {"Game Programming", "Steven Robbibaro", "Andrew Yochum"},
   {"Model Design", "Andrew Yochum"},
   {"Terrain Generation/Design", "Steven Robbibaro"},
-  {"Sound Editing", "Kelly McMeans"},
-  {"Music by", "The NESkimos", "http://www.neskimos.com"},
+  {"Music by", "Shawn Zabel"},
   {"Thank you for playing!"},
   {"THE END"},
   {"Press Escape to Continue"}
@@ -24,8 +23,7 @@ credCoord = {
   {{-0.23 , -0.7} , {-0.22, -0.8 }, { -0.2 , -0.9 }},
   {{-0.17 , -1.3} , {-0.2 , -1.4 }},
   {{-0.3  , -1.8} , {-0.22, -1.9 }},
-  {{-0.18 , -2.3} , {-0.18, -2.4 }},
-  {{-0.12 , -2.8} , {-0.17, -2.9 }, { -0.29, -3.0 }},
+  {{-0.12 , -2.3} , {-0.17, -2.4 }},
   {{-0.25 , -4.5}},
   {{-0.10 , -7.0}},
   {{-0.28 , -7.8}}
@@ -79,7 +77,7 @@ function on_load(terrain)
 
   camera:add_particle_system(1)
 
-  krig.level.play_music("./music/credits.ogg", 0)
+  krig.level.play_music("./music/beyond_compare_full.ogg", 0)
 end
 
 function on_update(this)
