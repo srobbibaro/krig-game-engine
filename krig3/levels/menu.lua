@@ -6,7 +6,7 @@ local updown      = 0
 
 -- Overridden Engine Callbacks
 function on_load()
-  krig.level.play_music("./music/menu.ogg", 0)
+  krig.level.play_music("./music/menu.ogg", 1)
 
   krig.level.set_sky_box(
     0.7, 0.0, 0.2,
