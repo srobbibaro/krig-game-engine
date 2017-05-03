@@ -52,7 +52,7 @@ function on_load(terrain)
 
   buildBossScenery()
 
-  krig.level.play_music("./music/level3.ogg", 1)
+  krig.level.play_music("./music/level.ogg", 1)
 end
 
 function on_update(terrain, elapsedTime)

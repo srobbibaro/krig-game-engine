@@ -36,7 +36,7 @@ function on_load(terrain)
   setupEnemyShips()
   setupAsteroids()
 
-  krig.level.play_music("./music/level2.ogg", 1)
+  krig.level.play_music("./music/level.ogg", 1)
 end
 
 function on_update(terrain, elapsedTime)

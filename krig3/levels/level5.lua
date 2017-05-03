@@ -146,7 +146,7 @@ function on_load(terrain)
     scale    = {15.0, 15.0, 15.0}
   })
 
-  krig.level.play_music("./music/level5.ogg", 1)
+  krig.level.play_music("./music/level.ogg", 1)
 end
 
 function on_update(terrain, elapsedTime)
