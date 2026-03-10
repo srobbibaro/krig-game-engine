@@ -179,9 +179,9 @@ static int get_mouse_coordinates(lua_State *L) {
 
 #if DOXYGEN_ONLY
 /**
- * Play the sound in the specified wav file.
+ * Play the sound in the specified ogg file.
  * @param GameObjectReference
- * @param string - path to wav file to play.
+ * @param string - path to ogg file to play.
  * @return n/a
  */
 void play_sound(GameObjectReference, string);

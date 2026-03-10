@@ -59,11 +59,11 @@ end
 function on_update(this)
   if krig.test_special_key_pressed(101) == 1 then
     updown = updown + 1
-    krig.play_sound(this, "menu.wav")
+    krig.play_sound(this, "menu.ogg")
   end
   if krig.test_special_key_pressed(103) == 1 then
     updown = updown - 1
-    krig.play_sound(this, "menu.wav")
+    krig.play_sound(this, "menu.ogg")
   end
 
   if updown > 1 then updown = 0 end

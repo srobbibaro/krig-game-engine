@@ -8,11 +8,13 @@
 #define _SOUNDFX_H_
 
 #include <AL/al.h>
-#include <AL/alut.h>
+#include <vorbis/vorbisfile.h>
 #include <string>
 #include <map>
 #include <dirent.h>
 #include "constants.h"
+
+#define BUFFER_SIZE   65536
 
 class SoundFX {
   public:
@@ -31,6 +33,9 @@ class SoundFX {
       const ALfloat&, const ALfloat&, const ALfloat&,
       const ALfloat&, const ALfloat&, const ALfloat&
     );
+
+    void load();
+    void unload();
 
   private:
     ALuint *Sources; // Data for loading in the sound effects

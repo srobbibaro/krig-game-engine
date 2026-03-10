@@ -82,7 +82,7 @@ end
 
 function on_update(this)
   if krig.test_key_pressed(27) == 1 then
-    playSound(this, "pause.wav")
+    playSound(this, "pause.ogg")
     -- TODO: Title screen/menu should restart game rather than returning to
     --       the credits.
   end

@@ -192,6 +192,8 @@ bool GameLevel::finishLevelLoad() {
   player_  = new ModelGameObject();
   terrain_ = new Terrain();
 
+  music_.load();
+
   idToObjectMap_[1] = (Object*)player_;
   idToObjectMap_[2] = (Object*)terrain_;
 
@@ -454,6 +456,8 @@ void GameLevel::unloadLevel() {
   player_   = NULL;
   camera_   = NULL;
   luaState_ = NULL;
+
+  music_.unload();
 }
 
 //------------------------------------------------------------------------------

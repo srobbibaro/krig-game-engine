@@ -8,6 +8,7 @@
 #define _ENGINE_H_
 
 #include <GL/glut.h>
+#include <AL/alc.h>
 #include <string>
 
 #include "SoundFX.h"
@@ -30,6 +31,9 @@ class Engine {
     void gameCycle();
     void prepare();
     void initGL();
+    void initAL();
+    void loadSoundFx();
+    void unloadSoundFx();
 
     void processKeyUp(const int&);
     void processKeyDown(const int&);
@@ -94,7 +98,10 @@ class Engine {
     GameLevel *currentLevel_, *storedLevel_;
     Camera *mainCamera_, *c1_, *c2_, *c3_, *c4_;
     KeyState keyState_, specialKeyState_;
+
     SoundFX soundFx_;
+    ALCdevice *alcDevice_;
+    ALCcontext *alcContext_;
 
     GameTimer timer_;   // game's timer
     float timeElapsed_; // time elapsed in game

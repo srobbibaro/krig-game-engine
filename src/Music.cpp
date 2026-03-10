@@ -1,31 +1,75 @@
 #include "Music.h"
 
-/* TODO: Last I remember, there was some kind of runtime error in this code
- * that would cause the whole game to crash.  Might be worth looking into newer
- * versions of vorbis and OpenAL to see if I can track down issue.
- */
-
 // Music()
 //
-// Class constructor.  Sets up OpenAL and initialized state flags.
+// Class constructor.
 Music::Music() {
-  alGenBuffers( 2, Buffers );
-  alGenSources( 1, &Source );
-  alSource3f( Source, AL_POSITION, 0.0f, 0.0f, 0.0f );
-  SetMusicListener( 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f );
   Playing = false;
   Repeat  = false;
+  initialized_ = false;
 }
 
 // ~Music()
 //
-// Cleans up OpenAL buffer information.
+// Class destructor.
 Music::~Music() {
+  unload();
+}
+
+// load()
+//
+// Sets up OpenAL and initialized state flags.
+void Music::load() {
+  if (initialized_)
+    return;
+
+  alGenBuffers( 2, Buffers );
+  ALenum errorCode = alGetError();
+  if (errorCode != AL_NO_ERROR) {
+    PRINT_ERROR("Could not generate buffers; AL error code: '%d'.\n", errorCode);
+    return;
+  }
+
+  alGenSources( 1, &Source );
+  errorCode = alGetError();
+  if (errorCode != AL_NO_ERROR) {
+    PRINT_ERROR("Could not generate sources; AL error code: '%d'.\n", errorCode);
+    return;
+  }
+
+  alSource3f( Source, AL_POSITION, 0.0f, 0.0f, 0.0f );
+  errorCode = alGetError();
+  if (errorCode != AL_NO_ERROR) {
+    PRINT_ERROR("Could not set source position; AL error code: '%d'.\n", errorCode);
+    return;
+  }
+
+  initialized_ = true;
+
+  SetMusicListener( 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f );
+}
+
+// unload()
+//
+// Cleans up OpenAL buffer information.
+void Music::unload() {
+  if (!initialized_)
+    return;
+
   PRINT_DEBUG("Cleaning up...\n");
   StopSong();
+
   alDeleteBuffers( 2, Buffers );
+  ALenum errorCode = alGetError();
+  if (errorCode != AL_NO_ERROR)
+    PRINT_ERROR("Could not delete buffers; AL error code: '%d'.\n", errorCode);
+
   alDeleteSources( 1, &Source );
-  PRINT_DEBUG("Done!\n");
+  errorCode = alGetError();
+  if (errorCode != AL_NO_ERROR)
+    PRINT_ERROR("Could not delete sources; AL error code: '%d'.\n", errorCode);
+
+  initialized_ = false;
 }
 
 // PlaySong()
@@ -33,6 +77,10 @@ Music::~Music() {
 // Plays a specified song file.  Accepts a file path to the song and
 // a boolean representing whether or not the song should be looped.
 void Music::PlaySong(const char* file_path, const bool &rep) {
+  if (!initialized_)
+    return;
+
+  PRINT_DEBUG("Playing Song '%s'...\n", file_path);
   // Open binary file and set up the ov_open function for reading.
   Music_File = fopen( file_path, "rb" );
 
@@ -63,11 +111,22 @@ void Music::PlaySong(const char* file_path, const bool &rep) {
       Size += Bytes;
     }
     alBufferData( Buffers[i], Format, Sound_Buffer, Size, Ogg_Info->rate );
+    ALenum errorCode = alGetError();
+    if (errorCode != AL_NO_ERROR)
+      PRINT_ERROR("Could setup buffers; AL error code: '%d'.\n", errorCode);
   }
   Size = 0;
 
   alSourceQueueBuffers( Source, 2, Buffers );
+  ALenum errorCode = alGetError();
+  if (errorCode != AL_NO_ERROR)
+    PRINT_ERROR("Could queue buffers; AL error code: '%d'.\n", errorCode);
+
   alSourcePlay( Source );
+  errorCode = alGetError();
+  if (errorCode != AL_NO_ERROR)
+    PRINT_ERROR("Could not play source; AL error code: '%d'.\n", errorCode);
+
   Playing = true;
 }
 
@@ -76,16 +135,27 @@ void Music::PlaySong(const char* file_path, const bool &rep) {
 // Halts the currently playing song, closes the Ogg file, and unqueues the
 // currently allocated song buffers.  Takes no parameters.
 void Music::StopSong() {
-  if ( !Playing )
+  if (!initialized_ || !Playing)
     return;
 
   alSourceStop( Source );  // Stops OpenAL.
+  ALenum errorCode = alGetError();
+  if (errorCode != AL_NO_ERROR)
+    PRINT_ERROR("Could not stop source; AL error code: '%d'.\n", errorCode);
+
   ov_clear( &Ogg_File );   // Closes the music file.
 
   // Tears down each buffer in the queue.
   ALuint temp_buff;
   alSourceUnqueueBuffers( Source, 1, &temp_buff );
+  errorCode = alGetError();
+  if (errorCode != AL_NO_ERROR)
+    PRINT_ERROR("Could not unqueue buffers; AL error code: '%d'.\n", errorCode);
+
   alSourceUnqueueBuffers( Source, 1, &temp_buff );
+  errorCode = alGetError();
+  if (errorCode != AL_NO_ERROR)
+    PRINT_ERROR("Could not unqueue buffers; AL error code: '%d'.\n", errorCode);
 
   Playing = false;
   Repeat  = false;
@@ -96,10 +166,14 @@ void Music::StopSong() {
 // Pauses the currently playing song.  Resumes play if the current song is
 // already paused.  Takes no parameters.
 void Music::PauseSong() {
-  if (!Playing)
+  if (!initialized_ || !Playing)
     return;
 
   alSourcePause( Source );
+  ALenum errorCode = alGetError();
+  if (errorCode != AL_NO_ERROR)
+    PRINT_ERROR("Could not pause source; AL error code: '%d'.\n", errorCode);
+
   Playing = !Playing;
 }
 
@@ -108,7 +182,7 @@ void Music::PauseSong() {
 // Fills up the sound buffers with the next data from the currently playing
 // song file.  Takes no parameters.
 void Music::Update() {
-  if ( !Playing )
+  if (!initialized_ || !Playing)
     return;
 
   // Make sure to restart the song if we have a break in the data stream.
@@ -152,11 +226,25 @@ void Music::SetMusicListener(
     const ALfloat &PosX, const ALfloat &PosY, const ALfloat &PosZ,
     const ALfloat &VelX, const ALfloat &VelY, const ALfloat &VelZ
 ) {
+  if (!initialized_)
+    return;
+
   ALfloat ListenerPos[3] = { PosX, PosY, PosZ };
   ALfloat ListenerVel[3] = { VelX, VelY, VelZ };
   ALfloat ListenerOri[6] = { 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f };
 
-  alListenerfv( AL_POSITION,    ListenerPos );
-  alListenerfv( AL_VELOCITY,    ListenerVel );
+  alListenerfv( AL_POSITION, ListenerPos );
+  ALenum errorcode = alGetError();
+  if (errorcode != AL_NO_ERROR)
+    PRINT_ERROR("Could not set listener position; al error code: '%d'.\n", errorcode);
+
+  alListenerfv( AL_VELOCITY, ListenerVel );
+  errorcode = alGetError();
+  if (errorcode != AL_NO_ERROR)
+    PRINT_ERROR("Could not set listener velocity; al error code: '%d'.\n", errorcode);
+
   alListenerfv( AL_ORIENTATION, ListenerOri );
+  errorcode = alGetError();
+  if (errorcode != AL_NO_ERROR)
+    PRINT_ERROR("Could not set listener orientation; al error code: '%d'.\n", errorcode);
 }

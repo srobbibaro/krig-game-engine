@@ -36,7 +36,7 @@ function on_collision(this, temp)
     terrain_height = krig.terrain.get_height(this_pos[1], this_pos[3])
 
     if (this_pos[2] - this_radius) <= terrain_height then
-      krig.play_sound(this, "explosion.wav")
+      krig.play_sound(this, "explosion.ogg")
 
       enemy.create_explosion(this)
       krig.level.remove_object(this)

@@ -55,6 +55,9 @@ Engine::Engine() {
 
   isRunning_      = true;
   isIntroRunning_ = false;
+
+  alcDevice_ = NULL;
+  alcContext_ = NULL;
 }
 
 //------------------------------------------------------------------------------
@@ -315,6 +318,44 @@ void Engine::initGL() {
 }
 
 //------------------------------------------------------------------------------
+void Engine::initAL() {
+  PRINT_DEBUG("Loading AL...\n");
+  if (alcDevice_  || alcContext_) {
+    PRINT_DEBUG("AL device or context already initialized; skipping init\n");
+    return;
+  }
+
+  alcDevice_ = alcOpenDevice(NULL);
+  if (!alcDevice_) {
+    PRINT_DEBUG_LVL(1, "Could not initialize AL device; error code %d; skipping init\n", alGetError());
+    return;
+  }
+
+  alcContext_ = alcCreateContext(alcDevice_, NULL);
+  if (!alcContext_) {
+    PRINT_DEBUG_LVL(1, "Could not create AL context; error code %d; skipping init\n", alGetError());
+    alcCloseDevice(alcDevice_);
+    return;
+  }
+
+  if (!alcMakeContextCurrent(alcContext_)) {
+    PRINT_DEBUG_LVL(1, "Could not make AL context current; error code %d; skipping init\n", alGetError());
+  }
+}
+
+//------------------------------------------------------------------------------
+void Engine::loadSoundFx() {
+  PRINT_DEBUG("Loading SoundFx...\n");
+  soundFx_.load();
+}
+
+//------------------------------------------------------------------------------
+void Engine::unloadSoundFx() {
+  PRINT_DEBUG("Unloading SoundFx...\n");
+  soundFx_.unload();
+}
+
+//------------------------------------------------------------------------------
 void Engine::processKeyUp(const int &key) {
   PRINT_DEBUG_LVL(1, "special key up (%d)\n", key);
   specialKeyState_.keys[key] = KEY_STATE_RELEASED;
@@ -560,8 +601,16 @@ void Engine::unload() {
     delete c4_;
   }
 
+  unloadSoundFx();
+
   currentLevel_ = storedLevel_ = NULL;
   c1_ = c2_ = c3_ = c4_ = mainCamera_ = NULL;
+
+  alcMakeContextCurrent(NULL);
+  alcDestroyContext(alcContext_);
+  alcCloseDevice(alcDevice_);
+  alcDevice_ = NULL;
+  alcContext_ = NULL;
 }
 
 //------------------------------------------------------------------------------

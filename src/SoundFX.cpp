@@ -5,9 +5,30 @@
 
 // SoundFX()
 //
-// Class constructor.  Sets up OpenAL and loads all sound effect files into
-// memory.
+// Class constructor.
 SoundFX::SoundFX() {
+  Buffers = NULL;
+  Sources = NULL;
+  Num_of_SFX = 0;
+}
+
+// ~SoundFX()
+//
+// Class destructor.
+SoundFX::~SoundFX() {
+  unload();
+}
+
+// load()
+//
+// Sets up OpenAL and loads all sound effect files into
+// memory from the sounds directory.
+void SoundFX::load() {
+  if (Buffers != NULL || Sources != NULL) {
+    PRINT_ERROR("Sounds already loaded; no sounds will be loaded.\n");
+    return;
+  }
+
   Buffers = NULL;
   Sources = NULL;
 
@@ -21,14 +42,10 @@ SoundFX::SoundFX() {
   dirent *de;
   std::string files[256];
 
-  /* TODO: Instead of holding all of the sound effects in memory in wav format,
-   * it would be great to switch to compressed audio files.  It would
-   * drastically decrease the overall memory footprint.
-   */
   if (SFXDir != NULL) {
     Num_of_SFX = 0;
     while ((de = readdir(SFXDir)) != NULL) {
-      if ( std::strstr( de->d_name, ".wav" ) ) {
+      if ( std::strstr( de->d_name, ".ogg" ) ) {
         files[Num_of_SFX] = std::string( de->d_name );
         Num_of_SFX++;
       }
@@ -37,7 +54,7 @@ SoundFX::SoundFX() {
   }
 
   if (Num_of_SFX < 1) {
-    PRINT_DEBUG_LVL(2, "No sound files present in 'sounds' directory; no sounds will be loaded.\n");
+    PRINT_DEBUG_LVL(2, "No sound files in the ogg format present in 'sounds' directory; no sounds will be loaded.\n");
     return;
   }
 
@@ -46,34 +63,81 @@ SoundFX::SoundFX() {
   Sources = new ALuint[Num_of_SFX];
   alGenBuffers( Num_of_SFX, Buffers );
   alGenSources( Num_of_SFX, Sources );
+  char Sound_Buffer[BUFFER_SIZE];
 
   // Load sound files.
   char filename[80];
 
   for ( int i = 0; i < Num_of_SFX; i++ ) {
+    // load model file into model storage //
     sprintf( filename, "./sounds/%s", files[i].c_str() );
+    PRINT_DEBUG("Loading sound file '%s'...\n", filename);
 
-    Buffers[i] = alutCreateBufferFromFile(filename);
+    FILE *Music_File = fopen( filename, "rb" );
+
+    if (Music_File == NULL) {
+      PRINT_ERROR("Could not open sound file: '%s'...\n", filename);
+      continue;
+    }
+
+    OggVorbis_File Ogg_File;
+    ov_open( Music_File, &Ogg_File, NULL, 0 );
+
+    // Get format infomation from the info struct.
+    ALenum Format;
+    vorbis_info *Ogg_Info = ov_info( &Ogg_File, -1 );
+
+    if ( Ogg_Info->channels == 1 )
+      Format = AL_FORMAT_MONO16;
+    else
+      Format = AL_FORMAT_STEREO16;
+
+    // Fill sound buffers.
+    int Size = 0;
+    int Section = 0;
+    while ( Size < BUFFER_SIZE ) {
+      int Bytes = ov_read(
+        &Ogg_File,
+        Sound_Buffer + Size,
+        BUFFER_SIZE - Size,
+        0, 2, 1, &Section
+      );
+
+      if (Bytes == 0)
+        break;
+
+      Size += Bytes;
+    }
+    alBufferData( Buffers[i], Format, Sound_Buffer, Size, Ogg_Info->rate );
+
+    ALenum errorCode = alGetError();
+    if (errorCode != AL_NO_ERROR)
+      PRINT_ERROR("Could not load sound buffer data; AL error code: '%d'.\n", errorCode);
 
     File_Hash[ files[i] ] = i;  // Create name to index map.
     SetSFX( files[i], 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, AL_FALSE );
+
+    ov_clear(&Ogg_File);
   }
 
   SetSFXListener( 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f );
 }
 
-// ~SoundFX()
+// unload()
 //
 // Cleans up OpenAL buffer information.
-SoundFX::~SoundFX() {
+void SoundFX::unload() {
+  PRINT_DEBUG("Cleaning-up sounds...\n");
   if (Buffers != NULL) {
     alDeleteBuffers( Num_of_SFX, Buffers );
     delete[] Buffers;
+    Buffers = NULL;
   }
 
   if (Sources != NULL) {
     alDeleteSources( Num_of_SFX, Sources );
     delete[] Sources;
+    Sources = NULL;
   }
 
   PRINT_DEBUG("Clean-up complete.\n");
@@ -86,7 +150,12 @@ void SoundFX::PlaySFX( const std::string &sfx ) {
   if (Sources == NULL)
     return;
 
+  PRINT_DEBUG_LVL(1, "Playing sound (%s)\n", sfx.c_str());
   alSourcePlay( Sources[ File_Hash[sfx] ] );
+
+  ALenum errorCode = alGetError();
+  if (errorCode != AL_NO_ERROR)
+    PRINT_ERROR("Could not play sound; AL error code: '%d'.\n", errorCode);
 }
 
 // SetSFX
