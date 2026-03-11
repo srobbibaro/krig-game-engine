@@ -1,6 +1,6 @@
 -- Helper Functions
 local function create_score_text(this)
-  krig.level.add_text("./scripts/points.lua", enemy.score, {position = this.position})
+  krig.level.add_text("./scripts/points.lua", tostring(enemy.score), {position = this.position})
 end
 
 local function create_powerup(this, powerup_num)
