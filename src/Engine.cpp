@@ -506,8 +506,6 @@ void Engine::loadModels() {
       // insert model file into model hash //
       hashKey = std::string(de->d_name);
       ModelGameObject::modelHash[hashKey] = model;
-
-      PRINT_DEBUG("done.\n");
     }
   }
 
@@ -545,7 +543,7 @@ void Engine::loadTextures() {
       unsigned int width    = 0;
 
       if (!loadPng(filePath, &pixels, &format, &height, &width)) {
-        PRINT_DEBUG("Error loading texture. Skipping...\n");
+        PRINT_ERROR("Could not load texture file. Skipping...\n");
         if (pixels != NULL) {
           delete[] pixels;
         }
@@ -561,8 +559,6 @@ void Engine::loadTextures() {
 
       hashKey = std::string(de->d_name);
       Object::textureHash[hashKey] = textureId++;
-
-      PRINT_DEBUG("done.\n");
     }
   }
 

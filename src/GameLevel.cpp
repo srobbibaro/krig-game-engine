@@ -578,7 +578,7 @@ void GameLevel::updateObjects(Vector* light) {
       freeObjects_[object->getScriptName()].insertFront(object);
 
       PRINT_DEBUG_LVL(
-        2,
+        3,
         "Object removed: script='%s'. Added to free objects map (size=%d).\n",
         object->getScriptName().c_str(),
         freeObjects_[object->getScriptName()].size
@@ -634,7 +634,7 @@ Object* GameLevel::addObject(const std::string &script, lua_State* luaState, con
     temp->initSettings();
     freeObjects_[script].remove(temp);
     PRINT_DEBUG_LVL(
-      2,
+      3,
       "Object removed: script='%s'. Added to free objects map (size=%d).\n",
       script.c_str(),
       freeObjects_[script].size
@@ -661,7 +661,7 @@ Object* GameLevel::addObject(const std::string &script, lua_State* luaState, con
       idToObjectMap_[numObjects_] = temp;
       numObjects_++;
 
-      PRINT_DEBUG_LVL(2, "Allocated a new object of type '%s' (num objects = %u).\n", script.c_str(), numObjects_);
+      PRINT_DEBUG_LVL(3, "Allocated a new object of type '%s' (num objects = %u).\n", script.c_str(), numObjects_);
     }
     else {
       PRINT_ERROR("Could not allocate a new object of type '%s'.\n", script.c_str());
