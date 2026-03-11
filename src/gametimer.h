@@ -11,7 +11,7 @@
 #endif
 
 #define LARGE_INTEGER long
-#define MAX_FPS       60.0f
+#define MAX_FPS       30.0f
 
 class GameTimer {
   public:
