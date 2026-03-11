@@ -44,8 +44,8 @@ class Quaternion {
     float getW() const { return(w); }
 
     // overloaded operators
-    Quaternion operator+(const Quaternion&);
-    Quaternion operator*(const Quaternion&);
+    Quaternion operator+(const Quaternion&) const;
+    Quaternion operator*(const Quaternion&) const;
     Quaternion&	operator=(const Quaternion&);
 
   private:

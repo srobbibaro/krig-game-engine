@@ -236,7 +236,7 @@ void Quaternion::slerp(const Quaternion &sQ, const float &t, const Quaternion &e
 }
 
 //------------------------------------------------------------------------------
-Quaternion Quaternion::operator+(const Quaternion &q) {
+Quaternion Quaternion::operator+(const Quaternion &q) const {
   float qx = q.x + x;
   float qy = q.y + y;
   float qz = q.z + z;
@@ -246,7 +246,7 @@ Quaternion Quaternion::operator+(const Quaternion &q) {
 }
 
 //------------------------------------------------------------------------------
-Quaternion Quaternion::operator*(const Quaternion &q) {
+Quaternion Quaternion::operator*(const Quaternion &q) const {
   float qx = q.w * x + q.x * w + q.y * z - q.z * y;
   float qy = q.w * y + q.y * w + q.z * x - q.x * z;
   float qz = q.w * z + q.z * w + q.x * y - q.y * x;
