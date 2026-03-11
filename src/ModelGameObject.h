@@ -47,19 +47,23 @@ class ModelGameObject : public Object {
     void load(std::string);
     void unload(void);
 
-    void draw(Object*);
-    void drawOutline(Object*);
-    void drawShadow (Vector*);
-    void handleCollision(Object*);
-    void update(Vector*);
-    void animate(float, Object*);
+    // overridden virtual functions ////////////
+    virtual void draw(Object*) override;
+    virtual void drawOutline(Object*) override;
+    virtual void drawShadow (Vector*) override;
+
+    virtual void handleCollision(Object*) override;
+
+    virtual void update(Vector*) override;
+    virtual void animate(const float&, Object*) override;
+
+    virtual void orientOnTerrain(Terrain *temp, const Quaternion &baseRotation);
+    virtual void setHeightFromTerrain(Terrain *temp, const float &offset) override;
+
+    virtual void printTypeName() override {}
+    ///////////////////////////////////////////
 
     void buildEdges();
-
-    void printTypeName() {}
-
-    void orientOnTerrain(Terrain *temp, Quaternion baseRotation);
-    void setHeightFromTerrain(Terrain *temp, float offset);
 
     static std::map <std::string, ModelStorage*> modelHash;
 

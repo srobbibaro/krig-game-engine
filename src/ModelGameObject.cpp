@@ -358,7 +358,7 @@ void ModelGameObject::update(Vector* light) {
 }
 
 //------------------------------------------------------------------------------
-void ModelGameObject::animate(float timeElapsed, Object* c) {
+void ModelGameObject::animate(const float &timeElapsed, Object* c) {
   // determine whether or not the current object is in the camera's view
   int r =  dynamic_cast<Camera*>(c)->frustum.testSphere(boundingSphere_);
   isInView_ = (r != -1);
@@ -504,7 +504,7 @@ numEdges = edgeCount;
 }
 
 //------------------------------------------------------------------------------
-void ModelGameObject::orientOnTerrain(Terrain *temp, Quaternion baseRotation) {
+void ModelGameObject::orientOnTerrain(Terrain *temp, const Quaternion &baseRotation) {
   if (temp == NULL)
     return;
 
@@ -545,7 +545,7 @@ void ModelGameObject::orientOnTerrain(Terrain *temp, Quaternion baseRotation) {
 }
 
 //------------------------------------------------------------------------------
-void ModelGameObject::setHeightFromTerrain(Terrain *temp, float offset) {
+void ModelGameObject::setHeightFromTerrain(Terrain *temp, const float &offset) {
   if (temp == NULL)
     return;
 
