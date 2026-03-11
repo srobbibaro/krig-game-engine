@@ -1,11 +1,32 @@
 #ifndef _API_H_
 #define _API_H_
 
+#define luaL_setfuncs krig_custom_setfuncs
+
+
 extern "C" {
-  #include "lua5.1/lua.h"
-  #include "lua5.1/lualib.h"
-  #include "lua5.1/lauxlib.h"
+  #include "luajit-2.1/lua.h"
+  #include "luajit-2.1/lualib.h"
+  #include "luajit-2.1/lauxlib.h"
 }
+
+#if !defined LUA_VERSION_NUM || LUA_VERSION_NUM==501
+/*
+ * Adapted from Lua 5.2.0
+ */
+inline void krig_custom_setfuncs (lua_State *L, const luaL_Reg *l, int nup) {
+   luaL_checkstack(L, nup+1, "too many upvalues");
+   for (; l->name != NULL; l++) {  /* fill the table with given functions */
+     int i;
+     lua_pushstring(L, l->name);
+     for (i = 0; i < nup; i++)  /* copy upvalues to the top */
+       lua_pushvalue(L, -(nup+1));
+     lua_pushcclosure(L, l->func, nup);  /* closure with those upvalues */
+     lua_settable(L, -(nup + 3));
+   }
+   lua_pop(L, nup);  /* remove upvalues */
+}
+#endif
 
 #include "krig_game_engine.h"
 #include "Object.h"
@@ -30,21 +51,4 @@ void returnObject(lua_State *L, Object* object);
 void returnArray(lua_State *L, float array[], int len);
 void luaopen_krigApi(lua_State *L);
 
-#if !defined LUA_VERSION_NUM || LUA_VERSION_NUM==501
-/*
- * Adapted from Lua 5.2.0
- */
-static void luaL_setfuncs (lua_State *L, const luaL_Reg *l, int nup) {
-  luaL_checkstack(L, nup+1, "too many upvalues");
-  for (; l->name != NULL; l++) {  /* fill the table with given functions */
-    int i;
-    lua_pushstring(L, l->name);
-    for (i = 0; i < nup; i++)  /* copy upvalues to the top */
-      lua_pushvalue(L, -(nup+1));
-    lua_pushcclosure(L, l->func, nup);  /* closure with those upvalues */
-    lua_settable(L, -(nup + 3));
-  }
-  lua_pop(L, nup);  /* remove upvalues */
-}
-#endif
 #endif

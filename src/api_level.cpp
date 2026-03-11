@@ -364,7 +364,7 @@ static int add_sprite(lua_State *L) {
   return 1;
 }
 
-static const luaL_reg krigLevelLib[] = {
+static const luaL_Reg krigLevelLib[] = {
   {"add_object", add_object},
   {"add_text", add_text},
   {"add_sprite", add_sprite},

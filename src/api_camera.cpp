@@ -46,7 +46,7 @@ static int get_frustum_plane(lua_State *L) {
   return 1;
 }
 
-const luaL_reg krigCameraLib[] = {
+const luaL_Reg krigCameraLib[] = {
   {"get_frustum_plane", get_frustum_plane},
   {NULL, NULL}
 };

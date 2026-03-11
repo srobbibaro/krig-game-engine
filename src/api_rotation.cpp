@@ -98,7 +98,7 @@ static int to_euler(lua_State *L) {
   return 1;
 }
 
-static const luaL_reg krigRotationLib[] = {
+static const luaL_Reg krigRotationLib[] = {
   {"add", add},
   {"copy", copy},
   {"from_axis", from_axis},

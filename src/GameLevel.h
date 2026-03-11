@@ -16,9 +16,9 @@
 #include "Music.h"
 
 extern "C" {
-  #include "lua5.1/lua.h"
-  #include "lua5.1/lualib.h"
-  #include "lua5.1/lauxlib.h"
+  #include "luajit-2.1/lua.h"
+  #include "luajit-2.1/lualib.h"
+  #include "luajit-2.1/lauxlib.h"
 }
 
 #define MAX_LEVEL_OBJECTS 1024

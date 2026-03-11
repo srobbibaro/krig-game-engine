@@ -198,7 +198,7 @@ static int sum(lua_State *L) {
   return 1;
 }
 
-static const luaL_reg krigVectorLib[] = {
+static const luaL_Reg krigVectorLib[] = {
   {"add", add},
   {"average", average},
   {"copy", copy},

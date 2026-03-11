@@ -223,7 +223,7 @@ static int save(lua_State *L) {
   return 0;
 }
 
-const luaL_reg krigObjectLib[] = {
+const luaL_Reg krigObjectLib[] = {
   {"add_particle_system", add_particle_system},
   {"load", load},
   {"orient_on_terrain", orient_on_terrain},

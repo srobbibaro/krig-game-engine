@@ -2,12 +2,12 @@
 #define _API_OBJECT_H_
 
 extern "C" {
-  #include "lua5.1/lua.h"
-  #include "lua5.1/lualib.h"
-  #include "lua5.1/lauxlib.h"
+  #include "luajit-2.1/lua.h"
+  #include "luajit-2.1/lualib.h"
+  #include "luajit-2.1/lauxlib.h"
 }
 
-extern const luaL_reg krigObjectLib[];
+extern const luaL_Reg krigObjectLib[];
 
 static int add_particle_system(lua_State *L);
 static int load(lua_State *L);

@@ -261,7 +261,7 @@ static int set_script_value(lua_State *L) {
   return 0;
 }
 
-static const luaL_reg krigEngineLib[] = {
+static const luaL_Reg krigEngineLib[] = {
   {"display_text", display_text},
   {"get_camera", get_camera},
   {"get_fps", get_fps},
