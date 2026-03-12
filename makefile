@@ -4,12 +4,12 @@ DEBUG_LEVEL   := 2
 
 
 CC            := g++
-CFLAGS        := -O3 -O2 -O1 -O -fpermissive -O3 -O2 -O1 -O -std=c++11
+CFLAGS        := -O3 -std=c++11
 INCLUDES      := -I./src/ -I/usr/include/
 TEST_INCLUDES := -I./src/ -I/usr/include/
 LIBS          := -lluajit -lvorbisfile -lvorbisenc -lvorbis -logg -lopenal -lpng -lglut -lGL -lGLU
 LDFLAGS       :=
-DEFINES       := -DGL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED
+DEFINES       :=
 
 ifeq ($(OS_NAME), Darwin)
 	INCLUDES      += -I$(HOMEBREW_DIR)/include/ -I$(HOMEBREW_DIR)/opt/openal-soft/include/
