@@ -136,7 +136,6 @@ void ModelGameObject::drawOutline(Object* c) {
 
 //------------------------------------------------------------------------------
 void ModelGameObject::drawShadow (Vector* light) {
-  int p1, p2;
   Vector v1, v2;
 
   for (int i = 0; i < numSEdge; ++i) {

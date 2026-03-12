@@ -57,7 +57,7 @@ class ModelGameObject : public Object {
     virtual void update(Vector*) override;
     virtual void animate(const float&, Object*) override;
 
-    virtual void orientOnTerrain(Terrain *temp, const Quaternion &baseRotation);
+    virtual void orientOnTerrain(Terrain *temp, const Quaternion &baseRotation) override;
     virtual void setHeightFromTerrain(Terrain *temp, const float &offset) override;
 
     virtual void printTypeName() override {}

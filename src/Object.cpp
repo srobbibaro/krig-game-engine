@@ -215,7 +215,7 @@ void Object::animateScript(const float &elapsedTime) {
 void Object::processCollisions(Object* temp) {
   if (this != temp && active_ && temp->active_ && state_ == NORMAL &&
       temp->state_ == NORMAL && isCollisionDetectionEnabled_ &&
-      temp->isCollisionDetectionEnabled_ && this != NULL && temp != NULL) {
+      temp->isCollisionDetectionEnabled_ && temp != NULL) {
 
     // First perform a sphere-based collision
     float radius1 = boundingSphere_.getRadius();

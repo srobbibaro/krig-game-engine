@@ -274,7 +274,6 @@ void Terrain::calcViewableTerrainNorm() {
   GLfloat tempLightIntensity;
 
   Vector temp[5];
-  int count = 0;
 
   Matrix tempMatrix;
   tempMatrix.loadIdentity();
@@ -409,7 +408,6 @@ void Terrain::calcTerrainNorm(Vector* light) {
   GLfloat tempLightIntensity;
 
   Vector temp[5];
-  int count = 0;
 
   Matrix tempMatrix;
   tempMatrix.loadIdentity();
@@ -553,18 +551,12 @@ void Terrain::animate(const float &elapsedTime, Object* c) {
     return;
   }
 
-  GLfloat min[] = {9999.0f, 9999.0f, 9999.0f};
-  GLfloat max[] = {-9999.0f, -9999.0f, -9999.0f};
-
   totalTime_ += elapsedTime;
 
-  int x1, x2;
-  int z1, z2;
+  int x1;
+  int z1;
 
   float xStart, zStart;
-  float xPer1, xPer2, zPer1, zPer2 ;
-  float tPer;
-  GLfloat v[3];
 
   xStart = zStart = 0;
 
@@ -577,10 +569,8 @@ void Terrain::animate(const float &elapsedTime, Object* c) {
     zStart = n->min[1] / scaleFactor_;
 
     x1 = (int)xStart;
-    x2 = ((int)xStart) + 1;
 
     z1 = (int)zStart;
-    z2 = ((int)zStart) +1;
 
     PRINT_DEBUG_LVL(5, "x1=%d, z1=%d\n", x1, z1);
 
@@ -616,9 +606,6 @@ void Terrain::animate(const float &elapsedTime, Object* c) {
     totalTime_ = 0.0f;
 
   calcViewableTerrainNorm();
-
-  //collisionBox_[0].setVector( min[0], min[1], min[2] );
-  //collisionBox_[1].setVector( max[0], max[1], max[2] );
 }
 
 //------------------------------------------------------------------------------

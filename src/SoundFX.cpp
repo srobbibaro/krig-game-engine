@@ -66,17 +66,18 @@ void SoundFX::load() {
   char Sound_Buffer[BUFFER_SIZE];
 
   // Load sound files.
-  char filename[80];
+  char filePath[MAX_PATH_LEN];
 
   for ( int i = 0; i < Num_of_SFX; i++ ) {
-    // load model file into model storage //
-    sprintf( filename, "./sounds/%s", files[i].c_str() );
-    PRINT_DEBUG("Loading sound file '%s'...\n", filename);
+    // build full path to load //
+    strcpy(filePath, "./sounds/");
+    strcat(filePath, files[i].c_str());
+    PRINT_DEBUG("Loading sound file '%s'...\n", filePath);
 
-    FILE *Music_File = fopen( filename, "rb" );
+    FILE *Music_File = fopen( filePath, "rb" );
 
     if (Music_File == NULL) {
-      PRINT_ERROR("Could not open sound file: '%s'...\n", filename);
+      PRINT_ERROR("Could not open sound file: '%s'...\n", filePath);
       continue;
     }
 

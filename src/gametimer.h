@@ -21,7 +21,11 @@ class GameTimer {
 
   private:
     long m_startTime;
+
+#ifdef _WIN32
     LARGE_INTEGER m_ticksPerSecond;
+#endif
+
     float fps;
 };
 
