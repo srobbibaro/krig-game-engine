@@ -140,7 +140,7 @@ int main(int argc, char *argv[]) {
 
   if (chdir(gameDir) != 0) {
     PRINT_ERROR("Could not find specified game directory.\n");
-    exit(1);
+    exit(2);
   }
 
   srand(time(NULL));
@@ -189,7 +189,7 @@ int main(int argc, char *argv[]) {
   }
   else {
     PRINT_ERROR("Unable to change screen resolution and setup game mode.\n");
-    exit(1);
+    exit(3);
   }
 #else
   glutCreateWindow("KRIG Game Engine");
