@@ -75,6 +75,7 @@ $ brew install --cask xquartz
 Install the following packages:
 
 * freeglut
+* mesa-glu
 * libvorbis
 * openal-soft
 * luajit
@@ -82,7 +83,7 @@ Install the following packages:
 For example:
 
 ```bash
-$ brew install freeglut libvorbis openal-soft luajit
+$ brew install freeglut mesa-glu libvorbis openal-soft luajit
 ```
 
 ### Compile
