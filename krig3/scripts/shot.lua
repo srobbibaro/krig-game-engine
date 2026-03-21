@@ -8,7 +8,7 @@ local function on_load(this, options)
   game_object.on_load(this, options)
   this.always_lit = true
 
-  krig.play_sound(this, "laser.wav")
+  krig.play_sound(this, "laser.ogg")
 end
 
 local function on_update(this, elapsedTime)

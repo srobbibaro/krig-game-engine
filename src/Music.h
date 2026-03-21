@@ -29,6 +29,9 @@ class Music {
     void StopSong();
     void PauseSong();
 
+    void load();
+    void unload();
+
   private:
     ALuint Source;
     ALenum Format;
@@ -39,6 +42,7 @@ class Music {
     // Flags for setting states.
     bool Playing;
     bool Repeat;
+    bool initialized_;
 
     // File decoding variables.
     FILE *Music_File;

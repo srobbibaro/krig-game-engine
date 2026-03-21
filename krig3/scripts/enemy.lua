@@ -1,6 +1,6 @@
 -- Helper Functions
 local function create_score_text(this)
-  krig.level.add_text("./scripts/points.lua", enemy.score, {position = this.position})
+  krig.level.add_text("./scripts/points.lua", tostring(enemy.score), {position = this.position})
 end
 
 local function create_powerup(this, powerup_num)
@@ -23,7 +23,7 @@ local function on_collision(this, temp)
   type_id = temp:load().type_id
 
   if type_id == 2 or (type_id == 4 and this.type_id ~= 4) then
-    krig.play_sound(this, "explosion1.wav")
+    krig.play_sound(this, "explosion1.ogg")
 
     enemy.life = enemy.life - 1
     if enemy.life <= 0 then

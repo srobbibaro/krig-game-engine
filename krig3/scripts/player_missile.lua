@@ -11,7 +11,7 @@ function on_load(this)
   this.speed             = {2.0, 0.0, 0.0}
   this:save()
 
-  krig.play_sound(this, "laser.wav")
+  krig.play_sound(this, "laser.ogg")
 
   obj = krig.level.find_object_of_type(1)
 end

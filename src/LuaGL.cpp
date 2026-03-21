@@ -14,12 +14,13 @@
 
 #include <string.h>
 #include <stdlib.h>
-#include <malloc.h>
 
 extern "C" {
-    #include "lua5.1/lauxlib.h"
+    #include "luajit-2.1/lauxlib.h"
     #include "LuaGL.h"
 }
+
+#define luaL_getn(L, i)          ((int)lua_objlen(L, i))
 
 /* set field of a lua table with a number */
 static void set_field(lua_State *L, unsigned int index, lua_Number value)
@@ -3950,7 +3951,7 @@ static int gl_viewport(lua_State *L)
    return 0;
 }
 
-static const luaL_reg gllib[] = {
+static const luaL_Reg gllib[] = {
   {"Accum", gl_accum},
   {"AlphaFunc", gl_alpha_func},
   {"AreTexturesResident", gl_are_textures_resident},

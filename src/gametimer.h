@@ -11,7 +11,7 @@
 #endif
 
 #define LARGE_INTEGER long
-#define MAX_FPS       60.0f
+#define MAX_FPS       30.0f
 
 class GameTimer {
   public:
@@ -21,7 +21,11 @@ class GameTimer {
 
   private:
     long m_startTime;
+
+#ifdef _WIN32
     LARGE_INTEGER m_ticksPerSecond;
+#endif
+
     float fps;
 };
 

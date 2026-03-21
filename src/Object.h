@@ -18,9 +18,9 @@
 #include "constants.h"
 
 extern "C" {
-  #include "lua5.1/lua.h"
-  #include "lua5.1/lualib.h"
-  #include "lua5.1/lauxlib.h"
+  #include "luajit-2.1/lua.h"
+  #include "luajit-2.1/lualib.h"
+  #include "luajit-2.1/lauxlib.h"
 }
 
 // States
@@ -42,15 +42,20 @@ class Object : public ObjectNode {
     // virtual functions ///////////////////////
     virtual void draw(Object*) = 0;
     virtual void drawOutline(Object*) = 0;
-    virtual void handleCollision(Object*) = 0;
-    virtual void update(Vector*) = 0;
-    virtual void printTypeName() = 0;
     virtual void drawShadow(Vector*) {}
+
+    virtual void handleCollision(Object*) = 0;
+
+    virtual void update(Vector*) = 0;
     virtual void animate(const float&, Object*);
+
     virtual void orientOnTerrain(Terrain *temp, const Quaternion &baseRotation) {}
     virtual void setHeightFromTerrain(Terrain *temp, const float &offset){}
+
     virtual void buildLuaObjectTable(lua_State *L);
     virtual void transferLuaObjectTable(lua_State *L);
+
+    virtual void printTypeName() = 0;
     ////////////////////////////////////////////
 
     void showCollisionBox();

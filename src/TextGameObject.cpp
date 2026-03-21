@@ -19,12 +19,11 @@ void TextGameObject::draw(Object* camera) {
     glPushMatrix();
       glColor4fv(color);
       glLineWidth(width);
-      //glTranslatef(position.x, position.y, position.z );
-      glRasterPos3f(position_.x, position_.y, position_.z);
-      glScalef (scale_.x, scale_.y, scale_.z);
+      glTranslatef(position_.x, position_.y, position_.z );
+      glScalef (scale_.x, scale_.y, 0.0f);
+
       for (int i = 0; i < text.length(); i++) {
-        //glutStrokeCharacter(GLUT_STROKE_ROMAN, text[i]);
-        glutBitmapCharacter(GLUT_BITMAP_8_BY_13, text[i]);
+        glutStrokeCharacter(GLUT_STROKE_ROMAN, text[i]);
       }
     glPopMatrix();
 
@@ -106,14 +105,14 @@ void TextGameObject::render_string(void* font, const char* string) {
 
 //------------------------------------------------------------------------------
 void TextGameObject::displayText(
-    char *text, const float &x, const float &y, const float &z,
+    const char *text, const float &x, const float &y, const float &z,
     const float &scaleX, const float &scaleY
 ) {
   // Renders a stroke font string
   glPushMatrix();
     glTranslatef (x, y, z);
     glScalef (scaleX, scaleY, 0.0f);
-    for (char* p = text; *p; p++)
+    for (const char* p = text; *p; p++)
       glutStrokeCharacter(GLUT_STROKE_ROMAN, *p);
   glPopMatrix();
 }

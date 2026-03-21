@@ -4,7 +4,7 @@
  */
 #include <GL/glut.h>
 #include <AL/al.h>
-#include <AL/alut.h>
+#include <AL/alc.h>
 
 #include <cstdio>
 #include <ctype.h>
@@ -52,8 +52,6 @@ void display() {
 #endif
 
     g_KRIG_ENGINE.unload();
-    alutExit();
-
     PRINT_DEBUG("Finished shutting down.\n");
 
     exit(0);
@@ -142,13 +140,13 @@ int main(int argc, char *argv[]) {
 
   if (chdir(gameDir) != 0) {
     PRINT_ERROR("Could not find specified game directory.\n");
-    exit(1);
+    exit(2);
   }
 
   srand(time(NULL));
 
+  g_KRIG_ENGINE.initAL();
   glutInit(&argc, argv);
-  alutInit(&argc, argv);
 
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 
@@ -191,7 +189,7 @@ int main(int argc, char *argv[]) {
   }
   else {
     PRINT_ERROR("Unable to change screen resolution and setup game mode.\n");
-    exit(1);
+    exit(3);
   }
 #else
   glutCreateWindow("KRIG Game Engine");
@@ -201,6 +199,7 @@ int main(int argc, char *argv[]) {
   glutInit();
 #endif
 
+  g_KRIG_ENGINE.loadSoundFx();
   g_KRIG_ENGINE.loadIntroCredits();
 
   glutMainLoop();

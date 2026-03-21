@@ -8,6 +8,7 @@
 #define _ENGINE_H_
 
 #include <GL/glut.h>
+#include <AL/alc.h>
 #include <string>
 
 #include "SoundFX.h"
@@ -17,9 +18,9 @@
 #include "TextGameObject.h"
 
 extern "C" {
-  #include "lua5.1/lua.h"
-  #include "lua5.1/lualib.h"
-  #include "lua5.1/lauxlib.h"
+  #include "luajit-2.1/lua.h"
+  #include "luajit-2.1/lualib.h"
+  #include "luajit-2.1/lauxlib.h"
 }
 
 class Engine {
@@ -30,6 +31,9 @@ class Engine {
     void gameCycle();
     void prepare();
     void initGL();
+    void initAL();
+    void loadSoundFx();
+    void unloadSoundFx();
 
     void processKeyUp(const int&);
     void processKeyDown(const int&);
@@ -94,7 +98,10 @@ class Engine {
     GameLevel *currentLevel_, *storedLevel_;
     Camera *mainCamera_, *c1_, *c2_, *c3_, *c4_;
     KeyState keyState_, specialKeyState_;
+
     SoundFX soundFx_;
+    ALCdevice *alcDevice_;
+    ALCcontext *alcContext_;
 
     GameTimer timer_;   // game's timer
     float timeElapsed_; // time elapsed in game

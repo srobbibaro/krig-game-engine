@@ -17,7 +17,7 @@ The following configurations are known to work:
 * 32/64-bit Debian-based Linux distributions
 * 32-bit Debian-based Linux distributions (VM with hardware acceleration)
 * 64-bit Debian-based Linux distributions (VM without hardware acceleration)
-* Mac OSX Yosemite and El Capitan
+* Mac OSX Sonoma
 
 Other distributions and configurations should work, but have not been verified.
 
@@ -62,8 +62,6 @@ $ apt-get install codeblocks
 
 Install [Homebrew](http://brew.sh/) to help with package installation.
 
-Install [Homebrew Cask](http://caskroom.io/) to help with application installation.
-
 Install the following application:
 
 * xquartz
@@ -71,54 +69,20 @@ Install the following application:
 For example:
 
 ```bash
-$ brew install caskroom/cask/brew-cask
-$ brew cask install xquartz
-```
-
-If you prefer to work with an IDE, you can optionally install CodeBlocks:
-
-```bash
-$ brew cask install codeblocks
+$ brew install --cask xquartz
 ```
 
 Install the following packages:
+
 * freeglut
-* freealut
 * libvorbis
-* lua51
+* openal-soft
+* luajit
 
 For example:
 
 ```bash
-$ brew install freeglut freealut libvorbis lua51
-```
-
-If freeglut cannot be installed, you may need to install it like so:
-
-```bash
-$ brew install homebrew/x11/freeglut
-```
-
-Install GCC:
-
-```bash
-$ brew tap homebrew/versions
-$ brew install gcc48
-```
-
-Create links to required header files:
-
-```bash
-$ ln -s /System/Library/Frameworks/OpenAL.framework/Headers/ src/AL
-$ ln -s /System/Library/Frameworks/OpenGL.framework/Headers/ src/GL
-```
-
-Create links to required library files:
-
-```bash
-$ sudo ln -s /System/Library/Frameworks/OpenAL.framework/OpenAL /usr/local/lib/libopenal.a
-$ sudo ln -s /System/Library/Frameworks/OpenGL.framework/OpenGL /usr/local/lib/libGL.a
-$ sudo ln -s /System/Library/Frameworks/OpenGL.framework/Libraries/libGLU.dylib /usr/local/lib/libGLU.a
+$ brew install freeglut libvorbis openal-soft luajit
 ```
 
 ### Compile
@@ -139,6 +103,7 @@ For example:
 ```bash
 $ codeblocks --build krig.cbp
 ```
+
 #### Enable Debug Mode
 
 To build the main executable in debug mode, run: `$ make build-debug`.
@@ -148,11 +113,11 @@ to build the executable properly.
 
 You can also change the setting in source, if you prefer:
 
-The `DEBUG` flag is located in _src/constants.h_ and is disabled by default (set to 0).
-To enable debug mode, set this value to 1. Debug mode will output debug messages to
+The `DEBUG` flag is located in _src/constants.h_ and is disabled by default (set to `0`).
+To enable debug mode, set this value to `1`. Debug mode will output debug messages to
 stdout in the console. Additionally, some information about the current level
 will be output directly to the play screen (for example: player position, camera position,
-and FPS). Additionally, the state of debug flag can be queried from game scripts
+and FPS). Lastly, the state of debug flag can be queried from game scripts
 to provide debug-specific behavior.
 
 ```c
@@ -180,8 +145,8 @@ to build the executable properly.
 
 You can also change the setting in source, if you prefer:
 
-The `EDIT` flag is located in _src/constants.h_ and is disabled by default (set to 0).
-When the `EDIT` flag is enabled (set to 1), Krig will launch in edit mode. This mode is
+The `EDIT` flag is located in _src/constants.h_ and is disabled by default (set to `0`).
+When the `EDIT` flag is enabled (set to `1`), Krig will launch in edit mode. This mode is
 designed to aid in level creation. Edit mode gives users the ability to move around
 the level freely, manipulate the terrain, and experiment with certain level-specific
 variables which can be tweaked on the fly.
@@ -192,8 +157,8 @@ variables which can be tweaked on the fly.
 
 #### Enable Full Screen Rendering
 
-The `FULL_SCREEN` flag is located in _src/constants.h_ and is disabled by default (set to 0).
-When the this flag is enabled (set to 1), Krig will launch in full screen rendering.
+The `FULL_SCREEN` flag is located in _src/constants.h_ and is disabled by default (set to `0`).
+When the this flag is enabled (set to `1`), Krig will launch in full screen rendering.
 Full screen rendering is not compatible with the `EDIT` flag and will be ignored when
 `EDIT` is also enabled.
 

@@ -119,8 +119,6 @@ void Snow::initParticle(const int &index) {
 
 //------------------------------------------------------------------------------
 void Snow::update(const float &elapsedTime) {
-  Vector originPosition = origin->getPosition();
-
   for (int i = 0; i < numParticles; ++i) {
     particles[i].position.x += particles[i].velocity.x * elapsedTime;
     particles[i].position.y += particles[i].velocity.y * elapsedTime;

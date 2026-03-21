@@ -142,7 +142,7 @@ static int get_height(lua_State *L) {
   return 1;
 }
 
-static const luaL_reg krigTerrainLib[] = {
+static const luaL_Reg krigTerrainLib[] = {
   {"get_height", get_height},
   {"get_vertex_color", get_vertex_color},
   {"get_vertex_height", get_vertex_height},

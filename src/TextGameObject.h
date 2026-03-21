@@ -34,7 +34,7 @@ class TextGameObject : public Object {
     float fadeRate;
 
     static void render_string(void*, const char*);
-    static void displayText(char *, const float&, const float&, const float&, const float&, const float&);
+    static void displayText(const char *, const float&, const float&, const float&, const float&, const float&);
 };
 
 #endif

@@ -1,9 +1,21 @@
+OS_NAME       := $(shell uname -s)
+HOMEBREW_DIR  := $(shell brew --prefix)
+DEBUG_LEVEL   := 2
+
+
 CC            := g++
-CFLAGS        := -O3 -O2 -O1 -O -fpermissive -O3 -O2 -O1 -O
-INCLUDES      := -I./src/ -I/usr/include/ -I/usr/include/malloc
-TEST_INCLUDES := -I./src/ -I/usr/include/ -I/usr/include/malloc
-LIBS          := -llua5.1 -lvorbisfile -lvorbisenc -lvorbis -lalut -logg -lopenal -lpng -lglut -lGL -lGLU
-DEFINES        = -DGL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED
+CFLAGS        := -O3 -std=c++11
+INCLUDES      := -I./src/ -I/usr/include/
+TEST_INCLUDES := -I./src/ -I/usr/include/
+LIBS          := -lluajit -lvorbisfile -lvorbisenc -lvorbis -logg -lopenal -lpng -lglut -lGL -lGLU
+LDFLAGS       :=
+DEFINES       :=
+
+ifeq ($(OS_NAME), Darwin)
+	INCLUDES      += -I$(HOMEBREW_DIR)/include/ -I$(HOMEBREW_DIR)/opt/openal-soft/include/
+	TEST_INCLUDES += -I$(HOMEBREW_DIR)/include/ -I$(HOMEBREW_DIR)/opt/openal-soft/include/
+	LDFLAGS       := -L$(HOMEBREW_DIR)/lib -L$(HOMEBREW_DIR)/opt/libglu/lib -L$(HOMEBREW_DIR)/opt/openal-soft/lib/ -L$(HOMEBREW_DIR)/opt/freeglut/lib/
+endif
 
 SRC_DIR        := ./src/
 BUILD_DIR      := ./obj/src/
@@ -23,10 +35,10 @@ rebuild: clean build
 rebuild-all: clean build-test
 
 krig: $(OBJ)
-	$(CC) $^ $(LIBS) -o $@
+	$(CC) $^ $(LIBS) $(LDFLAGS) -o $@
 
 unit-test: $(TEST_OBJ) $(OBJ_WITHOUT_MAIN)
-	$(CC) $^ $(LIBS) -o $@
+	$(CC) $^ $(LIBS) $(LDFLAGS) -o $@
 
 $(BUILD_DIR)%.o: $(SRC_DIR)%.cpp
 	$(CC) $(CFLAGS) $(INCLUDES) $(DEFINES) -c $< -o $@
@@ -36,8 +48,8 @@ $(TEST_BUILD_DIR)%.o: $(TEST_SRC_DIR)%.cpp
 
 checkdirs: $(BUILD_DIR) $(TEST_BUILD_DIR)
 
-build-debug: DEFINES += -DDEBUG=1 -DMSG_LVL=2
-build-edit: DEFINES += -DEDIT=1 -DDEBUG=1 -DMSG_LVL=2
+build-debug: DEFINES += -DDEBUG=1 -DMSG_LVL=$(DEBUG_LEVEL)
+build-edit: DEFINES += -DEDIT=1 -DDEBUG=1 -DMSG_LVL=$(DEBUG_LEVEL)
 
 build: checkdirs krig
 build-edit: build

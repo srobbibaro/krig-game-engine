@@ -12,7 +12,7 @@ end
 
 local function on_collision(this, temp)
   if temp:load().type_id == 0 then
-    krig.play_sound(this, "pause.wav")
+    krig.play_sound(this, "pause.ogg")
     krig.level.remove_object(this)
   end
 end
