@@ -1,0 +1,23 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: configure
+      run: ./build-scripts/setup-mac.sh
+    - name: make build
+      run: make build
+    - name: make build-test
+      run: make check
+    - name: make run-tests
+      run: make run-tests
