@@ -5,6 +5,7 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -17,7 +18,13 @@ jobs:
       run: ./build-scripts/setup-mac.sh
     - name: make build
       run: make build
+      
+  test:
+
+    runs-on: macos-latest
+    
+    steps:
     - name: make build-test
       run: make check
     - name: make run-tests
-      run: make run-tests
+      run: make run-test
