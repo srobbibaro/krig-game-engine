@@ -4,7 +4,7 @@ Krig Game Engine
 Krig is a cross-platform, open source game engine with accompanying demo game
 (by the same name).
 
-[![Build Status](https://travis-ci.org/srobbibaro/krig-game-engine.svg?branch=master)](https://travis-ci.org/srobbibaro/krig-game-engine)
+[![Build Status](https://github.com/srobbibaro/krig-game-engine/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/srobbibaro/krig-game-engine/actions/workflows/c-cpp.yml)
 
 Original game music created and provided by Shawn Zabel (https://github.com/zabelsr).
 All music created from the original song `Beyond Compare`: https://github.com/srobbibaro/krig-assets/blob/master/krig3/music/beyond_compare_full.ogg
@@ -75,6 +75,7 @@ $ brew install --cask xquartz
 Install the following packages:
 
 * freeglut
+* mesa-glu
 * libvorbis
 * openal-soft
 * luajit
@@ -82,7 +83,7 @@ Install the following packages:
 For example:
 
 ```bash
-$ brew install freeglut libvorbis openal-soft luajit
+$ brew install freeglut mesa-glu libvorbis openal-soft luajit
 ```
 
 ### Compile
