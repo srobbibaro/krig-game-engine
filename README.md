@@ -50,13 +50,8 @@ For example:
 $ apt-get install lua5.1 lua5.1-dev libalut-dev libvorbis-dev libglu1-mesa-dev libpng-dev freeglut3 freeglut3-dev g++
 ```
 
-If you prefer to work with an IDE, you can optionally install CodeBlocks:
-
-For example:
-
-```bash
-$ apt-get install codeblocks
-```
+If you prefer to work with an IDE, you can optionally install VS Code with the
+C/C++ and Makefile Tools extensions from Microsoft.
 
 ##### Mac OSX
 
@@ -92,18 +87,6 @@ After the required packages have been installed, the project can be built using
 the provided makefile.
 
 To build the main executable, run: `$ make` or `$ make build`.
-
-#### Optional: Building with CodeBlocks
-After the required packages have been installed, launch Code::Blocks and load the _krig.cbp_
-project file. Krig should now build with Code::Blocks.
-
-Krig can also be compiled (using Code::Blocks) from the command line.
-
-For example:
-
-```bash
-$ codeblocks --build krig.cbp
-```
 
 #### Enable Debug Mode
 
@@ -185,9 +168,6 @@ The `run-demo` make target will also run the above command. For example:
 ```bash
 $ make run-demo
 ```
-
-Optionally the game can be run from within CodeBlocks, but the game directory `krig3`
-must be specified for it to run properly.
 
 ### Run Tests
 
