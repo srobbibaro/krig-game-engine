@@ -69,10 +69,10 @@ SCENARIO( "Quaternion basics", "[Quaternion]" ) {
     q.getEulerAngles(euler);
 
     THEN( "rotation matrix for 90 deg about X maps Y to Z" ) {
-      REQUIRE(m.data[0] == Approx(1.0f).epsilon(1e-4f));
-      REQUIRE(m.data[5] == Approx(0.0f).epsilon(1e-4f));
-      REQUIRE(m.data[9] == Approx(-1.0f).epsilon(1e-4f));
-      REQUIRE(m.data[6] == Approx(1.0f).epsilon(1e-4f));
+      REQUIRE(m.data[0] == Approx(1.0f));
+      REQUIRE(m.data[5] == Approx(0.0f));
+      REQUIRE(m.data[9] == Approx(-1.0f));
+      REQUIRE(m.data[6] == Approx(1.0f));
     }
 
     THEN( "euler extraction returns finite angles" ) {
@@ -103,6 +103,42 @@ SCENARIO( "Quaternion basics", "[Quaternion]" ) {
     THEN( "identity times identity" ) {
       REQUIRE(r.getW() == Approx(1.0f));
       REQUIRE(r.getX() == Approx(0.0f));
+    }
+  }
+
+  GIVEN( "operator+ adds components" ) {
+    Quaternion a(1.0f, 2.0f, 3.0f, 4.0f);
+    Quaternion b(10.0f, 20.0f, 30.0f, 40.0f);
+    Quaternion c = a + b;
+    THEN( "sum is per-component" ) {
+      REQUIRE(c.getX() == Approx(11.0f));
+      REQUIRE(c.getY() == Approx(22.0f));
+      REQUIRE(c.getZ() == Approx(33.0f));
+      REQUIRE(c.getW() == Approx(44.0f));
+    }
+  }
+
+  GIVEN( "slerp endpoints" ) {
+    Quaternion qStart;
+    qStart.loadMultIdentity();
+    Quaternion qEnd;
+    qEnd.buildFromEuler(0.0f, 1.0f, 0.0f);
+    qEnd.normalize();
+
+    Quaternion atZero;
+    atZero.slerp(qStart, 0.0f, qEnd);
+    Quaternion atOne;
+    atOne.slerp(qStart, 1.0f, qEnd);
+
+    THEN( "t=0 matches start and t=1 matches end" ) {
+      REQUIRE(atZero.getX() == Approx(qStart.getX()));
+      REQUIRE(atZero.getY() == Approx(qStart.getY()));
+      REQUIRE(atZero.getZ() == Approx(qStart.getZ()));
+      REQUIRE(atZero.getW() == Approx(qStart.getW()));
+      REQUIRE(atOne.getX() == Approx(qEnd.getX()));
+      REQUIRE(atOne.getY() == Approx(qEnd.getY()));
+      REQUIRE(atOne.getZ() == Approx(qEnd.getZ()));
+      REQUIRE(atOne.getW() == Approx(qEnd.getW()));
     }
   }
 }
