@@ -24,13 +24,18 @@ class QuadTree {
     int buildDisplayList(DisplayList* l, Camera* c);
     int buildLeafList(DisplayList* l);
 
+    // traverseTree is a debug-only utility (PRINT_DEBUG) and a no-op in
+    // production builds. It is not called in the normal game loop.
     void traverseTree();
 
-    int buildTree(QuadTreeNode* &, const float&, const float&, const float&, const float&, const float&);
+    int buildTree(QuadTreeNode*& p, const float& xMin, const float& xMax, const float& zMin, const float& zMax, const float& scaleFactor);
     void traverseTree(QuadTreeNode* n);
     int buildDisplayList(QuadTreeNode* n, DisplayList* l, Camera* c);
     int buildLeafList(QuadTreeNode* n, DisplayList* l);
 
+    // Public so tests and GameLevel can access the tree directly.
+    // The destructor does not delete the tree — callers are responsible
+    // for cleanup (see freeQuadTreeNode in test/quadtree.cpp).
     QuadTreeNode* root;
 };
 
