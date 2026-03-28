@@ -149,20 +149,6 @@ SCENARIO( "Manipulating a vector", "[Vector]" ) {
     }
   }
 
-  GIVEN( "rotateVector with rotation around Z" ) {
-    Matrix m;
-    const float halfPi = 1.57079632679f;
-    m.setRotation(halfPi, 0.0f, 0.0f, 1.0f);
-    Vector v(1.0f, 0.0f, 0.0f);
-    Vector out;
-    out.rotateVector(m, v);
-    THEN( "X axis rotates toward -Y for this setRotation convention" ) {
-      REQUIRE(out.x == Approx(0.0f).epsilon(1e-4f));
-      REQUIRE(out.y == Approx(-1.0f).epsilon(1e-4f));
-      REQUIRE(out.z == Approx(0.0f).epsilon(1e-4f));
-    }
-  }
-
   GIVEN( "transformVector with translation" ) {
     Matrix m;
     m.setTranslation(1.0f, 2.0f, 3.0f);

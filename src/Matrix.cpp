@@ -68,27 +68,6 @@ Matrix Matrix::operator *(const Matrix &p) {
 }
 
 //------------------------------------------------------------------------------
-void Matrix::setRotation(const float &angle, const float &x, const float &y, const float &z) {
-  float t = 1 - cos(angle);
-  float s = sin(angle);
-  float c = cos(angle);
-
-  loadIdentity();
-
-  data[0] = ( t *  x * x ) + c;
-  data[4] = ( t * x* y ) + ( s * z);
-  data[8] = ( t * x * z ) - ( s * y );
-
-  data[1] = (t*x*y) - (s*z);
-  data[5] = (t*y*y) + c;
-  data[9] = (t*y*z) + (s*x);
-
-  data[2] = (t*x*z) + (s*y);
-  data[6] = (t*y*z) - (s*x);
-  data[10] = (t*z*z) + c;
-}
-
-//------------------------------------------------------------------------------
 void Matrix::setTranslation(const float &x, const float &y, const float &z) {
   loadIdentity();
 
@@ -170,47 +149,4 @@ void Matrix::display() {
       PRINT_DEBUG( "\n" );
   }
 #endif
-}
-
-//------------------------------------------------------------------------------
-void Matrix::setRotation2(const float &x, const float &y, const float &z) {
-  // simplify math for later //
-  float cosX = cos(x/2);
-  float cosY = cos(y/2);
-  float cosZ = cos(z/2);
-
-  float sinX = sin(x/2);
-  float sinY = sin(y/2);
-  float sinZ = sin(z/2);
-
-  float cosFinal = cosY * cosZ;
-  float sinFinal = sinY * sinZ;
-
-  // build the quaternion //
-  float quatW = cosX * cosFinal + sinX * sinFinal;
-  float quatX = sinX * cosFinal - cosX * sinFinal;
-  float quatY = cosX * sinY * cosZ + sinX * cosY * sinZ;
-  float quatZ = cosX * cosY * sinZ - sinX * sinY * cosZ;
-
-  float wx, wy, wz, xx, yy, yz, xy, xz, zz, x2, y2, z2;
-
-  // calculate coefficients
-  x2 = quatX + quatX; y2 = quatY + quatY;
-  z2 = quatZ + quatZ;
-  xx = quatX * x2; xy = quatX * y2; xz = quatX * z2;
-  yy = quatY * y2; yz = quatY * z2; zz = quatZ * z2;
-  wx = quatW * x2; wy = quatW * y2; wz = quatW * z2;
-
-  // build the matrix //
-  data[0] = 1.0 - (yy + zz); data[4] = xy - wz;
-  data[8] = xz + wy; data[12] = 0.0;
-
-  data[1] = xy + wz; data[5] = 1.0 - (xx + zz);
-  data[9] = yz - wx; data[13] = 0.0;
-
-  data[2] = xz - wy; data[6] = yz + wx;
-  data[10] = 1.0 - (xx + yy); data[14] = 0.0;
-
-  data[3] = 0; data[7] = 0;
-  data[11] = 0; data[15] = 1;
 }

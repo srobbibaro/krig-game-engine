@@ -2,7 +2,8 @@
  * @file Matrix.h
  * @brief Representation of 4x4 matrix with common matrix operations.
  *
- * Matrix math.
+ * Stored in column-major order in `data[]` (OpenGL-style). The 16-float constructor
+ * takes four columns: (c11,c21,c31,c41), (c12,...), … not four rows on paper.
  */
 #ifndef _MATRIX_H_
 #define _MATRIX_H_
@@ -18,6 +19,7 @@ class Matrix {
 
     Matrix();
     Matrix(const Matrix&);
+    /** All 16 components: column 1 (top to bottom), then column 2, … column 4. */
     Matrix(
       const float &, const float &, const float &, const float &,
       const float &, const float &, const float &, const float &,
@@ -32,16 +34,11 @@ class Matrix {
     Matrix operator *(const Matrix &);
 
     void transpose(Matrix&);
-    void setRotation(const float &, const float &, const float &, const float &);
-    void setRotation2(const float &, const float &, const float &);
     void setTranslation(const float &, const float &, const float &);
     void setScale(const float &, const float &, const float &);
     void setShadow(float lightPos[4], float plane[4]);
     void transformVertex(float* , float*);
     void display();
-
-    void CreateFromAxisAngle(const float &, const float &, const float &, const float &);
-    void CreateFromAxisAngles(const float &, const float &, const float &, const float &);
 
     void fix();
 };
