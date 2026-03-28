@@ -15,7 +15,7 @@ class Sphere {
     Sphere();
     ~Sphere();
 
-    void setSphere(const float&, const float&, const float&, const float&);
+    void setSphere(const float& x, const float& y, const float& z, const float& radius);
 
     void getOriginVector(Vector&) const;
     float getRadius() const;
