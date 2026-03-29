@@ -189,6 +189,25 @@ SCENARIO( "QuadTree spatial partition", "[QuadTree]" ) {
   }
 }
 
+SCENARIO( "QuadTree traverseTree", "[QuadTree]" ) {
+  GIVEN( "A built tree" ) {
+    QuadTree qt;
+    qt.buildTree(qt.root, 0.0f, 20.0f, 0.0f, 20.0f, 10.0f);
+
+    // traverseTree is a debug-only utility (PRINT_DEBUG) and a no-op in
+    // production builds (DEBUG=0). Smoke-tested here to confirm the
+    // recursive traversal terminates without crashing.
+    WHEN( "traverseTree is called" ) {
+      THEN( "it does not crash" ) {
+        qt.traverseTree();
+      }
+    }
+
+    freeQuadTreeNode(qt.root);
+    qt.root = NULL;
+  }
+}
+
 SCENARIO( "QuadTreeNode default construction", "[QuadTreeNode]" ) {
   GIVEN( "A default node" ) {
     QuadTreeNode n;
