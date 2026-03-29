@@ -94,6 +94,25 @@ SCENARIO( "Quaternion basics", "[Quaternion]" ) {
     }
   }
 
+  GIVEN( "buildRotationMatrix from multiplicative identity" ) {
+    Quaternion q;
+    q.loadMultIdentity();
+    Matrix m;
+    q.buildRotationMatrix(m);
+
+    THEN( "result is the identity matrix" ) {
+      REQUIRE(m.data[0]  == Approx(1.0f));
+      REQUIRE(m.data[5]  == Approx(1.0f));
+      REQUIRE(m.data[10] == Approx(1.0f));
+      REQUIRE(m.data[15] == Approx(1.0f));
+      REQUIRE(m.data[1]  == Approx(0.0f));
+      REQUIRE(m.data[2]  == Approx(0.0f));
+      REQUIRE(m.data[4]  == Approx(0.0f));
+      REQUIRE(m.data[6]  == Approx(0.0f));
+      REQUIRE(m.data[9]  == Approx(0.0f));
+    }
+  }
+
   GIVEN( "buildFromAxis on X by 90 degrees" ) {
     Vector axis(1.0f, 0.0f, 0.0f);
     const float halfPi = 1.57079632679f;
