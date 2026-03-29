@@ -29,7 +29,7 @@ extern "C" {
 
 class GameLevel {
   public:
-    GameLevel(const unsigned int&);
+    GameLevel(const unsigned int& lists);
     ~GameLevel();
 
     void updateLevel();
@@ -37,12 +37,12 @@ class GameLevel {
     void prepareLevel();
     void drawLevel();
 
-    bool loadLevel(const char*);
-    bool loadLevelFromBuffer(const char*);
-    void loadScript(const std::string &);
+    bool loadLevel(const char* file);
+    bool loadLevelFromBuffer(const char* buffer);
+    void loadScript(const std::string& script);
 
-    Object* findEnemyOfType(const int&);
-    float findDistance(Object*, Object*);
+    Object* findEnemyOfType(const int& typeId);
+    float findDistance(Object* a, Object* b);
 
     void drawSky();
     bool checkComplete();
@@ -66,9 +66,9 @@ class GameLevel {
 
     void updateObjects(Vector*);
     void prepareObjects();
-    void animateObjects(const float&);
+    void animateObjects(const float& elapsed);
 
-    Object* addObject(const std::string&, lua_State*, const unsigned int&);
+    Object* addObject(const std::string& script, lua_State* L, const unsigned int& typeId);
 
     ObjectList* getObjects()         { return &objects_; }
     Terrain* getTerrain()            { return((Terrain*)terrain_); }
