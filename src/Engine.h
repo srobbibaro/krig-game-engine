@@ -35,16 +35,16 @@ class Engine {
     void loadSoundFx();
     void unloadSoundFx();
 
-    void processKeyUp(const int&);
-    void processKeyDown(const int&);
+    void processKeyUp(const int& key);
+    void processKeyDown(const int& key);
     void processCommands();
-    void processNormalKeyUp(const unsigned char&);
-    void processNormalKeyDown(const unsigned char&);
+    void processNormalKeyUp(const unsigned char& key);
+    void processNormalKeyDown(const unsigned char& key);
 
     KeyState* getKeyState()        { return &keyState_; }
     KeyState* getSpecialKeyState() { return &specialKeyState_; }
 
-    void processMouseMove(const int&, const int&);
+    void processMouseMove(const int& x, const int& y);
     float getMouseX() { return mouseX_; }
     float getMouseY() { return mouseY_; }
 
