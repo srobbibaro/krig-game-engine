@@ -37,7 +37,7 @@ struct Vector {
   void rotateVector(const Matrix &, const Vector &);
   void transformVector(const Matrix &, const Vector &);
 
-  bool intersectBox(const Vector &, Vector[], float, Vector &);
+  bool intersectBox(const Vector &, Vector[], float, Vector &hitPoint);
   bool intersectBox(const Vector &, Vector[], float);
 
   float x, y, z;
