@@ -201,6 +201,23 @@ SCENARIO( "Manipulating a vector", "[Vector]" ) {
       }
     }
 
+    WHEN( "an X-directed ray approaches the box from the right" ) {
+      Vector dir(-1.0f, 0.0f, 0.0f);
+      Vector origin(5.0f, 0.0f, 0.0f);
+
+      THEN( "the hit test returns true" ) {
+        REQUIRE(dir.intersectBox(origin, box, 0.0f));
+      }
+
+      THEN( "hitPoint is placed at the entry (near) face" ) {
+        Vector hitPoint;
+        dir.intersectBox(origin, box, 0.0f, hitPoint);
+        REQUIRE(hitPoint.x == Approx( 1.0f));
+        REQUIRE(hitPoint.y == Approx( 0.0f));
+        REQUIRE(hitPoint.z == Approx( 0.0f));
+      }
+    }
+
     WHEN( "an X-directed ray passes above the box" ) {
       Vector dir(1.0f, 0.0f, 0.0f);
       Vector origin(-5.0f, 2.0f, 0.0f);
@@ -223,6 +240,23 @@ SCENARIO( "Manipulating a vector", "[Vector]" ) {
         dir.intersectBox(origin, box, 0.0f, hitPoint);
         REQUIRE(hitPoint.x == Approx( 0.0f));
         REQUIRE(hitPoint.y == Approx(-1.0f));
+        REQUIRE(hitPoint.z == Approx( 0.0f));
+      }
+    }
+
+    WHEN( "a Y-directed ray approaches the box from above" ) {
+      Vector dir(0.0f, -1.0f, 0.0f);
+      Vector origin(0.0f, 5.0f, 0.0f);
+
+      THEN( "the hit test returns true" ) {
+        REQUIRE(dir.intersectBox(origin, box, 0.0f));
+      }
+
+      THEN( "hitPoint is placed at the entry (near) face" ) {
+        Vector hitPoint;
+        dir.intersectBox(origin, box, 0.0f, hitPoint);
+        REQUIRE(hitPoint.x == Approx( 0.0f));
+        REQUIRE(hitPoint.y == Approx( 1.0f));
         REQUIRE(hitPoint.z == Approx( 0.0f));
       }
     }
@@ -250,6 +284,23 @@ SCENARIO( "Manipulating a vector", "[Vector]" ) {
         REQUIRE(hitPoint.x == Approx( 0.0f));
         REQUIRE(hitPoint.y == Approx( 0.0f));
         REQUIRE(hitPoint.z == Approx(-1.0f));
+      }
+    }
+
+    WHEN( "a Z-directed ray approaches the box from behind" ) {
+      Vector dir(0.0f, 0.0f, -1.0f);
+      Vector origin(0.0f, 0.0f, 5.0f);
+
+      THEN( "the hit test returns true" ) {
+        REQUIRE(dir.intersectBox(origin, box, 0.0f));
+      }
+
+      THEN( "hitPoint is placed at the entry (near) face" ) {
+        Vector hitPoint;
+        dir.intersectBox(origin, box, 0.0f, hitPoint);
+        REQUIRE(hitPoint.x == Approx( 0.0f));
+        REQUIRE(hitPoint.y == Approx( 0.0f));
+        REQUIRE(hitPoint.z == Approx( 1.0f));
       }
     }
 
