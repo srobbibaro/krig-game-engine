@@ -37,8 +37,12 @@ struct Vector {
   void rotateVector(const Matrix &, const Vector &);
   void transformVector(const Matrix &, const Vector &);
 
-  bool intersectBox(const Vector &, Vector[], float, Vector &hitPoint);
-  bool intersectBox(const Vector &, Vector[], float);
+  // `this` is the ray direction. Returns true if the ray from rayOrigin
+  // hits the AABB defined by box[0] (min) and box[1] (max), expanded by
+  // margin on all sides. Sets hitPoint to the entry point, or to rayOrigin
+  // if the origin is inside the box. Returns false for a zero direction.
+  bool intersectBox(const Vector &rayOrigin, Vector box[], float margin, Vector &hitPoint);
+  bool intersectBox(const Vector &rayOrigin, Vector box[], float margin);
 
   float x, y, z;
 };
