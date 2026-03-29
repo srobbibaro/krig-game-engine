@@ -120,6 +120,16 @@ bool Vector::intersectBox(
   const Vector &rayPosition, Vector collisionBox[],
   float extend, Vector &hitPoint
 ) {
+  if (x == 0.0f && y == 0.0f && z == 0.0f)
+    return false;
+
+  if (rayPosition.x >= collisionBox[0].x - extend && rayPosition.x <= collisionBox[1].x + extend &&
+      rayPosition.y >= collisionBox[0].y - extend && rayPosition.y <= collisionBox[1].y + extend &&
+      rayPosition.z >= collisionBox[0].z - extend && rayPosition.z <= collisionBox[1].z + extend) {
+    hitPoint = rayPosition;
+    return true;
+  }
+
   bool hit = false;
   bool nearFaceFound = false;
   float tNear = 0.0f;

@@ -285,5 +285,54 @@ SCENARIO( "Manipulating a vector", "[Vector]" ) {
         REQUIRE(dir.intersectBox(origin, box, 1.0f));
       }
     }
+
+    // A ray parallel to an axis whose origin lies outside the box on that axis
+    // must miss, even though the parallel axis slab test is skipped entirely.
+    // The hitPoint bounds check on the skipped axis catches this correctly.
+    WHEN( "a Y-directed ray has its origin outside the box on X" ) {
+      Vector dir(0.0f, 1.0f, 0.0f);
+      Vector origin(50.0f, -5.0f, 0.0f);
+
+      THEN( "the hit test returns false" ) {
+        REQUIRE_FALSE(dir.intersectBox(origin, box, 0.0f));
+      }
+    }
+
+    WHEN( "a Z-directed ray has its origin outside the box on X" ) {
+      Vector dir(0.0f, 0.0f, 1.0f);
+      Vector origin(50.0f, 0.0f, -5.0f);
+
+      THEN( "the hit test returns false" ) {
+        REQUIRE_FALSE(dir.intersectBox(origin, box, 0.0f));
+      }
+    }
+
+    // A ray whose origin is already inside the box trivially intersects it.
+    // hitPoint is set to the ray origin.
+    WHEN( "an X-directed ray starts inside the box" ) {
+      Vector dir(1.0f, 0.0f, 0.0f);
+      Vector origin(0.0f, 0.0f, 0.0f);
+
+      THEN( "the hit test returns true" ) {
+        REQUIRE(dir.intersectBox(origin, box, 0.0f));
+      }
+
+      THEN( "hitPoint is set to the ray origin" ) {
+        Vector hitPoint;
+        dir.intersectBox(origin, box, 0.0f, hitPoint);
+        REQUIRE(hitPoint.x == Approx(0.0f));
+        REQUIRE(hitPoint.y == Approx(0.0f));
+        REQUIRE(hitPoint.z == Approx(0.0f));
+      }
+    }
+
+    WHEN( "a Y-directed ray starts inside the box" ) {
+      Vector dir(0.0f, 1.0f, 0.0f);
+      Vector origin(0.0f, 0.0f, 0.0f);
+
+      THEN( "the hit test returns true" ) {
+        REQUIRE(dir.intersectBox(origin, box, 0.0f));
+      }
+    }
   }
 }
