@@ -91,6 +91,7 @@ SCENARIO( "Manipulating a matrix", "[matrix]" ) {
     }
   }
 
+  // 16-arg ctor: four columns (c11..c41), (c12..c42), … OpenGL column-major data[].
   GIVEN( "Explicit 16-element constructor (four columns: c1x,c2x,c3x,c4x each)" ) {
     // Matches Matrix(c11,c21,c31,c41, c12,..., c44) -> OpenGL column-major data[].
     Matrix m(
@@ -120,6 +121,23 @@ SCENARIO( "Manipulating a matrix", "[matrix]" ) {
       REQUIRE(s.data[5] == Approx(3.0f));
       REQUIRE(s.data[10] == Approx(4.0f));
       REQUIRE(s.data[15] == Approx(1.0f));
+    }
+  }
+
+  GIVEN( "Scale times translation multiply order" ) {
+    Matrix s;
+    s.setScale(2.0f, 1.0f, 1.0f);
+    Matrix t;
+    t.setTranslation(1.0f, 0.0f, 0.0f);
+    Matrix a = s * t;
+    float v[3] = { 1.0f, 0.0f, 0.0f };
+    float out[3];
+    a.transformVertex(v, out);
+
+    THEN( "with A = S*T as implemented, vertex is translated then scaled on X" ) {
+      REQUIRE(out[0] == Approx(4.0f));
+      REQUIRE(out[1] == Approx(0.0f));
+      REQUIRE(out[2] == Approx(0.0f));
     }
   }
 }
