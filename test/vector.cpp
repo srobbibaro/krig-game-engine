@@ -109,6 +109,8 @@ SCENARIO( "Manipulating a vector", "[Vector]" ) {
       Vector d = a * 2.0f;
       THEN( "addition and scalar multiply" ) {
         REQUIRE(c.x == Approx(11.0f));
+        REQUIRE(c.y == Approx(22.0f));
+        REQUIRE(c.z == Approx(33.0f));
         REQUIRE(d.x == Approx(2.0f));
         REQUIRE(d.y == Approx(4.0f));
         REQUIRE(d.z == Approx(6.0f));
