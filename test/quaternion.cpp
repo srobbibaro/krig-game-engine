@@ -118,6 +118,42 @@ SCENARIO( "Quaternion basics", "[Quaternion]" ) {
     }
   }
 
+  GIVEN( "slerp with t < 0" ) {
+    Quaternion qStart;
+    qStart.loadMultIdentity();
+    Quaternion qEnd;
+    qEnd.buildFromEuler(0.0f, 1.0f, 0.0f);
+    qEnd.normalize();
+
+    Quaternion result;  // all-zero default
+    result.slerp(qStart, -0.5f, qEnd);
+
+    THEN( "result is unchanged — slerp is a no-op for out-of-range t" ) {
+      REQUIRE(result.getX() == 0.0f);
+      REQUIRE(result.getY() == 0.0f);
+      REQUIRE(result.getZ() == 0.0f);
+      REQUIRE(result.getW() == 0.0f);
+    }
+  }
+
+  GIVEN( "slerp with t > 1" ) {
+    Quaternion qStart;
+    qStart.loadMultIdentity();
+    Quaternion qEnd;
+    qEnd.buildFromEuler(0.0f, 1.0f, 0.0f);
+    qEnd.normalize();
+
+    Quaternion result;  // all-zero default
+    result.slerp(qStart, 2.0f, qEnd);
+
+    THEN( "result is unchanged — slerp is a no-op for out-of-range t" ) {
+      REQUIRE(result.getX() == 0.0f);
+      REQUIRE(result.getY() == 0.0f);
+      REQUIRE(result.getZ() == 0.0f);
+      REQUIRE(result.getW() == 0.0f);
+    }
+  }
+
   GIVEN( "slerp endpoints" ) {
     Quaternion qStart;
     qStart.loadMultIdentity();
