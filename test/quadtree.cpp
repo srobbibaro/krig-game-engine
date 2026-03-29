@@ -89,6 +89,17 @@ SCENARIO( "QuadTree spatial partition", "[QuadTree]" ) {
       REQUIRE(c->max[1] == Approx(10.0f));
     }
 
+    // Verify the XZ bounding sphere convention holds for child nodes:
+    // y=0 (ground plane), z=-centerZ (negated), radius is the full diagonal.
+    THEN( "child[0] bounding sphere follows XZ convention" ) {
+      Vector o;
+      qt.root->child[0]->boundingSphere.getOriginVector(o);
+      REQUIRE(o.x == Approx(5.0f));
+      REQUIRE(o.y == Approx(0.0f));
+      REQUIRE(o.z == Approx(-5.0f));
+      REQUIRE(qt.root->child[0]->boundingSphere.getRadius() == Approx(std::sqrt(200.0f)));
+    }
+
     THEN( "child[1] covers xMin-midX, midZ-zMax" ) {
       QuadTreeNode *c = qt.root->child[1];
       REQUIRE(c->min[0] == Approx(0.0f));
@@ -182,13 +193,24 @@ SCENARIO( "QuadTreeNode default construction", "[QuadTreeNode]" ) {
   GIVEN( "A default node" ) {
     QuadTreeNode n;
 
-    THEN( "children are null and bounds are zero" ) {
+    THEN( "children are null, bounds are zero, and next is null" ) {
       for (int i = 0; i < 4; ++i) {
         REQUIRE(n.child[i] == NULL);
       }
       REQUIRE(n.min[0] == Approx(0.0f));
       REQUIRE(n.max[0] == Approx(0.0f));
+      REQUIRE(n.min[1] == Approx(0.0f));
+      REQUIRE(n.max[1] == Approx(0.0f));
       REQUIRE(n.next == NULL);
+    }
+
+    THEN( "bounding sphere defaults to zero origin and zero radius" ) {
+      Vector o;
+      n.boundingSphere.getOriginVector(o);
+      REQUIRE(o.x == Approx(0.0f));
+      REQUIRE(o.y == Approx(0.0f));
+      REQUIRE(o.z == Approx(0.0f));
+      REQUIRE(n.boundingSphere.getRadius() == Approx(0.0f));
     }
   }
 }
