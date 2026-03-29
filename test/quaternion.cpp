@@ -154,6 +154,47 @@ SCENARIO( "Quaternion basics", "[Quaternion]" ) {
     }
   }
 
+  GIVEN( "slerp with negated end quaternion (negative dot product branch)" ) {
+    // Negating all components of a quaternion yields the same rotation.
+    // When dotQ < 0, slerp flips eQ to take the short arc.  At t=1 the
+    // result should still land on the positive form of the end rotation.
+    const float halfPi = 1.57079632679f;
+    const float s = std::sin(halfPi / 2.0f);  // sin(pi/4) = sqrt(2)/2
+    const float c = std::cos(halfPi / 2.0f);  // cos(pi/4) = sqrt(2)/2
+
+    Quaternion qStart;
+    qStart.loadMultIdentity();
+    Quaternion qEndNeg(0.0f, -s, 0.0f, -c);  // negated 90 deg about Y
+
+    Quaternion result;
+    result.slerp(qStart, 1.0f, qEndNeg);
+
+    THEN( "result lands on positive 90 deg about Y — short arc was taken" ) {
+      REQUIRE(result.getX() == Approx(0.0f));
+      REQUIRE(result.getY() == Approx(s));
+      REQUIRE(result.getZ() == Approx(0.0f));
+      REQUIRE(result.getW() == Approx(c));
+    }
+  }
+
+  GIVEN( "slerp between identical quaternions (linear fallback branch)" ) {
+    // When start == end, dotQ == 1 and (1 - dotQ) == 0 <= 0.05 tolerance,
+    // so the linear path (scale1 = 1-t, scale2 = t) is used.
+    // The result must equal the input quaternion for any t.
+    const float halfPi = 1.57079632679f;
+    Quaternion q(Vector(0.0f, 1.0f, 0.0f), halfPi);  // 90 deg about Y
+
+    Quaternion result;
+    result.slerp(q, 0.5f, q);
+
+    THEN( "result equals the shared start/end quaternion" ) {
+      REQUIRE(result.getX() == Approx(q.getX()));
+      REQUIRE(result.getY() == Approx(q.getY()));
+      REQUIRE(result.getZ() == Approx(q.getZ()));
+      REQUIRE(result.getW() == Approx(q.getW()));
+    }
+  }
+
   GIVEN( "slerp endpoints" ) {
     Quaternion qStart;
     qStart.loadMultIdentity();
