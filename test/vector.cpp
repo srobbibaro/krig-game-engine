@@ -179,8 +179,8 @@ SCENARIO( "Manipulating a vector", "[Vector]" ) {
 
   // intersectBox: `this` is the ray direction; rayPosition is the ray origin.
   // collisionBox[0] = min corner, collisionBox[1] = max corner (expanded by extend).
-  // Returns the entry intersection point in tv (4-arg overload).
-  // Returns false when s <= 0 (ray points away from or starts past the box).
+  // Returns the entry intersection point in hitPoint (4-arg overload).
+  // Returns false when no slab intersection is found for the ray direction.
   GIVEN( "intersectBox with a unit box at the origin" ) {
     Vector box[2];
     box[0].setVector(-1.0f, -1.0f, -1.0f);
@@ -194,7 +194,7 @@ SCENARIO( "Manipulating a vector", "[Vector]" ) {
         REQUIRE(dir.intersectBox(origin, box, 0.0f));
       }
 
-      THEN( "tv is placed at the entry (near) face" ) {
+      THEN( "hitPoint is placed at the entry (near) face" ) {
         Vector hitPoint;
         dir.intersectBox(origin, box, 0.0f, hitPoint);
         REQUIRE(hitPoint.x == Approx(-1.0f));
@@ -237,7 +237,7 @@ SCENARIO( "Manipulating a vector", "[Vector]" ) {
         REQUIRE(dir.intersectBox(origin, box, 0.0f));
       }
 
-      THEN( "tv is placed at the entry (near) face" ) {
+      THEN( "hitPoint is placed at the entry (near) face" ) {
         Vector hitPoint;
         dir.intersectBox(origin, box, 0.0f, hitPoint);
         REQUIRE(hitPoint.x == Approx( 0.0f));
@@ -280,7 +280,7 @@ SCENARIO( "Manipulating a vector", "[Vector]" ) {
         REQUIRE(dir.intersectBox(origin, box, 0.0f));
       }
 
-      THEN( "tv is placed at the entry (near) face" ) {
+      THEN( "hitPoint is placed at the entry (near) face" ) {
         Vector hitPoint;
         dir.intersectBox(origin, box, 0.0f, hitPoint);
         REQUIRE(hitPoint.x == Approx( 0.0f));
