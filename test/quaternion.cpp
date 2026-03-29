@@ -47,6 +47,17 @@ SCENARIO( "Quaternion basics", "[Quaternion]" ) {
     }
   }
 
+  GIVEN( "normalize of a zero-length quaternion" ) {
+    Quaternion q;  // default: all components zero, len == 0
+    q.normalize();
+    THEN( "all components remain zero — no-op guard prevents divide by zero" ) {
+      REQUIRE(q.getX() == 0.0f);
+      REQUIRE(q.getY() == 0.0f);
+      REQUIRE(q.getZ() == 0.0f);
+      REQUIRE(q.getW() == 0.0f);
+    }
+  }
+
   GIVEN( "buildFromEuler with zero angles" ) {
     Quaternion q;
     q.buildFromEuler(0.0f, 0.0f, 0.0f);
