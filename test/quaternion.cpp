@@ -192,6 +192,22 @@ SCENARIO( "Quaternion basics", "[Quaternion]" ) {
     }
   }
 
+  GIVEN( "operator* is non-commutative" ) {
+    // q1*q2 = (0.5, 0.5, -0.5, 0.5); q2*q1 = (0.5, 0.5, 0.5, 0.5).
+    // The results differ in z, confirming multiplication order matters.
+    const float halfPi = 1.57079632679f;
+    Quaternion q1(Vector(1.0f, 0.0f, 0.0f), halfPi);  // 90 deg about X
+    Quaternion q2(Vector(0.0f, 1.0f, 0.0f), halfPi);  // 90 deg about Y
+
+    Quaternion r12 = q1 * q2;
+    Quaternion r21 = q2 * q1;
+
+    THEN( "q1*q2 and q2*q1 differ" ) {
+      REQUIRE(r12.getZ() == Approx(-0.5f));
+      REQUIRE(r21.getZ() == Approx( 0.5f));
+    }
+  }
+
   GIVEN( "operator+ adds components" ) {
     Quaternion a(1.0f, 2.0f, 3.0f, 4.0f);
     Quaternion b(10.0f, 20.0f, 30.0f, 40.0f);
