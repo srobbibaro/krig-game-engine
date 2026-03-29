@@ -58,6 +58,31 @@ SCENARIO( "Quaternion basics", "[Quaternion]" ) {
     }
   }
 
+  GIVEN( "float constructor delegates to buildFromEuler" ) {
+    Quaternion fromCtor(0.0f, 1.0f, 0.0f);  // Quaternion(float, float, float)
+    Quaternion fromMethod;
+    fromMethod.buildFromEuler(0.0f, 1.0f, 0.0f);
+    THEN( "constructor and explicit buildFromEuler produce identical results" ) {
+      REQUIRE(fromCtor.getX() == Approx(fromMethod.getX()));
+      REQUIRE(fromCtor.getY() == Approx(fromMethod.getY()));
+      REQUIRE(fromCtor.getZ() == Approx(fromMethod.getZ()));
+      REQUIRE(fromCtor.getW() == Approx(fromMethod.getW()));
+    }
+  }
+
+  GIVEN( "Vector constructor delegates to buildFromEuler" ) {
+    Vector v(0.0f, 1.0f, 0.0f);
+    Quaternion fromCtor(v);  // Quaternion(const Vector&)
+    Quaternion fromMethod;
+    fromMethod.buildFromEuler(0.0f, 1.0f, 0.0f);
+    THEN( "constructor and explicit buildFromEuler produce identical results" ) {
+      REQUIRE(fromCtor.getX() == Approx(fromMethod.getX()));
+      REQUIRE(fromCtor.getY() == Approx(fromMethod.getY()));
+      REQUIRE(fromCtor.getZ() == Approx(fromMethod.getZ()));
+      REQUIRE(fromCtor.getW() == Approx(fromMethod.getW()));
+    }
+  }
+
   GIVEN( "buildFromEuler with zero angles" ) {
     Quaternion q;
     q.buildFromEuler(0.0f, 0.0f, 0.0f);
