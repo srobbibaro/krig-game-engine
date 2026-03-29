@@ -106,6 +106,20 @@ SCENARIO( "Quaternion basics", "[Quaternion]" ) {
     }
   }
 
+  GIVEN( "90 degrees about X composed with 90 degrees about Y" ) {
+    const float halfPi = 1.57079632679f;
+    Quaternion q1(Vector(1.0f, 0.0f, 0.0f), halfPi);
+    Quaternion q2(Vector(0.0f, 1.0f, 0.0f), halfPi);
+    Quaternion r = q1 * q2;
+
+    THEN( "result matches analytic composition (0.5, 0.5, -0.5, 0.5)" ) {
+      REQUIRE(r.getX() == Approx(0.5f));
+      REQUIRE(r.getY() == Approx(0.5f));
+      REQUIRE(r.getZ() == Approx(-0.5f));
+      REQUIRE(r.getW() == Approx(0.5f));
+    }
+  }
+
   GIVEN( "operator+ adds components" ) {
     Quaternion a(1.0f, 2.0f, 3.0f, 4.0f);
     Quaternion b(10.0f, 20.0f, 30.0f, 40.0f);
