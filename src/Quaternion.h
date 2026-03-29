@@ -26,7 +26,6 @@ class Quaternion {
     void buildFromEuler(const Vector&);
     void buildFromEuler(const float&, const float&, const float&);
     void buildFromAxis(const Vector&, const float&);
-    void buildFromAxis(const float&, const float&, const float&);
 
     void loadMultIdentity();
     void loadAddIdentity();
