@@ -82,6 +82,23 @@ SCENARIO( "Quaternion basics", "[Quaternion]" ) {
     }
   }
 
+  GIVEN( "getEulerAngles at 90 degrees about Y (gimbal lock)" ) {
+    // 90 deg about Y produces m.data[2] = -1, which is outside the epsilon
+    // band and enters the gimbal-lock else branch.  v.z is forced to 0;
+    // v.y and v.x are computed from atan2 with exact inputs.
+    const float halfPi = 1.57079632679f;
+    Quaternion q(Vector(0.0f, 1.0f, 0.0f), halfPi);
+    q.normalize();
+    Vector euler;
+    q.getEulerAngles(euler);
+
+    THEN( "euler matches analytic gimbal-lock result (0, pi/2, 0)" ) {
+      REQUIRE(euler.x == Approx(0.0f));
+      REQUIRE(euler.y == Approx(halfPi));
+      REQUIRE(euler.z == Approx(0.0f));
+    }
+  }
+
   GIVEN( "Copy constructor and assignment" ) {
     Quaternion a(1.0f, 2.0f, 3.0f, 4.0f);
     Quaternion b(a);
