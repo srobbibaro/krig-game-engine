@@ -61,7 +61,7 @@ class Object : public ObjectNode {
     void showCollisionBox();
     void showControlTriangle();
 
-    float calcTriangleCenter(const float&, const float&, const float&);
+    float calcTriangleCenter(const float& p1, const float& p2, const float& p3);
 
     void init();
     void initSettings();
@@ -113,6 +113,7 @@ class Object : public ObjectNode {
       }
     }
 
+    /** Sets gameplay state_ only; does not change active_. Pair with setActive(false) if "dead" should stop updates. */
     void setState(const unsigned char&);
     void setScript(const std::string&);
 
@@ -162,6 +163,7 @@ class Object : public ObjectNode {
 
     void setSuspendTime(const float &time) { suspendTime_ = time; }
 
+    /** Same storage as setState(unsigned char); overload exists for legacy call sites. */
     void setState(const int &state_l) {state_ = state_l; }
     int  getState()                   { return state_; }
 
