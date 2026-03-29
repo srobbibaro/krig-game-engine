@@ -17,7 +17,7 @@ class Camera : public Object {
     virtual ~Camera();
 
     void update(const float&);
-    void setCamera(const Vector&, const Vector&, const Quaternion&, const Vector&);
+    void setCamera(const Vector& position, const Vector& velocity, const Quaternion& rotation, const Vector& rotationVelocity);
     void prepareGLView();
 
     // accessor functions
