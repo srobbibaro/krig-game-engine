@@ -87,8 +87,6 @@ void Quaternion::buildFromAxis(const Vector &v, const float &angle) {
   x = v.x * scale;
   y = v.y * scale;
   z = v.z * scale;
-
-  //normalize();
 }
 
 //------------------------------------------------------------------------------
@@ -179,12 +177,6 @@ void Quaternion::buildRotationMatrix(Matrix &m) {
   m.data[7]  = 0.0f;
   m.data[11] = 0.0f;
   m.data[15] = 1.0f;
-}
-
-//------------------------------------------------------------------------------
-void Quaternion::rotate(const float &angle) {
-  // TODO: work in progress
-  // dQ/ dt + 0.5 * quat(angle) * Q;
 }
 
 //------------------------------------------------------------------------------

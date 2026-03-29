@@ -57,9 +57,6 @@ class Quaternion {
 
     void buildRotationMatrix(Matrix&);
 
-    /** Not implemented. */
-    void rotate(const float&);
-
     /**
      * Spherical linear interpolation from sQ to eQ at parameter t.
      * t must be in [0, 1]; values outside that range leave this
