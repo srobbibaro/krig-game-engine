@@ -19,6 +19,8 @@ class DisplayList {
     void insertLast(QuadTreeNode* n);
     void clearList();
 
+    // Public so engine code can walk the list directly: QuadTree builds it,
+    // GameLevel owns and clears it, Terrain walks it for rendering.
     QuadTreeNode* head;
     QuadTreeNode* tail;
 };
