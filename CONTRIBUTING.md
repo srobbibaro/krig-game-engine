@@ -145,6 +145,45 @@ make run-tests
 
 See `docs/TESTING.md` for full test scope, conventions, and known behaviour the suite locks in.
 
+## Architecture Decision Records (ADRs)
+
+Significant decisions — where non-obvious alternatives existed and the choice is worth explaining to a future contributor — are recorded as Architecture Decision Records in `docs/adr/`. Each ADR is a short Markdown file named `NNNN-short-title.md` (e.g. `0001-coverage-tooling.md`), numbered sequentially.
+
+**When to write an ADR:**
+- A tooling, architectural, or process choice was made where real alternatives existed and were evaluated.
+- The "why this and not that" is non-obvious — a future contributor might reasonably question the decision without the context.
+- Examples: choice of test framework, coverage tooling, rendering approach, scripting language, CI platform.
+
+**When not to write one:**
+- Routine implementation choices fully explained by the commit message Problem/Solution.
+- Changes where the rationale is obvious from reading the code or docs.
+- Bug fixes and straightforward feature additions.
+
+If you are unsure, lean toward not writing one. A commit message that clearly states the Problem and Solution is sufficient for most changes.
+
+**Format:**
+
+```markdown
+# ADR NNNN: Title
+
+## Status
+Accepted
+
+## Context
+Why a decision was needed — the situation, constraints, or question being answered.
+
+## Decision
+What was decided and why.
+
+## Alternatives considered
+What else was evaluated and why it was not chosen.
+
+## Consequences
+What becomes easier or harder as a result of this decision.
+```
+
+ADRs are permanent — once accepted, do not edit the decision or alternatives. If a decision is reversed, write a new ADR superseding the old one and update the old ADR's status to `Superseded by ADR NNNN`.
+
 ## Documentation index
 
 A full list of documentation files and their purpose is maintained in the [Documentation section of README.md](README.md#documentation).
