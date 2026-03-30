@@ -36,8 +36,8 @@ see: https://github.com/srobbibaro/krig-game-engine-vagrant
 ##### Linux
 
 Install the following packages:
-* lua5.1
-* lua5.1-dev
+* luajit
+* libluajit-5.1-dev
 * libalut-dev
 * libvorbis-dev
 * libglu1-mesa-dev
@@ -49,7 +49,7 @@ Install the following packages:
 For example:
 
 ```bash
-$ apt-get install lua5.1 lua5.1-dev libalut-dev libvorbis-dev libglu1-mesa-dev libpng-dev freeglut3 freeglut3-dev g++
+$ apt-get install luajit libluajit-5.1-dev libalut-dev libvorbis-dev libglu1-mesa-dev libpng-dev freeglut3 freeglut3-dev g++
 ```
 
 If you prefer to work with an IDE, you can optionally install VS Code with the
@@ -196,7 +196,7 @@ engine provides an API designed to handle common game writing tasks. For example
 there are functions which add objects to a level, provide these objects properties,
 and notify the script of important events, such as object collisions.
 
-See the [API documentation](http://srobbibaro.github.io/krig-game-engine/api_8cpp.html) for game scripting details.
+See **[docs/LUA_API.md](docs/LUA_API.md)** for the full in-repo API reference. A generated Doxygen reference is also available at the [hosted API docs](http://srobbibaro.github.io/krig-game-engine/api_8cpp.html).
 
 ## Documentation
 
