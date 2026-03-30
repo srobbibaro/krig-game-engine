@@ -51,7 +51,7 @@ Games are authored entirely in Lua. The engine exposes its API under the `krig` 
 | `krig.level.add_object(script: string, options: table) → object` | Spawn an object from `script` path. `options` is an optional table passed to the object's `on_load`. |
 | `krig.level.add_text(script: string, text: string) → object` | Spawn a `TextGameObject` with initial string `text`. |
 | `krig.level.add_sprite(script: string) → object` | Spawn a `SpriteGameObject`. |
-| `krig.level.remove_object(obj: object)` | Move `obj` to the dead/free pool. See known lifecycle bugs in project memory before using. |
+| `krig.level.remove_object(obj: object)` | Move `obj` to the dead/free pool. **Known bugs — avoid in game scripts until fixed** (see caution below). |
 | `krig.level.find_object_of_type(type_id: number) → object \| nil` | Return first active object whose `type_id` matches, or nil. |
 | `krig.level.get_camera_id() → number` | Return the object ID of the active camera (always 0 after level load). |
 | `krig.level.set_light_direction(vec: vector)` | Set global directional light. `vec` is normalised automatically. |
@@ -61,6 +61,8 @@ Games are authored entirely in Lua. The engine exposes its API under the `krig` 
 | `krig.level.play_music(path: string, repeat: number)` | Stream OGG file at `path`. `repeat`: 1 = loop, 0 = once. |
 | `krig.level.pause_music()` | Pause the current music track. |
 | `krig.level.stop_music()` | Stop and unload the current music track. |
+
+> **`remove_object` caution:** The remove/add flow has three known bugs: `remove_object` does not NULL-check the object reference (crash on a stale Lua ref); `idToObjectMap_` is not cleared when an object goes DEAD (stale refs can still resolve); reused objects are not assigned a new ID (same ID refers to different logical instances over time). Until these are fixed, avoid `remove_object` in game scripts. To "remove" an object, deactivate it instead: call `obj:load()`, set `active = false`, then `obj:save()`. These bugs are tracked as open issues.
 
 ---
 

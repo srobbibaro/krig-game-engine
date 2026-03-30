@@ -71,6 +71,12 @@ If you find yourself writing "and" in a commit summary, that is usually a sign t
 
 Within a body of related work (e.g. a set of new documentation files or a batch of test additions), prefer splitting by logical unit even when all the changes are the same type. A reviewer should be able to read one commit in isolation and understand exactly what it introduces and why. Splitting by unit — one doc per commit, one test file per commit — keeps each commit independently reviewable and makes the history tell a coherent story. This does not override the rule that code, tests, and docs travel together; it applies within the same type of change where bundling adds noise rather than context.
 
+## Tracking bugs found during work
+
+When you discover a latent bug that is out of scope for your current branch, document it so it is not lost — a note in the relevant doc, a `// TODO:` comment near the code, or a callout in the PR description are all reasonable. Where the bug warrants tracking (e.g. a known crash path or a behaviour that will mislead future contributors), open a GitHub issue so it is visible, linkable, and survives branch deletions.
+
+Do not reference AI tool state (e.g. "project memory", "saved context") in any committed file. That state does not exist for other contributors or for the public. If the information is worth preserving, put it in a doc, a code comment, or a GitHub issue.
+
 ## What belongs in source control
 
 Before staging files for a commit, verify that everything included is appropriate for a public repository. Things that must not be committed:
