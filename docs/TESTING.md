@@ -1,6 +1,6 @@
 # Unit testing
 
-The C++ engine is exercised by **Catch** (v1) tests in `test/`. The makefile builds a `unit-test` binary that links game objects from `obj/src/` with `obj/test/*.o` (see `makefile` targets `build-test` and `run-tests`).
+The C++ engine is exercised by **Catch** (v1) tests in `test/`. The Makefile builds a `unit-test` binary that links game objects from `obj/src/` with `obj/test/*.o` (see `Makefile` targets `build-test` and `run-tests`).
 
 ## Running tests
 
