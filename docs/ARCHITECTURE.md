@@ -7,7 +7,7 @@ Krig is a C++ game engine with a Lua scripting layer. The engine handles the gam
 ```
 ┌─────────────────────────────────────────────────────┐
 │                     Engine                          │
-│  (singleton; owns the game loop, GL/AL contexts,   │
+│  (global — g_KRIG_ENGINE; owns the game loop,      │
 │   key state, sound effects, and the active level)   │
 │                                                     │
 │   ┌──────────────────────────────────────────────┐  │
