@@ -9,3 +9,9 @@ Before writing or modifying tests, read `docs/TESTING.md` for scope conventions 
 Before touching math, spatial, or rotation code, read `docs/MATH_AND_TESTING_CONVENTIONS.md` for non-obvious engine behaviour (matrix layout, intersectBox, quaternion slerp, quadtree partitioning, etc.).
 
 Before writing or reviewing Lua game scripts, or modifying any `api_*.cpp` file, read `docs/LUA_API.md` for the full Lua API surface and hook conventions.
+
+Before exploring the engine architecture (class hierarchy, game loop, rendering pipeline, Lua integration), read `docs/ARCHITECTURE.md`.
+
+Before working with terrain files (`.txt` format, coordinate system, type codes, Lua terrain API), read `docs/TERRAIN_FORMAT.md`.
+
+Before working with model files (`.mdl` format, triangle winding, cel-shading, engine loading), read `docs/MDL_FORMAT.md`.
