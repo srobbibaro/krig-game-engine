@@ -29,6 +29,9 @@ src/GL
 
 # IDE settings
 .vscode/
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
 
 # logs
 *.log
