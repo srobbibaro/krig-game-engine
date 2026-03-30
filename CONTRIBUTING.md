@@ -160,4 +160,6 @@ A few constraints that must be respected to keep the engine consistent:
 - **Rotation always goes through `Quaternion`** — use `buildFromAxis`, `buildFromEuler`, and `buildRotationMatrix`. Do not introduce parallel matrix-level rotation paths.
 - **`Matrix::data[16]` is column-major** (OpenGL convention). The 16-float constructor takes columns, not rows.
 
+For non-obvious engine behaviour that affects how you read or test existing code (quaternion guards, frustum classification, camera update order, matrix layout, water animation, GameTimer spin-wait, and more), see `docs/MATH_AND_TESTING_CONVENTIONS.md`.
+
 For non-obvious engine behaviour that affects how you read or test existing code (object state, camera update, quaternion guards, frustum classification, etc.), see `docs/MATH_AND_TESTING_CONVENTIONS.md`.
