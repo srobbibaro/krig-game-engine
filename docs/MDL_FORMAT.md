@@ -47,14 +47,14 @@ The following tracked models (`krig3/models/`) demonstrate common patterns:
 |-------|----------|-----------|---------|
 | `CannonBall.mdl` | 86 | 168 | Spherical mesh — shared vertices, radial normals |
 | `Powerup.mdl` | 14 | 20 | Inner glow / outline cage |
-| `Powerup2.mdl` | — | — | Variant of Powerup inner-glow pattern |
+| `Powerup2.mdl` | 14 | 20 | Variant of Powerup inner-glow pattern |
 | `blueshot.mdl` | 6 | 8 | Small projectile — uniform colour, silhouette outline only |
-| `GreenShot.mdl` | — | — | Same pattern as blueshot |
-| `Building.mdl` | 376 | — | Composite box mesh |
-| `Ship.mdl` | — | — | Composite box mesh |
-| `Enemy.mdl` | — | — | Composite box mesh |
+| `GreenShot.mdl` | 6 | 8 | Same pattern as blueshot |
+| `Building.mdl` | 376 | 412 | Composite box mesh |
+| `Ship.mdl` | 50 | 88 | Composite box mesh |
+| `Enemy.mdl` | 46 | 78 | Composite box mesh |
 | `Pinetree.mdl` | 23 | 30 | Layered flat planes (vegetation) |
-| `Snowpine.mdl` | — | — | Layered flat planes (vegetation) |
+| `Snowpine.mdl` | 23 | 30 | Layered flat planes (vegetation) |
 
 ---
 
@@ -148,6 +148,8 @@ void ModelStorage::load(char fileName[]) {
 ### `initalScale`
 
 A float value stored in the file but never reapplied by the runtime. Vertices in the file should already be at their final scale. The field exists for historical reasons. Set it to any value; `1.0` is conventional.
+
+Note: the spelling `initalScale` (missing an 'i') is a typo in the original C++ source (`ModelGameObject.h`) that has been preserved here intentionally to match the loader. It is not a documentation error.
 
 ### Vertex Block
 
