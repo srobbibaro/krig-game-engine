@@ -9,9 +9,11 @@ Krig is a cross-platform, open source game engine with accompanying demo game
 Original game music created and provided by Shawn Zabel (https://github.com/zabelsr).
 All music created from the original song `Beyond Compare`: https://github.com/srobbibaro/krig-assets/blob/master/krig3/music/beyond_compare_full.ogg
 
+For a full list of documentation, see the [Documentation](#documentation) section below.
+
 ## Getting Started
 
-At this time, Krig is known to build and run on a number of *nix operating systems.
+At this time, Krig is known to build and run on a number of *nix operating systems. Windows is not currently supported.
 
 The following configurations are known to work:
 * 32/64-bit Debian-based Linux distributions
@@ -177,6 +179,8 @@ Unit tests can be run with the following command:
 $ make run-tests
 ```
 
+Overview of coverage, conventions for new tests, and links to math quirks are in **`docs/TESTING.md`** and **`docs/MATH_AND_TESTING_CONVENTIONS.md`**. You may see benign OpenAL log lines during test runs when level code constructs audio types without a full device.
+
 ### Generate Doxygen Documentation
 
 Doxygen documentation is built (in the `html` directory) using the following command:
@@ -193,3 +197,15 @@ there are functions which add objects to a level, provide these objects properti
 and notify the script of important events, such as object collisions.
 
 See the [API documentation](http://srobbibaro.github.io/krig-game-engine/api_8cpp.html) for game scripting details.
+
+## Documentation
+
+| Document | Description |
+|----------|-------------|
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Commit format, branch naming, PR format, test coverage approach, and architecture constraints |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Engine architecture overview — class structure, game loop, Lua integration, and rendering pipeline |
+| [docs/LUA_API.md](docs/LUA_API.md) | Lua scripting API reference — all `krig.*` functions, object methods, properties, and hooks |
+| [docs/TESTING.md](docs/TESTING.md) | Test suite overview, scope conventions, and counterintuitive engine behaviour locked in by tests |
+| [docs/MATH_AND_TESTING_CONVENTIONS.md](docs/MATH_AND_TESTING_CONVENTIONS.md) | Non-obvious engine behaviour: matrix layout, quaternion guards, frustum classification, camera update, and more |
+| [docs/TERRAIN_FORMAT.md](docs/TERRAIN_FORMAT.md) | Terrain file format, coordinate system, type codes, Lua API, edit mode, and QuadTree rendering |
+| [docs/MDL_FORMAT.md](docs/MDL_FORMAT.md) | `.mdl` model file format, C++ loader reference, triangle winding rules, and cel-shading notes |
