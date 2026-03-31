@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - test/gametimer.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory test">test</a> - gametimer.cpp<span style="font-size: 80%;"> (source / <a href="gametimer.cpp.func-c.html" title="Click to go to function table">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">38</td>
+            <td class="headerCovTableEntry">38</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-03-31 11:25:15</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">2</td>
+          </tr>
+                  <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">            Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>              : #include &quot;catch.hpp&quot;</span>
+<span id="L2"><span class="lineNum">       2</span>              : #include &quot;gametimer.h&quot;</span>
+<span id="L3"><span class="lineNum">       3</span>              : </span>
+<span id="L4"><span class="lineNum">       4</span> <span class="tlaGNC">           7 : SCENARIO( &quot;GameTimer&quot;, &quot;[GameTimer]&quot; ) {</span></span>
+<span id="L5"><span class="lineNum">       5</span> <span class="tlaGNC">          12 :   GIVEN( &quot;A game timer&quot; ) {</span></span>
+<span id="L6"><span class="lineNum">       6</span>              :     GameTimer t;</span>
+<span id="L7"><span class="lineNum">       7</span>              : </span>
+<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">           8 :     WHEN( &quot;init is called&quot; ) {</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">           2 :       bool ok = t.init();</span></span>
+<span id="L10"><span class="lineNum">      10</span>              : </span>
+<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">           3 :       THEN( &quot;initialization succeeds on this platform&quot; ) {</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">           1 :         REQUIRE(ok == true);</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">           1 :       }</span></span>
+<span id="L14"><span class="lineNum">      14</span>              : </span>
+<span id="L15"><span class="lineNum">      15</span>              :       // On non-Windows, getFPS returns the fps member last set by</span>
+<span id="L16"><span class="lineNum">      16</span>              :       // getElapsedSeconds. Before any getElapsedSeconds() call it is 0.0f.</span>
+<span id="L17"><span class="lineNum">      17</span>              :       // (Windows is not currently supported; guard here for when it is.)</span>
+<span id="L18"><span class="lineNum">      18</span>              : #ifndef _WIN32</span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">           3 :       THEN( &quot;getFPS returns 0.0f before any elapsed-seconds call (non-Windows)&quot; ) {</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">           1 :         REQUIRE(t.getFPS() == Approx(0.0f));</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           1 :       }</span></span>
+<span id="L22"><span class="lineNum">      22</span>              : #endif</span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           2 :     }</span></span>
+<span id="L24"><span class="lineNum">      24</span>              : </span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           8 :     WHEN( &quot;getElapsedSeconds is called after init&quot; ) {</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           2 :       t.init();</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           2 :       float elapsed = t.getElapsedSeconds();</span></span>
+<span id="L28"><span class="lineNum">      28</span>              : </span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           3 :       THEN( &quot;returns a positive elapsed time&quot; ) {</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           1 :         REQUIRE(elapsed &gt; 0.0f);</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           1 :       }</span></span>
+<span id="L32"><span class="lineNum">      32</span>              : </span>
+<span id="L33"><span class="lineNum">      33</span>              :       // Mirrors the Engine frame loop: getElapsedSeconds then getFPS each frame.</span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           3 :       THEN( &quot;getFPS returns a positive value after getElapsedSeconds&quot; ) {</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           1 :         REQUIRE(t.getFPS() &gt; 0.0f);</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">           1 :       }</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">           2 :     }</span></span>
+<span id="L38"><span class="lineNum">      38</span>              : </span>
+<span id="L39"><span class="lineNum">      39</span>              :     // getElapsedSeconds updates m_startTime each call so successive calls</span>
+<span id="L40"><span class="lineNum">      40</span>              :     // each measure incremental elapsed time, not total since init.</span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">           7 :     WHEN( &quot;getElapsedSeconds is called twice&quot; ) {</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">           1 :       t.init();</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           1 :       float first  = t.getElapsedSeconds();</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           1 :       float second = t.getElapsedSeconds();</span></span>
+<span id="L45"><span class="lineNum">      45</span>              : </span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">           2 :       THEN( &quot;both calls return positive elapsed time&quot; ) {</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">           1 :         REQUIRE(first  &gt; 0.0f);</span></span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">           1 :         REQUIRE(second &gt; 0.0f);</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">           1 :       }</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">           1 :     }</span></span>
+<span id="L51"><span class="lineNum">      51</span>              : </span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">           7 :     WHEN( &quot;init is called twice&quot; ) {</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">           2 :       THEN( &quot;both calls succeed&quot; ) {</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">           1 :         REQUIRE(t.init() == true);</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">           1 :         REQUIRE(t.init() == true);</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">           1 :       }</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">           1 :     }</span></span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">           6 :   }</span></span>
+<span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">           6 : }</span></span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.4-0</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

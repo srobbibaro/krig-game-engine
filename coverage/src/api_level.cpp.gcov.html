@@ -1,0 +1,471 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - src/api_level.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory src">src</a> - api_level.cpp<span style="font-size: 80%;"> (source / <a href="api_level.cpp.func-c.html" title="Click to go to function table">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">2.8&nbsp;%</td>
+            <td class="headerCovTableEntry">107</td>
+            <td class="headerCovTableEntry">3</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-03-31 11:25:15</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryLo">4.5&nbsp;%</td>
+            <td class="headerCovTableEntry">22</td>
+            <td class="headerCovTableEntry">1</td>
+          </tr>
+                  <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">            Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>              : /**</span>
+<span id="L2"><span class="lineNum">       2</span>              :  * @file api_level.cpp</span>
+<span id="L3"><span class="lineNum">       3</span>              :  * @brief Krig Game Engine Lua Scripting API - Game Level</span>
+<span id="L4"><span class="lineNum">       4</span>              :  *</span>
+<span id="L5"><span class="lineNum">       5</span>              :  * Game level API functionality.</span>
+<span id="L6"><span class="lineNum">       6</span>              :  */</span>
+<span id="L7"><span class="lineNum">       7</span>              : #include &quot;api.h&quot;</span>
+<span id="L8"><span class="lineNum">       8</span>              : #include &quot;api_level.h&quot;</span>
+<span id="L9"><span class="lineNum">       9</span>              : #include &quot;SpriteGameObject.h&quot;</span>
+<span id="L10"><span class="lineNum">      10</span>              : </span>
+<span id="L11"><span class="lineNum">      11</span>              : #if DOXYGEN_ONLY</span>
+<span id="L12"><span class="lineNum">      12</span>              : /**</span>
+<span id="L13"><span class="lineNum">      13</span>              :  * Load the game level Lua script from the file specified.</span>
+<span id="L14"><span class="lineNum">      14</span>              :  * @param string name of the game level Lua script to load.</span>
+<span id="L15"><span class="lineNum">      15</span>              :  * @return n/a</span>
+<span id="L16"><span class="lineNum">      16</span>              :  */</span>
+<span id="L17"><span class="lineNum">      17</span>              : void load(string);</span>
+<span id="L18"><span class="lineNum">      18</span>              : #endif</span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaUNC">           0 : static int load(lua_State *L) {</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaUNC">           0 :   const char *s = lua_tostring(L, 1);</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaUNC">           0 :   g_KRIG_ENGINE.loadLevel(s);</span></span>
+<span id="L22"><span class="lineNum">      22</span>              : </span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaUNC">           0 :   return 0;</span></span>
+<span id="L24"><span class="lineNum">      24</span>              : }</span>
+<span id="L25"><span class="lineNum">      25</span>              : </span>
+<span id="L26"><span class="lineNum">      26</span>              : #if DOXYGEN_ONLY</span>
+<span id="L27"><span class="lineNum">      27</span>              : /**</span>
+<span id="L28"><span class="lineNum">      28</span>              :  * Load the game level Lua script from the supplied string buffer.</span>
+<span id="L29"><span class="lineNum">      29</span>              :  * @param string buffer containing a game level Lua script to load.</span>
+<span id="L30"><span class="lineNum">      30</span>              :  * @return n/a</span>
+<span id="L31"><span class="lineNum">      31</span>              :  */</span>
+<span id="L32"><span class="lineNum">      32</span>              : void load_from_buffer(string);</span>
+<span id="L33"><span class="lineNum">      33</span>              : #endif</span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaUNC">           0 : static int load_from_buffer(lua_State *L) {</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaUNC">           0 :   const char *s = lua_tostring(L, 1);</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaUNC">           0 :   g_KRIG_ENGINE.loadLevelFromBuffer(s);</span></span>
+<span id="L37"><span class="lineNum">      37</span>              : </span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaUNC">           0 :   return 0;</span></span>
+<span id="L39"><span class="lineNum">      39</span>              : }</span>
+<span id="L40"><span class="lineNum">      40</span>              : </span>
+<span id="L41"><span class="lineNum">      41</span>              : #if DOXYGEN_ONLY</span>
+<span id="L42"><span class="lineNum">      42</span>              : /**</span>
+<span id="L43"><span class="lineNum">      43</span>              :  * Pause execution of the game</span>
+<span id="L44"><span class="lineNum">      44</span>              :  * @return n/a</span>
+<span id="L45"><span class="lineNum">      45</span>              :  */</span>
+<span id="L46"><span class="lineNum">      46</span>              : void pause();</span>
+<span id="L47"><span class="lineNum">      47</span>              : #endif</span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaUNC">           0 : static int pause(lua_State *L) {</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaUNC">           0 :   g_KRIG_ENGINE.pause();</span></span>
+<span id="L50"><span class="lineNum">      50</span>              : </span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaUNC">           0 :   return 0;</span></span>
+<span id="L52"><span class="lineNum">      52</span>              : }</span>
+<span id="L53"><span class="lineNum">      53</span>              : </span>
+<span id="L54"><span class="lineNum">      54</span>              : #if DOXYGEN_ONLY</span>
+<span id="L55"><span class="lineNum">      55</span>              : /**</span>
+<span id="L56"><span class="lineNum">      56</span>              :  * Query the engine to determine the ID of the present level.</span>
+<span id="L57"><span class="lineNum">      57</span>              :  * @return int the ID associated with the present game level.</span>
+<span id="L58"><span class="lineNum">      58</span>              :  */</span>
+<span id="L59"><span class="lineNum">      59</span>              : int get_id();</span>
+<span id="L60"><span class="lineNum">      60</span>              : #endif</span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaUNC">           0 : static int get_id(lua_State *L) {</span></span>
+<span id="L62"><span class="lineNum">      62</span> <span class="tlaUNC">           0 :   lua_pushnumber(L, g_KRIG_ENGINE.getCurrentLevel()-&gt;getId());</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaUNC">           0 :   return 1;</span></span>
+<span id="L64"><span class="lineNum">      64</span>              : }</span>
+<span id="L65"><span class="lineNum">      65</span>              : </span>
+<span id="L66"><span class="lineNum">      66</span>              : #if DOXYGEN_ONLY</span>
+<span id="L67"><span class="lineNum">      67</span>              : /**</span>
+<span id="L68"><span class="lineNum">      68</span>              :  * Set the ID associated with the present level.</span>
+<span id="L69"><span class="lineNum">      69</span>              :  * @param level_id</span>
+<span id="L70"><span class="lineNum">      70</span>              :  * @return n/a</span>
+<span id="L71"><span class="lineNum">      71</span>              :  */</span>
+<span id="L72"><span class="lineNum">      72</span>              : int set_id(int);</span>
+<span id="L73"><span class="lineNum">      73</span>              : #endif</span>
+<span id="L74"><span class="lineNum">      74</span> <span class="tlaUNC">           0 : static int set_id(lua_State *L) {</span></span>
+<span id="L75"><span class="lineNum">      75</span> <span class="tlaUNC">           0 :   g_KRIG_ENGINE.getCurrentLevel()-&gt;setId((int)lua_tonumber(L, 1));</span></span>
+<span id="L76"><span class="lineNum">      76</span> <span class="tlaUNC">           0 :   return 0;</span></span>
+<span id="L77"><span class="lineNum">      77</span>              : }</span>
+<span id="L78"><span class="lineNum">      78</span>              : </span>
+<span id="L79"><span class="lineNum">      79</span>              : #if DOXYGEN_ONLY</span>
+<span id="L80"><span class="lineNum">      80</span>              : /**</span>
+<span id="L81"><span class="lineNum">      81</span>              :  * TODO: Undefined</span>
+<span id="L82"><span class="lineNum">      82</span>              :  * @return n/a</span>
+<span id="L83"><span class="lineNum">      83</span>              :  */</span>
+<span id="L84"><span class="lineNum">      84</span>              : void swap();</span>
+<span id="L85"><span class="lineNum">      85</span>              : #endif</span>
+<span id="L86"><span class="lineNum">      86</span> <span class="tlaUNC">           0 : static int swap(lua_State *L) {</span></span>
+<span id="L87"><span class="lineNum">      87</span> <span class="tlaUNC">           0 :   g_KRIG_ENGINE.swapLevel();</span></span>
+<span id="L88"><span class="lineNum">      88</span> <span class="tlaUNC">           0 :   return 0;</span></span>
+<span id="L89"><span class="lineNum">      89</span>              : }</span>
+<span id="L90"><span class="lineNum">      90</span>              : </span>
+<span id="L91"><span class="lineNum">      91</span>              : #if DOXYGEN_ONLY</span>
+<span id="L92"><span class="lineNum">      92</span>              : /**</span>
+<span id="L93"><span class="lineNum">      93</span>              :  * Query the engine to determine if the present level has been marked complete.</span>
+<span id="L94"><span class="lineNum">      94</span>              :  * @return bool true if the level has been marked complete, false otherwise</span>
+<span id="L95"><span class="lineNum">      95</span>              :  */</span>
+<span id="L96"><span class="lineNum">      96</span>              : bool get_complete();</span>
+<span id="L97"><span class="lineNum">      97</span>              : #endif</span>
+<span id="L98"><span class="lineNum">      98</span> <span class="tlaUNC">           0 : static int get_complete(lua_State *L) {</span></span>
+<span id="L99"><span class="lineNum">      99</span> <span class="tlaUNC">           0 :   lua_pushnumber(L, g_KRIG_ENGINE.getCurrentLevel()-&gt;checkComplete());</span></span>
+<span id="L100"><span class="lineNum">     100</span> <span class="tlaUNC">           0 :   return 1;</span></span>
+<span id="L101"><span class="lineNum">     101</span>              : }</span>
+<span id="L102"><span class="lineNum">     102</span>              : </span>
+<span id="L103"><span class="lineNum">     103</span>              : #if DOXYGEN_ONLY</span>
+<span id="L104"><span class="lineNum">     104</span>              : /**</span>
+<span id="L105"><span class="lineNum">     105</span>              :  * The currently running game level maintains a state about whether it has been</span>
+<span id="L106"><span class="lineNum">     106</span>              :  * marked as &quot;complete&quot; or not. This method sets this state.</span>
+<span id="L107"><span class="lineNum">     107</span>              :  * @param bool true - level is marked as complete, false - level is not complete</span>
+<span id="L108"><span class="lineNum">     108</span>              :  * @return n/a</span>
+<span id="L109"><span class="lineNum">     109</span>              :  */</span>
+<span id="L110"><span class="lineNum">     110</span>              : void set_complete(bool);</span>
+<span id="L111"><span class="lineNum">     111</span>              : #endif</span>
+<span id="L112"><span class="lineNum">     112</span> <span class="tlaUNC">           0 : static int set_complete(lua_State *L) {</span></span>
+<span id="L113"><span class="lineNum">     113</span> <span class="tlaUNC">           0 :   g_KRIG_ENGINE.getCurrentLevel()-&gt;setComplete(lua_tonumber(L, 1));</span></span>
+<span id="L114"><span class="lineNum">     114</span> <span class="tlaUNC">           0 :   return 0;</span></span>
+<span id="L115"><span class="lineNum">     115</span>              : }</span>
+<span id="L116"><span class="lineNum">     116</span>              : </span>
+<span id="L117"><span class="lineNum">     117</span>              : #if DOXYGEN_ONLY</span>
+<span id="L118"><span class="lineNum">     118</span>              : /**</span>
+<span id="L119"><span class="lineNum">     119</span>              :  * Playing song specified.</span>
+<span id="L120"><span class="lineNum">     120</span>              :  * @param string name of file containing the song to play.</span>
+<span id="L121"><span class="lineNum">     121</span>              :  * @param int repeat control (0 - do not repeat, 1 - repeat).</span>
+<span id="L122"><span class="lineNum">     122</span>              :  * @return n/a</span>
+<span id="L123"><span class="lineNum">     123</span>              :  */</span>
+<span id="L124"><span class="lineNum">     124</span>              : void play_music(string, int);</span>
+<span id="L125"><span class="lineNum">     125</span>              : #endif</span>
+<span id="L126"><span class="lineNum">     126</span> <span class="tlaUNC">           0 : static int play_music(lua_State *L) {</span></span>
+<span id="L127"><span class="lineNum">     127</span> <span class="tlaUNC">           0 :   const char *s = lua_tostring(L, 1);</span></span>
+<span id="L128"><span class="lineNum">     128</span> <span class="tlaUNC">           0 :   int repeat = (int)lua_tonumber(L, 2);</span></span>
+<span id="L129"><span class="lineNum">     129</span> <span class="tlaUNC">           0 :   g_KRIG_ENGINE.getCurrentLevel()-&gt;setMusicPath(std::string(s));</span></span>
+<span id="L130"><span class="lineNum">     130</span> <span class="tlaUNC">           0 :   g_KRIG_ENGINE.getCurrentLevel()-&gt;getMusic()-&gt;StopSong();</span></span>
+<span id="L131"><span class="lineNum">     131</span> <span class="tlaUNC">           0 :   g_KRIG_ENGINE.getCurrentLevel()-&gt;getMusic()-&gt;PlaySong(s, repeat);</span></span>
+<span id="L132"><span class="lineNum">     132</span> <span class="tlaUNC">           0 :   return 0;</span></span>
+<span id="L133"><span class="lineNum">     133</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L134"><span class="lineNum">     134</span>              : </span>
+<span id="L135"><span class="lineNum">     135</span>              : #if DOXYGEN_ONLY</span>
+<span id="L136"><span class="lineNum">     136</span>              : /**</span>
+<span id="L137"><span class="lineNum">     137</span>              :  * Stop playing song (if playing). Song will restart when played.</span>
+<span id="L138"><span class="lineNum">     138</span>              :  * @return n/a</span>
+<span id="L139"><span class="lineNum">     139</span>              :  */</span>
+<span id="L140"><span class="lineNum">     140</span>              : void stop_music();</span>
+<span id="L141"><span class="lineNum">     141</span>              : #endif</span>
+<span id="L142"><span class="lineNum">     142</span> <span class="tlaUNC">           0 : static int stop_music(lua_State *L) {</span></span>
+<span id="L143"><span class="lineNum">     143</span> <span class="tlaUNC">           0 :   g_KRIG_ENGINE.getCurrentLevel()-&gt;getMusic()-&gt;StopSong();</span></span>
+<span id="L144"><span class="lineNum">     144</span> <span class="tlaUNC">           0 :   return 0;</span></span>
+<span id="L145"><span class="lineNum">     145</span>              : }</span>
+<span id="L146"><span class="lineNum">     146</span>              : </span>
+<span id="L147"><span class="lineNum">     147</span>              : #if DOXYGEN_ONLY</span>
+<span id="L148"><span class="lineNum">     148</span>              : /**</span>
+<span id="L149"><span class="lineNum">     149</span>              :  * Pause song (if playing). Song will resume where it was paused when played.</span>
+<span id="L150"><span class="lineNum">     150</span>              :  * @return n/a</span>
+<span id="L151"><span class="lineNum">     151</span>              :  */</span>
+<span id="L152"><span class="lineNum">     152</span>              : void pause_music();</span>
+<span id="L153"><span class="lineNum">     153</span>              : #endif</span>
+<span id="L154"><span class="lineNum">     154</span> <span class="tlaUNC">           0 : static int pause_music(lua_State *L) {</span></span>
+<span id="L155"><span class="lineNum">     155</span> <span class="tlaUNC">           0 :   g_KRIG_ENGINE.getCurrentLevel()-&gt;getMusic()-&gt;PauseSong();</span></span>
+<span id="L156"><span class="lineNum">     156</span> <span class="tlaUNC">           0 :   return 0;</span></span>
+<span id="L157"><span class="lineNum">     157</span>              : }</span>
+<span id="L158"><span class="lineNum">     158</span>              : </span>
+<span id="L159"><span class="lineNum">     159</span>              : #if DOXYGEN_ONLY</span>
+<span id="L160"><span class="lineNum">     160</span>              : /**</span>
+<span id="L161"><span class="lineNum">     161</span>              :  * Render a sky box around the level using the three colors supplied.</span>
+<span id="L162"><span class="lineNum">     162</span>              :  * Color 1 is the top color; Color two is in the middle; Color 3 is the bottom color.</span>
+<span id="L163"><span class="lineNum">     163</span>              :  * @param float first color, red attribute (0.0 - 1.0)</span>
+<span id="L164"><span class="lineNum">     164</span>              :  * @param float first color, green attribute (0.0 - 1.0)</span>
+<span id="L165"><span class="lineNum">     165</span>              :  * @param float first color, blue attribute (0.0 - 1.0)</span>
+<span id="L166"><span class="lineNum">     166</span>              :  * @param float second color, red attribute (0.0 - 1.0)</span>
+<span id="L167"><span class="lineNum">     167</span>              :  * @param float second color, green attribute (0.0 - 1.0)</span>
+<span id="L168"><span class="lineNum">     168</span>              :  * @param float second color, blue attribute (0.0 - 1.0)</span>
+<span id="L169"><span class="lineNum">     169</span>              :  * @param float third color, red attribute (0.0 - 1.0)</span>
+<span id="L170"><span class="lineNum">     170</span>              :  * @param float third color, green attribute (0.0 - 1.0)</span>
+<span id="L171"><span class="lineNum">     171</span>              :  * @param float third color, blue attribute (0.0 - 1.0)</span>
+<span id="L172"><span class="lineNum">     172</span>              :  * @return n/a</span>
+<span id="L173"><span class="lineNum">     173</span>              :  */</span>
+<span id="L174"><span class="lineNum">     174</span>              : void set_sky_box(float, float, float, float, float, float, float, float, float);</span>
+<span id="L175"><span class="lineNum">     175</span>              : #endif</span>
+<span id="L176"><span class="lineNum">     176</span> <span class="tlaUNC">           0 : static int set_sky_box(lua_State *L) {</span></span>
+<span id="L177"><span class="lineNum">     177</span> <span class="tlaUNC">           0 :   int num = 1;</span></span>
+<span id="L178"><span class="lineNum">     178</span>              : </span>
+<span id="L179"><span class="lineNum">     179</span>              :   float skyColors[3][3];</span>
+<span id="L180"><span class="lineNum">     180</span> <span class="tlaUNC">           0 :   for (int i = 0; i &lt; 3; i++) {</span></span>
+<span id="L181"><span class="lineNum">     181</span> <span class="tlaUNC">           0 :     for (int j = 0; j &lt; 3; j++) {</span></span>
+<span id="L182"><span class="lineNum">     182</span> <span class="tlaUNC">           0 :       skyColors[i][j] = lua_tonumber(L, num++);</span></span>
+<span id="L183"><span class="lineNum">     183</span> <span class="tlaUNC">           0 :     }</span></span>
+<span id="L184"><span class="lineNum">     184</span> <span class="tlaUNC">           0 :   }</span></span>
+<span id="L185"><span class="lineNum">     185</span>              : </span>
+<span id="L186"><span class="lineNum">     186</span> <span class="tlaUNC">           0 :   g_KRIG_ENGINE.getCurrentLevel()-&gt;setSkyBox(skyColors, 3, 3);</span></span>
+<span id="L187"><span class="lineNum">     187</span> <span class="tlaUNC">           0 :   return 0;</span></span>
+<span id="L188"><span class="lineNum">     188</span>              : }</span>
+<span id="L189"><span class="lineNum">     189</span>              : </span>
+<span id="L190"><span class="lineNum">     190</span>              : #if DOXYGEN_ONLY</span>
+<span id="L191"><span class="lineNum">     191</span>              : /**</span>
+<span id="L192"><span class="lineNum">     192</span>              :  * Fetch the configured light direction.</span>
+<span id="L193"><span class="lineNum">     193</span>              :  * @return Vector</span>
+<span id="L194"><span class="lineNum">     194</span>              :  */</span>
+<span id="L195"><span class="lineNum">     195</span>              : Vector get_light_direction();</span>
+<span id="L196"><span class="lineNum">     196</span>              : #endif</span>
+<span id="L197"><span class="lineNum">     197</span> <span class="tlaUNC">           0 : static int get_light_direction(lua_State *L) {</span></span>
+<span id="L198"><span class="lineNum">     198</span> <span class="tlaUNC">           0 :   returnVector(L, *g_KRIG_ENGINE.getCurrentLevel()-&gt;getLightDirection());</span></span>
+<span id="L199"><span class="lineNum">     199</span> <span class="tlaUNC">           0 :   return 1;</span></span>
+<span id="L200"><span class="lineNum">     200</span>              : }</span>
+<span id="L201"><span class="lineNum">     201</span>              : </span>
+<span id="L202"><span class="lineNum">     202</span>              : #if DOXYGEN_ONLY</span>
+<span id="L203"><span class="lineNum">     203</span>              : /**</span>
+<span id="L204"><span class="lineNum">     204</span>              :  * Set the light direction in the game level's scene. This setting affects</span>
+<span id="L205"><span class="lineNum">     205</span>              :  * shading on models and the terrain.</span>
+<span id="L206"><span class="lineNum">     206</span>              :  * @param Vector array containing x, y, z coordinates of the directed light vector</span>
+<span id="L207"><span class="lineNum">     207</span>              :  * @return n/a</span>
+<span id="L208"><span class="lineNum">     208</span>              :  */</span>
+<span id="L209"><span class="lineNum">     209</span>              : void set_light_direction(Vector);</span>
+<span id="L210"><span class="lineNum">     210</span>              : #endif</span>
+<span id="L211"><span class="lineNum">     211</span>              : #if DOXYGEN_ONLY</span>
+<span id="L212"><span class="lineNum">     212</span>              : /**</span>
+<span id="L213"><span class="lineNum">     213</span>              :  * Set the light direction in the game level's scene. This setting affects</span>
+<span id="L214"><span class="lineNum">     214</span>              :  * shading on models and the terrain.</span>
+<span id="L215"><span class="lineNum">     215</span>              :  * @param float x coordinate of the directed light vector</span>
+<span id="L216"><span class="lineNum">     216</span>              :  * @param float y coordinate of the directed light vector</span>
+<span id="L217"><span class="lineNum">     217</span>              :  * @param float z coordinate of the directed light vector</span>
+<span id="L218"><span class="lineNum">     218</span>              :  * @return n/a</span>
+<span id="L219"><span class="lineNum">     219</span>              :  */</span>
+<span id="L220"><span class="lineNum">     220</span>              : void set_light_direction(float, float, float);</span>
+<span id="L221"><span class="lineNum">     221</span>              : #endif</span>
+<span id="L222"><span class="lineNum">     222</span> <span class="tlaUNC">           0 : static int set_light_direction(lua_State *L) {</span></span>
+<span id="L223"><span class="lineNum">     223</span> <span class="tlaUNC">           0 :   int index = 1;</span></span>
+<span id="L224"><span class="lineNum">     224</span> <span class="tlaUNC">           0 :   Vector t = loadVector(L, index);</span></span>
+<span id="L225"><span class="lineNum">     225</span> <span class="tlaUNC">           0 :   g_KRIG_ENGINE.getCurrentLevel()-&gt;setLightDirection(t.x, t.y, t.z);</span></span>
+<span id="L226"><span class="lineNum">     226</span> <span class="tlaUNC">           0 :   return 0;</span></span>
+<span id="L227"><span class="lineNum">     227</span>              : }</span>
+<span id="L228"><span class="lineNum">     228</span>              : </span>
+<span id="L229"><span class="lineNum">     229</span>              : #if DOXYGEN_ONLY</span>
+<span id="L230"><span class="lineNum">     230</span>              : /**</span>
+<span id="L231"><span class="lineNum">     231</span>              :  * Set the specified level's terrain.</span>
+<span id="L232"><span class="lineNum">     232</span>              :  * @param TerrainObjectReference</span>
+<span id="L233"><span class="lineNum">     233</span>              :  * @param string terrain file to load.</span>
+<span id="L234"><span class="lineNum">     234</span>              :  * @return n/a</span>
+<span id="L235"><span class="lineNum">     235</span>              :  */</span>
+<span id="L236"><span class="lineNum">     236</span>              : void set_terrain(TerrainObjectReference, string);</span>
+<span id="L237"><span class="lineNum">     237</span>              : #endif</span>
+<span id="L238"><span class="lineNum">     238</span> <span class="tlaUNC">           0 : static int set_terrain(lua_State *L) {</span></span>
+<span id="L239"><span class="lineNum">     239</span> <span class="tlaUNC">           0 :   luaL_checktype(L, 1, LUA_TTABLE);</span></span>
+<span id="L240"><span class="lineNum">     240</span> <span class="tlaUNC">           0 :   Terrain *terrain = static_cast&lt;Terrain*&gt;(loadObject(L, 1));</span></span>
+<span id="L241"><span class="lineNum">     241</span>              : </span>
+<span id="L242"><span class="lineNum">     242</span> <span class="tlaUNC">           0 :   const char *s = lua_tostring(L, 2);</span></span>
+<span id="L243"><span class="lineNum">     243</span>              : </span>
+<span id="L244"><span class="lineNum">     244</span> <span class="tlaUNC">           0 :   Vector *lightDirection = g_KRIG_ENGINE.getCurrentLevel()-&gt;getLightDirection();</span></span>
+<span id="L245"><span class="lineNum">     245</span> <span class="tlaUNC">           0 :   terrain-&gt;load(s, lightDirection);</span></span>
+<span id="L246"><span class="lineNum">     246</span> <span class="tlaUNC">           0 :   return 0;</span></span>
+<span id="L247"><span class="lineNum">     247</span>              : }</span>
+<span id="L248"><span class="lineNum">     248</span>              : </span>
+<span id="L249"><span class="lineNum">     249</span>              : #if DOXYGEN_ONLY</span>
+<span id="L250"><span class="lineNum">     250</span>              : /**</span>
+<span id="L251"><span class="lineNum">     251</span>              :  * A game level can use up to 4 cameras, each with its own independent attached</span>
+<span id="L252"><span class="lineNum">     252</span>              :  * script and settings. However, only one camera can be &quot;active&quot; at a time. This</span>
+<span id="L253"><span class="lineNum">     253</span>              :  * method returns the ID of the active camera.</span>
+<span id="L254"><span class="lineNum">     254</span>              :  * @return int ID of the active camera</span>
+<span id="L255"><span class="lineNum">     255</span>              :  */</span>
+<span id="L256"><span class="lineNum">     256</span>              : int get_camera_id();</span>
+<span id="L257"><span class="lineNum">     257</span>              : #endif</span>
+<span id="L258"><span class="lineNum">     258</span> <span class="tlaUNC">           0 : static int get_camera_id(lua_State *L) {</span></span>
+<span id="L259"><span class="lineNum">     259</span> <span class="tlaUNC">           0 :   lua_pushnumber(L, g_KRIG_ENGINE.getCurrentLevel()-&gt;getCamera()-&gt;id_);</span></span>
+<span id="L260"><span class="lineNum">     260</span> <span class="tlaUNC">           0 :   return 1;</span></span>
+<span id="L261"><span class="lineNum">     261</span>              : }</span>
+<span id="L262"><span class="lineNum">     262</span>              : </span>
+<span id="L263"><span class="lineNum">     263</span>              : #if DOXYGEN_ONLY</span>
+<span id="L264"><span class="lineNum">     264</span>              : /**</span>
+<span id="L265"><span class="lineNum">     265</span>              :  * Query the engine for a game object of the specified type.</span>
+<span id="L266"><span class="lineNum">     266</span>              :  * @param int - ID of object type to find.</span>
+<span id="L267"><span class="lineNum">     267</span>              :  * @return Vertex2 - x, y coordinate of the mouse.</span>
+<span id="L268"><span class="lineNum">     268</span>              :  */</span>
+<span id="L269"><span class="lineNum">     269</span>              : GameObjectReference find_object_of_type(int);</span>
+<span id="L270"><span class="lineNum">     270</span>              : #endif</span>
+<span id="L271"><span class="lineNum">     271</span> <span class="tlaUNC">           0 : static int find_object_of_type(lua_State *L) {</span></span>
+<span id="L272"><span class="lineNum">     272</span> <span class="tlaUNC">           0 :   int type = (int)lua_tonumber(L, 1);</span></span>
+<span id="L273"><span class="lineNum">     273</span> <span class="tlaUNC">           0 :   ModelGameObject *temp = static_cast&lt;ModelGameObject*&gt;(</span></span>
+<span id="L274"><span class="lineNum">     274</span> <span class="tlaUNC">           0 :     g_KRIG_ENGINE.getCurrentLevel()-&gt;findEnemyOfType(type)</span></span>
+<span id="L275"><span class="lineNum">     275</span>              :   );</span>
+<span id="L276"><span class="lineNum">     276</span>              : </span>
+<span id="L277"><span class="lineNum">     277</span> <span class="tlaUNC">           0 :   returnObject(L, temp);</span></span>
+<span id="L278"><span class="lineNum">     278</span> <span class="tlaUNC">           0 :   return 1;</span></span>
+<span id="L279"><span class="lineNum">     279</span>              : }</span>
+<span id="L280"><span class="lineNum">     280</span>              : </span>
+<span id="L281"><span class="lineNum">     281</span>              : #if DOXYGEN_ONLY</span>
+<span id="L282"><span class="lineNum">     282</span>              : /**</span>
+<span id="L283"><span class="lineNum">     283</span>              :  * Add a game object to the current level.</span>
+<span id="L284"><span class="lineNum">     284</span>              :  * @param string - path to lua script for new game object to load.</span>
+<span id="L285"><span class="lineNum">     285</span>              :  * @param table - options table to be passed into the &quot;on_load&quot; method for the game object.</span>
+<span id="L286"><span class="lineNum">     286</span>              :  * @return GameObjectReference</span>
+<span id="L287"><span class="lineNum">     287</span>              :  */</span>
+<span id="L288"><span class="lineNum">     288</span>              : GameObjectReference add_object(string, options);</span>
+<span id="L289"><span class="lineNum">     289</span>              : #endif</span>
+<span id="L290"><span class="lineNum">     290</span> <span class="tlaUNC">           0 : static int add_object(lua_State *L) {</span></span>
+<span id="L291"><span class="lineNum">     291</span> <span class="tlaUNC">           0 :   const char *s = lua_tostring(L, 1);</span></span>
+<span id="L292"><span class="lineNum">     292</span> <span class="tlaUNC">           0 :   std::string script = std::string(s);</span></span>
+<span id="L293"><span class="lineNum">     293</span>              : </span>
+<span id="L294"><span class="lineNum">     294</span> <span class="tlaUNC">           0 :   ModelGameObject *temp = static_cast&lt;ModelGameObject*&gt;(</span></span>
+<span id="L295"><span class="lineNum">     295</span> <span class="tlaUNC">           0 :     g_KRIG_ENGINE.getCurrentLevel()-&gt;addObject(script, L, TYPE_GAME_OBJECT)</span></span>
+<span id="L296"><span class="lineNum">     296</span>              :   );</span>
+<span id="L297"><span class="lineNum">     297</span>              : </span>
+<span id="L298"><span class="lineNum">     298</span> <span class="tlaUNC">           0 :   returnObject(L, temp);</span></span>
+<span id="L299"><span class="lineNum">     299</span>              :   return 1;</span>
+<span id="L300"><span class="lineNum">     300</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L301"><span class="lineNum">     301</span>              : </span>
+<span id="L302"><span class="lineNum">     302</span>              : #if DOXYGEN_ONLY</span>
+<span id="L303"><span class="lineNum">     303</span>              : /**</span>
+<span id="L304"><span class="lineNum">     304</span>              :  * Remove the specified object from the level.</span>
+<span id="L305"><span class="lineNum">     305</span>              :  * @param GameObjectReference</span>
+<span id="L306"><span class="lineNum">     306</span>              :  * @return n/a</span>
+<span id="L307"><span class="lineNum">     307</span>              :  */</span>
+<span id="L308"><span class="lineNum">     308</span>              : void remove_object(GameObjectReference);</span>
+<span id="L309"><span class="lineNum">     309</span>              : #endif</span>
+<span id="L310"><span class="lineNum">     310</span> <span class="tlaUNC">           0 : static int remove_object(lua_State *L) {</span></span>
+<span id="L311"><span class="lineNum">     311</span> <span class="tlaUNC">           0 :   luaL_checktype(L, 1, LUA_TTABLE);</span></span>
+<span id="L312"><span class="lineNum">     312</span> <span class="tlaUNC">           0 :   Object *object = static_cast&lt;Object*&gt;(loadObject(L, 1));</span></span>
+<span id="L313"><span class="lineNum">     313</span>              : </span>
+<span id="L314"><span class="lineNum">     314</span> <span class="tlaUNC">           0 :   object-&gt;setState(DEAD);</span></span>
+<span id="L315"><span class="lineNum">     315</span> <span class="tlaUNC">           0 :   return 0;</span></span>
+<span id="L316"><span class="lineNum">     316</span>              : }</span>
+<span id="L317"><span class="lineNum">     317</span>              : </span>
+<span id="L318"><span class="lineNum">     318</span>              : #if DOXYGEN_ONLY</span>
+<span id="L319"><span class="lineNum">     319</span>              : /**</span>
+<span id="L320"><span class="lineNum">     320</span>              :  * Add a game object to the current level.</span>
+<span id="L321"><span class="lineNum">     321</span>              :  * @param string - path to lua script for new text object to load.</span>
+<span id="L322"><span class="lineNum">     322</span>              :  * @param string - text.</span>
+<span id="L323"><span class="lineNum">     323</span>              :  * @param table - options table to be passed into the &quot;on_load&quot; method for the text object.</span>
+<span id="L324"><span class="lineNum">     324</span>              :  * @return TextObjectReference</span>
+<span id="L325"><span class="lineNum">     325</span>              :  */</span>
+<span id="L326"><span class="lineNum">     326</span>              : TextObjectReference add_text(string, string, options);</span>
+<span id="L327"><span class="lineNum">     327</span>              : #endif</span>
+<span id="L328"><span class="lineNum">     328</span> <span class="tlaUNC">           0 : static int add_text(lua_State *L) {</span></span>
+<span id="L329"><span class="lineNum">     329</span> <span class="tlaUNC">           0 :   const char *s      = lua_tostring(L, 1);</span></span>
+<span id="L330"><span class="lineNum">     330</span> <span class="tlaUNC">           0 :   std::string script = std::string(s);</span></span>
+<span id="L331"><span class="lineNum">     331</span>              : </span>
+<span id="L332"><span class="lineNum">     332</span> <span class="tlaUNC">           0 :   const char *t    = lua_tostring(L, 2);</span></span>
+<span id="L333"><span class="lineNum">     333</span> <span class="tlaUNC">           0 :   std::string text = std::string(t);</span></span>
+<span id="L334"><span class="lineNum">     334</span>              : </span>
+<span id="L335"><span class="lineNum">     335</span> <span class="tlaUNC">           0 :   TextGameObject *temp = static_cast&lt;TextGameObject*&gt;(</span></span>
+<span id="L336"><span class="lineNum">     336</span> <span class="tlaUNC">           0 :     g_KRIG_ENGINE.getCurrentLevel()-&gt;addObject(script, L, TYPE_GAME_TEXT)</span></span>
+<span id="L337"><span class="lineNum">     337</span>              :   );</span>
+<span id="L338"><span class="lineNum">     338</span> <span class="tlaUNC">           0 :   if (temp != NULL) {</span></span>
+<span id="L339"><span class="lineNum">     339</span> <span class="tlaUNC">           0 :     temp-&gt;text = text;</span></span>
+<span id="L340"><span class="lineNum">     340</span> <span class="tlaUNC">           0 :   }</span></span>
+<span id="L341"><span class="lineNum">     341</span>              : </span>
+<span id="L342"><span class="lineNum">     342</span> <span class="tlaUNC">           0 :   returnObject(L, temp);</span></span>
+<span id="L343"><span class="lineNum">     343</span>              :   return 1;</span>
+<span id="L344"><span class="lineNum">     344</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L345"><span class="lineNum">     345</span>              : </span>
+<span id="L346"><span class="lineNum">     346</span>              : #if DOXYGEN_ONLY</span>
+<span id="L347"><span class="lineNum">     347</span>              : /**</span>
+<span id="L348"><span class="lineNum">     348</span>              :  * Add a 2D bitmapped game object to the current level.</span>
+<span id="L349"><span class="lineNum">     349</span>              :  * @param string - path to lua script for new object to load.</span>
+<span id="L350"><span class="lineNum">     350</span>              :  * @param table - options table to be passed into the &quot;on_load&quot; method for the object.</span>
+<span id="L351"><span class="lineNum">     351</span>              :  * @return TextObjectReference</span>
+<span id="L352"><span class="lineNum">     352</span>              :  */</span>
+<span id="L353"><span class="lineNum">     353</span>              : TextObjectReference add_sprite(string, options);</span>
+<span id="L354"><span class="lineNum">     354</span>              : #endif</span>
+<span id="L355"><span class="lineNum">     355</span> <span class="tlaUNC">           0 : static int add_sprite(lua_State *L) {</span></span>
+<span id="L356"><span class="lineNum">     356</span> <span class="tlaUNC">           0 :   const char *s      = lua_tostring(L, 1);</span></span>
+<span id="L357"><span class="lineNum">     357</span> <span class="tlaUNC">           0 :   std::string script = std::string(s);</span></span>
+<span id="L358"><span class="lineNum">     358</span>              : </span>
+<span id="L359"><span class="lineNum">     359</span> <span class="tlaUNC">           0 :   SpriteGameObject *temp = static_cast&lt;SpriteGameObject*&gt;(</span></span>
+<span id="L360"><span class="lineNum">     360</span> <span class="tlaUNC">           0 :     g_KRIG_ENGINE.getCurrentLevel()-&gt;addObject(script, L, TYPE_GAME_SPRITE)</span></span>
+<span id="L361"><span class="lineNum">     361</span>              :   );</span>
+<span id="L362"><span class="lineNum">     362</span>              : </span>
+<span id="L363"><span class="lineNum">     363</span> <span class="tlaUNC">           0 :   returnObject(L, temp);</span></span>
+<span id="L364"><span class="lineNum">     364</span>              :   return 1;</span>
+<span id="L365"><span class="lineNum">     365</span> <span class="tlaUNC">           0 : }</span></span>
+<span id="L366"><span class="lineNum">     366</span>              : </span>
+<span id="L367"><span class="lineNum">     367</span>              : static const luaL_Reg krigLevelLib[] = {</span>
+<span id="L368"><span class="lineNum">     368</span>              :   {&quot;add_object&quot;, add_object},</span>
+<span id="L369"><span class="lineNum">     369</span>              :   {&quot;add_text&quot;, add_text},</span>
+<span id="L370"><span class="lineNum">     370</span>              :   {&quot;add_sprite&quot;, add_sprite},</span>
+<span id="L371"><span class="lineNum">     371</span>              :   {&quot;find_object_of_type&quot;, find_object_of_type},</span>
+<span id="L372"><span class="lineNum">     372</span>              :   {&quot;get_camera_id&quot;, get_camera_id},</span>
+<span id="L373"><span class="lineNum">     373</span>              :   {&quot;get_complete&quot;, get_complete},</span>
+<span id="L374"><span class="lineNum">     374</span>              :   {&quot;get_id&quot;, get_id},</span>
+<span id="L375"><span class="lineNum">     375</span>              :   {&quot;get_light_direction&quot;, get_light_direction},</span>
+<span id="L376"><span class="lineNum">     376</span>              :   {&quot;load&quot;, load},</span>
+<span id="L377"><span class="lineNum">     377</span>              :   {&quot;load_from_buffer&quot;, load_from_buffer},</span>
+<span id="L378"><span class="lineNum">     378</span>              :   {&quot;pause&quot;, pause},</span>
+<span id="L379"><span class="lineNum">     379</span>              :   {&quot;pause_music&quot;, pause_music},</span>
+<span id="L380"><span class="lineNum">     380</span>              :   {&quot;play_music&quot;, play_music},</span>
+<span id="L381"><span class="lineNum">     381</span>              :   {&quot;remove_object&quot;, remove_object},</span>
+<span id="L382"><span class="lineNum">     382</span>              :   {&quot;set_complete&quot;, set_complete},</span>
+<span id="L383"><span class="lineNum">     383</span>              :   {&quot;set_id&quot;, set_id},</span>
+<span id="L384"><span class="lineNum">     384</span>              :   {&quot;set_light_direction&quot;, set_light_direction},</span>
+<span id="L385"><span class="lineNum">     385</span>              :   {&quot;set_sky_box&quot;, set_sky_box},</span>
+<span id="L386"><span class="lineNum">     386</span>              :   {&quot;set_terrain&quot;, set_terrain},</span>
+<span id="L387"><span class="lineNum">     387</span>              :   {&quot;stop_music&quot;, stop_music},</span>
+<span id="L388"><span class="lineNum">     388</span>              :   {&quot;swap&quot;, swap},</span>
+<span id="L389"><span class="lineNum">     389</span>              :   {NULL, NULL}</span>
+<span id="L390"><span class="lineNum">     390</span>              : };</span>
+<span id="L391"><span class="lineNum">     391</span>              : </span>
+<span id="L392"><span class="lineNum">     392</span> <span class="tlaGNC">           9 : int luaopen_krigLevel (lua_State *L) {</span></span>
+<span id="L393"><span class="lineNum">     393</span> <span class="tlaGNC">           9 :   luaL_openlib(L, &quot;krig.level&quot;, krigLevelLib, 0);</span></span>
+<span id="L394"><span class="lineNum">     394</span> <span class="tlaGNC">           9 :   return 1;</span></span>
+<span id="L395"><span class="lineNum">     395</span>              : }</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.4-0</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['display_5ftext',['display_text',['../api__engine_8cpp.html#aad883c9a80c8ea91d5ce4aa6ba10c66a',1,'api_engine.cpp']]],
-  ['displaylist',['DisplayList',['../classDisplayList.html',1,'']]],
-  ['displaylist_2eh',['DisplayList.h',['../DisplayList_8h.html',1,'']]],
-  ['distance',['distance',['../api__vector_8cpp.html#ae28918cf74f024a3616bea8a96d89f41',1,'api_vector.cpp']]],
-  ['dot_5fproduct',['dot_product',['../api__vector_8cpp.html#a7d51c46b253c5e4e5842a90a377b84bf',1,'api_vector.cpp']]]
+  ['camera_0',['Camera',['../classCamera.html',1,'']]],
+  ['camera_2eh_1',['Camera.h',['../Camera_8h.html',1,'']]],
+  ['copy_2',['copy',['../api__vector_8cpp.html#a58c7c628e2bac24f9265f11c87bd6ff9',1,'api_vector.cpp']]],
+  ['cross_5fproduct_3',['cross_product',['../api__vector_8cpp.html#ae77dece9aa160ac04c862437a7234044',1,'api_vector.cpp']]]
 ];
