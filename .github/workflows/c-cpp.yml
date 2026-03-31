@@ -13,7 +13,7 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: configure
       run: ./build-scripts/setup-mac.sh
     - name: make build
@@ -24,10 +24,29 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: configure
       run: ./build-scripts/setup-mac.sh
     - name: make build-test
       run: make build-test
     - name: make run-tests
       run: make run-tests
+
+  coverage:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v6
+    - name: configure
+      run: ./build-scripts/setup-mac.sh
+    - name: build coverage
+      run: make build-coverage
+    - name: run coverage
+      run: make run-coverage
+    - name: upload report
+      uses: actions/upload-artifact@v7
+      with:
+        name: coverage-report
+        path: coverage/
+        retention-days: 14

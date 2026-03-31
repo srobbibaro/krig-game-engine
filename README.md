@@ -181,6 +181,18 @@ $ make run-tests
 
 Overview of coverage, conventions for new tests, and links to math quirks are in **`docs/TESTING.md`** and **`docs/MATH_AND_TESTING_CONVENTIONS.md`**. You may see benign OpenAL log lines during test runs when level code constructs audio types without a full device.
 
+### Generate Coverage Report
+
+Requires `lcov` (included in `setup-mac.sh`; install manually with `brew install lcov` if needed).
+
+```bash
+$ make run-coverage
+```
+
+Generates a browsable HTML report at `coverage/index.html`. Coverage is informational — rendering, audio, and GLUT callback code requires a live display and audio device and will show as uncovered. See `docs/TESTING.md` for which files are meaningful to watch.
+
+On CI, the report is uploaded as the `coverage-report` artifact on each run and retained for 14 days.
+
 ### Generate Doxygen Documentation
 
 Doxygen documentation is built (in the `html` directory) using the following command:

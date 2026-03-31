@@ -10,6 +10,20 @@ make run-tests
 
 Equivalent: `make build-test && ./unit-test`
 
+## Coverage
+
+```bash
+make run-coverage
+```
+
+Generates an HTML report at `coverage/index.html`. The CI `coverage` job uploads this as a downloadable artifact on every push.
+
+**lcov compatibility warnings** — the `run-coverage` target passes `--ignore-errors` flags to suppress warnings from lcov 2.4's stricter validation of LLVM gcov's emulated output format. These are a known toolchain compatibility shim, not indicators of bad data. Line coverage numbers for our source files are trustworthy. The bulk of the noise comes from Catch v1's single-header inline functions; upgrading to Catch2/3 would reduce it, but the underlying lcov 2.4 / LLVM gcov gap would remain.
+
+**Meaningful files** — these are directly exercised by the unit tests: `Vector`, `Matrix`, `Quaternion`, `Sphere`, `Frustum`, `Plane`, `GameLevel`, `Camera`, `GameTimer`, and their API bindings.
+
+**Expected low coverage** — `Engine.cpp`, `ModelGameObject.cpp`, `Terrain.cpp`, audio, and GLUT callbacks require a live display and audio device. Low numbers in these files are expected, not a gap in test coverage.
+
 ## What the suite is for
 
 - **Regression guard** for math, spatial structures, list behaviour, and plain C++ game-object state.

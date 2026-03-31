@@ -4,6 +4,12 @@ krig
 # test executable
 unit-test
 
+# coverage
+unit-test-cov
+coverage.info
+coverage/
+obj-cov/
+
 # build files
 *.o
 *.so
