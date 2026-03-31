@@ -1,6 +1,9 @@
 # Krig Terrain Format
 
-Terrain in Krig is a uniform heightfield grid. Each vertex carries a height, an RGB color, and a type code. The grid is stored in a plain-text `.txt` file and loaded at level start via `krig.level.set_terrain()`.
+Terrain in Krig is a uniform heightfield grid. Each vertex carries a
+height, an RGB color, and a type code. The grid is stored in a
+plain-text `.txt` file and loaded at level start via
+`krig.level.set_terrain()`.
 
 ---
 
@@ -41,7 +44,9 @@ Each vertex is five values:
 | `b` | float | 0.0–1.0 | Blue color component |
 | `type` | integer | 0 or 1 | Terrain type code (see below) |
 
-The parser uses whitespace-separated scanning (`>>` extraction), so values may be separated by spaces, tabs, or newlines. Both formats are valid:
+The parser uses whitespace-separated scanning (`>>` extraction), so
+values may be separated by spaces, tabs, or newlines. Both formats are
+valid:
 
 **One value per line:**
 ```
@@ -78,7 +83,10 @@ After loading, vertex world-space coordinates are computed as:
 | Y | loaded `height` value |
 | Z | `-z * scaleFactor` (**negated**) |
 
-The Z-axis negation means array index 0 maps to the back of the terrain in world space (positive Z) and increasing array indices move toward the camera (negative Z). All Lua terrain API calls use world-space X and Z coordinates, not array indices.
+The Z-axis negation means array index 0 maps to the back of the terrain
+in world space (positive Z) and increasing array indices move toward the
+camera (negative Z). All Lua terrain API calls use world-space X and Z
+coordinates, not array indices.
 
 ---
 
@@ -91,18 +99,24 @@ The Z-axis negation means array index 0 maps to the back of the terrain in world
 
 ### Water animation detail
 
-When the file specifies type 1, the loader immediately randomises the vertex state:
+When the file specifies type 1, the loader immediately randomises the
+vertex state:
 
 - Height is set to a random value in [0, 2].
-- The type is randomly assigned to 1, 2, or 3 (internal animation states): 60 % chance of 1, 20 % chance of 2, 20 % chance of 3.
+- The type is randomly assigned to 1, 2, or 3 (internal animation
+  states): 60 % chance of 1, 20 % chance of 2, 20 % chance of 3.
 
 At runtime, `Terrain::animate()` steps each water vertex:
 
-- **Type 1** (at rest): random chance to start rising (transition to type 2).
-- **Type 2** (rising): height increases by `elapsedTime` per frame until it reaches 2.0, then resets to type 1.
-- **Type 3** (falling): height decreases by `elapsedTime` per frame until it reaches 0.0, then resets to type 1.
+- **Type 1** (at rest): random chance to start rising (transition to
+  type 2).
+- **Type 2** (rising): height increases by `elapsedTime` per frame
+  until it reaches 2.0, then resets to type 1.
+- **Type 3** (falling): height decreases by `elapsedTime` per frame
+  until it reaches 0.0, then resets to type 1.
 
-When saving, the engine normalizes internal states: types 2 and 3 are written back as type 1, so the saved file only ever contains 0 or 1.
+When saving, the engine normalizes internal states: types 2 and 3 are
+written back as type 1, so the saved file only ever contains 0 or 1.
 
 ---
 
@@ -126,7 +140,8 @@ When saving, the engine normalizes internal states: types 2 and 3 are written ba
 krig.level.set_terrain(terrain, "./terrains/level1.txt")
 ```
 
-The path is relative to the game directory (the argument passed to the `krig` executable).
+The path is relative to the game directory (the argument passed to the
+`krig` executable).
 
 ### Querying the terrain
 
@@ -146,7 +161,9 @@ krig.terrain.get_vertex_type(x, z) → number
 
 ### Modifying the terrain
 
-Modifications affect in-memory state immediately but do **not** invalidate cached lighting. Call `krig.level.set_terrain()` again or rely on the next light-direction update to refresh normals.
+Modifications affect in-memory state immediately but do **not**
+invalidate cached lighting. Call `krig.level.set_terrain()` again or
+rely on the next light-direction update to refresh normals.
 
 ```lua
 krig.terrain.set_vertex_height(x, z, height)
@@ -163,17 +180,22 @@ obj:set_height_from_terrain(offset)    -- set Y = terrain height at obj.position
 obj:orient_on_terrain(euler)           -- tilt obj to match terrain surface normal
 ```
 
-Call `obj:set_height_from_terrain()` before `obj:orient_on_terrain()` so the normal is read at the correct position.
+Call `obj:set_height_from_terrain()` before `obj:orient_on_terrain()`
+so the normal is read at the correct position.
 
 ---
 
 ## Height queries
 
-`krig.terrain.get_height(x, z)` bilinearly interpolates across the four vertices that surround `(x, z)`:
+`krig.terrain.get_height(x, z)` bilinearly interpolates across the four
+vertices that surround `(x, z)`:
 
-1. Convert world coordinates to terrain-array space: `col = x / scaleFactor`, `row = -z / scaleFactor`.
-2. Identify bounding vertices: `col1 = floor(col)`, `col2 = col1 + 1`, `row1 = floor(row)`, `row2 = row1 + 1`.
-3. Compute fractional offsets `perX = col - col1`, `perZ = row - row1`.
+1. Convert world coordinates to terrain-array space:
+   `col = x / scaleFactor`, `row = -z / scaleFactor`.
+2. Identify bounding vertices: `col1 = floor(col)`, `col2 = col1 + 1`,
+   `row1 = floor(row)`, `row2 = row1 + 1`.
+3. Compute fractional offsets `perX = col - col1`,
+   `perZ = row - row1`.
 4. Interpolate:
 
 ```
@@ -186,13 +208,18 @@ result = lerp(th1, th2, perX)
 
 ## Curvature effect
 
-When `isCurveEnabled_` is true, vertices far from the camera are pulled downward during rendering to simulate a curved horizon. This is a visual-only effect — it does not modify stored vertex data and does not affect height queries.
+When `isCurveEnabled_` is true, vertices far from the camera are pulled
+downward during rendering to simulate a curved horizon. This is a
+visual-only effect — it does not modify stored vertex data and does not
+affect height queries.
 
 ---
 
 ## Edit mode
 
-Build with `make build-edit` (or set `EDIT=1` in `src/constants.h`) to enable the terrain editor. Edit mode opens a palette window alongside the game window.
+Build with `make build-edit` (or set `EDIT=1` in `src/constants.h`) to
+enable the terrain editor. Edit mode opens a palette window alongside
+the game window.
 
 ### Palette controls
 
@@ -202,20 +229,30 @@ Build with `make build-edit` (or set `EDIT=1` in `src/constants.h`) to enable th
 | Height sliders (0–10, 10–20, 20–30) | Set the height value for the next write |
 | Land / Water buttons | Set the type code (0 or 1) |
 
-The palette displays the current vertex's position, height, color, and type live as you navigate the scene. Click controls to set values; the engine writes them to the terrain immediately.
+The palette displays the current vertex's position, height, color, and
+type live as you navigate the scene. Click controls to set values; the
+engine writes them to the terrain immediately.
 
-Edit-mode changes are in-memory only. Saving requires a file-write step (not yet exposed to Lua).
+Edit-mode changes are in-memory only. Saving requires a file-write step
+(not yet exposed to Lua).
 
 ---
 
 ## Generating terrain
 
-Terrain files can be generated by any script that writes the header followed by per-vertex `height r g b type` records in Z-major, X-minor order (whitespace-delimited). The engine's file scanner is format-agnostic — values may be one per line or space-separated.
+Terrain files can be generated by any script that writes the header
+followed by per-vertex `height r g b type` records in Z-major, X-minor
+order (whitespace-delimited). The engine's file scanner is
+format-agnostic — values may be one per line or space-separated.
 
 ---
 
 ## QuadTree and rendering
 
-The engine builds a `QuadTree` over the terrain's XZ extent. Each frame, `QuadTree::buildDisplayList()` frustum-tests each node's bounding sphere and populates a `DisplayList` of visible leaf nodes. `Terrain::draw()` then renders only those nodes.
+The engine builds a `QuadTree` over the terrain's XZ extent. Each
+frame, `QuadTree::buildDisplayList()` frustum-tests each node's
+bounding sphere and populates a `DisplayList` of visible leaf nodes.
+`Terrain::draw()` then renders only those nodes.
 
-Game scripts do not interact with the QuadTree directly. The terrain renders correctly without any setup beyond `krig.level.set_terrain()`.
+Game scripts do not interact with the QuadTree directly. The terrain
+renders correctly without any setup beyond `krig.level.set_terrain()`.

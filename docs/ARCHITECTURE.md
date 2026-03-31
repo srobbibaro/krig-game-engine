@@ -1,6 +1,9 @@
 # Krig Game Engine — Architecture Overview
 
-Krig is a C++ game engine with a Lua scripting layer. The engine handles the game loop, rendering (OpenGL/GLUT), audio (OpenAL), and scene management. All game logic — level setup, object behavior, and progression — is authored in Lua scripts.
+Krig is a C++ game engine with a Lua scripting layer. The engine
+handles the game loop, rendering (OpenGL/GLUT), audio (OpenAL), and
+scene management. All game logic — level setup, object behavior, and
+progression — is authored in Lua scripts.
 
 ## High-level structure
 
@@ -47,7 +50,9 @@ ObjectNode  (doubly-linked list node)
    └─ SpriteGameObject  2D textured quad
 ```
 
-`Terrain` inheriting from `Object` is intentional — it lets it participate in the generic object list and collision system without special-casing in the engine.
+`Terrain` inheriting from `Object` is intentional — it lets it
+participate in the generic object list and collision system without
+special-casing in the engine.
 
 ## Game loop (per frame)
 
@@ -69,7 +74,9 @@ glutIdleFunc → display() → Engine::gameCycle()
 
 ## Lua integration
 
-Engine and level each own a `lua_State*`. Each object can optionally own a third child state for per-object scripts. The Lua API is exposed under the `krig.*` namespace from `src/api_*.cpp`.
+Engine and level each own a `lua_State*`. Each object can optionally
+own a third child state for per-object scripts. The Lua API is exposed
+under the `krig.*` namespace from `src/api_*.cpp`.
 
 ```
 Engine::luaState_          game-level script  (main.lua)
@@ -94,11 +101,14 @@ Object::L_                 object script      (scripts/enemy.lua)
 | Object | `on_collision(self, other)` | collision detected |
 | Object | `on_draw(self, camera, dt)` | custom draw (optional) |
 
-Objects are passed to Lua as tables with an `id` field. Scripts call `self:load()` / `self:save()` to sync C++ state into Lua and back. The C++ side resolves the object via `idToObjectMap_[id]`.
+Objects are passed to Lua as tables with an `id` field. Scripts call
+`self:load()` / `self:save()` to sync C++ state into Lua and back. The
+C++ side resolves the object via `idToObjectMap_[id]`.
 
 ## Rendering pipeline
 
-The engine uses a manual cel-shading approach — no fragment shaders. Three GL display-list states toggle rendering modes:
+The engine uses a manual cel-shading approach — no fragment shaders.
+Three GL display-list states toggle rendering modes:
 
 ```
 1. Cel pass   enable 1D luminance-ramp texture
@@ -114,11 +124,18 @@ The engine uses a manual cel-shading approach — no fragment shaders. Three GL 
               Lua on_draw_screen() → TextGameObject, HUD
 ```
 
-The `QuadTree` partitions the terrain in the XZ plane. Each frame `buildDisplayList()` walks the tree and frustum-tests each node, adding visible patches to a `DisplayList` for the terrain draw call. It is used **only for terrain culling** — object collision is a linear O(n²) pass over `ObjectList`.
+The `QuadTree` partitions the terrain in the XZ plane. Each frame
+`buildDisplayList()` walks the tree and frustum-tests each node, adding
+visible patches to a `DisplayList` for the terrain draw call. It is
+used **only for terrain culling** — object collision is a linear O(n²)
+pass over `ObjectList`.
 
 ## Audio
 
-`Music` streams a single OGG Vorbis file per level via double-buffered OpenAL, refilled every frame. `SoundFX` pre-loads all OGG files in `krig3/sounds/` at startup and triggers them by filename. Both use the single OpenAL context created at engine init.
+`Music` streams a single OGG Vorbis file per level via double-buffered
+OpenAL, refilled every frame. `SoundFX` pre-loads all OGG files in
+`krig3/sounds/` at startup and triggers them by filename. Both use the
+single OpenAL context created at engine init.
 
 ## Key design decisions
 

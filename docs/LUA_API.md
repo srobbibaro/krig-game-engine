@@ -1,16 +1,24 @@
 # Krig Lua API Reference
 
-Games are authored entirely in Lua. The engine exposes its API under the `krig` namespace. Objects and terrain instances are passed as tables; vectors as `{x, y, z}` tables; rotations as `{x, y, z, w}` quaternion tables.
+Games are authored entirely in Lua. The engine exposes its API under
+the `krig` namespace. Objects and terrain instances are passed as
+tables; vectors as `{x, y, z}` tables; rotations as `{x, y, z, w}`
+quaternion tables.
 
 ## Conventions
 
 **Vectors** are `{x, y, z}` tables. Pass and receive them in that form.
 
-**Rotations** are quaternions: `{x, y, z, w}` tables. Build them with `krig.rotation.*`; do not construct by hand.
+**Rotations** are quaternions: `{x, y, z, w}` tables. Build them with
+`krig.rotation.*`; do not construct by hand.
 
-**Object references** are tables with an `id` field and methods attached. Obtain them from `krig.get_player()`, `krig.get_camera()`, `krig.level.add_object()`, or via hook arguments.
+**Object references** are tables with an `id` field and methods
+attached. Obtain them from `krig.get_player()`, `krig.get_camera()`,
+`krig.level.add_object()`, or via hook arguments.
 
-**`obj:load()` / `obj:save()`** — before reading object properties in `on_update`, call `obj:load()` to sync C++ state into the Lua table. After writing properties, call `obj:save()` to push them back to C++.
+**`obj:load()` / `obj:save()`** — before reading object properties in
+`on_update`, call `obj:load()` to sync C++ state into the Lua table.
+After writing properties, call `obj:save()` to push them back to C++.
 
 ---
 
@@ -62,13 +70,22 @@ Games are authored entirely in Lua. The engine exposes its API under the `krig` 
 | `krig.level.pause_music()` | Pause the current music track. |
 | `krig.level.stop_music()` | Stop and unload the current music track. |
 
-> **`remove_object` caution:** The remove/add flow has three known bugs: `remove_object` does not NULL-check the object reference (crash on a stale Lua ref); `idToObjectMap_` is not cleared when an object goes DEAD (stale refs can still resolve); reused objects are not assigned a new ID (same ID refers to different logical instances over time). Until these are fixed, avoid `remove_object` in game scripts. To "remove" an object, deactivate it instead: call `obj:load()`, set `active = false`, then `obj:save()`. These bugs are tracked as open issues.
+> **`remove_object` caution:** The remove/add flow has three known
+> bugs: `remove_object` does not NULL-check the object reference (crash
+> on a stale Lua ref); `idToObjectMap_` is not cleared when an object
+> goes DEAD (stale refs can still resolve); reused objects are not
+> assigned a new ID (same ID refers to different logical instances over
+> time). Until these are fixed, avoid `remove_object` in game scripts.
+> To "remove" an object, deactivate it instead: call `obj:load()`, set
+> `active = false`, then `obj:save()`. These bugs are tracked as open
+> issues.
 
 ---
 
 ## `krig.terrain` — terrain queries
 
-Terrain functions operate on the currently loaded terrain. `x` and `z` are world-space coordinates.
+Terrain functions operate on the currently loaded terrain. `x` and `z`
+are world-space coordinates.
 
 | Function | Description |
 |----------|-------------|
@@ -118,7 +135,9 @@ Rotations are `{x, y, z, w}` quaternion tables.
 
 ## Object methods
 
-Called on an object reference as `obj:method()`. Always call `obj:load()` before reading properties and `obj:save()` after writing them.
+Called on an object reference as `obj:method()`. Always call
+`obj:load()` before reading properties and `obj:save()` after writing
+them.
 
 | Method | Description |
 |--------|-------------|
@@ -136,7 +155,8 @@ Called on an object reference as `obj:method()`. Always call `obj:load()` before
 
 ### Object properties
 
-Read/write via the Lua table after `obj:load()`. Call `obj:save()` to apply changes.
+Read/write via the Lua table after `obj:load()`. Call `obj:save()` to
+apply changes.
 
 | Property | Type | Description |
 |----------|------|-------------|
