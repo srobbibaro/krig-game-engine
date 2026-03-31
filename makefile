@@ -108,8 +108,11 @@ run-tests: build-test
 run-demo: build
 	./krig krig3
 
-doc: build
-	cd html; doxygen docs/doxyfile
+doc:
+	doxygen docs/doxyfile
+
+clean-doc:
+	@rm -rf ./doc/
 
 $(BUILD_DIR):
 	@mkdir -p $@

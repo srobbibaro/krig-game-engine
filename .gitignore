@@ -20,7 +20,7 @@ krig.depend
 krig.layout
 
 # documentation
-html/
+doc/
 
 # demos repo
 krig-game-demos/
