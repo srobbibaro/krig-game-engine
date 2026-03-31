@@ -40,9 +40,14 @@ behavior (e.g. translating then scaling on X for that product).
   scaleFactor)`** stores **`min[0]`/`max[0]` as X** and
   **`min[1]`/`max[1]` as Z** (2D partition in the horizontal plane).
 - **`boundingSphere`** uses **`y = 0`** and **`z = -centerZ`** for the
-  sphere origin (see `src/QuadTree.cpp`), which matches the engine's
-  ground-plane convention but differs from "max corner as positive Z
-  only" mental models.
+  sphere origin (see `src/QuadTree.cpp`), which matches the engine’s
+  ground-plane convention but differs from “max corner as positive Z
+  only” mental models.
+- **Bounding sphere radius is the full diagonal**, not the circumradius:
+  `sqrt((xMax-xMin)² + (zMax-zMin)²)`. The correct circumradius (center
+  to corner) is half that value. Every node’s sphere is therefore **2×
+  larger than necessary** — conservative (never hides terrain) but
+  wastes draw calls.
 
 **Tests:** `test/quadtree.cpp` (`buildLeafList`, splits for square vs
 elongated regions). The tests call a local **`freeQuadTreeNode`**
