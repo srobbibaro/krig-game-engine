@@ -1,6 +1,6 @@
 # Krig Game Engine — Architecture Overview
 
-Krig is a C++ game engine with a Lua scripting layer. The engine handles the game loop, rendering (OpenGL/GLUT), audio (OpenAL), and scene management. All game logic — level setup, object behaviour, and progression — is authored in Lua scripts.
+Krig is a C++ game engine with a Lua scripting layer. The engine handles the game loop, rendering (OpenGL/GLUT), audio (OpenAL), and scene management. All game logic — level setup, object behavior, and progression — is authored in Lua scripts.
 
 ## High-level structure
 
@@ -102,7 +102,7 @@ The engine uses a manual cel-shading approach — no fragment shaders. Three GL 
 
 ```
 1. Cel pass   enable 1D luminance-ramp texture
-              per-vertex: dot(normal, lightDir) → texture coord → posterised colour
+              per-vertex: dot(normal, lightDir) → texture coord → posterized color
               draw all objects (ModelGameObject, Terrain)
 
 2. Outline    cull FRONT faces, polygon mode LINE on BACK, 3 px black lines

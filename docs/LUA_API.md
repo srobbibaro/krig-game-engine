@@ -29,7 +29,7 @@ Games are authored entirely in Lua. The engine exposes its API under the `krig` 
 | `krig.test_debug_enabled() → bool` | True if the engine was built with `DEBUG=1`. |
 | `krig.play_sound(obj: object, filename: string)` | Play a sound effect at `obj`'s position. `filename` is relative to `krig3/sounds/`. |
 | `krig.display_text(text: string, x: number, y: number, z: number, sx: number, sy: number)` | Add a screen-space text object at world position `(x, y, z)` with scale `(sx, sy)`. |
-| `krig.render_text(text: string, x: number, y: number)` | Immediately render text at normalised screen coordinates `(x, y)`. |
+| `krig.render_text(text: string, x: number, y: number)` | Immediately render text at normalized screen coordinates `(x, y)`. |
 | `krig.get_script_value(obj: object, name: string) → value` | Read a global variable named `name` from `obj`'s Lua script. |
 | `krig.set_script_value(obj: object, name: string, value)` | Set a global variable named `name` in `obj`'s Lua script. |
 | `krig.shutdown()` | Signal the engine to exit after the current frame. |
@@ -54,9 +54,9 @@ Games are authored entirely in Lua. The engine exposes its API under the `krig` 
 | `krig.level.remove_object(obj: object)` | Move `obj` to the dead/free pool. **Known bugs — avoid in game scripts until fixed** (see caution below). |
 | `krig.level.find_object_of_type(type_id: number) → object \| nil` | Return first active object whose `type_id` matches, or nil. |
 | `krig.level.get_camera_id() → number` | Return the object ID of the active camera (always 0 after level load). |
-| `krig.level.set_light_direction(vec: vector)` | Set global directional light. `vec` is normalised automatically. |
+| `krig.level.set_light_direction(vec: vector)` | Set global directional light. `vec` is normalized automatically. |
 | `krig.level.get_light_direction() → vector` | Returns current light direction. |
-| `krig.level.set_sky_box(r0: number, g0: number, b0: number, r1: number, g1: number, b1: number, r2: number, g2: number, b2: number)` | Set sky gradient as top, middle, and bottom RGB colours (0–1 each). |
+| `krig.level.set_sky_box(r0: number, g0: number, b0: number, r1: number, g1: number, b1: number, r2: number, g2: number, b2: number)` | Set sky gradient as top, middle, and bottom RGB colors (0–1 each). |
 | `krig.level.set_terrain(terrain: object, path: string)` | Load terrain data from `path` into `terrain` object. Call in `on_load`. |
 | `krig.level.play_music(path: string, repeat: number)` | Stream OGG file at `path`. `repeat`: 1 = loop, 0 = once. |
 | `krig.level.pause_music()` | Pause the current music track. |
@@ -78,7 +78,7 @@ Terrain functions operate on the currently loaded terrain. `x` and `z` are world
 | `krig.terrain.get_vertex_color(x: number, z: number) → number, number, number` | Returns `r, g, b` of the nearest terrain vertex. |
 | `krig.terrain.set_vertex_height(x: number, z: number, h: number)` | Set height of the nearest terrain vertex to `h`. |
 | `krig.terrain.set_vertex_type(x: number, z: number, type: number)` | Set the terrain type code at the nearest vertex. |
-| `krig.terrain.set_vertex_color(x: number, z: number, r: number, g: number, b: number)` | Set vertex colour at the nearest terrain vertex. |
+| `krig.terrain.set_vertex_color(x: number, z: number, r: number, g: number, b: number)` | Set vertex color at the nearest terrain vertex. |
 
 ---
 

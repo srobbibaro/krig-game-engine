@@ -1,8 +1,8 @@
 # Math layout and testing conventions
 
-This document records **behaviour that is easy to misread** when assuming textbook OpenGL, “standard” ray casts, or row-major matrix habits. It complements comments in `src/Vector.h`, `src/Matrix.h`, and the Catch tests under `test/`.
+This document records **behavior that is easy to misread** when assuming textbook OpenGL, “standard” ray casts, or row-major matrix habits. It complements comments in `src/Vector.h`, `src/Matrix.h`, and the Catch tests under `test/`.
 
-**Where comments live:** **`Matrix.h`** / **`Matrix.cpp`** keep **self-contained** API notes so commits that touch them do not depend on this file. The **`test/`** files **`vector.cpp`**, **`matrix.cpp`**, and **`frustum.cpp`** use **self-contained comments** at the scenarios that lock in odd behaviour (so test-only commits do not refer to paths that do not exist yet in history).
+**Where comments live:** **`Matrix.h`** / **`Matrix.cpp`** keep **self-contained** API notes so commits that touch them do not depend on this file. The **`test/`** files **`vector.cpp`**, **`matrix.cpp`**, and **`frustum.cpp`** use **self-contained comments** at the scenarios that lock in odd behavior (so test-only commits do not refer to paths that do not exist yet in history).
 
 ## Matrix storage and the 16-float constructor
 
@@ -13,7 +13,7 @@ This document records **behaviour that is easy to misread** when assuming textbo
 
 ## `Matrix::operator*` composition
 
-For `A = S * T` with `S = setScale(…)` and `T = setTranslation(…)`, `transformVertex` on a column vector follows the engine’s multiplication order (see `Matrix::operator *`). A naïve expectation “scale first, then translate” can disagree with the numeric result: the **Scale times translation** scenario in `test/matrix.cpp` locks in the current behaviour (e.g. translating then scaling on X for that product).
+For `A = S * T` with `S = setScale(…)` and `T = setTranslation(…)`, `transformVertex` on a column vector follows the engine’s multiplication order (see `Matrix::operator *`). A naïve expectation “scale first, then translate” can disagree with the numeric result: the **Scale times translation** scenario in `test/matrix.cpp` locks in the current behavior (e.g. translating then scaling on X for that product).
 
 ## QuadTree XZ partitioning
 
@@ -47,7 +47,7 @@ linear fallback coverage.
 
 `test/frustum.cpp` uses a **deliberately simple** matrix (identity with `data[10]` adjusted) to exercise `Frustum::extractFromProjectionMatrix` without requiring a full `gluPerspective`-style matrix. With that matrix the six planes bound the unit cube `[-1, 1]^3` and all plane distances from the origin equal 1, so `testSphere` results are analytically predictable. Tests assert **specific classification codes** (inside = 1, outside = −1, intersecting = 0) rather than just valid-code membership. `getPlaneDefinition` with an out-of-range index silently leaves output parameters unchanged — locked in as a no-op guard.
 
-**`testSphere` is conservative**: it returns `0` on the first plane where `|distance| < radius` without checking remaining planes. A sphere that intersects one plane but is outside another returns `0` (render) instead of `-1` (cull). Both engine callers (`ModelGameObject::animate`, `QuadTree::buildDisplayList`) use `r != -1` as the visibility threshold, so this conservative behaviour causes over-rendering at most — objects are never incorrectly hidden.
+**`testSphere` is conservative**: it returns `0` on the first plane where `|distance| < radius` without checking remaining planes. A sphere that intersects one plane but is outside another returns `0` (render) instead of `-1` (cull). Both engine callers (`ModelGameObject::animate`, `QuadTree::buildDisplayList`) use `r != -1` as the visibility threshold, so this conservative behavior causes over-rendering at most — objects are never incorrectly hidden.
 
 ## `Object::calcTriangleCenter`
 
@@ -80,7 +80,7 @@ If the **(a, b, c)** components have length **0**, **`normalize()`** leaves **al
 
 ## `GameTimer` — blocking spin and FPS validity
 
-On non-Windows platforms, **`GameTimer::getElapsedSeconds()`** spins in a busy loop until at least `1/MAX_FPS` seconds have elapsed since the last call (~33 ms at 30 FPS). The first call after `init()` can block for that full interval. **`getFPS()`** is only meaningful after at least one `getElapsedSeconds()` call — it returns `0` before any elapsed-time measurement has been made. Both behaviours are locked in `test/gametimer.cpp` (the `getFPS == 0` assertion is guarded by `#ifndef _WIN32` because Windows is not currently supported).
+On non-Windows platforms, **`GameTimer::getElapsedSeconds()`** spins in a busy loop until at least `1/MAX_FPS` seconds have elapsed since the last call (~33 ms at 30 FPS). The first call after `init()` can block for that full interval. **`getFPS()`** is only meaningful after at least one `getElapsedSeconds()` call — it returns `0` before any elapsed-time measurement has been made. Both behaviors are locked in `test/gametimer.cpp` (the `getFPS == 0` assertion is guarded by `#ifndef _WIN32` because Windows is not currently supported).
 
 ## Where to look next
 
@@ -95,7 +95,7 @@ On non-Windows platforms, **`GameTimer::getElapsedSeconds()`** spins in a busy l
 | GameLevel metadata | `GameLevel.cpp` | `gamelevel.cpp` |
 | GameTimer spin / FPS | `src/gametimer.h`, `src/gametimer.cpp` | `test/gametimer.cpp` |
 
-When you add behaviour that trades obvious “textbook” semantics for historical engine behaviour, **document it here** and add or adjust a targeted unit test.
+When you add behavior that trades obvious “textbook” semantics for historical engine behavior, **document it here** and add or adjust a targeted unit test.
 
 For **how to run tests, suite policy, and Engine lifecycle vs shutdown**, see **`docs/TESTING.md`**.
 

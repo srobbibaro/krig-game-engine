@@ -219,8 +219,8 @@ See **[docs/LUA_API.md](docs/LUA_API.md)** for the full in-repo API reference. A
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Commit format, branch naming, PR format, test coverage approach, and architecture constraints |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Engine architecture overview — class structure, game loop, Lua integration, and rendering pipeline |
 | [docs/LUA_API.md](docs/LUA_API.md) | Lua scripting API reference — all `krig.*` functions, object methods, properties, and hooks |
-| [docs/TESTING.md](docs/TESTING.md) | Test suite overview, scope conventions, and counterintuitive engine behaviour locked in by tests |
-| [docs/MATH_AND_TESTING_CONVENTIONS.md](docs/MATH_AND_TESTING_CONVENTIONS.md) | Non-obvious engine behaviour: matrix layout, quaternion guards, frustum classification, camera update, and more |
+| [docs/TESTING.md](docs/TESTING.md) | Test suite overview, scope conventions, and counterintuitive engine behavior locked in by tests |
+| [docs/MATH_AND_TESTING_CONVENTIONS.md](docs/MATH_AND_TESTING_CONVENTIONS.md) | Non-obvious engine behavior: matrix layout, quaternion guards, frustum classification, camera update, and more |
 | [docs/TERRAIN_FORMAT.md](docs/TERRAIN_FORMAT.md) | Terrain file format, coordinate system, type codes, Lua API, edit mode, and QuadTree rendering |
 | [docs/MDL_FORMAT.md](docs/MDL_FORMAT.md) | `.mdl` model file format, C++ loader reference, triangle winding rules, and cel-shading notes |
 | [docs/adr/0001-coverage-tooling.md](docs/adr/0001-coverage-tooling.md) | ADR: gcov + lcov coverage tooling decision |

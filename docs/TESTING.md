@@ -26,7 +26,7 @@ Generates an HTML report at `coverage/index.html`. The CI `coverage` job uploads
 
 ## What the suite is for
 
-- **Regression guard** for math, spatial structures, list behaviour, and plain C++ game-object state.
+- **Regression guard** for math, spatial structures, list behavior, and plain C++ game-object state.
 - **Documentation by example** for APIs that are easy to misread (see below).
 
 It is **not** a full integration harness: there is no automated GL context, OpenAL device, or end-to-end game loop.
@@ -44,15 +44,15 @@ These points come from `Engine` construction/teardown and from running tests tha
 3. **`getKeyState()`** and **`getSpecialKeyState()`** always return addresses of **`Engine`** member structs. They stay valid for the lifetime of the **`Engine`** instance (including after **`shutdown()`**), until the object is destroyed.
 4. Methods such as **`initGL`**, **`initAL`**, **`loadGame`**, **`gameCycle`**, and **`renderText`** assume a real GLUT/GL and audio environment; the current **`test/engine.cpp`** scenarios intentionally avoid them.
 
-## Counterintuitive behaviour the suite locks in
+## Counterintuitive behavior the suite locks in
 
 Some assertions match the **current engine**, not necessarily what readers assume. The main ones are spelled out in **`docs/MATH_AND_TESTING_CONVENTIONS.md`** (matrix layout, rotations, quadtree sphere Z, quaternion `slerp`, etc.). Additional **game-object / lifecycle** quirks:
 
 1. **`Object::state` vs `Object::active`** — **`setState(DEAD)`** (and related) updates the **`state_`** field only. It does **not** clear **`active_`**. You can be **`DEAD`** and still **`getActive() == true`** until **`setActive(false)`** is used. See `test/object.cpp`.
 2. **Two `setState` overloads** — **`setState(const unsigned char&)`** and **`setState(const int&)`** both write **`state_`**. Callers should treat them as the same destination with different argument types (legacy API surface).
 3. **`Object::animate` — explicit base call in tests** — concrete subclasses override `animate(float, Object*)`, which has a different signature from the base `animate(const float&, Object*)`. Virtual dispatch will resolve to the subclass (empty no-op in `BasicObject`). To test the base-class frame-loop logic (velocity accumulation, rotation velocity, scale rate), call `o.Object::animate(dt, nullptr)` explicitly.
-4. **`GameLevel` minimal buffer load** — **`loadLevelFromBuffer(“test=1”)`** is a harness-friendly path that depends on engine bootstrap behaviour; **`getObjectFromId(0)`** is the camera after **`setCamera`**, not a general guarantee for arbitrary buffers.
-5. **Lua `krig.vector`** — **`scalar`** and **`dot_product`** wrap the same underlying vector math in the C API; overlapping behaviour is intentional for script compatibility, not a bug to “fix” in tests alone.
+4. **`GameLevel` minimal buffer load** — **`loadLevelFromBuffer(“test=1”)`** is a harness-friendly path that depends on engine bootstrap behavior; **`getObjectFromId(0)`** is the camera after **`setCamera`**, not a general guarantee for arbitrary buffers.
+5. **Lua `krig.vector`** — **`scalar`** and **`dot_product`** wrap the same underlying vector math in the C API; overlapping behavior is intentional for script compatibility, not a bug to “fix” in tests alone.
 
 For **math-specific** surprises, always check **`MATH_AND_TESTING_CONVENTIONS.md`** first.
 
@@ -88,4 +88,4 @@ Do **not** require new **fixtures** (terrain files, golden assets) or **engine r
 - **`docs/MATH_AND_TESTING_CONVENTIONS.md`** — Matrix layout, rotation conventions, quadtree XZ / sphere Z sign, quaternion `slerp` guard, matrix multiply composition.
 - **`README.md`** — Build and one-line test invocation.
 
-When you add behaviour that is **surprising but measurable**, add a **short test** and a **sentence in `MATH_AND_TESTING_CONVENTIONS.md`** (for math/spatial) or here (for process/coverage).
+When you add behavior that is **surprising but measurable**, add a **short test** and a **sentence in `MATH_AND_TESTING_CONVENTIONS.md`** (for math/spatial) or here (for process/coverage).

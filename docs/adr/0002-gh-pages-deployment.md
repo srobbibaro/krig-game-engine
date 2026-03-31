@@ -33,7 +33,7 @@ Doxygen output is placed at the `gh-pages` root (preserving existing URLs at
 ## Alternatives considered
 
 **`peaceiris/actions-gh-pages`** — the most common community action for this
-pattern. Rejected because it is a third-party dependency; the same behaviour
+pattern. Rejected because it is a third-party dependency; the same behavior
 is achievable with `actions/checkout` and a short shell script using only
 built-in git commands.
 

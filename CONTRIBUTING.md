@@ -26,7 +26,7 @@ All commits must be verified before merging.
 
 ## Doc comments
 
-Use `/** */` comments selectively — only on methods where the behaviour is
+Use `/** */` comments selectively — only on methods where the behavior is
 non-obvious or a precondition would be missed by a reader. Do not add doc
 comments to every method. Examples of what warrants a comment: a parameter
 that must be a unit vector, a no-op guard on a zero input, a non-roundtrip
@@ -57,15 +57,15 @@ Prefer atomic commits in almost every circumstance — one logical change per co
 
 Every commit must leave the project in a good working state: `make build` compiles cleanly and `make run-tests` passes. For commits that change engine implementation code (anything under `src/`), `make run-demo` must also start the demo game without crashing. Test-only and docs-only commits do not require a demo run. This is the baseline definition of atomic — a commit is not complete unless all applicable checks hold. This is what makes bisect reliable and individual commits reviewable in isolation.
 
-A complete unit of work means code, tests, and documentation travel together. Any commit that adds or changes behaviour must include:
+A complete unit of work means code, tests, and documentation travel together. Any commit that adds or changes behavior must include:
 - The implementation change (`src/`)
-- Tests that cover the new or changed behaviour (`test/`)
+- Tests that cover the new or changed behavior (`test/`)
 - Any documentation that needs updating — header contracts, `docs/MATH_AND_TESTING_CONVENTIONS.md`, `docs/TESTING.md`, or inline comments — so the commit is fully self-contained and reviewable in isolation
 
 In practice this means:
 - One new test file per commit, not several bundled together.
 - Source changes and their corresponding test changes travel together in a single commit. This includes fixing any tests broken by a source removal.
-- Documentation that captures non-obvious behaviour, design decisions, or API contracts belongs in the same commit as the code it describes. Standalone doc-only changes (e.g. fixing a stale comment or adding a section unrelated to a code change) get their own commit.
+- Documentation that captures non-obvious behavior, design decisions, or API contracts belongs in the same commit as the code it describes. Standalone doc-only changes (e.g. fixing a stale comment or adding a section unrelated to a code change) get their own commit.
 
 If you find yourself writing "and" in a commit summary, that is usually a sign the commit should be split.
 
@@ -73,7 +73,7 @@ Within a body of related work (e.g. a set of new documentation files or a batch 
 
 ## Tracking bugs found during work
 
-When you discover a latent bug that is out of scope for your current branch, document it so it is not lost — a note in the relevant doc, a `// TODO:` comment near the code, or a callout in the PR description are all reasonable. Where the bug warrants tracking (e.g. a known crash path or a behaviour that will mislead future contributors), open a GitHub issue so it is visible, linkable, and survives branch deletions.
+When you discover a latent bug that is out of scope for your current branch, document it so it is not lost — a note in the relevant doc, a `// TODO:` comment near the code, or a callout in the PR description are all reasonable. Where the bug warrants tracking (e.g. a known crash path or a behavior that will mislead future contributors), open a GitHub issue so it is visible, linkable, and survives branch deletions.
 
 Do not reference AI tool state (e.g. "project memory", "saved context") in any committed file. That state does not exist for other contributors or for the public. If the information is worth preserving, put it in a doc, a code comment, or a GitHub issue.
 
@@ -114,9 +114,9 @@ List out any breaking changes, deprecations, or notes that could impact existing
 
 When adding or reviewing tests, go beyond happy-path coverage. For each class or method under test, consider:
 
-- **Critical paths first** — identify how the class is actually used in the engine (callers in `src/`, Lua API in `api_*.cpp`) and make sure the real usage patterns are exercised, not just isolated unit behaviour.
+- **Critical paths first** — identify how the class is actually used in the engine (callers in `src/`, Lua API in `api_*.cpp`) and make sure the real usage patterns are exercised, not just isolated unit behavior.
 - **Analytically grounded assertions** — where possible, compute expected values by hand and assert specific results rather than just checking that output falls within a valid range. A test that asserts `result == 1` is stronger than one that asserts `result >= -1 && result <= 1`.
-- **Lock in non-obvious behaviour** — if a method has a guard, a fallback, or a conservative trade-off (e.g. an early return that can over-render but never under-render), write a test that explicitly captures it. Future readers should not have to re-derive why the behaviour is correct.
+- **Lock in non-obvious behavior** — if a method has a guard, a fallback, or a conservative trade-off (e.g. an early return that can over-render but never under-render), write a test that explicitly captures it. Future readers should not have to re-derive why the behavior is correct.
 - **Self-contained scenarios** — each `GIVEN` block should be independently readable. Do not rely on a reader connecting it to another scenario to understand what is being asserted.
 - **Parameter names and header contracts** — when a declaration uses bare positional parameters and the argument order or preconditions are not obvious, add parameter names to the declaration. This is a non-functional change but it makes the API self-documenting without requiring a doc comment.
 - **Semantic clarity** — small non-functional changes (renaming variables to domain terms, correcting stale comments, fixing comment/code mismatches) are worth making alongside tests. They reduce the cognitive load for anyone reading the code later and belong in the same commit as the tests they accompany.
@@ -149,7 +149,7 @@ Coverage is not a gate — it is a guide for identifying untested areas. See `do
 
 The published API reference and coverage report are updated automatically on every merge to master and hosted at [srobbibaro.github.io/krig-game-engine/](http://srobbibaro.github.io/krig-game-engine/).
 
-See `docs/TESTING.md` for full test scope, conventions, and known behaviour the suite locks in.
+See `docs/TESTING.md` for full test scope, conventions, and known behavior the suite locks in.
 
 ## Architecture Decision Records (ADRs)
 
@@ -205,4 +205,4 @@ A few constraints that must be respected to keep the engine consistent:
 - **Rotation always goes through `Quaternion`** — use `buildFromAxis`, `buildFromEuler`, and `buildRotationMatrix`. Do not introduce parallel matrix-level rotation paths.
 - **`Matrix::data[16]` is column-major** (OpenGL convention). The 16-float constructor takes columns, not rows.
 
-For non-obvious engine behaviour that affects how you read or test existing code (quaternion guards, frustum classification, camera update order, matrix layout, water animation, GameTimer spin-wait, and more), see `docs/MATH_AND_TESTING_CONVENTIONS.md`.
+For non-obvious engine behavior that affects how you read or test existing code (quaternion guards, frustum classification, camera update order, matrix layout, water animation, GameTimer spin-wait, and more), see `docs/MATH_AND_TESTING_CONVENTIONS.md`.

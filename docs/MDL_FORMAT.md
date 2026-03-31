@@ -48,7 +48,7 @@ The following tracked models (`krig3/models/`) demonstrate common patterns:
 | `CannonBall.mdl` | 86 | 168 | Spherical mesh — shared vertices, radial normals |
 | `Powerup.mdl` | 14 | 20 | Inner glow / outline cage |
 | `Powerup2.mdl` | 14 | 20 | Variant of Powerup inner-glow pattern |
-| `blueshot.mdl` | 6 | 8 | Small projectile — uniform colour, silhouette outline only |
+| `blueshot.mdl` | 6 | 8 | Small projectile — uniform color, silhouette outline only |
 | `GreenShot.mdl` | 6 | 8 | Same pattern as blueshot |
 | `Building.mdl` | 376 | 412 | Composite box mesh |
 | `Ship.mdl` | 50 | 88 | Composite box mesh |
@@ -160,7 +160,7 @@ x y z nx ny nz
 ```
 
 - `x, y, z`: Position in model space. These are the base (unrotated, unscaled) positions.
-- `nx, ny, nz`: Surface normal. Should point outward from the surface. The engine normalises normals at update time, so any length works, but unit-length normals in the file are conventional. Normals are used for lighting only — they do not affect culling.
+- `nx, ny, nz`: Surface normal. Should point outward from the surface. The engine normalizes normals at update time, so any length works, but unit-length normals in the file are conventional. Normals are used for lighting only — they do not affect culling.
 
 ### Triangle Block
 
@@ -192,7 +192,7 @@ Understanding when each transform is applied is important for getting triangle w
 
 1. Build a combined rotation + scale matrix from the object's quaternion and scale vector.
 2. Apply that matrix to every `baseVertex[i]` → store in `updatedVertex[i]`. This is the vertex position used for both drawing and collision.
-3. Apply the same rotation matrix to every `normal[i]`, then normalise it.
+3. Apply the same rotation matrix to every `normal[i]`, then normalize it.
 4. Compute per-vertex **light intensity**: `dot(rotated_normal, light_direction)`, clamped to `[0, 1]`. Special case: if the dot product is exactly `1.0`, clamp to `0.5` instead.
    - If `always_lit` is true, light intensity is fixed at `0.5` regardless of normals or light direction.
 
@@ -200,8 +200,8 @@ Understanding when each transform is applied is important for getting triangle w
 
 1. `glTranslatef(position_)` — translates to world position.
 2. Iterate triangles; for each vertex of each triangle:
-   - Set the vertex colour: `glColor3fv(triangle[i].colors[j])`.
-   - Set the 1D texture coordinate: `glTexCoord1f(lightIntensity[v])`. This samples the cel-shading lookup texture (a 16-step luminance ramp) to produce the posterised shading effect.
+   - Set the vertex color: `glColor3fv(triangle[i].colors[j])`.
+   - Set the 1D texture coordinate: `glTexCoord1f(lightIntensity[v])`. This samples the cel-shading lookup texture (a 16-step luminance ramp) to produce the posterized shading effect.
    - Emit the transformed vertex: `glVertex3fv(updatedVertex[v])`.
 
 **Consequence for winding:** Triangle winding order is fixed in the file and must be correct for the model's **default orientation** (before any runtime rotation). Rotation and scale are applied to the already-loaded `baseVertex` data every frame — the file is the source of truth for the untransformed mesh.
@@ -243,9 +243,9 @@ The engine renders models under the following OpenGL state (set in `Engine::init
 - **Outer cylindrical side:** `(back_i, back_i+1, front_i+1, front_i)`.
 - **Inner cylindrical side** must also be drawn or the band will be see-through from inside.
 
-**Layered glass / inner glow (e.g. `krig3/models/Powerup.mdl`):** Combine an inner solid core (bright warm colours, fully closed) with a thin outer frame or cage that leaves large openings. The outermost surface must remain closed and CCW-wound so the outline pass draws a clear silhouette. The inner core should be inset enough to avoid z-fighting with the frame.
+**Layered glass / inner glow (e.g. `krig3/models/Powerup.mdl`):** Combine an inner solid core (bright warm colors, fully closed) with a thin outer frame or cage that leaves large openings. The outermost surface must remain closed and CCW-wound so the outline pass draws a clear silhouette. The inner core should be inset enough to avoid z-fighting with the frame.
 
-**Spherical meshes (e.g. `krig3/models/CannonBall.mdl`):** Use latitude/longitude rings with shared vertices and a single pole at each end. Set the normal at each vertex equal to the normalised position offset from the sphere centre. Avoid stacking multiple shells at the same radius — reuse the same vertices wherever possible so there is only one closed surface.
+**Spherical meshes (e.g. `krig3/models/CannonBall.mdl`):** Use latitude/longitude rings with shared vertices and a single pole at each end. Set the normal at each vertex equal to the normalized position offset from the sphere centre. Avoid stacking multiple shells at the same radius — reuse the same vertices wherever possible so there is only one closed surface.
 
 ---
 
@@ -288,7 +288,7 @@ When designing models that will sit on terrain (trees, walls, statues):
 
 ## Minimal Example
 
-A minimal `.mdl` file for a single coloured triangle:
+A minimal `.mdl` file for a single colored triangle:
 
 ```text
 1.0          # initalScale (stored, not reapplied)

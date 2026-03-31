@@ -1,6 +1,6 @@
 # Krig Terrain Format
 
-Terrain in Krig is a uniform heightfield grid. Each vertex carries a height, an RGB colour, and a type code. The grid is stored in a plain-text `.txt` file and loaded at level start via `krig.level.set_terrain()`.
+Terrain in Krig is a uniform heightfield grid. Each vertex carries a height, an RGB color, and a type code. The grid is stored in a plain-text `.txt` file and loaded at level start via `krig.level.set_terrain()`.
 
 ---
 
@@ -36,9 +36,9 @@ Each vertex is five values:
 | Field | Type | Range | Description |
 |-------|------|-------|-------------|
 | `height` | float | any | Y-axis elevation in world units |
-| `r` | float | 0.0–1.0 | Red colour component |
-| `g` | float | 0.0–1.0 | Green colour component |
-| `b` | float | 0.0–1.0 | Blue colour component |
+| `r` | float | 0.0–1.0 | Red color component |
+| `g` | float | 0.0–1.0 | Green color component |
+| `b` | float | 0.0–1.0 | Blue color component |
 | `type` | integer | 0 or 1 | Terrain type code (see below) |
 
 The parser uses whitespace-separated scanning (`>>` extraction), so values may be separated by spaces, tabs, or newlines. Both formats are valid:
@@ -86,7 +86,7 @@ The Z-axis negation means array index 0 maps to the back of the terrain in world
 
 | Type | Code | Behaviour |
 |------|------|-----------|
-| Land | 0 | Static; height and colour are stable after load |
+| Land | 0 | Static; height and color are stable after load |
 | Water | 1 | Animated; height oscillates between 0 and 2 world units each frame |
 
 ### Water animation detail
@@ -102,7 +102,7 @@ At runtime, `Terrain::animate()` steps each water vertex:
 - **Type 2** (rising): height increases by `elapsedTime` per frame until it reaches 2.0, then resets to type 1.
 - **Type 3** (falling): height decreases by `elapsedTime` per frame until it reaches 0.0, then resets to type 1.
 
-When saving, the engine normalises internal states: types 2 and 3 are written back as type 1, so the saved file only ever contains 0 or 1.
+When saving, the engine normalizes internal states: types 2 and 3 are written back as type 1, so the saved file only ever contains 0 or 1.
 
 ---
 
@@ -198,11 +198,11 @@ Build with `make build-edit` (or set `EDIT=1` in `src/constants.h`) to enable th
 
 | UI element | Action |
 |-----------|--------|
-| R/G/B sliders | Set the colour that will be written to the selected vertex |
+| R/G/B sliders | Set the color that will be written to the selected vertex |
 | Height sliders (0–10, 10–20, 20–30) | Set the height value for the next write |
 | Land / Water buttons | Set the type code (0 or 1) |
 
-The palette displays the current vertex's position, height, colour, and type live as you navigate the scene. Click controls to set values; the engine writes them to the terrain immediately.
+The palette displays the current vertex's position, height, color, and type live as you navigate the scene. Click controls to set values; the engine writes them to the terrain immediately.
 
 Edit-mode changes are in-memory only. Saving requires a file-write step (not yet exposed to Lua).
 
