@@ -1,0 +1,12 @@
+---
+description: Krig Game Engine — follow CLAUDE.md for conventions and doc index
+alwaysApply: true
+---
+
+# Krig project context
+
+Use the repository root file `CLAUDE.md` as the canonical index of project instructions and which markdown files to read for which kinds of work.
+
+For substantive work in an area covered there (commits, tests, math/spatial code, etc.), open and follow the linked markdown files in this repo rather than guessing conventions.
+
+Keep human-facing detail in those docs; do not duplicate long passages in chat or in this rule file.

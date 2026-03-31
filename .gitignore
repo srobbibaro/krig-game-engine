@@ -22,3 +22,20 @@ krig-game-demos/
 # library headers
 src/AL
 src/GL
+
+# macOS metadata
+.DS_Store
+**/.DS_Store
+
+# IDE settings
+.vscode/
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
+
+# logs
+*.log
+
+# Python
+*.pyc
+__pycache__/
