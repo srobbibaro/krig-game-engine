@@ -87,8 +87,6 @@ void Quaternion::buildFromAxis(const Vector &v, const float &angle) {
   x = v.x * scale;
   y = v.y * scale;
   z = v.z * scale;
-
-  //normalize();
 }
 
 //------------------------------------------------------------------------------
@@ -182,15 +180,9 @@ void Quaternion::buildRotationMatrix(Matrix &m) {
 }
 
 //------------------------------------------------------------------------------
-void Quaternion::rotate(const float &angle) {
-  // TODO: work in progress
-  // dQ/ dt + 0.5 * quat(angle) * Q;
-}
-
-//------------------------------------------------------------------------------
 void Quaternion::slerp(const Quaternion &sQ, const float &t, const Quaternion &eQ) {
   // first make sure t is within tolerance
-  if (t >= 0.0f || t <+ 1.0f) {
+  if (t >= 0.0f && t <= 1.0f) {
     float tx, ty, tz, tw;
 
     float dotQ = (sQ.x * eQ.x) + (sQ.y * eQ.y) + (sQ.z * eQ.z) + (sQ.w * eQ.w);
