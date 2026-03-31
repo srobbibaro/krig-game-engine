@@ -6,4 +6,5 @@ brew install libvorbis
 brew install openal-soft
 brew install luajit
 brew install lcov
+brew install doxygen
 brew install --cask xquartz

@@ -142,9 +142,12 @@ When working with existing code, apply these improvements with judgement. A rena
 ```bash
 make run-tests
 make run-coverage   # generates coverage/index.html (informational)
+make doc            # generates doc/html/index.html
 ```
 
 Coverage is not a gate — it is a guide for identifying untested areas. See `docs/TESTING.md` for scope and known low-coverage areas.
+
+The published API reference and coverage report are updated automatically on every merge to master and hosted at [srobbibaro.github.io/krig-game-engine/](http://srobbibaro.github.io/krig-game-engine/).
 
 See `docs/TESTING.md` for full test scope, conventions, and known behaviour the suite locks in.
 

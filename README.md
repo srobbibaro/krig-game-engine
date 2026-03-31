@@ -191,15 +191,17 @@ $ make run-coverage
 
 Generates a browsable HTML report at `coverage/index.html`. Coverage is informational — rendering, audio, and GLUT callback code requires a live display and audio device and will show as uncovered. See `docs/TESTING.md` for which files are meaningful to watch.
 
-On CI, the report is uploaded as the `coverage-report` artifact on each run and retained for 14 days.
+On CI, the report is uploaded as the `coverage-report` artifact on each run and retained for 14 days. It is also published to the live site at [srobbibaro.github.io/krig-game-engine/coverage/](http://srobbibaro.github.io/krig-game-engine/coverage/) after each merge to master.
 
 ### Generate Doxygen Documentation
 
-Doxygen documentation is built (in the `html` directory) using the following command:
+Doxygen documentation is built locally using the following command:
 
 ```bash
 $ make doc
 ```
+
+Output is written to `doc/html/index.html`. The published API reference is available at [srobbibaro.github.io/krig-game-engine/](http://srobbibaro.github.io/krig-game-engine/) and is updated automatically on every merge to master.
 
 ## Game Scripting
 
@@ -221,3 +223,5 @@ See **[docs/LUA_API.md](docs/LUA_API.md)** for the full in-repo API reference. A
 | [docs/MATH_AND_TESTING_CONVENTIONS.md](docs/MATH_AND_TESTING_CONVENTIONS.md) | Non-obvious engine behaviour: matrix layout, quaternion guards, frustum classification, camera update, and more |
 | [docs/TERRAIN_FORMAT.md](docs/TERRAIN_FORMAT.md) | Terrain file format, coordinate system, type codes, Lua API, edit mode, and QuadTree rendering |
 | [docs/MDL_FORMAT.md](docs/MDL_FORMAT.md) | `.mdl` model file format, C++ loader reference, triangle winding rules, and cel-shading notes |
+| [docs/adr/0001-coverage-tooling.md](docs/adr/0001-coverage-tooling.md) | ADR: gcov + lcov coverage tooling decision |
+| [docs/adr/0002-gh-pages-deployment.md](docs/adr/0002-gh-pages-deployment.md) | ADR: GitHub Pages deployment via GITHUB_TOKEN + manual git push |

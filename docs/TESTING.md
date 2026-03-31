@@ -16,7 +16,7 @@ Equivalent: `make build-test && ./unit-test`
 make run-coverage
 ```
 
-Generates an HTML report at `coverage/index.html`. The CI `coverage` job uploads this as a downloadable artifact on every push.
+Generates an HTML report at `coverage/index.html`. The CI `coverage` job uploads this as a downloadable artifact on every push. The published report is also available at [srobbibaro.github.io/krig-game-engine/coverage/](http://srobbibaro.github.io/krig-game-engine/coverage/) after each merge to master.
 
 **lcov compatibility warnings** — the `run-coverage` target passes `--ignore-errors` flags to suppress warnings from lcov 2.4's stricter validation of LLVM gcov's emulated output format. These are a known toolchain compatibility shim, not indicators of bad data. Line coverage numbers for our source files are trustworthy. The bulk of the noise comes from Catch v1's single-header inline functions; upgrading to Catch2/3 would reduce it, but the underlying lcov 2.4 / LLVM gcov gap would remain.
 

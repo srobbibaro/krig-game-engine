@@ -50,3 +50,48 @@ jobs:
         name: coverage-report
         path: coverage/
         retention-days: 14
+
+  pages:
+    # Deploys Doxygen and coverage to gh-pages on every merge to master.
+    # workflow_dispatch deploys whatever ref is selected at dispatch time —
+    # use master unless you intentionally want to publish from another branch.
+
+    runs-on: macos-latest
+    needs: [build, test]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' || github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+    - name: configure
+      run: ./build-scripts/setup-mac.sh
+    - name: build docs
+      run: make doc
+    - name: build coverage
+      run: make build-coverage
+    - name: run coverage
+      run: make run-coverage
+    - name: deploy to gh-pages
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git config user.name "github-actions"
+        git config user.email "github-actions@github.com"
+        git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
+        if ! git ls-remote --exit-code --heads origin gh-pages > /dev/null 2>&1; then
+          git push origin $(git commit-tree $(git hash-object -t tree /dev/null) -m "Initialize gh-pages branch"):refs/heads/gh-pages
+          git fetch origin gh-pages
+        fi
+        git worktree add --guess-remote /tmp/gh-pages gh-pages
+        rm -rf /tmp/gh-pages/*
+        cp -r doc/html/* /tmp/gh-pages/
+        mkdir -p /tmp/gh-pages/coverage
+        cp -r coverage/* /tmp/gh-pages/coverage/
+        cd /tmp/gh-pages
+        touch .nojekyll
+        git add -A
+        git diff --cached --quiet || git commit -m "docs: update Doxygen and coverage report [skip ci]"
+        git push origin gh-pages
