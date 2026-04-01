@@ -218,8 +218,8 @@ SCENARIO( "Object Creation", "[object]" ) {
     }
 
     // processCollisions is not tested here: it requires two objects chained via ObjectNode::next
-    // and has a known radius bug (Object.cpp:222 uses this->boundingSphere_ for both objects).
-    // See project known-bugs memory for the fix.
+    // and has a known radius bug (radius2 uses this object's boundingSphere_ instead of the
+    // colliding object's sphere, so both radii come from the same getter).
 
     // Object::animate drives the frame loop. BasicObject overrides animate(float, Object*)
     // with a different signature, so Object::animate must be called explicitly to reach
