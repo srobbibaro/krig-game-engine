@@ -1,19 +1,21 @@
 Krig Game Engine
 ================
 
-Krig is a cross-platform, open source game engine with accompanying demo game
-(by the same name).
+Krig is a cross-platform, open source game engine with accompanying
+demo game (by the same name).
 
 [![Build Status](https://github.com/srobbibaro/krig-game-engine/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/srobbibaro/krig-game-engine/actions/workflows/c-cpp.yml)
 
 Original game music created and provided by Shawn Zabel (https://github.com/zabelsr).
 All music created from the original song `Beyond Compare`: https://github.com/srobbibaro/krig-assets/blob/master/krig3/music/beyond_compare_full.ogg
 
-For a full list of documentation, see the [Documentation](#documentation) section below.
+For a full list of documentation, see the
+[Documentation](#documentation) section below.
 
 ## Getting Started
 
-At this time, Krig is known to build and run on a number of *nix operating systems. Windows is not currently supported.
+At this time, Krig is known to build and run on a number of *nix
+operating systems. Windows is not currently supported.
 
 The following configurations are known to work:
 * 32/64-bit Debian-based Linux distributions
@@ -21,14 +23,15 @@ The following configurations are known to work:
 * 64-bit Debian-based Linux distributions (VM without hardware acceleration)
 * Mac OSX Sonoma
 
-Other distributions and configurations should work, but have not been verified.
+Other distributions and configurations should work, but have not been
+verified.
 
 ### Setup
 
 #### Vagrant
 
-The Krig Game Engine has a Vagrant project which helps automate setup of the
-development environment. For information,
+The Krig Game Engine has a Vagrant project which helps automate setup
+of the development environment. For information,
 see: https://github.com/srobbibaro/krig-game-engine-vagrant
 
 #### Manual
@@ -52,8 +55,8 @@ For example:
 $ apt-get install luajit libluajit-5.1-dev libalut-dev libvorbis-dev libglu1-mesa-dev libpng-dev freeglut3 freeglut3-dev g++
 ```
 
-If you prefer to work with an IDE, you can optionally install VS Code with the
-C/C++ and Makefile Tools extensions from Microsoft.
+If you prefer to work with an IDE, you can optionally install VS Code
+with the C/C++ and Makefile Tools extensions from Microsoft.
 
 ##### Mac OSX
 
@@ -85,8 +88,8 @@ $ brew install freeglut mesa-glu libvorbis openal-soft luajit
 
 ### Compile
 
-After the required packages have been installed, the project can be built using
-the provided makefile.
+After the required packages have been installed, the project can be
+built using the provided makefile.
 
 To build the main executable, run: `$ make` or `$ make build`.
 
@@ -94,29 +97,32 @@ To build the main executable, run: `$ make` or `$ make build`.
 
 To build the main executable in debug mode, run: `$ make build-debug`.
 
-Note: You may need to run `$ make clean` prior to running the above command for it
-to build the executable properly.
+Note: You may need to run `$ make clean` prior to running the above
+command for it to build the executable properly.
 
 You can also change the setting in source, if you prefer:
 
-The `DEBUG` flag is located in _src/constants.h_ and is disabled by default (set to `0`).
-To enable debug mode, set this value to `1`. Debug mode will output debug messages to
-stdout in the console. Additionally, some information about the current level
-will be output directly to the play screen (for example: player position, camera position,
-and FPS). Lastly, the state of debug flag can be queried from game scripts
-to provide debug-specific behavior.
+The `DEBUG` flag is located in _src/constants.h_ and is disabled by
+default (set to `0`). To enable debug mode, set this value to `1`.
+Debug mode will output debug messages to stdout in the console.
+Additionally, some information about the current level will be output
+directly to the play screen (for example: player position, camera
+position, and FPS). Lastly, the state of debug flag can be queried from
+game scripts to provide debug-specific behavior.
 
 ```c
 #define DEBUG 0
 ```
 
-The `MSG_LVL` setting found in _src/constants.h_ is used with the `DEBUG` flag and controls
-the volume of debug information output to stdout. By default, this value is set
-to 0 which will output minimal debug. This number can be set higher to see an
-increasingly larger number of messages.
-Be careful - higher numbers will output a lot of information!
+The `MSG_LVL` setting found in _src/constants.h_ is used with the
+`DEBUG` flag and controls the volume of debug information output to
+stdout. By default, this value is set to 0 which will output minimal
+debug. This number can be set higher to see an increasingly larger
+number of messages. Be careful - higher numbers will output a lot of
+information!
 
-Note: When you build with `$ make build-debug` a mid-range setting of `2` is assigned.
+Note: When you build with `$ make build-debug` a mid-range setting of
+`2` is assigned.
 
 ```c
 #define MSG_LVL 0
@@ -126,16 +132,17 @@ Note: When you build with `$ make build-debug` a mid-range setting of `2` is ass
 
 To build the main executable in debug mode, run: `$ make build-edit`.
 
-Note: You may need to run `$ make clean` prior to running the above command for it
-to build the executable properly.
+Note: You may need to run `$ make clean` prior to running the above
+command for it to build the executable properly.
 
 You can also change the setting in source, if you prefer:
 
-The `EDIT` flag is located in _src/constants.h_ and is disabled by default (set to `0`).
-When the `EDIT` flag is enabled (set to `1`), Krig will launch in edit mode. This mode is
-designed to aid in level creation. Edit mode gives users the ability to move around
-the level freely, manipulate the terrain, and experiment with certain level-specific
-variables which can be tweaked on the fly.
+The `EDIT` flag is located in _src/constants.h_ and is disabled by
+default (set to `0`). When the `EDIT` flag is enabled (set to `1`),
+Krig will launch in edit mode. This mode is designed to aid in level
+creation. Edit mode gives users the ability to move around the level
+freely, manipulate the terrain, and experiment with certain
+level-specific variables which can be tweaked on the fly.
 
 ```c
 #define EDIT 0
@@ -143,10 +150,11 @@ variables which can be tweaked on the fly.
 
 #### Enable Full Screen Rendering
 
-The `FULL_SCREEN` flag is located in _src/constants.h_ and is disabled by default (set to `0`).
-When the this flag is enabled (set to `1`), Krig will launch in full screen rendering.
-Full screen rendering is not compatible with the `EDIT` flag and will be ignored when
-`EDIT` is also enabled.
+The `FULL_SCREEN` flag is located in _src/constants.h_ and is disabled
+by default (set to `0`). When the this flag is enabled (set to `1`),
+Krig will launch in full screen rendering. Full screen rendering is not
+compatible with the `EDIT` flag and will be ignored when `EDIT` is also
+enabled.
 
 ```c
 #define FULL_SCREEN 0
@@ -154,10 +162,11 @@ Full screen rendering is not compatible with the `EDIT` flag and will be ignored
 
 ### Run
 
-Krig can be run from the command-line using a number of different methods.
-The Krig executable is created in the base project directory and is named _krig_.
-You must supply the path to the game to run as the first argument. The Krig
-Game Engine comes with a demo game in the root directory, `krig3`.
+Krig can be run from the command-line using a number of different
+methods. The Krig executable is created in the base project directory
+and is named _krig_. You must supply the path to the game to run as the
+first argument. The Krig Game Engine comes with a demo game in the root
+directory, `krig3`.
 
 For example:
 
@@ -165,7 +174,8 @@ For example:
 $ ./krig krig3
 ```
 
-The `run-demo` make target will also run the above command. For example:
+The `run-demo` make target will also run the above command. For
+example:
 
 ```bash
 $ make run-demo
@@ -179,19 +189,30 @@ Unit tests can be run with the following command:
 $ make run-tests
 ```
 
-Overview of coverage, conventions for new tests, and links to math quirks are in **`docs/TESTING.md`** and **`docs/MATH_AND_TESTING_CONVENTIONS.md`**. You may see benign OpenAL log lines during test runs when level code constructs audio types without a full device.
+Overview of coverage, conventions for new tests, and links to math
+quirks are in **`docs/TESTING.md`** and
+**`docs/MATH_AND_TESTING_CONVENTIONS.md`**. You may see benign OpenAL
+log lines during test runs when level code constructs audio types
+without a full device.
 
 ### Generate Coverage Report
 
-Requires `lcov` (included in `setup-mac.sh`; install manually with `brew install lcov` if needed).
+Requires `lcov` (included in `setup-mac.sh`; install manually with
+`brew install lcov` if needed).
 
 ```bash
 $ make run-coverage
 ```
 
-Generates a browsable HTML report at `coverage/index.html`. Coverage is informational — rendering, audio, and GLUT callback code requires a live display and audio device and will show as uncovered. See `docs/TESTING.md` for which files are meaningful to watch.
+Generates a browsable HTML report at `coverage/index.html`. Coverage is
+informational — rendering, audio, and GLUT callback code requires a
+live display and audio device and will show as uncovered. See
+`docs/TESTING.md` for which files are meaningful to watch.
 
-On CI, the report is uploaded as the `coverage-report` artifact on each run and retained for 14 days. It is also published to the live site at [srobbibaro.github.io/krig-game-engine/coverage/](http://srobbibaro.github.io/krig-game-engine/coverage/) after each merge to master.
+On CI, the report is uploaded as the `coverage-report` artifact on each
+run and retained for 14 days. It is also published to the live site at
+[srobbibaro.github.io/krig-game-engine/coverage/](http://srobbibaro.github.io/krig-game-engine/coverage/)
+after each merge to master.
 
 ### Generate Doxygen Documentation
 
@@ -201,16 +222,22 @@ Doxygen documentation is built locally using the following command:
 $ make doc
 ```
 
-Output is written to `doc/html/index.html`. The published API reference is available at [srobbibaro.github.io/krig-game-engine/](http://srobbibaro.github.io/krig-game-engine/) and is updated automatically on every merge to master.
+Output is written to `doc/html/index.html`. The published API reference
+is available at
+[srobbibaro.github.io/krig-game-engine/](http://srobbibaro.github.io/krig-game-engine/)
+and is updated automatically on every merge to master.
 
 ## Game Scripting
 
-The `lua` programming language is used to script games for the Krig Game Engine. The
-engine provides an API designed to handle common game writing tasks. For example,
-there are functions which add objects to a level, provide these objects properties,
-and notify the script of important events, such as object collisions.
+The `lua` programming language is used to script games for the Krig
+Game Engine. The engine provides an API designed to handle common game
+writing tasks. For example, there are functions which add objects to a
+level, provide these objects properties, and notify the script of
+important events, such as object collisions.
 
-See **[docs/LUA_API.md](docs/LUA_API.md)** for the full in-repo API reference. A generated Doxygen reference is also available at the [hosted API docs](http://srobbibaro.github.io/krig-game-engine/api_8cpp.html).
+See **[docs/LUA_API.md](docs/LUA_API.md)** for the full in-repo API
+reference. A generated Doxygen reference is also available at the
+[hosted API docs](http://srobbibaro.github.io/krig-game-engine/api_8cpp.html).
 
 ## Documentation
 
@@ -219,8 +246,8 @@ See **[docs/LUA_API.md](docs/LUA_API.md)** for the full in-repo API reference. A
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Commit format, branch naming, PR format, test coverage approach, and architecture constraints |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Engine architecture overview — class structure, game loop, Lua integration, and rendering pipeline |
 | [docs/LUA_API.md](docs/LUA_API.md) | Lua scripting API reference — all `krig.*` functions, object methods, properties, and hooks |
-| [docs/TESTING.md](docs/TESTING.md) | Test suite overview, scope conventions, and counterintuitive engine behaviour locked in by tests |
-| [docs/MATH_AND_TESTING_CONVENTIONS.md](docs/MATH_AND_TESTING_CONVENTIONS.md) | Non-obvious engine behaviour: matrix layout, quaternion guards, frustum classification, camera update, and more |
+| [docs/TESTING.md](docs/TESTING.md) | Test suite overview, scope conventions, and counterintuitive engine behavior locked in by tests |
+| [docs/MATH_AND_TESTING_CONVENTIONS.md](docs/MATH_AND_TESTING_CONVENTIONS.md) | Non-obvious engine behavior: matrix layout, quaternion guards, frustum classification, camera update, and more |
 | [docs/TERRAIN_FORMAT.md](docs/TERRAIN_FORMAT.md) | Terrain file format, coordinate system, type codes, Lua API, edit mode, and QuadTree rendering |
 | [docs/MDL_FORMAT.md](docs/MDL_FORMAT.md) | `.mdl` model file format, C++ loader reference, triangle winding rules, and cel-shading notes |
 | [docs/adr/0001-coverage-tooling.md](docs/adr/0001-coverage-tooling.md) | ADR: gcov + lcov coverage tooling decision |
