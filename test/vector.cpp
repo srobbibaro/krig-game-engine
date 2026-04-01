@@ -316,7 +316,7 @@ SCENARIO( "Manipulating a vector", "[Vector]" ) {
     }
 
     // A ray that starts past the box and points further away has a negative
-    // parametric distance s to the near face. It should not register as a hit.
+    // tNear to the near face. It should not register as a hit.
     WHEN( "the ray origin is past the box and the ray points away" ) {
       Vector dir(1.0f, 0.0f, 0.0f);
       Vector origin(5.0f, 0.0f, 0.0f);
