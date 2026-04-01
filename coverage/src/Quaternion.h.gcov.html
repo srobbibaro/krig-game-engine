@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-04-01 02:48:07</td>
+            <td class="headerValue">2026-04-01 02:57:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -91,7 +91,7 @@
 <span id="L29"><span class="lineNum">      29</span>              :     Quaternion(const Vector&amp;, const float&amp;);</span>
 <span id="L30"><span class="lineNum">      30</span>              :     Quaternion(const float&amp;, const float&amp;, const float&amp;, const float&amp;);</span>
 <span id="L31"><span class="lineNum">      31</span>              :     Quaternion(const Quaternion &amp;);</span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         440 :     ~Quaternion() {}</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">         592 :     ~Quaternion() {}</span></span>
 <span id="L33"><span class="lineNum">      33</span>              : </span>
 <span id="L34"><span class="lineNum">      34</span>              :     /** Scales to unit length. No-op if the quaternion has zero length. */</span>
 <span id="L35"><span class="lineNum">      35</span>              :     void normalize();</span>
@@ -127,10 +127,10 @@
 <span id="L65"><span class="lineNum">      65</span>              :     void slerp(const Quaternion &amp;, const float&amp;, const Quaternion&amp;);</span>
 <span id="L66"><span class="lineNum">      66</span>              : </span>
 <span id="L67"><span class="lineNum">      67</span>              :     // accessor functions</span>
-<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">          27 :     float getX() const { return(x); }</span></span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">          24 :     float getY() const { return(y); }</span></span>
-<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">          26 :     float getZ() const { return(z); }</span></span>
-<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">          28 :     float getW() const { return(w); }</span></span>
+<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">          31 :     float getX() const { return(x); }</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">          28 :     float getY() const { return(y); }</span></span>
+<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">          30 :     float getZ() const { return(z); }</span></span>
+<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">          34 :     float getW() const { return(w); }</span></span>
 <span id="L72"><span class="lineNum">      72</span>              : </span>
 <span id="L73"><span class="lineNum">      73</span>              :     // overloaded operators</span>
 <span id="L74"><span class="lineNum">      74</span>              :     Quaternion operator+(const Quaternion&amp;) const;</span>

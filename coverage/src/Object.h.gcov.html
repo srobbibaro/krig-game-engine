@@ -31,18 +31,18 @@
             <td class="headerValue">coverage.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">21.5&nbsp;%</td>
-            <td class="headerCovTableEntry">65</td>
-            <td class="headerCovTableEntry">14</td>
+            <td class="headerCovTableEntryLo">65.7&nbsp;%</td>
+            <td class="headerCovTableEntry">67</td>
+            <td class="headerCovTableEntry">44</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-04-01 02:48:07</td>
+            <td class="headerValue">2026-04-01 02:57:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntryLo">31.1&nbsp;%</td>
-            <td class="headerCovTableEntry">45</td>
-            <td class="headerCovTableEntry">14</td>
+            <td class="headerCovTableEntryMed">76.6&nbsp;%</td>
+            <td class="headerCovTableEntry">47</td>
+            <td class="headerCovTableEntry">36</td>
           </tr>
                   <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
                 </table>
@@ -123,7 +123,7 @@
 <span id="L61"><span class="lineNum">      61</span>              :     void showCollisionBox();</span>
 <span id="L62"><span class="lineNum">      62</span>              :     void showControlTriangle();</span>
 <span id="L63"><span class="lineNum">      63</span>              : </span>
-<span id="L64"><span class="lineNum">      64</span>              :     float calcTriangleCenter(const float&amp;, const float&amp;, const float&amp;);</span>
+<span id="L64"><span class="lineNum">      64</span>              :     float calcTriangleCenter(const float&amp; p1, const float&amp; p2, const float&amp; p3);</span>
 <span id="L65"><span class="lineNum">      65</span>              : </span>
 <span id="L66"><span class="lineNum">      66</span>              :     void init();</span>
 <span id="L67"><span class="lineNum">      67</span>              :     void initSettings();</span>
@@ -150,10 +150,10 @@
 <span id="L88"><span class="lineNum">      88</span>              :     void setScaleRate(const GLfloat&amp;, const GLfloat&amp;, const GLfloat&amp;);</span>
 <span id="L89"><span class="lineNum">      89</span>              :     void setScaleRate(const Vector&amp;);</span>
 <span id="L90"><span class="lineNum">      90</span>              : </span>
-<span id="L91"><span class="lineNum">      91</span> <span class="tlaUNC">           0 :     void setDrawEnabled(const bool &amp;isDrawEnabled) { isDrawEnabled_ = isDrawEnabled; }</span></span>
-<span id="L92"><span class="lineNum">      92</span> <span class="tlaUNC">           0 :     bool getDrawEnabled()                          { return isDrawEnabled_; }</span></span>
+<span id="L91"><span class="lineNum">      91</span> <span class="tlaGNC">           1 :     void setDrawEnabled(const bool &amp;isDrawEnabled) { isDrawEnabled_ = isDrawEnabled; }</span></span>
+<span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">           4 :     bool getDrawEnabled()                          { return isDrawEnabled_; }</span></span>
 <span id="L93"><span class="lineNum">      93</span>              : </span>
-<span id="L94"><span class="lineNum">      94</span> <span class="tlaUNC">           0 :     bool getInView() { return isInView_; }</span></span>
+<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">           4 :     bool getInView() { return isInView_; }</span></span>
 <span id="L95"><span class="lineNum">      95</span>              :     void setParticleSystem(const int&amp;);</span>
 <span id="L96"><span class="lineNum">      96</span>              : </span>
 <span id="L97"><span class="lineNum">      97</span> <span class="tlaUNC">           0 :     float getScriptValue(const char* s) {</span></span>
@@ -175,151 +175,153 @@
 <span id="L113"><span class="lineNum">     113</span> <span class="tlaUNC">           0 :       }</span></span>
 <span id="L114"><span class="lineNum">     114</span> <span class="tlaUNC">           0 :     }</span></span>
 <span id="L115"><span class="lineNum">     115</span>              : </span>
-<span id="L116"><span class="lineNum">     116</span>              :     void setState(const unsigned char&amp;);</span>
-<span id="L117"><span class="lineNum">     117</span>              :     void setScript(const std::string&amp;);</span>
-<span id="L118"><span class="lineNum">     118</span>              : </span>
-<span id="L119"><span class="lineNum">     119</span>              :     void setSpeed(const GLfloat&amp;, const GLfloat&amp;, const GLfloat&amp;);</span>
-<span id="L120"><span class="lineNum">     120</span>              :     void setSpeed(const Vector&amp;);</span>
-<span id="L121"><span class="lineNum">     121</span>              : </span>
-<span id="L122"><span class="lineNum">     122</span> <span class="tlaUNC">           0 :     void setCollisionDetectionEnabled(const bool &amp;isCollisionDetectionEnabled) {</span></span>
-<span id="L123"><span class="lineNum">     123</span> <span class="tlaUNC">           0 :       isCollisionDetectionEnabled_ = isCollisionDetectionEnabled;</span></span>
-<span id="L124"><span class="lineNum">     124</span> <span class="tlaUNC">           0 :     }</span></span>
-<span id="L125"><span class="lineNum">     125</span>              : </span>
-<span id="L126"><span class="lineNum">     126</span> <span class="tlaUNC">           0 :     bool getCollisionDetectionEnabled() { return isCollisionDetectionEnabled_; }</span></span>
-<span id="L127"><span class="lineNum">     127</span>              : </span>
-<span id="L128"><span class="lineNum">     128</span> <span class="tlaUNC">           0 :     void setActive(const bool &amp;new_active) { active_ = new_active; }</span></span>
-<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">           1 :     bool getActive()                       { return active_; }</span></span>
-<span id="L130"><span class="lineNum">     130</span>              : </span>
-<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">           3 :     Vector getPosition()         { return position_; }</span></span>
-<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">           2 :     Vector getVelocity()         { return velocity_; }</span></span>
-<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">           1 :     Vector getRotationVelocity() { return rotationVelocity_; }</span></span>
-<span id="L134"><span class="lineNum">     134</span> <span class="tlaUNC">           0 :     Vector getScaleRate()        { return scaleRate_; }</span></span>
-<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">           1 :     Vector getSpeed()            { return speed_; }</span></span>
-<span id="L136"><span class="lineNum">     136</span>              : </span>
-<span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">           2 :     bool isRotationChanged()                               { return rotationChanged_; }</span></span>
-<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">           3 :     void setRotationChanged(const bool &amp;rotationChanged_l) { rotationChanged_ = rotationChanged_l; }</span></span>
-<span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">           2 :     Quaternion getRotation()                               { return rotation_; }</span></span>
-<span id="L140"><span class="lineNum">     140</span> <span class="tlaUNC">           0 :     void setRotation(const Quaternion &amp;rotation)           { rotation_ = rotation; rotationChanged_ = true;}</span></span>
-<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">           1 :     Vector getDirection()                                  { return direction_; }</span></span>
-<span id="L142"><span class="lineNum">     142</span> <span class="tlaUNC">           0 :     Vector getUp()                                         { return up_; }</span></span>
-<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">           1 :     Vector getScale()                                      { return scale_; }</span></span>
-<span id="L144"><span class="lineNum">     144</span>              : </span>
-<span id="L145"><span class="lineNum">     145</span>              :     Quaternion getRInterpStart()                           { return rInterpStart_; }</span>
-<span id="L146"><span class="lineNum">     146</span>              :     Quaternion getRInterpEnd()                             { return rInterpEnd_; }</span>
-<span id="L147"><span class="lineNum">     147</span> <span class="tlaUNC">           0 :     void setRInterpStart(const Quaternion &amp;rInterpStart_l) { rInterpStart_ = rInterpStart_l;}</span></span>
-<span id="L148"><span class="lineNum">     148</span> <span class="tlaUNC">           0 :     void setRInterpEnd(const Quaternion &amp;rInterpEnd_l)     { rInterpEnd_= rInterpEnd_l;}</span></span>
-<span id="L149"><span class="lineNum">     149</span>              : </span>
-<span id="L150"><span class="lineNum">     150</span> <span class="tlaUNC">           0 :     bool isInterpolationEnabled() { return isInterpolationEnabled_; }</span></span>
-<span id="L151"><span class="lineNum">     151</span> <span class="tlaUNC">           0 :     void setIsInterpolationEnabled(const bool &amp;isInterpolationEnabled_l) {</span></span>
-<span id="L152"><span class="lineNum">     152</span> <span class="tlaUNC">           0 :       isInterpolationEnabled_ = isInterpolationEnabled_l;</span></span>
-<span id="L153"><span class="lineNum">     153</span> <span class="tlaUNC">           0 :     }</span></span>
-<span id="L154"><span class="lineNum">     154</span>              : </span>
-<span id="L155"><span class="lineNum">     155</span>              :     float getValInterpBegin()   { return valInterpBegin_; }</span>
-<span id="L156"><span class="lineNum">     156</span>              :     float getValInterpCurrent() { return valInterpCurrent_; }</span>
-<span id="L157"><span class="lineNum">     157</span>              :     float getValInterpEnd()     { return valInterpEnd_; }</span>
-<span id="L158"><span class="lineNum">     158</span>              : </span>
-<span id="L159"><span class="lineNum">     159</span> <span class="tlaUNC">           0 :     void setValInterpBegin(const float &amp;valInterpBegin)     { valInterpBegin_ = valInterpBegin; }</span></span>
-<span id="L160"><span class="lineNum">     160</span> <span class="tlaUNC">           0 :     void setValInterpCurrent(const float &amp;valInterpCurrent) { valInterpCurrent_ = valInterpCurrent; }</span></span>
-<span id="L161"><span class="lineNum">     161</span> <span class="tlaUNC">           0 :     void setValInterpEnd(const float &amp;valInterpEnd)         { valInterpEnd_ = valInterpEnd; }</span></span>
-<span id="L162"><span class="lineNum">     162</span>              : </span>
-<span id="L163"><span class="lineNum">     163</span> <span class="tlaUNC">           0 :     void setSuspendTime(const float &amp;time) { suspendTime_ = time; }</span></span>
-<span id="L164"><span class="lineNum">     164</span>              : </span>
-<span id="L165"><span class="lineNum">     165</span> <span class="tlaUNC">           0 :     void setState(const int &amp;state_l) {state_ = state_l; }</span></span>
-<span id="L166"><span class="lineNum">     166</span> <span class="tlaGNC">           1 :     int  getState()                   { return state_; }</span></span>
-<span id="L167"><span class="lineNum">     167</span>              : </span>
-<span id="L168"><span class="lineNum">     168</span>              :     void setScaleChanged(const bool &amp;scaleChanged_l) { scaleChanged_ = scaleChanged_l; }</span>
+<span id="L116"><span class="lineNum">     116</span>              :     /** Sets gameplay state_ only; does not change active_. Pair with setActive(false) if &quot;dead&quot; should stop updates. */</span>
+<span id="L117"><span class="lineNum">     117</span>              :     void setState(const unsigned char&amp;);</span>
+<span id="L118"><span class="lineNum">     118</span>              :     void setScript(const std::string&amp;);</span>
+<span id="L119"><span class="lineNum">     119</span>              : </span>
+<span id="L120"><span class="lineNum">     120</span>              :     void setSpeed(const GLfloat&amp;, const GLfloat&amp;, const GLfloat&amp;);</span>
+<span id="L121"><span class="lineNum">     121</span>              :     void setSpeed(const Vector&amp;);</span>
+<span id="L122"><span class="lineNum">     122</span>              : </span>
+<span id="L123"><span class="lineNum">     123</span> <span class="tlaGNC">           1 :     void setCollisionDetectionEnabled(const bool &amp;isCollisionDetectionEnabled) {</span></span>
+<span id="L124"><span class="lineNum">     124</span> <span class="tlaGNC">           1 :       isCollisionDetectionEnabled_ = isCollisionDetectionEnabled;</span></span>
+<span id="L125"><span class="lineNum">     125</span> <span class="tlaGNC">           1 :     }</span></span>
+<span id="L126"><span class="lineNum">     126</span>              : </span>
+<span id="L127"><span class="lineNum">     127</span> <span class="tlaGNC">           2 :     bool getCollisionDetectionEnabled() { return isCollisionDetectionEnabled_; }</span></span>
+<span id="L128"><span class="lineNum">     128</span>              : </span>
+<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">           2 :     void setActive(const bool &amp;new_active) { active_ = new_active; }</span></span>
+<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">           7 :     bool getActive()                       { return active_; }</span></span>
+<span id="L131"><span class="lineNum">     131</span>              : </span>
+<span id="L132"><span class="lineNum">     132</span> <span class="tlaGNC">           6 :     Vector getPosition()         { return position_; }</span></span>
+<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC">           4 :     Vector getVelocity()         { return velocity_; }</span></span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">           2 :     Vector getRotationVelocity() { return rotationVelocity_; }</span></span>
+<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">           1 :     Vector getScaleRate()        { return scaleRate_; }</span></span>
+<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">           2 :     Vector getSpeed()            { return speed_; }</span></span>
+<span id="L137"><span class="lineNum">     137</span>              : </span>
+<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">           6 :     bool isRotationChanged()                               { return rotationChanged_; }</span></span>
+<span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">           8 :     void setRotationChanged(const bool &amp;rotationChanged_l) { rotationChanged_ = rotationChanged_l; }</span></span>
+<span id="L140"><span class="lineNum">     140</span> <span class="tlaGNC">           5 :     Quaternion getRotation()                               { return rotation_; }</span></span>
+<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">           1 :     void setRotation(const Quaternion &amp;rotation)           { rotation_ = rotation; rotationChanged_ = true;}</span></span>
+<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">           1 :     Vector getDirection()                                  { return direction_; }</span></span>
+<span id="L143"><span class="lineNum">     143</span> <span class="tlaUNC">           0 :     Vector getUp()                                         { return up_; }</span></span>
+<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">           2 :     Vector getScale()                                      { return scale_; }</span></span>
+<span id="L145"><span class="lineNum">     145</span>              : </span>
+<span id="L146"><span class="lineNum">     146</span>              :     Quaternion getRInterpStart()                           { return rInterpStart_; }</span>
+<span id="L147"><span class="lineNum">     147</span>              :     Quaternion getRInterpEnd()                             { return rInterpEnd_; }</span>
+<span id="L148"><span class="lineNum">     148</span> <span class="tlaUNC">           0 :     void setRInterpStart(const Quaternion &amp;rInterpStart_l) { rInterpStart_ = rInterpStart_l;}</span></span>
+<span id="L149"><span class="lineNum">     149</span> <span class="tlaUNC">           0 :     void setRInterpEnd(const Quaternion &amp;rInterpEnd_l)     { rInterpEnd_= rInterpEnd_l;}</span></span>
+<span id="L150"><span class="lineNum">     150</span>              : </span>
+<span id="L151"><span class="lineNum">     151</span> <span class="tlaGNC">           2 :     bool isInterpolationEnabled() { return isInterpolationEnabled_; }</span></span>
+<span id="L152"><span class="lineNum">     152</span> <span class="tlaGNC">           2 :     void setIsInterpolationEnabled(const bool &amp;isInterpolationEnabled_l) {</span></span>
+<span id="L153"><span class="lineNum">     153</span> <span class="tlaGNC">           2 :       isInterpolationEnabled_ = isInterpolationEnabled_l;</span></span>
+<span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">           2 :     }</span></span>
+<span id="L155"><span class="lineNum">     155</span>              : </span>
+<span id="L156"><span class="lineNum">     156</span>              :     float getValInterpBegin()   { return valInterpBegin_; }</span>
+<span id="L157"><span class="lineNum">     157</span> <span class="tlaGNC">           1 :     float getValInterpCurrent() { return valInterpCurrent_; }</span></span>
+<span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">           1 :     float getValInterpEnd()     { return valInterpEnd_; }</span></span>
+<span id="L159"><span class="lineNum">     159</span>              : </span>
+<span id="L160"><span class="lineNum">     160</span> <span class="tlaGNC">           1 :     void setValInterpBegin(const float &amp;valInterpBegin)     { valInterpBegin_ = valInterpBegin; }</span></span>
+<span id="L161"><span class="lineNum">     161</span> <span class="tlaGNC">           1 :     void setValInterpCurrent(const float &amp;valInterpCurrent) { valInterpCurrent_ = valInterpCurrent; }</span></span>
+<span id="L162"><span class="lineNum">     162</span> <span class="tlaGNC">           1 :     void setValInterpEnd(const float &amp;valInterpEnd)         { valInterpEnd_ = valInterpEnd; }</span></span>
+<span id="L163"><span class="lineNum">     163</span>              : </span>
+<span id="L164"><span class="lineNum">     164</span> <span class="tlaUNC">           0 :     void setSuspendTime(const float &amp;time) { suspendTime_ = time; }</span></span>
+<span id="L165"><span class="lineNum">     165</span>              : </span>
+<span id="L166"><span class="lineNum">     166</span>              :     /** Same storage as setState(unsigned char); overload exists for legacy call sites. */</span>
+<span id="L167"><span class="lineNum">     167</span> <span class="tlaGNC">           1 :     void setState(const int &amp;state_l) {state_ = state_l; }</span></span>
+<span id="L168"><span class="lineNum">     168</span> <span class="tlaGNC">           3 :     int  getState()                   { return state_; }</span></span>
 <span id="L169"><span class="lineNum">     169</span>              : </span>
-<span id="L170"><span class="lineNum">     170</span> <span class="tlaUNC">           0 :     void setIsAlwaysLit(const bool &amp;isAlwaysLit) { isAlwaysLit_ = isAlwaysLit; }</span></span>
-<span id="L171"><span class="lineNum">     171</span> <span class="tlaUNC">           0 :     bool getIsAlwaysLit() { return isAlwaysLit_; }</span></span>
-<span id="L172"><span class="lineNum">     172</span>              : </span>
-<span id="L173"><span class="lineNum">     173</span> <span class="tlaUNC">           0 :     void setTypeId (const int &amp;type_id) { typeId_ = type_id; }</span></span>
-<span id="L174"><span class="lineNum">     174</span> <span class="tlaGNC">           1 :     int getTypeId()                     { return typeId_; }</span></span>
-<span id="L175"><span class="lineNum">     175</span>              : </span>
-<span id="L176"><span class="lineNum">     176</span> <span class="tlaUNC">           0 :     Sphere getBoundingSphere() { return boundingSphere_; }</span></span>
+<span id="L170"><span class="lineNum">     170</span>              :     void setScaleChanged(const bool &amp;scaleChanged_l) { scaleChanged_ = scaleChanged_l; }</span>
+<span id="L171"><span class="lineNum">     171</span>              : </span>
+<span id="L172"><span class="lineNum">     172</span> <span class="tlaGNC">           1 :     void setIsAlwaysLit(const bool &amp;isAlwaysLit) { isAlwaysLit_ = isAlwaysLit; }</span></span>
+<span id="L173"><span class="lineNum">     173</span> <span class="tlaGNC">           1 :     bool getIsAlwaysLit() { return isAlwaysLit_; }</span></span>
+<span id="L174"><span class="lineNum">     174</span>              : </span>
+<span id="L175"><span class="lineNum">     175</span> <span class="tlaGNC">           1 :     void setTypeId (const int &amp;type_id) { typeId_ = type_id; }</span></span>
+<span id="L176"><span class="lineNum">     176</span> <span class="tlaGNC">           2 :     int getTypeId()                     { return typeId_; }</span></span>
 <span id="L177"><span class="lineNum">     177</span>              : </span>
-<span id="L178"><span class="lineNum">     178</span> <span class="tlaGNC">           1 :     std::string getScriptName() { return scriptName_; }</span></span>
+<span id="L178"><span class="lineNum">     178</span> <span class="tlaUNC">           0 :     Sphere getBoundingSphere() { return boundingSphere_; }</span></span>
 <span id="L179"><span class="lineNum">     179</span>              : </span>
-<span id="L180"><span class="lineNum">     180</span> <span class="tlaUNC">           0 :     Vector getOrth() { return orth_; }</span></span>
+<span id="L180"><span class="lineNum">     180</span> <span class="tlaGNC">           1 :     std::string getScriptName() { return scriptName_; }</span></span>
 <span id="L181"><span class="lineNum">     181</span>              : </span>
-<span id="L182"><span class="lineNum">     182</span> <span class="tlaUNC">           0 :     bool getEnableSphereTest() { return enableSphereTest_; }</span></span>
+<span id="L182"><span class="lineNum">     182</span> <span class="tlaUNC">           0 :     Vector getOrth() { return orth_; }</span></span>
 <span id="L183"><span class="lineNum">     183</span>              : </span>
-<span id="L184"><span class="lineNum">     184</span> <span class="tlaUNC">           0 :     bool isDrawable() {</span></span>
-<span id="L185"><span class="lineNum">     185</span> <span class="tlaUNC">           0 :       return getActive() &amp;&amp;</span></span>
-<span id="L186"><span class="lineNum">     186</span> <span class="tlaUNC">           0 :              getInView() &amp;&amp;</span></span>
-<span id="L187"><span class="lineNum">     187</span> <span class="tlaUNC">           0 :              getDrawEnabled() &amp;&amp;</span></span>
-<span id="L188"><span class="lineNum">     188</span> <span class="tlaUNC">           0 :              getState() != DEAD;</span></span>
-<span id="L189"><span class="lineNum">     189</span>              :     }</span>
-<span id="L190"><span class="lineNum">     190</span>              : </span>
-<span id="L191"><span class="lineNum">     191</span> <span class="tlaGNC">          29 :     void setGameLevelId(const unsigned int&amp; gameLevelId) { gameLevelId_ = gameLevelId; }</span></span>
-<span id="L192"><span class="lineNum">     192</span> <span class="tlaUNC">           0 :     unsigned int getGameLevelId()                        { return gameLevelId_; }</span></span>
-<span id="L193"><span class="lineNum">     193</span>              : </span>
-<span id="L194"><span class="lineNum">     194</span>              :     static unsigned int textureIds[MAX_TEXTURES];</span>
-<span id="L195"><span class="lineNum">     195</span>              :     static std::map &lt;std::string, unsigned int&gt; textureHash;</span>
-<span id="L196"><span class="lineNum">     196</span>              : </span>
-<span id="L197"><span class="lineNum">     197</span>              :   protected:</span>
-<span id="L198"><span class="lineNum">     198</span>              :     // orientation //</span>
-<span id="L199"><span class="lineNum">     199</span>              :     Vector position_;      // x,y,z position of object</span>
-<span id="L200"><span class="lineNum">     200</span>              :     Quaternion rotation_;</span>
-<span id="L201"><span class="lineNum">     201</span>              :     Vector scale_;         // x,y,z scale values</span>
-<span id="L202"><span class="lineNum">     202</span>              : </span>
-<span id="L203"><span class="lineNum">     203</span>              :     Vector baseDirection_; // base direction of object</span>
-<span id="L204"><span class="lineNum">     204</span>              :     Vector direction_;     // direction facing</span>
-<span id="L205"><span class="lineNum">     205</span>              :     Vector up_;</span>
-<span id="L206"><span class="lineNum">     206</span>              :     Vector orth_;</span>
-<span id="L207"><span class="lineNum">     207</span>              : </span>
-<span id="L208"><span class="lineNum">     208</span>              :     // rate of change //</span>
-<span id="L209"><span class="lineNum">     209</span>              :     Vector velocity_;</span>
-<span id="L210"><span class="lineNum">     210</span>              :     Vector speed_;</span>
-<span id="L211"><span class="lineNum">     211</span>              :     Vector rotationVelocity_;</span>
-<span id="L212"><span class="lineNum">     212</span>              :     Vector scaleRate_;</span>
-<span id="L213"><span class="lineNum">     213</span>              : </span>
-<span id="L214"><span class="lineNum">     214</span>              :     // collision detection //</span>
-<span id="L215"><span class="lineNum">     215</span>              :     Vector collisionBox_[2];    // 0 = min points, 1 = max points</span>
-<span id="L216"><span class="lineNum">     216</span>              :     Vector controlPoints_[3];   // used for orienting objects on surfaces</span>
-<span id="L217"><span class="lineNum">     217</span>              :     Sphere boundingSphere_;</span>
-<span id="L218"><span class="lineNum">     218</span>              : </span>
-<span id="L219"><span class="lineNum">     219</span>              :     // state attributes //</span>
-<span id="L220"><span class="lineNum">     220</span>              :     unsigned char state_; // objects current state</span>
-<span id="L221"><span class="lineNum">     221</span>              :     bool active_;         // is object active?</span>
-<span id="L222"><span class="lineNum">     222</span>              :     bool isDrawEnabled_;</span>
-<span id="L223"><span class="lineNum">     223</span>              : </span>
-<span id="L224"><span class="lineNum">     224</span>              :     bool isInView_;       // is the object within the camera's view</span>
+<span id="L184"><span class="lineNum">     184</span> <span class="tlaGNC">           1 :     bool getEnableSphereTest() { return enableSphereTest_; }</span></span>
+<span id="L185"><span class="lineNum">     185</span>              : </span>
+<span id="L186"><span class="lineNum">     186</span> <span class="tlaGNC">           4 :     bool isDrawable() {</span></span>
+<span id="L187"><span class="lineNum">     187</span> <span class="tlaGNC">           7 :       return getActive() &amp;&amp;</span></span>
+<span id="L188"><span class="lineNum">     188</span> <span class="tlaGNC">           3 :              getInView() &amp;&amp;</span></span>
+<span id="L189"><span class="lineNum">     189</span> <span class="tlaGNC">           3 :              getDrawEnabled() &amp;&amp;</span></span>
+<span id="L190"><span class="lineNum">     190</span> <span class="tlaGNC">           2 :              getState() != DEAD;</span></span>
+<span id="L191"><span class="lineNum">     191</span>              :     }</span>
+<span id="L192"><span class="lineNum">     192</span>              : </span>
+<span id="L193"><span class="lineNum">     193</span> <span class="tlaGNC">          30 :     void setGameLevelId(const unsigned int&amp; gameLevelId) { gameLevelId_ = gameLevelId; }</span></span>
+<span id="L194"><span class="lineNum">     194</span> <span class="tlaGNC">           1 :     unsigned int getGameLevelId()                        { return gameLevelId_; }</span></span>
+<span id="L195"><span class="lineNum">     195</span>              : </span>
+<span id="L196"><span class="lineNum">     196</span>              :     static unsigned int textureIds[MAX_TEXTURES];</span>
+<span id="L197"><span class="lineNum">     197</span>              :     static std::map &lt;std::string, unsigned int&gt; textureHash;</span>
+<span id="L198"><span class="lineNum">     198</span>              : </span>
+<span id="L199"><span class="lineNum">     199</span>              :   protected:</span>
+<span id="L200"><span class="lineNum">     200</span>              :     // orientation //</span>
+<span id="L201"><span class="lineNum">     201</span>              :     Vector position_;      // x,y,z position of object</span>
+<span id="L202"><span class="lineNum">     202</span>              :     Quaternion rotation_;</span>
+<span id="L203"><span class="lineNum">     203</span>              :     Vector scale_;         // x,y,z scale values</span>
+<span id="L204"><span class="lineNum">     204</span>              : </span>
+<span id="L205"><span class="lineNum">     205</span>              :     Vector baseDirection_; // base direction of object</span>
+<span id="L206"><span class="lineNum">     206</span>              :     Vector direction_;     // direction facing</span>
+<span id="L207"><span class="lineNum">     207</span>              :     Vector up_;</span>
+<span id="L208"><span class="lineNum">     208</span>              :     Vector orth_;</span>
+<span id="L209"><span class="lineNum">     209</span>              : </span>
+<span id="L210"><span class="lineNum">     210</span>              :     // rate of change //</span>
+<span id="L211"><span class="lineNum">     211</span>              :     Vector velocity_;</span>
+<span id="L212"><span class="lineNum">     212</span>              :     Vector speed_;</span>
+<span id="L213"><span class="lineNum">     213</span>              :     Vector rotationVelocity_;</span>
+<span id="L214"><span class="lineNum">     214</span>              :     Vector scaleRate_;</span>
+<span id="L215"><span class="lineNum">     215</span>              : </span>
+<span id="L216"><span class="lineNum">     216</span>              :     // collision detection //</span>
+<span id="L217"><span class="lineNum">     217</span>              :     Vector collisionBox_[2];    // 0 = min points, 1 = max points</span>
+<span id="L218"><span class="lineNum">     218</span>              :     Vector controlPoints_[3];   // used for orienting objects on surfaces</span>
+<span id="L219"><span class="lineNum">     219</span>              :     Sphere boundingSphere_;</span>
+<span id="L220"><span class="lineNum">     220</span>              : </span>
+<span id="L221"><span class="lineNum">     221</span>              :     // state attributes //</span>
+<span id="L222"><span class="lineNum">     222</span>              :     unsigned char state_; // objects current state</span>
+<span id="L223"><span class="lineNum">     223</span>              :     bool active_;         // is object active?</span>
+<span id="L224"><span class="lineNum">     224</span>              :     bool isDrawEnabled_;</span>
 <span id="L225"><span class="lineNum">     225</span>              : </span>
-<span id="L226"><span class="lineNum">     226</span>              :     bool isCollisionDetectionEnabled_;</span>
+<span id="L226"><span class="lineNum">     226</span>              :     bool isInView_;       // is the object within the camera's view</span>
 <span id="L227"><span class="lineNum">     227</span>              : </span>
-<span id="L228"><span class="lineNum">     228</span>              :     // used for interpolation between 2 orientations //</span>
-<span id="L229"><span class="lineNum">     229</span>              :     Quaternion rInterpStart_;</span>
-<span id="L230"><span class="lineNum">     230</span>              :     Quaternion rInterpEnd_;</span>
-<span id="L231"><span class="lineNum">     231</span>              : </span>
-<span id="L232"><span class="lineNum">     232</span>              :     float valInterpBegin_, valInterpCurrent_, valInterpEnd_;</span>
-<span id="L233"><span class="lineNum">     233</span>              :     bool isInterpolationEnabled_;</span>
-<span id="L234"><span class="lineNum">     234</span>              : </span>
-<span id="L235"><span class="lineNum">     235</span>              :     // Necessary for the Lua implementation</span>
-<span id="L236"><span class="lineNum">     236</span>              :     lua_State* L_;</span>
-<span id="L237"><span class="lineNum">     237</span>              :     std::string scriptName_;</span>
-<span id="L238"><span class="lineNum">     238</span>              :     int scriptIndex_;</span>
-<span id="L239"><span class="lineNum">     239</span>              : </span>
-<span id="L240"><span class="lineNum">     240</span>              :     float suspendTime_;</span>
+<span id="L228"><span class="lineNum">     228</span>              :     bool isCollisionDetectionEnabled_;</span>
+<span id="L229"><span class="lineNum">     229</span>              : </span>
+<span id="L230"><span class="lineNum">     230</span>              :     // used for interpolation between 2 orientations //</span>
+<span id="L231"><span class="lineNum">     231</span>              :     Quaternion rInterpStart_;</span>
+<span id="L232"><span class="lineNum">     232</span>              :     Quaternion rInterpEnd_;</span>
+<span id="L233"><span class="lineNum">     233</span>              : </span>
+<span id="L234"><span class="lineNum">     234</span>              :     float valInterpBegin_, valInterpCurrent_, valInterpEnd_;</span>
+<span id="L235"><span class="lineNum">     235</span>              :     bool isInterpolationEnabled_;</span>
+<span id="L236"><span class="lineNum">     236</span>              : </span>
+<span id="L237"><span class="lineNum">     237</span>              :     // Necessary for the Lua implementation</span>
+<span id="L238"><span class="lineNum">     238</span>              :     lua_State* L_;</span>
+<span id="L239"><span class="lineNum">     239</span>              :     std::string scriptName_;</span>
+<span id="L240"><span class="lineNum">     240</span>              :     int scriptIndex_;</span>
 <span id="L241"><span class="lineNum">     241</span>              : </span>
-<span id="L242"><span class="lineNum">     242</span>              :     ParticleSystem *particleSystem_;</span>
+<span id="L242"><span class="lineNum">     242</span>              :     float suspendTime_;</span>
 <span id="L243"><span class="lineNum">     243</span>              : </span>
-<span id="L244"><span class="lineNum">     244</span>              :     int typeId_;</span>
-<span id="L245"><span class="lineNum">     245</span>              :     unsigned int gameLevelId_;</span>
-<span id="L246"><span class="lineNum">     246</span>              : </span>
-<span id="L247"><span class="lineNum">     247</span>              :     Vector lastLight_;</span>
-<span id="L248"><span class="lineNum">     248</span>              :     bool scaleChanged_;</span>
-<span id="L249"><span class="lineNum">     249</span>              :     bool rotationChanged_;</span>
-<span id="L250"><span class="lineNum">     250</span>              : </span>
-<span id="L251"><span class="lineNum">     251</span>              :     bool isAlwaysLit_;</span>
+<span id="L244"><span class="lineNum">     244</span>              :     ParticleSystem *particleSystem_;</span>
+<span id="L245"><span class="lineNum">     245</span>              : </span>
+<span id="L246"><span class="lineNum">     246</span>              :     int typeId_;</span>
+<span id="L247"><span class="lineNum">     247</span>              :     unsigned int gameLevelId_;</span>
+<span id="L248"><span class="lineNum">     248</span>              : </span>
+<span id="L249"><span class="lineNum">     249</span>              :     Vector lastLight_;</span>
+<span id="L250"><span class="lineNum">     250</span>              :     bool scaleChanged_;</span>
+<span id="L251"><span class="lineNum">     251</span>              :     bool rotationChanged_;</span>
 <span id="L252"><span class="lineNum">     252</span>              : </span>
-<span id="L253"><span class="lineNum">     253</span>              :     bool enableSphereTest_;</span>
+<span id="L253"><span class="lineNum">     253</span>              :     bool isAlwaysLit_;</span>
 <span id="L254"><span class="lineNum">     254</span>              : </span>
-<span id="L255"><span class="lineNum">     255</span>              :   private:</span>
-<span id="L256"><span class="lineNum">     256</span>              :     void traverseAndCopyLuaTable(lua_State*, lua_State*, const int&amp;);</span>
-<span id="L257"><span class="lineNum">     257</span>              :     void copyLuaTableKey(lua_State*, lua_State*);</span>
-<span id="L258"><span class="lineNum">     258</span>              : };</span>
-<span id="L259"><span class="lineNum">     259</span>              : </span>
-<span id="L260"><span class="lineNum">     260</span>              : #endif</span>
+<span id="L255"><span class="lineNum">     255</span>              :     bool enableSphereTest_;</span>
+<span id="L256"><span class="lineNum">     256</span>              : </span>
+<span id="L257"><span class="lineNum">     257</span>              :   private:</span>
+<span id="L258"><span class="lineNum">     258</span>              :     void traverseAndCopyLuaTable(lua_State*, lua_State*, const int&amp;);</span>
+<span id="L259"><span class="lineNum">     259</span>              :     void copyLuaTableKey(lua_State*, lua_State*);</span>
+<span id="L260"><span class="lineNum">     260</span>              : };</span>
+<span id="L261"><span class="lineNum">     261</span>              : </span>
+<span id="L262"><span class="lineNum">     262</span>              : #endif</span>
         </pre>
               </td>
             </tr>

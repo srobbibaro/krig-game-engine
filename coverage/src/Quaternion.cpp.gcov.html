@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2026-04-01 02:48:07</td>
+            <td class="headerValue">2026-04-01 02:57:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
@@ -63,9 +63,9 @@
 <span id="L1"><span class="lineNum">       1</span>              : #include &quot;Quaternion.h&quot;</span>
 <span id="L2"><span class="lineNum">       2</span>              : </span>
 <span id="L3"><span class="lineNum">       3</span>              : //------------------------------------------------------------------------------</span>
-<span id="L4"><span class="lineNum">       4</span> <span class="tlaGNC">         386 : Quaternion::Quaternion() {</span></span>
-<span id="L5"><span class="lineNum">       5</span> <span class="tlaGNC">         193 :   x = y = z = w = 0.0f;</span></span>
-<span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC">         386 : }</span></span>
+<span id="L4"><span class="lineNum">       4</span> <span class="tlaGNC">         528 : Quaternion::Quaternion() {</span></span>
+<span id="L5"><span class="lineNum">       5</span> <span class="tlaGNC">         264 :   x = y = z = w = 0.0f;</span></span>
+<span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC">         528 : }</span></span>
 <span id="L7"><span class="lineNum">       7</span>              : </span>
 <span id="L8"><span class="lineNum">       8</span>              : //------------------------------------------------------------------------------</span>
 <span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">           2 : Quaternion::Quaternion(const Vector &amp;v) {</span></span>
@@ -83,62 +83,62 @@
 <span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          16 : }</span></span>
 <span id="L22"><span class="lineNum">      22</span>              : </span>
 <span id="L23"><span class="lineNum">      23</span>              : //------------------------------------------------------------------------------</span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          28 : Quaternion::Quaternion(const float &amp;qX, const float &amp;qY, const float &amp;qZ, const float &amp;qW) {</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          14 :   x = qX;</span></span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          14 :   y = qY;</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          14 :   z = qZ;</span></span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          14 :   w = qW;</span></span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          28 : }</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">          32 : Quaternion::Quaternion(const float &amp;qX, const float &amp;qY, const float &amp;qZ, const float &amp;qW) {</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">          16 :   x = qX;</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          16 :   y = qY;</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          16 :   z = qZ;</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          16 :   w = qW;</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">          32 : }</span></span>
 <span id="L30"><span class="lineNum">      30</span>              : </span>
 <span id="L31"><span class="lineNum">      31</span>              : //------------------------------------------------------------------------------</span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           6 : Quaternion::Quaternion(const Quaternion &amp;q) {</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           3 :   x = q.x;</span></span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           3 :   y = q.y;</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           3 :   z = q.z;</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">           3 :   w = q.w;</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">           6 : }</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          12 : Quaternion::Quaternion(const Quaternion &amp;q) {</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           6 :   x = q.x;</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           6 :   y = q.y;</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           6 :   z = q.z;</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">           6 :   w = q.w;</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">          12 : }</span></span>
 <span id="L38"><span class="lineNum">      38</span>              : </span>
 <span id="L39"><span class="lineNum">      39</span>              : //------------------------------------------------------------------------------</span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">           3 : void Quaternion::buildFromEuler(const Vector &amp;v) {</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">           5 : void Quaternion::buildFromEuler(const Vector &amp;v) {</span></span>
 <span id="L41"><span class="lineNum">      41</span>              :   // calculate trig identities ONCE</span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">           3 :   float cosX = cos(v.x / 2.0f);</span></span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           3 :   float cosY = cos(v.y / 2.0f);</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           3 :   float cosZ = cos(v.z / 2.0f);</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">           5 :   float cosX = cos(v.x / 2.0f);</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           5 :   float cosY = cos(v.y / 2.0f);</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           5 :   float cosZ = cos(v.z / 2.0f);</span></span>
 <span id="L45"><span class="lineNum">      45</span>              : </span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">           3 :   float sinX = sin(v.x / 2.0f);</span></span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">           3 :   float sinY = sin(v.y / 2.0f);</span></span>
-<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">           3 :   float sinZ = sin(v.z / 2.0f);</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">           5 :   float sinX = sin(v.x / 2.0f);</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">           5 :   float sinY = sin(v.y / 2.0f);</span></span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">           5 :   float sinZ = sin(v.z / 2.0f);</span></span>
 <span id="L49"><span class="lineNum">      49</span>              : </span>
-<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">           3 :   float cosProduct = cosY * cosZ;</span></span>
-<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">           3 :   float sinProduct = sinY * sinZ;</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">           5 :   float cosProduct = cosY * cosZ;</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">           5 :   float sinProduct = sinY * sinZ;</span></span>
 <span id="L52"><span class="lineNum">      52</span>              : </span>
 <span id="L53"><span class="lineNum">      53</span>              :   // calculate the quaternion</span>
-<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">           3 :   w = cosX * cosProduct + sinX * sinProduct;</span></span>
-<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">           3 :   x = sinX * cosProduct - cosX * sinProduct;</span></span>
-<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">           3 :   y = cosX * sinY * cosZ + sinX * cosY * sinZ;</span></span>
-<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">           3 :   z = cosX * cosY * sinZ - sinX * sinY * cosZ;</span></span>
-<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">           3 : }</span></span>
+<span id="L54"><span class="lineNum">      54</span> <span class="tlaGNC">           5 :   w = cosX * cosProduct + sinX * sinProduct;</span></span>
+<span id="L55"><span class="lineNum">      55</span> <span class="tlaGNC">           5 :   x = sinX * cosProduct - cosX * sinProduct;</span></span>
+<span id="L56"><span class="lineNum">      56</span> <span class="tlaGNC">           5 :   y = cosX * sinY * cosZ + sinX * cosY * sinZ;</span></span>
+<span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">           5 :   z = cosX * cosY * sinZ - sinX * sinY * cosZ;</span></span>
+<span id="L58"><span class="lineNum">      58</span> <span class="tlaGNC">           5 : }</span></span>
 <span id="L59"><span class="lineNum">      59</span>              : </span>
 <span id="L60"><span class="lineNum">      60</span>              : //------------------------------------------------------------------------------</span>
-<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">          83 : void Quaternion::buildFromEuler(const float &amp;angleX, const float &amp;angleY, const float &amp;angleZ) {</span></span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">         106 : void Quaternion::buildFromEuler(const float &amp;angleX, const float &amp;angleY, const float &amp;angleZ) {</span></span>
 <span id="L62"><span class="lineNum">      62</span>              :   // calculate trig identities ONCE</span>
-<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">          83 :   float cosX = cos(angleX / 2.0f);</span></span>
-<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">          83 :   float cosY = cos(angleY / 2.0f);</span></span>
-<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">          83 :   float cosZ = cos(angleZ / 2.0f);</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">         106 :   float cosX = cos(angleX / 2.0f);</span></span>
+<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">         106 :   float cosY = cos(angleY / 2.0f);</span></span>
+<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">         106 :   float cosZ = cos(angleZ / 2.0f);</span></span>
 <span id="L66"><span class="lineNum">      66</span>              : </span>
-<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">          83 :   float sinX = sin(angleX / 2.0f);</span></span>
-<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">          83 :   float sinY = sin(angleY / 2.0f);</span></span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">          83 :   float sinZ = sin(angleZ / 2.0f);</span></span>
+<span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">         106 :   float sinX = sin(angleX / 2.0f);</span></span>
+<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">         106 :   float sinY = sin(angleY / 2.0f);</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">         106 :   float sinZ = sin(angleZ / 2.0f);</span></span>
 <span id="L70"><span class="lineNum">      70</span>              : </span>
-<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">          83 :   float cosProduct = cosY * cosZ;</span></span>
-<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">          83 :   float sinProduct = sinY * sinZ;</span></span>
+<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">         106 :   float cosProduct = cosY * cosZ;</span></span>
+<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">         106 :   float sinProduct = sinY * sinZ;</span></span>
 <span id="L73"><span class="lineNum">      73</span>              : </span>
 <span id="L74"><span class="lineNum">      74</span>              :   // calculate the quaternion</span>
-<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">          83 :   w = cosX * cosProduct + sinX * sinProduct;</span></span>
-<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">          83 :   x = sinX * cosProduct - cosX * sinProduct;</span></span>
-<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">          83 :   y = cosX * sinY * cosZ + sinX * cosY * sinZ;</span></span>
-<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">          83 :   z = cosX * cosY * sinZ - sinX * sinY * cosZ;</span></span>
-<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">          83 : }</span></span>
+<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">         106 :   w = cosX * cosProduct + sinX * sinProduct;</span></span>
+<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">         106 :   x = sinX * cosProduct - cosX * sinProduct;</span></span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">         106 :   y = cosX * sinY * cosZ + sinX * cosY * sinZ;</span></span>
+<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">         106 :   z = cosX * cosY * sinZ - sinX * sinY * cosZ;</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">         106 : }</span></span>
 <span id="L80"><span class="lineNum">      80</span>              : </span>
 <span id="L81"><span class="lineNum">      81</span>              : //------------------------------------------------------------------------------</span>
 <span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">           8 : void Quaternion::buildFromAxis(const Vector &amp;v, const float &amp;angle) {</span></span>
@@ -164,12 +164,12 @@
 <span id="L102"><span class="lineNum">     102</span> <span class="tlaGNC">          10 : }</span></span>
 <span id="L103"><span class="lineNum">     103</span>              : </span>
 <span id="L104"><span class="lineNum">     104</span>              : //------------------------------------------------------------------------------</span>
-<span id="L105"><span class="lineNum">     105</span> <span class="tlaGNC">         101 : void Quaternion::loadMultIdentity() {</span></span>
-<span id="L106"><span class="lineNum">     106</span> <span class="tlaGNC">         101 :   x = 0.0f;</span></span>
-<span id="L107"><span class="lineNum">     107</span> <span class="tlaGNC">         101 :   y = 0.0f;</span></span>
-<span id="L108"><span class="lineNum">     108</span> <span class="tlaGNC">         101 :   z = 0.0f;</span></span>
-<span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">         101 :   w = 1.0f;</span></span>
-<span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC">         101 : }</span></span>
+<span id="L105"><span class="lineNum">     105</span> <span class="tlaGNC">         148 : void Quaternion::loadMultIdentity() {</span></span>
+<span id="L106"><span class="lineNum">     106</span> <span class="tlaGNC">         148 :   x = 0.0f;</span></span>
+<span id="L107"><span class="lineNum">     107</span> <span class="tlaGNC">         148 :   y = 0.0f;</span></span>
+<span id="L108"><span class="lineNum">     108</span> <span class="tlaGNC">         148 :   z = 0.0f;</span></span>
+<span id="L109"><span class="lineNum">     109</span> <span class="tlaGNC">         148 :   w = 1.0f;</span></span>
+<span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC">         148 : }</span></span>
 <span id="L111"><span class="lineNum">     111</span>              : </span>
 <span id="L112"><span class="lineNum">     112</span>              : //------------------------------------------------------------------------------</span>
 <span id="L113"><span class="lineNum">     113</span> <span class="tlaGNC">           1 : void Quaternion::loadAddIdentity() {</span></span>
@@ -300,23 +300,23 @@
 <span id="L238"><span class="lineNum">     238</span>              : }</span>
 <span id="L239"><span class="lineNum">     239</span>              : </span>
 <span id="L240"><span class="lineNum">     240</span>              : //------------------------------------------------------------------------------</span>
-<span id="L241"><span class="lineNum">     241</span> <span class="tlaGNC">           6 : Quaternion Quaternion::operator*(const Quaternion &amp;q) const {</span></span>
-<span id="L242"><span class="lineNum">     242</span> <span class="tlaGNC">           6 :   float qx = q.w * x + q.x * w + q.y * z - q.z * y;</span></span>
-<span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">           6 :   float qy = q.w * y + q.y * w + q.z * x - q.x * z;</span></span>
-<span id="L244"><span class="lineNum">     244</span> <span class="tlaGNC">           6 :   float qz = q.w * z + q.z * w + q.x * y - q.y * x;</span></span>
-<span id="L245"><span class="lineNum">     245</span> <span class="tlaGNC">           6 :   float qw = q.w * w - q.x * x - q.y * y - q.z * z;</span></span>
+<span id="L241"><span class="lineNum">     241</span> <span class="tlaGNC">           8 : Quaternion Quaternion::operator*(const Quaternion &amp;q) const {</span></span>
+<span id="L242"><span class="lineNum">     242</span> <span class="tlaGNC">           8 :   float qx = q.w * x + q.x * w + q.y * z - q.z * y;</span></span>
+<span id="L243"><span class="lineNum">     243</span> <span class="tlaGNC">           8 :   float qy = q.w * y + q.y * w + q.z * x - q.x * z;</span></span>
+<span id="L244"><span class="lineNum">     244</span> <span class="tlaGNC">           8 :   float qz = q.w * z + q.z * w + q.x * y - q.y * x;</span></span>
+<span id="L245"><span class="lineNum">     245</span> <span class="tlaGNC">           8 :   float qw = q.w * w - q.x * x - q.y * y - q.z * z;</span></span>
 <span id="L246"><span class="lineNum">     246</span>              : </span>
-<span id="L247"><span class="lineNum">     247</span> <span class="tlaGNC">           6 :   return(Quaternion(qx, qy, qz, qw));</span></span>
+<span id="L247"><span class="lineNum">     247</span> <span class="tlaGNC">           8 :   return(Quaternion(qx, qy, qz, qw));</span></span>
 <span id="L248"><span class="lineNum">     248</span>              : }</span>
 <span id="L249"><span class="lineNum">     249</span>              : </span>
 <span id="L250"><span class="lineNum">     250</span>              : //------------------------------------------------------------------------------</span>
-<span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">          10 : Quaternion&amp; Quaternion::operator=(const Quaternion &amp;q) {</span></span>
-<span id="L252"><span class="lineNum">     252</span> <span class="tlaGNC">          10 :   x = q.x;</span></span>
-<span id="L253"><span class="lineNum">     253</span> <span class="tlaGNC">          10 :   y = q.y;</span></span>
-<span id="L254"><span class="lineNum">     254</span> <span class="tlaGNC">          10 :   z = q.z;</span></span>
-<span id="L255"><span class="lineNum">     255</span> <span class="tlaGNC">          10 :   w = q.w;</span></span>
+<span id="L251"><span class="lineNum">     251</span> <span class="tlaGNC">          15 : Quaternion&amp; Quaternion::operator=(const Quaternion &amp;q) {</span></span>
+<span id="L252"><span class="lineNum">     252</span> <span class="tlaGNC">          15 :   x = q.x;</span></span>
+<span id="L253"><span class="lineNum">     253</span> <span class="tlaGNC">          15 :   y = q.y;</span></span>
+<span id="L254"><span class="lineNum">     254</span> <span class="tlaGNC">          15 :   z = q.z;</span></span>
+<span id="L255"><span class="lineNum">     255</span> <span class="tlaGNC">          15 :   w = q.w;</span></span>
 <span id="L256"><span class="lineNum">     256</span>              : </span>
-<span id="L257"><span class="lineNum">     257</span> <span class="tlaGNC">          10 :   return(*this);</span></span>
+<span id="L257"><span class="lineNum">     257</span> <span class="tlaGNC">          15 :   return(*this);</span></span>
 <span id="L258"><span class="lineNum">     258</span>              : }</span>
         </pre>
               </td>

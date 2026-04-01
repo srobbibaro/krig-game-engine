@@ -17,12 +17,13 @@ var searchData=
   ['set_5fvertex_5fcolor_14',['set_vertex_color',['../api__terrain_8cpp.html#a39ef996f4f2df955a5d84149fd526137',1,'api_terrain.cpp']]],
   ['set_5fvertex_5fheight_15',['set_vertex_height',['../api__terrain_8cpp.html#a43488e4b34850581c90e29682149fe98',1,'api_terrain.cpp']]],
   ['set_5fvertex_5ftype_16',['set_vertex_type',['../api__terrain_8cpp.html#a731f3201604c25b8dbf7aa221a38e509',1,'api_terrain.cpp']]],
-  ['setup_5finterpolation_17',['setup_interpolation',['../api__object_8cpp.html#a5859d689ab422b33febe57f3bd75d715',1,'api_object.cpp']]],
-  ['shutdown_18',['shutdown',['../api__engine_8cpp.html#a7861ee1569802186a619778efc85af13',1,'api_engine.cpp']]],
-  ['slerp_19',['slerp',['../classQuaternion.html#a6856d0ea2db7efcff638a61a7bfed8f5',1,'Quaternion']]],
-  ['stop_5fmusic_20',['stop_music',['../api__level_8cpp.html#a3ce6129e7ea65b8a896668d110fae950',1,'api_level.cpp']]],
-  ['subtract_21',['subtract',['../api__vector_8cpp.html#a4a4871ee98424c65d040457c62a13362',1,'api_vector.cpp']]],
-  ['sum_22',['sum',['../api__vector_8cpp.html#a91cec7959d3bc859a8a8b8c04fd57ed5',1,'api_vector.cpp']]],
-  ['suspend_23',['suspend',['../api__object_8cpp.html#aa77d7750a6025fa894af5c0b5bded3f5',1,'api_object.cpp']]],
-  ['swap_24',['swap',['../api__level_8cpp.html#a07bca8cc0cfca0e80cac16305cac9f13',1,'api_level.cpp']]]
+  ['setstate_17',['setState',['../classObject.html#a8d35dbccc180db43edace6816ab4ced5',1,'Object::setState(const unsigned char &amp;)'],['../classObject.html#a66a32a5bb821dd019167c2ddd1e53d82',1,'Object::setState(const int &amp;state_l)']]],
+  ['setup_5finterpolation_18',['setup_interpolation',['../api__object_8cpp.html#a5859d689ab422b33febe57f3bd75d715',1,'api_object.cpp']]],
+  ['shutdown_19',['shutdown',['../api__engine_8cpp.html#a7861ee1569802186a619778efc85af13',1,'api_engine.cpp']]],
+  ['slerp_20',['slerp',['../classQuaternion.html#a6856d0ea2db7efcff638a61a7bfed8f5',1,'Quaternion']]],
+  ['stop_5fmusic_21',['stop_music',['../api__level_8cpp.html#a3ce6129e7ea65b8a896668d110fae950',1,'api_level.cpp']]],
+  ['subtract_22',['subtract',['../api__vector_8cpp.html#a4a4871ee98424c65d040457c62a13362',1,'api_vector.cpp']]],
+  ['sum_23',['sum',['../api__vector_8cpp.html#a91cec7959d3bc859a8a8b8c04fd57ed5',1,'api_vector.cpp']]],
+  ['suspend_24',['suspend',['../api__object_8cpp.html#aa77d7750a6025fa894af5c0b5bded3f5',1,'api_object.cpp']]],
+  ['swap_25',['swap',['../api__level_8cpp.html#a07bca8cc0cfca0e80cac16305cac9f13',1,'api_level.cpp']]]
 ];
