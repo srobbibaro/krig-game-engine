@@ -109,6 +109,8 @@ SCENARIO( "Manipulating a vector", "[Vector]" ) {
       Vector d = a * 2.0f;
       THEN( "addition and scalar multiply" ) {
         REQUIRE(c.x == Approx(11.0f));
+        REQUIRE(c.y == Approx(22.0f));
+        REQUIRE(c.z == Approx(33.0f));
         REQUIRE(d.x == Approx(2.0f));
         REQUIRE(d.y == Approx(4.0f));
         REQUIRE(d.z == Approx(6.0f));
@@ -172,6 +174,218 @@ SCENARIO( "Manipulating a vector", "[Vector]" ) {
       REQUIRE(mid.x == Approx(invSqrt2));
       REQUIRE(mid.y == Approx(invSqrt2));
       REQUIRE(mid.z == Approx(0.0f));
+    }
+  }
+
+  // intersectBox: `this` is the ray direction; rayPosition is the ray origin.
+  // collisionBox[0] = min corner, collisionBox[1] = max corner (expanded by extend).
+  // Returns the entry intersection point in hitPoint (4-arg overload).
+  // Returns false when no slab intersection is found for the ray direction.
+  GIVEN( "intersectBox with a unit box at the origin" ) {
+    Vector box[2];
+    box[0].setVector(-1.0f, -1.0f, -1.0f);
+    box[1].setVector( 1.0f,  1.0f,  1.0f);
+
+    WHEN( "an X-directed ray approaches the box from the left" ) {
+      Vector dir(1.0f, 0.0f, 0.0f);
+      Vector origin(-5.0f, 0.0f, 0.0f);
+
+      THEN( "the hit test returns true" ) {
+        REQUIRE(dir.intersectBox(origin, box, 0.0f));
+      }
+
+      THEN( "hitPoint is placed at the entry (near) face" ) {
+        Vector hitPoint;
+        dir.intersectBox(origin, box, 0.0f, hitPoint);
+        REQUIRE(hitPoint.x == Approx(-1.0f));
+        REQUIRE(hitPoint.y == Approx( 0.0f));
+        REQUIRE(hitPoint.z == Approx( 0.0f));
+      }
+    }
+
+    WHEN( "an X-directed ray approaches the box from the right" ) {
+      Vector dir(-1.0f, 0.0f, 0.0f);
+      Vector origin(5.0f, 0.0f, 0.0f);
+
+      THEN( "the hit test returns true" ) {
+        REQUIRE(dir.intersectBox(origin, box, 0.0f));
+      }
+
+      THEN( "hitPoint is placed at the entry (near) face" ) {
+        Vector hitPoint;
+        dir.intersectBox(origin, box, 0.0f, hitPoint);
+        REQUIRE(hitPoint.x == Approx( 1.0f));
+        REQUIRE(hitPoint.y == Approx( 0.0f));
+        REQUIRE(hitPoint.z == Approx( 0.0f));
+      }
+    }
+
+    WHEN( "an X-directed ray passes above the box" ) {
+      Vector dir(1.0f, 0.0f, 0.0f);
+      Vector origin(-5.0f, 2.0f, 0.0f);
+
+      THEN( "the hit test returns false" ) {
+        REQUIRE_FALSE(dir.intersectBox(origin, box, 0.0f));
+      }
+    }
+
+    WHEN( "a Y-directed ray approaches the box from below" ) {
+      Vector dir(0.0f, 1.0f, 0.0f);
+      Vector origin(0.0f, -5.0f, 0.0f);
+
+      THEN( "the hit test returns true" ) {
+        REQUIRE(dir.intersectBox(origin, box, 0.0f));
+      }
+
+      THEN( "hitPoint is placed at the entry (near) face" ) {
+        Vector hitPoint;
+        dir.intersectBox(origin, box, 0.0f, hitPoint);
+        REQUIRE(hitPoint.x == Approx( 0.0f));
+        REQUIRE(hitPoint.y == Approx(-1.0f));
+        REQUIRE(hitPoint.z == Approx( 0.0f));
+      }
+    }
+
+    WHEN( "a Y-directed ray approaches the box from above" ) {
+      Vector dir(0.0f, -1.0f, 0.0f);
+      Vector origin(0.0f, 5.0f, 0.0f);
+
+      THEN( "the hit test returns true" ) {
+        REQUIRE(dir.intersectBox(origin, box, 0.0f));
+      }
+
+      THEN( "hitPoint is placed at the entry (near) face" ) {
+        Vector hitPoint;
+        dir.intersectBox(origin, box, 0.0f, hitPoint);
+        REQUIRE(hitPoint.x == Approx( 0.0f));
+        REQUIRE(hitPoint.y == Approx( 1.0f));
+        REQUIRE(hitPoint.z == Approx( 0.0f));
+      }
+    }
+
+    WHEN( "a Y-directed ray passes beside the box in Z" ) {
+      Vector dir(0.0f, 1.0f, 0.0f);
+      Vector origin(0.0f, -5.0f, 2.0f);
+
+      THEN( "the hit test returns false" ) {
+        REQUIRE_FALSE(dir.intersectBox(origin, box, 0.0f));
+      }
+    }
+
+    WHEN( "a Z-directed ray approaches the box from the front" ) {
+      Vector dir(0.0f, 0.0f, 1.0f);
+      Vector origin(0.0f, 0.0f, -5.0f);
+
+      THEN( "the hit test returns true" ) {
+        REQUIRE(dir.intersectBox(origin, box, 0.0f));
+      }
+
+      THEN( "hitPoint is placed at the entry (near) face" ) {
+        Vector hitPoint;
+        dir.intersectBox(origin, box, 0.0f, hitPoint);
+        REQUIRE(hitPoint.x == Approx( 0.0f));
+        REQUIRE(hitPoint.y == Approx( 0.0f));
+        REQUIRE(hitPoint.z == Approx(-1.0f));
+      }
+    }
+
+    WHEN( "a Z-directed ray approaches the box from behind" ) {
+      Vector dir(0.0f, 0.0f, -1.0f);
+      Vector origin(0.0f, 0.0f, 5.0f);
+
+      THEN( "the hit test returns true" ) {
+        REQUIRE(dir.intersectBox(origin, box, 0.0f));
+      }
+
+      THEN( "hitPoint is placed at the entry (near) face" ) {
+        Vector hitPoint;
+        dir.intersectBox(origin, box, 0.0f, hitPoint);
+        REQUIRE(hitPoint.x == Approx( 0.0f));
+        REQUIRE(hitPoint.y == Approx( 0.0f));
+        REQUIRE(hitPoint.z == Approx( 1.0f));
+      }
+    }
+
+    WHEN( "the ray direction is zero" ) {
+      Vector dir(0.0f, 0.0f, 0.0f);
+      Vector origin(0.0f, 0.0f, 0.0f);
+
+      THEN( "the hit test returns false" ) {
+        REQUIRE_FALSE(dir.intersectBox(origin, box, 0.0f));
+      }
+    }
+
+    // A ray that starts past the box and points further away has a negative
+    // tNear to the near face. It should not register as a hit.
+    WHEN( "the ray origin is past the box and the ray points away" ) {
+      Vector dir(1.0f, 0.0f, 0.0f);
+      Vector origin(5.0f, 0.0f, 0.0f);
+
+      THEN( "the hit test returns false" ) {
+        REQUIRE_FALSE(dir.intersectBox(origin, box, 0.0f));
+      }
+    }
+
+    WHEN( "a ray passes just outside the Y bound of the box" ) {
+      Vector dir(1.0f, 0.0f, 0.0f);
+      Vector origin(-5.0f, 1.5f, 0.0f);
+
+      THEN( "with no extension it misses" ) {
+        REQUIRE_FALSE(dir.intersectBox(origin, box, 0.0f));
+      }
+
+      THEN( "with enough extension to cover the gap it hits" ) {
+        REQUIRE(dir.intersectBox(origin, box, 1.0f));
+      }
+    }
+
+    // A ray parallel to an axis whose origin lies outside the box on that axis
+    // must miss, even though the parallel axis slab test is skipped entirely.
+    // The hitPoint bounds check on the skipped axis catches this correctly.
+    WHEN( "a Y-directed ray has its origin outside the box on X" ) {
+      Vector dir(0.0f, 1.0f, 0.0f);
+      Vector origin(50.0f, -5.0f, 0.0f);
+
+      THEN( "the hit test returns false" ) {
+        REQUIRE_FALSE(dir.intersectBox(origin, box, 0.0f));
+      }
+    }
+
+    WHEN( "a Z-directed ray has its origin outside the box on X" ) {
+      Vector dir(0.0f, 0.0f, 1.0f);
+      Vector origin(50.0f, 0.0f, -5.0f);
+
+      THEN( "the hit test returns false" ) {
+        REQUIRE_FALSE(dir.intersectBox(origin, box, 0.0f));
+      }
+    }
+
+    // A ray whose origin is already inside the box trivially intersects it.
+    // hitPoint is set to the ray origin.
+    WHEN( "an X-directed ray starts inside the box" ) {
+      Vector dir(1.0f, 0.0f, 0.0f);
+      Vector origin(0.0f, 0.0f, 0.0f);
+
+      THEN( "the hit test returns true" ) {
+        REQUIRE(dir.intersectBox(origin, box, 0.0f));
+      }
+
+      THEN( "hitPoint is set to the ray origin" ) {
+        Vector hitPoint;
+        dir.intersectBox(origin, box, 0.0f, hitPoint);
+        REQUIRE(hitPoint.x == Approx(0.0f));
+        REQUIRE(hitPoint.y == Approx(0.0f));
+        REQUIRE(hitPoint.z == Approx(0.0f));
+      }
+    }
+
+    WHEN( "a Y-directed ray starts inside the box" ) {
+      Vector dir(0.0f, 1.0f, 0.0f);
+      Vector origin(0.0f, 0.0f, 0.0f);
+
+      THEN( "the hit test returns true" ) {
+        REQUIRE(dir.intersectBox(origin, box, 0.0f));
+      }
     }
   }
 }

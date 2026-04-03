@@ -118,28 +118,43 @@ float Vector::getScaler(const Vector &vector) {
 //------------------------------------------------------------------------------
 bool Vector::intersectBox(
   const Vector &rayPosition, Vector collisionBox[],
-  float extend, Vector &tv
+  float extend, Vector &hitPoint
 ) {
+  if (x == 0.0f && y == 0.0f && z == 0.0f)
+    return false;
+
+  if (rayPosition.x >= collisionBox[0].x - extend && rayPosition.x <= collisionBox[1].x + extend &&
+      rayPosition.y >= collisionBox[0].y - extend && rayPosition.y <= collisionBox[1].y + extend &&
+      rayPosition.z >= collisionBox[0].z - extend && rayPosition.z <= collisionBox[1].z + extend) {
+    hitPoint = rayPosition;
+    return true;
+  }
+
   bool hit = false;
-  float s  = 0;
+  bool nearFaceFound = false;
+  float tNear = 0.0f;
 
   // test planes with fixed x value //
   if (x > 0) {
-    if (rayPosition.x <= collisionBox[1].x + extend)
-      s = (collisionBox[1].x + extend - rayPosition.x) / x;
+    if (rayPosition.x <= collisionBox[0].x - extend) {
+      tNear = (collisionBox[0].x - extend - rayPosition.x) / x;
+      nearFaceFound = true;
+    }
   }
   else if (x < 0) {
-    if (rayPosition.x >= collisionBox[0].x - extend)
-      s = (collisionBox[0].x - extend - rayPosition.x) / x;
+    if (rayPosition.x >= collisionBox[1].x + extend) {
+      tNear = (collisionBox[1].x + extend - rayPosition.x) / x;
+      nearFaceFound = true;
+    }
   }
 
-  if (s != 0) {
-    tv.x = rayPosition.x + x * s;
-    tv.y = rayPosition.y + y * s;
-    tv.z = rayPosition.z + z * s;
+  if (nearFaceFound) {
+    hitPoint.x = rayPosition.x + x * tNear;
+    hitPoint.y = rayPosition.y + y * tNear;
+    hitPoint.z = rayPosition.z + z * tNear;
 
-    if (tv.y <= collisionBox[1].y + extend && tv.y >= collisionBox[0].y - extend &&
-        tv.z <= collisionBox[1].z + extend && tv.z >= collisionBox[0].z - extend) {
+    if (hitPoint.y <= collisionBox[1].y + extend && hitPoint.y >= collisionBox[0].y - extend &&
+        hitPoint.z <= collisionBox[1].z + extend && hitPoint.z >= collisionBox[0].z - extend) {
       hit = true;
     }
   }
@@ -147,21 +162,28 @@ bool Vector::intersectBox(
 
   // if no hit on x planes test planes with fixed y value //
   if (!hit) {
-    s = 0;
+    nearFaceFound = false;
 
     if (y > 0) {
-      if (rayPosition.y <= collisionBox[1].y + extend)
-        s = (collisionBox[1].y + extend - rayPosition.y) / y;
-
+      if (rayPosition.y <= collisionBox[0].y - extend) {
+        tNear = (collisionBox[0].y - extend - rayPosition.y) / y;
+        nearFaceFound = true;
+      }
     }
     else if (y < 0) {
-      if (rayPosition.y >= collisionBox[0].y - extend)
-        s = (collisionBox[0].y - extend - rayPosition.y) / y;
+      if (rayPosition.y >= collisionBox[1].y + extend) {
+        tNear = (collisionBox[1].y + extend - rayPosition.y) / y;
+        nearFaceFound = true;
+      }
     }
 
-    if (s != 0) {
-      if (tv.x <= collisionBox[1].x + extend && tv.x >= collisionBox[0].x - extend &&
-          tv.z <= collisionBox[1].z + extend && tv.z >= collisionBox[0].z - extend) {
+    if (nearFaceFound) {
+      hitPoint.x = rayPosition.x + x * tNear;
+      hitPoint.y = rayPosition.y + y * tNear;
+      hitPoint.z = rayPosition.z + z * tNear;
+
+      if (hitPoint.x <= collisionBox[1].x + extend && hitPoint.x >= collisionBox[0].x - extend &&
+          hitPoint.z <= collisionBox[1].z + extend && hitPoint.z >= collisionBox[0].z - extend) {
         hit = true;
       }
     }
@@ -170,24 +192,28 @@ bool Vector::intersectBox(
 
   // if no hit on x or y planes test planes with fixed z value //
   if (!hit) {
-    s = 0;
+    nearFaceFound = false;
 
     if (z > 0) {
-      if (rayPosition.z <= collisionBox[1].z + extend)
-        s = (collisionBox[1].z + extend - rayPosition.z) / z;
+      if (rayPosition.z <= collisionBox[0].z - extend) {
+        tNear = (collisionBox[0].z - extend - rayPosition.z) / z;
+        nearFaceFound = true;
+      }
     }
     else if (z < 0) {
-      if (rayPosition.z >= collisionBox[0].z-extend)
-        s = (collisionBox[0].z - extend - rayPosition.z) / z;
+      if (rayPosition.z >= collisionBox[1].z + extend) {
+        tNear = (collisionBox[1].z + extend - rayPosition.z) / z;
+        nearFaceFound = true;
+      }
     }
 
-    if (s != 0) {
-      tv.x = rayPosition.x + x * s;
-      tv.y = rayPosition.y + y * s;
-      tv.z = rayPosition.z + z * s;
+    if (nearFaceFound) {
+      hitPoint.x = rayPosition.x + x * tNear;
+      hitPoint.y = rayPosition.y + y * tNear;
+      hitPoint.z = rayPosition.z + z * tNear;
 
-      if (tv.x <= collisionBox[1].x + extend && tv.x >= collisionBox[0].x - extend &&
-          tv.y <= collisionBox[1].y + extend && tv.y >= collisionBox[0].y - extend) {
+      if (hitPoint.x <= collisionBox[1].x + extend && hitPoint.x >= collisionBox[0].x - extend &&
+          hitPoint.y <= collisionBox[1].y + extend && hitPoint.y >= collisionBox[0].y - extend) {
         hit = true;
       }
     }
@@ -199,81 +225,8 @@ bool Vector::intersectBox(
 
 //------------------------------------------------------------------------------
 bool Vector::intersectBox(const Vector &rayPosition, Vector collisionBox[], float extend) {
-  Vector tv;
-  bool hit = false;
-  float s  = 0;
-
-  // test planes with fixed x value //
-  if (x > 0) {
-    if (rayPosition.x <= collisionBox[1].x + extend)
-      s = (collisionBox[1].x + extend - rayPosition.x) / x;
-  }
-  else if (x < 0) {
-    if (rayPosition.x >= collisionBox[0].x - extend)
-      s = (collisionBox[0].x - extend - rayPosition.x) / x;
-  }
-
-  if (s != 0) {
-    tv.x = rayPosition.x + x * s;
-    tv.y = rayPosition.y + y * s;
-    tv.z = rayPosition.z + z * s;
-
-    if (tv.y <= collisionBox[1].y + extend && tv.y >= collisionBox[0].y - extend &&
-        tv.z <= collisionBox[1].z + extend && tv.z >= collisionBox[0].z - extend) {
-      hit = true;
-    }
-  }
-  //////////////////////////////////////
-
-  // if no hit on x planes test planes with fixed y value //
-  if (!hit) {
-    s = 0;
-
-    if (y > 0) {
-      if (rayPosition.y <= collisionBox[1].y + extend)
-        s = (collisionBox[1].y + extend - rayPosition.y) / y;
-    }
-    else if (y < 0) {
-      if (rayPosition.y >= collisionBox[0].y - extend)
-        s = (collisionBox[0].y - extend - rayPosition.y) / y;
-    }
-
-    if (s != 0) {
-      if (tv.x <= collisionBox[1].x + extend && tv.x >= collisionBox[0].x - extend &&
-          tv.z <= collisionBox[1].z + extend && tv.z >= collisionBox[0].z - extend) {
-        hit = true;
-      }
-    }
-  }
-  ////////////////////////////////////////////////////////////
-
-  // if no hit on x or y planes test planes with fixed z value //
-  if (!hit) {
-    s = 0;
-
-    if (z > 0) {
-      if (rayPosition.z <= collisionBox[1].z + extend)
-        s = (collisionBox[1].z + extend - rayPosition.z) / z;
-    }
-    else if (z < 0) {
-      if (rayPosition.z >= collisionBox[0].z - extend)
-        s = (collisionBox[0].z - extend - rayPosition.z) / z;
-    }
-
-    if (s != 0) {
-      tv.x = rayPosition.x + x * s;
-      tv.y = rayPosition.y + y * s;
-      tv.z = rayPosition.z + z * s;
-
-      if (tv.x <= collisionBox[1].x + extend && tv.x >= collisionBox[0].x - extend &&
-          tv.y <= collisionBox[1].y + extend && tv.y >= collisionBox[0].y - extend) {
-        hit = true;
-      }
-    }
-  }
-  ///////////////////////////////////////////////////////////////////
-
-  return hit;
+  Vector hitPoint;
+  return intersectBox(rayPosition, collisionBox, extend, hitPoint);
 }
 
 //------------------------------------------------------------------------------
